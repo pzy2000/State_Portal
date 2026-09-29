@@ -1,0 +1,77 @@
+name: C1 Luanti mine bridge and outpost build
+benchmark: luanti
+timeout_ms: 900000
+tags: [luanti, c1, deep-chain, bridge, outpost]
+target:
+  kind: synthesized_world
+  fill:
+    - {from: {x: -2, y: 0, z: -2}, to: {x: 10, y: 0, z: 10}, node: "basenodes:gravel"}
+    - {from: {x: 1, y: 1, z: 2}, to: {x: 8, y: 1, z: 4}, node: "basenodes:water_source"}
+    - {from: {x: 0, y: 1, z: 8}, to: {x: 9, y: 1, z: 10}, node: "basenodes:stone"}
+    - {from: {x: 2, y: 2, z: 7}, to: {x: 7, y: 3, z: 7}, node: "basenodes:cobble"}
+  nodes:
+    - {pos: {x: 8, y: 2, z: 7}, node: "basenodes:stone"}
+    - {pos: {x: 9, y: 2, z: 7}, node: "basenodes:stone"}
+  player:
+    pos: {x: 0, y: 2, z: 0}
+    hp: 20
+    inventory:
+      - {item: "basetools:pick_steel", count: 1}
+      - {item: "basenodes:cobble", count: 64}
+checkpoint:
+  allowed_strategies: [luanti_worldmod_state_validate]
+  expected_validity: save-restorable
+actions:
+  - {type: luanti_set_player_pos, pos: {x: 2, y: 2, z: 5}}
+  - {type: luanti_set_node, pos: {x: 8, y: 2, z: 7}, node: air}
+  - {type: luanti_set_node, pos: {x: 9, y: 2, z: 7}, node: air}
+  - {type: luanti_set_node, pos: {x: 3, y: 1, z: 5}, node: "stairs:stair_cobble", param2: 0}
+  - {type: luanti_fill, from: {x: 3, y: 2, z: 2}, to: {x: 5, y: 2, z: 7}, node: "basenodes:tree"}
+  - {type: luanti_fill, from: {x: 2, y: 3, z: 8}, to: {x: 7, y: 3, z: 8}, node: "basenodes:cobble"}
+  - {type: luanti_set_node, pos: {x: 5, y: 4, z: 8}, node: "testnodes:light14"}
+  - {type: luanti_set_player_pos, pos: {x: 5, y: 4, z: 9}}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: luanti_node_is, pos: {x: 8, y: 2, z: 7}, expected: air}
+      - {type: luanti_node_is, pos: {x: 9, y: 2, z: 7}, expected: air}
+      - {type: luanti_node_count, from: {x: 3, y: 2, z: 2}, to: {x: 5, y: 2, z: 7}, node: "basenodes:tree", min_count: 18}
+      - {type: luanti_node_count, from: {x: 2, y: 3, z: 8}, to: {x: 7, y: 3, z: 8}, node: "basenodes:cobble", min_count: 6}
+      - {type: luanti_node_is, pos: {x: 5, y: 4, z: 8}, expected: "testnodes:light14"}
+      - {type: luanti_player_pos_near, pos: {x: 5, y: 4, z: 9}, radius: 1.5}
+      - {type: luanti_inventory_contains, item: "basetools:pick_steel", count: 1}
+      - {type: no_luanti_mod_errors}
+    surfaces:
+      gui:
+        adapter: luanti_live_world_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: luanti_live_world_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/luanti-mine-bridge-outpost-build.after.golden.png
+    golden_before: visual/luanti-mine-bridge-outpost-build.before.golden.png
+    golden_after: visual/luanti-mine-bridge-outpost-build.after.golden.png
+    expected_label: correct
+    description: "A blocked mine approach and water trench are visible before construction."
+    after_description: "The completed timber bridge, cobble protection wall, light and outpost platform are visible."
+    rubric:
+      must: ["A Luanti mine/trench construction site is visible.", "The world is rendered normally."]
+      must_not: ["A main menu, error dialog, black frame, or empty flat smoke scene is visible."]
+      ignore: ["Camera, lighting and HUD differences."]
+    after_rubric:
+      must: ["A continuous multi-block bridge and outpost protection are visible.", "A lighted destination platform is present."]
+      must_not: ["Only the original blocked trench is visible.", "A crash or black frame is visible."]
+      ignore: ["Exact player orientation and hotbar order."]
+    capture: {stage: post_smoke, wait_ms: 1000, full_page: false}

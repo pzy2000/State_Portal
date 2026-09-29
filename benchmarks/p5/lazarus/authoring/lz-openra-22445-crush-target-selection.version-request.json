@@ -1,0 +1,11 @@
+{
+  "build_class": "incremental_dotnet",
+  "declared_files": [
+    "mods/d2k/scripts/campaign.lua"
+  ],
+  "fixed_revision": "7e687f430ee5b194c0ffaa06caaba757dd9155fb",
+  "patch_sha256": "f08fcb5f92d50471ba9d6990dc1dac20533027b658712de99960cff04df87fb0",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-openra-22445-crush-target-selection/revert.patch",
+  "source_repo": "games/OpenRA",
+  "task_id": "lz-openra-22445-crush-target-selection"
+}

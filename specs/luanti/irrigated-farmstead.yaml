@@ -1,0 +1,107 @@
+name: luanti restore an irrigated farmstead with storage
+benchmark: "luanti"
+timeout_ms: 360000
+tags: ["luanti", "production", "farm", "water", "inventory"]
+target:
+  kind: synthesized_world
+  fill:
+    - from: { x: -1, y: 0, z: -1 }
+      to: { x: 9, y: 0, z: 9 }
+      node: "basenodes:dirt_with_grass"
+    - from: { x: 0, y: 1, z: 2 }
+      to: { x: 8, y: 1, z: 2 }
+      node: "basenodes:dirt"
+    - from: { x: 0, y: 1, z: 4 }
+      to: { x: 8, y: 1, z: 4 }
+      node: "basenodes:dirt"
+    - from: { x: 0, y: 1, z: 6 }
+      to: { x: 8, y: 1, z: 6 }
+      node: "basenodes:dirt"
+    - from: { x: 0, y: 1, z: 3 }
+      to: { x: 8, y: 1, z: 3 }
+      node: "basenodes:water_source"
+    - from: { x: 0, y: 1, z: 5 }
+      to: { x: 8, y: 1, z: 5 }
+      node: "basenodes:water_source"
+    - from: { x: 6, y: 1, z: 0 }
+      to: { x: 8, y: 1, z: 1 }
+      node: "basenodes:cobble"
+  nodes:
+    - pos: { x: 1, y: 2, z: 2 }
+      node: "basenodes:junglegrass"
+    - pos: { x: 3, y: 2, z: 2 }
+      node: "basenodes:junglegrass"
+    - pos: { x: 5, y: 2, z: 2 }
+      node: "basenodes:junglegrass"
+    - pos: { x: 7, y: 2, z: 2 }
+      node: "basenodes:junglegrass"
+    - pos: { x: 1, y: 2, z: 4 }
+      node: "basenodes:junglegrass"
+    - pos: { x: 3, y: 2, z: 4 }
+      node: "basenodes:junglegrass"
+    - pos: { x: 5, y: 2, z: 4 }
+      node: "basenodes:junglegrass"
+    - pos: { x: 7, y: 2, z: 4 }
+      node: "basenodes:junglegrass"
+  meta_inventory:
+    - pos: { x: 7, y: 2, z: 1 }
+      node: "chest:chest"
+      list: "main"
+      items:
+        - { item: "basenodes:junglegrass", count: 16 }
+        - { item: "basenodes:dirt", count: 40 }
+        - { item: "basenodes:apple", count: 8 }
+  validations:
+    - path: "node.4,1,3"
+      expected: "basenodes:water_source"
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_node
+    pos: { x: 4, y: 2, z: 6 }
+    node: "basenodes:apple"
+assertions:
+  - type: luanti_node_count
+    from: { x: 0, y: 1, z: 3 }
+    to: { x: 8, y: 1, z: 5 }
+    node: "basenodes:water_source"
+    min_count: 18
+  - type: luanti_node_count
+    from: { x: 0, y: 1, z: 2 }
+    to: { x: 8, y: 1, z: 6 }
+    node: "basenodes:dirt"
+    min_count: 27
+  - type: luanti_node_count
+    from: { x: 0, y: 2, z: 2 }
+    to: { x: 8, y: 2, z: 4 }
+    node: "basenodes:junglegrass"
+    min_count: 8
+  - type: luanti_node_is
+    pos: { x: 4, y: 2, z: 6 }
+    expected: "basenodes:apple"
+  - type: luanti_meta_inventory_contains
+    pos: { x: 7, y: 2, z: 1 }
+    item: "basenodes:dirt"
+    count: 40
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/irrigated-farmstead.golden.png
+  golden_before: visual/luanti-irrigated-farmstead.before.golden.png
+  golden_after: visual/luanti-irrigated-farmstead.after.golden.png
+  expected_label: correct
+  description: "An irrigated farmstead with water rows, planted markers, cobble storage pad, and supply chest is rendered in the Luanti devtest world."
+  rubric:
+    must:
+      - "Multiple rows or channels form a recognizable farm or irrigation layout."
+      - "Water or a blue liquid channel is visible together with surrounding blocks."
+      - "No crash dialog, error overlay, main menu, or fully blank screen is shown."
+    must_not:
+      - "Only an empty flat world or a one-block smoke-test scene is visible."
+      - "The screen is black, blank, or blocked by an error dialog."
+    ignore:
+      - "Exact crop marker appearance, camera angle, water animation, lighting, or HUD."
+  capture:
+    stage: post_smoke
+    wait_ms: 1000
+    full_page: false

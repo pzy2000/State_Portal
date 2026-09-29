@@ -1,0 +1,145 @@
+name: C1-Lazarus JupyterLab 19121-shortcut-settings-refresh
+benchmark: jupyterlab
+timeout_ms: 900000
+tags:
+- c1
+- lazarus
+- jupyterlab
+- production
+setup:
+  jupyterlab_lazarus_probe:
+    task_id: lz-jupyterlab-19121-shortcut-settings-refresh
+    change_number: 19121
+    issue_number: 19120
+    adapter: jupyterlab_lazarus_edge_probe_v1
+    registered_replay:
+    - load_candidate_local_bundle
+    - mount_the_shortcuts_settings_ui_with_no_shortcuts
+    - save_the_user_preference_externally_and_emit_plugin_changed
+    - read_the_filtered_shortcut_list_and_the_rendered_rows
+    probe_executable: true
+target:
+  kind: jupyterlab_lazarus_candidate_bundle
+  change_number: 19121
+  variants:
+  - fixed
+  - buggy
+  bundler: candidate_local_rspack
+  browser: microsoft_edge_via_playwright
+checkpoint:
+  allowed_strategies:
+  - jupyterlab_lazarus_edge_replay_validate
+  expected_validity: replay-reachable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-19121-shortcut-settings-refresh/fixed.after.golden.png
+    expected_label: correct
+    description: 'The bordered list area under the headers is entirely empty: no shortcut
+      row is drawn.'
+    rubric:
+      must:
+      - 'A browser frame rendered by the candidate build shows the JupyterLab shortcut
+        settings page: a dark search field with "Show Selectors", "Reset All" and
+        a blue plus button, above the column headers "Category", "Command", "Shortcut"
+        and "Source" and a bordered list area.'
+      - 'The bordered list area under the headers is entirely empty: no shortcut row
+        is drawn.'
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_first_command
+      expected: test:command
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_list_length
+      expected: 1
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_rendered_row_count
+      expected: 1
+    defect_signature:
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_first_command
+      expected: null
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_list_length
+      expected: 0
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_rendered_row_count
+      expected: 0
+    invariant_checks:
+    - type: no_jupyterlab_probe_errors
+    upstream_tests:
+      fail_to_pass:
+      - '@jupyterlab/shortcut-extension ShortcutUI #changed should refresh shortcut
+        list when settings change externally'
+      pass_to_pass: &id001
+      - '@jupyterlab/shortcut-extension ShortcutUI #addKeybinding() should add a keybinding
+        for given target'
+      per_trial_p2p: *id001
+    goldens:
+      before: visual_lz-jupyterlab-19121-shortcut-settings-refresh/before.golden.png
+      buggy_before: visual_lz-jupyterlab-19121-shortcut-settings-refresh/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-19121-shortcut-settings-refresh/fixed.after.golden.png
+        after_description: One shortcut row is drawn under the headers, reading "test"
+          in the Category column, "^ + Y" in the Shortcut column and "Default" in
+          the Source column.
+        after_rubric:
+          must:
+          - 'A browser frame rendered by the candidate build shows the JupyterLab
+            shortcut settings page: a dark search field with "Show Selectors", "Reset
+            All" and a blue plus button, above the column headers "Category", "Command",
+            "Shortcut" and "Source" and a bordered list area.'
+          - One shortcut row is drawn under the headers, reading "test" in the Category
+            column, "^ + Y" in the Shortcut column and "Default" in the Source column.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+      buggy:
+        after: visual_lz-jupyterlab-19121-shortcut-settings-refresh/buggy.after.golden.png
+        after_description: 'The bordered list area under the headers is entirely empty:
+          no shortcut row is drawn.'
+        after_rubric:
+          must:
+          - 'A browser frame rendered by the candidate build shows the JupyterLab
+            shortcut settings page: a dark search field with "Show Selectors", "Reset
+            All" and a blue plus button, above the column headers "Category", "Command",
+            "Shortcut" and "Source" and a bordered list area.'
+          - 'The bordered list area under the headers is entirely empty: no shortcut
+            row is drawn.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.

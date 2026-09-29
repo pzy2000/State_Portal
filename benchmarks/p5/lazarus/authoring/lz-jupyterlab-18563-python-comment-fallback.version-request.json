@@ -1,0 +1,13 @@
+{
+  "build_class": "jlpm",
+  "declared_files": [
+    "galata/test/documentation/commands.test.ts-snapshots/commandsList-documentation-linux.json",
+    "galata/test/jupyterlab/file-edit.test.ts",
+    "packages/codemirror-extension/src/commands.ts"
+  ],
+  "fixed_revision": "4a19f8fff4049a9536e21fa2980fe7e5ee592d01",
+  "patch_sha256": "a3322b6ee55c10f4f6a4c023b321af9e4e52f55f7f1978fcbbaf53db9096528d",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-jupyterlab-18563-python-comment-fallback/revert.patch",
+  "source_repo": "games/jupyterlab",
+  "task_id": "lz-jupyterlab-18563-python-comment-fallback"
+}

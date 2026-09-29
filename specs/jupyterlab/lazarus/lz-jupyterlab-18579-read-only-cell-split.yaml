@@ -1,0 +1,143 @@
+name: C1-Lazarus JupyterLab 18579-read-only-cell-split
+benchmark: jupyterlab
+timeout_ms: 900000
+tags:
+- c1
+- lazarus
+- jupyterlab
+- production
+setup:
+  jupyterlab_lazarus_probe:
+    task_id: lz-jupyterlab-18579-read-only-cell-split
+    change_number: 18579
+    issue_number: 11140
+    adapter: jupyterlab_lazarus_edge_probe_v1
+    registered_replay:
+    - load_candidate_local_bundle
+    - build_a_notebook_whose_cells_are_marked_non_editable
+    - place_the_cursor_inside_the_active_cell
+    - request_a_cell_split_through_notebook_actions
+    - read_the_cell_count_and_sources
+    probe_executable: true
+target:
+  kind: jupyterlab_lazarus_candidate_bundle
+  change_number: 18579
+  variants:
+  - fixed
+  - buggy
+  bundler: candidate_local_rspack
+  browser: microsoft_edge_via_playwright
+checkpoint:
+  allowed_strategies:
+  - jupyterlab_lazarus_edge_replay_validate
+  expected_validity: replay-reachable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-18579-read-only-cell-split/fixed.after.golden.png
+    expected_label: correct
+    description: The notebook holds exactly two code cells, reading "alpha = 1" and
+      "beta = 2" from top to bottom, and a blue bar marks the first cell as active.
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a white notebook page
+        of stacked code cells, each drawn as a grey input box behind an "[ ]:" prompt.
+      - The notebook holds exactly two code cells, reading "alpha = 1" and "beta =
+        2" from top to bottom, and a blue bar marks the first cell as active.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_cell_count
+      expected: 2
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_sources
+      expected:
+      - alpha = 1
+      - beta = 2
+    defect_signature:
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_cell_count
+      expected: 3
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_sources
+      expected:
+      - alpha
+      - alpha = 1
+      - beta = 2
+    invariant_checks:
+    - type: no_jupyterlab_probe_errors
+    upstream_tests:
+      fail_to_pass:
+      - '@jupyterlab/notebook NotebookActions #splitCell() should be a no-op if the
+        active cell is not editable'
+      pass_to_pass: &id001
+      - '@jupyterlab/notebook NotebookActions #splitCell() should split the active
+        cell into two cells'
+      per_trial_p2p: *id001
+    goldens:
+      before: visual_lz-jupyterlab-18579-read-only-cell-split/before.golden.png
+      buggy_before: visual_lz-jupyterlab-18579-read-only-cell-split/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-18579-read-only-cell-split/fixed.after.golden.png
+        after_description: The notebook holds exactly two code cells, reading "alpha
+          = 1" and "beta = 2" from top to bottom, and a blue bar marks the first cell
+          as active.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white notebook
+            page of stacked code cells, each drawn as a grey input box behind an "[
+            ]:" prompt.
+          - The notebook holds exactly two code cells, reading "alpha = 1" and "beta
+            = 2" from top to bottom, and a blue bar marks the first cell as active.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+      buggy:
+        after: visual_lz-jupyterlab-18579-read-only-cell-split/buggy.after.golden.png
+        after_description: The notebook holds three code cells, reading "alpha", "alpha
+          = 1" and "beta = 2" from top to bottom, and the middle one is active with
+          both a blue bar and a blue input border.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white notebook
+            page of stacked code cells, each drawn as a grey input box behind an "[
+            ]:" prompt.
+          - The notebook holds three code cells, reading "alpha", "alpha = 1" and
+            "beta = 2" from top to bottom, and the middle one is active with both
+            a blue bar and a blue input border.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.

@@ -1,0 +1,41 @@
+tasks:
+  - slug: libreoffice-writer-board-report-toc
+    title: LibreOffice Writer board report TOC
+    benchmark: LibreOffice
+    description: "Create a LibreOffice Writer spec that uses libreoffice_uno_document_validate, starts from writer-board-report-toc.odt with board-report headings and a Milestones table, opens it, inserts a Board Contents section from Heading 1/Heading 2 paragraphs, appends the Q3 recovery owner paragraph, sets Milestones C2 to Complete, updates indexes, saves, reopens, exports writer-board-report-toc.pdf, and verifies the contents text, appended paragraph, table cell, PDF artifact, and no LibreOffice errors."
+  - slug: libreoffice-writer-invoice-table-rollup
+    title: LibreOffice Writer invoice table rollup
+    benchmark: LibreOffice
+    description: "Create a LibreOffice Writer spec that uses libreoffice_uno_document_validate, starts from writer-invoice-table-rollup.odt with an Invoice table containing existing totals, opens it, inserts an Incident review row at row 4, updates subtotal/tax/grand-total cells D5/D6/D7 to 1120/112/1232, appends a payment note, saves, reopens, exports writer-invoice-table-rollup.pdf, and verifies the new row, final total, note text, PDF artifact, and no LibreOffice errors."
+  - slug: libreoffice-writer-policy-cross-reference
+    title: LibreOffice Writer policy cross reference
+    benchmark: LibreOffice
+    description: "Create a LibreOffice Writer spec that uses libreoffice_uno_document_validate, starts from writer-policy-cross-reference.odt with Incident Response Policy sections, opens it, inserts bookmark escalation_matrix on Escalation Matrix, inserts a reference paragraph prefixed See section:, applies Heading 1 to Evidence Handling, updates indexes, saves, reopens, and verifies the bookmark, reference text, paragraph style, and no LibreOffice errors."
+  - slug: libreoffice-calc-quarterly-budget-rollup
+    title: LibreOffice Calc quarterly budget rollup
+    benchmark: LibreOffice
+    description: "Create a LibreOffice Calc spec that uses libreoffice_uno_document_validate, starts from calc-quarterly-budget-rollup.ods with January, February, March, and Summary sheets, sets March C2 to 15000 and C3 to 8300, recalculates, saves, reopens, and verifies Summary B2 is 40000, Summary B4 is 16000, the March sheet exists, and no LibreOffice errors occurred."
+  - slug: libreoffice-calc-sales-sort-ranking
+    title: LibreOffice Calc sales sort ranking
+    benchmark: LibreOffice
+    description: "Create a LibreOffice Calc spec that uses libreoffice_uno_document_validate, starts from calc-sales-sort-ranking.ods on the Sales sheet with a four-row ranking table, sets D4 to 96, sorts A2:D5 by column D descending, sets E2 to =ROW()-1, saves, reopens, and verifies A2 is Casey, D2 is 96, E2 keeps the rank formula, and no LibreOffice errors occurred."
+  - slug: libreoffice-calc-named-range-forecast
+    title: LibreOffice Calc named range forecast
+    benchmark: LibreOffice
+    description: "Create a LibreOffice Calc spec that uses libreoffice_uno_document_validate, starts from calc-named-range-forecast.ods with Inputs and Forecast sheets, defines named ranges GrowthRate and CostRate, sets Inputs B3 to 0.12, recalculates, saves, reopens, and verifies GrowthRate exists, Forecast B2 is 56000, Forecast B4 is 21280, and no LibreOffice errors occurred."
+  - slug: libreoffice-calc-chart-refresh-export
+    title: LibreOffice Calc chart refresh export
+    benchmark: LibreOffice
+    description: "Create a LibreOffice Calc spec that uses libreoffice_uno_document_validate, starts from calc-chart-refresh-export.ods with Metrics revenue data, sets B5 to 16800, creates a line chart named RevenueTrend from A1:B5, recalculates, saves, reopens, exports calc-chart-refresh-export.pdf, and verifies the chart, B5 value, PDF artifact, and no LibreOffice errors."
+  - slug: libreoffice-impress-status-deck-build
+    title: LibreOffice Impress status deck build
+    benchmark: LibreOffice
+    description: "Create a LibreOffice Impress spec that uses libreoffice_uno_document_validate, starts from impress-status-deck-build.odp with four status slides, sets slide 1 title to Q3 Delivery Review - Executive Update, sets slide 3 bullets to Green builds, Manual QA complete, and Release candidate signed, adds a vendor backup callout on slide 4, saves, reopens, and verifies four slides, the executive update text, the callout text, and no LibreOffice errors."
+  - slug: libreoffice-impress-slide-reorder-summary
+    title: LibreOffice Impress slide reorder summary
+    benchmark: LibreOffice
+    description: "Create a LibreOffice Impress spec that uses libreoffice_uno_document_validate, starts from impress-slide-reorder-summary.odp with Appendix Metrics, Customer Impact, Executive Summary, and Mitigation Plan slides, moves slide 3 to slide 1, sets slide 1 title to Executive Summary - Final Brief, sets final-brief bullets, saves, reopens, and verifies four slides, the slide 1 title, summary text, and no LibreOffice errors."
+  - slug: libreoffice-impress-kpi-chart-pdf
+    title: LibreOffice Impress KPI chart PDF
+    benchmark: LibreOffice
+    description: "Create a LibreOffice Impress spec that uses libreoffice_uno_document_validate, starts from impress-kpi-chart-pdf.odp with KPI Snapshot and Expansion Motion slides, sets ARR/NRR/margin bullets, adds renewal and pipeline kpi-callout shape labels, saves, reopens, exports impress-kpi-chart-pdf.pdf, and verifies KPI text, shape text, PDF artifact, and no LibreOffice errors."

@@ -1,0 +1,857 @@
+# Explore-Hard variant of the core-synthesis browser subset (2048 / SpaceRPG / Love).
+#
+# These issues are deliberately de-leaked relative to benchmarks/core/public/tasks.yaml:
+# mechanism-level tokens that the model can and should recover by reading the game
+# repository (checkpoint strategy names, validity classes, hook/method names, action
+# ids, internal character ids, and scenario/mission ids) are removed from the prose.
+# The designer's intent and all chosen state values are kept. Solvability and the
+# de-leak contract are enforced by scripts/_check_explore_issues.py.
+#
+# Grading for this variant is combined (core-bench --grading explore-execute): a task
+# counts as success only when the model's own target intent is recovered AND the
+# checkpoint executes successfully AND the hidden visual oracle passes. It therefore
+# reuses the existing hidden oracles (benchmarks/core/hidden/oracles.yaml) and specs.
+tasks:
+- id: 2048-merge-left
+  benchmark: '2048'
+  repo: games/2048
+  issue: "Starting from a 2048 board with two 2 tiles in the top row and the score at 0, a single left move should merge them into a 4 and raise the score. The restored board is a 4x4 grid whose top row reads 2, 2, then two empty cells, and every remaining cell is empty; both the current score and the best score start at 0. From that state the checkpoint action is a single Left move. Read the game's own source to work out how it persists board state in the browser, then choose the matching WarpTest checkpoint strategy and the correct validity class so the restored board is verified to survive a page reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - '2048'
+  - merge
+  budget_ms: 60000
+- id: 2048-near-win
+  benchmark: '2048'
+  repo: games/2048
+  issue: "Starting from a near-win 2048 board with two 1024 tiles in the top row, a single left move should produce a visible 2048 tile. The restored board is a 4x4 grid: the top row holds 1024, 1024, then two empty cells; the second row holds 4, 8, 16, 32; the bottom two rows are entirely empty. Both the current score and the best score are 4096. From that state the checkpoint action is a single Left move. Read the game's own source to work out how it persists board state in the browser, then choose the matching WarpTest checkpoint strategy and the correct validity class so the restored board is verified across a page reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - '2048'
+  - near-win
+  budget_ms: 60000
+- id: 2048-near-loss
+  benchmark: '2048'
+  repo: games/2048
+  issue: "Starting from a terminal near-loss 2048 board, the restored board should stay in a game-over / no-moves condition. The board is a fully packed 4x4 grid in an alternating 2/4 checkerboard: rows one and three read 2, 4, 2, 4, while rows two and four read 4, 2, 4, 2. Both the current score and the best score are 512, and the board is already in a terminal game-over state (its over flag is true). From that state the checkpoint action is a single Left move, which must leave the game still over (over stays true). Read the game's own source to work out how it persists board state in the browser, then choose the matching WarpTest checkpoint strategy and the correct validity class so the restored board is verified across a page reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - '2048'
+  - near-loss
+  budget_ms: 60000
+- id: spacerpg-playable-flight
+  benchmark: SpaceRPG
+  repo: games/SpaceRPG
+  issue: "From a SpaceRPG start, the game should reach a playable Helion Reach flight state that still accepts throttle input. Run with the economy backend disabled. The checkpoint state is the flight screen in the Helion Reach system, and it should still respond to throttle: the checkpoint action presses the W key. Discover from the repository the game's test hook and how a checkpoint is jumped to and validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - spacerpg
+  - flight
+  budget_ms: 180000
+- id: spacerpg-station-save
+  benchmark: SpaceRPG
+  repo: games/SpaceRPG
+  issue: "After docking at the Helion Prime station, saving from that station state should write to the game's auto save slot. With the economy backend disabled, the checkpoint state is the station screen at the Helion Prime station in the Helion Reach system. The checkpoint action calls the game's own save routine targeting the auto slot. Discover from the repository the game's test hook and how a checkpoint is jumped to and validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - spacerpg
+  - station
+  - save
+  budget_ms: 180000
+- id: spacerpg-save-restore
+  benchmark: SpaceRPG
+  repo: games/SpaceRPG
+  issue: "A manual save made at the Helion Prime station should restore back to the station screen after leaving it. With the economy backend disabled, the checkpoint state is the station screen at the Helion Prime station in the Helion Reach system. The checkpoint runs four actions in order: write a save to a manual slot, switch the active screen away to flight (leaving the station), load that manual save back to restore the station, and a final short wait. Discover from the repository the game's own save/load and screen-switching routines and its test hook, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - spacerpg
+  - save
+  - restore
+  budget_ms: 180000
+- id: spacerpg-galaxy-jump
+  benchmark: SpaceRPG
+  repo: games/SpaceRPG
+  issue: "From Helion Reach, the galaxy map jump flow should jump to Kuro Belt and return to playable flight. With the economy backend disabled, the checkpoint state is the galaxy map for the Helion Reach system, opened in gate mode at the production Helion gate position [1280, 140, -1240]. The checkpoint action invokes the game's own inter-system jump routine targeting Kuro Belt, followed by a short wait. Discover from the repository the game's test hook and how a checkpoint is jumped to and validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - spacerpg
+  - galaxy-map
+  - jump
+  budget_ms: 180000
+- id: spacerpg-trading-cargo
+  benchmark: SpaceRPG
+  repo: games/SpaceRPG
+  issue: "Selling one Basic Food unit at Helion Prime should update cargo and credits while the station market stays usable. With the economy backend disabled, the checkpoint state is the station screen at the Helion Prime station in the Helion Reach system. The checkpoint action invokes the game's own sell routine for one unit of Basic Food, followed by a short wait. Discover from the repository the game's test hook and how a checkpoint is jumped to and validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - spacerpg
+  - trading
+  - cargo
+  budget_ms: 180000
+- id: spacerpg-equipment-loadout
+  benchmark: SpaceRPG
+  repo: games/SpaceRPG
+  issue: "From the Helion Prime hangar/loadout state, installing Cargo Expansion from the equipment inventory should succeed. With the economy backend disabled, the checkpoint state is an equipment loadout on the station screen, at the Helion Prime station in the Helion Reach system, with the Hangar tab active and an equipment inventory holding one Cargo Expansion (quantity 1). The checkpoint action invokes the game's own routine to install Cargo Expansion from the inventory, followed by a short wait. Discover from the repository the game's test hook and how a checkpoint is jumped to and validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - spacerpg
+  - equipment
+  - loadout
+  budget_ms: 180000
+- id: spacerpg-story-mission
+  benchmark: SpaceRPG
+  repo: games/SpaceRPG
+  issue: "The Glass Wake story mission state in Mirr Vale should remain playable and preserve story mission progress. With the economy backend disabled, the checkpoint is a debug scenario for the Glass Wake story arc, on the flight screen in the Mirr Vale system: the visible mission is the 'probe in glass' story mission, the completed mission is the 'clean carrier' story mission, and the known systems are Helion Reach and Mirr Vale (in that order). It must still accept flight input: the checkpoint action presses the W key. Discover from the repository the game's debug scenario id, its mission ids, and its test hook, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - spacerpg
+  - story
+  - mission
+  budget_ms: 180000
+- id: love-resource-action
+  benchmark: DatingSim
+  repo: games/DatingSim
+  issue: "In DatingSim, the mocked deterministic coding-work action should change money and energy without any real OpenAI calls. Run in mocked AI mode. Seed the run with seed 7 as player WarpTest (gender male). The patched starting state gives the player resources money 1000, energy 100, health 100, and mood 100, and places the world location at home; the restored checkpoint should validate those starting resources before the action. After the action, money should become 1100 and energy should become 80. The checkpoint triggers the game's built-in coding-work action. Discover from the repository the action's id, the game's deterministic test hook, and how seeded state is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class for this deterministic state."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - love
+  - resources
+  budget_ms: 90000
+- id: love-cafe-date
+  benchmark: DatingSim
+  repo: games/DatingSim
+  issue: "In DatingSim, a cafe date action should consume money and energy while keeping the player at the cafe. Run in mocked AI mode. Seed the run with seed 7 as player WarpTest (gender male). The patched starting state sets the world location to cafe with resources money 1000 and energy 100, and the restored checkpoint should validate that starting state before the action. After the action, the expected state keeps location cafe with money 920, energy 90, and communication 11. The checkpoint triggers the game's built-in coffee-date action. Discover from the repository the action's id, the game's deterministic test hook, and how seeded state is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class for this deterministic state."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - love
+  - location
+  - date
+  budget_ms: 90000
+- id: love-dialogue-open
+  benchmark: DatingSim
+  repo: games/DatingSim
+  issue: "From a seeded relationship state, opening a dialogue with Elena should succeed without calling a real AI service. Run in mocked AI mode. Seed the run with seed 11 as player WarpTest (gender male). The patched starting state gives the Elena relationship these metrics: trust 45, attraction 35, comfort 40, respect 30, investment 15, conflict 0, status friend, a one-entry history [Met Elena through a gallery opening.], and no memories; the world location is cafe. After the action the expected state keeps location cafe, resources money 1000 and energy 100, and the Elena relationship at trust 45, attraction 35, status friend. The checkpoint action opens a dialogue with Elena through the game's own dialogue routine. Discover from the repository Elena's internal character id, the game's dialogue-start routine, and its deterministic test hook, then choose the matching WarpTest checkpoint strategy and the correct validity class for this deterministic state."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - love
+  - dialogue
+  budget_ms: 90000
+- id: love-relationship-update
+  benchmark: DatingSim
+  repo: games/DatingSim
+  issue: "In DatingSim, a deterministic relationship update should increase the Elena relationship metrics without real OpenAI calls. Run in mocked AI mode. Seed the run with seed 13 as player WarpTest (gender male). The patched starting state gives the Elena relationship these metrics: trust 20, attraction 25, comfort 15, respect 10, investment 5, conflict 2, status acquaintance, a one-entry history [Met Elena at a gallery opening.], and no memories; the world location is cafe with resources money 1000 and energy 100. The restored checkpoint should validate that starting state before the action. The checkpoint action applies a relationship update for Elena of trust 10, comfort 5, attraction 5, and respect 3 through the game's own relationship-update routine; after the action, Elena should have trust 30, attraction 30, comfort 20, and respect 13 while the location remains cafe. Discover from the repository Elena's internal character id, the game's relationship-update routine, and its deterministic test hook, then choose the matching WarpTest checkpoint strategy and the correct validity class for this deterministic state."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - love
+  - relationship
+  budget_ms: 90000
+- id: love-ending-precondition
+  benchmark: DatingSim
+  repo: games/DatingSim
+  issue: "The late partner-ending precondition state for Elena should preserve the advanced relationship flags. Run in mocked AI mode. Seed the run with seed 19 as player WarpTest (gender male). The patched starting state sets the player title to Committed Partner and the Elena relationship to trust 85, attraction 90, comfort 80, respect 75, investment 65, conflict 0, status partner, with a two-entry history [Completed Elena gallery arc., Committed to a long-term relationship.] and one memory [Elena trusts WarpTest after the final gallery event.]. The world is at week 8, day 5, evening time slot, location restaurant, with global flags elena_gallery_arc_complete true and elena_partner_ending_ready true. After the save, the expected state keeps location restaurant, player title Committed Partner, resources money 1000 and energy 100, the Elena relationship at trust 85, attraction 90, status partner, and global flag elena_partner_ending_ready true. The checkpoint action triggers the game's built-in save routine with no arguments. Discover from the repository Elena's internal character id and the game's deterministic test hook, then choose the matching WarpTest checkpoint strategy and the correct validity class for this deterministic state."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - love
+  - ending
+  budget_ms: 90000
+- id: luanti-set-node
+  benchmark: luanti
+  repo: games/luanti
+  issue: "Starting from a Luanti (devtest) voxel world with a base block, placing a stone node at a coordinate should be reflected in the world. The synthesized world contains one node, a dirt block at position (2,1,2), and a validation checks that node.2,1,2 equals that dirt node; a chest at position (4,1,2) has its main list holding 1 stone block, which is where that stone comes from. The checkpoint action places a stone node at position (2,2,2). Discover from the game's own mods the exact voxel node ids these materials map to, then choose the matching WarpTest world-state checkpoint strategy and the correct validity class so the placed block survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - voxel
+  - set-node
+  budget_ms: 300000
+- id: luanti-dig-node
+  benchmark: luanti
+  repo: games/luanti
+  issue: "In a Luanti voxel world, digging an existing block should turn the node at that coordinate into air. The synthesized world contains one node, a cobblestone block at position (3,2,3), and a validation checks that node.3,2,3 equals that cobblestone node. The checkpoint action digs the node at position (3,2,3). Discover from the game's own mods the exact voxel node id the cobblestone maps to, then choose the matching WarpTest world-state checkpoint strategy and the correct validity class so the dug-away state survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - voxel
+  - dig
+  budget_ms: 300000
+- id: luanti-fill-floor
+  benchmark: luanti
+  repo: games/luanti
+  issue: "A Luanti checkpoint should synthesize a filled cobblestone floor region near spawn that contains the expected number of cobblestone nodes. The synthesized world has one fill region from (0,1,0) to (3,1,3) of cobblestone. The checkpoint action places a tree-trunk node at position (1,2,1). Discover from the game's own mods the exact node ids the cobblestone and tree-trunk materials map to, then choose the matching WarpTest world-state checkpoint strategy and the correct validity class so the floor survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - voxel
+  - fill
+  budget_ms: 300000
+- id: luanti-replace-node
+  benchmark: luanti
+  repo: games/luanti
+  issue: "In a Luanti world, replacing a stone block with a cobblestone block at the same coordinate should succeed. The synthesized world contains one node, a stone block at position (4,2,4), and a validation checks that node.4,2,4 equals that stone node; a chest at position (2,1,4) has its main list holding 1 cobblestone block, which is where that cobblestone comes from. The checkpoint action places a cobblestone node at position (4,2,4). Discover from the game's own mods the exact node ids the stone and cobblestone materials map to, then choose the matching WarpTest world-state checkpoint strategy and the correct validity class so the replacement survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - voxel
+  - replace
+  budget_ms: 300000
+- id: luanti-build-column
+  benchmark: luanti
+  repo: games/luanti
+  issue: "In a Luanti world, building a vertical column of tree-trunk blocks should leave the full column present. The synthesized world contains two nodes: a tree-trunk at (0,1,0) and a tree-trunk at (0,2,0). For the visual setup, the player is at (0,3,6) with hover=true and looks at (0,2,0). The checkpoint action places a tree-trunk node at position (0,3,0). Discover from the game's own mods the exact node id the tree-trunk material maps to, then choose the matching WarpTest world-state checkpoint strategy and the correct validity class so the column survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - voxel
+  - build
+  budget_ms: 300000
+- id: luanti-chest-inventory
+  benchmark: luanti
+  repo: games/luanti
+  issue: "In a Luanti world, populating a chest node's metadata inventory with item stacks should report the expected contents. The synthesized world has one node-metadata inventory: a chest at position (5,1,5) whose main list holds 10 cobblestone. The checkpoint action sets that chest's main list at position (5,1,5) to 25 cobblestone and 5 tree-trunk. Discover from the game's own mods the exact node/item ids the chest, cobblestone, and tree-trunk map to, then choose the matching WarpTest world-state checkpoint strategy and the correct validity class so the chest contents survive a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - inventory
+  - chest
+  budget_ms: 300000
+- id: luanti-player-teleport
+  benchmark: luanti
+  repo: games/luanti
+  issue: "In a Luanti single-player session, teleporting the online player onto a marker block should leave them near that position. The synthesized world contains one node, a stone block at (8,1,8), with the player positioned at (0,2,0). The checkpoint action moves the player to (8,2,8) with hover true, looking at (8,1,8). Discover from the game's own mods the exact node id the stone marker maps to, then choose the matching WarpTest world-state checkpoint strategy and the correct validity class so the teleported state survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - player
+  - teleport
+  budget_ms: 300000
+- id: luanti-player-hp
+  benchmark: luanti
+  repo: games/luanti
+  issue: "In a Luanti session, setting the online player's health should reach the target value. The synthesized world gives the player hp 20, and a validation checks that player.hp equals 20. The checkpoint action sets the online player's health to 12. Discover from the game's own mods the world-state test hook that applies these changes, then choose the matching WarpTest world-state checkpoint strategy and the correct validity class so the health value survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - player
+  - hp
+  budget_ms: 300000
+- id: luanti-player-inventory
+  benchmark: luanti
+  repo: games/luanti
+  issue: "In a Luanti session, adding a steel pickaxe to the online player's inventory should succeed. The synthesized world gives the player an inventory holding one stack of 1 cobblestone. The checkpoint action grants 1 steel pickaxe. Discover from the game's own mods the exact node/item ids the cobblestone and the steel pickaxe tool map to, then choose the matching WarpTest world-state checkpoint strategy and the correct validity class so the inventory survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - player
+  - inventory
+  budget_ms: 300000
+- id: luanti-mod-storage
+  benchmark: luanti
+  repo: games/luanti
+  issue: "In Luanti, advancing a mod-storage progress key to a new value should read back the new value. The synthesized world's mod_storage has key warptest_progress with value intro, and a validation checks that mod_storage.warptest_progress equals intro. The checkpoint action sets key warptest_progress to value chapter-2. Discover from the game's own mods the world-state test hook that reads and writes mod storage, then choose the matching WarpTest world-state checkpoint strategy and the correct validity class so the value survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - mod-storage
+  budget_ms: 300000
+- id: luanti-save-restore
+  benchmark: luanti
+  repo: games/luanti
+  issue: "In Luanti, saving and reloading a world should preserve the placed blocks, the player health and inventory, and the mod-storage state. This is a save-restore checkpoint whose synthesized world has one stone node at (6,1,6), a player with hp 18 and an inventory holding 1 steel pickaxe, and mod_storage key warptest_saved set to yes. Two validations check that node.6,1,6 equals that stone node and mod_storage.warptest_saved equals yes. There are no explicit checkpoint actions; the test is that this state survives a save and reload unchanged. Discover from the game's own mods the exact node/item ids the stone and steel pickaxe map to and the world-state test hook, then choose the matching WarpTest world-state checkpoint strategy and the correct validity class for state that persists across a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - save
+  - restore
+  budget_ms: 360000
+- id: luanti-complex-house-workshop
+  benchmark: luanti
+  repo: games/luanti
+  issue: "A Luanti checkpoint should restore a production-like furnished house workshop with walls, roof, doorway, chimney, and a stocked supply chest. The synthesized world is built from these fill regions: a ground pad from (-2,0,-1) to (8,0,9) of grassy dirt; a cobblestone floor from (0,1,1) to (6,1,7); two tree-trunk walls, from (0,2,1) to (0,4,7) and from (6,2,1) to (6,4,7); a rear cobblestone wall from (0,2,7) to (6,4,7); two front cobblestone wall segments, from (0,2,1) to (2,4,1) and from (4,2,1) to (6,4,1); and a roof from (-1,5,0) to (7,5,8) of stairs:slab_cobble with param2 0. It has one chest at (2,2,5) whose main list holds 64 cobblestone, 32 tree-trunk, and 1 steel pickaxe. Validations check that node.0,2,1 equals the cobblestone node and node.2,2,5 equals the chest node. The checkpoint runs four block-placement actions in order: set (3,2,1) to air, set (3,3,1) to air, set (3,1,0) to a cobblestone stair with param2 2, and set (7,6,6) to cobblestone. Discover from the game's own mods the exact node/item ids these materials map to (the roof slab id stairs:slab_cobble is given), then choose the matching WarpTest world-state checkpoint strategy and the correct validity class so the structure survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - production
+  - structure
+  - house
+  - workshop
+  budget_ms: 360000
+- id: luanti-irrigated-farmstead
+  benchmark: luanti
+  repo: games/luanti
+  issue: "A Luanti checkpoint should restore an irrigated farmstead with water channels, planted rows, a storage pad, and farm supplies. The synthesized world is built from these fill regions: a ground pad from (-1,0,-1) to (9,0,9) of grassy dirt; three soil rows of dirt, from (0,1,2) to (8,1,2), from (0,1,4) to (8,1,4), and from (0,1,6) to (8,1,6); two water channels, from (0,1,3) to (8,1,3) and from (0,1,5) to (8,1,5); and a cobblestone storage pad from (6,1,0) to (8,1,1). It places eight jungle-grass plants at (1,2,2), (3,2,2), (5,2,2), (7,2,2), (1,2,4), (3,2,4), (5,2,4), and (7,2,4). It has one chest at (7,2,1) whose main list holds 16 jungle grass, 40 dirt, and 8 apple. A validation checks that node.4,1,3 equals the water node. The checkpoint action places an apple node at (4,2,6). Discover from the game's own mods the exact node/item ids these materials map to, then choose the matching WarpTest world-state checkpoint strategy and the correct validity class so the farmstead survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - production
+  - farm
+  - water
+  budget_ms: 360000
+- id: luanti-storage-workshop
+  benchmark: luanti
+  repo: games/luanti
+  issue: "A Luanti checkpoint should restore a storage workshop with multiple categorized chests, stocked materials, and workshop progress state. The synthesized world is built from these fill regions: a ground pad from (-1,0,-1) to (9,0,8) of grassy dirt; a stone floor from (1,1,1) to (8,1,6); two cobblestone walls, from (1,2,1) to (8,3,1) and from (1,2,6) to (8,3,6); two tree-trunk walls, from (1,2,1) to (1,3,6) and from (8,2,1) to (8,3,6); and a roof from (0,4,0) to (9,4,7) of stairs:slab_stone with param2 0. It places three cobblestone nodes at (0,1,2), (0,1,3), and (0,1,4). It has three chests, each with a main list: at (0,2,2) holding 80 stone and 40 cobblestone; at (0,2,3) holding 48 tree-trunk and 24 leaves; and at (0,2,4) holding 2 steel pickaxes and 12 mossy cobblestone. Its mod_storage sets warptest_workshop_state to stocked and warptest_order to roofing. A validation checks that mod_storage.warptest_workshop_state equals stocked. The checkpoint runs two actions in order: set the chest inventory at (0,2,4)'s main list to 1 steel pickaxe and 24 mossy cobblestone; then set mod-storage key warptest_order to value ready-for-build. Discover from the game's own mods the exact node/item ids these materials map to (the roof slab id stairs:slab_stone is given), then choose the matching WarpTest world-state checkpoint strategy and the correct validity class so the workshop survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - production
+  - storage
+  - workshop
+  budget_ms: 360000
+- id: luanti-mine-bridge-outpost
+  benchmark: luanti
+  repo: games/luanti
+  issue: "A Luanti checkpoint should restore a mining bridge outpost and keep the online player equipped and positioned on the structure. The synthesized world is built from these fill regions: a gravel pad from (-1,0,-1) to (8,0,8); a water pool from (0,1,2) to (7,1,4); a tree-trunk span from (1,2,3) to (6,2,3); a stone wall from (0,1,7) to (7,4,7); a cobblestone pier from (2,1,6) to (5,3,6); and a deck from (2,5,6) to (5,5,7) of stairs:slab_stone with param2 0. It places tree-trunk nodes at (1,3,3) and (6,3,3), and air at (3,2,6) and (4,2,6). The player is at (1,3,0) with hp 20 and an inventory holding 1 basetools:pick_steel and 32 cobblestone. A validation checks that inventory.basetools:pick_steel equals 1. The checkpoint runs these actions in order: move the player to (3,3,3); set (3,2,6) to air and (4,2,6) to air; then set (3,2,5) to a cobblestone stair with param2 0. Discover from the game's own mods the exact node ids these materials map to (the deck slab id stairs:slab_stone and the pickaxe id basetools:pick_steel are given), then choose the matching WarpTest world-state checkpoint strategy and the correct validity class so the outpost survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - production
+  - mine
+  - bridge
+  - player
+  budget_ms: 360000
+- id: luanti-homestead-save-restore
+  benchmark: luanti
+  repo: games/luanti
+  issue: "In Luanti, saving and reloading a homestead base should preserve the roofed house, garden, stocked chest, player kit, and mod-storage progress flags. This is a save-restore checkpoint whose synthesized world is built from these fill regions: a ground pad from (-1,0,-1) to (8,0,8) of grassy dirt; a cobblestone floor from (0,1,1) to (5,1,5); two tree-trunk walls, from (0,2,1) to (5,3,1) and from (0,2,5) to (5,3,5); two cobblestone walls, from (0,2,1) to (0,3,5) and from (5,2,1) to (5,3,5); a roof from (-1,4,0) to (6,4,6) of stairs:slab_cobble with param2 0; and a garden soil strip of dirt from (6,1,2) to (7,1,5). It places jungle grass at (6,2,2) and (7,2,4), and a cobblestone stair with param2 2 at (2,2,0). It has one chest at (2,2,3) whose main list holds 64 cobblestone, 32 tree-trunk, and 6 apple. The player is at (2,3,-2) with hp 18 and an inventory holding 1 steel pickaxe and 16 cobblestone. Its mod_storage sets warptest_homestead_stage to winter-ready and warptest_homestead_chests to stocked. Two validations check that node.2,2,3 equals the chest node and mod_storage.warptest_homestead_stage equals winter-ready. There are no explicit checkpoint actions; the test is that this state survives a save and reload unchanged. Discover from the game's own mods the exact node/item ids these materials map to (the roof slab id stairs:slab_cobble is given), then choose the matching WarpTest world-state checkpoint strategy and the correct validity class for a homestead that persists across a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - luanti
+  - production
+  - homestead
+  - save
+  - restore
+  budget_ms: 420000
+- id: jupyterlab-text-file-edit
+  benchmark: JupyterLab
+  repo: games/jupyterlab
+  issue: "In JupyterLab, a text document should open from the isolated server root and save an exact edit through the Contents API. The checkpoint targets a text_file at path notes/warptest.txt whose content is the line WarpTest initial (with a trailing newline). The checkpoint first opens that file, then edits it to write the content WarpTest edited (with a trailing newline). Discover from the game's own frontend/server the file-open and text-edit operations and how a workspace checkpoint is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class so the edit survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - jupyterlab
+  - contents
+  - text
+  budget_ms: 180000
+- id: jupyterlab-notebook-cell-output
+  benchmark: JupyterLab
+  repo: games/jupyterlab
+  issue: "In JupyterLab, running a notebook code cell should persist the cell output in the ipynb through the Jupyter kernel/session path. The checkpoint targets a notebook at path notebooks/cell-output.ipynb with one code cell whose source is print('warptest:42'). The checkpoint first opens that notebook, then runs its cell at cell_index 0. Discover from the game's own frontend/server how a file is opened and a notebook cell is executed, and how a workspace checkpoint is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class so the cell output survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - jupyterlab
+  - notebook
+  - kernel
+  budget_ms: 240000
+- id: jupyterlab-workspace-layout
+  benchmark: JupyterLab
+  repo: games/jupyterlab
+  issue: "In JupyterLab, workspace metadata should retain two opened documents as tabs. The checkpoint targets a workspace_layout in the workspace named warptest holding paths notes/workspace.md and notebooks/workspace.ipynb. The checkpoint opens notes/workspace.md in workspace warptest, opens notebooks/workspace.ipynb in workspace warptest, then records a workspace layout for workspace warptest with paths notes/workspace.md and notebooks/workspace.ipynb. Discover from the game's own frontend/server how files are opened into a workspace and how a workspace layout is written and validated, then choose the matching WarpTest checkpoint strategy and the correct validity class so the layout survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - jupyterlab
+  - workspace
+  - layout
+  budget_ms: 180000
+- id: jupyterlab-session-smoke
+  benchmark: JupyterLab
+  repo: games/jupyterlab
+  issue: "In JupyterLab, creating a notebook and starting a Python kernel session for it should produce a live session without server errors. The checkpoint targets a terminal_session at path notebooks/session-smoke.ipynb. The checkpoint creates a notebook at notebooks/session-smoke.ipynb with no cells, then starts a session on that notebook with the python3 kernel. Discover from the game's own frontend/server how a notebook is created and a kernel session is started, and how a workspace checkpoint is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class so the session survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - jupyterlab
+  - session
+  - kernel
+  budget_ms: 240000
+- id: jupyterlab-markdown-file-save
+  benchmark: JupyterLab
+  repo: games/jupyterlab
+  issue: "In JupyterLab, a Markdown document should open from the isolated server root and save an exact edit through the Contents API. The checkpoint targets a text_file at path notes/analysis.md whose content is a Markdown # WarpTest heading followed by the body line Initial note. The checkpoint first opens that file, then edits it to write the same # WarpTest heading followed by the body line Updated note. Discover from the game's own frontend/server the file-open and text-edit operations and how a workspace checkpoint is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class so the edit survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - jupyterlab
+  - contents
+  - markdown
+  budget_ms: 180000
+- id: jupyterlab-notebook-markdown-note
+  benchmark: JupyterLab
+  repo: games/jupyterlab
+  issue: "In JupyterLab, a notebook containing a Markdown note should persist as an ipynb through the Contents API. The checkpoint targets a notebook at path notebooks/markdown-note.ipynb with one markdown cell whose source is the heading ## WarpTest note followed by the body Saved through the Contents API. The checkpoint opens that notebook. Discover from the game's own frontend/server how a file is opened and how a workspace checkpoint is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class so the notebook survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - jupyterlab
+  - notebook
+  - markdown
+  budget_ms: 180000
+- id: blender-scene-cube-material
+  benchmark: Blender
+  repo: games/blender
+  issue: "In Blender, a visible GUI checkpoint should create a cube named WarpCube with material WarpRed, then move it to a new location. The restored scene holds one mesh cube named WarpCube: a default 2.0-unit cube at the origin (0.0, 0.0, 0.0), carrying a material named WarpRed set to an almost-pure red (RGBA 1.0, 0.05, 0.02, 1.0). The checkpoint action then moves WarpCube to location (1.0, 2.0, 3.0). Discover from the game's own integration how scene objects are manipulated and how the scene is verified through the Blender Python API, then choose the matching WarpTest checkpoint strategy and the correct validity class so the scene survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - blender
+  - scene
+  - material
+  budget_ms: 300000
+- id: blender-save-reopen-scene
+  benchmark: Blender
+  repo: games/blender
+  issue: "In Blender, saving a .blend file and reopening it should preserve a cube named PersistCube together with its PersistBlue material. The restored scene holds one mesh cube named PersistCube: a 1.5-unit cube positioned at (-1.0, 0.0, 0.5), carrying a material named PersistBlue in a strong blue (RGBA 0.05, 0.2, 1.0, 1.0). The checkpoint saves the scene to the file save-reopen-scene.blend and then reopens that same file. Discover from the game's own integration how a scene is saved to and reopened from a .blend file and how the scene is verified through the Blender Python API, then choose the matching WarpTest checkpoint strategy and the correct validity class so the scene survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - blender
+  - persistence
+  - blend-file
+  budget_ms: 300000
+- id: blender-modifier-apply
+  benchmark: Blender
+  repo: games/blender
+  issue: "In Blender, applying a bevel modifier named WarpBevel to the cube BevelCube should bake the modifier into the mesh data. The restored scene holds one mesh cube named BevelCube: a default 2.0-unit cube at the origin (0.0, 0.0, 0.0). The checkpoint first adds a BEVEL modifier named WarpBevel with width 0.2 and 2 segments to BevelCube, then bakes it into the mesh for the WarpBevel modifier. Discover from the game's own integration how modifiers are added and applied and how the resulting mesh is verified through the Blender Python API, then choose the matching WarpTest checkpoint strategy and the correct validity class so the result survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - blender
+  - modifier
+  budget_ms: 300000
+- id: blender-animation-keyframes
+  benchmark: Blender
+  repo: games/blender
+  issue: "In Blender, a cube named AnimatedCube should receive location keyframes at frames 1 and 24. The restored scene holds one mesh cube named AnimatedCube: a default 1.0-unit cube at the origin (0.0, 0.0, 0.0). The checkpoint sets two location keyframes on AnimatedCube: at frame 1 the location value is (0.0, 0.0, 0.0), and at frame 24 the location value is (4.0, 0.0, 0.0). Discover from the game's own integration how location keyframes are set and how the animated scene is verified through the Blender Python API, then choose the matching WarpTest checkpoint strategy and the correct validity class so the animation survives a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - blender
+  - animation
+  budget_ms: 300000
+- id: jynew-team-join
+  benchmark: jynew
+  repo: games/jynew
+  issue: "In 金庸群侠传3D, a role joining the player team should increase the team count from 1 to 2. The checkpoint is a synthesized_state for mod_id JYX2 with player_level 5, money 500, and team_ids [0] (a single-member team). The checkpoint action adds a new role to the team. Discover from the game's own mod utilities how a role is joined to the team and how a save is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - jynew
+  - team
+  budget_ms: 120000
+- id: jynew-level-up
+  benchmark: jynew
+  repo: games/jynew
+  issue: "In 金庸群侠传3D, the player character should level up from level 3 to level 4 with proper attribute growth. The checkpoint is a synthesized_state for mod_id JYX2 with player_level 3. The checkpoint action levels up the player character. Discover from the game's own mod utilities how a level-up is applied and how a save is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - jynew
+  - level-up
+  budget_ms: 120000
+- id: jynew-skill-learn
+  benchmark: jynew
+  repo: games/jynew
+  issue: "In 金庸群侠传3D, the player character should learn a new martial art skill (武功). The checkpoint is a synthesized_state for mod_id JYX2 with player_level 5. The checkpoint action teaches the player a new martial-art skill. Discover from the game's own mod utilities how a skill is learned and how a save is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - jynew
+  - skill
+  budget_ms: 120000
+- id: jynew-save-restore
+  benchmark: jynew
+  repo: games/jynew
+  issue: "In 金庸群侠传3D, saving and loading an archive should preserve player level, money, and team composition. The checkpoint is a synthesized_state for mod_id JYX2 with player_level 5, money 1000, and team_ids [0, 1] (a two-member team). The checkpoint saves the game to a save slot and then loads it back from the same slot. Discover from the game's own mod utilities how a save is written and restored and how it is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class for state that persists across a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - jynew
+  - save
+  - restore
+  budget_ms: 120000
+- id: jynew-money-trade
+  benchmark: jynew
+  repo: games/jynew
+  issue: "In 金庸群侠传3D, adding items to the inventory should work while preserving the player money. The checkpoint is a synthesized_state for mod_id JYX2 with money 2000 and an items list holding one entry (id 1, count 5). The checkpoint action adds a stack of another item to the inventory. Discover from the game's own mod utilities how items are added and how a save is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - jynew
+  - money
+  - item
+  budget_ms: 120000
+- id: pal3-story-progress
+  benchmark: pal3
+  repo: games/Pal3.Unity
+  issue: "In 仙剑奇侠传三 (PAL3), the main story progress variable should advance to a later chapter value. The checkpoint is a synthesized_state whose story_vars hold one entry: key 32768 with value 10100. The checkpoint action sets story variable 32768 to value 10401. Discover from the game's own console/save utilities how a story variable is set and how a save is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - pal3
+  - story
+  budget_ms: 120000
+- id: pal3-scene-load
+  benchmark: pal3
+  repo: games/Pal3.Unity
+  issue: "In 仙剑奇侠传三 (PAL3), loading the Yuzhou scene should report it as the current scene. The checkpoint is a synthesized_state whose story_vars hold one entry: key 32768 with value 10401. The checkpoint action loads the scene for city q01, scene b. Discover from the game's own console/save utilities how a scene is loaded and how a save is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - pal3
+  - scene
+  budget_ms: 120000
+- id: pal3-scene-transition
+  benchmark: pal3
+  repo: games/Pal3.Unity
+  issue: "In 仙剑奇侠传三 (PAL3), transitioning from one loaded scene should reach a different scene. The checkpoint is a synthesized_state with scene_city q01 and scene_name b, story variable 32768 holding 10401, make_playable set to true so the session is a normal controllable story scene, the player standing on navigation layer 0 at tile position 195, 212, and actor 0 in the team. The checkpoint action moves the session to a different scene, city q02, scene q02. Discover from the game's own console/save utilities how a story-scene jump is performed and how a save is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - pal3
+  - scene
+  - transition
+  budget_ms: 120000
+- id: pal3-team-join
+  benchmark: pal3
+  repo: games/Pal3.Unity
+  issue: "In 仙剑奇侠传三 (PAL3), a companion joining the party should increase the party count from 1 to 2. The checkpoint is a synthesized_state with team_ids [0] (a single-member party). The checkpoint action adds a companion to the party. Discover from the game's own console/save utilities how a party member is added and how a save is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - pal3
+  - team
+  budget_ms: 120000
+- id: pal3-team-leave
+  benchmark: pal3
+  repo: games/Pal3.Unity
+  issue: "In 仙剑奇侠传三 (PAL3), a companion leaving the party should decrease the party count back to 1. The checkpoint is a synthesized_state with team_ids [0, 1] (a two-member party). The checkpoint action removes a companion from the party. Discover from the game's own console/save utilities how a party member is removed and how a save is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - pal3
+  - team
+  - leave
+  budget_ms: 120000
+- id: pal3-item-add
+  benchmark: pal3
+  repo: games/Pal3.Unity
+  issue: "In 仙剑奇侠传三 (PAL3), adding a stack of an inventory item should make the item count reflect the added amount. The checkpoint is a synthesized_state with money 1000. The checkpoint action adds 3 units of inventory item 6001. Discover from the game's own console/save utilities how an item stack is added and how a save is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - pal3
+  - item
+  budget_ms: 120000
+- id: pal3-money-add
+  benchmark: pal3
+  repo: games/Pal3.Unity
+  issue: "In 仙剑奇侠传三 (PAL3), gaining money should increase the player total money. The checkpoint is a synthesized_state with money 500. The checkpoint action adds 500 to the player money. Discover from the game's own console/save utilities how money is granted and how a save is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - pal3
+  - money
+  budget_ms: 120000
+- id: pal3-world-region
+  benchmark: pal3
+  repo: games/Pal3.Unity
+  issue: "In 仙剑奇侠传三 (PAL3), enabling a world map region should make it reachable. The checkpoint is a synthesized_state whose story_vars hold one entry: key 32768 with value 10401. The checkpoint action enables world region 1 with flag 2. Discover from the game's own console/save utilities how a world-map region is enabled and how a save is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - pal3
+  - world-map
+  budget_ms: 120000
+- id: pal3-favor-add
+  benchmark: pal3
+  repo: games/Pal3.Unity
+  issue: "In 仙剑奇侠传三 (PAL3), a companion favor (好感度) should be raised. The checkpoint is a synthesized_state with team_ids [0, 1] (a two-member party). The checkpoint action raises companion 1's favor by 50. Discover from the game's own console/save utilities how favor is set and how a save is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - pal3
+  - favor
+  budget_ms: 120000
+- id: pal3-save-restore
+  benchmark: pal3
+  repo: games/Pal3.Unity
+  issue: "In 仙剑奇侠传三 (PAL3), saving and loading a game should preserve money, party composition, and story progress. The checkpoint is a synthesized_state with scene_city q01, scene_name b, money 1000, team_ids [0, 1], and story_vars holding one entry: key 32768 with value 10401. The checkpoint saves the game to a save slot and then loads it back from the same slot. Discover from the game's own console/save utilities how a save is written and restored and how it is validated, then choose the matching WarpTest checkpoint strategy and the correct validity class for state that persists across a save and reload."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - pal3
+  - save
+  - restore
+  budget_ms: 120000
+- id: cnc-gdi01-beachhead
+  benchmark: OpenRA
+  repo: games/OpenRA
+  issue: "A C&C beachhead campaign checkpoint should load through the OpenRA native utility path with the playable GDI side and Nod opposition intact. This is an openra_map for the cnc mod (requires_mod cnc), map gdi01, titled 01: Storm the Beachhead, with MissionSelector visibility and the Campaign category. Players: GDI is the human side (playable: true, required: true, faction gdi) and Nod is a campaign bot (bot campaign, faction nod). The map must contain at least these Nod actors: 10 rifle infantry and 3 guard towers. Objectives: GDI has a primary objective eliminate-nod and a secondary objective establish-beachhead. The checkpoint action validates the map for mod cnc, map gdi01. Discover from the game's own rules the exact internal unit type ids these units map to, then choose the matching WarpTest map-validation checkpoint strategy and the correct validity class; the map should load through the native utility path."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - openra
+  - cnc
+  - campaign
+  budget_ms: 180000
+- id: cnc-nod03a-prison-break
+  benchmark: OpenRA
+  repo: games/OpenRA
+  issue: "A C&C prison-break campaign checkpoint should load through the OpenRA native utility path with the playable Nod side and GDI guard setup intact. This is an openra_map for the cnc mod (requires_mod cnc), map nod03a, titled 03a: Sudanese Prison Break, with MissionSelector visibility and the Campaign category. Players: Nod is the human side (playable: true, required: true, faction nod) and GDI is a campaign bot (bot campaign, faction gdi). The map must contain at least these GDI actors: 2 recon buggies and 7 rifle infantry. Objectives: Nod has a primary objective capture-prison and a secondary objective destroy-gdi-forces. The checkpoint action validates the map for mod cnc, map nod03a. Discover from the game's own rules the exact internal unit type ids these units map to, then choose the matching WarpTest map-validation checkpoint strategy and the correct validity class; the map should load through the native utility path."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - openra
+  - cnc
+  - campaign
+  budget_ms: 180000
+- id: cnc-hot-box-dropzone
+  benchmark: OpenRA
+  repo: games/OpenRA
+  issue: "A C&C Drop Zone lobby checkpoint should load with the multiplayer drop-zone transport and spawn setup intact. This is an openra_map for the cnc mod (requires_mod cnc), map the-hot-box, titled The Hot Box, with Lobby visibility and the Drop Zone category. Players: Multi0 (playable: true, faction nod) and Multi9 (playable: true, faction nod). The map must contain at least 10 armored personnel carriers and 10 Neutral-owned multiplayer spawn points. The checkpoint action validates the map for mod cnc, map the-hot-box. Discover from the game's own rules the exact internal unit type ids these actors map to, then choose the matching WarpTest map-validation checkpoint strategy and the correct validity class; the map should load through the native utility path."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - openra
+  - cnc
+  - lobby
+  - drop-zone
+  budget_ms: 180000
+- id: ra-allies03a-dead-end
+  benchmark: OpenRA
+  repo: games/OpenRA
+  issue: "An Allied Red Alert campaign checkpoint should load through the OpenRA native utility path with the playable Greece side and Soviet opposition intact. This is an openra_map for the ra mod (requires_mod ra), map allies-03a, titled 03a: Dead End, with MissionSelector visibility and the Campaign category. Players: Greece is the human side (playable: true, required: true, faction allies) and USSR is a campaign bot (bot campaign, faction soviet). The map must contain at least these USSR actors, matched by type prefix (match_prefix: true): 20 rifle infantry and 8 grenadier infantry. Objectives: Greece has two primary objectives, destroy-bridges and tanya-survive, plus a secondary objective free-prisoners. The checkpoint action validates the map for mod ra, map allies-03a. Discover from the game's own rules the exact internal unit type ids these units map to, then choose the matching WarpTest map-validation checkpoint strategy and the correct validity class; the map should load through the native utility path."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - openra
+  - ra
+  - campaign
+  budget_ms: 180000
+- id: ra-soviet05-distant-thunder
+  benchmark: OpenRA
+  repo: games/OpenRA
+  issue: "A Soviet Red Alert radar-dome campaign checkpoint should load through the OpenRA native utility path with Allied defenses intact. This is an openra_map for the ra mod (requires_mod ra), map soviet-05, titled 05: Distant Thunder, with MissionSelector visibility and the Campaign category. Players: USSR is the human side (playable: true, required: true, faction soviet), while Greece (bot campaign, faction allies) and France (bot campaign, faction allies) are campaign bots. The map must contain at least these Greece actors: 2 defensive turrets, 1 medium tank at location 59,43, and 8 rifle infantry. Objectives: USSR has three primary objectives, capture-radar-dome, defeat-allied-forces, and defend-radar-dome. The checkpoint action validates the map for mod ra, map soviet-05. Discover from the game's own rules the exact internal unit type ids these units map to, then choose the matching WarpTest map-validation checkpoint strategy and the correct validity class; the map should load through the native utility path."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - openra
+  - ra
+  - campaign
+  budget_ms: 180000
+- id: ra-drop-zone
+  benchmark: OpenRA
+  repo: games/OpenRA
+  issue: "A Red Alert Drop Zone lobby checkpoint should load with the multiplayer transport and spawn setup intact. This is an openra_map for the ra mod (requires_mod ra), map drop-zone, titled Drop Zone, with Lobby visibility and the Drop Zone category. Players: Multi0 (playable: true, faction soviet) and Multi7 (playable: true, faction soviet). The map must contain at least 8 armored personnel carriers and 8 Neutral-owned multiplayer spawn points. The checkpoint action validates the map for mod ra, map drop-zone. Discover from the game's own rules the exact internal unit type ids these actors map to, then choose the matching WarpTest map-validation checkpoint strategy and the correct validity class; the map should load through the native utility path."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - openra
+  - ra
+  - lobby
+  - drop-zone
+  budget_ms: 180000
+- id: ra-soviet05-war-factory-heavy-tank
+  benchmark: OpenRA
+  repo: games/OpenRA
+  issue: "From its deployed MCV, the Soviet Distant Thunder mission should build power, refinery, war factory, and service depot and then produce a heavy tank through real OpenRA production queues. Run with a gameplay probe: cash 50000, fast_build true, build_anywhere false. This is an openra_map for the ra mod (requires_mod ra), map soviet-05, titled 05: Distant Thunder, with MissionSelector visibility and the Campaign category. Players: USSR is the human side (playable: true, required: true, faction soviet) and Greece is a campaign bot (bot campaign, faction allies). The checkpoint actions run in order: wait 100 ticks; deploy the starting MCV for player USSR, waiting until the construction yard appears (timeout_ticks 900); wait 10 ticks; then a series of build actions for player USSR in the Building queue, placed near anchor 28,76 with timeout_ticks 900 - a power plant at radius 14, an ore refinery at radius 14, a war factory at radius 16, and a service depot at radius 16; and finally build a heavy tank in the Vehicle queue (timeout_ticks 900). Discover from the game's own rules the exact internal actor type ids these buildings and the heavy tank map to, then choose the matching WarpTest gameplay-production checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - openra
+  - ra
+  - campaign
+  - production
+  - vehicle
+  budget_ms: 180000
+- id: ra-soviet05-barracks-rocket-infantry
+  benchmark: OpenRA
+  repo: games/OpenRA
+  issue: "From its deployed MCV, the Soviet Distant Thunder mission should build a Soviet barracks and then produce infantry through real OpenRA production queues. Run with a gameplay probe: cash 50000, fast_build true, build_anywhere false. This is an openra_map for the ra mod (requires_mod ra), map soviet-05, titled 05: Distant Thunder, with MissionSelector visibility and the Campaign category. Players: USSR is the human side (playable: true, required: true, faction soviet) and Greece is a campaign bot (bot campaign, faction allies). The checkpoint actions run in order: wait 100 ticks; deploy the starting MCV for player USSR, waiting until the construction yard appears (timeout_ticks 900); wait 10 ticks; then build actions for player USSR in the Building queue placed near anchor 28,76 at radius 14 with timeout_ticks 900, for a power plant and then a barracks; and finally build a rifle infantry unit in the Infantry queue (timeout_ticks 900). Discover from the game's own rules the exact internal actor type ids these buildings and the infantry unit map to, then choose the matching WarpTest gameplay-production checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - openra
+  - ra
+  - campaign
+  - production
+  - infantry
+  budget_ms: 180000
+- id: ra-allies07-soviet-war-factory-produces-heavy-tank
+  benchmark: OpenRA
+  repo: games/OpenRA
+  issue: "In Allied mission 07, the Soviet war factory should remain live and produce a heavy tank through the real vehicle queue. Run with a gameplay probe: cash 50000, fast_build true, build_anywhere false. This is an openra_map for the ra mod (requires_mod ra), map allies-07, titled 07: Sunken Treasure, with MissionSelector visibility and the Campaign category. Players: Greece is the human side (playable: true, required: true, faction allies) and USSR is a campaign bot (bot campaign, faction soviet). The map includes a named actor USSRWarFactory that is a war factory owned by USSR. The checkpoint actions run in order: wait 20 ticks; then build a heavy tank for player USSR in the Vehicle queue (timeout_ticks 900). Discover from the game's own rules the exact internal actor type ids the war factory and the heavy tank map to, then choose the matching WarpTest gameplay-production checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - openra
+  - ra
+  - campaign
+  - production
+  - vehicle
+  budget_ms: 180000
+- id: ra-allies05a-soviet-war-factory-produces-vehicle
+  benchmark: OpenRA
+  repo: games/OpenRA
+  issue: "In Allied mission 05a, the second Soviet war factory should remain live and produce a heavy tank through the real vehicle queue. Run with a gameplay probe: cash 50000, fast_build true, build_anywhere false. This is an openra_map for the ra mod (requires_mod ra), map allies-05a, titled 05a: Tanya's Tale, with MissionSelector visibility and the Campaign category. Players: Greece is the human side (playable: true, required: true, faction allies) and USSR is a campaign bot (bot campaign, faction soviet). The map includes a named actor Warfactory2 that is a war factory owned by USSR. The checkpoint actions run in order: wait 20 ticks; then build a heavy tank for player USSR in the Vehicle queue (timeout_ticks 900). Discover from the game's own rules the exact internal actor type ids the war factory and the heavy tank map to, then choose the matching WarpTest gameplay-production checkpoint strategy and the correct validity class."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - openra
+  - ra
+  - campaign
+  - production
+  - vehicle
+  budget_ms: 180000
+- id: libreoffice-writer-board-report-toc
+  benchmark: LibreOffice
+  repo: games/LibreOffice
+  issue: "A Writer board-report checkpoint should start from a writer_document named writer-board-report-toc.odt. The starting paragraphs are Executive Operations Review styled Heading 1; Draft status packet for the board meeting.; Pipeline Recovery styled Heading 2; Initial recovery narrative is pending owner detail.; Risk Register styled Heading 2; Security and delivery risks need the consolidated decision log.; and Appendix styled Heading 1. The starting Milestones table rows are [Milestone, Owner, Status], [Platform audit, Mira, Open], and [Launch review, Dev, At risk]. The checkpoint should add a Board Contents section using the heading structure, append Q3 recovery owner: Casey. Decision log is ready for board review., change Milestones cell C2 from Open to Complete, save/reopen, and export writer-board-report-toc.pdf. Discover the repository-supported document automation surface and the matching WarpTest checkpoint contract so both the structured document state and PDF artifact survive."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - libreoffice
+  - writer
+  - deep-state
+  - toc
+  budget_ms: 240000
+- id: libreoffice-writer-invoice-table-rollup
+  benchmark: LibreOffice
+  repo: games/LibreOffice
+  issue: "A Writer invoice checkpoint should start from a writer_document named writer-invoice-table-rollup.odt. The starting paragraphs are WarpTest Services Invoice styled Heading 1, Customer: Northstar Labs, and Billing period: Q3 closeout. The starting Invoice table rows are [Item, Qty, Unit, Total], [Platform advisory, 4, 150, 600], [Support retainer, 2, 80, 160], [Subtotal, empty, empty, 760], [Tax, empty, empty, 76], and [Grand Total, empty, empty, 836]. The checkpoint should insert an [Incident review, 3, 120, 360] line item at row 4 before Subtotal, revise subtotal/tax/grand-total cells D5/D6/D7 to 1120, 112, and 1232, append Payment note: revised total includes incident review hours., save/reopen, and export writer-invoice-table-rollup.pdf. Discover the public Writer table and export surfaces and the matching WarpTest checkpoint contract so the row insertion and totals persist."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - libreoffice
+  - writer
+  - deep-state
+  - invoice
+  budget_ms: 240000
+- id: libreoffice-writer-policy-cross-reference
+  benchmark: LibreOffice
+  repo: games/LibreOffice
+  issue: "A Writer policy checkpoint should start from a writer_document named writer-policy-cross-reference.odt. The starting paragraphs are Incident Response Policy styled Heading 1; Purpose styled Heading 2; This policy coordinates response ownership across teams.; Escalation Matrix styled Heading 2; Severity one events require executive notification.; Evidence Handling styled Heading 2; and Evidence records must remain auditable after handoff. The checkpoint should create a bookmark named escalation_matrix on Escalation Matrix, add a reference paragraph that contains See section: Escalation Matrix, promote Evidence Handling to Heading 1, and save/reopen. Discover the public Writer text, style, bookmark, and reference-capable surfaces and the matching WarpTest checkpoint contract."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - libreoffice
+  - writer
+  - deep-state
+  - reference
+  budget_ms: 240000
+- id: libreoffice-calc-quarterly-budget-rollup
+  benchmark: LibreOffice
+  repo: games/LibreOffice
+  issue: "A Calc quarterly-budget checkpoint should start from a calc_spreadsheet named calc-quarterly-budget-rollup.ods. January has A1 Category, B1 Budget, C1 Actual, A2 Revenue, B2 12000, C2 11800, A3 Cost, B3 7400, C3 7600. February has A1 Category, B1 Budget, C1 Actual, A2 Revenue, B2 13500, C2 13200, A3 Cost, B3 7900, C3 8100. March has A1 Category, B1 Budget, C1 Actual, A2 Revenue, B2 14100, C2 13900, A3 Cost, B3 8200, C3 8400. Summary has A1 Metric, A2 Revenue Actual, A3 Cost Actual, A4 Margin, with formulas B2 =SUM(January.C2;February.C2;March.C2), B3 =SUM(January.C3;February.C3;March.C3), and B4 =B2-B3. The checkpoint should set March C2 to 15000 and March C3 to 8300, recalculate cross-sheet summary totals, save, and reopen. Discover the public spreadsheet model and the matching WarpTest checkpoint contract so the Summary sheet reflects the updated March numbers rather than the original rollup."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - libreoffice
+  - calc
+  - deep-state
+  - rollup
+  budget_ms: 240000
+- id: libreoffice-calc-sales-sort-ranking
+  benchmark: LibreOffice
+  repo: games/LibreOffice
+  issue: "A Calc sales-ranking checkpoint should start from a calc_spreadsheet named calc-sales-sort-ranking.ods on the Sales sheet. The starting cells are A1 Rep, B1 Region, C1 Revenue, D1 Score, A2 Arun, B2 East, C2 9200, D2 82, A3 Blair, B3 West, C3 13400, D3 90, A4 Casey, B4 Central, C4 11700, D4 86, A5 Devon, B5 East, C5 15100, and D5 94. The checkpoint should raise Casey's score to 96, sort A2:D5 by score descending, add rank formula =ROW()-1 in E2, save, and reopen. Discover the public spreadsheet range/cell/formula surface and the matching WarpTest checkpoint contract so Casey becomes the top data row with the ranking formula intact."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - libreoffice
+  - calc
+  - deep-state
+  - ranking
+  budget_ms: 240000
+- id: libreoffice-calc-named-range-forecast
+  benchmark: LibreOffice
+  repo: games/LibreOffice
+  issue: "A Calc forecast checkpoint should start from a calc_spreadsheet named calc-named-range-forecast.ods with Inputs and Forecast sheets. Inputs has A1 Metric, B1 Value, A2 BaseRevenue, B2 50000, A3 GrowthRate, B3 0.08, A4 CostRate, and B4 0.62. Forecast has A1 Metric, A2 Forecast Revenue, A3 Forecast Cost, A4 Forecast Profit, with formulas B2 =Inputs.B2*(1+Inputs.B3), B3 =B2*Inputs.B4, and B4 =B2-B3. The checkpoint should define named ranges GrowthRate and CostRate for the assumption cells, increase Inputs B3 to 0.12, recalculate forecast revenue/cost/profit, save, and reopen. Discover the public spreadsheet, named-range, and formula surfaces and the matching WarpTest checkpoint contract so the forecast reflects the updated assumption."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - libreoffice
+  - calc
+  - deep-state
+  - named-range
+  budget_ms: 240000
+- id: libreoffice-calc-chart-refresh-export
+  benchmark: LibreOffice
+  repo: games/LibreOffice
+  issue: "A Calc metrics checkpoint should start from a calc_spreadsheet named calc-chart-refresh-export.ods on the Metrics sheet. The starting cells are A1 Month, B1 Revenue, A2 Jan, B2 12000, A3 Feb, B3 13500, A4 Mar, B4 14100, A5 Apr, and B5 15200. The checkpoint should update April revenue B5 to 16800, create a line revenue-trend chart named RevenueTrend from A1:B5, recalculate, save/reopen, and export calc-chart-refresh-export.pdf. Discover the public spreadsheet chart/export surfaces and the matching WarpTest checkpoint contract so the chart and updated revenue state are durable."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - libreoffice
+  - calc
+  - deep-state
+  - chart
+  budget_ms: 240000
+- id: libreoffice-impress-status-deck-build
+  benchmark: LibreOffice
+  repo: games/LibreOffice
+  issue: "An Impress status-deck checkpoint should start from an impress_presentation named impress-status-deck-build.odp. The starting slides are Q3 Delivery Review with subtitle Draft deck; Agenda with bullets Delivery health, Budget movement, Risks; Delivery Health with bullets Green builds and Manual QA pending; and Risk Register with bullets Security review open and Vendor date at risk. The checkpoint should update slide 1 to Q3 Delivery Review - Executive Update, replace slide 3 bullets with Green builds, Manual QA complete, and Release candidate signed, add a vendor-backup decision callout on slide 4, save, and reopen. Discover the public Impress slide/shape surface and the matching WarpTest checkpoint contract so the edited deck state persists."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - libreoffice
+  - impress
+  - deep-state
+  - deck
+  budget_ms: 240000
+- id: libreoffice-impress-slide-reorder-summary
+  benchmark: LibreOffice
+  repo: games/LibreOffice
+  issue: "An Impress operations-deck checkpoint should start from an impress_presentation named impress-slide-reorder-summary.odp. The starting slides are Appendix Metrics with bullet Raw detail follows; Customer Impact with bullets Pilot customers stable and Support tickets down; Executive Summary with bullets Draft summary and Needs final order; and Mitigation Plan with bullet Owner matrix ready. The checkpoint should move the Executive Summary slide to the first position, rewrite it as Executive Summary - Final Brief, set bullets Customer impact stable, Mitigation owners assigned, and Appendix moved to back, save, and reopen. Discover the public Impress deck manipulation surface and the matching WarpTest checkpoint contract so the summary slide appears in the intended place after restore."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - libreoffice
+  - impress
+  - deep-state
+  - reorder
+  budget_ms: 240000
+- id: libreoffice-impress-kpi-chart-pdf
+  benchmark: LibreOffice
+  repo: games/LibreOffice
+  issue: "An Impress KPI-deck checkpoint should start from an impress_presentation named impress-kpi-chart-pdf.odp. The starting slides are KPI Snapshot with bullets ARR 4.2M, NRR 111%, and Gross margin 68%; and Expansion Motion with bullets Pipeline 1.4M and Conversion 34%. The checkpoint should update slide 1 bullets to ARR 4.8M, NRR 116%, and Gross margin 70%, add renewal and pipeline callout shape labels including NRR improved to 116% after enterprise renewals and Pipeline coverage is above 3x target, save/reopen, and export impress-kpi-chart-pdf.pdf. Discover the public Impress shape/text and PDF export surfaces and the matching WarpTest checkpoint contract so both the deck state and PDF artifact are produced."
+  tags:
+  - core-synthesis
+  - explore-hard
+  - libreoffice
+  - impress
+  - deep-state
+  - pdf
+  budget_ms: 240000

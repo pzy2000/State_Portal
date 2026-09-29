@@ -1,0 +1,11 @@
+{
+  "task_id": "lz-openra-21453-hotkey-ready-building",
+  "source_repo": "games/OpenRA",
+  "fixed_revision": "7e687f430ee5b194c0ffaa06caaba757dd9155fb",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-openra-21453-hotkey-ready-building/revert.patch",
+  "patch_sha256": "492563431bc818e51eba1dfd1bf5164865b14915a20d7faa01b2cffbd0277c1d",
+  "declared_files": [
+    "OpenRA.Mods.Common/Widgets/ProductionPaletteWidget.cs"
+  ],
+  "build_class": "incremental_dotnet"
+}

@@ -1,0 +1,124 @@
+{
+  "benchmark": "jupyterlab",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": true,
+  "evidence": {
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.002296875,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.51034375
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.0
+      },
+      "before_sha256": "a0435afde629b2de4684f3f0f42f0864b3b9a3fd0395c9a66bc30451ede3ec65",
+      "buggy_after_sha256": "660b4712906ec5f75361ccd431d75ceeb2062b9027b3a71c235b00e10613330d",
+      "fixed_after_sha256": "bf3ed8696ff1536a08fb5661faca82bef6a2c627aaa7a2b2003170bce1d3c118",
+      "metadata": "specs/jupyterlab/lazarus/visual_lz-jupyterlab-17700-statusbar-tab-order/goldens.meta.json",
+      "metadata_sha256": "984a8b70cabf04b8599376e86db88729eaed9e75ff71370ab4616a2ae7c21d8e"
+    },
+    "probe_verification": {
+      "artifact": "c1_lazarus_jupyterlab_spec_verification/lazarus/v2-roster/current-v1",
+      "separates_goal_from_defect": true,
+      "versions_replayed": [
+        "fixed",
+        "buggy"
+      ]
+    },
+    "provenance_errors": [],
+    "source_artifacts": {
+      "gate10": "admission:gate10_hidden_oracle=passed",
+      "gate11": "admission:gate11_real_edge_observations=passed",
+      "gate12": "admission:gate12_semantic_pixel_2x2=passed",
+      "gate13": "admission:gate13_same_lineage=passed",
+      "gate8": "admission:gate8_materialization_runtime=passed",
+      "gate9": "admission:gate9_registered_start_replay=passed",
+      "gate_1_7_source": null,
+      "gate_1_7_truth_table": {},
+      "strict_gate_1_7": true
+    },
+    "upstream": [
+      {
+        "command": [
+          "jlpm",
+          "test",
+          "--runTestsByPath",
+          "test/statusbar.spec.ts",
+          "-t",
+          "should put higher rank right items closer to the middle"
+        ],
+        "cwd": "packages/statusbar",
+        "id": "should put higher rank right items closer to the middle",
+        "kind": "fail_to_pass"
+      },
+      {
+        "command": [
+          "jlpm",
+          "test",
+          "--runTestsByPath",
+          "test/statusbar.spec.ts",
+          "-t",
+          "should put higher rank left items closer to the middle"
+        ],
+        "cwd": "packages/statusbar",
+        "id": "should put higher rank left items closer to the middle",
+        "kind": "pass_to_pass"
+      }
+    ],
+    "versions": {
+      "changed_files": [
+        "packages/statusbar/src/statusbar.ts"
+      ],
+      "patch_sha256": "0270db16a23a9f6b117204af4b2c2e9567e17840c24dec6ae3750ea87aae646e",
+      "patch_source": "materialized_tree_difference",
+      "reverse_apply_reproduces_frozen_buggy_tree": true,
+      "tree_pair": "private/materialized/jupyterlab/17700/current-v1"
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "should put higher rank right items closer to the middle"
+  ],
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "pass_to_pass": [
+    "should put higher rank left items closer to the middle"
+  ],
+  "passed": true,
+  "projection": {
+    "admission": "candidate_formal_freeze_admission/jupyterlab/17700/real-tab-v1",
+    "closure_size": 35,
+    "fresh_gate_run": false,
+    "generator": "warptest.c1_lazarus_selection.c1_lazarus_formal_catalog",
+    "selection_mode": "c1_freeze_sprint_v2"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-jupyterlab-17700-statusbar-tab-order",
+  "upstream_f2p": true
+}

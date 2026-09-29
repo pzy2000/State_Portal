@@ -1,0 +1,4 @@
+# The parent gitlink pins this editable dependency to Agent-S setup.py version
+# 0.3.2 at ae5ff9a577ecfcd54d865acc471de91e5560392e.
+-e ./baselines/agent-s
+-e .

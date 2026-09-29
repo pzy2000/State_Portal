@@ -1,0 +1,12 @@
+{
+  "build_class": "incremental_cpp",
+  "declared_files": [
+    "games/devtest/mods/unittests/metadata.lua",
+    "src/script/lua_api/l_metadata.cpp"
+  ],
+  "fixed_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "patch_sha256": "aed3828296cc29150662e8aaab2a68dd76d99a2b639aba658a44f5564eb92a51",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-luanti-14396-metadata-set-string-nil/revert.patch",
+  "source_repo": "games/luanti",
+  "task_id": "lz-luanti-14396-metadata-set-string-nil"
+}

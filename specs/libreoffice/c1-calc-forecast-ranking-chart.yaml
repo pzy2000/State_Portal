@@ -1,0 +1,83 @@
+name: C1 LibreOffice Calc forecast ranking and chart workflow
+benchmark: libreoffice
+repo: ../../games/LibreOffice
+timeout_ms: 900000
+tags: [c1, long, libreoffice, calc, forecast]
+target:
+  kind: calc_spreadsheet
+  path: c1-calc-forecast-ranking-chart.ods
+  sheets:
+    Inputs:
+      cells: {A1: Metric, B1: Value, A2: BaseRevenue, B2: 1000000, A3: GrowthRate, B3: 0.08, A4: CostRate, B4: 0.60}
+    Forecast:
+      cells: {A1: Metric, B1: Value, A2: Forecast Revenue, A3: Forecast Cost, A4: Forecast Profit}
+      formulas: {B2: "=Inputs.B2*(1+Inputs.B3)", B3: "=B2*Inputs.B4", B4: "=B2-B3"}
+    Regions:
+      cells: {A1: Region, B1: Revenue, A2: North, B2: 240000, A3: South, B3: 310000, A4: East, B4: 350000, A5: West, B5: 220000}
+checkpoint:
+  allowed_strategies: [libreoffice_uno_document_validate]
+  expected_validity: save-restorable
+actions:
+  - {type: libreoffice_define_named_range, name: GrowthRate, sheet: Inputs, range: B3}
+  - {type: libreoffice_set_cell, sheet: Inputs, cell: B3, value: 0.12}
+  - {type: libreoffice_set_cell, sheet: Inputs, cell: B4, value: 0.65}
+  - {type: libreoffice_sort_range, sheet: Regions, range: A2:B5, key: B, order: descending}
+  - {type: libreoffice_create_chart, sheet: Regions, name: RegionalRevenue, range: A1:B5, chart_type: Column}
+  - {type: libreoffice_save}
+  - {type: libreoffice_reopen}
+  - {type: libreoffice_export_pdf, path: c1-calc-forecast-ranking-chart.pdf}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: libreoffice_named_range_exists, name: GrowthRate}
+      - {type: libreoffice_formula_equals, sheet: Forecast, cell: B2, formula: "=Inputs.B2*(1+Inputs.B3)"}
+      - {type: libreoffice_cell_value_equals, sheet: Forecast, cell: B2, expected: 1120000}
+      - {type: libreoffice_cell_value_equals, sheet: Forecast, cell: B4, expected: 392000}
+      - {type: libreoffice_cell_value_equals, sheet: Regions, cell: A2, expected: East}
+      - {type: libreoffice_chart_exists, sheet: Regions, name: RegionalRevenue}
+      - {type: libreoffice_pdf_exists, path: c1-calc-forecast-ranking-chart.pdf}
+      - {type: no_libreoffice_errors}
+    surfaces:
+      gui:
+        adapter: libreoffice_uno_persistence_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+          native_checks:
+          - transition.session_same
+          - transition.saved_url
+          - transition.persisted_file
+          - transition.not_modified
+          - transition.document_reopened
+      state:
+        adapter: libreoffice_uno_persistence_v1
+        goal:
+          checks: []
+          use_assertions: true
+          native_checks:
+          - transition.session_same
+          - transition.saved_url
+          - transition.persisted_file
+          - transition.not_modified
+          - transition.document_reopened
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/c1-calc-forecast-ranking-chart.after.golden.png
+    golden_before: visual/c1-calc-forecast-ranking-chart.before.golden.png
+    golden_after: visual/c1-calc-forecast-ranking-chart.after.golden.png
+    expected_label: correct
+    description: The initial forecast and unsorted regional table are visible in Calc.
+    after_description: The descending regional ranking and its revenue chart are visible in Calc.
+    rubric:
+      must: [LibreOffice Calc shows populated forecast data]
+      must_not: [A blank workbook or crash dialog is shown]
+    after_rubric:
+      must: [A regional revenue chart is visible, The regional table is sorted in descending revenue order]
+      must_not: [The original unsorted order remains, The chart is missing or the app crashed]
+    capture: {stage: post_smoke, active_sheet: Regions, wait_ms: 500, full_page: false}

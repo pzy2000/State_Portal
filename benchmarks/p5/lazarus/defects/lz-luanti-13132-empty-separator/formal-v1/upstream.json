@@ -1,0 +1,96 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [],
+  "fix_commit": "ab1fe80150a8031fb702b9ff776db2db4dea89a4",
+  "issue": {
+    "body_normalized": "##### Minetest version\n```\n5.6.1\n```\n\n##### OS / Hardware\nOperating system:  linux\n\n##### Summary\nusing `string.split` w/ a zero-width non-pattern delimiter seems to cause an infinite loop. probably it should instead be an error.\n\n##### Steps to reproduce\n```lua\n(\"\"):split(\"\")\n```",
+    "body_raw": "##### Minetest version\r\n```\r\n5.6.1\r\n```\r\n\r\n##### OS / Hardware\r\nOperating system:  linux\r\n\r\n##### Summary\r\nusing `string.split` w/ a zero-width non-pattern delimiter seems to cause an infinite loop. probably it should instead be an error. \r\n\r\n##### Steps to reproduce\r\n```lua\r\n(\"\"):split(\"\")\r\n```\r\n",
+    "body_sha256": "6a92388b8d33996bd03c601c30fb473c703a236e027f86d15a6b13508e8d102c",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 13128,
+    "state": "closed",
+    "title": "string.split on a zero-width delimiter hangs",
+    "url": "https://github.com/luanti-org/luanti/issues/13128"
+  },
+  "patch_sha256": "8b439e8738286a25b6e819892f7a7b65652085f08e834f50446773c76b8e524d",
+  "pinned_revision": "ab1fe80150a8031fb702b9ff776db2db4dea89a4",
+  "pull_request": {
+    "body_normalized": "Fixes https://github.com/minetest/minetest/issues/13128.\n\n## To do\n\nThis PR is Ready for Review.\n\n## How to test\n\nRun the busted unit tests.",
+    "body_raw": "Fixes https://github.com/minetest/minetest/issues/13128.\r\n\r\n## To do\r\n\r\nThis PR is Ready for Review.\r\n\r\n## How to test\r\n\r\nRun the busted unit tests.\r\n",
+    "body_sha256": "f52d52687f4e12e09abf1160e7dff2cf3b9aeddfb2e35817d85bc95836f4bfdf",
+    "kind": "pull",
+    "merged_at": "2023-01-10T14:25:48Z",
+    "number": 13132,
+    "state": "closed",
+    "title": "Error when `string.split` is given empty separator",
+    "url": "https://github.com/luanti-org/luanti/pull/13132"
+  },
+  "record_sha256": "fc6f709ece4992b471c561ccae96b495843d280a1a832cd44ae50f1e145154fc",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-13T09:16:39.478060Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-13132-empty-separator",
+  "tests": [
+    {
+      "command": [
+        "busted",
+        "--filter",
+        "string split() rejects empty separator",
+        "builtin/common/tests/misc_helpers_spec.lua"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/cmake",
+        "--build",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/13132/native-v1/buggy",
+        "--target",
+        "minetestserver",
+        "--",
+        "-j1"
+      ],
+      "id": "string split() rejects empty separator",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "string split() rejects empty separator",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/misc_helpers_spec.lua",
+      "upstream_test_path": "builtin/common/tests/misc_helpers_spec.lua",
+      "upstream_test_sha256": "c683a6c684a90702c9fb983806a6f752cefe83f5d2a72a4ad974e93606d7c2ed"
+    },
+    {
+      "command": [
+        "busted",
+        "--filter",
+        "string split() removes empty",
+        "builtin/common/tests/misc_helpers_spec.lua"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/cmake",
+        "--build",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/13132/native-v1/buggy",
+        "--target",
+        "minetestserver",
+        "--",
+        "-j1"
+      ],
+      "id": "string split() removes empty",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "string split() removes empty",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/misc_helpers_spec.lua",
+      "upstream_test_path": "builtin/common/tests/misc_helpers_spec.lua",
+      "upstream_test_sha256": "c683a6c684a90702c9fb983806a6f752cefe83f5d2a72a4ad974e93606d7c2ed"
+    }
+  ],
+  "touched_files": [
+    "builtin/common/misc_helpers.lua",
+    "builtin/common/tests/misc_helpers_spec.lua"
+  ],
+  "upstream_commits": []
+}

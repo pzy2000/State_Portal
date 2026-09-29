@@ -1,0 +1,41 @@
+{
+  "checks": [
+    {
+      "detail": "Synthesized world state: 2 node(s), player",
+      "name": "target.state_synthesized",
+      "status": "success"
+    },
+    {
+      "detail": "node.0,0,0 = basenodes:sand",
+      "name": "target.validate.node.0,0,0",
+      "status": "success"
+    },
+    {
+      "detail": "node.0,1,0 = basenodes:cobble",
+      "name": "target.validate.node.0,1,0",
+      "status": "success"
+    },
+    {
+      "detail": "applied set_string(key, nil) at 0,1,0 (removed=false)",
+      "name": "action[luanti_metadata_set_string_nil]@1",
+      "status": "success"
+    },
+    {
+      "detail": "moved player to {\n\tx = 0,\n\ty = 3,\n\tz = 6,\n}",
+      "name": "action[luanti_set_player_pos]@2",
+      "status": "success"
+    },
+    {
+      "detail": "0,1,0 = basenodes:desert_sand",
+      "name": "assertion[luanti_node_is]@1",
+      "status": "success"
+    },
+    {
+      "detail": "no mod errors recorded",
+      "name": "assertion[no_luanti_mod_errors]@2",
+      "status": "success"
+    }
+  ],
+  "detail": "All checks passed.",
+  "status": "success"
+}

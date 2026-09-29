@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.0013574660633484162,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.14660633484162897
+  },
+  "before_buggy_sha256": "85e513625bc255af1749f5ebce9cc3f88531b8676fe18d78635440dbbf69dc2e",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "85e513625bc255af1749f5ebce9cc3f88531b8676fe18d78635440dbbf69dc2e",
+  "buggy_after_sha256": "20b228e8781cf0a7c04b30873d00f7fdbd4314f99d4e5c3ebb8fb9051b7419ca",
+  "fixed_after_sha256": "6668ba14770257e365e89bb312197e9c8f9bb2ddc37cee9ba6e599dfa2b51cd1",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "20b228e8781cf0a7c04b30873d00f7fdbd4314f99d4e5c3ebb8fb9051b7419ca",
+      "quality": {
+        "image_size": [
+          340,
+          104
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 2949,
+        "unique_byte_values": 255
+      },
+      "report_sha256": "1db361583ca60d12f713483a65e8ae222039180163a8f1729bdd4282be6bbc1a"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "85e513625bc255af1749f5ebce9cc3f88531b8676fe18d78635440dbbf69dc2e",
+      "quality": {
+        "image_size": [
+          340,
+          104
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 2096,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "625f0b8c6b4b08af2ea8f8890c2a6672b5084d7328317e09d83f472734607b23"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "6668ba14770257e365e89bb312197e9c8f9bb2ddc37cee9ba6e599dfa2b51cd1",
+      "quality": {
+        "image_size": [
+          340,
+          104
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 2924,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "6d9e4bb81f4126826bfc9bade0afb758b61e95c280f4ca6b28cbb8ea6d5a7519"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "85e513625bc255af1749f5ebce9cc3f88531b8676fe18d78635440dbbf69dc2e",
+      "quality": {
+        "image_size": [
+          340,
+          104
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 2096,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "625f0b8c6b4b08af2ea8f8890c2a6672b5084d7328317e09d83f472734607b23"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.0
+  },
+  "published_unix_ns": 1786982642198398000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lzp-jupyterlab-18996-htmlselect-caret-offset"
+}

@@ -1,0 +1,148 @@
+name: C1-Lazarus JupyterLab 18662-inline-completer-reserved-lines
+benchmark: jupyterlab
+timeout_ms: 900000
+tags:
+- c1
+- lazarus
+- jupyterlab
+- production
+setup:
+  jupyterlab_lazarus_probe:
+    task_id: lz-jupyterlab-18662-inline-completer-reserved-lines
+    change_number: 18662
+    issue_number: 18660
+    adapter: jupyterlab_lazarus_edge_probe_v1
+    registered_replay:
+    - load_candidate_local_bundle
+    - build_an_editor_with_an_inline_completer
+    - configure_reserved_lines_with_a_bounded_max_lines
+    - configure_reserved_lines_with_the_shipped_unlimited_max_lines
+    - read_ghost_text_and_rendered_line_count
+    probe_executable: true
+target:
+  kind: jupyterlab_lazarus_candidate_bundle
+  change_number: 18662
+  variants:
+  - fixed
+  - buggy
+  bundler: candidate_local_rspack
+  browser: microsoft_edge_via_playwright
+checkpoint:
+  allowed_strategies:
+  - jupyterlab_lazarus_edge_replay_validate
+  expected_validity: replay-reachable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-18662-inline-completer-reserved-lines/fixed.after.golden.png
+    expected_label: correct
+    description: The italic grey ghost line "short" sits alone on the first line,
+      a blank line separates it from the document text, and the black words "alpha",
+      "beta" and "gamma" follow on three lines of their own.
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a plain white editor
+        surface holding a few short monospaced lines at its top left.
+      - The italic grey ghost line "short" sits alone on the first line, a blank line
+        separates it from the document text, and the black words "alpha", "beta" and
+        "gamma" follow on three lines of their own.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: jupyterlab_lazarus_dom_audit
+      field: editor_content_height
+      expected: 99
+    - type: jupyterlab_lazarus_dom_audit
+      field: ghost_present
+      expected: true
+    - type: jupyterlab_lazarus_dom_audit
+      field: ghost_text
+      expected: 'short
+
+
+        '
+    defect_signature:
+    - type: jupyterlab_lazarus_dom_audit
+      field: editor_content_height
+      expected: 63
+    - type: jupyterlab_lazarus_dom_audit
+      field: ghost_present
+      expected: true
+    - type: jupyterlab_lazarus_dom_audit
+      field: ghost_text
+      expected: short
+    invariant_checks:
+    - type: no_jupyterlab_probe_errors
+    upstream_tests:
+      fail_to_pass:
+      - 'completer/inline InlineCompleter #configure() `minLines` should reserve space
+        when maxLines is 0 (unlimited)'
+      pass_to_pass: &id001
+      - 'completer/inline InlineCompleter #configure() `minLines` should add empty
+        lines when needed'
+      per_trial_p2p: *id001
+    goldens:
+      before: visual_lz-jupyterlab-18662-inline-completer-reserved-lines/before.golden.png
+      buggy_before: visual_lz-jupyterlab-18662-inline-completer-reserved-lines/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-18662-inline-completer-reserved-lines/fixed.after.golden.png
+        after_description: The italic grey ghost line "short" sits alone on the first
+          line, a blank line separates it from the document text, and the black words
+          "alpha", "beta" and "gamma" follow on three lines of their own.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a plain white editor
+            surface holding a few short monospaced lines at its top left.
+          - The italic grey ghost line "short" sits alone on the first line, a blank
+            line separates it from the document text, and the black words "alpha",
+            "beta" and "gamma" follow on three lines of their own.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+      buggy:
+        after: visual_lz-jupyterlab-18662-inline-completer-reserved-lines/buggy.after.golden.png
+        after_description: The italic grey ghost word "short" and the black word "alpha"
+          share the first line with no gap between them, only "beta" and "gamma" follow
+          underneath, and no blank line is reserved below the ghost text.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a plain white editor
+            surface holding a few short monospaced lines at its top left.
+          - The italic grey ghost word "short" and the black word "alpha" share the
+            first line with no gap between them, only "beta" and "gamma" follow underneath,
+            and no blank line is reserved below the ghost text.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.

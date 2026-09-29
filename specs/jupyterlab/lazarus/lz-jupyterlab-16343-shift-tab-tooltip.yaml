@@ -1,0 +1,126 @@
+name: C1-Lazarus Jupyterlab 16343-shift-tab-tooltip
+benchmark: jupyterlab
+timeout_ms: 900000
+tags:
+- c1
+- lazarus
+- jupyterlab
+- production
+setup:
+  jupyterlab_lazarus_probe:
+    task_id: lz-jupyterlab-16343-shift-tab-tooltip
+    change_number: 16343
+    issue_number: 16319
+    adapter: jupyterlab_lazarus_app_probe_v1
+    observation_source: live_materialized_replay
+    registered_replay:
+    - load_materialized_dev_mode_bundle
+    - restore_registered_code_cell_start
+    - press_shift_tab_once
+    - read_inspector_tooltip_state
+    probe_executable: true
+target:
+  kind: jupyterlab_lazarus_application
+  variants:
+  - fixed
+  - buggy
+  bundler: materialized_dev_mode_bundle
+  browser: chromium_via_playwright
+  change_number: 16343
+checkpoint:
+  allowed_strategies:
+  - jupyterlab_lazarus_app_replay_validate
+  expected_validity: replay-reachable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: jupyterlab_lazarus_app_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: jupyterlab_lazarus_app_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-16343-shift-tab-tooltip/fixed.after.golden.png
+    expected_label: correct
+    description: The notebook shows one code cell whose editor holds a three-character built-in
+      name, with no panel over the notebook area.
+    rubric:
+      must:
+      - A JupyterLab notebook window shows exactly one code cell whose editor holds a short
+        lowercase name.
+      - No panel or overlay covers the notebook area below the toolbar.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the file browser's
+        relative modification times.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: jupyterlab_lazarus_app_audit
+      field: tooltip_state
+      expected: tooltip_shown
+    defect_signature:
+    - type: jupyterlab_lazarus_app_audit
+      field: tooltip_state
+      expected: tooltip_absent
+    invariant_checks:
+    - type: no_jupyterlab_probe_errors
+    upstream_tests:
+      fail_to_pass:
+      - jupyterlab-16343-shift-tab-tooltip-f2p
+      pass_to_pass:
+      - jupyterlab-docmanager-activate-construction-p2p
+      - jupyterlab-coreutils-path-trial-p2p
+      per_trial_p2p:
+      - jupyterlab-coreutils-path-trial-p2p
+    goldens:
+      before: visual_lz-jupyterlab-16343-shift-tab-tooltip/before.golden.png
+      buggy_before: visual_lz-jupyterlab-16343-shift-tab-tooltip/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-16343-shift-tab-tooltip/fixed.after.golden.png
+        after_description: A panel appears directly under the caret reporting the name's signature,
+          its documentation line, and its type.
+        after_rubric:
+          must:
+          - A JupyterLab notebook window shows one code cell whose editor holds a short lowercase
+            name.
+          - A panel over the notebook area lists a signature line, a documentation line, and
+            a type line for that name.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the file
+            browser's relative modification times.
+      buggy:
+        after: visual_lz-jupyterlab-16343-shift-tab-tooltip/buggy.after.golden.png
+        after_description: No panel appears over the notebook area, so the key combination
+          produced no inspector output for the name under the caret.
+        after_rubric:
+          must:
+          - A JupyterLab notebook window shows one code cell whose editor holds a short lowercase
+            name.
+          - No panel or overlay covers the notebook area below the toolbar.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the file
+            browser's relative modification times.

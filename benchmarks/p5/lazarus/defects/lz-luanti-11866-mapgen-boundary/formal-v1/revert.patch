@@ -1,0 +1,79 @@
+diff --git a/builtin/game/chat.lua b/builtin/game/chat.lua
+index 0f5739d..b73e328 100644
+--- a/builtin/game/chat.lua
++++ b/builtin/game/chat.lua
+@@ -524,7 +524,7 @@ end
+ 
+ -- Teleports player <name> to <p> if possible
+ local function teleport_to_pos(name, p)
+-	local lm = 31000
++	local lm = 31007 -- equals MAX_MAP_GENERATION_LIMIT in C++
+ 	if p.x < -lm or p.x > lm or p.y < -lm or p.y > lm
+ 			or p.z < -lm or p.z > lm then
+ 		return false, S("Cannot teleport out of map bounds!")
+diff --git a/src/constants.h b/src/constants.h
+index ed85891..b9d4f8d 100644
+--- a/src/constants.h
++++ b/src/constants.h
+@@ -64,7 +64,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
+ // I really don't want to make every algorithm to check if it's going near
+ // the limit or not, so this is lower.
+ // This is the maximum value the setting map_generation_limit can be
+-#define MAX_MAP_GENERATION_LIMIT (31000)
++#define MAX_MAP_GENERATION_LIMIT (31007)
+ 
+ // Size of node in floating-point units
+ // The original idea behind this is to disallow plain casts between
+diff --git a/src/defaultsettings.cpp b/src/defaultsettings.cpp
+index 9e4bb14..600fc65 100644
+--- a/src/defaultsettings.cpp
++++ b/src/defaultsettings.cpp
+@@ -435,7 +435,7 @@ void set_default_settings()
+ 	// Mapgen
+ 	settings->setDefault("mg_name", "v7");
+ 	settings->setDefault("water_level", "1");
+-	settings->setDefault("mapgen_limit", "31000");
++	settings->setDefault("mapgen_limit", "31007");
+ 	settings->setDefault("chunksize", "5");
+ 	settings->setDefault("fixed_map_seed", "");
+ 	settings->setDefault("max_block_generate_distance", "10");
+diff --git a/src/map.cpp b/src/map.cpp
+index 77031e1..a11bbb9 100644
+--- a/src/map.cpp
++++ b/src/map.cpp
+@@ -1444,11 +1444,7 @@ MapSector *ServerMap::createSector(v2s16 p2d)
+ 	/*
+ 		Do not create over max mapgen limit
+ 	*/
+-	const s16 max_limit_bp = MAX_MAP_GENERATION_LIMIT / MAP_BLOCKSIZE;
+-	if (p2d.X < -max_limit_bp ||
+-			p2d.X >  max_limit_bp ||
+-			p2d.Y < -max_limit_bp ||
+-			p2d.Y >  max_limit_bp)
++	if (blockpos_over_max_limit(v3s16(p2d.X, 0, p2d.Y)))
+ 		throw InvalidPositionException("createSector(): pos. over max mapgen limit");
+ 
+ 	/*
+@@ -1457,9 +1453,6 @@ MapSector *ServerMap::createSector(v2s16 p2d)
+ 
+ 	sector = new MapSector(this, p2d, m_gamedef);
+ 
+-	// Sector position on map in nodes
+-	//v2s16 nodepos2d = p2d * MAP_BLOCKSIZE;
+-
+ 	/*
+ 		Insert to container
+ 	*/
+diff --git a/src/mapblock.h b/src/mapblock.h
+index e729fdb..a86db7b 100644
+--- a/src/mapblock.h
++++ b/src/mapblock.h
+@@ -601,7 +601,7 @@ typedef std::vector<MapBlock*> MapBlockVect;
+ 
+ inline bool objectpos_over_limit(v3f p)
+ {
+-	const float max_limit_bs = MAX_MAP_GENERATION_LIMIT * BS;
++	const float max_limit_bs = (MAX_MAP_GENERATION_LIMIT + 0.5f) * BS;
+ 	return p.X < -max_limit_bs ||
+ 		p.X >  max_limit_bs ||
+ 		p.Y < -max_limit_bs ||

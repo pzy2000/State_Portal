@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.832377025462963,
+    "ignored_top_fraction": 0.25,
+    "mean_absolute_difference": 38.69337239583333
+  },
+  "before_buggy_sha256": "6946f86ab17a42222d4026cf412ad5a6679abbde3313bcadef84fc490e936521",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.25,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "6946f86ab17a42222d4026cf412ad5a6679abbde3313bcadef84fc490e936521",
+  "buggy_after_sha256": "b933e73382557b6e30799c8b4eaef3747edd793bc69701cd060372fd95abe6c6",
+  "fixed_after_sha256": "baea06407f47cb70e75481b5f5731f5bc4a29f4377f2609a0bb5dc1cd5dae772",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "b933e73382557b6e30799c8b4eaef3747edd793bc69701cd060372fd95abe6c6",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 254,
+        "size_bytes": 29864,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "a41e6a5c883decaa9f78923e1567611ddc00cee515d754c5da87cbf853d9d4f4"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "6946f86ab17a42222d4026cf412ad5a6679abbde3313bcadef84fc490e936521",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 254,
+        "size_bytes": 22934,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "b18621550ce8d715a3576718e5938bedcc166049feb5d5af28e1cc66c16f7701"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "baea06407f47cb70e75481b5f5731f5bc4a29f4377f2609a0bb5dc1cd5dae772",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 254,
+        "size_bytes": 31285,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "8a9903d67e17b267adda2aff3c46371c5528f708f972f97096c8b2c5db0d2f83"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "6946f86ab17a42222d4026cf412ad5a6679abbde3313bcadef84fc490e936521",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 254,
+        "size_bytes": 22934,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "ddde9a66732d0123187ffadb706bbf2a0a3abf645ad46acc348609080ad8acaa"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.25
+  },
+  "published_unix_ns": 1786768753733503000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lz-luanti-14555-negative-half-pointing"
+}

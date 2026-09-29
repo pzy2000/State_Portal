@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.003711111111111111,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.5023166666666666
+  },
+  "before_buggy_sha256": "8f3df74590fca75d01229b2c6226570a1f9bb7e2cd159f9e4bb587adc11ba4d7",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "8f3df74590fca75d01229b2c6226570a1f9bb7e2cd159f9e4bb587adc11ba4d7",
+  "buggy_after_sha256": "1b198bcf677b10c83aca30be2bd5a8054ace78ff9f371551d9f1dba19bbeedd5",
+  "fixed_after_sha256": "8f3df74590fca75d01229b2c6226570a1f9bb7e2cd159f9e4bb587adc11ba4d7",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "1b198bcf677b10c83aca30be2bd5a8054ace78ff9f371551d9f1dba19bbeedd5",
+      "quality": {
+        "image_size": [
+          900,
+          200
+        ],
+        "informative": true,
+        "pixel_range": 222,
+        "size_bytes": 3873,
+        "unique_byte_values": 255
+      },
+      "report_sha256": "b7130efffbd3e457831c3a880165f60e007ea64f24b3ef672a5e428d6e767267"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "8f3df74590fca75d01229b2c6226570a1f9bb7e2cd159f9e4bb587adc11ba4d7",
+      "quality": {
+        "image_size": [
+          900,
+          200
+        ],
+        "informative": true,
+        "pixel_range": 222,
+        "size_bytes": 3914,
+        "unique_byte_values": 255
+      },
+      "report_sha256": "1031a7821bb3b19345edf6b7f741f575670a70e04d9488598f89bd79ee58b98a"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "8f3df74590fca75d01229b2c6226570a1f9bb7e2cd159f9e4bb587adc11ba4d7",
+      "quality": {
+        "image_size": [
+          900,
+          200
+        ],
+        "informative": true,
+        "pixel_range": 222,
+        "size_bytes": 3914,
+        "unique_byte_values": 255
+      },
+      "report_sha256": "cbeef79deaf6a776cf46e2c81cae5ec791444fff85105c94fa03997826cb2d6a"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "8f3df74590fca75d01229b2c6226570a1f9bb7e2cd159f9e4bb587adc11ba4d7",
+      "quality": {
+        "image_size": [
+          900,
+          200
+        ],
+        "informative": true,
+        "pixel_range": 222,
+        "size_bytes": 3914,
+        "unique_byte_values": 255
+      },
+      "report_sha256": "d248213a464eb2e7b626adb25eeba03f008fb7f571a076396a19b29e39f27dea"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.0
+  },
+  "published_unix_ns": 1786768710405653000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lz-jupyterlab-19227-reactive-toolbar-positions"
+}

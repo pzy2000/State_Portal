@@ -1,0 +1,148 @@
+{
+  "benchmark": "jupyterlab",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": false,
+  "evidence": {
+    "captures": {
+      "buggy": {
+        "after": {
+          "audit": {
+            "expected": "previous_unrendered",
+            "field": "markdown_render_state",
+            "observed": "previous_unrendered"
+          },
+          "invariants": {
+            "check": "no_jupyterlab_probe_errors",
+            "console_errors": [],
+            "ok": true,
+            "page_errors": []
+          },
+          "live_source": "jupyterlab_browser_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-jupyterlab-15634-markdown-focus-render/capture/buggy-after.json"
+        },
+        "before": {
+          "audit": {
+            "expected": "markdown_rendered_beside_code",
+            "field": "markdown_start_state",
+            "observed": "markdown_rendered_beside_code"
+          },
+          "invariants": {
+            "check": "no_jupyterlab_probe_errors",
+            "console_errors": [],
+            "ok": true,
+            "page_errors": []
+          },
+          "live_source": "jupyterlab_browser_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-jupyterlab-15634-markdown-focus-render/capture/buggy-before.json"
+        }
+      },
+      "fixed": {
+        "after": {
+          "audit": {
+            "expected": "previous_rendered",
+            "field": "markdown_render_state",
+            "observed": "previous_rendered"
+          },
+          "invariants": {
+            "check": "no_jupyterlab_probe_errors",
+            "console_errors": [],
+            "ok": true,
+            "page_errors": []
+          },
+          "live_source": "jupyterlab_browser_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-jupyterlab-15634-markdown-focus-render/capture/fixed-after.json"
+        },
+        "before": {
+          "audit": {
+            "expected": "markdown_rendered_beside_code",
+            "field": "markdown_start_state",
+            "observed": "markdown_rendered_beside_code"
+          },
+          "invariants": {
+            "check": "no_jupyterlab_probe_errors",
+            "console_errors": [],
+            "ok": true,
+            "page_errors": []
+          },
+          "live_source": "jupyterlab_browser_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-jupyterlab-15634-markdown-focus-render/capture/fixed-before.json"
+        }
+      }
+    },
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.02371484375,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 2.1922431640625
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 1.953125e-05,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.0026822916666666666
+      },
+      "before_sha256": "686b1ca3b8f748fb3a042c49ab604e49dbd237b4c412ef75a7fe9100b1060b17",
+      "buggy_after_sha256": "6ccd2a76525a834e533003c72bfd0c4bb427026622d1f5fdb8a1ebd7ee8f53a6",
+      "buggy_before_visual": true,
+      "fixed_after_sha256": "79a04e815f68eae38475bde17f7dbf7e3d0d23f30ef4b39c0978b504c2d1275a",
+      "fixed_before_visual": true,
+      "metadata": "specs/jupyterlab/lazarus/visual_lz-jupyterlab-15634-markdown-focus-render/goldens.meta.json",
+      "metadata_sha256": "f20d21ff4e41a22a5ac5bc52655329f7ddd7832e4ae73670662d75aa1acfdde3"
+    },
+    "kind": "live_construction_run_v1",
+    "patch": {
+      "production_paths": [
+        "packages/notebook/src/widget.ts"
+      ],
+      "sha256": "3cb16852afd84c04ca36f86fd960f7a31f82adccc4cf5f26c946a8f00ed495e3",
+      "source": "materialized_tree_difference"
+    },
+    "upstream": {
+      "buggy_tests": {
+        "jupyterlab-15634-preserve-rendered-markdown-f2p": false,
+        "jupyterlab-cell-focus-edit-construction-p2p": true,
+        "jupyterlab-coreutils-path-trial-p2p": true
+      },
+      "fixed_tests": {
+        "jupyterlab-15634-preserve-rendered-markdown-f2p": true,
+        "jupyterlab-cell-focus-edit-construction-p2p": true,
+        "jupyterlab-coreutils-path-trial-p2p": true
+      },
+      "kind": "formal_construction_test_matrix",
+      "receipt": "benchmarks/p5/lazarus/defects/lz-jupyterlab-15634-markdown-focus-render/construction-tests.json",
+      "record_sha256": "206ae7c850256c35e5b914c2ec43a5e7a35707205cafa83aa782e3f57d87c2b6"
+    }
+  },
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "projection": {
+    "admission": null,
+    "closure_size": 0,
+    "fresh_gate_run": true,
+    "generator": "warptest.lazarus_expansion_gate",
+    "selection_mode": "c1_roster_expansion_v1"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-jupyterlab-15634-markdown-focus-render"
+}

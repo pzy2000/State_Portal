@@ -1,0 +1,13 @@
+{
+  "benchmark": "luanti",
+  "candidates_considered": 2,
+  "fixed_revision": "ac7406c8a1013ea8bfc94c48dbc5dc97532c0cbd",
+  "patch_sha256": "1abc37a2eeec3ef311cecf9efef689ef82bba6ddcb80c9314b9a98d95e183674",
+  "pinned_host_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "repo": "games/luanti",
+  "schema": "c1-lazarus-materialization-base-v1",
+  "schema_version": 1,
+  "source": "patch_post_image_blob",
+  "task_id": "lz-luanti-15519-russian-plural-form",
+  "verification": "reverse_apply_check_in_detached_worktree"
+}

@@ -1,0 +1,286 @@
+name: DatingSim shopping mall spa checkpoint
+benchmark: datingsim
+tags:
+- love
+- spa
+- resources
+- variant
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  player_name: WarpTest
+  gender: male
+  patch:
+    player:
+      resources:
+        money: 1000
+        energy: 30
+        health: 100
+        mood: 100
+    world:
+      location: shopping_mall
+  expect:
+    location: shopping_mall
+    resources:
+      money: 1000
+      energy: 30
+checkpoint:
+  allowed_strategies:
+  - test_hook_seeded_state
+  expected_validity: injection-only
+replay_from_start:
+  actions:
+  - {type: click, selector: ".action-grid .action-card:nth-child(1)"}
+  - {type: click, selector: ".action-grid .action-card:nth-child(1)"}
+  - {type: click, selector: ".action-grid .action-card:nth-child(1)"}
+  - {type: click, selector: ".action-grid .action-card:nth-child(1)"}
+  - {type: click, selector: ".action-grid .action-card:nth-child(1)"}
+  - {type: click, selector: ".location-list .loc-btn:nth-child(3)"}
+  - {type: click, selector: ".action-grid .action-card:nth-child(2)"}
+  - {type: click, selector: ".location-list .loc-btn:nth-child(4)"}
+  - {type: click, selector: ".action-grid .action-card:nth-child(4)"}
+  - {type: settle_events}
+  - {type: click, selector: ".action-grid .action-card:nth-child(4)"}
+  - {type: settle_events}
+  - {type: click, selector: ".action-grid .action-card:nth-child(4)"}
+  - {type: settle_events}
+  - {type: click, selector: ".action-grid .action-card:nth-child(4)"}
+  - {type: settle_events}
+  - {type: click, selector: ".action-grid .action-card:nth-child(4)"}
+  - {type: settle_events}
+  - {type: click, selector: ".action-grid .action-card:nth-child(4)"}
+  - {type: settle_events}
+  - {type: click, selector: ".location-list .loc-btn:nth-child(3)"}
+  - {type: click, selector: ".action-grid .action-card:nth-child(2)"}
+  - {type: click, selector: ".location-list .loc-btn:nth-child(6)"}
+  - {type: wait, ms: 250}
+actions:
+- type: hook_action
+  action_id: spa_visit
+  wait_ms: 500
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+    - type: state_equals
+      path: player.resources.money
+      value: 950
+    - type: state_equals
+      path: player.resources.energy
+      value: 80
+    - type: state_equals
+      path: player.stats.charm
+      value: 11
+    - type: no_real_openai
+    - type: no_severe_console
+    surfaces:
+      gui:
+        adapter: love_production_save_roundtrip_v1
+        start:
+          validate_target: true
+          checks:
+          - name: probe.semantic_observation_error
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: semantic_observation_error
+            expected:
+              value: null
+          - name: screen.gameplay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.screen
+            expected:
+              value: gameplay
+          - name: state.isSetupComplete
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.isSetupComplete
+            expected:
+              value: true
+          - name: state.player.name
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.name
+            expected:
+              value: WarpTest
+          - name: state.player.gender
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.gender
+            expected:
+              value: male
+          - name: dom.player_name
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.player_name
+            expected:
+              value: WarpTest
+          - name: dom.app_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.app_visible
+            expected:
+              value: true
+          - name: dom.dashboard_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.dashboard_visible
+            expected:
+              value: true
+          - name: dom.location_panel_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.location_panel_visible
+            expected:
+              value: true
+          - name: dom.action_grid_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.action_grid_visible
+            expected:
+              value: true
+          - name: state.player.resources.money
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.resources.money
+            expected:
+              value: 1000
+          - name: state.player.resources.energy
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.resources.energy
+            expected:
+              value: 30
+          - name: state.world.location
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.world.location
+            expected:
+              value: shopping_mall
+          - name: dom.active_location_index
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.active_location_index
+            expected:
+              value: 5
+          - name: dom.target_action_present
+            metric: equals
+            actual:
+              probe: love.target_action_present
+              path: dom.action_buttons.2
+            expected:
+              value: true
+          - name: dom.target_action_enabled
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.action_buttons.2.disabled
+            expected:
+              value: false
+          - name: dom.target_action_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.action_buttons.2.visible
+            expected:
+              value: true
+          - name: environment.ai_query_mode
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.ai_query_mode
+            expected:
+              value: mocked
+        goal:
+          use_assertions: true
+          checks:
+          - name: transition.target_action_count
+            metric: equals
+            actual:
+              probe: love.target_action_count
+              action_id: spa_visit
+            expected:
+              value: 1
+          - name: transition.new_log_entries
+            metric: equals
+            actual:
+              probe: love.new_log_entries
+            expected:
+              value: 1
+      state:
+        adapter: love_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual/love-shopping-mall-spa.after.golden.png
+    golden_before: visual/love-shopping-mall-spa.before.golden.png
+    golden_after: visual/love-shopping-mall-spa.after.golden.png
+    expected_label: correct
+    description: The DatingSim gameplay screen is at the shopping mall with the money
+      readout at 1000 and the depleted energy readout at 30.
+    after_description: After one spa visit the same gameplay screen shows the money readout
+      at 950 and the recovered energy readout at 80, with the shopping mall still the
+      current location.
+    rubric:
+      must:
+      - The DatingSim gameplay screen with its resource bars, location list, and action
+        cards is visible.
+      - The current location is the shopping mall.
+      - The money readout is 1000 and the energy readout is 30.
+      must_not:
+      - A browser error, crash overlay, or blank page is visible.
+      - The screenshot shows an unrelated app or setup screen.
+      ignore:
+      - Minor animation, text wrapping, or dynamic UI differences.
+    after_rubric:
+      must:
+      - The DatingSim gameplay screen with its resource bars, location list, and action
+        cards is visible.
+      - The money readout is 950 and the energy readout is 80.
+      - The current location is still the shopping mall.
+      must_not:
+      - The energy readout is still the depleted 30.
+      - A browser error, crash overlay, or blank page is visible.
+      ignore:
+      - Minor animation, text wrapping, or dynamic UI differences.
+      - The time-of-day label and any highlighted action card.
+    capture:
+      stage: post_smoke
+      wait_ms: 300
+      full_page: false

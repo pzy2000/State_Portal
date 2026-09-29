@@ -1,0 +1,148 @@
+{
+  "benchmark": "jupyterlab",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": false,
+  "evidence": {
+    "captures": {
+      "buggy": {
+        "after": {
+          "audit": {
+            "expected": "retains_trusted",
+            "field": "cell_metadata_state",
+            "observed": "retains_trusted"
+          },
+          "invariants": {
+            "check": "no_jupyterlab_probe_errors",
+            "console_errors": [],
+            "ok": true,
+            "page_errors": []
+          },
+          "live_source": "jupyterlab_browser_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-jupyterlab-17194-cell-metadata-removal/capture/buggy-after.json"
+        },
+        "before": {
+          "audit": {
+            "expected": "trusted_entry_present",
+            "field": "cell_metadata_start_state",
+            "observed": "trusted_entry_present"
+          },
+          "invariants": {
+            "check": "no_jupyterlab_probe_errors",
+            "console_errors": [],
+            "ok": true,
+            "page_errors": []
+          },
+          "live_source": "jupyterlab_browser_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-jupyterlab-17194-cell-metadata-removal/capture/buggy-before.json"
+        }
+      },
+      "fixed": {
+        "after": {
+          "audit": {
+            "expected": "empty",
+            "field": "cell_metadata_state",
+            "observed": "empty"
+          },
+          "invariants": {
+            "check": "no_jupyterlab_probe_errors",
+            "console_errors": [],
+            "ok": true,
+            "page_errors": []
+          },
+          "live_source": "jupyterlab_browser_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-jupyterlab-17194-cell-metadata-removal/capture/fixed-after.json"
+        },
+        "before": {
+          "audit": {
+            "expected": "trusted_entry_present",
+            "field": "cell_metadata_start_state",
+            "observed": "trusted_entry_present"
+          },
+          "invariants": {
+            "check": "no_jupyterlab_probe_errors",
+            "console_errors": [],
+            "ok": true,
+            "page_errors": []
+          },
+          "live_source": "jupyterlab_browser_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-jupyterlab-17194-cell-metadata-removal/capture/fixed-before.json"
+        }
+      }
+    },
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.0103427734375,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 1.7392565104166666
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 1.953125e-05,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.0026822916666666666
+      },
+      "before_sha256": "960b77a8876bdb289bd5d9fb98e5c5cb99fa39c347368d1f127280147cc15371",
+      "buggy_after_sha256": "849e77665bd5bf72728fe1de4343695dfc9b5f769cedbaad6f756fe8e8f52d9d",
+      "buggy_before_visual": true,
+      "fixed_after_sha256": "584757cbb689d1e6b41ecd8cc4a85f69085cc883b23b7cbaaa02ddfe9480258e",
+      "fixed_before_visual": true,
+      "metadata": "specs/jupyterlab/lazarus/visual_lz-jupyterlab-17194-cell-metadata-removal/goldens.meta.json",
+      "metadata_sha256": "dea7752fa8a611957e6bc71f11943e8d71e388fe8f323696f723dd04883c3a10"
+    },
+    "kind": "live_construction_run_v1",
+    "patch": {
+      "production_paths": [
+        "packages/notebook-extension/src/tool-widgets/metadataEditorFields.tsx"
+      ],
+      "sha256": "f0c6b7245b27a7f0c6873f6af4e93778e3f6bd86818675419586d02f0787b15d",
+      "source": "materialized_tree_difference"
+    },
+    "upstream": {
+      "buggy_tests": {
+        "jupyterlab-17194-remove-cell-metadata-f2p": false,
+        "jupyterlab-coreutils-path-trial-p2p": true,
+        "jupyterlab-metadata-empty-removal-construction-p2p": true
+      },
+      "fixed_tests": {
+        "jupyterlab-17194-remove-cell-metadata-f2p": true,
+        "jupyterlab-coreutils-path-trial-p2p": true,
+        "jupyterlab-metadata-empty-removal-construction-p2p": true
+      },
+      "kind": "formal_construction_test_matrix",
+      "receipt": "benchmarks/p5/lazarus/defects/lz-jupyterlab-17194-cell-metadata-removal/construction-tests.json",
+      "record_sha256": "18633ac1bd923d1ca42206cf8aabcf92b1439036efa78718775085280a8ca0bb"
+    }
+  },
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "projection": {
+    "admission": null,
+    "closure_size": 0,
+    "fresh_gate_run": true,
+    "generator": "warptest.lazarus_expansion_gate",
+    "selection_mode": "c1_roster_expansion_v1"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-jupyterlab-17194-cell-metadata-removal"
+}

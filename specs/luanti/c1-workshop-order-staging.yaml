@@ -1,0 +1,88 @@
+name: C1 Luanti workshop order staging
+benchmark: luanti
+timeout_ms: 900000
+tags: [luanti, c1, deep-chain, workshop, storage]
+target:
+  kind: synthesized_world
+  fill:
+    - {from: {x: -1, y: 0, z: -1}, to: {x: 9, y: 0, z: 8}, node: "basenodes:dirt_with_grass"}
+    - {from: {x: 1, y: 1, z: 1}, to: {x: 8, y: 1, z: 6}, node: "basenodes:stone"}
+    - {from: {x: 1, y: 2, z: 1}, to: {x: 8, y: 3, z: 1}, node: "basenodes:cobble"}
+    - {from: {x: 0, y: 4, z: 0}, to: {x: 9, y: 4, z: 7}, node: "stairs:slab_stone", param2: 0}
+  meta_inventory:
+    - {pos: {x: 0, y: 2, z: 2}, node: "chest:chest", list: main, items: [{item: "basenodes:stone", count: 40}]}
+    - {pos: {x: 0, y: 2, z: 3}, node: "chest:chest", list: main, items: [{item: "basenodes:tree", count: 24}]}
+    - {pos: {x: 0, y: 2, z: 4}, node: "chest:chest", list: main, items: []}
+  player:
+    pos: {x: -2, y: 2, z: 3}
+    hp: 20
+    inventory:
+      - {item: "basenodes:stone", count: 40}
+      - {item: "basenodes:cobble", count: 40}
+      - {item: "basenodes:tree", count: 24}
+      - {item: "basenodes:leaves", count: 24}
+      - {item: "basetools:pick_steel", count: 1}
+      - {item: "basenodes:mossycobble", count: 26}
+checkpoint:
+  allowed_strategies: [luanti_worldmod_state_validate]
+  expected_validity: save-restorable
+actions:
+  - type: luanti_set_meta_inventory
+    pos: {x: 0, y: 2, z: 2}
+    list: main
+    items: [{item: "basenodes:stone", count: 80}, {item: "basenodes:cobble", count: 40}]
+  - type: luanti_set_meta_inventory
+    pos: {x: 0, y: 2, z: 3}
+    list: main
+    items: [{item: "basenodes:tree", count: 48}, {item: "basenodes:leaves", count: 24}]
+  - type: luanti_set_meta_inventory
+    pos: {x: 0, y: 2, z: 4}
+    list: main
+    items: [{item: "basetools:pick_steel", count: 1}, {item: "basenodes:mossycobble", count: 24}]
+  - {type: luanti_set_node, pos: {x: 4, y: 2, z: 3}, node: "basenodes:mossycobble"}
+  - {type: luanti_set_node, pos: {x: 5, y: 2, z: 3}, node: "basenodes:mossycobble"}
+  - {type: luanti_set_player_inventory, items: []}
+  - {type: luanti_save_world}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: luanti_meta_inventory_contains, pos: {x: 0, y: 2, z: 2}, item: "basenodes:stone", count: 80}
+      - {type: luanti_meta_inventory_contains, pos: {x: 0, y: 2, z: 3}, item: "basenodes:tree", count: 48}
+      - {type: luanti_meta_inventory_contains, pos: {x: 0, y: 2, z: 4}, item: "basetools:pick_steel", count: 1}
+      - {type: luanti_meta_inventory_contains, pos: {x: 0, y: 2, z: 4}, item: "basenodes:mossycobble", count: 24}
+      - {type: luanti_node_count, from: {x: 4, y: 2, z: 3}, to: {x: 5, y: 2, z: 3}, node: "basenodes:mossycobble", min_count: 2}
+      - {type: no_luanti_mod_errors}
+    surfaces:
+      gui:
+        adapter: luanti_live_world_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: luanti_live_world_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/luanti-workshop-order-staging.after.golden.png
+    golden_before: visual/luanti-workshop-order-staging.before.golden.png
+    golden_after: visual/luanti-workshop-order-staging.after.golden.png
+    expected_label: correct
+    description: "A roofed workshop with three understocked storage chests is visible."
+    after_description: "The staged workshop, completed workbench and categorized storage line are visible."
+    rubric:
+      must: ["A roofed Luanti workshop and multiple storage blocks are visible.", "The scene is rendered normally."]
+      must_not: ["An empty flat world, main menu, or crash is visible."]
+      ignore: ["Camera, HUD and exact chest texture."]
+    after_rubric:
+      must: ["A multi-chest workshop and completed workbench area are visible.", "The structure remains rendered normally."]
+      must_not: ["Only an empty workshop shell is visible.", "A blank or crash frame is visible."]
+      ignore: ["Exact inventory formspec visibility."]
+    capture: {stage: post_smoke, wait_ms: 1000, full_page: false}

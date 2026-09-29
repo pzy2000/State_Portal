@@ -1,0 +1,17 @@
+tasks:
+  - slug: blender-scene-cube-material
+    title: Blender scene cube material
+    benchmark: Blender
+    description: "Create a Blender spec that uses blender_python_scene_validate, starts a visible GUI checkpoint with cube WarpCube and material WarpRed color [1.0, 0.05, 0.02, 1.0], moves WarpCube to [1.0, 2.0, 3.0] through bpy/operator automation, and verifies the object, material color, location, and no Blender Python errors."
+  - slug: blender-save-reopen-scene
+    title: Blender save reopen scene
+    benchmark: Blender
+    description: "Create a Blender spec that uses blender_python_scene_validate, starts with cube PersistCube and PersistBlue material, saves save-reopen-scene.blend under the report artifact directory, reopens it, and verifies the file, object, material, and no Blender Python errors."
+  - slug: blender-modifier-apply
+    title: Blender modifier apply
+    benchmark: Blender
+    description: "Create a Blender spec that uses blender_python_scene_validate, starts with cube BevelCube, adds a BEVEL modifier named WarpBevel, applies it through Blender's operator API, and verifies the modifier was baked into mesh data with no Blender Python errors."
+  - slug: blender-animation-keyframes
+    title: Blender animation keyframes
+    benchmark: Blender
+    description: "Create a Blender spec that uses blender_python_scene_validate, starts with cube AnimatedCube, inserts location keyframes at frames 1 and 24 through bpy/operator automation, and verifies both keyframes with no Blender Python errors."

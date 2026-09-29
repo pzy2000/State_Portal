@@ -1,0 +1,95 @@
+name: LibreOffice Writer invoice table rollup deep state
+benchmark: LibreOffice
+repo: ../../games/LibreOffice
+target:
+  kind: writer_document
+  path: writer-invoice-table-rollup.odt
+  paragraphs:
+    - text: WarpTest Services Invoice
+      style: Heading 1
+    - text: "Customer: Northstar Labs"
+    - text: "Billing period: Q3 closeout"
+  tables:
+    Invoice:
+      - [Item, Qty, Unit, Total]
+      - [Platform advisory, 4, 150, 600]
+      - [Support retainer, 2, 80, 160]
+      - [Subtotal, "", "", 760]
+      - [Tax, "", "", 76]
+      - [Grand Total, "", "", 836]
+checkpoint:
+  allowed_strategies: ["libreoffice_uno_document_validate"]
+  expected_validity: save-restorable
+actions:
+  - type: libreoffice_open_document
+  - type: libreoffice_insert_table_row
+    table: Invoice
+    row: 4
+    values: [Incident review, 3, 120, 360]
+  - type: libreoffice_set_table_cell
+    table: Invoice
+    cell: D5
+    value: 1120
+  - type: libreoffice_set_table_cell
+    table: Invoice
+    cell: D6
+    value: 112
+  - type: libreoffice_set_table_cell
+    table: Invoice
+    cell: D7
+    value: 1232
+  - type: libreoffice_append_paragraph
+    text: "Payment note: revised total includes incident review hours."
+  - type: libreoffice_save
+  - type: libreoffice_reopen
+  - type: libreoffice_export_pdf
+    path: writer-invoice-table-rollup.pdf
+assertions:
+  - type: libreoffice_table_cell_equals
+    table: Invoice
+    cell: A4
+    expected: Incident review
+  - type: libreoffice_table_cell_equals
+    table: Invoice
+    cell: D7
+    expected: 1232
+  - type: libreoffice_text_contains
+    text: revised total includes incident review hours
+  - type: libreoffice_pdf_exists
+    path: writer-invoice-table-rollup.pdf
+  - type: no_libreoffice_errors
+visual_oracle:
+  golden_image: visual/writer-invoice-table-rollup.after.golden.png
+  golden_before: visual/writer-invoice-table-rollup.before.golden.png
+  golden_after: visual/writer-invoice-table-rollup.after.golden.png
+  expected_label: correct
+  description: "A LibreOffice Writer invoice is visible with an itemized table and original totals."
+  rubric:
+    must:
+      - "LibreOffice Writer shows an invoice-like document."
+      - "An itemized table or invoice totals are visible."
+    must_not:
+      - "The page is blank, crashed, or unrelated to Writer."
+    ignore:
+      - "Exact toolbar, zoom, cursor, and platform font differences."
+  after_description: "After the workflow, the Writer invoice includes the incident review line item, revised totals, and a payment note."
+  after_rubric:
+    must:
+      - "The invoice table remains visible."
+      - "The updated total or incident review line item is visible."
+      - "The document is rendered normally in LibreOffice Writer."
+    must_not:
+      - "Only the original invoice totals are visible with no new line item."
+      - "A crash dialog, blank window, or unrelated application is shown."
+    ignore:
+      - "Minor row height, page break, or zoom differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 500
+    full_page: false
+tags:
+  - libreoffice
+  - writer
+  - deep-state
+  - invoice
+timeout_ms: 240000

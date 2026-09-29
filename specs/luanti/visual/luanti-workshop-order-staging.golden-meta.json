@@ -1,0 +1,21 @@
+{
+  "actions": 7,
+  "after": "specs/luanti/visual/luanti-workshop-order-staging.after.golden.png",
+  "after_dimensions": [
+    1280,
+    720
+  ],
+  "after_sha256": "e6257f557c5cd227a63e0dfdf14c38be78a5b056823bd95a9d211f434ff554ee",
+  "before": "specs/luanti/visual/luanti-workshop-order-staging.before.golden.png",
+  "before_dimensions": [
+    1280,
+    720
+  ],
+  "before_sha256": "290dd29dcb1d08b4f250ccd836d9f0f51f5efd445e8e6e6a728c1349b60074e7",
+  "benchmark": "luanti",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/luanti/c1-workshop-order-staging.yaml",
+  "spec_sha256": "f85bb71ce1613e9b0d87fa88bec9bb3bf041ea01b6d4317f7d3f0cb206cf5e24",
+  "task_id": "luanti-workshop-order-staging"
+}

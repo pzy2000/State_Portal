@@ -1,0 +1,13 @@
+{
+  "benchmark": "jupyterlab",
+  "candidates_considered": 1,
+  "fixed_revision": "4a19f8fff4049a9536e21fa2980fe7e5ee592d01",
+  "patch_sha256": "7fd62e2caa87bc19fe861519f15ecc0b3b7b0f0186c4b202d2015456f4e6f7fe",
+  "pinned_host_revision": "4a19f8fff4049a9536e21fa2980fe7e5ee592d01",
+  "repo": "games/jupyterlab",
+  "schema": "c1-lazarus-materialization-base-v1",
+  "schema_version": 1,
+  "source": "pinned_host_revision",
+  "task_id": "lz-jupyterlab-17369-stream-chunk-merge",
+  "verification": "reverse_apply_check_in_detached_worktree"
+}

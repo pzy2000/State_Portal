@@ -1,0 +1,110 @@
+{
+  "buggy_tests": {
+    "jupyterlab-13066-webp-mime-f2p": false,
+    "jupyterlab-rendermime-safe-construction-p2p": false
+  },
+  "complete": true,
+  "executions": [
+    {
+      "complete": false,
+      "duration_ms": 28896.02908300003,
+      "failures": [
+        "upstream test jupyterlab-13066-webp-mime-f2p exited 1",
+        "upstream test jupyterlab-rendermime-safe-construction-p2p exited 1"
+      ],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "packages/rendermime/test/factories.spec.ts",
+          "sha256": "a2c5498d90c8635b2d351a862c44cdd90ecb06e71ff60090ef1fa1f733d30218",
+          "source_path": "upstream-tests/packages/rendermime/test/factories.spec.ts"
+        }
+      ],
+      "passed": false,
+      "prepare_results": [],
+      "results": [
+        {
+          "duration_ms": 3576.688125001965,
+          "exit_code": 1,
+          "id": "jupyterlab-13066-webp-mime-f2p",
+          "passed": false,
+          "stderr_sha256": "91c01c8b244eb65caa91f0fe5b10a64c547b32a34d8126b8b8cd4cfdc91077bc",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1878.572665998945,
+          "exit_code": 1,
+          "id": "jupyterlab-rendermime-safe-construction-p2p",
+          "passed": false,
+          "stderr_sha256": "30bfd06b48b3f77a350a406baa81bd784d244b0451d49bed7f22378781229554",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        }
+      ],
+      "test_ids": [
+        "jupyterlab-13066-webp-mime-f2p",
+        "jupyterlab-rendermime-safe-construction-p2p"
+      ],
+      "version": "fixed"
+    },
+    {
+      "complete": false,
+      "duration_ms": 18535.786749998806,
+      "failures": [
+        "upstream test jupyterlab-13066-webp-mime-f2p exited 1",
+        "upstream test jupyterlab-rendermime-safe-construction-p2p exited 1"
+      ],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "packages/rendermime/test/factories.spec.ts",
+          "sha256": "a2c5498d90c8635b2d351a862c44cdd90ecb06e71ff60090ef1fa1f733d30218",
+          "source_path": "upstream-tests/packages/rendermime/test/factories.spec.ts"
+        }
+      ],
+      "passed": false,
+      "prepare_results": [],
+      "results": [
+        {
+          "duration_ms": 2464.822042005835,
+          "exit_code": 1,
+          "id": "jupyterlab-13066-webp-mime-f2p",
+          "passed": false,
+          "stderr_sha256": "46393ddb14c8cc0c31012f15295426ba2615efd4c445cdb76639f412af0ebc71",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1501.0878339817282,
+          "exit_code": 1,
+          "id": "jupyterlab-rendermime-safe-construction-p2p",
+          "passed": false,
+          "stderr_sha256": "82287434c26d859909251d3709e8563e73a050ced83db3215d5be38717c1b769",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        }
+      ],
+      "test_ids": [
+        "jupyterlab-13066-webp-mime-f2p",
+        "jupyterlab-rendermime-safe-construction-p2p"
+      ],
+      "version": "buggy"
+    }
+  ],
+  "failures": [
+    "fixed fail_to_pass did not pass",
+    "fixed pass_to_pass did not pass",
+    "buggy pass_to_pass did not pass"
+  ],
+  "fixed_tests": {
+    "jupyterlab-13066-webp-mime-f2p": false,
+    "jupyterlab-rendermime-safe-construction-p2p": false
+  },
+  "patch_sha256": "624fc4907934f7e4f817b8a271506a9bc42deed5af9e76c38a83b12ed2ee52c3",
+  "qualified": false,
+  "record_sha256": "bf019842320eddfd5d6f7789072a43f0994f56fb738be6980001b44e80f4f1e7",
+  "schema": "c1-lazarus-formal-construction-tests-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-13066-webp-renderer"
+}

@@ -1,0 +1,240 @@
+schema: c1-lazarus-curated-catalog-v1
+schema_version: 1
+selection_mode: curated_v1
+
+population:
+  task_count: 24
+  repositories:
+    luanti: 4
+    blender: 5
+    jupyterlab: 11
+    openra: 4
+  defect_locus:
+    at_goal: 16
+    on_path: 8
+
+quality_floor:
+  public_defect_or_change_record_required: true
+  real_repair_patch_required: true
+  registered_fail_to_pass_required: true
+  registered_pass_to_pass_required: true
+  construction_revalidation_required: true
+  current_common_pinned_checkout_required: false
+  platform_enumerable_issue_relationship_required: false
+
+candidates:
+  - task_id: lz-luanti-11919-vector-from-string
+    repository_key: luanti
+    change_number: 11919
+    issue_number: null
+    defect_locus: at_goal
+    public_source_url: https://github.com/luanti-org/luanti/pull/11919
+    public_change_url: https://github.com/luanti-org/luanti/pull/11919
+    mapping_evidence_path: null
+
+  - task_id: lz-luanti-14757-math-round
+    repository_key: luanti
+    change_number: 14757
+    issue_number: 14755
+    defect_locus: at_goal
+    public_source_url: https://github.com/luanti-org/luanti/issues/14755
+    public_change_url: https://github.com/luanti-org/luanti/pull/14757
+    mapping_evidence_path: null
+
+  - task_id: lz-luanti-14396-metadata-set-string-nil
+    repository_key: luanti
+    change_number: 14396
+    issue_number: 14391
+    defect_locus: at_goal
+    public_source_url: https://github.com/luanti-org/luanti/issues/14391
+    public_change_url: https://github.com/luanti-org/luanti/pull/14396
+    mapping_evidence_path: null
+
+  - task_id: lz-luanti-14555-negative-half-pointing
+    repository_key: luanti
+    change_number: 14555
+    issue_number: 14554
+    defect_locus: at_goal
+    public_source_url: https://github.com/luanti-org/luanti/issues/14554
+    public_change_url: https://github.com/luanti-org/luanti/pull/14555
+    mapping_evidence_path: null
+
+  - task_id: lz-blender-159429-closure-socket-identifier
+    repository_key: blender
+    change_number: 159449
+    issue_number: 159429
+    defect_locus: at_goal
+    public_source_url: https://projects.blender.org/blender/blender/issues/159429
+    public_change_url: https://projects.blender.org/blender/blender/pulls/159449
+    mapping_evidence_path: null
+
+  - task_id: lz-blender-160084-eevee-colored-refraction
+    repository_key: blender
+    change_number: 160232
+    issue_number: 160084
+    defect_locus: at_goal
+    public_source_url: https://projects.blender.org/blender/blender/issues/160084
+    public_change_url: https://projects.blender.org/blender/blender/pulls/160232
+    mapping_evidence_path: null
+
+  - task_id: lz-blender-156442-vse-long-frame-number
+    repository_key: blender
+    change_number: 160035
+    issue_number: 156442
+    defect_locus: on_path
+    public_source_url: https://projects.blender.org/blender/blender/issues/156442
+    public_change_url: https://projects.blender.org/blender/blender/pulls/160035
+    mapping_evidence_path: null
+
+  - task_id: lz-blender-156993-sculpt-cavity-mask
+    repository_key: blender
+    change_number: 157021
+    issue_number: 156993
+    defect_locus: on_path
+    public_source_url: https://projects.blender.org/blender/blender/issues/156993
+    public_change_url: https://projects.blender.org/blender/blender/pulls/157021
+    mapping_evidence_path: null
+
+  - task_id: lz-blender-155764-subdivision-color-attribute
+    repository_key: blender
+    change_number: 155790
+    issue_number: 155764
+    defect_locus: at_goal
+    public_source_url: https://projects.blender.org/blender/blender/issues/155764
+    public_change_url: https://projects.blender.org/blender/blender/pulls/155790
+    mapping_evidence_path: null
+
+  - task_id: lz-jupyterlab-12863-dialog-getvalue-error
+    repository_key: jupyterlab
+    change_number: 18938
+    issue_number: 12863
+    defect_locus: at_goal
+    public_source_url: https://github.com/jupyterlab/jupyterlab/issues/12863
+    public_change_url: https://github.com/jupyterlab/jupyterlab/pull/18938
+    mapping_evidence_path: reports/lazarus/formal-v1-mining-candidates.json
+
+  - task_id: lz-jupyterlab-16943-markdown-regex-replace-all
+    repository_key: jupyterlab
+    change_number: 16943
+    issue_number: 16925
+    defect_locus: at_goal
+    public_source_url: https://github.com/jupyterlab/jupyterlab/issues/16925
+    public_change_url: https://github.com/jupyterlab/jupyterlab/pull/16943
+    mapping_evidence_path: null
+
+  - task_id: lz-jupyterlab-17700-statusbar-tab-order
+    repository_key: jupyterlab
+    change_number: 17700
+    issue_number: 17680
+    defect_locus: on_path
+    public_source_url: https://github.com/jupyterlab/jupyterlab/issues/17680
+    public_change_url: https://github.com/jupyterlab/jupyterlab/pull/17700
+    mapping_evidence_path: null
+
+  - task_id: lz-jupyterlab-17369-stream-chunk-merge
+    repository_key: jupyterlab
+    change_number: 17369
+    issue_number: 17358
+    defect_locus: at_goal
+    public_source_url: https://github.com/jupyterlab/jupyterlab/issues/17358
+    public_change_url: https://github.com/jupyterlab/jupyterlab/pull/17369
+    mapping_evidence_path: null
+
+  - task_id: lz-jupyterlab-18563-python-comment-fallback
+    repository_key: jupyterlab
+    change_number: 18563
+    issue_number: 16212
+    defect_locus: on_path
+    public_source_url: https://github.com/jupyterlab/jupyterlab/issues/16212
+    public_change_url: https://github.com/jupyterlab/jupyterlab/pull/18563
+    mapping_evidence_path: null
+
+  - task_id: lz-jupyterlab-18572-single-char-code-render
+    repository_key: jupyterlab
+    change_number: 18572
+    issue_number: 17779
+    defect_locus: at_goal
+    public_source_url: https://github.com/jupyterlab/jupyterlab/issues/17779
+    public_change_url: https://github.com/jupyterlab/jupyterlab/pull/18572
+    mapping_evidence_path: null
+
+  - task_id: lz-jupyterlab-15634-markdown-focus-render
+    repository_key: jupyterlab
+    change_number: 15634
+    issue_number: 15595
+    defect_locus: on_path
+    public_source_url: https://github.com/jupyterlab/jupyterlab/issues/15595
+    public_change_url: https://github.com/jupyterlab/jupyterlab/pull/15634
+    mapping_evidence_path: null
+
+  - task_id: lz-jupyterlab-13657-replace-selection-command
+    repository_key: jupyterlab
+    change_number: 13657
+    issue_number: 13656
+    defect_locus: on_path
+    public_source_url: https://github.com/jupyterlab/jupyterlab/issues/13656
+    public_change_url: https://github.com/jupyterlab/jupyterlab/pull/13657
+    mapping_evidence_path: null
+
+  - task_id: lz-jupyterlab-16343-shift-tab-tooltip
+    repository_key: jupyterlab
+    change_number: 16343
+    issue_number: 16319
+    defect_locus: at_goal
+    public_source_url: https://github.com/jupyterlab/jupyterlab/issues/16319
+    public_change_url: https://github.com/jupyterlab/jupyterlab/pull/16343
+    mapping_evidence_path: null
+
+  - task_id: lz-jupyterlab-17701-empty-cell-execution-state
+    repository_key: jupyterlab
+    change_number: 17701
+    issue_number: 17638
+    defect_locus: at_goal
+    public_source_url: https://github.com/jupyterlab/jupyterlab/issues/17638
+    public_change_url: https://github.com/jupyterlab/jupyterlab/pull/17701
+    mapping_evidence_path: null
+
+  - task_id: lz-jupyterlab-17194-cell-metadata-removal
+    repository_key: jupyterlab
+    change_number: 17194
+    issue_number: 17164
+    defect_locus: at_goal
+    public_source_url: https://github.com/jupyterlab/jupyterlab/issues/17164
+    public_change_url: https://github.com/jupyterlab/jupyterlab/pull/17194
+    mapping_evidence_path: null
+
+  - task_id: lz-openra-21453-hotkey-ready-building
+    repository_key: openra
+    change_number: 21453
+    issue_number: 21197
+    defect_locus: on_path
+    public_source_url: https://github.com/OpenRA/OpenRA/issues/21197
+    public_change_url: https://github.com/OpenRA/OpenRA/pull/21453
+    mapping_evidence_path: null
+
+  - task_id: lz-openra-22476-load-game-faction-names
+    repository_key: openra
+    change_number: 22476
+    issue_number: 22472
+    defect_locus: at_goal
+    public_source_url: https://github.com/OpenRA/OpenRA/issues/22472
+    public_change_url: https://github.com/OpenRA/OpenRA/pull/22476
+    mapping_evidence_path: null
+
+  - task_id: lz-openra-22471-autotarget-validity
+    repository_key: openra
+    change_number: 22471
+    issue_number: 22406
+    defect_locus: on_path
+    public_source_url: https://github.com/OpenRA/OpenRA/issues/22406
+    public_change_url: https://github.com/OpenRA/OpenRA/pull/22471
+    mapping_evidence_path: null
+
+  - task_id: lz-openra-22445-crush-target-selection
+    repository_key: openra
+    change_number: 22445
+    issue_number: null
+    defect_locus: at_goal
+    public_source_url: https://github.com/OpenRA/OpenRA/pull/22445
+    public_change_url: https://github.com/OpenRA/OpenRA/pull/22445
+    mapping_evidence_path: null

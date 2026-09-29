@@ -1,0 +1,21 @@
+{
+  "actions": 7,
+  "after": "specs/openra/visual/c1-soviet-rocket-infantry-chain.after.golden.png",
+  "after_dimensions": [
+    3024,
+    1898
+  ],
+  "after_sha256": "22b1b8feeeb77ee534f0f12bb951e95ec216476b4572c57b651a94f920ad5d3e",
+  "before": "specs/openra/visual/c1-soviet-rocket-infantry-chain.before.golden.png",
+  "before_dimensions": [
+    3024,
+    1898
+  ],
+  "before_sha256": "fc1eb0047a70b3a107b9a2cce21547b7d66b7278773723788d9ac2f771b1f186",
+  "benchmark": "openra",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/openra/c1-soviet-rocket-infantry-chain.yaml",
+  "spec_sha256": "80878336c04c0bc2f9f4a3adc8493c9e0974ac5f02b5ad1bacfc7a49099f695c",
+  "task_id": "openra-soviet-rocket-infantry-chain"
+}

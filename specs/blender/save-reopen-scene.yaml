@@ -1,0 +1,62 @@
+name: Blender save reopen scene
+benchmark: Blender
+target:
+  kind: scene
+  objects:
+    - name: PersistCube
+      type: MESH
+      primitive: cube
+      size: 1.5
+      location: [-1.0, 0.0, 0.5]
+      material:
+        name: PersistBlue
+        color: [0.05, 0.2, 1.0, 1.0]
+checkpoint:
+  allowed_strategies: [blender_python_scene_validate]
+  expected_validity: save-restorable
+actions:
+  - type: blender_save_as
+    path: save-reopen-scene.blend
+  - type: blender_reopen
+    path: save-reopen-scene.blend
+assertions:
+  - type: blender_file_exists
+    path: save-reopen-scene.blend
+  - type: blender_object_exists
+    object: PersistCube
+    object_type: MESH
+  - type: blender_material_color
+    object: PersistCube
+    material: PersistBlue
+    color: [0.05, 0.2, 1.0, 1.0]
+  - type: no_blender_python_errors
+visual_oracle:
+  golden_image: visual/save-reopen-scene.golden.png
+  golden_before: visual/blender-save-reopen-scene.before.golden.png
+  golden_after: visual/blender-save-reopen-scene.after.golden.png
+  expected_label: correct
+  description: "A deterministic Blender render shows the blue PersistCube before and after saving and reopening the .blend file; XYZ axes, an XY grid, and object coordinate labels confirm the scene remains visually intact across persistence."
+  rubric:
+    must:
+      - "The Blender-rendered blue cube is visible against the gray render background."
+      - "The coordinate reference layer is visible: red X axis, green Y axis, blue Z axis, an XY grid, an origin label, and an object coordinate label."
+      - "The after screenshot still shows the same blue cube after the save/reopen action."
+      - "The after screenshot is visually consistent with the before screenshot."
+      - "The before and after screenshots label PersistCube at [-1,0,0.5]."
+    must_not:
+      - "The render is blank, transparent, or a crash/error screen."
+      - "The coordinate axes, grid, or PersistCube coordinate label are missing from the render."
+      - "The cube disappears after reopening the file."
+      - "The cube changes to a visibly different material color."
+    ignore:
+      - "Minor lighting or antialiasing differences from Blender renderer versions."
+      - "Small render noise or edge-highlight differences."
+      - "Small text antialiasing differences on coordinate labels."
+  capture:
+    stage: post_smoke
+    wait_ms: 0
+    full_page: false
+tags:
+  - blender
+  - persistence
+  - blend-file

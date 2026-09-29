@@ -1,0 +1,90 @@
+name: OpenRA settings disable viewport edge scrolling
+benchmark: openra
+repo: ../../games/OpenRA
+tags: [c1, openra, settings, input]
+timeout_ms: 180000
+target:
+  kind: openra_settings
+  mod: ra
+  settings:
+    Game:
+      ViewportEdgeScroll: true
+      IntroductionPromptVersion: 999
+checkpoint:
+  allowed_strategies: [openra_public_settings_restore]
+  expected_validity: save-restorable
+replay_from_start:
+  actions:
+    - type: openra_open_settings_panel
+      panel: Input
+actions:
+  - type: openra_set_setting
+    section: Game
+    key: ViewportEdgeScroll
+    value: false
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: openra_setting_equals
+        section: Game
+        key: ViewportEdgeScroll
+        expected: false
+      - type: no_openra_errors
+    surfaces:
+      gui:
+        adapter: openra_public_settings_yaml
+        start:
+          validate_target: true
+          checks: []
+          expected_checks:
+          - section: Game
+            key: ViewportEdgeScroll
+            expected: true
+          - section: Game
+            key: IntroductionPromptVersion
+            expected: 999
+        goal:
+          use_assertions: true
+          checks: []
+          expected_checks:
+          - section: Game
+            key: ViewportEdgeScroll
+            expected: false
+      state:
+        adapter: openra_public_settings_yaml
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/c1-viewport-edge-scroll.after.golden.png
+    golden_before: visual/c1-viewport-edge-scroll.before.golden.png
+    golden_after: visual/c1-viewport-edge-scroll.after.golden.png
+    expected_label: correct
+    description: The normal OpenRA shell is fully loaded at its public main menu with the default edge-scrolling setting enabled in the isolated settings file.
+    rubric:
+      must:
+        - A real, fully loaded OpenRA main-menu or Settings window is visible.
+        - The OpenRA shell is responsive and not covered by another application.
+      must_not:
+        - The frame is a terminal, crash dialog, blank desktop, or another application.
+        - The OpenRA gameplay probe is executing scripted production actions.
+      ignore:
+        - The setting value itself may be hidden while the shell is on the main menu; it is graded from the public settings file.
+        - Shellmap animation, cursor position, and small platform font differences.
+    after_description: The OpenRA Input settings panel remains usable and edge scrolling is disabled after saving the setting.
+    after_rubric:
+      must:
+        - A real OpenRA Settings or main-menu window is visible and responsive.
+        - The edge scrolling option is disabled, or the saved settings flow has returned to the OpenRA menu.
+      must_not:
+        - The frame is a terminal, crash dialog, or another application.
+      ignore:
+        - Shellmap animation, cursor position, and small platform font differences.
+    capture:
+      stage: post_smoke
+      wait_ms: 300
+      full_page: false

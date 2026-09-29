@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/blender/visual/c1-product-model-pipeline.after.golden.png",
+  "after_dimensions": [
+    1280,
+    720
+  ],
+  "after_sha256": "981244ee6a57f3c250621f320ba79693736c41d8783fbe636921c7bb6ed93026",
+  "before": "specs/blender/visual/c1-product-model-pipeline.before.golden.png",
+  "before_dimensions": [
+    1280,
+    720
+  ],
+  "before_sha256": "24bdc651f72debef29b052ae7f234be2496602abc043e7705b95f65d28bad3d0",
+  "benchmark": "blender",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/blender/c1-product-model-pipeline.yaml",
+  "spec_sha256": "b406b2a0496dc92117ad2819b41d44a2dff65195fa186d9afc50a0e5cd9eda7a",
+  "task_id": "blender-product-model-pipeline"
+}

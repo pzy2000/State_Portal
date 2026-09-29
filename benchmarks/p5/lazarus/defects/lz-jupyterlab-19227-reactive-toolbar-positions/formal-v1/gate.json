@@ -1,0 +1,132 @@
+{
+  "benchmark": "jupyterlab",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": true,
+  "evidence": {
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.003711111111111111,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.5023166666666666
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.0
+      },
+      "before_sha256": "8f3df74590fca75d01229b2c6226570a1f9bb7e2cd159f9e4bb587adc11ba4d7",
+      "buggy_after_sha256": "1b198bcf677b10c83aca30be2bd5a8054ace78ff9f371551d9f1dba19bbeedd5",
+      "fixed_after_sha256": "8f3df74590fca75d01229b2c6226570a1f9bb7e2cd159f9e4bb587adc11ba4d7",
+      "metadata": "specs/jupyterlab/lazarus/visual_lz-jupyterlab-19227-reactive-toolbar-positions/goldens.meta.json",
+      "metadata_sha256": "c8d2bd13c7c08e49b234ca3d53818649f68da115f3ea8492361a0291d54d8f4e"
+    },
+    "probe_verification": {
+      "artifact": "c1_lazarus_jupyterlab_spec_verification/lazarus/v2-roster/current-v1",
+      "separates_goal_from_defect": true,
+      "versions_replayed": [
+        "fixed",
+        "buggy"
+      ]
+    },
+    "provenance_errors": [],
+    "source_artifacts": {
+      "gate10": "admission:gate10_hidden_oracle=passed",
+      "gate11": "admission:gate11_real_edge_observations=passed",
+      "gate12": "admission:gate12_semantic_pixel_2x2=passed",
+      "gate13": "admission:gate13_same_lineage=passed",
+      "gate8": "admission:gate8_materialization_runtime=passed",
+      "gate9": "admission:gate9_registered_start_replay=passed",
+      "gate_1_7_source": "candidate_gate57_19227_transition/jupyterlab/19227/current-v1",
+      "gate_1_7_truth_table": {
+        "buggy_f2p_3x": "passed_clean_failure",
+        "fixed_buggy_p2p_3x": "passed",
+        "fixed_f2p_3x": "passed",
+        "single_defect_mapping": "passed",
+        "source_authority": "passed",
+        "strict_inverse_patch": "passed",
+        "test_api_compatibility": "passed"
+      },
+      "strict_gate_1_7": true
+    },
+    "upstream": [
+      {
+        "command": [
+          "jlpm",
+          "test",
+          "--runTestsByPath",
+          "test/toolbar.spec.ts",
+          "-t",
+          "@jupyterlab/ui-components ReactiveToolbar #insertBefore() should insert before the target after intermediate items have been removed"
+        ],
+        "cwd": "packages/ui-components",
+        "id": "@jupyterlab/ui-components ReactiveToolbar #insertBefore() should insert before the target after intermediate items have been removed",
+        "kind": "fail_to_pass"
+      },
+      {
+        "command": [
+          "jlpm",
+          "test",
+          "--runTestsByPath",
+          "test/toolbar.spec.ts",
+          "-t",
+          "@jupyterlab/ui-components Toolbar #insertBefore() should insert an item into the toolbar before `c`"
+        ],
+        "cwd": "packages/ui-components",
+        "id": "@jupyterlab/ui-components Toolbar #insertBefore() should insert an item into the toolbar before `c`",
+        "kind": "pass_to_pass"
+      }
+    ],
+    "versions": {
+      "changed_files": [
+        "packages/ui-components/src/components/toolbar.tsx"
+      ],
+      "patch_sha256": "0dcd19b9622c129edb03ae0d31e2514616e6a04afc9a9518e6c814879ab8de94",
+      "patch_source": "materialized_tree_difference",
+      "reverse_apply_reproduces_frozen_buggy_tree": true,
+      "tree_pair": "private/materialized/jupyterlab/19227/current-v1"
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "@jupyterlab/ui-components ReactiveToolbar #insertBefore() should insert before the target after intermediate items have been removed"
+  ],
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "pass_to_pass": [
+    "@jupyterlab/ui-components Toolbar #insertBefore() should insert an item into the toolbar before `c`"
+  ],
+  "passed": true,
+  "projection": {
+    "admission": "candidate_formal_freeze_admission/jupyterlab/19227/real-toolbar-v1",
+    "closure_size": 39,
+    "fresh_gate_run": false,
+    "generator": "warptest.c1_lazarus_selection.c1_lazarus_formal_catalog",
+    "selection_mode": "c1_freeze_sprint_v2"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-jupyterlab-19227-reactive-toolbar-positions",
+  "upstream_f2p": true
+}

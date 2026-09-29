@@ -1,0 +1,108 @@
+{
+  "authority": "github",
+  "benchmark": "jupyterlab",
+  "comments": [],
+  "fix_commit": "4e38172c7407dcf900fa7cc4b93a11713fcbb6c5",
+  "issue": {
+    "body_normalized": "## Description\n\nThis simple code block (containing single-char variable) renders into **empty invisible block** in Jupyter Lab\n\n\n\\```python\nx\n\\```\n\nNo variable `x` is visible.\n\n## Expected behavior\n\nStandard code block with variable `x` should be rendered.\n\n## Context\n\n- Operating System and version: MacOS Seqoia 15.5\n- Browser and version:Version 139.0.7258.127 (Official Build) (arm64)\n- JupyterLab version: 4.3.4\n\n## Example\n\n<img width=\"2608\" height=\"370\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/10fce501-bb57-4950-bfcc-94a10b66f439\" />\n\n<img width=\"2608\" height=\"370\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/191e612b-4c0a-4e10-9f2b-df91889ee2f8\" />",
+    "body_raw": "## Description\n\nThis simple code block (containing single-char variable) renders into **empty invisible block** in Jupyter Lab\n\n\n\\```python\nx\n\\```\n\nNo variable `x` is visible.\n\n## Expected behavior\n\nStandard code block with variable `x` should be rendered.\n\n## Context\n\n- Operating System and version: MacOS Seqoia 15.5\n- Browser and version:Version 139.0.7258.127 (Official Build) (arm64)\n- JupyterLab version: 4.3.4\n\n## Example\n\n<img width=\"2608\" height=\"370\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/10fce501-bb57-4950-bfcc-94a10b66f439\" />\n\n<img width=\"2608\" height=\"370\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/191e612b-4c0a-4e10-9f2b-df91889ee2f8\" />",
+    "body_sha256": "4c1558cb9dcbb6811ea1fbe6762264414b37a1364c0dd83e122df5bff735c0a0",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 17779,
+    "state": "closed",
+    "title": "Code with single variable renders into empty block",
+    "url": "https://github.com/jupyterlab/jupyterlab/issues/17779"
+  },
+  "patch_sha256": "cc5e216f5950290f050cb8e803cb5b7f85003aa5bf8ddfe7b2c4fb2594c0429c",
+  "pinned_revision": "4a19f8fff4049a9536e21fa2980fe7e5ee592d01",
+  "pull_request": {
+    "body_normalized": "### **References**\n\n- Fixes #17779\n- Closes #18285 (replaces)\n\nThis PR fixes a bug in JupyterLab’s highlighting helper (`/packages/codemirror/src/language.ts`) where single-character code blocks like x rendered as empty blocks.\n\n### **Root cause:**\n\nThe helper used `tree.length - 1` (number of syntax tree nodes) instead of `code.length` (actual string length) and did not handle the case where `highlightTree` emits no tokens. As a result, unrecognized single-character identifiers could be dropped even though the input code string was valid.\n\n\nThis PR:\n- Adds a fallback that renders the raw code string when no tokens are emitted.\n- Uses `code.length` to compute the remaining text instead of `tree.length`.\n- This addresses the issue at the source of the data loss in JupyterLab’s wrapper code, rather than post-processing rendered HTML. It applies to all code highlighting that uses this helper, not just markdown.\n- I previously attempted to fix this in renderers.ts, but that approach only treated the symptom (empty `<code>` blocks) and required HTML post-processing. This PR replaces that with a root-cause fix in language.ts.\n\n\n\n### **Code changes**\n\n\nBEFORE (Buggy Code):\n\n`File: packages/codemirror/src/language.ts (lines 250-253)`\n\n```\n\n if (pos < tree.length - 1) {\n      // No style applied on the trailing text\n      el.appendChild(document.createTextNode(code.slice(pos, tree.length)));\n    }\n\n```\n\nAFTER (Fixed Code):\n\n```\n\n if (pos === 0 && code.length > 0) {\n      // No tokens were emitted (e.g., single unrecognized character like 'x')\n      // Render the entire code as plain text fallback\n      el.appendChild(document.createTextNode(code));\n    } else if (pos < code.length) {\n      // Handle any remaining unstyled content\n      el.appendChild(document.createTextNode(code.slice(pos, code.length)));\n    }\n\n```\n\n\n\n\n### **Proofs**\n\n\nhttps://github.com/user-attachments/assets/f8acbd7c-801f-47a6-9f2e-b6f4566f5a90",
+    "body_raw": "### **References**\r\n\r\n- Fixes #17779 \r\n- Closes #18285 (replaces)\r\n\r\nThis PR fixes a bug in JupyterLab’s highlighting helper (`/packages/codemirror/src/language.ts`) where single-character code blocks like x rendered as empty blocks.\r\n\r\n### **Root cause:** \r\n\r\nThe helper used `tree.length - 1` (number of syntax tree nodes) instead of `code.length` (actual string length) and did not handle the case where `highlightTree` emits no tokens. As a result, unrecognized single-character identifiers could be dropped even though the input code string was valid.\r\n\r\n\r\nThis PR:\r\n- Adds a fallback that renders the raw code string when no tokens are emitted.\r\n- Uses `code.length` to compute the remaining text instead of `tree.length`.\r\n- This addresses the issue at the source of the data loss in JupyterLab’s wrapper code, rather than post-processing rendered HTML. It applies to all code highlighting that uses this helper, not just markdown.\r\n- I previously attempted to fix this in renderers.ts, but that approach only treated the symptom (empty `<code>` blocks) and required HTML post-processing. This PR replaces that with a root-cause fix in language.ts.\r\n\r\n\r\n\r\n### **Code changes**\r\n\r\n\r\nBEFORE (Buggy Code):\r\n\r\n`File: packages/codemirror/src/language.ts (lines 250-253)`\r\n\r\n```\r\n\r\n if (pos < tree.length - 1) {\r\n      // No style applied on the trailing text\r\n      el.appendChild(document.createTextNode(code.slice(pos, tree.length)));\r\n    }\r\n\r\n```\r\n\r\nAFTER (Fixed Code):\r\n\r\n```\r\n\r\n if (pos === 0 && code.length > 0) {\r\n      // No tokens were emitted (e.g., single unrecognized character like 'x')\r\n      // Render the entire code as plain text fallback\r\n      el.appendChild(document.createTextNode(code));\r\n    } else if (pos < code.length) {\r\n      // Handle any remaining unstyled content\r\n      el.appendChild(document.createTextNode(code.slice(pos, code.length)));\r\n    }\r\n\r\n```\r\n\r\n\r\n\r\n\r\n### **Proofs** \r\n\r\n\r\nhttps://github.com/user-attachments/assets/f8acbd7c-801f-47a6-9f2e-b6f4566f5a90\r\n\r\n\r\n",
+    "body_sha256": "eb5f09035603f22766d9ed7b4f7050670477cd09a1470d34c028c9943c42e59a",
+    "kind": "pull",
+    "merged_at": "2026-02-27T20:25:20Z",
+    "number": 18572,
+    "state": "closed",
+    "title": "Fix single-character code blocks rendering as empty",
+    "url": "https://github.com/jupyterlab/jupyterlab/pull/18572"
+  },
+  "record_sha256": "b349b38674cfffa2d89a22ba5794f95f6a78248c27017219767dc9a4b7158e8e",
+  "repository": "jupyterlab/jupyterlab",
+  "retrieved_at": "2026-08-14T23:58:03.765365Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-18572-single-char-code-render",
+  "tests": [
+    {
+      "command": [
+        "jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/language.spec.ts",
+        "-t",
+        "@jupyterlab/codemirror EditorLanguageRegistry #highlight should render single-character code blocks"
+      ],
+      "cwd": "packages/codemirror",
+      "frozen_attempt_command": [
+        "/opt/homebrew/Cellar/node@22/22.22.0_1/bin/node",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18572/current-v1/buggy/node_modules/jest/bin/jest.js",
+        "--config",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18572/current-v1/buggy/packages/codemirror/jest.config.js",
+        "--runTestsByPath",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18572/current-v1/buggy/packages/codemirror/test/language.spec.ts",
+        "--testNamePattern",
+        "^@jupyterlab/codemirror EditorLanguageRegistry #highlight should load a defined spec$",
+        "--runInBand",
+        "--no-cache",
+        "--json"
+      ],
+      "id": "^@jupyterlab/codemirror EditorLanguageRegistry #highlight should render single-character code blocks$",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_regression_test",
+      "source_case": "@jupyterlab/codemirror EditorLanguageRegistry #highlight should render single-character code blocks",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/codemirror/test/language.spec.ts",
+      "upstream_test_path": "packages/codemirror/test/language.spec.ts",
+      "upstream_test_sha256": "06787af632eca9b3aa325d1c85c895474a7dabd86a43e5ad2e308b6fefae8460"
+    },
+    {
+      "command": [
+        "jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/language.spec.ts",
+        "-t",
+        "@jupyterlab/codemirror EditorLanguageRegistry #highlight should load a defined spec"
+      ],
+      "cwd": "packages/codemirror",
+      "frozen_attempt_command": [
+        "/opt/homebrew/Cellar/node@22/22.22.0_1/bin/node",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18572/current-v1/buggy/node_modules/jest/bin/jest.js",
+        "--config",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18572/current-v1/buggy/packages/codemirror/jest.config.js",
+        "--runTestsByPath",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18572/current-v1/buggy/packages/codemirror/test/language.spec.ts",
+        "--testNamePattern",
+        "^@jupyterlab/codemirror EditorLanguageRegistry #highlight should load a defined spec$",
+        "--runInBand",
+        "--no-cache",
+        "--json"
+      ],
+      "id": "^@jupyterlab/codemirror EditorLanguageRegistry #highlight should load a defined spec$",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_regression_test",
+      "source_case": "@jupyterlab/codemirror EditorLanguageRegistry #highlight should load a defined spec",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/codemirror/test/language.spec.ts",
+      "upstream_test_path": "packages/codemirror/test/language.spec.ts",
+      "upstream_test_sha256": "06787af632eca9b3aa325d1c85c895474a7dabd86a43e5ad2e308b6fefae8460"
+    }
+  ],
+  "touched_files": [
+    "packages/codemirror/src/language.ts",
+    "packages/codemirror/test/language.spec.ts"
+  ],
+  "upstream_commits": []
+}

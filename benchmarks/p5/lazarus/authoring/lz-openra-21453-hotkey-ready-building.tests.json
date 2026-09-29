@@ -1,0 +1,77 @@
+{
+  "schema": "c1-lazarus-authoring-tests-v1",
+  "schema_version": 1,
+  "tests": [
+    {
+      "id": "openra-pr21453-hidden-ready-building-f2p",
+      "kind": "fail_to_pass",
+      "provenance": "issue_21197_and_pull_request_21453",
+      "source_url": "https://github.com/OpenRA/OpenRA/pull/21453",
+      "source_case": "Use the Buildings production hotkey after a completed building has scrolled out of the visible palette.",
+      "origin": "issue_derived_gui_differential",
+      "cwd": ".",
+      "timeout_s": 240,
+      "argv": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "openra",
+        "--case",
+        "hidden-ready-building",
+        "--repo",
+        "."
+      ],
+      "command": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "openra",
+        "--case",
+        "hidden-ready-building",
+        "--repo",
+        "."
+      ]
+    },
+    {
+      "id": "openra-action-queue-p2p",
+      "kind": "pass_to_pass",
+      "provenance": "OpenRA.Test_upstream_regression_suite",
+      "source_url": "https://github.com/OpenRA/OpenRA/tree/bleed/OpenRA.Test",
+      "source_case": "ActionQueue performs actions ordered by time and insertion order.",
+      "origin": "upstream",
+      "cwd": ".",
+      "timeout_s": 120,
+      "argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "command": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "upstream_test_path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "upstream_test_sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e",
+      "upstream_runner_executable_sha256": "8a689f0098e892e824754da2e3ce905d9f71304ab7aadc59487f03e34c015a0f",
+      "upstream_runner_version_argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "--version"
+      ],
+      "upstream_runner_version_stdout_sha256": "82d951c581cf3fc23d9cb0a2ce1a127d107aa4720c1cab9c69a2d10e55fa1ce9",
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

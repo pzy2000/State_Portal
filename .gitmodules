@@ -1,0 +1,39 @@
+[submodule "games/2048"]
+	path = games/2048
+	url = https://github.com/gabrielecirulli/2048.git
+	branch = master
+[submodule "games/OpenRA"]
+	path = games/OpenRA
+	url = https://github.com/OpenRA/OpenRA.git
+	branch = bleed
+[submodule "games/jupyterlab"]
+	path = games/jupyterlab
+	url = https://github.com/jupyterlab/jupyterlab.git
+	branch = main
+[submodule "games/LibreOffice"]
+	path = games/LibreOffice
+	url = https://github.com/LibreOffice/core.git
+	branch = master
+[submodule "games/blender"]
+	path = games/blender
+	url = https://github.com/blender/blender.git
+	branch = main
+[submodule "games/jynew"]
+	path = games/jynew
+	url = https://github.com/jynew/jynew.git
+	branch = main
+[submodule "games/Pal3.Unity"]
+	path = games/Pal3.Unity
+	url = https://github.com/0x7c13/Pal3.Unity.git
+	branch = main
+[submodule "games/luanti"]
+	path = games/luanti
+	url = https://github.com/luanti-org/luanti.git
+	branch = master
+[submodule "baselines/agent-s"]
+	path = baselines/agent-s
+	url = https://github.com/simular-ai/Agent-S.git
+	branch = main
+[submodule "baselines/ScaleCUA"]
+	path = baselines/ScaleCUA
+	url = https://github.com/OpenGVLab/ScaleCUA.git

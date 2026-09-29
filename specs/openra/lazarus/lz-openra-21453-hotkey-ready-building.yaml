@@ -1,0 +1,89 @@
+name: C1-Lazarus OpenRA prepared production palette
+benchmark: openra
+repo: ../../games/OpenRA
+timeout_ms: 2400000
+tags: [c1, lazarus, openra, production]
+setup:
+  openra_gameplay_probe:
+    all_tech: true
+    cash: 50000
+    fast_build: true
+target:
+  kind: openra_map
+  mod: ra
+  requires_mod: ra
+  map: allies-08a
+  players:
+    - {id: Greece, playable: true, required: true, faction: allies}
+  actors:
+    - {id: fact, type: fact, owner: Greece}
+checkpoint:
+  allowed_strategies: [openra_gameplay_production_validate]
+  expected_validity: replay-reachable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: openra_live_gameplay_probe_v1
+        start: {validate_target: true, checks: []}
+        goal: {use_assertions: true, checks: []}
+      state:
+        adapter: openra_live_gameplay_probe_v1
+        start: {validate_target: true, checks: []}
+        goal: {use_assertions: true, checks: []}
+  visual_oracle:
+    golden_image: visual_lz-openra-21453-hotkey-ready-building/fixed.after.golden.png
+    expected_label: correct
+    description: A live Red Alert game with the Buildings production palette visible.
+    rubric:
+      must:
+        - A live Red Alert game and the Buildings production palette are visible.
+        - The map view, sidebar, and normal interface chrome are present.
+      must_not:
+        - A main menu, crash dialog, or blank application frame is shown.
+      ignore:
+        - Scenario clock text, power value, and transient debug messages.
+    capture: {stage: post_smoke, wait_ms: 1000, full_page: false}
+  lazarus:
+    schema_version: 1
+    goal_checks:
+      - {type: openra_lazarus_hotkey_audit, field: placement_active, expected: true}
+    defect_signature:
+      - {type: openra_lazarus_hotkey_audit, field: placement_active, expected: false}
+    invariant_checks:
+      - {type: openra_lazarus_hotkey_audit, field: ready_hidden_building, expected: true}
+      - {type: openra_lazarus_hotkey_audit, field: placement_cancel_observed, expected: true}
+      - {type: no_openra_gameplay_probe_errors}
+    upstream_tests:
+      fail_to_pass: [openra-pr21453-hidden-ready-building-f2p]
+      pass_to_pass: [openra-action-queue-p2p]
+      per_trial_p2p: [openra-action-queue-p2p]
+    goldens:
+      before: visual_lz-openra-21453-hotkey-ready-building/before.golden.png
+      buggy_before: visual_lz-openra-21453-hotkey-ready-building/buggy.before.golden.png
+      fixed:
+        after: visual_lz-openra-21453-hotkey-ready-building/fixed.after.golden.png
+        after_description: The Buildings palette has returned to the ready structure's page and placement mode is active after the public sequence.
+        after_rubric:
+          must:
+            - A live Red Alert game and the Buildings production palette are visible.
+            - The sidebar reflects the completed building's palette page after the placement is cancelled and the category hotkey is used.
+          must_not:
+            - A main menu, crash dialog, or blank application frame is shown.
+          ignore:
+            - Scenario clock text, power value, and transient debug messages.
+      buggy:
+        after: visual_lz-openra-21453-hotkey-ready-building/buggy.after.golden.png
+        after_description: The live production palette remains on its prior visible page after the placement is cancelled and the category hotkey is used.
+        after_rubric:
+          must:
+            - A live Red Alert game and the Buildings production palette are visible.
+            - The sidebar remains on the prior visible page after the placement is cancelled and the category hotkey is used.
+          must_not:
+            - A main menu, crash dialog, or blank application frame is shown.
+          ignore:
+            - Scenario clock text, power value, and transient debug messages.
+# goal_description: Return the completed structure to placement mode after cancelling it and using one Buildings hotkey.

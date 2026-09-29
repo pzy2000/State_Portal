@@ -1,0 +1,21 @@
+{
+  "actions": 7,
+  "after": "specs/spacerpg/visual/spacerpg-multistation-cargo-contract.after.golden.png",
+  "after_dimensions": [
+    1280,
+    800
+  ],
+  "after_sha256": "bd39038eb53415a0196ef56ff40295fbf70a31a7f6bdb113e83a3c3982abf585",
+  "before": "specs/spacerpg/visual/spacerpg-multistation-cargo-contract.before.golden.png",
+  "before_dimensions": [
+    1280,
+    800
+  ],
+  "before_sha256": "e1851fa7ced07d1667e523f9a7dec4f43c1f505524e50511fc33bdac82d5f53a",
+  "benchmark": "spacerpg",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/spacerpg/c1-multistation-cargo-contract.yaml",
+  "spec_sha256": "d87448db21d40ea3255db20b9005dc8a15165079944ece84232be3a2f97e2d55",
+  "task_id": "spacerpg-multistation-cargo-contract"
+}

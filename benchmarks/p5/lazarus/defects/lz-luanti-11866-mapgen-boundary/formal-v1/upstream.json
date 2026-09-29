@@ -1,0 +1,157 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [
+    {
+      "body_normalized": "The engine correctly deletes objects that are spawned outside bounds, I have verified this.\nLacking reproduction instructions I can only assume you managed to trigger a situation where mod tries to recreate the same entity 18140 times per second. This would be a mod bug.",
+      "body_raw": "The engine correctly deletes objects that are spawned outside bounds, I have verified this.\r\nLacking reproduction instructions I can only assume you managed to trigger a situation where mod tries to recreate the same entity 18140 times per second. This would be a mod bug.",
+      "body_sha256": "2490615df98ebdb2c3c9e67cc05958a3b833d0877301487589136dfb956d8dd5",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/11839#issuecomment-986316513"
+    },
+    {
+      "body_normalized": "> Lacking reproduction instructions I can only assume you managed to trigger a situation where mod tries to recreate the same entity 18140 times per second. This would be a mod bug.\n\nYou seem to be right: In this case the problem happens with the mod `tnt_revamped`. The code that ignites burning TNT only removes a TNT node if it can create an entity … since nodes can exist past x=31000, but entities can not be created there, the `on_burn` handler is called way too much.\n\nI expect other burning nodes to have similar issues in areas where you can have nodes but can not have entities. IMO the areas should align to prevent such bugs, i.e. entities must be allowed to spawn wherever nodes can exist, not only up until x=31000.\n\nAnyway, I think the logging system should not be able to lag the server in that way.",
+      "body_raw": "> Lacking reproduction instructions I can only assume you managed to trigger a situation where mod tries to recreate the same entity 18140 times per second. This would be a mod bug.\r\n\r\nYou seem to be right: In this case the problem happens with the mod `tnt_revamped`. The code that ignites burning TNT only removes a TNT node if it can create an entity … since nodes can exist past x=31000, but entities can not be created there, the `on_burn` handler is called way too much.\r\n\r\nI expect other burning nodes to have similar issues in areas where you can have nodes but can not have entities. IMO the areas should align to prevent such bugs, i.e. entities must be allowed to spawn wherever nodes can exist, not only up until x=31000.\r\n\r\nAnyway, I think the logging system should not be able to lag the server in that way.",
+      "body_sha256": "114a2cce7316a3044e33c61dab38e16487079e081321891a93d33977d6afeb09",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/11839#issuecomment-986360012"
+    },
+    {
+      "body_normalized": "I have tried reproducing this with @sfan5's own nuke mod and that mod does not enable players to lag the server.\n\nHowever, I think it is still not a good idea to let a single mod lag a server. Logging should be ratelimited.",
+      "body_raw": "I have tried reproducing this with @sfan5's own nuke mod and that mod does not enable players to lag the server.\r\n\r\nHowever, I think it is still not a good idea to let a single mod lag a server. Logging should be ratelimited.",
+      "body_sha256": "27866cc97ab6722ce1d5926f88de65b604ae2d88440e9509d648ecdb4ee1e265",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/11839#issuecomment-986528649"
+    },
+    {
+      "body_normalized": "As privately agreed with the author who stated that this specific thing cannot happen again, I'm closing the issue",
+      "body_raw": "As privately agreed with the author who stated that this specific thing cannot happen again, I'm closing the issue",
+      "body_sha256": "dab951bee6d68d36bcf8722ea80c7e255b4ce53f5851c33dcc76083b48c1d5f7",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/11839#issuecomment-1113771002"
+    },
+    {
+      "body_normalized": "To add something: I think this thing can not happen again with default settings since #11866. For it to happen, a node must be able to exist outside of mapgen limits, which is only possible if the outermost mapblock goes partially over the mapgen limit. As players or mods or games can changes the chunksize, this thing could happen again, but with the exception of MineClone5 I do not know any game or mod that does that – and MineClone5 is not affected by this issue AFAIK.",
+      "body_raw": "To add something: I think this thing can not happen again with default settings since #11866. For it to happen, a node must be able to exist outside of mapgen limits, which is only possible if the outermost mapblock goes partially over the mapgen limit. As players or mods or games can changes the chunksize, this thing could happen again, but with the exception of MineClone5 I do not know any game or mod that does that – and MineClone5 is not affected by this issue AFAIK.",
+      "body_sha256": "109cffd86e32184e267c16c2827658c3d47afe537587f5e60de23b90e4e27a25",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/11839#issuecomment-1145942416"
+    }
+  ],
+  "fix_commit": "f69eead62e71e22d1810e0dedfa363cb9f210268",
+  "issue": {
+    "body_normalized": "##### Minetest version\ncommit 1dc1305\n\n##### Summary\nA user can trivially goad Minetest into creating an entity in a part of the map that lies over the maximum mapgen limit (31000). In that case, Minetest will complain about that entity with 2.5 Megabytes of log messages per second, but apparently not remove it (?).\n\nThis is how I filled up storage here: https://github.com/minetest/minetest/issues/11836\n\nMore seriously, the server being occupied with logging stuff seems to lag it so hard that in minetest_game sand does not even fall down anymore and the map generator seems to stop working (though that may have been due to the disk filling up).\n\nHaving 2.5MB of this message is totally unnecessary:\n```\n2021-12-05 21:51:52: WARNING[Server]: Server::ActiveObjectMgr::addActiveObjectRaw(): object position (310020,50,720) outside maximum range\n```\n\nI suggest to complain a little bit less than 18140 times per second about OOB entities. If the server log less often, it will also have time for other things, like making sand fall or generating the map or whatever else.\n\n##### Steps to reproduce\nI do not want to give any reproduction steps, for the same reasons I have listed already in https://github.com/minetest/minetest/issues/11835 – this bug is *way* too easy to abuse and can most likely be fixed without reproducing the condition.\n\n##### Advice\nSince entities can already exist in the space exceeding 31000 (the code does its best to try to have them not be created there, but moving entities there is legal and IMO it has to stay that way to not introduce new bugs), it might be wise to not complain about creating entities there. I suspect they will be gone eventually as they usually can not be saved in the map out there anyway.",
+    "body_raw": "##### Minetest version\r\ncommit 1dc1305\r\n\r\n##### Summary\r\nA user can trivially goad Minetest into creating an entity in a part of the map that lies over the maximum mapgen limit (31000). In that case, Minetest will complain about that entity with 2.5 Megabytes of log messages per second, but apparently not remove it (?).\r\n\r\nThis is how I filled up storage here: https://github.com/minetest/minetest/issues/11836\r\n\r\nMore seriously, the server being occupied with logging stuff seems to lag it so hard that in minetest_game sand does not even fall down anymore and the map generator seems to stop working (though that may have been due to the disk filling up).\r\n\r\nHaving 2.5MB of this message is totally unnecessary:\r\n```\r\n2021-12-05 21:51:52: WARNING[Server]: Server::ActiveObjectMgr::addActiveObjectRaw(): object position (310020,50,720) outside maximum range\r\n```\r\n\r\nI suggest to complain a little bit less than 18140 times per second about OOB entities. If the server log less often, it will also have time for other things, like making sand fall or generating the map or whatever else.\r\n\r\n##### Steps to reproduce\r\nI do not want to give any reproduction steps, for the same reasons I have listed already in https://github.com/minetest/minetest/issues/11835 – this bug is *way* too easy to abuse and can most likely be fixed without reproducing the condition.\r\n\r\n##### Advice\r\nSince entities can already exist in the space exceeding 31000 (the code does its best to try to have them not be created there, but moving entities there is legal and IMO it has to stay that way to not introduce new bugs), it might be wise to not complain about creating entities there. I suspect they will be gone eventually as they usually can not be saved in the map out there anyway.",
+    "body_sha256": "0eccbe44369706ab09e819f1991a839373dcf7229a2dbde0e704d92b1273701e",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 11839,
+    "state": "closed",
+    "title": "Node burning handler that does not delete node lags server, produces 2.5MB logs / second",
+    "url": "https://github.com/luanti-org/luanti/issues/11839"
+  },
+  "patch_sha256": "28f3de0fc342209cd078bfb9494d132508bf39c53314b940c7e9d47238b8b528",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "body_normalized": "basic unittests included\n\n## To do\n\nThis PR is Ready for Review.",
+    "body_raw": "basic unittests included\r\n\r\n## To do\r\n\r\nThis PR is Ready for Review.\r\n",
+    "body_sha256": "0a0449418c2327af4856b4f6dcfa6ee74ad8c70e20f9a60d86b593ca078eee9a",
+    "kind": "pull",
+    "merged_at": "2022-01-30T12:49:27Z",
+    "number": 11866,
+    "state": "closed",
+    "title": "Raise max mapgen limit constant to align with MapBlock",
+    "url": "https://github.com/luanti-org/luanti/pull/11866"
+  },
+  "record_sha256": "04783611b1938604594dea756b829e45716a0ad89764cc5db99accf57473056c",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-13T09:01:42.968068Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-11866-mapgen-boundary",
+  "tests": [
+    {
+      "command": [
+        "bin/luantiserver",
+        "--run-unittests",
+        "--test-module",
+        "TestMap"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/cmake",
+        "--build",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/11866/gate8-mt4-v1/buggy",
+        "--target",
+        "minetestserver",
+        "--parallel",
+        "1"
+      ],
+      "id": "TestMap",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestMap",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/src/unittest/test_map.cpp",
+      "upstream_test_path": "src/unittest/test_map.cpp",
+      "upstream_test_sha256": "ec31e9fa282e2442cf74527f82215d4e6c09d4ea4347bb0a18537a86f2a02bd8"
+    },
+    {
+      "command": [
+        "bin/luantiserver",
+        "--run-unittests",
+        "--test-module",
+        "TestSettings"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/cmake",
+        "--build",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/11866/gate8-mt4-v1/buggy",
+        "--target",
+        "minetestserver",
+        "--parallel",
+        "1"
+      ],
+      "id": "TestSettings",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestSettings",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/src/unittest/test_map.cpp",
+      "upstream_test_path": "src/unittest/test_map.cpp",
+      "upstream_test_sha256": "ec31e9fa282e2442cf74527f82215d4e6c09d4ea4347bb0a18537a86f2a02bd8"
+    }
+  ],
+  "touched_files": [
+    "builtin/game/chat.lua",
+    "src/constants.h",
+    "src/defaultsettings.cpp",
+    "src/map.cpp",
+    "src/mapblock.h",
+    "src/unittest/test_map.cpp",
+    "src/unittest/test_player.cpp"
+  ],
+  "upstream_commits": []
+}

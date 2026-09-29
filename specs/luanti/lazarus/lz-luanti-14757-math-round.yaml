@@ -1,0 +1,157 @@
+name: C1-Lazarus Luanti 14757-math-round
+benchmark: luanti
+timeout_ms: 2400000
+tags:
+- c1
+- lazarus
+- luanti
+- production
+setup:
+  luanti_lazarus_probe:
+    task_id: lz-luanti-14757-math-round
+    change_number: 14757
+    issue_number: 14755
+    adapter: luanti_live_world_v1
+    observation_source: live_headless_replay
+    registered_replay:
+    - start_candidate_binary_as_headless_devtest_server
+    - load_registered_worldmod_fixture
+    - deliver_registered_round_command_from_the_server
+    - read_semantic_result_from_the_candidate_log
+    evidence_layout: fixed_observation_pair
+    evidence_artifact_ids:
+    - candidate_gate10_server_side_oracle/luanti/14757/repackage-v3/v1
+    formal_freeze_admission: candidate_formal_freeze_admission/luanti/14757/gap-closed-v1
+    upstream_truth_table:
+      fixed:
+        f2p: true
+        p2p: true
+      buggy:
+        f2p: false
+        p2p: true
+target:
+  kind: synthesized_world
+  candidate_versions:
+  - fixed
+  - buggy
+  game: devtest
+  fixture: registered_candidate_worldmod
+checkpoint:
+  allowed_strategies:
+  - luanti_worldmod_state_validate
+  expected_validity: save-restorable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: luanti_live_world_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: luanti_live_world_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-luanti-14757-math-round/fixed.after.golden.png
+    expected_label: correct
+    description: Every block of the wall panel is grey cobblestone.
+    rubric:
+      must:
+      - A Luanti client frame rendered by the candidate build shows a flat desert
+        from a fixed first-person camera, with a free-standing wall panel of blocks
+        centred in view above a stone-slab base.
+      - Every block of the wall panel is grey cobblestone.
+      must_not:
+      - A blank frame, a crash dialog, or an unrelated application screen is shown.
+      ignore:
+      - The hotbar row, the wielded pickaxe, the crosshair, the node selection outline,
+        the sky gradient, and the surrounding desert terrain.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: luanti_lazarus_state_audit
+      field: command
+      expected: /c1_lazarus_round
+    - type: luanti_lazarus_state_audit
+      field: count
+      expected: 1
+    - type: luanti_lazarus_state_audit
+      field: ok
+      expected: true
+    - type: luanti_lazarus_state_audit
+      field: result
+      expected: 0,-0
+    defect_signature:
+    - type: luanti_lazarus_state_audit
+      field: command
+      expected: /c1_lazarus_round
+    - type: luanti_lazarus_state_audit
+      field: count
+      expected: 1
+    - type: luanti_lazarus_state_audit
+      field: ok
+      expected: false
+    - type: luanti_lazarus_state_audit
+      field: result
+      expected: 1,-1
+    invariant_checks:
+    - type: no_luanti_mod_errors
+    upstream_tests:
+      fail_to_pass:
+      - math round()
+      pass_to_pass:
+      - formspec_escape escapes
+      per_trial_p2p:
+      - formspec_escape escapes
+    goldens:
+      before: visual_lz-luanti-14757-math-round/before.golden.png
+      buggy_before: visual_lz-luanti-14757-math-round/buggy.before.golden.png
+      fixed:
+        after: visual_lz-luanti-14757-math-round/fixed.after.golden.png
+        after_description: Every block of the wall panel is dirt with a grass top,
+          so the panel reads as brown blocks banded with green grass edges and no
+          pale pink-tan sand block remains in it.
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a flat desert
+            from a fixed first-person camera, with a free-standing wall panel of blocks
+            centred in view above a stone-slab base.
+          - Every block of the wall panel is dirt with a grass top, so the panel reads
+            as brown blocks banded with green grass edges and no pale pink-tan sand
+            block remains in it.
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the wielded pickaxe, the crosshair, the node selection
+            outline, the sky gradient, and the surrounding desert terrain.
+      buggy:
+        after: visual_lz-luanti-14757-math-round/buggy.after.golden.png
+        after_description: Every block of the wall panel is pale pink-tan desert sand,
+          and no green grass edge remains in it.
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a flat desert
+            from a fixed first-person camera, with a free-standing wall panel of blocks
+            centred in view above a stone-slab base.
+          - Every block of the wall panel is pale pink-tan desert sand, and no green
+            grass edge remains in it.
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the wielded pickaxe, the crosshair, the node selection
+            outline, the sky gradient, and the surrounding desert terrain.

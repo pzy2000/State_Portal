@@ -1,0 +1,129 @@
+name: C1-Lazarus Jupyterlab 17194-cell-metadata-removal
+benchmark: jupyterlab
+timeout_ms: 900000
+tags:
+- c1
+- lazarus
+- jupyterlab
+- production
+setup:
+  jupyterlab_lazarus_probe:
+    task_id: lz-jupyterlab-17194-cell-metadata-removal
+    change_number: 17194
+    issue_number: 17164
+    adapter: jupyterlab_lazarus_app_probe_v1
+    observation_source: live_materialized_replay
+    registered_replay:
+    - load_materialized_dev_mode_bundle
+    - restore_registered_metadata_start
+    - remove_metadata_entry_and_commit
+    - read_cell_metadata_editor_text
+    probe_executable: true
+target:
+  kind: jupyterlab_lazarus_application
+  variants:
+  - fixed
+  - buggy
+  bundler: materialized_dev_mode_bundle
+  browser: chromium_via_playwright
+  change_number: 17194
+checkpoint:
+  allowed_strategies:
+  - jupyterlab_lazarus_app_replay_validate
+  expected_validity: replay-reachable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: jupyterlab_lazarus_app_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: jupyterlab_lazarus_app_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-17194-cell-metadata-removal/fixed.after.golden.png
+    expected_label: correct
+    description: The Cell metadata editor shows a three-line JSON object holding the trusted
+      entry, beside the notebook's single code cell.
+    rubric:
+      must:
+      - A JupyterLab notebook window shows one code cell and the Property Inspector open on
+        the right with an Advanced Tools section.
+      - The Cell metadata editor shows a JSON object spanning three numbered lines whose middle
+        line names the trusted entry.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the file browser's
+        relative modification times.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: jupyterlab_lazarus_app_audit
+      field: cell_metadata_state
+      expected: empty
+    defect_signature:
+    - type: jupyterlab_lazarus_app_audit
+      field: cell_metadata_state
+      expected: retains_trusted
+    invariant_checks:
+    - type: no_jupyterlab_probe_errors
+    upstream_tests:
+      fail_to_pass:
+      - jupyterlab-17194-remove-cell-metadata-f2p
+      pass_to_pass:
+      - jupyterlab-metadata-empty-removal-construction-p2p
+      - jupyterlab-coreutils-path-trial-p2p
+      per_trial_p2p:
+      - jupyterlab-coreutils-path-trial-p2p
+    goldens:
+      before: visual_lz-jupyterlab-17194-cell-metadata-removal/before.golden.png
+      buggy_before: visual_lz-jupyterlab-17194-cell-metadata-removal/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-17194-cell-metadata-removal/fixed.after.golden.png
+        after_description: The Cell metadata editor shows a single line holding an empty JSON
+          object, so the committed removal survived reopening the Property Inspector.
+        after_rubric:
+          must:
+          - A JupyterLab notebook window shows one code cell and the Property Inspector open
+            on the right with an Advanced Tools section.
+          - The Cell metadata editor shows exactly one numbered line containing an empty pair
+            of braces.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the file
+            browser's relative modification times.
+      buggy:
+        after: visual_lz-jupyterlab-17194-cell-metadata-removal/buggy.after.golden.png
+        after_description: The Cell metadata editor again shows the three-line JSON object
+          naming the trusted entry, so reopening the Property Inspector restored the entry
+          the commit had removed.
+        after_rubric:
+          must:
+          - A JupyterLab notebook window shows one code cell and the Property Inspector open
+            on the right with an Advanced Tools section.
+          - The Cell metadata editor shows a JSON object spanning three numbered lines whose
+            middle line names the trusted entry.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the file
+            browser's relative modification times.

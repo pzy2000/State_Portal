@@ -1,0 +1,45 @@
+diff --git a/OpenRA.Mods.Common/Widgets/ProductionPaletteWidget.cs b/OpenRA.Mods.Common/Widgets/ProductionPaletteWidget.cs
+index ad2e8fff21dd1a158622e5ceb49bcad119065525..9f4be6e8c53cae89be9b6b3ad69a224924236929 100644
+--- a/OpenRA.Mods.Common/Widgets/ProductionPaletteWidget.cs
++++ b/OpenRA.Mods.Common/Widgets/ProductionPaletteWidget.cs
+@@ -292,13 +292,16 @@ public override bool HandleMouseInput(MouseInput mi)
+ 			return HandleEvent(icon, mi.Button, mi.Modifiers);
+ 		}
+ 
+-		protected bool PickUpCompletedBuildingIcon(ProductionIcon icon, ProductionItem item)
++		protected bool PickUpCompletedBuildingIcon(ProductionItem item)
+ 		{
+-			var actor = World.Map.Rules.Actors[icon.Name];
++			if (item == null)
++				return false;
++
++			var actor = World.Map.Rules.Actors[item.Item];
+ 
+-			if (item != null && item.Done && actor.HasTraitInfo<BuildingInfo>())
++			if (item.Done && actor.HasTraitInfo<BuildingInfo>())
+ 			{
+-				World.OrderGenerator = new PlaceBuildingOrderGenerator(CurrentQueue, icon.Name, worldRenderer);
++				World.OrderGenerator = new PlaceBuildingOrderGenerator(CurrentQueue, item.Item, worldRenderer);
+ 				return true;
+ 			}
+ 
+@@ -307,17 +310,12 @@ protected bool PickUpCompletedBuildingIcon(ProductionIcon icon, ProductionItem i
+ 
+ 		public void PickUpCompletedBuilding()
+ 		{
+-			foreach (var icon in icons.Values)
+-			{
+-				var item = icon.Queued.FirstOrDefault();
+-				if (PickUpCompletedBuildingIcon(icon, item))
+-					break;
+-			}
++			PickUpCompletedBuildingIcon(CurrentQueue.CurrentItem());
+ 		}
+ 
+ 		bool HandleLeftClick(ProductionItem item, ProductionIcon icon, int handleCount, Modifiers modifiers)
+ 		{
+-			if (PickUpCompletedBuildingIcon(icon, item))
++			if (PickUpCompletedBuildingIcon(item))
+ 			{
+ 				Game.Sound.PlayNotification(World.Map.Rules, World.LocalPlayer, "Sounds", ClickSound, null);
+ 				return true;

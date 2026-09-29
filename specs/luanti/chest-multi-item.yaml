@@ -1,0 +1,56 @@
+name: luanti chest holds multiple distinct stacks
+benchmark: "luanti"
+timeout_ms: 300000
+tags: ["luanti", "inventory", "chest"]
+target:
+  kind: synthesized_world
+  nodes:
+    - pos: { x: 5, y: 1, z: 7 }
+      node: "basenodes:stone"
+  meta_inventory:
+    - pos: { x: 5, y: 2, z: 7 }
+      node: "chest:chest"
+      list: "main"
+      items:
+        - { item: "basenodes:stone", count: 30 }
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_meta_inventory
+    pos: { x: 5, y: 2, z: 7 }
+    list: "main"
+    items:
+      - { item: "basenodes:stone", count: 30 }
+      - { item: "basenodes:dirt", count: 12 }
+      - { item: "basetools:pick_steel", count: 1 }
+assertions:
+  - type: luanti_meta_inventory_contains
+    pos: { x: 5, y: 2, z: 7 }
+    item: "basenodes:dirt"
+    count: 12
+  - type: luanti_meta_inventory_contains
+    pos: { x: 5, y: 2, z: 7 }
+    item: "basetools:pick_steel"
+    count: 1
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/chest-multi-item.golden.png
+  expected_label: correct
+  description: "A chest sitting on a stone block is rendered near spawn in the Luanti devtest world."
+  rubric:
+    must:
+      - "The 3D voxel world is rendered and visible."
+      - "A chest block is visible sitting on or beside a stone support block near spawn."
+      - "The visible chest/stone arrangement matches the golden oracle at a coarse visual level."
+      - "No crash dialog, error overlay, or fully blank screen is shown."
+    must_not:
+      - "The chest is absent, replaced by another block, or shown in a substantially different node arrangement."
+      - "The screen is blank, black, or only shows the main menu."
+      - "An error dialog or exception stack trace is visible."
+    ignore:
+      - "Exact camera angle, lighting, or player position differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 800
+    full_page: false

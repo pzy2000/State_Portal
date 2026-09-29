@@ -1,0 +1,113 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [
+    {
+      "body_normalized": "Offending change: https://github.com/minetest/minetest/commit/37a05ec8d6cbf9ff4432225cffe78c16fdd0647d#diff-a1d55573277d29152f65c708a0bd5d2e4e08b17706933839e27d99e55f0d6f79L71-R78\nBug exists since 5.4.x",
+      "body_raw": "Offending change: https://github.com/minetest/minetest/commit/37a05ec8d6cbf9ff4432225cffe78c16fdd0647d#diff-a1d55573277d29152f65c708a0bd5d2e4e08b17706933839e27d99e55f0d6f79L71-R78\r\nBug exists since 5.4.x",
+      "body_sha256": "e4b8f76ae5075142f3e79cc3f59aa14f7a953f1630d5da551972c2612b7422cf",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/11351#issuecomment-861856371"
+    }
+  ],
+  "fix_commit": "c60a146e2291f7a55a3e5fd0447bd393b063ab1c",
+  "issue": {
+    "body_normalized": "_Originally posted by @sfan5 in https://github.com/minetest/minetest/issues/11194#issuecomment-819862349_\n\n> `minetest.conf` is the correct way for games to temporarily set settings so if water_level indeed persists beyond that this is an engine bug.\n\nI'm not sure if I should necrobump this or not as I'm new to GitHub.\nBut anyway, this bug is reproducible for me.\n\nMinetest Version: 5.4.1\n- Tutorial by Wuzzy indeed set a global water_level of -31000 in minetest.conf and persists there.",
+    "body_raw": "_Originally posted by @sfan5 in https://github.com/minetest/minetest/issues/11194#issuecomment-819862349_\r\n\r\n> `minetest.conf` is the correct way for games to temporarily set settings so if water_level indeed persists beyond that this is an engine bug.\r\n\r\nI'm not sure if I should necrobump this or not as I'm new to GitHub.\r\nBut anyway, this bug is reproducible for me.\r\n\r\nMinetest Version: 5.4.1\r\n- Tutorial by Wuzzy indeed set a global water_level of -31000 in minetest.conf and persists there.",
+    "body_sha256": "f33265ec46363c9039595246c031d192c6767d2164995adedb4092424e5c969f",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 11351,
+    "state": "closed",
+    "title": "Persistence of water_level=-31000",
+    "url": "https://github.com/luanti-org/luanti/issues/11351"
+  },
+  "patch_sha256": "6b7a267db51383703069267a6ad5f3a26b753ac16bfe30ced3b61501b43e4b7c",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "body_normalized": "It turns out that the map settings manager cannot do its job correctly with the global settings hierarchy. `SL_MAP` also doesn't make sense as a global layer, normal settings are only ever read from the layer below it.\nThis PR allows an arbitrary hierarchy to be attached to each settings object.\n\n\nfixes #11351\n\n## To do\n\nThis PR is Ready for Review.\n\n## How to test\n\n1) Have a mod that runs `minetest.set_mapgen_setting(\"water_level\", \"-31000\")`\n2) It should not appear in minetest.conf",
+    "body_raw": "It turns out that the map settings manager cannot do its job correctly with the global settings hierarchy. `SL_MAP` also doesn't make sense as a global layer, normal settings are only ever read from the layer below it.\r\nThis PR allows an arbitrary hierarchy to be attached to each settings object.\r\n\r\n\r\nfixes #11351\r\n\r\n## To do\r\n\r\nThis PR is Ready for Review.\r\n\r\n## How to test\r\n\r\n1) Have a mod that runs `minetest.set_mapgen_setting(\"water_level\", \"-31000\")`\r\n2) It should not appear in minetest.conf\r\n",
+    "body_sha256": "f33b3facb15cf77fac97f1ab0891efacdcd145f42806908a22b78ceff814a4c1",
+    "kind": "pull",
+    "merged_at": "2021-06-23T13:22:32Z",
+    "number": 11352,
+    "state": "closed",
+    "title": "Rework Settings to support arbitrary hierarchies",
+    "url": "https://github.com/luanti-org/luanti/pull/11352"
+  },
+  "record_sha256": "ad792f16a65720e325a2c79091bfa1cad4e1132ab2aa8177eeb4e3b48ce10cf0",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-13T08:57:30.679935Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-11352-map-settings-hierarchy",
+  "tests": [
+    {
+      "command": [
+        "bin/luantiserver",
+        "--run-unittests",
+        "--test-module",
+        "TestMapSettingsManager"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/cmake",
+        "--build",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/fresh-gate57-builds/luanti/11352/cpp17-v6/buggy",
+        "--target",
+        "minetestserver",
+        "--parallel",
+        "1"
+      ],
+      "id": "TestMapSettingsManager",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestMapSettingsManager",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/src/unittest/test_map_settings_manager.cpp",
+      "upstream_test_path": "src/unittest/test_map_settings_manager.cpp",
+      "upstream_test_sha256": "b3fb570dda107873c52b60c18bc60ce89d2d3260ce5d6952abcbe929ff91f8a9"
+    },
+    {
+      "command": [
+        "bin/luantiserver",
+        "--run-unittests",
+        "--test-module",
+        "TestSettings"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/cmake",
+        "--build",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/fresh-gate57-builds/luanti/11352/cpp17-v6/buggy",
+        "--target",
+        "minetestserver",
+        "--parallel",
+        "1"
+      ],
+      "id": "TestSettings",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestSettings",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/src/unittest/test_map_settings_manager.cpp",
+      "upstream_test_path": "src/unittest/test_map_settings_manager.cpp",
+      "upstream_test_sha256": "b3fb570dda107873c52b60c18bc60ce89d2d3260ce5d6952abcbe929ff91f8a9"
+    }
+  ],
+  "touched_files": [
+    "src/httpfetch.cpp",
+    "src/main.cpp",
+    "src/map_settings_manager.cpp",
+    "src/map_settings_manager.h",
+    "src/settings.cpp",
+    "src/settings.h",
+    "src/unittest/test_map_settings_manager.cpp"
+  ],
+  "upstream_commits": []
+}

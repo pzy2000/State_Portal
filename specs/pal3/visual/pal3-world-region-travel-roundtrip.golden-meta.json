@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/pal3/visual/c1-world-region-travel-roundtrip.after.golden.png",
+  "after_dimensions": [
+    1280,
+    720
+  ],
+  "after_sha256": "9347805a6138eaf800698ed389a9cc91daa926457867817b959887f7024f86dd",
+  "before": "specs/pal3/visual/c1-world-region-travel-roundtrip.before.golden.png",
+  "before_dimensions": [
+    1280,
+    720
+  ],
+  "before_sha256": "ebc7b3e52dff005ba37bc3bdd69d71b879da2f6e24c4027f207b8699aed7fb98",
+  "benchmark": "pal3",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/pal3/c1-world-region-travel-roundtrip.yaml",
+  "spec_sha256": "b77cb3fe3c4131a39d2c0d4b3afa99df28b34b61f69c3e6139a1a3d6227f84f5",
+  "task_id": "pal3-world-region-travel-roundtrip"
+}

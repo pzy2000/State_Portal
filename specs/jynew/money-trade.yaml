@@ -1,0 +1,51 @@
+name: jynew money and item trade
+benchmark: "jynew"
+tags: ["jynew", "money", "item", "trade"]
+target:
+  kind: synthesized_state
+  mod_id: JYX2
+  money: 2000
+  items:
+    - id: 1
+      count: 5
+checkpoint:
+  allowed_strategies: ["jynew_utility_save_validate"]
+  expected_validity: "injection-only"
+actions:
+  - type: jynew_add_item
+    item_id: 2
+    item_count: 3
+assertions:
+  - type: jynew_item_count
+    item_id: 1
+    expected: "5"
+    comparator: equals
+  - type: jynew_item_count
+    item_id: 2
+    expected: "3"
+    comparator: equals
+  - type: jynew_money_gte
+    int_value: 2000
+  - type: no_jynew_utility_errors
+visual_oracle:
+  golden_image: visual/money-trade.golden.png
+  expected_label: correct
+  scene_key: jynew_default_world
+  description: "After adding 3 units of item 2, the game world is displayed in normal state. The inventory has been updated with the new items."
+  rubric:
+    must:
+      - "The jynew 3D game world is rendered and visible."
+      - "The player character is present in the scene."
+      - "The game is in a playable state, not frozen or crashed."
+    must_not:
+      - "The screen is blank or shows an error."
+      - "A crash dialog or exception trace is visible."
+      - "The game is stuck on a loading or splash screen."
+    ignore:
+      - "Whether the inventory UI is open or closed."
+      - "Exact item icons or quantities shown in UI."
+      - "Character animation state."
+  capture:
+    stage: post_smoke
+    wait_ms: 1000
+    full_page: false

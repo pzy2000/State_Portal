@@ -1,0 +1,13 @@
+{
+  "actions": 2,
+  "after": "specs/jynew/visual/jynew-save-restore.after.golden.png",
+  "after_sha256": "5e4f614850c1cf98e13d2c60db5a28a2c43d2ffa4896df5657ee8d038482640b",
+  "before": "specs/jynew/visual/jynew-save-restore.before.golden.png",
+  "before_sha256": "b25caf69cff146385b4ceaa6a14c7655f0672c451eaf6926a5778756b298eeae",
+  "benchmark": "jynew",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/jynew/save-restore.yaml",
+  "spec_sha256": "fa1a3bea15414a297b83beb037db80d820b700b23b00635fa521bd096e67cb6d",
+  "task_id": "jynew-save-restore"
+}

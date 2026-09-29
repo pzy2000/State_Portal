@@ -1,0 +1,90 @@
+name: C1 Luanti self-sufficient homestead roundtrip
+benchmark: luanti
+timeout_ms: 900000
+tags: [luanti, c1, deep-chain, homestead, save, restore]
+target:
+  kind: synthesized_world
+  fill:
+    - {from: {x: -1, y: 0, z: -1}, to: {x: 9, y: 0, z: 8}, node: "basenodes:dirt_with_grass"}
+    - {from: {x: 0, y: 1, z: 1}, to: {x: 5, y: 1, z: 5}, node: "basenodes:cobble"}
+    - {from: {x: 0, y: 2, z: 1}, to: {x: 5, y: 3, z: 1}, node: "basenodes:tree"}
+    - {from: {x: 0, y: 2, z: 5}, to: {x: 5, y: 3, z: 5}, node: "basenodes:tree"}
+    - {from: {x: 0, y: 2, z: 1}, to: {x: 0, y: 3, z: 5}, node: "basenodes:cobble"}
+    - {from: {x: 5, y: 2, z: 1}, to: {x: 5, y: 3, z: 5}, node: "basenodes:cobble"}
+    - {from: {x: -1, y: 4, z: 0}, to: {x: 6, y: 4, z: 3}, node: "stairs:slab_cobble", param2: 0}
+  nodes:
+    - {pos: {x: 2, y: 2, z: 3}, node: "chest:chest"}
+    - {pos: {x: 3, y: 2, z: 3}, node: "chest:chest"}
+  player:
+    pos: {x: 2, y: 3, z: -2}
+    hp: 9
+    inventory:
+      - {item: "stairs:slab_cobble", count: 24}
+      - {item: "stairs:stair_cobble", count: 1}
+      - {item: "basenodes:junglegrass", count: 24}
+      - {item: "basenodes:cobble", count: 64}
+      - {item: "basenodes:tree", count: 32}
+      - {item: "basenodes:apple", count: 14}
+      - {item: "basetools:pick_steel", count: 1}
+checkpoint:
+  allowed_strategies: [luanti_worldmod_state_validate]
+  expected_validity: save-restorable
+actions:
+  - {type: luanti_fill, from: {x: -1, y: 4, z: 4}, to: {x: 6, y: 4, z: 6}, node: "stairs:slab_cobble", param2: 0}
+  - {type: luanti_set_node, pos: {x: 2, y: 2, z: 0}, node: "stairs:stair_cobble", param2: 2}
+  - {type: luanti_fill, from: {x: 6, y: 2, z: 2}, to: {x: 8, y: 2, z: 5}, node: "basenodes:junglegrass"}
+  - type: luanti_set_meta_inventory
+    pos: {x: 2, y: 2, z: 3}
+    list: main
+    items: [{item: "basenodes:cobble", count: 64}, {item: "basenodes:tree", count: 32}]
+  - type: luanti_set_meta_inventory
+    pos: {x: 3, y: 2, z: 3}
+    list: main
+    items: [{item: "basenodes:apple", count: 8}, {item: "basenodes:junglegrass", count: 12}]
+  - {type: luanti_set_player_hp, hp: 20}
+  - {type: luanti_set_player_inventory, items: [{item: "basetools:pick_steel", count: 1}]}
+  - {type: luanti_save_world}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: luanti_node_count, from: {x: -1, y: 4, z: 0}, to: {x: 6, y: 4, z: 6}, node: "stairs:slab_cobble", min_count: 56}
+      - {type: luanti_node_count, from: {x: 6, y: 2, z: 2}, to: {x: 8, y: 2, z: 5}, node: "basenodes:junglegrass", min_count: 12}
+      - {type: luanti_meta_inventory_contains, pos: {x: 2, y: 2, z: 3}, item: "basenodes:cobble", count: 64}
+      - {type: luanti_meta_inventory_contains, pos: {x: 3, y: 2, z: 3}, item: "basenodes:apple", count: 8}
+      - {type: luanti_player_hp_gte, int_value: 20}
+      - {type: luanti_inventory_contains, item: "basetools:pick_steel", count: 1}
+      - {type: no_luanti_mod_errors}
+    surfaces:
+      gui:
+        adapter: luanti_live_world_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: luanti_live_world_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/luanti-self-sufficient-homestead-roundtrip.after.golden.png
+    golden_before: visual/luanti-self-sufficient-homestead-roundtrip.before.golden.png
+    golden_after: visual/luanti-self-sufficient-homestead-roundtrip.after.golden.png
+    expected_label: correct
+    description: "An unfinished homestead with missing roof and garden work is visible."
+    after_description: "A roofed home, finished garden and storage area are visible after the saved completion."
+    rubric:
+      must: ["A multi-block Luanti homestead is visible.", "The unfinished structure is rendered without errors."]
+      must_not: ["A main menu, blank frame, or one-block smoke scene is visible."]
+      ignore: ["Camera, lighting and inventory UI differences."]
+    after_rubric:
+      must: ["A completed roofed homestead and garden strip are visible.", "The scene is clearly a finished base."]
+      must_not: ["The roof remains missing or the scene is blank/crashed."]
+      ignore: ["Exact player pose, HUD and chest texture."]
+    capture: {stage: post_smoke, wait_ms: 1000, full_page: false}

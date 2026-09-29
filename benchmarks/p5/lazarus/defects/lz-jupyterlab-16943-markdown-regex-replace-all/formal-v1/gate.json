@@ -1,0 +1,149 @@
+{
+  "benchmark": "jupyterlab",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": false,
+  "evidence": {
+    "captures": {
+      "buggy": {
+        "after": {
+          "audit": {
+            "expected": "backreference_literal",
+            "field": "regex_replace_state",
+            "observed": "backreference_literal"
+          },
+          "invariants": {
+            "check": "no_jupyterlab_probe_errors",
+            "console_errors": [],
+            "ok": true,
+            "page_errors": []
+          },
+          "live_source": "jupyterlab_browser_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-jupyterlab-16943-markdown-regex-replace-all/capture/buggy-after.json"
+        },
+        "before": {
+          "audit": {
+            "expected": "digit_values_present",
+            "field": "regex_replace_start_state",
+            "observed": "digit_values_present"
+          },
+          "invariants": {
+            "check": "no_jupyterlab_probe_errors",
+            "console_errors": [],
+            "ok": true,
+            "page_errors": []
+          },
+          "live_source": "jupyterlab_browser_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-jupyterlab-16943-markdown-regex-replace-all/capture/buggy-before.json"
+        }
+      },
+      "fixed": {
+        "after": {
+          "audit": {
+            "expected": "backreference_expanded",
+            "field": "regex_replace_state",
+            "observed": "backreference_expanded"
+          },
+          "invariants": {
+            "check": "no_jupyterlab_probe_errors",
+            "console_errors": [],
+            "ok": true,
+            "page_errors": []
+          },
+          "live_source": "jupyterlab_browser_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-jupyterlab-16943-markdown-regex-replace-all/capture/fixed-after.json"
+        },
+        "before": {
+          "audit": {
+            "expected": "digit_values_present",
+            "field": "regex_replace_start_state",
+            "observed": "digit_values_present"
+          },
+          "invariants": {
+            "check": "no_jupyterlab_probe_errors",
+            "console_errors": [],
+            "ok": true,
+            "page_errors": []
+          },
+          "live_source": "jupyterlab_browser_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-jupyterlab-16943-markdown-regex-replace-all/capture/fixed-before.json"
+        }
+      }
+    },
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.0031318359375,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.6955664062499999
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 1.953125e-05,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.0026822916666666666
+      },
+      "before_sha256": "8e7a0d1713584af318803a2863ba7eda59774f2fe0bb2fe1143652ca57dab3e8",
+      "buggy_after_sha256": "8a50dfc64f94e12100fe4459b9802e4c02811f1be081b1383e5c9856f3ade839",
+      "buggy_before_visual": true,
+      "fixed_after_sha256": "e0cfa5153599953cd29b8a7814dba2f51e2cd7c61193e1399c8605b2f872cefa",
+      "fixed_before_visual": true,
+      "metadata": "specs/jupyterlab/lazarus/visual_lz-jupyterlab-16943-markdown-regex-replace-all/goldens.meta.json",
+      "metadata_sha256": "30a3be02a011f0a5e031afaa51028a159acbe8115819c6fc98e1a772e6323f88"
+    },
+    "kind": "live_construction_run_v1",
+    "patch": {
+      "production_paths": [
+        "packages/cells/src/searchprovider.ts",
+        "packages/cells/src/widget.ts"
+      ],
+      "sha256": "9adcf9322b341d98116a8beca9704cc5be8a22c191a93b2cbec04acda7190e14",
+      "source": "materialized_tree_difference"
+    },
+    "upstream": {
+      "buggy_tests": {
+        "jupyterlab-16943-regex-replace-all-f2p": false,
+        "jupyterlab-coreutils-path-trial-p2p": true,
+        "jupyterlab-notebook-replace-all-construction-p2p": true
+      },
+      "fixed_tests": {
+        "jupyterlab-16943-regex-replace-all-f2p": true,
+        "jupyterlab-coreutils-path-trial-p2p": true,
+        "jupyterlab-notebook-replace-all-construction-p2p": true
+      },
+      "kind": "formal_construction_test_matrix",
+      "receipt": "benchmarks/p5/lazarus/defects/lz-jupyterlab-16943-markdown-regex-replace-all/construction-tests.json",
+      "record_sha256": "5571a213709a61375097dab55f68bf8a02a8bf5753af65a6de3105bc56a41131"
+    }
+  },
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "projection": {
+    "admission": null,
+    "closure_size": 0,
+    "fresh_gate_run": true,
+    "generator": "warptest.lazarus_expansion_gate",
+    "selection_mode": "c1_roster_expansion_v1"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-jupyterlab-16943-markdown-regex-replace-all"
+}

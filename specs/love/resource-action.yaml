@@ -1,0 +1,64 @@
+name: DatingSim deterministic resource action
+benchmark: datingsim
+tags: ["love", "zustand", "deterministic", "no-openai"]
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  player_name: WarpTest
+  gender: male
+  patch:
+    player:
+      resources:
+        money: 1000
+        energy: 100
+        health: 100
+        mood: 100
+    world:
+      location: home
+  expect:
+    resources:
+      money: 1000
+      energy: 100
+checkpoint:
+  allowed_strategies: ["test_hook_seeded_state"]
+  expected_validity: "injection-only"
+replay_from_start:
+  actions: []
+actions:
+  - type: hook_action
+    action_id: work_coding
+    wait_ms: 500
+assertions:
+  - type: state_equals
+    path: player.resources.money
+    value: 1100
+  - type: state_equals
+    path: player.resources.energy
+    value: 80
+  - type: no_real_openai
+  - type: no_severe_console
+visual_oracle:
+  golden_image: visual/resource-action.golden.png
+  golden_before: visual/love-resource-action.before.golden.png
+  golden_after: visual/love-resource-action.after.golden.png
+  expected_label: correct
+  description: "The DatingSim game UI is visible after the coding work action, with WarpTest on the main gameplay screen. Exact resource values are already checked by semantic assertions."
+  rubric:
+    must:
+      - "The DatingSim game UI is visible."
+      - "The player identity or game state for WarpTest is visible."
+      - "The resource/status area is visible and does not visibly contradict the completed work action."
+    must_not:
+      - "The setup screen or an unrelated page is the primary screen."
+      - "A real AI/API error dominates the UI."
+      - "The page is blank or shows a crash/browser error."
+    ignore:
+      - "Small text OCR mistakes in resource numbers; semantic assertions verify money 1100 and energy 80."
+      - "Minor text wrapping differences."
+      - "Dynamic event text that does not contradict the post-action state."
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false
+    hide_selectors: [".modal-overlay:has(.event-title)"]

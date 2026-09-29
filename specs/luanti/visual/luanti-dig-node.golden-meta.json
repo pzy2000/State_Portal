@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "after": "specs/luanti/visual/luanti-dig-node.after.golden.png",
+  "after_sha256": "fba16d5e38efea79bcb6c105e9c3791f79e45bd9d5c3e92cbce5e1bc2627865b",
+  "before": "specs/luanti/visual/luanti-dig-node.before.golden.png",
+  "before_sha256": "d5569bea2f12b147781f86e080c0340bbbaccf7faaa90fcab38d417cee3e8cb1",
+  "benchmark": "luanti",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/luanti/dig-node.yaml",
+  "spec_sha256": "df1ae1c6bae0f7ea2b315c1f7c87719c2ac42434b1bc7de839a4151405610e4d",
+  "task_id": "luanti-dig-node"
+}

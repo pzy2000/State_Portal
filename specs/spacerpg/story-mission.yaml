@@ -1,0 +1,52 @@
+name: SpaceRPG story mission debug scenario
+benchmark: "SpaceRPG"
+tags: ["spacerpg", "story", "mission", "debug-scenario", "deep-state"]
+setup:
+  disable_economy_backend: true
+target:
+  kind: debug_scenario
+  scenario_id: glass-wake-hero
+  screen: flight
+  system_id: mirr-vale
+  mission_visible: ["story-probe-in-glass"]
+  completed_mission_visible: ["story-clean-carrier"]
+  known_system_visible: ["helion-reach", "mirr-vale"]
+checkpoint:
+  allowed_strategies: ["test_hook_jump_and_validate"]
+  expected_validity: "injection-only"
+actions:
+  - type: key
+    key: "W"
+    wait_ms: 300
+assertions:
+  - type: state_equals
+    path: currentSystemId
+    value: mirr-vale
+  - type: state_contains
+    path: completedMissionIds
+    value: story-clean-carrier
+  - type: state_equals
+    path: targetId
+    value: glass-echo-drone
+  - type: no_severe_console
+visual_oracle:
+  golden_image: visual/story-mission.golden.png
+  golden_before: visual/spacerpg-story-mission.before.golden.png
+  golden_after: visual/spacerpg-story-mission.after.golden.png
+  expected_label: correct
+  description: "The SpaceRPG Glass Wake story mission scenario is in playable flight with a mission/encounter context and rendered space HUD."
+  rubric:
+    must:
+      - "A SpaceRPG flight HUD or space scene is visible."
+      - "The scene appears to be a story or encounter flight state, not the main menu."
+      - "The canvas is rendered and non-blank."
+    must_not:
+      - "A station screen, pause menu, crash, or blank canvas dominates the view."
+      - "The screenshot shows a different game or unrelated page."
+    ignore:
+      - "Minor ship, target, or camera position differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false
+    hide_selectors: [".dialogue-backdrop", ".modal-overlay"]

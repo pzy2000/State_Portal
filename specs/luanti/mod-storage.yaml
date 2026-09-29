@@ -1,0 +1,23 @@
+name: luanti advance a mod-storage progress flag
+benchmark: "luanti"
+timeout_ms: 300000
+tags: ["luanti", "mod-storage", "progress"]
+target:
+  kind: synthesized_world
+  mod_storage:
+    - { key: "warptest_progress", value: "intro" }
+  validations:
+    - path: "mod_storage.warptest_progress"
+      expected: "intro"
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_mod_storage
+    key: "warptest_progress"
+    value: "chapter-2"
+assertions:
+  - type: luanti_mod_storage_equals
+    key: "warptest_progress"
+    value: "chapter-2"
+  - type: no_luanti_mod_errors

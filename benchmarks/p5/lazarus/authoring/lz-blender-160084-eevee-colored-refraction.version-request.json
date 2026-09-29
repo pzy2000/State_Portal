@@ -1,0 +1,13 @@
+{
+  "build_class": "incremental_cpp",
+  "declared_files": [
+    "source/blender/nodes/shader/nodes/node_shader_bsdf_principled.cc",
+    "tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_transmission.png",
+    "tests/python/eevee_render_tests.py"
+  ],
+  "fixed_revision": "3d018bcabdaeea66cf4ef4a96ce8913164831f6e",
+  "patch_sha256": "e760902f1e9afa806cfe9cda7bebb8c20df5f3453760de5e32d76cdfe58be55b",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-blender-160084-eevee-colored-refraction/revert.patch",
+  "source_repo": "games/blender",
+  "task_id": "lz-blender-160084-eevee-colored-refraction"
+}

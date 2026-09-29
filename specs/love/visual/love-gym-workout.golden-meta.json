@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "after": "specs/love/visual/love-gym-workout.after.golden.png",
+  "after_sha256": "1f5cc4cfc7fdf3425224f51ebf252eb99c03ece3ba37d9243f75c8b8778765d2",
+  "before": "specs/love/visual/love-gym-workout.before.golden.png",
+  "before_sha256": "04318c97956ed247af0fc5ca66546ede8d50ecc212470e07a95cc6a662b48e2b",
+  "benchmark": "DatingSim",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/love/gym-workout.yaml",
+  "spec_sha256": "428c19d36295604219dd1aaa416700fb4d7205c61072443cff2bb5e6f11cc06a",
+  "task_id": "love-gym-workout"
+}

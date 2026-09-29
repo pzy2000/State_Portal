@@ -1,0 +1,151 @@
+name: C1-Lazarus Luanti 9722-reversible-number-serialize
+benchmark: luanti
+timeout_ms: 2400000
+tags:
+- c1
+- lazarus
+- luanti
+- production
+setup:
+  luanti_lazarus_probe:
+    task_id: lz-luanti-9722-reversible-number-serialize
+    change_number: 9722
+    issue_number: 7925
+    adapter: luanti_lazarus_frozen_evidence_v1
+    observation_source: frozen_gate10_evidence
+    registered_replay:
+    - restore_registered_candidate_start
+    - run_registered_candidate_replay
+    - read_admitted_gate10_semantic_observation
+    evidence_layout: fixed_goal_observation_pair
+    evidence_artifact_ids:
+    - candidate_gate10_9722_replay_oracle/luanti/9722/bounded-v4
+    formal_freeze_admission: candidate_formal_freeze_admission/luanti/9722/real-f12-v2
+    upstream_truth_table:
+      fixed:
+        f2p: true
+        p2p: true
+      buggy:
+        f2p: false
+        p2p: true
+target:
+  kind: synthesized_world
+  candidate_versions:
+  - fixed
+  - buggy
+  game: devtest
+  fixture: registered_candidate_worldmod
+checkpoint:
+  allowed_strategies:
+  - luanti_worldmod_state_validate
+  expected_validity: save-restorable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: luanti_lazarus_frozen_evidence_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: luanti_lazarus_frozen_evidence_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-luanti-9722-reversible-number-serialize/fixed.after.golden.png
+    expected_label: correct
+    description: 'The world behind is nearly black, the title bar is dark blue-grey
+      and reads "C1 LAZARUS #9722 REVERSIBLE NUMBER REPLAY", and the body lists "COMMON
+      START", the two numbers 0.2695949158945771 and 269594915894577, and "Waiting
+      for the ordered replay ...".'
+    rubric:
+      must:
+      - A Luanti client frame rendered by the candidate build shows a centred formspec
+        panel with a coloured title bar over the world, above an eight-slot hotbar.
+      - 'The world behind is nearly black, the title bar is dark blue-grey and reads
+        "C1 LAZARUS #9722 REVERSIBLE NUMBER REPLAY", and the body lists "COMMON START",
+        the two numbers 0.2695949158945771 and 269594915894577, and "Waiting for the
+        ordered replay ...".'
+      must_not:
+      - A blank frame, a crash dialog, or an unrelated application screen is shown.
+      ignore:
+      - The hotbar row, the crosshair, the node selection outline, the wielded item
+        at the lower right, and the server and chat text lines along the top.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: luanti_lazarus_state_audit
+      field: observation
+      expected: goal_reversible_numbers
+    defect_signature:
+    - type: luanti_lazarus_state_audit
+      field: observation
+      expected: defect_number_changed
+    invariant_checks:
+    - type: no_luanti_mod_errors
+    upstream_tests:
+      fail_to_pass:
+      - serialize handles precise numbers
+      pass_to_pass:
+      - serialize handles characters
+      per_trial_p2p:
+      - serialize handles characters
+    goldens:
+      before: visual_lz-luanti-9722-reversible-number-serialize/before.golden.png
+      buggy_before: visual_lz-luanti-9722-reversible-number-serialize/buggy.before.golden.png
+      fixed:
+        after: visual_lz-luanti-9722-reversible-number-serialize/fixed.after.golden.png
+        after_description: 'The world behind is daylit blue sky, the title bar is
+          green and reads "C1 LAZARUS #9722 REPLAY RESULT", and the body shows "GOAL:
+          BOTH NUMBERS PRESERVED" above "value 1 exact: true", "value 2 exact: true"
+          and "semantic class: goal_reversible_numbers".'
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a centred
+            formspec panel with a coloured title bar over the world, above an eight-slot
+            hotbar.
+          - 'The world behind is daylit blue sky, the title bar is green and reads
+            "C1 LAZARUS #9722 REPLAY RESULT", and the body shows "GOAL: BOTH NUMBERS
+            PRESERVED" above "value 1 exact: true", "value 2 exact: true" and "semantic
+            class: goal_reversible_numbers".'
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the crosshair, the node selection outline, the wielded
+            item at the lower right, and the server and chat text lines along the
+            top.
+      buggy:
+        after: visual_lz-luanti-9722-reversible-number-serialize/buggy.after.golden.png
+        after_description: 'The world behind is daylit blue sky, the title bar is
+          dark red and reads "C1 LAZARUS #9722 REPLAY RESULT", and the body shows
+          "DEFECT: NUMBER CHANGED" above "value 1 exact: false", "value 2 exact: true"
+          and "semantic class: defect_number_changed".'
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a centred
+            formspec panel with a coloured title bar over the world, above an eight-slot
+            hotbar.
+          - 'The world behind is daylit blue sky, the title bar is dark red and reads
+            "C1 LAZARUS #9722 REPLAY RESULT", and the body shows "DEFECT: NUMBER CHANGED"
+            above "value 1 exact: false", "value 2 exact: true" and "semantic class:
+            defect_number_changed".'
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the crosshair, the node selection outline, the wielded
+            item at the lower right, and the server and chat text lines along the
+            top.

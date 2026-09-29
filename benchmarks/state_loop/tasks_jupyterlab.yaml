@@ -1,0 +1,58 @@
+# JupyterLab-only task set for C3 state-loop coverage.
+# The tasks are addressable through the same state-loop manifest shape as SpaceRPG.
+# Runtime execution remains dependency/profile-gated by the JupyterLab server stack.
+tasks:
+  - id: jupyterlab-text-file-edit
+    benchmark: JupyterLab
+    repo: games/jupyterlab
+    state_description: >-
+      A JupyterLab text document starts at notes/warptest.txt with the initial text,
+      then the Contents-backed editor path saves exactly the edited text.
+    oracle_spec: specs/jupyterlab/text-file-edit.yaml
+    tags: ["state-loop", "jupyterlab", "contents", "text"]
+    budget_ms: 180000
+  - id: jupyterlab-markdown-file-save
+    benchmark: JupyterLab
+    repo: games/jupyterlab
+    state_description: >-
+      A JupyterLab Markdown document starts at notes/analysis.md, then the
+      Contents-backed save path persists the updated Markdown body exactly.
+    oracle_spec: specs/jupyterlab/markdown-file-save.yaml
+    tags: ["state-loop", "jupyterlab", "contents", "markdown"]
+    budget_ms: 180000
+  - id: jupyterlab-notebook-cell-output
+    benchmark: JupyterLab
+    repo: games/jupyterlab
+    state_description: >-
+      A JupyterLab notebook contains a Python code cell, then running cell 0 through
+      a real kernel session persists the output containing warptest:42.
+    oracle_spec: specs/jupyterlab/notebook-cell-output.yaml
+    tags: ["state-loop", "jupyterlab", "notebook", "kernel"]
+    budget_ms: 240000
+  - id: jupyterlab-notebook-markdown-note
+    benchmark: JupyterLab
+    repo: games/jupyterlab
+    state_description: >-
+      A JupyterLab notebook containing a Markdown note is created through the
+      Contents API and remains present in the isolated Jupyter root.
+    oracle_spec: specs/jupyterlab/notebook-markdown-note.yaml
+    tags: ["state-loop", "jupyterlab", "notebook", "markdown"]
+    budget_ms: 180000
+  - id: jupyterlab-workspace-layout
+    benchmark: JupyterLab
+    repo: games/jupyterlab
+    state_description: >-
+      A JupyterLab workspace named warptest persists notes/workspace.md and
+      notebooks/workspace.ipynb as opened document tabs in workspace metadata.
+    oracle_spec: specs/jupyterlab/workspace-layout.yaml
+    tags: ["state-loop", "jupyterlab", "workspace", "layout"]
+    budget_ms: 180000
+  - id: jupyterlab-session-smoke
+    benchmark: JupyterLab
+    repo: games/jupyterlab
+    state_description: >-
+      A JupyterLab notebook at notebooks/session-smoke.ipynb starts a python3
+      kernel session and leaves a live Jupyter session without server errors.
+    oracle_spec: specs/jupyterlab/session-smoke.yaml
+    tags: ["state-loop", "jupyterlab", "session", "kernel"]
+    budget_ms: 240000

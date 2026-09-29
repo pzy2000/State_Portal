@@ -1,0 +1,12 @@
+{
+  "build_class": "incremental_cpp",
+  "declared_files": [
+    "src/inventory.cpp",
+    "src/unittest/test_moveaction.cpp"
+  ],
+  "fixed_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "patch_sha256": "5264b3a5d1ab61b4e5c982de296a28193717335d5923e4e4dc01eceb381015cb",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-luanti-14586-full-crafting-shift-move/revert.patch",
+  "source_repo": "games/luanti",
+  "task_id": "lz-luanti-14586-full-crafting-shift-move"
+}

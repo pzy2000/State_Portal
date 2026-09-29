@@ -1,0 +1,63 @@
+name: DatingSim corrupted save load checkpoint
+benchmark: DatingSim
+tags:
+- love
+- save
+- corrupted
+- variant
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  seed: 46
+  player_name: WarpTest
+  gender: male
+  patch:
+    world:
+      location: home
+  expect:
+    location: home
+    resources:
+      money: 1000
+      energy: 100
+checkpoint:
+  allowed_strategies:
+  - test_hook_seeded_state
+  expected_validity: injection-only
+actions:
+- type: local_storage_set
+  key: love_emulator_save_v1
+  value: '{"isSetupComplete": true, "player": {"name": "WarpTest", "gender": "male"},
+    "world": {"location": "home", "week": 1, "day": 0, "timeSlot": "morning", "globalFlags":
+    {}}, "characters": {}, "log": [], "language": "zh"}'
+  wait_ms: 100
+- type: hook_call
+  method: load
+  args: []
+  wait_ms: 500
+assertions:
+- type: state_equals
+  path: isSetupComplete
+  value: true
+- type: no_real_openai
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/resource-action.golden.png
+  expected_label: correct
+  description: The DatingSim UI stays rendered after loading a save payload that
+    is valid JSON but omits player.resources/stats/relationships/title, probing
+    PersistenceManager.loadGame()'s lack of schema validation.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+    - Exact resource numbers, since the loaded save intentionally omits them.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

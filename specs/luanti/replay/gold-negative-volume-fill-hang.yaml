@@ -1,0 +1,33 @@
+# Gold replay: a fill region whose bounds span the full i32 range hangs the server.
+#
+# A degenerate region (from/to swapped across the coordinate space) expands to an
+# astronomically large volume; synthesis spins in an unbounded synchronous loop and
+# the server main thread never services shutdown (SIGKILL needed).
+name: "luanti replay: i32-spanning fill region hangs the server"
+benchmark: luanti
+
+source:
+  upstream_repo: luanti-org/luanti
+  pr_number: null
+  pre_fix_sha: null
+  post_fix_sha: null
+  source_url: null
+  provenance: >-
+    Control-validated reproduction of the runaway-fill hang class. Author real
+    pre/post SHA to promote to a gold pair.
+
+fixture:
+  target:
+    kind: synthesized_world
+    fill:
+      - from: { x: 2147483647, y: 1, z: 0 }
+        to: { x: -2147483648, y: 1, z: 2 }
+        node: "basenodes:stone"
+
+defect_oracle:
+  abnormal_exit: false
+  timeout: true
+  log_signatures: []
+  semantic_assertions: []
+
+timeout_s: 25

@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "after": "specs/luanti/visual/luanti-build-column.after.golden.png",
+  "after_sha256": "04a8945a26b09b7801c79b98976ac5ce8def0faf3d5be686b272271a9dff4a57",
+  "before": "specs/luanti/visual/luanti-build-column.before.golden.png",
+  "before_sha256": "54148baa74aa7088758ebc9771f5025989c4b1ff9dbc2fbef42c293d7bfda63e",
+  "benchmark": "luanti",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/luanti/build-column.yaml",
+  "spec_sha256": "65c8c7c735d703074ec02908caa3873f3a831bae440e513c13c30aa0f93e228f",
+  "task_id": "luanti-build-column"
+}

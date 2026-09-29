@@ -1,0 +1,13 @@
+{
+  "actions": 2,
+  "after": "specs/spacerpg/visual/spacerpg-trading-cargo.after.golden.png",
+  "after_sha256": "409e98735a7c18073e0afe4fd9a782ed76e3c292b0fe458dfc5db55e11737fda",
+  "before": "specs/spacerpg/visual/spacerpg-trading-cargo.before.golden.png",
+  "before_sha256": "7014899f73c12373db1675194d09b20b2fa3a760c7c41bd08d8a594ec32c9009",
+  "benchmark": "spacerpg",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/spacerpg/trading-cargo.yaml",
+  "spec_sha256": "5f2b0f2d71416e803deea2529cc56eee42a1657aef1c05989273bed19ccf6586",
+  "task_id": "spacerpg-trading-cargo"
+}

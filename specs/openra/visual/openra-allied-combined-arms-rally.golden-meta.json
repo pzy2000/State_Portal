@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/openra/visual/c1-allied-combined-arms-rally.after.golden.png",
+  "after_dimensions": [
+    3024,
+    1898
+  ],
+  "after_sha256": "715a19fcb7c72d6355af3937e5f18b0a58f6e24a1e863f8594ee82d6abb84e2b",
+  "before": "specs/openra/visual/c1-allied-combined-arms-rally.before.golden.png",
+  "before_dimensions": [
+    3024,
+    1898
+  ],
+  "before_sha256": "b76f9e919ac67f3aecbf3ea25f6aa876d4e1510b779df77bc4fb14e955ae8219",
+  "benchmark": "openra",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/openra/c1-allied-combined-arms-rally.yaml",
+  "spec_sha256": "3c377a5aeb03de6b7c9ca6f3196dbffbbcfb90ff791d538c1f8cd5d4db9e9b43",
+  "task_id": "openra-allied-combined-arms-rally"
+}

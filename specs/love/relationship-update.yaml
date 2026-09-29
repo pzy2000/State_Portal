@@ -1,0 +1,81 @@
+name: DatingSim relationship update checkpoint
+benchmark: "DatingSim"
+tags: ["love", "zustand", "relationship", "deterministic", "no-openai"]
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  seed: 13
+  player_name: WarpTest
+  gender: male
+  patch:
+    player:
+      relationships:
+        char_1:
+          trust: 20
+          attraction: 25
+          comfort: 15
+          respect: 10
+          investment: 5
+          conflict: 2
+          status: acquaintance
+          history: ["Met Elena at a gallery opening."]
+          memories: []
+    world:
+      location: cafe
+  expect:
+    location: cafe
+    resources:
+      money: 1000
+      energy: 100
+    relationships:
+      char_1:
+        trust: 20
+        attraction: 25
+        status: acquaintance
+checkpoint:
+  allowed_strategies: ["test_hook_seeded_state"]
+  expected_validity: "injection-only"
+actions:
+  - type: hook_call
+    method: applyRelationshipUpdates
+    args: ["char_1", {trust: 10, comfort: 5, attraction: 5, respect: 3}]
+    wait_ms: 300
+assertions:
+  - type: state_equals
+    path: player.relationships.char_1.trust
+    value: 30
+  - type: state_equals
+    path: player.relationships.char_1.attraction
+    value: 30
+  - type: state_equals
+    path: player.relationships.char_1.comfort
+    value: 20
+  - type: state_equals
+    path: player.relationships.char_1.respect
+    value: 13
+  - type: no_real_openai
+  - type: no_severe_console
+visual_oracle:
+  golden_image: visual/relationship-update.golden.png
+  golden_before: visual/love-relationship-update.before.golden.png
+  golden_after: visual/love-relationship-update.after.golden.png
+  expected_label: correct
+  description: "The DatingSim main UI remains playable after applying a deterministic relationship update to Elena from a seeded relationship state."
+  rubric:
+    must:
+      - "The DatingSim main game UI is visible."
+      - "WarpTest is visible as the player identity."
+      - "The Elena/contact relationship area or status panel is visible."
+    must_not:
+      - "The setup screen is still visible."
+      - "A real AI/API error dominates the UI."
+      - "The page is blank or crashed."
+    ignore:
+      - "Exact bar fill percentages, since semantic assertions check relationship values."
+      - "Minor text wrapping differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false
+    hide_selectors: [".modal-overlay:has(.event-title)"]

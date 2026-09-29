@@ -1,0 +1,110 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lz-luanti-15408-collision-acceleration
+benchmark: luanti
+candidate:
+  repository_key: luanti
+  change_number: 15408
+  issue_number: 15027
+  defect_locus: at_goal
+authoritative_defect: null
+provenance:
+  formal_freeze_admission: candidate_formal_freeze_admission/luanti/15408/current/v2
+  frame_sources:
+    fixed_before: candidate_gate11_15408_native_visual_observation/luanti/15408/v2
+    fixed_after: candidate_gate11_15408_native_visual_observation/luanti/15408/v2
+    buggy_before: candidate_gate11_15408_native_visual_observation/luanti/15408/v2
+    buggy_after: candidate_gate11_15408_native_visual_observation/luanti/15408/v2
+  goldens_metadata: visual_lz-luanti-15408-collision-acceleration/goldens.meta.json
+  before_equivalence:
+    changed_pixel_ratio: 0.0
+    ignored_top_fraction: 0.25
+    mean_absolute_difference: 0.0
+  after_differential:
+    changed_pixel_ratio: 0.03672309027777778
+    ignored_top_fraction: 0.25
+    mean_absolute_difference: 2.3617597415123455
+  golden_policy:
+    after_min_changed_pixel_ratio: 0.001
+    before_max_changed_pixel_ratio: 0.01
+    ignore_top_fraction: 0.25
+  captured_by: materialized_fixed_buggy_runtime_capture
+evaluation:
+  visual_oracle:
+    golden_image: visual_lz-luanti-15408-collision-acceleration/fixed.after.golden.png
+    expected_label: correct
+    description: The cube rests to the right of the pillar with a clear gap between
+      them, and a small purple marker is visible on the platform inside that gap.
+    rubric:
+      must:
+      - A Luanti client frame rendered by the candidate build shows a small stone
+        platform floating in a pale blue sky, carrying a tall cobblestone pillar and
+        one white-and-grey cube entity.
+      - The cube rests to the right of the pillar with a clear gap between them, and
+        a small purple marker is visible on the platform inside that gap.
+      must_not:
+      - A blank frame, a crash dialog, or an unrelated application screen is shown.
+      ignore:
+      - The hotbar row, the crosshair, the coloured cloud band on the right, and the
+        exact sky gradient.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    runtime_status: frozen_evidence_available
+    probe:
+      adapter: luanti_lazarus_frozen_evidence_v1
+      spec: lz-luanti-15408-collision-acceleration.yaml
+      registered_replay:
+      - restore_registered_candidate_start
+      - run_registered_candidate_replay
+      - read_admitted_gate10_semantic_observation
+      versions_replayed:
+      - fixed
+      - buggy
+      re_executed_offline: false
+      provider_calls_required: false
+    upstream_tests:
+      fail_to_pass: []
+      pass_to_pass: []
+    goldens:
+      before: visual_lz-luanti-15408-collision-acceleration/before.golden.png
+      buggy_before: visual_lz-luanti-15408-collision-acceleration/buggy.before.golden.png
+      fixed:
+        after: visual_lz-luanti-15408-collision-acceleration/fixed.after.golden.png
+        after_description: The cube has moved left and now rests directly against
+          the right side of the pillar, covering the purple marker, and no part of
+          the cube is on the left side of the pillar.
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a small stone
+            platform floating in a pale blue sky, carrying a tall cobblestone pillar
+            and one white-and-grey cube entity.
+          - The cube has moved left and now rests directly against the right side
+            of the pillar, covering the purple marker, and no part of the cube is
+            on the left side of the pillar.
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the crosshair, the coloured cloud band on the right, and
+            the exact sky gradient.
+      buggy:
+        after: visual_lz-luanti-15408-collision-acceleration/buggy.after.golden.png
+        after_description: The cube has passed through the pillar and now rests on
+          its left side, overlapping the pillar's base, while the purple marker is
+          visible again on the empty right side.
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a small stone
+            platform floating in a pale blue sky, carrying a tall cobblestone pillar
+            and one white-and-grey cube entity.
+          - The cube has passed through the pillar and now rests on its left side,
+            overlapping the pillar's base, while the purple marker is visible again
+            on the empty right side.
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the crosshair, the coloured cloud band on the right, and
+            the exact sky gradient.

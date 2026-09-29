@@ -1,0 +1,127 @@
+{
+  "schema": "c1-lazarus-authoring-tests-v1",
+  "schema_version": 1,
+  "tests": [
+    {
+      "argv": [
+        "./build-lazarus/bin/tests/blender_test",
+        "--gtest_filter=path_utils.FrameStrip:path_utils.FrameGet",
+        "--test-assets-dir",
+        "tests/files",
+        "--test-release-dir",
+        "build-lazarus/bin"
+      ],
+      "command": [
+        "./build-lazarus/bin/tests/blender_test",
+        "--gtest_filter=path_utils.FrameStrip:path_utils.FrameGet",
+        "--test-assets-dir",
+        "tests/files",
+        "--test-release-dir",
+        "build-lazarus/bin"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "source/blender/blenlib/tests/BLI_path_utils_test.cc",
+          "sha256": "8ffe3923d611c1fd67ed8ea2b6da1be05b960403315c40aafc07a5e9f09733e9",
+          "source_path": "upstream-tests/source/blender/blenlib/tests/BLI_path_utils_test.cc"
+        }
+      ],
+      "id": "blender-156442-frame-strip-get-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_gtest_regression_suite",
+      "source_case": "path_utils.FrameStrip and FrameGet",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/2ba42ef636fc282b6cc30a988d95ffd6501aa72b/source/blender/blenlib/tests/BLI_path_utils_test.cc",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "source/blender/blenlib/tests/BLI_path_utils_test.cc",
+          "sha256": "8ffe3923d611c1fd67ed8ea2b6da1be05b960403315c40aafc07a5e9f09733e9",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/2ba42ef636fc282b6cc30a988d95ffd6501aa72b/source/blender/blenlib/tests/BLI_path_utils_test.cc"
+        }
+      ],
+      "upstream_test_path": "source/blender/blenlib/tests/BLI_path_utils_test.cc",
+      "upstream_test_sha256": "8ffe3923d611c1fd67ed8ea2b6da1be05b960403315c40aafc07a5e9f09733e9"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/tests/blender_test",
+        "--gtest_filter=path_utils.Frame",
+        "--test-assets-dir",
+        "tests/files",
+        "--test-release-dir",
+        "build-lazarus/bin"
+      ],
+      "command": [
+        "./build-lazarus/bin/tests/blender_test",
+        "--gtest_filter=path_utils.Frame",
+        "--test-assets-dir",
+        "tests/files",
+        "--test-release-dir",
+        "build-lazarus/bin"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "source/blender/blenlib/tests/BLI_path_utils_test.cc",
+          "sha256": "8ffe3923d611c1fd67ed8ea2b6da1be05b960403315c40aafc07a5e9f09733e9",
+          "source_path": "upstream-tests/source/blender/blenlib/tests/BLI_path_utils_test.cc"
+        }
+      ],
+      "id": "blender-path-frame-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_gtest_suite",
+      "source_case": "path_utils.Frame",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/2ba42ef636fc282b6cc30a988d95ffd6501aa72b/source/blender/blenlib/tests/BLI_path_utils_test.cc",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "source/blender/blenlib/tests/BLI_path_utils_test.cc",
+          "sha256": "8ffe3923d611c1fd67ed8ea2b6da1be05b960403315c40aafc07a5e9f09733e9",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/2ba42ef636fc282b6cc30a988d95ffd6501aa72b/source/blender/blenlib/tests/BLI_path_utils_test.cc"
+        }
+      ],
+      "upstream_test_path": "source/blender/blenlib/tests/BLI_path_utils_test.cc",
+      "upstream_test_sha256": "8ffe3923d611c1fd67ed8ea2b6da1be05b960403315c40aafc07a5e9f09733e9"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "cwd": ".",
+      "id": "blender-mathutils-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "repository_python_test_suite",
+      "source_case": "bl_pyapi_mathutils",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/bl_pyapi_mathutils.py",
+          "sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py"
+        }
+      ],
+      "upstream_test_path": "tests/python/bl_pyapi_mathutils.py",
+      "upstream_test_sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af"
+    }
+  ]
+}

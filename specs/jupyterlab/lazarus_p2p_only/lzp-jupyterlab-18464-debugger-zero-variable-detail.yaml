@@ -1,0 +1,137 @@
+schema_version: 1
+benchmark: jupyterlab
+name: lzp-jupyterlab-18464-debugger-zero-variable-detail
+target:
+  kind: jupyterlab_lazarus_candidate_bundle
+  change_number: 18464
+  variants:
+  - fixed
+  - buggy
+  capture_backend: playwright_chromium_png
+setup:
+  jupyterlab_lazarus_probe:
+    registered_replay:
+      fixture: warptest.c1_lazarus_selection.p2p_only_frames
+      build_packages:
+      - packages/debugger
+      stylesheets:
+      - packages/theme-light-extension/style/variables.css
+      - packages/debugger/style/base.css
+      fixture_notes: The variables model is a fixture; the row markup comes from the tree.
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lzp-jupyterlab-18464-debugger-zero-variable-detail/before.golden.png
+    description: A candidate inspector tree is visible on a white page, belonging to the Locals scope
+      (a separate scope heading need not be painted). Exactly one entry row named "total" is shown with
+      a nonzero integer readout. The second entry named "count" is not present yet.
+    rubric:
+      must:
+      - A candidate inspector tree is visible on a white page, belonging to the Locals scope (a separate
+        scope heading need not be painted).
+      - Exactly one entry row named "total" is shown with a nonzero integer readout. The second entry
+        named "count" is not present yet.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - The particular nonzero integer displayed for the initial total row (7 in the reference is an example,
+        not a required value).
+      - Whether a separate Locals heading is painted; viewport dimensions, surrounding blank space, panel
+        position, font antialiasing and sub-pixel shifts.
+    start_rubric_revision: public-preconditions-v2
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - id: rendered_goal_frame
+      kind: visual_frame
+      frame: fixed_after
+      expected: 'Two entry rows are drawn under "Locals". Each reads its name followed by a blue readout
+        at the same size as the name: "total" then its initial integer readout, and "count" then "0".'
+    defect_signature:
+    - id: rendered_defect_frame
+      kind: visual_frame
+      frame: buggy_after
+      expected: Two entry rows are drawn under "Locals". The first reads "total" followed by a blue integer
+        readout at the same size as the name. The second reads "count" followed by a much smaller "0"
+        in the name's own dark colour, sitting high against the name rather than on the row's baseline.
+    invariant_checks:
+    - id: shared_start_frame
+      kind: visual_frame
+      frame: before
+      expected: Exactly one entry row named "total" is shown with a nonzero integer readout. The second
+        entry named "count" is not present yet.
+    f2p_absence:
+      reason: The defect is that one rendered detail span is absent for a specific falsy value. The panel
+        reports no error and its data model is unchanged, so the defect exists only in what the tree paints.
+      audited_paths: []
+    upstream_tests:
+      fail_to_pass: []
+      pass_to_pass:
+      - jupyterlab-pr18464-control-p2p
+      per_trial_p2p:
+      - jupyterlab-pr18464-control-p2p
+    goldens:
+      before: visual_lzp-jupyterlab-18464-debugger-zero-variable-detail/before.golden.png
+      buggy_before: visual_lzp-jupyterlab-18464-debugger-zero-variable-detail/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-jupyterlab-18464-debugger-zero-variable-detail/fixed.after.golden.png
+        after_description: 'Two entry rows are drawn under "Locals". Each reads its name followed by a
+          blue readout at the same size as the name: "total" then its initial integer readout, and "count"
+          then "0".'
+        after_rubric:
+          must:
+          - A candidate inspector tree is visible on a white page, belonging to the Locals scope (a separate
+            scope heading need not be painted).
+          - 'Two entry rows are drawn under "Locals". Each reads its name followed by a blue readout at
+            the same size as the name: "total" then its initial integer readout, and "count" then "0".'
+          - Judge this frame by how the readout of the entry named "count" is drawn beside its name, comparing
+            its size and colour with the readout on the row above.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - The particular nonzero integer displayed for the initial total row (7 in the reference is
+            an example, not a required value).
+          - Whether a separate Locals heading is painted; viewport dimensions, surrounding blank space,
+            panel position, font antialiasing and sub-pixel shifts.
+      buggy:
+        after: visual_lzp-jupyterlab-18464-debugger-zero-variable-detail/buggy.after.golden.png
+        after_description: Two entry rows are drawn under "Locals". The first reads "total" followed by
+          a blue integer readout at the same size as the name. The second reads "count" followed by a
+          much smaller "0" in the name's own dark colour, sitting high against the name rather than on
+          the row's baseline.
+        after_rubric:
+          must:
+          - A candidate inspector tree is visible on a white page, belonging to the Locals scope (a separate
+            scope heading need not be painted).
+          - Two entry rows are drawn under "Locals". The first reads "total" followed by a blue integer
+            readout at the same size as the name. The second reads "count" followed by a much smaller
+            "0" in the name's own dark colour, sitting high against the name rather than on the row's
+            baseline.
+          - Judge this frame by how the readout of the entry named "count" is drawn beside its name, comparing
+            its size and colour with the readout on the row above.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - The particular nonzero integer displayed for the initial total row (7 in the reference is
+            an example, not a required value).
+          - Whether a separate Locals heading is painted; viewport dimensions, surrounding blank space,
+            panel position, font antialiasing and sub-pixel shifts.

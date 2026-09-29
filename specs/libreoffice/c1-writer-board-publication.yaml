@@ -1,0 +1,86 @@
+name: C1 LibreOffice Writer board publication workflow
+benchmark: libreoffice
+repo: ../../games/LibreOffice
+timeout_ms: 900000
+tags: [c1, long, libreoffice, writer, publication]
+target:
+  kind: writer_document
+  path: c1-writer-board-publication.odt
+  paragraphs:
+    - {text: Executive Operations Review, style: Heading 1}
+    - {text: Draft packet for board publication.}
+    - {text: Pipeline Recovery, style: Heading 2}
+    - {text: Recovery plan awaits an accountable owner.}
+    - {text: Risk Register, style: Heading 2}
+    - {text: Delivery and security risks require final review.}
+    - {text: Appendix, style: Heading 1}
+  tables:
+    Milestones:
+      - [Milestone, Owner, Status]
+      - [Platform audit, Mira, Open]
+      - [Launch review, Dev, At risk]
+checkpoint:
+  allowed_strategies: [libreoffice_uno_document_validate]
+  expected_validity: save-restorable
+actions:
+  - {type: libreoffice_open_document}
+  - {type: libreoffice_insert_toc, title: Board Contents, include_styles: [Heading 1, Heading 2]}
+  - {type: libreoffice_set_table_cell, table: Milestones, cell: C2, value: Complete}
+  - {type: libreoffice_append_paragraph, text: "Recovery owner: Casey Lin. Decision log approved for publication."}
+  - {type: libreoffice_update_indexes}
+  - {type: libreoffice_save}
+  - {type: libreoffice_reopen}
+  - {type: libreoffice_export_pdf, path: c1-writer-board-publication.pdf}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: libreoffice_toc_contains, text: Pipeline Recovery}
+      - {type: libreoffice_toc_contains, text: Risk Register}
+      - {type: libreoffice_table_cell_equals, table: Milestones, cell: C2, expected: Complete}
+      - {type: libreoffice_text_contains, text: "Recovery owner: Casey Lin."}
+      - {type: libreoffice_pdf_exists, path: c1-writer-board-publication.pdf}
+      - {type: no_libreoffice_errors}
+    surfaces:
+      gui:
+        adapter: libreoffice_uno_persistence_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+          native_checks:
+          - transition.session_same
+          - transition.saved_url
+          - transition.persisted_file
+          - transition.not_modified
+          - transition.document_reopened
+      state:
+        adapter: libreoffice_uno_persistence_v1
+        goal:
+          checks: []
+          use_assertions: true
+          native_checks:
+          - transition.session_same
+          - transition.saved_url
+          - transition.persisted_file
+          - transition.not_modified
+          - transition.document_reopened
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/c1-writer-board-publication.after.golden.png
+    golden_before: visual/c1-writer-board-publication.before.golden.png
+    golden_after: visual/c1-writer-board-publication.after.golden.png
+    expected_label: correct
+    description: The draft board report with headings and an open milestone is visible in Writer.
+    after_description: The refreshed contents, completed milestone, and recovery-owner publication text are visible.
+    rubric:
+      must: [LibreOffice Writer displays the draft board report]
+      must_not: [A blank page, crash dialog, or another application is shown]
+    after_rubric:
+      must: [The report visibly contains a contents structure or publication update, The completed milestone or recovery owner is visible]
+      must_not: [Only the unchanged draft is visible, A blank or crashed window is shown]
+    capture: {stage: post_smoke, wait_ms: 500, full_page: false}

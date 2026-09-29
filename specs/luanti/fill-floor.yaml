@@ -1,0 +1,49 @@
+name: luanti fill a cobble floor region and mark it
+benchmark: "luanti"
+timeout_ms: 300000
+tags: ["luanti", "voxel", "fill", "region"]
+target:
+  kind: synthesized_world
+  fill:
+    - from: { x: 0, y: 1, z: 0 }
+      to: { x: 3, y: 1, z: 3 }
+      node: "basenodes:cobble"
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_node
+    pos: { x: 1, y: 2, z: 1 }
+    node: "basenodes:tree"
+assertions:
+  - type: luanti_node_count
+    from: { x: 0, y: 1, z: 0 }
+    to: { x: 3, y: 1, z: 3 }
+    node: "basenodes:cobble"
+    min_count: 16
+  - type: luanti_node_is
+    pos: { x: 1, y: 2, z: 1 }
+    expected: "basenodes:tree"
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/fill-floor.golden.png
+  golden_before: visual/luanti-fill-floor.before.golden.png
+  golden_after: visual/luanti-fill-floor.after.golden.png
+  expected_label: correct
+  description: "A flat 4x4 cobble floor is rendered near spawn with a single tree-trunk block placed on top."
+  rubric:
+    must:
+      - "The 3D voxel world is rendered and visible."
+      - "A compact cobble floor/platform patch is visible near spawn."
+      - "A single tree-trunk marker block is visible on top of the cobble floor."
+      - "No crash dialog, error overlay, or fully blank screen is shown."
+    must_not:
+      - "The floor/platform is missing, made of a clearly different material, or lacks the tree-trunk marker."
+      - "The screen is blank, black, or only shows the main menu."
+      - "An error dialog or exception stack trace is visible."
+    ignore:
+      - "Exact camera angle, lighting, or player position differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 800
+    full_page: false

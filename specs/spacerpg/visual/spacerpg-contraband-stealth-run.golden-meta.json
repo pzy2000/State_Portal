@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/spacerpg/visual/spacerpg-contraband-stealth-run.after.golden.png",
+  "after_dimensions": [
+    1280,
+    800
+  ],
+  "after_sha256": "9c1a889e387966698921fed83542381efb7ae0110f0e33ffad5b2ac57f0b2789",
+  "before": "specs/spacerpg/visual/spacerpg-contraband-stealth-run.before.golden.png",
+  "before_dimensions": [
+    1280,
+    800
+  ],
+  "before_sha256": "6feb2497f5c151053671fee7cc2c49f4c9685f5b0396c54f7af487a5715e310f",
+  "benchmark": "spacerpg",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/spacerpg/c1-contraband-stealth-run.yaml",
+  "spec_sha256": "1e4605fb1b0135ae592ba9845036e671908ab04ab586e3c2ab6757fcd7b548b5",
+  "task_id": "spacerpg-contraband-stealth-run"
+}

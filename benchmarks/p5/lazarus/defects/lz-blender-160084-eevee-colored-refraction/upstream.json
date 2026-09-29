@@ -1,0 +1,276 @@
+{
+  "authority": "gitea",
+  "benchmark": "blender",
+  "comments": [
+    {
+      "author": "Alaska",
+      "body_normalized": "I can confirm the refection roughness issue.\n\nSInce it's a regression from Blender 5.1 to 5.2, I will mark this report as high severity and look into bisecting.\n\n---\n\nThe dark spot issue has been in Blender for many versions. So it's a different issue. I will ignore it for this report and would encourage you to make a separate bug report for it.",
+      "body_raw": "I can confirm the refection roughness issue.\n\nSInce it's a regression from Blender 5.1 to 5.2, I will mark this report as high severity and look into bisecting.\n\n---\n\nThe dark spot issue has been in Blender for many versions. So it's a different issue. I will ignore it for this report and would encourage you to make a separate bug report for it.",
+      "body_sha256": "d51a2f8941da3ca5f3ef65f4ab7c46ee99ec65a89728f9298cfc311ac79f067b",
+      "created_at": "2026-06-14T05:32:24+02:00",
+      "id": 1957415,
+      "source": "issue_comment",
+      "updated_at": "2026-06-14T05:34:02+02:00",
+      "url": "https://projects.blender.org/blender/blender/issues/160084#issuecomment-1957415"
+    },
+    {
+      "author": "Alaska",
+      "body_normalized": "Bisecting points to 896b21a4bdf3158e217f1a90f524e670f845e996\n\nCC @fclem",
+      "body_raw": "Bisecting points to 896b21a4bdf3158e217f1a90f524e670f845e996\r\n\r\nCC @fclem ",
+      "body_sha256": "1921155078fac93d33679bd651a8988f96664832418b14351674a615958650bd",
+      "created_at": "2026-06-14T08:01:35+02:00",
+      "id": 1957457,
+      "source": "issue_comment",
+      "updated_at": "2026-06-14T08:01:35+02:00",
+      "url": "https://projects.blender.org/blender/blender/issues/160084#issuecomment-1957457"
+    },
+    {
+      "author": "not_mark",
+      "body_normalized": "Random note: I can only reproduce this with a non-white `Base Color`.",
+      "body_raw": "Random note: I can only reproduce this with a non-white `Base Color`.",
+      "body_sha256": "a4670eb87bfe517db7ae6f2ab2195e17c5a55d909eb88c32e18ecf06de9f4322",
+      "created_at": "2026-06-15T10:54:52+02:00",
+      "id": 1958209,
+      "source": "issue_comment",
+      "updated_at": "2026-06-15T10:54:52+02:00",
+      "url": "https://projects.blender.org/blender/blender/issues/160084#issuecomment-1958209"
+    }
+  ],
+  "fix_commit": "ec92178a691a10b4b0076556d05daf69ec158200",
+  "issue": {
+    "author": "JoelR_VC",
+    "body_normalized": "### System Information\n\nOperating system: Windows-11-10.0.26200-SP0 64 Bits\nGraphics card: NVIDIA GeForce RTX 3060 NVIDIA Corporation NVIDIA 596.36 Vulkan Backend\n\n### Blender Version\n\nBroken version: 5.2.0 LTS Beta, branch: blender-v5.2-release, commit date: 2026-06-12 12:31, hash: `30341a1f775f`\nWorked: 5.1\n\n### Description of the Issue\n\nIf I activate the transmission in the principled bsdf for a material, the reflections suddenly don't follow the value set for roughness and look like zero roughness. Also, a spot appears on the object at high roughness values. It seems to be the shadow of the object that somehow change to that shape when I turn of the transmission, that can be proved if I look at the render pass of shadows.\n\n<video src=\"attachments/09086c43-e792-4e05-9d9b-4e0f0e5f7033\" title=\"2026-06-13 19-18-30.mp4\" controls></video>\n\n### Steps to Reproduce the Issue\n\n- Open the blend file [transmission_broke.blend](/attachments/46488fcd-8c5f-4a6b-b544-109fc2683e55)\n- in render mode change the roughness value to see if the shader reacts correctly.\n- turn on and off the transmission slider completely to see when the roughness changes, also to see the spot on the object appear.\n- Look at the render mode render passes, the shadow pass, to see that the dark spot is a shadow.",
+    "body_raw": "### System Information\n\nOperating system: Windows-11-10.0.26200-SP0 64 Bits\nGraphics card: NVIDIA GeForce RTX 3060 NVIDIA Corporation NVIDIA 596.36 Vulkan Backend\n\n### Blender Version\n\nBroken version: 5.2.0 LTS Beta, branch: blender-v5.2-release, commit date: 2026-06-12 12:31, hash: `30341a1f775f`\nWorked: 5.1\n\n### Description of the Issue\n\nIf I activate the transmission in the principled bsdf for a material, the reflections suddenly don't follow the value set for roughness and look like zero roughness. Also, a spot appears on the object at high roughness values. It seems to be the shadow of the object that somehow change to that shape when I turn of the transmission, that can be proved if I look at the render pass of shadows.\n\n<video src=\"attachments/09086c43-e792-4e05-9d9b-4e0f0e5f7033\" title=\"2026-06-13 19-18-30.mp4\" controls></video>\n\n### Steps to Reproduce the Issue\n\n- Open the blend file [transmission_broke.blend](/attachments/46488fcd-8c5f-4a6b-b544-109fc2683e55)\n- in render mode change the roughness value to see if the shader reacts correctly.\n- turn on and off the transmission slider completely to see when the roughness changes, also to see the spot on the object appear.\n- Look at the render mode render passes, the shadow pass, to see that the dark spot is a shadow.\n\n",
+    "body_sha256": "909584814644176e4bcbc6873484b1fb5efc72339112f83d2896972952fc9640",
+    "closed_at": "2026-06-16T18:12:53+02:00",
+    "created_at": "2026-06-14T02:56:45+02:00",
+    "number": 160084,
+    "state": "closed",
+    "title": "EEVEE: Reflections on transmissive material does not use material roughness",
+    "updated_at": "2026-07-01T05:25:36+02:00",
+    "url": "https://projects.blender.org/blender/blender/issues/160084"
+  },
+  "patch_sha256": "e760902f1e9afa806cfe9cda7bebb8c20df5f3453760de5e32d76cdfe58be55b",
+  "pinned_revision": "3d018bcabdaeea66cf4ef4a96ce8913164831f6e",
+  "pull_request": null,
+  "record_sha256": "72b2665e12f04c9dc6cf8c5f52527bba0a8e068e0911931bc283933eb7b3a405",
+  "repository": "blender/blender",
+  "retrieved_at": "2026-08-11T13:12:26Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-blender-160084-eevee-colored-refraction",
+  "tests": [
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/eevee_render_tests.py",
+        "--",
+        "--testdir",
+        "tests/files/render/principled_bsdf",
+        "--outdir",
+        ".warptest/eevee-f2p",
+        "--oiiotool",
+        "oiiotool",
+        "--gpu-backend",
+        "metal",
+        "--batch"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/eevee_render_tests.py",
+        "--",
+        "--testdir",
+        "tests/files/render/principled_bsdf",
+        "--outdir",
+        ".warptest/eevee-f2p",
+        "--oiiotool",
+        "oiiotool",
+        "--gpu-backend",
+        "metal",
+        "--batch"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/python/eevee_render_tests.py",
+          "sha256": "e9f2e59bbd6a419c2a45fed379695da2371d841538add3bdc36352e4429feacb",
+          "source_path": "upstream-tests/tests/python/eevee_render_tests.py"
+        },
+        {
+          "destination_path": "tests/files/render/principled_bsdf/principled_bsdf_transmission.blend",
+          "sha256": "35b2f88e37a873a4501ffa8c0f6fb3de12e0d83266ca080dc706e762167a0082",
+          "source_path": "upstream-tests/tests/files/render/principled_bsdf/principled_bsdf_transmission.blend"
+        },
+        {
+          "destination_path": "tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_transmission.png",
+          "sha256": "da587ee9c2dc9ae85e5cc0ce256191eee85d07d9cc4584bb5daa719fb935374f",
+          "source_path": "upstream-tests/tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_transmission.png"
+        }
+      ],
+      "id": "blender-160084-eevee-transmission-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_eevee_render_regression_suite",
+      "source_case": "principled_bsdf_transmission",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/python/eevee_render_tests.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/eevee_render_tests.py",
+          "sha256": "e9f2e59bbd6a419c2a45fed379695da2371d841538add3bdc36352e4429feacb",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/python/eevee_render_tests.py"
+        },
+        {
+          "path": "tests/files/render/principled_bsdf/principled_bsdf_transmission.blend",
+          "sha256": "35b2f88e37a873a4501ffa8c0f6fb3de12e0d83266ca080dc706e762167a0082",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/files/render/principled_bsdf/principled_bsdf_transmission.blend"
+        },
+        {
+          "path": "tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_transmission.png",
+          "sha256": "da587ee9c2dc9ae85e5cc0ce256191eee85d07d9cc4584bb5daa719fb935374f",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_transmission.png"
+        }
+      ],
+      "upstream_test_path": "tests/python/eevee_render_tests.py",
+      "upstream_test_sha256": "e9f2e59bbd6a419c2a45fed379695da2371d841538add3bdc36352e4429feacb"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/eevee_render_tests.py",
+        "--",
+        "--testdir",
+        "tests/files/render/principled_bsdf",
+        "--outdir",
+        ".warptest/eevee-p2p",
+        "--oiiotool",
+        "oiiotool",
+        "--gpu-backend",
+        "metal",
+        "--batch"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/eevee_render_tests.py",
+        "--",
+        "--testdir",
+        "tests/files/render/principled_bsdf",
+        "--outdir",
+        ".warptest/eevee-p2p",
+        "--oiiotool",
+        "oiiotool",
+        "--gpu-backend",
+        "metal",
+        "--batch"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/python/eevee_render_tests.py",
+          "sha256": "e9f2e59bbd6a419c2a45fed379695da2371d841538add3bdc36352e4429feacb",
+          "source_path": "upstream-tests/tests/python/eevee_render_tests.py"
+        },
+        {
+          "destination_path": "tests/files/render/principled_bsdf/principled_bsdf_default.blend",
+          "sha256": "eb1c4944e530c14a861822df3a86c98925554ce09c05e6e504c8152a408a5e34",
+          "source_path": "upstream-tests/tests/files/render/principled_bsdf/principled_bsdf_default.blend"
+        },
+        {
+          "destination_path": "tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_default.png",
+          "sha256": "9290f09b4d7f679898b061a87c0730f06154d1d7d480ebe5d937a7b394f2c505",
+          "source_path": "upstream-tests/tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_default.png"
+        }
+      ],
+      "id": "blender-eevee-default-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_eevee_render_test_suite",
+      "source_case": "principled_bsdf_default",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/python/eevee_render_tests.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/eevee_render_tests.py",
+          "sha256": "e9f2e59bbd6a419c2a45fed379695da2371d841538add3bdc36352e4429feacb",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/python/eevee_render_tests.py"
+        },
+        {
+          "path": "tests/files/render/principled_bsdf/principled_bsdf_default.blend",
+          "sha256": "eb1c4944e530c14a861822df3a86c98925554ce09c05e6e504c8152a408a5e34",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/files/render/principled_bsdf/principled_bsdf_default.blend"
+        },
+        {
+          "path": "tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_default.png",
+          "sha256": "9290f09b4d7f679898b061a87c0730f06154d1d7d480ebe5d937a7b394f2c505",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_default.png"
+        }
+      ],
+      "upstream_test_path": "tests/python/eevee_render_tests.py",
+      "upstream_test_sha256": "e9f2e59bbd6a419c2a45fed379695da2371d841538add3bdc36352e4429feacb"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "cwd": ".",
+      "id": "blender-mathutils-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "repository_python_test_suite",
+      "source_case": "bl_pyapi_mathutils",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/bl_pyapi_mathutils.py",
+          "sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py"
+        }
+      ],
+      "upstream_test_path": "tests/python/bl_pyapi_mathutils.py",
+      "upstream_test_sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af"
+    }
+  ],
+  "touched_files": [
+    "source/blender/nodes/shader/nodes/node_shader_bsdf_principled.cc",
+    "tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_transmission.png",
+    "tests/python/eevee_render_tests.py"
+  ],
+  "upstream_commits": []
+}

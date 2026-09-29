@@ -1,0 +1,109 @@
+diff --git a/source/blender/blenlib/BLI_path_utils.hh b/source/blender/blenlib/BLI_path_utils.hh
+index 9210eb06802d24dc057fc47631f9459ba4b22f92..2e3a81fd08b31d39f93af5f1ca7259cb44ec98d3 100644
+--- a/source/blender/blenlib/BLI_path_utils.hh
++++ b/source/blender/blenlib/BLI_path_utils.hh
+@@ -629,7 +629,9 @@ bool BLI_path_frame(char *path, size_t path_maxncpy, int frame, int digits) ATTR
+ bool BLI_path_frame_range(char *path, size_t path_maxncpy, int sta, int end, int digits)
+     ATTR_NONNULL(1);
+ /**
+- * Get the frame from a filename formatted by blender's frame scheme
++ * Get the frame from a filename formatted by blender's frame scheme.
++ * \return true if a frame in the valid range was found.
++ * \note Only frames that can be represented in the integer range are considered.
+  */
+ bool BLI_path_frame_get(const char *path, int *r_frame, int *r_digits_len) ATTR_NONNULL(1, 2, 3);
+ /**
+@@ -637,6 +639,7 @@ bool BLI_path_frame_get(const char *path, int *r_frame, int *r_digits_len) ATTR_
+  * character and extract the extension.
+  * So:      `/some/path_123.jpeg`
+  * Becomes: `/some/path_###` with `r_ext` set to `.jpeg`.
++ * \note Only frames that can be represented in the integer range are considered.
+  */
+ void BLI_path_frame_strip(char *path, char *r_ext, size_t ext_maxncpy) ATTR_NONNULL(1, 2);
+ /**
+diff --git a/source/blender/blenlib/intern/path_utils.cc b/source/blender/blenlib/intern/path_utils.cc
+index bfde9d766b46ee86e003a8752b312c1176aa66f1..6000184ee2e0f4875f136904803ad4037c357494 100644
+--- a/source/blender/blenlib/intern/path_utils.cc
++++ b/source/blender/blenlib/intern/path_utils.cc
+@@ -1024,9 +1024,16 @@ bool BLI_path_frame_get(const char *path, int *r_frame, int *r_digits_len)
+     return false;
+   }
+ 
+-  /* No need to trim the string, `atio` ignores non-digits. */
+-  *r_frame = atoi(c);
+   *r_digits_len = digits_len;
++
++  /* Only consider numbers inside the range of valid framenumbers (ints). */
++  /* No need to trim the string, `strtoll` ignores non-digits. */
++  const long long num = strtoll(c, nullptr, 10);
++  if (num > INT_MAX) {
++    return false;
++  }
++
++  *r_frame = int(num);
+   return true;
+ }
+ 
+@@ -1040,6 +1047,8 @@ void BLI_path_frame_strip(char *path, char *r_ext, const size_t ext_maxncpy)
+ 
+   char *file = const_cast<char *>(BLI_path_basename(path));
+   char *file_ext = const_cast<char *>(BLI_path_extension_or_end(file));
++  BLI_strncpy(r_ext, file_ext, ext_maxncpy);
++
+   char *c = file_ext;
+ 
+   /* Find start of number (if there is one). */
+@@ -1049,12 +1058,21 @@ void BLI_path_frame_strip(char *path, char *r_ext, const size_t ext_maxncpy)
+   }
+   c++;
+ 
+-  BLI_strncpy(r_ext, file_ext, ext_maxncpy);
+-
+-  /* Replace the number with the suffix and terminate the string. */
+-  while (digits_len--) {
+-    *c++ = '#';
++  /* No need to trim the string, `strtoll` ignores non-digits. */
++  const long long num = strtoll(c, nullptr, 10);
++  if (num <= INT_MAX) {
++    /* Replace the number with the suffix. */
++    while (digits_len--) {
++      *c++ = '#';
++    }
+   }
++  else {
++    /* Dont strip numbers outside the range of valid framenumbers (ints). So go back to where we
++     * were before finding the start of the number. */
++    c += digits_len;
++  }
++
++  /* Terminate the string. */
+   *c = '\0';
+ }
+ 
+diff --git a/source/blender/blenlib/tests/BLI_path_utils_test.cc b/source/blender/blenlib/tests/BLI_path_utils_test.cc
+index 4b1af2c9d3599ade5eabc650c952a160f3bb2592..9b8ee16f013077b1f7f35fa11fc3ec695e771e43 100644
+--- a/source/blender/blenlib/tests/BLI_path_utils_test.cc
++++ b/source/blender/blenlib/tests/BLI_path_utils_test.cc
+@@ -903,6 +903,10 @@ TEST(path_utils, FrameStrip)
+   PATH_FRAME_STRIP("/abspath/to/somefile.001.abc", "/abspath/to/somefile.###", ".abc");
+   PATH_FRAME_STRIP("/ext/longer/somefile.001.alembic", "/ext/longer/somefile.###", ".alembic");
+   PATH_FRAME_STRIP("/ext/shorter/somefile.123001.abc", "/ext/shorter/somefile.######", ".abc");
++
++  /* Check int overflow scenario. */
++  PATH_FRAME_STRIP("1234567890.png", "##########", ".png");
++  PATH_FRAME_STRIP("12345678901.png", "12345678901", ".png");
+ }
+ #undef PATH_FRAME_STRIP
+ 
+@@ -1220,6 +1224,11 @@ TEST(path_utils, FrameGet)
+   PATH_FRAME_GET("path/to/frame_2810.dummy_quite_long_extension", 2810, 4, true);
+   PATH_FRAME_GET("notframe_7_frame00018.bla", 18, 5, true);
+ 
++  /* Check int overflow scenario. */
++  PATH_FRAME_GET("1234567890.png", 1234567890, 10, true);
++  PATH_FRAME_GET("12345678901.png", -1, 11, false);
++
++  PATH_FRAME_GET("nonum.abc", -1, 0, false);
+   PATH_FRAME_GET("", -1, -1, false);
+ }
+ #undef PATH_FRAME_GET

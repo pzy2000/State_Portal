@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "after": "specs/luanti/visual/luanti-water-source.after.golden.png",
+  "after_sha256": "f363c2b7e6bbe7ed232270bf10767c4136dbb6cd77bae896bdf57505fbadae12",
+  "before": "specs/luanti/visual/luanti-water-source.before.golden.png",
+  "before_sha256": "a13a1da751bff7aec5a18ccdf63403fffdb9464968443116eee6b47ccf17ce61",
+  "benchmark": "luanti",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/luanti/water-source.yaml",
+  "spec_sha256": "327f48c559b5e49a85aad0527c2bb147cd1e0feb1a26d44dde649c519206606b",
+  "task_id": "luanti-water-source"
+}

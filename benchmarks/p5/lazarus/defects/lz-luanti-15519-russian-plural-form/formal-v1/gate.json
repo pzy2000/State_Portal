@@ -1,0 +1,114 @@
+{
+  "benchmark": "luanti",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": true,
+  "evidence": {
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.0008055555555555556,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 0.10804259259259259
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 0.0
+      },
+      "before_sha256": "29a3fb3ca7efb7fc12c5614ad9029a53b7f5861b4b681706acf727304516dbcd",
+      "buggy_after_sha256": "10ef1c53ea2ea5bec575af44bcb8cafc1a51ba523dfd12da0e7beb9381166b36",
+      "fixed_after_sha256": "0623972d450191ed056abe05cf0e58f5d1bed1e9faf69f1a47abf7935e3ff74f",
+      "metadata": "specs/luanti/lazarus/visual_lz-luanti-15519-russian-plural-form/goldens.meta.json",
+      "metadata_sha256": "f3011552a8ff630fc1412bcc7ecbe9cb217a834a7c4929712d58be909d355568"
+    },
+    "probe_verification": null,
+    "provenance_errors": [],
+    "source_artifacts": {
+      "gate10": "admission:gate10_status=passed_hidden_oracle_and_real_semantic_observations",
+      "gate11": "admission:gate11_status=passed_real_engine_frames",
+      "gate12": "admission:gate12_status=passed_before_equivalence_and_after_2x2",
+      "gate13": "admission:gate13_status=passed_same_lineage_construction",
+      "gate8": "admission:gate8_status=passed_complete_fixed_buggy_materialization",
+      "gate9": "admission:gate9_status=passed_registered_start_and_ordered_replay",
+      "gate_1_7_source": null,
+      "gate_1_7_truth_table": {},
+      "strict_gate_1_7": true
+    },
+    "upstream": [
+      {
+        "command": [
+          "bin/luantiserver",
+          "--run-unittests",
+          "--test-module",
+          "TestTranslations"
+        ],
+        "cwd": ".",
+        "id": "test translations",
+        "kind": "fail_to_pass"
+      },
+      {
+        "command": [
+          "bin/luantiserver",
+          "--run-unittests",
+          "--test-module",
+          "TestSettings"
+        ],
+        "cwd": ".",
+        "id": "TestSettings",
+        "kind": "pass_to_pass"
+      }
+    ],
+    "versions": {
+      "changed_files": [
+        "src/gettext_plural_form.cpp",
+        "src/gettext_plural_form.h"
+      ],
+      "patch_sha256": "1abc37a2eeec3ef311cecf9efef689ef82bba6ddcb80c9314b9a98d95e183674",
+      "patch_source": "materialized_tree_difference",
+      "reverse_apply_reproduces_frozen_buggy_tree": true,
+      "tree_pair": "private/materialized/luanti/15519/null-client/v2"
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "test translations"
+  ],
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "pass_to_pass": [
+    "TestSettings"
+  ],
+  "passed": true,
+  "projection": {
+    "admission": "candidate_formal_freeze_admission/luanti/15519/current/v1",
+    "closure_size": 105,
+    "fresh_gate_run": false,
+    "generator": "warptest.c1_lazarus_selection.c1_lazarus_formal_catalog",
+    "selection_mode": "c1_freeze_sprint_v2"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-luanti-15519-russian-plural-form",
+  "upstream_f2p": true
+}

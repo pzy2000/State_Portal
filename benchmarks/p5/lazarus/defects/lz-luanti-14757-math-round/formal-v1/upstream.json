@@ -1,0 +1,145 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [
+    {
+      "body_normalized": "I guess I can make the function shorter a little:\n\n```\nfunction math.round(x)\n    local int, frac = math.modf(x)\n    if x >= 0 and frac >= 0.5 then\n        return int + 1\n    elseif frac <= -0.5 then\n        return int - 1\n    end\n    return int\nend\n```",
+      "body_raw": "I guess I can make the function shorter a little:\r\n\r\n```\r\nfunction math.round(x)\r\n    local int, frac = math.modf(x)\r\n    if x >= 0 and frac >= 0.5 then\r\n        return int + 1\r\n    elseif frac <= -0.5 then\r\n        return int - 1\r\n    end\r\n    return int\r\nend\r\n```",
+      "body_sha256": "0b559e8926b4d2d44ecec91011020a0e8cc96cb9a92dadaa8c215f5ca75b456f",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/14755#issuecomment-2169841109"
+    },
+    {
+      "body_normalized": "@SmallJoker, that's not an upstream issue.\nLua doesn't provide math.round, Minetest does.\nSee `builtin/common/misc_helpers.lua`",
+      "body_raw": "@SmallJoker, that's not an upstream issue.\r\nLua doesn't provide math.round, Minetest does.\r\nSee `builtin/common/misc_helpers.lua`",
+      "body_sha256": "876e8f1c3d812611d3ca521ef17bd96471d5fe3b8ac6e3bce9637cd1347ebee5",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/14755#issuecomment-2169843805"
+    },
+    {
+      "body_normalized": "It appears this is in fact a Minetest issue: https://github.com/minetest/minetest/blob/master/builtin/common/misc_helpers.lua#L244-L249",
+      "body_raw": "It appears this is in fact a Minetest issue: https://github.com/minetest/minetest/blob/master/builtin/common/misc_helpers.lua#L244-L249",
+      "body_sha256": "f17f4a166e5826c7f9ebaf946ad80236f02f9fdecc353c9db7b390f4c39528fd",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/14755#issuecomment-2169844459"
+    },
+    {
+      "body_normalized": "> I guess I can make the function shorter a little [...]\n\n`x >= 0` should be unnecessary, just `frac >= 0.5` should suffice, no? I'd also probably use just early returns, no need for the `elseif` there.\n\nThis could even be written as a single line with `and` and `or`, but I don't think that is worthwhile.\n\nIt might be interesting to see how the performance compares (and whether there is anyone relying on rounding being particularly fast to begin with).",
+      "body_raw": "> I guess I can make the function shorter a little [...]\r\n\r\n`x >= 0` should be unnecessary, just `frac >= 0.5` should suffice, no? I'd also probably use just early returns, no need for the `elseif` there.\r\n\r\nThis could even be written as a single line with `and` and `or`, but I don't think that is worthwhile.\r\n\r\nIt might be interesting to see how the performance compares (and whether there is anyone relying on rounding being particularly fast to begin with).",
+      "body_sha256": "d0e96e2f9bda5ec94b55299d1a77f88a6deb26683dd171a8b74a9f2d3d08f57d",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/14755#issuecomment-2170533459"
+    },
+    {
+      "body_normalized": "Made a PR that fixes it.",
+      "body_raw": "Made a PR that fixes it.",
+      "body_sha256": "8b7672d00f7490f9b2a24a355307498c847d93cce8c067a156cb453172f15ac6",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/14755#issuecomment-2170991868"
+    },
+    {
+      "body_normalized": "this..... is painful\nthe number written in scientific notation for base 2 is practically 1.1111111111111111111111111111111111111111111111111111*10^-2\nor in straight base 2\n0.011111111111111111111111111111111111111111111111111111\nIT'S PAINFUL\nROUND CAN BE IMPLEMENTED WITHIN PROCESSOR ARCHITECTURE (or its emulate) VERY EASILY, BUT THEY CHOSE NOT TO.\njust a floor and a shift and an add.\n# E",
+      "body_raw": "this..... is painful\r\nthe number written in scientific notation for base 2 is practically 1.1111111111111111111111111111111111111111111111111111*10^-2\r\nor in straight base 2\r\n0.011111111111111111111111111111111111111111111111111111\r\nIT'S PAINFUL\r\nROUND CAN BE IMPLEMENTED WITHIN PROCESSOR ARCHITECTURE (or its emulate) VERY EASILY, BUT THEY CHOSE NOT TO.\r\njust a floor and a shift and an add.\r\n# E",
+      "body_sha256": "7df2e782ff68ed6763b00076e0aafe675bea9caa42eea81ee646c15540909cb2",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/14755#issuecomment-2184135171"
+    }
+  ],
+  "fix_commit": "28857841aa8e7f7865d1cbabdfbd46e9be23cb1c",
+  "issue": {
+    "body_normalized": "## Problem\n\nAs pointed out below the most popular answer on stackoverflow, Minetest's implementation of math.round suffers from a bug: https://stackoverflow.com/questions/18313171/lua-rounding-numbers-and-then-truncate\n\n```\n> math.round(0.49999999999999994)\n1\n```\n\n## Solution\n\nI rewrote math random this way:\n\n```\nfunction math.round(x)\n    local int, frac = math.modf(x)\n    if x >= 0 then\n        if frac >= 0.5 then\n            return int + 1\n        else\n            return int\n        end\n    else\n        if frac <= -0.5 then\n            return int - 1\n        else\n            return int\n        end\n    end\nend\n```\n\n### Old:\n\n```\n> math.round(0.49999999999999994)\n1\n> math.round(-0.49999999999999994)\n-1\n> math.round(0)\n0\n> math.round(10.3)\n10\n> math.round(10.5)\n11\n> math.round(-10.3)\n-10\n> math.round(-10.5)\n-11\n```\n\n### New:\n\n```\n> math.round(0.49999999999999994)\n0\n> math.round(-0.49999999999999994)\n0\n> math.round(0)\n0\n> math.round(10.3)\n10\n> math.round(10.5)\n11\n> math.round(-10.3)\n-10\n> math.round(-10.5)\n-11\n```\n\n\n### Steps to reproduce\n\nDo this:\n\n```\n> math.round(0.49999999999999994)\n1\n```",
+    "body_raw": "## Problem\r\n\r\nAs pointed out below the most popular answer on stackoverflow, Minetest's implementation of math.round suffers from a bug: https://stackoverflow.com/questions/18313171/lua-rounding-numbers-and-then-truncate\r\n\r\n```\r\n> math.round(0.49999999999999994)\r\n1\r\n```\r\n\r\n## Solution\r\n\r\nI rewrote math random this way:\r\n\r\n```\r\nfunction math.round(x)\r\n    local int, frac = math.modf(x)\r\n    if x >= 0 then\r\n        if frac >= 0.5 then\r\n            return int + 1\r\n        else\r\n            return int\r\n        end\r\n    else\r\n        if frac <= -0.5 then\r\n            return int - 1\r\n        else\r\n            return int\r\n        end\r\n    end\r\nend\r\n```\r\n\r\n### Old:\r\n\r\n```\r\n> math.round(0.49999999999999994)\r\n1\r\n> math.round(-0.49999999999999994)\r\n-1\r\n> math.round(0)\r\n0\r\n> math.round(10.3)\r\n10\r\n> math.round(10.5)\r\n11\r\n> math.round(-10.3)\r\n-10\r\n> math.round(-10.5)\r\n-11\r\n```\r\n\r\n### New:\r\n\r\n```\r\n> math.round(0.49999999999999994)\r\n0\r\n> math.round(-0.49999999999999994)\r\n0\r\n> math.round(0)\r\n0\r\n> math.round(10.3)\r\n10\r\n> math.round(10.5)\r\n11\r\n> math.round(-10.3)\r\n-10\r\n> math.round(-10.5)\r\n-11\r\n```\r\n\r\n\r\n### Steps to reproduce\r\n\r\nDo this:\r\n\r\n```\r\n> math.round(0.49999999999999994)\r\n1\r\n```\r\n",
+    "body_sha256": "dc8cfc788a078aa00ae21e04952fa47d73ac440dd076f4992d6d35c800ad41c1",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 14755,
+    "state": "closed",
+    "title": "math.round returns 1 for 0.49999999999999994",
+    "url": "https://github.com/luanti-org/luanti/issues/14755"
+  },
+  "patch_sha256": "8fa137f5f9e886edcbc1da7b83c797dc6eb01dc766e1dcb99d743787ea8f02c5",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "body_normalized": "fixes #14755\n\n## Nothing to do\n\nThis PR is Ready for Review.\n\n## How to test\n\nTry these:\n\n```\nmath.round(0.49999999999999994)\nmath.round(-0.49999999999999994)\n\n```",
+    "body_raw": "fixes #14755\r\n\r\n## Nothing to do\r\n\r\nThis PR is Ready for Review.\r\n\r\n## How to test\r\n\r\nTry these:\r\n\r\n```\r\nmath.round(0.49999999999999994)\r\nmath.round(-0.49999999999999994)\r\n\r\n```",
+    "body_sha256": "510c549113e51d94725ea13e147d6a590ec604e3d09c1d16ddeee0b1aaed8969",
+    "kind": "pull",
+    "merged_at": "2024-06-24T19:57:06Z",
+    "number": 14757,
+    "state": "closed",
+    "title": "Fix math.round floating point bug",
+    "url": "https://github.com/luanti-org/luanti/pull/14757"
+  },
+  "record_sha256": "ddfd757a693ed569f0cf9f76ad3f1f365c757593677ab847b512f0691b934fee",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-13T09:48:03.713510Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-14757-math-round",
+  "tests": [
+    {
+      "command": [
+        "busted",
+        "--filter",
+        "math round()",
+        "builtin/common/tests/misc_helpers_spec.lua"
+      ],
+      "cwd": ".",
+      "id": "math round()",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "math round()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/misc_helpers_spec.lua",
+      "upstream_test_path": "builtin/common/tests/misc_helpers_spec.lua",
+      "upstream_test_sha256": "c683a6c684a90702c9fb983806a6f752cefe83f5d2a72a4ad974e93606d7c2ed"
+    },
+    {
+      "command": [
+        "busted",
+        "--filter",
+        "formspec_escape escapes",
+        "builtin/common/tests/misc_helpers_spec.lua"
+      ],
+      "cwd": ".",
+      "id": "formspec_escape escapes",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "formspec_escape escapes",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/misc_helpers_spec.lua",
+      "upstream_test_path": "builtin/common/tests/misc_helpers_spec.lua",
+      "upstream_test_sha256": "c683a6c684a90702c9fb983806a6f752cefe83f5d2a72a4ad974e93606d7c2ed"
+    }
+  ],
+  "touched_files": [
+    "builtin/common/math.lua",
+    "builtin/common/tests/misc_helpers_spec.lua"
+  ],
+  "upstream_commits": []
+}

@@ -1,0 +1,13 @@
+{
+  "benchmark": "jupyterlab",
+  "candidates_considered": 1,
+  "fixed_revision": "4a19f8fff4049a9536e21fa2980fe7e5ee592d01",
+  "patch_sha256": "f0c6b7245b27a7f0c6873f6af4e93778e3f6bd86818675419586d02f0787b15d",
+  "pinned_host_revision": "4a19f8fff4049a9536e21fa2980fe7e5ee592d01",
+  "repo": "games/jupyterlab",
+  "schema": "c1-lazarus-materialization-base-v1",
+  "schema_version": 1,
+  "source": "pinned_host_revision",
+  "task_id": "lz-jupyterlab-17194-cell-metadata-removal",
+  "verification": "reverse_apply_check_in_detached_worktree"
+}

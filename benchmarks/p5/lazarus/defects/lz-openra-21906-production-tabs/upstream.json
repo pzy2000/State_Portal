@@ -1,0 +1,275 @@
+{
+  "authority": "github",
+  "benchmark": "openra",
+  "comments": [
+    {
+      "author": "anvilvapre",
+      "body_normalized": "Could there be situations where this fix has the opposite effect? Production queue becoming visible - where it was never meant to have one?",
+      "body_raw": "Could there be situations where this fix has the opposite effect? Production queue becoming visible - where it was never meant to have one?\r\n",
+      "body_sha256": "8be5ae09746ed920f2878eac29cc8ae2538c124566908857ec4309eee4de55cd",
+      "created_at": "2023-10-29T13:58:34Z",
+      "id": 1784121773,
+      "source": "issue_comment",
+      "updated_at": "2023-10-29T13:58:34Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/21162#issuecomment-1784121773"
+    },
+    {
+      "author": "dnqbob",
+      "body_normalized": "This issue (Production UI upgrade) has some very nasty side effect on fixing.\n\nYou need a test on owner change before/after disable or enable. There can be some bugs that owner changed facility can still produce on old owner's production UI.",
+      "body_raw": "This issue (Production UI upgrade) has some very nasty side effect on fixing.\r\n\r\nYou need a test on owner change before/after disable or enable. There can be some bugs that owner changed facility can still produce on old owner's production UI.\r\n",
+      "body_sha256": "fd222db1f58937a6859df20c1cf19acdb0b691f9900946a23b06b18f4885a6dd",
+      "created_at": "2023-10-29T16:52:47Z",
+      "id": 1784165616,
+      "source": "issue_comment",
+      "updated_at": "2023-10-29T17:13:18Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/21162#issuecomment-1784165616"
+    },
+    {
+      "author": "dnqbob",
+      "body_normalized": ">  In case of OpenE2140, the building should not be usable while its being constructed.\n\nI hope this PR can overcome the problem I met and mentioned above, but if it cannot, I will suggest this method used by @MustaphaTR :\n\n1. Add a dummy/proxy actor with lines\n```\n QueueUpdaterDummy:\n\tAlwaysVisible:\n\tProvidesPrerequisite:\n\tKillsSelf:\n\t\tRemoveInstead: true\n```\n\n2. Use a `FreeActor` on production building, when it is enabled, enable the `FreeActor` that spawn a `QueueUpdaterDummy`. Like what you said, the remove of updater will force update the queue, and without owner change problem.",
+      "body_raw": ">  In case of OpenE2140, the building should not be usable while its being constructed.\r\n\r\nI hope this PR can overcome the problem I met and mentioned above, but if it cannot, I will suggest this method used by @MustaphaTR :\r\n\r\n1. Add a dummy/proxy actor with lines\r\n```\r\n QueueUpdaterDummy:\r\n\tAlwaysVisible:\r\n\tProvidesPrerequisite:\r\n\tKillsSelf:\r\n\t\tRemoveInstead: true\r\n```\r\n\r\n2. Use a `FreeActor` on production building, when it is enabled, enable the `FreeActor` that spawn a `QueueUpdaterDummy`. Like what you said, the remove of updater will force update the queue, and without owner change problem.\r\n\r\n",
+      "body_sha256": "16e136149a112b4f834d0e0a541d84f5597cf7d73b566be7bc1b9930a3bef893",
+      "created_at": "2023-10-29T17:05:33Z",
+      "id": 1784169051,
+      "source": "issue_comment",
+      "updated_at": "2023-10-29T17:05:33Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/21162#issuecomment-1784169051"
+    },
+    {
+      "author": "dnqbob",
+      "body_normalized": "Add: This PR is also very worthy for the mods that can switch mutiqueue production or singlequeue production in gameplay, if you can make it.",
+      "body_raw": "Add: This PR is also very worthy for the mods that can switch mutiqueue production or singlequeue production in gameplay, if you can make it.",
+      "body_sha256": "79d275e09981cc908d95096373b87fa5e3f225cb81e856ab522f53674fd07a1e",
+      "created_at": "2023-10-29T17:10:55Z",
+      "id": 1784170618,
+      "source": "issue_comment",
+      "updated_at": "2023-10-29T17:14:24Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/21162#issuecomment-1784170618"
+    },
+    {
+      "author": "michaeldgg2",
+      "body_normalized": "@anvilvapre It shouldn't. The logic in the event of actor being added to world is basically the same as before. Plus it caches local player's `ProductionQueue`s, and these are used to update queue tabs in `ProductionTabsWidget.Tick()`. Again, the logic pretty much the same in `ProductionTabGroup.Update()` (except the filter on `ProductionQueue.Enabled`, which is in the `ProductionTabGroup`).\n\n@dnqbob Yes, I know about the bug, it affects us in OpenE2140 too. I actually fixed it in this PR #20705 (it's ready for the merge) - totally unintentionally.\n\n> 1. Add a dummy/proxy actor with lines\n>\n> 2. Use a `FreeActor` on production building, when it is enabled, enable the `FreeActor` that spawn a `QueueUpdaterDummy`. Like what you said, the remove of updater will force update the queue, and without owner change problem.\n\nNo, I'm not going to do any hacks like this. I'd rather keep pushing devs to merge a PR that actually fixes a bug like this.",
+      "body_raw": "@anvilvapre It shouldn't. The logic in the event of actor being added to world is basically the same as before. Plus it caches local player's `ProductionQueue`s, and these are used to update queue tabs in `ProductionTabsWidget.Tick()`. Again, the logic pretty much the same in `ProductionTabGroup.Update()` (except the filter on `ProductionQueue.Enabled`, which is in the `ProductionTabGroup`).\r\n\r\n@dnqbob Yes, I know about the bug, it affects us in OpenE2140 too. I actually fixed it in this PR #20705 (it's ready for the merge) - totally unintentionally.\r\n\r\n> 1. Add a dummy/proxy actor with lines\r\n> \r\n> 2. Use a `FreeActor` on production building, when it is enabled, enable the `FreeActor` that spawn a `QueueUpdaterDummy`. Like what you said, the remove of updater will force update the queue, and without owner change problem.\r\n\r\nNo, I'm not going to do any hacks like this. I'd rather keep pushing devs to merge a PR that actually fixes a bug like this.",
+      "body_sha256": "3b06f0005fb5f0e4328247e6d9b13c8c6cd3bf601dda643d72b97335d1d60ab7",
+      "created_at": "2023-10-29T21:45:02Z",
+      "id": 1784233501,
+      "source": "issue_comment",
+      "updated_at": "2023-10-29T21:52:10Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/21162#issuecomment-1784233501"
+    },
+    {
+      "author": "dnqbob",
+      "body_normalized": "Then I think maybe we should add `HasDependencies` tag to this PR, because this PR depends on #20705 to work without owner change bugs.",
+      "body_raw": "Then I think maybe we should add `HasDependencies` tag to this PR, because this PR depends on #20705 to work without owner change bugs.",
+      "body_sha256": "fd15d7ed5aa803858594c8cc26b43c2dc5c77a5a58d052dcb5eb54c2e64ed67e",
+      "created_at": "2023-10-30T01:04:55Z",
+      "id": 1784322092,
+      "source": "issue_comment",
+      "updated_at": "2023-10-30T01:04:55Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/21162#issuecomment-1784322092"
+    },
+    {
+      "author": "michaeldgg2",
+      "body_normalized": "No, this PR **does not** depend on #20705. They both affect widgets for production UI, but they change different parts of code base.\n\nThe bug with the owner change is separate to this bug.",
+      "body_raw": "No, this PR **does not** depend on #20705. They both affect widgets for production UI, but they change different parts of code base.\r\n\r\nThe bug with the owner change is separate to this bug.",
+      "body_sha256": "5a7449a5648cf4105ba2cd1dbb2ec02cd7d6e63dc43f87ed5e650acffe605e55",
+      "created_at": "2023-11-02T21:37:30Z",
+      "id": 1791572726,
+      "source": "issue_comment",
+      "updated_at": "2023-11-02T21:37:40Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/21162#issuecomment-1791572726"
+    },
+    {
+      "author": "dnqbob",
+      "body_normalized": "But when we test if the owner change bug is truly fixed, it is better that put them together (more accurately, #20705 first and this PR the second), right?\n\nWithout #20705, this PR will have owner change bug (more precisely, expose the owner change bug that production UI has) which will affect the gameplay severely, and normally OpenRA won't directly merge a PR with a known bug.\n\nMaybe from logic it is reluctantly to say this PR depends on #20705 as they fix unrelated things and #20705 happens to fix the bug in this PR. But at least \"PR: Has dependencies\" informs devs they should merge #20705 first to make the test here smoother.",
+      "body_raw": "But when we test if the owner change bug is truly fixed, it is better that put them together (more accurately, #20705 first and this PR the second), right? \r\n\r\nWithout #20705, this PR will have owner change bug (more precisely, expose the owner change bug that production UI has) which will affect the gameplay severely, and normally OpenRA won't directly merge a PR with a known bug.\r\n\r\nMaybe from logic it is reluctantly to say this PR depends on #20705 as they fix unrelated things and #20705 happens to fix the bug in this PR. But at least \"PR: Has dependencies\" informs devs they should merge #20705 first to make the test here smoother.",
+      "body_sha256": "a62d9eb44b12d4a6055960362fa1eafae11692cff83d82acbd56430b42b393fe",
+      "created_at": "2023-11-02T23:48:09Z",
+      "id": 1791713043,
+      "source": "issue_comment",
+      "updated_at": "2023-11-02T23:59:08Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/21162#issuecomment-1791713043"
+    },
+    {
+      "author": "michaeldgg2",
+      "body_normalized": "Like @penev92 said, #20705 is not really about the owner change issue of `ProductionPaletteWidget`, it's about new feature that should be tackled differently (possibly by changing how `Buildable` trait works). It was just a side effect of what that PR did. Owner change issue should be addressed at the root of the problem (i.e. the `Production` trait).",
+      "body_raw": "Like @penev92 said, #20705 is not really about the owner change issue of `ProductionPaletteWidget`, it's about new feature that should be tackled differently (possibly by changing how `Buildable` trait works). It was just a side effect of what that PR did. Owner change issue should be addressed at the root of the problem (i.e. the `Production` trait).",
+      "body_sha256": "e18cdbbb67dc24b9128af343ddd168a12c4e071297d7ac9aa362bc26b29a3217",
+      "created_at": "2023-11-17T16:45:27Z",
+      "id": 1816751356,
+      "source": "issue_comment",
+      "updated_at": "2023-11-17T16:45:27Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/21162#issuecomment-1816751356"
+    },
+    {
+      "author": "dnqbob",
+      "body_normalized": "If the owner change problem is fixed in this PR it will be no problem on removing dependency tag, otherwise I would suggest fix the owner change issue first and then merge this PR.",
+      "body_raw": "If the owner change problem is fixed in this PR it will be no problem on removing dependency tag, otherwise I would suggest fix the owner change issue first and then merge this PR.",
+      "body_sha256": "cc4dd6bb36ee81aaff1529bd9c98dbcdcf2b2a22f4c52959a8f2b21da45ca5c3",
+      "created_at": "2023-11-17T17:00:23Z",
+      "id": 1816777398,
+      "source": "issue_comment",
+      "updated_at": "2023-11-17T17:00:23Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/21162#issuecomment-1816777398"
+    },
+    {
+      "author": "abcdefg30",
+      "body_normalized": "[Changelog](https://github.com/OpenRA/OpenRA/wiki/Changelog-(bleed)/_compare/b185a1a5d1db3c7785341ee546d28fd005d6f2b5...74923e87ccb4e5b8d4080f73ca9a392ac8f5034f)",
+      "body_raw": "[Changelog](https://github.com/OpenRA/OpenRA/wiki/Changelog-(bleed)/_compare/b185a1a5d1db3c7785341ee546d28fd005d6f2b5...74923e87ccb4e5b8d4080f73ca9a392ac8f5034f)",
+      "body_sha256": "82ebd5aac22aa1066e693d3913d0f8ab0b9bafe88ae46e72254b4e0aa3d5bf43",
+      "created_at": "2024-09-19T16:11:26Z",
+      "id": 2361442517,
+      "source": "issue_comment",
+      "updated_at": "2024-09-19T16:11:26Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/21162#issuecomment-2361442517"
+    },
+    {
+      "author": "PunkPun",
+      "body_normalized": "https://github.com/OpenRA/OpenRA/wiki/Changelog-(bleed)/_compare/fa1075c68fb9c1ba20f3819c6517d64526171da2...3f6cbcc37aa8d64e407c0590a1b1382043a2b079",
+      "body_raw": "https://github.com/OpenRA/OpenRA/wiki/Changelog-(bleed)/_compare/fa1075c68fb9c1ba20f3819c6517d64526171da2...3f6cbcc37aa8d64e407c0590a1b1382043a2b079",
+      "body_sha256": "cb7946ba18212764052d772a8978586c34f4b5f0a99815c40e889b5da788fdc2",
+      "created_at": "2025-05-11T19:22:33Z",
+      "id": 2870059855,
+      "source": "pull_request_comment",
+      "updated_at": "2025-05-11T19:22:33Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/21906#issuecomment-2870059855"
+    }
+  ],
+  "fix_commit": "d3d949176d47ec322f6ff99dc4c70bfd6a0c0b9f",
+  "issue": {
+    "author": "michaeldgg2",
+    "body_normalized": "This is a fix for `ProductionTabsWidget` not picking up production queues' being enabled/disabled during their lifetime.\n\n`ProductionQueue` is enabled in its <a href=\"https://github.com/OpenRA/OpenRA/blob/3d9ac5a85e45a6a31d67d36edb2a5129a4034e77/OpenRA.Mods.Common/Traits/Player/ProductionQueue.cs#L329C2-L329C2\">`Tick()` method</a> based on whether there's at least one `Production` trait enabled (if not, the queue is disabled). This value (`ProductionQueue.Enabled`) is used in several places, in this PRs case it's in `ProductionTabsWidget`, when actor with `ProductionQueue` is <a href=\"https://github.com/OpenRA/OpenRA/blob/3d9ac5a85e45a6a31d67d36edb2a5129a4034e77/OpenRA.Mods.Common/Widgets/ProductionTabsWidget.cs#L238\">added/removed from `World`</a>.\n\nThe issue (this PR fixes) is mainly visible, when `ProductionQueue` is disabled immediately, when the production actor is created. Example would be OpenE2140 mod, where buildings are always constructed from MCV-like vehicles (called MCUs). In case of OpenE2140, the building *should not* be usable while its being constructed. This is implemented by putting condition on `Production` trait. The issue is triggered, when one MCU is transformed to building while another one is already being constructed. In this case, the `ProductionQueue` for the second building has `Enabled == false`, so when the actor for the new building is created, `ProductionTabsWidget` wrongly assumes the ProductionQueue for the second building (the one being constructed) is not available and thus does not create tab for it (i.e. `ProductionTab` object).\n\nThis is how the bug looks like in OpenE2140:\n\n![GIF](https://github.com/OpenE2140/OpenE2140/assets/119738087/0c59511f-b5d9-4b22-80ae-472aaeaffd10)\n\n(GIF is intentionally slowed down, to make it easier to follow changes in the `ProductionTabsWidget`)",
+    "body_raw": "This is a fix for `ProductionTabsWidget` not picking up production queues' being enabled/disabled during their lifetime.\r\n\r\n`ProductionQueue` is enabled in its <a href=\"https://github.com/OpenRA/OpenRA/blob/3d9ac5a85e45a6a31d67d36edb2a5129a4034e77/OpenRA.Mods.Common/Traits/Player/ProductionQueue.cs#L329C2-L329C2\">`Tick()` method</a> based on whether there's at least one `Production` trait enabled (if not, the queue is disabled). This value (`ProductionQueue.Enabled`) is used in several places, in this PRs case it's in `ProductionTabsWidget`, when actor with `ProductionQueue` is <a href=\"https://github.com/OpenRA/OpenRA/blob/3d9ac5a85e45a6a31d67d36edb2a5129a4034e77/OpenRA.Mods.Common/Widgets/ProductionTabsWidget.cs#L238\">added/removed from `World`</a>.\r\n\r\nThe issue (this PR fixes) is mainly visible, when `ProductionQueue` is disabled immediately, when the production actor is created. Example would be OpenE2140 mod, where buildings are always constructed from MCV-like vehicles (called MCUs). In case of OpenE2140, the building *should not* be usable while its being constructed. This is implemented by putting condition on `Production` trait. The issue is triggered, when one MCU is transformed to building while another one is already being constructed. In this case, the `ProductionQueue` for the second building has `Enabled == false`, so when the actor for the new building is created, `ProductionTabsWidget` wrongly assumes the ProductionQueue for the second building (the one being constructed) is not available and thus does not create tab for it (i.e. `ProductionTab` object).\r\n\r\nThis is how the bug looks like in OpenE2140:\r\n\r\n![GIF](https://github.com/OpenE2140/OpenE2140/assets/119738087/0c59511f-b5d9-4b22-80ae-472aaeaffd10)\r\n\r\n(GIF is intentionally slowed down, to make it easier to follow changes in the `ProductionTabsWidget`)\r\n",
+    "body_sha256": "a7e9d750de12079f19619e0503286a78376bd9edaf05b5fbede75365e9bbfbb3",
+    "closed_at": "2024-09-19T16:10:08Z",
+    "created_at": "2023-10-28T10:26:29Z",
+    "merged_at": null,
+    "number": 21162,
+    "state": "closed",
+    "title": "Fix ProductionTabsWidget not detecting ProductionQueue getting enabled/disabled during its lifetime",
+    "updated_at": "2024-09-20T20:53:40Z",
+    "url": "https://github.com/OpenRA/OpenRA/pull/21162"
+  },
+  "patch_sha256": "705064c3fec2d314830ad68370e6f2fce93dd81c79e6f3b30ec06375f49f393a",
+  "pinned_revision": "7e687f430ee5b194c0ffaa06caaba757dd9155fb",
+  "pull_request": {
+    "author": "michaeldgg2",
+    "body_normalized": "This PR fixes tabs in `ProductionTabsWidget` occasionally disappearing (and reappearing). The issues it fixes unfortunately slipped through the #21162.\n\n### Background\nThe issue with `ProductionTabsWidget` is that it cannot properly handle situation, when a `ProductionQueue` starts disabled (via `RequiresCondition`) and is later enabled. This causes the widget to \"miss\" the update of the actor involved and does not create a tab for this `ProductionQueue`. The bug appears only if new production actor is created *while* the previous still has the `ProductionQueue` disabled via `RequiresCondition`.\n\nThis is how the bug looks like in OpenE2140:\n\n![productiontabwidget_missing_tabs_bug](https://github.com/user-attachments/assets/7789045b-a17b-45b7-9c6c-8c64cc3fe149)\n\nFor more information see the previous PR: #21162.\n\n### Updating cache for production queues' enabled states\nThe original PR did not update cache for enabled state of production queues in `cachedProductionQueueEnabledStates` field. The reason, why the PR did fix the issue is that what the code currently does, is that it refreshes the production tabs in every tick. This happens only if a production queue, that was enabled on creation, gets disabled. The cache contains stale information, hence it thinks that queue's `Enabled` state keeps changing and tabs should be updated.\n\nThe new code in PR updates the cache for the production queue, which `Enabled` state has changed, but only once (because in the next tick, the cache contains up-to-date data).\n\n### Reacting to actors of non-local player\nThe `ActorChanged()` currently reacts to all actors no matter the owner. It means that whenever a non-local player builds a production building, the production tabs (for the local player naturally) are updated. But if the local player has any queue disabled at this moment, it means tab for that queue *gets removed*\n\nit will clear the cache for *all players*. And since `Tick()` method depends on the cache containing all currently existing production queues, the mechanism for updating tabs gets broken.\n\nThe new code in PR changes the logic in the `ActorChanged()` method so that it reacts only to actors, which are owned by the local player.",
+    "body_raw": "This PR fixes tabs in `ProductionTabsWidget` occasionally disappearing (and reappearing). The issues it fixes unfortunately slipped through the #21162.\r\n\r\n### Background\r\nThe issue with `ProductionTabsWidget` is that it cannot properly handle situation, when a `ProductionQueue` starts disabled (via `RequiresCondition`) and is later enabled. This causes the widget to \"miss\" the update of the actor involved and does not create a tab for this `ProductionQueue`. The bug appears only if new production actor is created *while* the previous still has the `ProductionQueue` disabled via `RequiresCondition`.\r\n\r\nThis is how the bug looks like in OpenE2140:\r\n\r\n![productiontabwidget_missing_tabs_bug](https://github.com/user-attachments/assets/7789045b-a17b-45b7-9c6c-8c64cc3fe149)\r\n\r\nFor more information see the previous PR: #21162.\r\n\r\n### Updating cache for production queues' enabled states\r\nThe original PR did not update cache for enabled state of production queues in `cachedProductionQueueEnabledStates` field. The reason, why the PR did fix the issue is that what the code currently does, is that it refreshes the production tabs in every tick. This happens only if a production queue, that was enabled on creation, gets disabled. The cache contains stale information, hence it thinks that queue's `Enabled` state keeps changing and tabs should be updated.\r\n\r\nThe new code in PR updates the cache for the production queue, which `Enabled` state has changed, but only once (because in the next tick, the cache contains up-to-date data).\r\n\r\n### Reacting to actors of non-local player\r\nThe `ActorChanged()` currently reacts to all actors no matter the owner. It means that whenever a non-local player builds a production building, the production tabs (for the local player naturally) are updated. But if the local player has any queue disabled at this moment, it means tab for that queue *gets removed*\r\n\r\nit will clear the cache for *all players*. And since `Tick()` method depends on the cache containing all currently existing production queues, the mechanism for updating tabs gets broken.\r\n\r\nThe new code in PR changes the logic in the `ActorChanged()` method so that it reacts only to actors, which are owned by the local player.",
+    "body_sha256": "6e98d76637ccef29259060f890c8e93b123db563f4a3c9dde8c869302343097c",
+    "closed_at": "2025-05-11T19:20:04Z",
+    "created_at": "2025-05-11T15:25:39Z",
+    "merged_at": "2025-05-11T19:20:04Z",
+    "number": 21906,
+    "state": "closed",
+    "title": "Fix missing tabs in production sidebar",
+    "updated_at": "2025-05-12T06:53:20Z",
+    "url": "https://github.com/OpenRA/OpenRA/pull/21906"
+  },
+  "record_sha256": "023cb7751752a008d84364cd1931ecb61c0eb7ab4c718efbbb68a9eaec2adeec",
+  "repository": "OpenRA/OpenRA",
+  "retrieved_at": "2026-08-10T17:20:33Z",
+  "reviews": [
+    {
+      "author": "PunkPun",
+      "body_normalized": "Ok",
+      "body_raw": "Ok",
+      "body_sha256": "843ac01149cced785dfebd0028d3b03ba78e286e1c6f9517ebfcdb609d97af4c",
+      "created_at": "2025-05-11T19:20:00Z",
+      "id": 2831474757,
+      "source": "pull_request_review",
+      "state": "APPROVED",
+      "url": "https://github.com/OpenRA/OpenRA/pull/21906#pullrequestreview-2831474757"
+    }
+  ],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-openra-21906-production-tabs",
+  "tests": [
+    {
+      "argv": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "openra",
+        "--case",
+        "production-tabs",
+        "--repo",
+        "."
+      ],
+      "command": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "openra",
+        "--case",
+        "production-tabs",
+        "--repo",
+        "."
+      ],
+      "cwd": ".",
+      "id": "openra-pr21906-production-tabs-f2p",
+      "kind": "fail_to_pass",
+      "origin": "issue_derived_gui_differential",
+      "provenance": "issue_derived_gui_differential",
+      "source_case": "create a second disabled production actor, enable both queues, then withdraw the prerequisite",
+      "source_url": "https://github.com/OpenRA/OpenRA/pull/21906",
+      "timeout_s": 240
+    },
+    {
+      "argv": [
+        "dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "command": [
+        "dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "cwd": ".",
+      "id": "openra-action-queue-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "OpenRA.Test upstream regression suite",
+      "source_case": "ActionQueue performs actions in order of time, then insertion order",
+      "source_url": "https://github.com/OpenRA/OpenRA/tree/bleed/OpenRA.Test",
+      "timeout_s": 120
+    }
+  ],
+  "touched_files": [
+    "OpenRA.Mods.Common/Widgets/ProductionTabsWidget.cs"
+  ],
+  "upstream_commits": [
+    {
+      "author": "michaeldgg2",
+      "authored_at": "2025-04-17T09:49:16Z",
+      "body_normalized": "ProductionTabsWidget: fix updating internal cache for production queue",
+      "body_raw": "ProductionTabsWidget: fix updating internal cache for production queue",
+      "body_sha256": "ca7323a7f974f8388b10a22a1761313c050c822a51d0b500bb056a1b5f47b770",
+      "sha": "f30b70fe72f33c2596805e11982906bece9e50c7",
+      "url": "https://github.com/OpenRA/OpenRA/commit/f30b70fe72f33c2596805e11982906bece9e50c7"
+    },
+    {
+      "author": "michaeldgg2",
+      "authored_at": "2025-04-17T09:49:22Z",
+      "body_normalized": "ProductionTabsWidget: fix updating tabs when new production building is built",
+      "body_raw": "ProductionTabsWidget: fix updating tabs when new production building is built",
+      "body_sha256": "30e8514b90896f85df104df98561ae35d8f3d418286fe443c2adcf14d9e141e6",
+      "sha": "470022258223f37ae007924615fd492603fab515",
+      "url": "https://github.com/OpenRA/OpenRA/commit/470022258223f37ae007924615fd492603fab515"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lz-luanti-9722-reversible-number-serialize
+benchmark: luanti
+candidate:
+  repository_key: luanti
+  change_number: 9722
+  issue_number: 7925
+  defect_locus: at_goal
+authoritative_defect: null
+provenance:
+  formal_freeze_admission: candidate_formal_freeze_admission/luanti/9722/real-f12-v2
+  frame_sources:
+    fixed_before: candidate_gate11_9722_visual_observation/luanti/9722/real-f12-v2
+    fixed_after: candidate_gate11_9722_visual_observation/luanti/9722/real-f12-v2
+    buggy_before: candidate_gate11_9722_visual_observation/luanti/9722/real-f12-v2
+    buggy_after: candidate_gate11_9722_visual_observation/luanti/9722/real-f12-v2
+  goldens_metadata: visual_lz-luanti-9722-reversible-number-serialize/goldens.meta.json
+  before_equivalence:
+    changed_pixel_ratio: 0.0
+    ignored_top_fraction: 0.25
+    mean_absolute_difference: 0.0
+  after_differential:
+    changed_pixel_ratio: 0.04334924768518519
+    ignored_top_fraction: 0.25
+    mean_absolute_difference: 3.356261574074074
+  golden_policy:
+    after_min_changed_pixel_ratio: 0.001
+    before_max_changed_pixel_ratio: 0.01
+    ignore_top_fraction: 0.25
+  captured_by: materialized_fixed_buggy_runtime_capture
+evaluation:
+  visual_oracle:
+    golden_image: visual_lz-luanti-9722-reversible-number-serialize/fixed.after.golden.png
+    expected_label: correct
+    description: 'The world behind is nearly black, the title bar is dark blue-grey
+      and reads "C1 LAZARUS #9722 REVERSIBLE NUMBER REPLAY", and the body lists "COMMON
+      START", the two numbers 0.2695949158945771 and 269594915894577, and "Waiting
+      for the ordered replay ...".'
+    rubric:
+      must:
+      - A Luanti client frame rendered by the candidate build shows a centred formspec
+        panel with a coloured title bar over the world, above an eight-slot hotbar.
+      - 'The world behind is nearly black, the title bar is dark blue-grey and reads
+        "C1 LAZARUS #9722 REVERSIBLE NUMBER REPLAY", and the body lists "COMMON START",
+        the two numbers 0.2695949158945771 and 269594915894577, and "Waiting for the
+        ordered replay ...".'
+      must_not:
+      - A blank frame, a crash dialog, or an unrelated application screen is shown.
+      ignore:
+      - The hotbar row, the crosshair, the node selection outline, the wielded item
+        at the lower right, and the server and chat text lines along the top.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    runtime_status: frozen_evidence_available
+    probe:
+      adapter: luanti_lazarus_frozen_evidence_v1
+      spec: lz-luanti-9722-reversible-number-serialize.yaml
+      registered_replay:
+      - restore_registered_candidate_start
+      - run_registered_candidate_replay
+      - read_admitted_gate10_semantic_observation
+      versions_replayed:
+      - fixed
+      - buggy
+      re_executed_offline: false
+      provider_calls_required: false
+    upstream_tests:
+      fail_to_pass: []
+      pass_to_pass: []
+    goldens:
+      before: visual_lz-luanti-9722-reversible-number-serialize/before.golden.png
+      buggy_before: visual_lz-luanti-9722-reversible-number-serialize/buggy.before.golden.png
+      fixed:
+        after: visual_lz-luanti-9722-reversible-number-serialize/fixed.after.golden.png
+        after_description: 'The world behind is daylit blue sky, the title bar is
+          green and reads "C1 LAZARUS #9722 REPLAY RESULT", and the body shows "GOAL:
+          BOTH NUMBERS PRESERVED" above "value 1 exact: true", "value 2 exact: true"
+          and "semantic class: goal_reversible_numbers".'
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a centred
+            formspec panel with a coloured title bar over the world, above an eight-slot
+            hotbar.
+          - 'The world behind is daylit blue sky, the title bar is green and reads
+            "C1 LAZARUS #9722 REPLAY RESULT", and the body shows "GOAL: BOTH NUMBERS
+            PRESERVED" above "value 1 exact: true", "value 2 exact: true" and "semantic
+            class: goal_reversible_numbers".'
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the crosshair, the node selection outline, the wielded
+            item at the lower right, and the server and chat text lines along the
+            top.
+      buggy:
+        after: visual_lz-luanti-9722-reversible-number-serialize/buggy.after.golden.png
+        after_description: 'The world behind is daylit blue sky, the title bar is
+          dark red and reads "C1 LAZARUS #9722 REPLAY RESULT", and the body shows
+          "DEFECT: NUMBER CHANGED" above "value 1 exact: false", "value 2 exact: true"
+          and "semantic class: defect_number_changed".'
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a centred
+            formspec panel with a coloured title bar over the world, above an eight-slot
+            hotbar.
+          - 'The world behind is daylit blue sky, the title bar is dark red and reads
+            "C1 LAZARUS #9722 REPLAY RESULT", and the body shows "DEFECT: NUMBER CHANGED"
+            above "value 1 exact: false", "value 2 exact: true" and "semantic class:
+            defect_number_changed".'
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the crosshair, the node selection outline, the wielded
+            item at the lower right, and the server and chat text lines along the
+            top.

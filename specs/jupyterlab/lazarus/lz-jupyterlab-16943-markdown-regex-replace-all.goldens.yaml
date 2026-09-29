@@ -1,0 +1,108 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lz-jupyterlab-16943-markdown-regex-replace-all
+benchmark: jupyterlab
+candidate:
+  repository_key: jupyterlab
+  change_number: 16943
+  issue_number: 16925
+  defect_locus: at_goal
+authoritative_defect: null
+provenance:
+  formal_freeze_admission: null
+  frame_sources:
+    fixed_before: live_materialized_capture
+    fixed_after: live_materialized_capture
+    buggy_before: live_materialized_capture
+    buggy_after: live_materialized_capture
+  goldens_metadata: visual_lz-jupyterlab-16943-markdown-regex-replace-all/goldens.meta.json
+  before_equivalence:
+    changed_pixel_ratio: 1.953125e-05
+    ignored_top_fraction: 0.0
+    mean_absolute_difference: 0.0026822916666666666
+  after_differential:
+    changed_pixel_ratio: 0.0031318359375
+    ignored_top_fraction: 0.0
+    mean_absolute_difference: 0.6955664062499999
+  golden_policy:
+    after_min_changed_pixel_ratio: 0.001
+    before_max_changed_pixel_ratio: 0.01
+    ignore_top_fraction: 0.0
+  captured_by: materialized_fixed_buggy_runtime_capture
+evaluation:
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-16943-markdown-regex-replace-all/fixed.after.golden.png
+    expected_label: correct
+    description: The markdown cell lists eight bullet items whose values are plain digit runs,
+      and the search overlay shows the digit-capturing pattern and its substitution.
+    rubric:
+      must:
+      - A JupyterLab notebook window shows a markdown cell headed "Lazarus replace-all fixture"
+        above one code cell, with the document search overlay open at the top right.
+      - Each of the eight bullet items reads name= followed by a three-digit number and nothing
+        else.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the file browser's
+        relative modification times.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    runtime_status: probe_runtime_available
+    probe:
+      adapter: jupyterlab_lazarus_app_probe_v1
+      spec: lz-jupyterlab-16943-markdown-regex-replace-all.yaml
+      registered_replay:
+      - load_materialized_dev_mode_bundle
+      - restore_registered_search_start
+      - apply_registered_replace_all
+      - read_markdown_cell_text
+      versions_replayed:
+      - fixed
+      - buggy
+      re_executed_offline: true
+      provider_calls_required: false
+    upstream_tests:
+      fail_to_pass:
+      - jupyterlab-16943-regex-replace-all-f2p
+      pass_to_pass:
+      - jupyterlab-notebook-replace-all-construction-p2p
+      - jupyterlab-coreutils-path-trial-p2p
+    goldens:
+      before: visual_lz-jupyterlab-16943-markdown-regex-replace-all/before.golden.png
+      buggy_before: visual_lz-jupyterlab-16943-markdown-regex-replace-all/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-16943-markdown-regex-replace-all/fixed.after.golden.png
+        after_description: Every bullet item reads name= followed by its original three-digit
+          number, then a plus sign and a one, so each captured run of digits was carried into
+          the substitution.
+        after_rubric:
+          must:
+          - A JupyterLab notebook window shows the markdown cell's eight bullet items with
+            the document search overlay still open.
+          - Every bullet item reads name= followed by its own three-digit number, then +1.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the file
+            browser's relative modification times.
+      buggy:
+        after: visual_lz-jupyterlab-16943-markdown-regex-replace-all/buggy.after.golden.png
+        after_description: Every bullet item reads name= followed by a dollar sign, a one,
+          a plus sign and a one, so the substitution's back-reference was written out literally
+          instead of carrying the captured digits.
+        after_rubric:
+          must:
+          - A JupyterLab notebook window shows the markdown cell's eight bullet items with
+            the document search overlay still open.
+          - Every bullet item reads name= followed by $1+1, and no three-digit number remains
+            in any item.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the file
+            browser's relative modification times.

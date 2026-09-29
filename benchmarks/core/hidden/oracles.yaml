@@ -1,0 +1,153 @@
+oracles:
+  - task_id: 2048-merge-left
+    hidden_spec: specs/2048/merge-left.yaml
+  - task_id: 2048-near-win
+    hidden_spec: specs/2048/near-win.yaml
+  - task_id: 2048-near-loss
+    hidden_spec: specs/2048/near-loss.yaml
+  - task_id: spacerpg-playable-flight
+    hidden_spec: specs/spacerpg/playable-flight.yaml
+  - task_id: spacerpg-station-save
+    hidden_spec: specs/spacerpg/station-save.yaml
+  - task_id: spacerpg-save-restore
+    hidden_spec: specs/spacerpg/save-restore.yaml
+  - task_id: spacerpg-galaxy-jump
+    hidden_spec: specs/spacerpg/galaxy-jump.yaml
+  - task_id: spacerpg-trading-cargo
+    hidden_spec: specs/spacerpg/trading-cargo.yaml
+  - task_id: spacerpg-equipment-loadout
+    hidden_spec: specs/spacerpg/equipment-loadout.yaml
+  - task_id: spacerpg-story-mission
+    hidden_spec: specs/spacerpg/story-mission.yaml
+  - task_id: love-resource-action
+    hidden_spec: specs/love/resource-action.yaml
+  - task_id: love-cafe-date
+    hidden_spec: specs/love/cafe-date.yaml
+  - task_id: love-dialogue-open
+    hidden_spec: specs/love/dialogue-open.yaml
+  - task_id: love-relationship-update
+    hidden_spec: specs/love/relationship-update.yaml
+  - task_id: love-ending-precondition
+    hidden_spec: specs/love/ending-precondition.yaml
+  - task_id: cnc-gdi01-beachhead
+    hidden_spec: specs/openra/cnc-gdi01-beachhead.yaml
+  - task_id: cnc-nod03a-prison-break
+    hidden_spec: specs/openra/cnc-nod03a-prison-break.yaml
+  - task_id: cnc-hot-box-dropzone
+    hidden_spec: specs/openra/cnc-hot-box-dropzone.yaml
+  - task_id: ra-allies03a-dead-end
+    hidden_spec: specs/openra/ra-allies03a-dead-end.yaml
+  - task_id: ra-soviet05-distant-thunder
+    hidden_spec: specs/openra/ra-soviet05-distant-thunder.yaml
+  - task_id: ra-drop-zone
+    hidden_spec: specs/openra/ra-drop-zone.yaml
+  - task_id: ra-soviet05-war-factory-heavy-tank
+    hidden_spec: specs/openra/ra-soviet05-war-factory-heavy-tank.yaml
+  - task_id: ra-soviet05-barracks-rocket-infantry
+    hidden_spec: specs/openra/ra-soviet05-barracks-rocket-infantry.yaml
+  - task_id: ra-allies07-soviet-war-factory-produces-heavy-tank
+    hidden_spec: specs/openra/ra-allies07-soviet-war-factory-produces-heavy-tank.yaml
+  - task_id: ra-allies05a-soviet-war-factory-produces-vehicle
+    hidden_spec: specs/openra/ra-allies05a-soviet-war-factory-produces-vehicle.yaml
+  - task_id: jynew-team-join
+    hidden_spec: specs/jynew/team-join.yaml
+  - task_id: jynew-level-up
+    hidden_spec: specs/jynew/level-up.yaml
+  - task_id: jynew-skill-learn
+    hidden_spec: specs/jynew/skill-learn.yaml
+  - task_id: jynew-save-restore
+    hidden_spec: specs/jynew/save-restore.yaml
+  - task_id: jynew-money-trade
+    hidden_spec: specs/jynew/money-trade.yaml
+  - task_id: pal3-story-progress
+    hidden_spec: specs/pal3/story-progress-early.yaml
+  - task_id: pal3-scene-load
+    hidden_spec: specs/pal3/scene-load-yuzhou.yaml
+  - task_id: pal3-scene-transition
+    hidden_spec: specs/pal3/scene-transition.yaml
+  - task_id: pal3-team-join
+    hidden_spec: specs/pal3/team-join-single.yaml
+  - task_id: pal3-team-leave
+    hidden_spec: specs/pal3/team-leave.yaml
+  - task_id: pal3-item-add
+    hidden_spec: specs/pal3/item-add-stack.yaml
+  - task_id: pal3-money-add
+    hidden_spec: specs/pal3/money-add.yaml
+  - task_id: pal3-world-region
+    hidden_spec: specs/pal3/world-region-enable.yaml
+  - task_id: pal3-favor-add
+    hidden_spec: specs/pal3/favor-add.yaml
+  - task_id: pal3-save-restore
+    hidden_spec: specs/pal3/save-restore-full.yaml
+  - task_id: luanti-set-node
+    hidden_spec: specs/luanti/set-node.yaml
+  - task_id: luanti-dig-node
+    hidden_spec: specs/luanti/dig-node.yaml
+  - task_id: luanti-fill-floor
+    hidden_spec: specs/luanti/fill-floor.yaml
+  - task_id: luanti-replace-node
+    hidden_spec: specs/luanti/replace-node.yaml
+  - task_id: luanti-build-column
+    hidden_spec: specs/luanti/build-column.yaml
+  - task_id: luanti-chest-inventory
+    hidden_spec: specs/luanti/chest-inventory.yaml
+  - task_id: luanti-player-teleport
+    hidden_spec: specs/luanti/player-teleport.yaml
+  - task_id: luanti-player-hp
+    hidden_spec: specs/luanti/player-hp.yaml
+  - task_id: luanti-player-inventory
+    hidden_spec: specs/luanti/player-inventory.yaml
+  - task_id: luanti-mod-storage
+    hidden_spec: specs/luanti/mod-storage.yaml
+  - task_id: luanti-save-restore
+    hidden_spec: specs/luanti/save-restore.yaml
+  - task_id: luanti-complex-house-workshop
+    hidden_spec: specs/luanti/complex-house-workshop.yaml
+  - task_id: luanti-irrigated-farmstead
+    hidden_spec: specs/luanti/irrigated-farmstead.yaml
+  - task_id: luanti-storage-workshop
+    hidden_spec: specs/luanti/storage-workshop.yaml
+  - task_id: luanti-mine-bridge-outpost
+    hidden_spec: specs/luanti/mine-bridge-outpost.yaml
+  - task_id: luanti-homestead-save-restore
+    hidden_spec: specs/luanti/homestead-save-restore.yaml
+  - task_id: jupyterlab-text-file-edit
+    hidden_spec: specs/jupyterlab/text-file-edit.yaml
+  - task_id: jupyterlab-notebook-cell-output
+    hidden_spec: specs/jupyterlab/notebook-cell-output.yaml
+  - task_id: jupyterlab-workspace-layout
+    hidden_spec: specs/jupyterlab/workspace-layout.yaml
+  - task_id: jupyterlab-session-smoke
+    hidden_spec: specs/jupyterlab/session-smoke.yaml
+  - task_id: jupyterlab-markdown-file-save
+    hidden_spec: specs/jupyterlab/markdown-file-save.yaml
+  - task_id: jupyterlab-notebook-markdown-note
+    hidden_spec: specs/jupyterlab/notebook-markdown-note.yaml
+  - task_id: blender-scene-cube-material
+    hidden_spec: specs/blender/scene-cube-material.yaml
+  - task_id: blender-save-reopen-scene
+    hidden_spec: specs/blender/save-reopen-scene.yaml
+  - task_id: blender-modifier-apply
+    hidden_spec: specs/blender/modifier-apply.yaml
+  - task_id: blender-animation-keyframes
+    hidden_spec: specs/blender/animation-keyframes.yaml
+  - task_id: libreoffice-writer-board-report-toc
+    hidden_spec: specs/libreoffice/writer-board-report-toc.yaml
+  - task_id: libreoffice-writer-invoice-table-rollup
+    hidden_spec: specs/libreoffice/writer-invoice-table-rollup.yaml
+  - task_id: libreoffice-writer-policy-cross-reference
+    hidden_spec: specs/libreoffice/writer-policy-cross-reference.yaml
+  - task_id: libreoffice-calc-quarterly-budget-rollup
+    hidden_spec: specs/libreoffice/calc-quarterly-budget-rollup.yaml
+  - task_id: libreoffice-calc-sales-sort-ranking
+    hidden_spec: specs/libreoffice/calc-sales-sort-ranking.yaml
+  - task_id: libreoffice-calc-named-range-forecast
+    hidden_spec: specs/libreoffice/calc-named-range-forecast.yaml
+  - task_id: libreoffice-calc-chart-refresh-export
+    hidden_spec: specs/libreoffice/calc-chart-refresh-export.yaml
+  - task_id: libreoffice-impress-status-deck-build
+    hidden_spec: specs/libreoffice/impress-status-deck-build.yaml
+  - task_id: libreoffice-impress-slide-reorder-summary
+    hidden_spec: specs/libreoffice/impress-slide-reorder-summary.yaml
+  - task_id: libreoffice-impress-kpi-chart-pdf
+    hidden_spec: specs/libreoffice/impress-kpi-chart-pdf.yaml

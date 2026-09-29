@@ -1,0 +1,128 @@
+schema_version: 1
+benchmark: jupyterlab
+name: lzp-jupyterlab-19091-themed-button-glyph-font
+target:
+  kind: jupyterlab_lazarus_candidate_bundle
+  change_number: 19091
+  variants:
+  - fixed
+  - buggy
+  capture_backend: playwright_chromium_png
+setup:
+  jupyterlab_lazarus_probe:
+    registered_replay:
+      fixture: warptest.c1_lazarus_selection.p2p_only_frames
+      build_packages: []
+      stylesheets:
+      - packages/theme-light-extension/style/variables.css
+      - packages/application/style/buttons.css
+      fixture_notes: The fixture contributes a (0,1,0) class rule in place of Font Awesome's; the container
+        rule that may override it comes from the tree's own stylesheet.
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lzp-jupyterlab-19091-themed-button-glyph-font/before.golden.png
+    description: A browser frame rendered by the candidate build shows a white page holding a themed container
+      with one or two large bordered buttons in a row near the top left. A single button reading "Plain"
+      is drawn in the proportional interface typeface. No second button is present.
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a white page holding a themed container
+        with one or two large bordered buttons in a row near the top left.
+      - A single button reading "Plain" is drawn in the proportional interface typeface. No second button
+        is present.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, and sub-pixel text shifts.
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - id: rendered_goal_frame
+      kind: visual_frame
+      frame: fixed_after
+      expected: Two buttons are drawn. The second reads "WWWiii" in a fixed-width typeface, so its six
+        characters occupy six equal columns and the label runs noticeably wider than the same text would
+        in the interface typeface.
+    defect_signature:
+    - id: rendered_defect_frame
+      kind: visual_frame
+      frame: buggy_after
+      expected: Two buttons are drawn. The second reads "WWWiii" in the same proportional interface typeface
+        as the first, so its three W characters are much wider than its three i characters and the label
+        runs narrower overall.
+    invariant_checks:
+    - id: shared_start_frame
+      kind: visual_frame
+      frame: before
+      expected: A single button reading "Plain" is drawn in the proportional interface typeface. No second
+        button is present.
+    f2p_absence:
+      reason: The defect is which font a button's label is painted in, decided by the relative specificity
+        of two stylesheet rules. Nothing in the document differs; only the glyph the browser selects does,
+        so the defect exists only in the raster.
+      audited_paths: []
+    upstream_tests:
+      fail_to_pass: []
+      pass_to_pass:
+      - jupyterlab-pr19091-control-p2p
+      per_trial_p2p:
+      - jupyterlab-pr19091-control-p2p
+    goldens:
+      before: visual_lzp-jupyterlab-19091-themed-button-glyph-font/before.golden.png
+      buggy_before: visual_lzp-jupyterlab-19091-themed-button-glyph-font/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-jupyterlab-19091-themed-button-glyph-font/fixed.after.golden.png
+        after_description: Two buttons are drawn. The second reads "WWWiii" in a fixed-width typeface,
+          so its six characters occupy six equal columns and the label runs noticeably wider than the
+          same text would in the interface typeface.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white page holding a themed container
+            with one or two large bordered buttons in a row near the top left.
+          - Two buttons are drawn. The second reads "WWWiii" in a fixed-width typeface, so its six characters
+            occupy six equal columns and the label runs noticeably wider than the same text would in the
+            interface typeface.
+          - Judge this frame by which typeface the label "WWWiii" is painted in and how wide that label
+            runs.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.
+      buggy:
+        after: visual_lzp-jupyterlab-19091-themed-button-glyph-font/buggy.after.golden.png
+        after_description: Two buttons are drawn. The second reads "WWWiii" in the same proportional interface
+          typeface as the first, so its three W characters are much wider than its three i characters
+          and the label runs narrower overall.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white page holding a themed container
+            with one or two large bordered buttons in a row near the top left.
+          - Two buttons are drawn. The second reads "WWWiii" in the same proportional interface typeface
+            as the first, so its three W characters are much wider than its three i characters and the
+            label runs narrower overall.
+          - Judge this frame by which typeface the label "WWWiii" is painted in and how wide that label
+            runs.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.

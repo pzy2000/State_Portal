@@ -1,0 +1,255 @@
+name: SpaceRPG station docking and save checkpoint
+benchmark: spacerpg
+tags: ["spacerpg", "station", "save", "docking"]
+setup:
+  disable_economy_backend: true
+target:
+  kind: station
+  screen: station
+  system_id: helion-reach
+  station_id: helion-prime
+checkpoint:
+  allowed_strategies: ["test_hook_jump_and_validate"]
+  expected_validity: "replay-reachable"
+actions:
+  - type: hook_call
+    method: saveGame
+    args: ["auto"]
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: state_equals
+        path: screen
+        value: station
+      - type: localStorage_key_exists
+        key: spacerpg-save-slot:auto
+      - type: no_severe_console
+    surfaces:
+      gui:
+        adapter: spacerpg_production_dom_save_v1
+        start:
+          validate_target: true
+          checks:
+          - name: dom.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.screen
+            expected:
+              value: station
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: dom.current_system
+            metric: equals
+            actual:
+              probe: spacerpg.current_system
+              phase: current
+            expected:
+              value: helion-reach
+          - name: dom.station
+            metric: equals
+            actual:
+              probe: spacerpg.station_id
+              phase: current
+            expected:
+              value: helion-prime
+        goal:
+          use_assertions: true
+          checks:
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: transition.auto_fingerprint_changed
+            metric: equals
+            actual:
+              probe: spacerpg.save_fingerprint_changed
+              slot: auto
+            expected:
+              value: true
+          - name: transition.save_intent
+            metric: equals
+            actual:
+              probe: spacerpg.save_intent
+              slot: auto
+            expected:
+              value: true
+          - name: storage.auto.exists
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: storage.auto.exists
+            expected:
+              value: true
+          - name: storage.auto.parse_ok
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: storage.auto.parse_ok
+            expected:
+              value: true
+          - name: storage.auto.version
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: storage.auto.value.version
+            expected:
+              value: 3
+          - name: storage.auto.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: storage.auto.value.screen
+            expected:
+              value: station
+          - name: storage.auto.system
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: storage.auto.value.current_system_id
+            expected:
+              value: helion-reach
+          - name: storage.auto.station
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: storage.auto.value.current_station_id
+            expected:
+              value: helion-prime
+          - name: storage.index.last_played
+            metric: equals
+            actual:
+              probe: spacerpg.last_played_slot
+              phase: current
+            expected:
+              value: auto
+      state:
+        adapter: spacerpg_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      gui_from_start_baseline:
+        adapter: spacerpg_gui_from_start_baseline_v1
+        start:
+          validate_target: false
+          checks: []
+        goal:
+          use_assertions: false
+          checks:
+          - name: visible.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: visible.screen
+            expected:
+              value: station
+          - name: save_auto.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: save_auto.screen
+            expected:
+              value: station
+          - name: save_auto.currentStationId
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: save_auto.currentStationId
+            expected:
+              value: helion-prime
+          requirements:
+          - name: spacerpg.gui_from_start_recipe
+            recipe: station_save
+            reason: Expected Helion Prime station with auto save.
+
+  visual_oracle:
+    golden_image: visual/spacerpg-station-save.after.golden.png
+    golden_before: visual/spacerpg-station-save.before.golden.png
+    golden_after: visual/spacerpg-station-save.after.golden.png
+    expected_label: correct
+    description: "The SpaceRPG Helion Prime station interface is visible on the Hangar tab, and the Auto / Quick Slot shows the timestamp created by docking at the station."
+    after_description: "The same Helion Prime station interface remains visible on the Hangar tab, and the Auto / Quick Slot shows a newer timestamp from the explicit save action."
+    rubric:
+      must:
+        - "A SpaceRPG station interface is visible."
+        - "The screen indicates Helion Prime or a Helion station context."
+        - "Station service panels or controls are rendered."
+        - "The Auto / Quick Slot shows a completed station save with a timestamp."
+      must_not:
+        - "The primary screen is flight, galaxy map, pause menu, or main menu."
+        - "The page is blank or shows a crash/browser error."
+        - "The station interface is visibly broken or missing its main panels."
+      ignore:
+        - "Minor economy numbers or dynamic market values."
+        - "Small differences in selected station tab styling."
+    after_rubric:
+      must:
+        - "A SpaceRPG Helion Prime station interface is visible with its station panels rendered."
+        - "The Auto / Quick Slot reports a completed station save with a timestamp newer than the before image."
+      must_not:
+        - "The primary screen is flight, galaxy map, pause menu, or main menu."
+        - "The page is blank or shows a crash/browser error."
+      ignore:
+        - "The exact clock value in the auto-save timestamp."
+        - "Minor economy numbers or dynamic market values."
+    capture:
+      stage: post_smoke
+      wait_ms: 300
+      full_page: false
+      hide_selectors: [".dialogue-backdrop", ".modal-overlay"]

@@ -1,0 +1,277 @@
+# Test-supplied checkpoints. Never passed to a synthesis agent or used as treatment fallback.
+lzp-jupyterlab-17153-shortcut-chip-contrast:
+  spec:
+    schema_version: 1
+    benchmark: jupyterlab
+    target:
+      kind: p2p_only_state
+      state:
+        component: shortcut_chip
+        theme: dark
+        props:
+          text: Ctrl A
+          class_name: ''
+    checkpoint:
+      allowed_strategies:
+      - p2p_only_typed_restore_v3
+      expected_validity: injection-only
+    actions:
+    - type: set_class
+      selector: '#line'
+      class_name: jp-mod-selected-InputText
+    assertions: []
+  pixel_actions: []
+lzp-jupyterlab-17222-toolbar-button-pressed-toggle:
+  spec:
+    schema_version: 1
+    benchmark: jupyterlab
+    target:
+      kind: p2p_only_state
+      state:
+        component: toolbar_button
+        theme: light
+        props:
+          label: ''
+          pressed: false
+    checkpoint:
+      allowed_strategies:
+      - p2p_only_typed_restore_v3
+      expected_validity: injection-only
+    actions:
+    - type: click
+      selector: '#button-host jp-button'
+    assertions: []
+  pixel_actions: []
+lzp-jupyterlab-17618-high-contrast-selection-layer:
+  spec:
+    schema_version: 1
+    benchmark: jupyterlab
+    target:
+      kind: p2p_only_state
+      state:
+        component: selection
+        theme: high_contrast
+        props:
+          text: select me
+          class_name: ''
+    checkpoint:
+      allowed_strategies:
+      - p2p_only_typed_restore_v3
+      expected_validity: injection-only
+    actions:
+    - type: select_text
+      selector: '#line'
+      start: 0
+      end: 9
+    assertions: []
+  pixel_actions: []
+lzp-jupyterlab-18464-debugger-zero-variable-detail:
+  spec:
+    schema_version: 1
+    benchmark: jupyterlab
+    target:
+      kind: p2p_only_state
+      state:
+        component: variables
+        theme: light
+        props:
+          scope: Locals
+          variables:
+          - name: total
+            value: '7'
+    checkpoint:
+      allowed_strategies:
+      - p2p_only_typed_restore_v3
+      expected_validity: injection-only
+    actions:
+    - type: add_variable
+      name: count
+      value: '0'
+    assertions: []
+  pixel_actions: []
+lzp-jupyterlab-18996-htmlselect-caret-offset:
+  spec:
+    schema_version: 1
+    benchmark: jupyterlab
+    target:
+      kind: p2p_only_state
+      state:
+        component: html_select
+        theme: light
+        props:
+          label: More
+    checkpoint:
+      allowed_strategies:
+      - p2p_only_typed_restore_v3
+      expected_validity: injection-only
+    actions:
+    - type: open_panel
+      value: code
+      options:
+      - Code
+    assertions: []
+  pixel_actions: []
+lzp-jupyterlab-19091-themed-button-glyph-font:
+  spec:
+    schema_version: 1
+    benchmark: jupyterlab
+    target:
+      kind: p2p_only_state
+      state:
+        component: themed_button
+        theme: light
+        props:
+          text: Plain
+          class_name: ''
+    checkpoint:
+      allowed_strategies:
+      - p2p_only_typed_restore_v3
+      expected_validity: injection-only
+    actions:
+    - type: append_button
+      text: WWWiii
+      class_name: glyph-face
+    assertions: []
+  pixel_actions: []
+lzp-luanti-16679-unavailable-settings:
+  spec:
+    schema_version: 1
+    benchmark: luanti
+    target:
+      kind: p2p_only_state
+      state:
+        tab: local
+        settings: {}
+        worlds: []
+    checkpoint:
+      allowed_strategies:
+      - p2p_only_typed_restore_v3
+      expected_validity: injection-only
+    actions:
+    - type: open_settings
+      section: controls_touchscreen
+    assertions: []
+  pixel_actions:
+  - - click
+    - 1134
+    - 95
+  - - click
+    - 365
+    - 282
+lzp-luanti-16799-world-mods:
+  spec:
+    schema_version: 1
+    benchmark: luanti
+    target:
+      kind: p2p_only_state
+      state:
+        tab: local
+        settings: {}
+        worlds:
+        - name: p2p_world
+          gameid: devtest
+          mods:
+          - name: p2p_world_mod
+            description: p2p online fixture
+    checkpoint:
+      allowed_strategies:
+      - p2p_only_typed_restore_v3
+      expected_validity: injection-only
+    actions:
+    - type: configure_world
+      world: p2p_world
+    assertions: []
+  pixel_actions:
+  - - click
+    - 900
+    - 292
+  - - click
+    - 1205
+    - 713
+lzp-luanti-17152-server-list-search-tooltip:
+  spec:
+    schema_version: 1
+    benchmark: luanti
+    target:
+      kind: p2p_only_state
+      state:
+        tab: local
+        settings: {}
+        worlds: []
+    checkpoint:
+      allowed_strategies:
+      - p2p_only_typed_restore_v3
+      expected_validity: injection-only
+    actions:
+    - type: set_tab
+      tab: online
+    - type: pointer_move
+      x: 400
+      y: 165
+    assertions: []
+  pixel_actions:
+  - - click
+    - 394
+    - 95
+  - - move
+    - 400
+    - 165
+lzp-openra-22283-tileset-template-order:
+  spec:
+    schema_version: 1
+    benchmark: openra
+    target:
+      kind: p2p_only_state
+      state:
+        screen: editor
+        map_index: 0
+        editor_tab: overlays
+    checkpoint:
+      allowed_strategies:
+      - p2p_only_typed_restore_v3
+      expected_validity: injection-only
+    actions:
+    - type: widget_event
+      id: TILES_TAB
+      event: click
+    - type: widget_event
+      id: CATEGORIES_DROPDOWN
+      event: mouse_down
+    assertions: []
+  pixel_actions:
+  - - click
+    - 980
+    - 420
+lzp-openra-22476-load-game-faction-filter:
+  spec:
+    schema_version: 1
+    benchmark: openra
+    target:
+      kind: p2p_only_state
+      state:
+        screen: mainmenu
+    checkpoint:
+      allowed_strategies:
+      - p2p_only_typed_restore_v3
+      expected_validity: injection-only
+    actions:
+    - type: widget_event
+      id: LOAD_BUTTON
+      event: click
+    - type: widget_event
+      id: FLT_FACTION_DROPDOWNBUTTON
+      event: mouse_down
+    assertions: []
+  pixel_actions:
+  - - click
+    - 200
+    - 275
+  - - click
+    - 200
+    - 355
+  - - click
+    - 220
+    - 628
+  - - click
+    - 454
+    - 297

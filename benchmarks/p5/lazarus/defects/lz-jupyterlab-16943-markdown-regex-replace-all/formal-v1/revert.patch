@@ -1,0 +1,35 @@
+diff --git a/packages/cells/src/searchprovider.ts b/packages/cells/src/searchprovider.ts
+index f57c910..4864ce8 100644
+--- a/packages/cells/src/searchprovider.ts
++++ b/packages/cells/src/searchprovider.ts
+@@ -438,11 +438,14 @@ class MarkdownCellSearchProvider extends CellSearchProvider {
+    * @param newText The replacement text.
+    * @returns Whether a replace occurred.
+    */
+-  async replaceAllMatches(newText: string): Promise<boolean> {
++  async replaceAllMatches(
++    newText: string,
++    options?: IReplaceOptions
++  ): Promise<boolean> {
+     if (this.model.getMetadata('editable') === false)
+       return Promise.resolve(false);
+ 
+-    const result = await super.replaceAllMatches(newText);
++    const result = await super.replaceAllMatches(newText, options);
+     // if the cell is rendered force update
+     if ((this.cell as MarkdownCell).rendered) {
+       this.cell.update();
+diff --git a/packages/cells/src/widget.ts b/packages/cells/src/widget.ts
+index 710d1b3..fe4408b 100644
+--- a/packages/cells/src/widget.ts
++++ b/packages/cells/src/widget.ts
+@@ -1987,7 +1987,8 @@ export abstract class AttachmentsCell<
+    * Handle the `paste` event for the widget
+    */
+   private _evtPaste(event: ClipboardEvent): void {
+-    if (event.clipboardData) {
++    const isEditable = this.model.getMetadata('editable') ?? true;
++    if (event.clipboardData && isEditable) {
+       const items = event.clipboardData.items;
+       for (let i = 0; i < items.length; i++) {
+         if (items[i].type === 'text/plain') {

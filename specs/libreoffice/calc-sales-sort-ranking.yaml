@@ -1,0 +1,97 @@
+name: LibreOffice Calc sales sort ranking deep state
+benchmark: LibreOffice
+repo: ../../games/LibreOffice
+target:
+  kind: calc_spreadsheet
+  path: calc-sales-sort-ranking.ods
+  sheet: Sales
+  cells:
+    A1: Rep
+    B1: Region
+    C1: Revenue
+    D1: Score
+    A2: Arun
+    B2: East
+    C2: 9200
+    D2: 82
+    A3: Blair
+    B3: West
+    C3: 13400
+    D3: 90
+    A4: Casey
+    B4: Central
+    C4: 11700
+    D4: 86
+    A5: Devon
+    B5: East
+    C5: 15100
+    D5: 94
+checkpoint:
+  allowed_strategies: ["libreoffice_uno_document_validate"]
+  expected_validity: save-restorable
+actions:
+  - type: libreoffice_set_cell
+    sheet: Sales
+    cell: D4
+    value: 96
+  - type: libreoffice_sort_range
+    sheet: Sales
+    range: A2:D5
+    key: D
+    order: descending
+  - type: libreoffice_set_formula
+    sheet: Sales
+    cell: E2
+    formula: "=ROW()-1"
+  - type: libreoffice_save
+  - type: libreoffice_reopen
+assertions:
+  - type: libreoffice_cell_value_equals
+    sheet: Sales
+    cell: A2
+    expected: Casey
+  - type: libreoffice_cell_value_equals
+    sheet: Sales
+    cell: D2
+    expected: 96
+  - type: libreoffice_formula_equals
+    sheet: Sales
+    cell: E2
+    formula: "=ROW()-1"
+  - type: no_libreoffice_errors
+visual_oracle:
+  golden_image: visual/calc-sales-sort-ranking.after.golden.png
+  golden_before: visual/calc-sales-sort-ranking.before.golden.png
+  golden_after: visual/calc-sales-sort-ranking.after.golden.png
+  expected_label: correct
+  description: "A LibreOffice Calc sales ranking table is visible before sorting."
+  rubric:
+    must:
+      - "LibreOffice Calc shows a populated sales table."
+      - "Rep, region, revenue, or score-like columns are visible."
+    must_not:
+      - "A blank sheet, crash dialog, or unrelated app is shown."
+    ignore:
+      - "Selected cell, zoom, and column width differences."
+  after_description: "After the workflow, the sales table is sorted by updated score with Casey promoted to the top row."
+  after_rubric:
+    must:
+      - "A populated Calc sales table remains visible."
+      - "The top data row or visible ranking reflects a reordered table."
+      - "The sheet is rendered normally."
+    must_not:
+      - "The table is still in its original unsorted order."
+      - "The screenshot is blank, crashed, or unrelated."
+    ignore:
+      - "Exact cell selection, toolbar, or zoom differences."
+  capture:
+    stage: post_smoke
+    active_sheet: Sales
+    wait_ms: 500
+    full_page: false
+tags:
+  - libreoffice
+  - calc
+  - deep-state
+  - ranking
+timeout_ms: 240000

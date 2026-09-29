@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.07165653935185186,
+    "ignored_top_fraction": 0.25,
+    "mean_absolute_difference": 3.7991285686728395
+  },
+  "before_buggy_sha256": "a956a731239a1b98cf6fa4ea2de0946e23fd724260bc0637eb102f7eae8d6d7e",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.25,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "a956a731239a1b98cf6fa4ea2de0946e23fd724260bc0637eb102f7eae8d6d7e",
+  "buggy_after_sha256": "02ff281093374df21cdd100c9df94cd4dcedebc73d251b5870ef931a21f11926",
+  "fixed_after_sha256": "fc3f7a05eae006248d5e38a3a91239fea21f7bb4ed131a319ceb1acabe7e0869",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "02ff281093374df21cdd100c9df94cd4dcedebc73d251b5870ef931a21f11926",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 26666,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "a02a01e5c45718bb9f8d03a0971f67a1bc48feb4581097863ce0bd63f787ede9"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "a956a731239a1b98cf6fa4ea2de0946e23fd724260bc0637eb102f7eae8d6d7e",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 25654,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "b6c95dc6e44c16aedc1e86e381f1c064b6ba473a935c3eef1af2ebf900bf449d"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "fc3f7a05eae006248d5e38a3a91239fea21f7bb4ed131a319ceb1acabe7e0869",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 26234,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "06e19bac20d4196a6208ef8194cc4c10f28ff76284d9549eb33405b07204cbce"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "a956a731239a1b98cf6fa4ea2de0946e23fd724260bc0637eb102f7eae8d6d7e",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 25654,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "52a6ea41a9add685951ef981172ebe857ebfe6dc4604aa3debbc4fd59c5513c2"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.25
+  },
+  "published_unix_ns": 1786768710852485000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lz-luanti-11352-map-settings-hierarchy"
+}

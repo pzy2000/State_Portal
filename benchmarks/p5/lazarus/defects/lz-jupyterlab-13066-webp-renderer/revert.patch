@@ -1,0 +1,33 @@
+diff --git a/packages/rendermime/src/factories.ts b/packages/rendermime/src/factories.ts
+index 4f8d31b793cf38bd195737d6c0d1cd3ca50c8be8..eaa36808cfaa3ad3133f56ef88b33fa8ac6dbe82 100644
+--- a/packages/rendermime/src/factories.ts
++++ b/packages/rendermime/src/factories.ts
+@@ -20,7 +20,13 @@ export const htmlRendererFactory: IRenderMime.IRendererFactory = {
+  */
+ export const imageRendererFactory: IRenderMime.IRendererFactory = {
+   safe: true,
+-  mimeTypes: ['image/bmp', 'image/png', 'image/jpeg', 'image/gif'],
++  mimeTypes: [
++    'image/bmp',
++    'image/png',
++    'image/jpeg',
++    'image/gif',
++    'image/webp'
++  ],
+   defaultRank: 90,
+   createRenderer: options => new widgets.RenderedImage(options)
+ };
+diff --git a/packages/rendermime/test/factories.spec.ts b/packages/rendermime/test/factories.spec.ts
+index 340d05483ca35b59ea6c1621d5c84a6bb5c80759..9cb310536d13232e7049e2fdb00dec5b0b4630a3 100644
+--- a/packages/rendermime/test/factories.spec.ts
++++ b/packages/rendermime/test/factories.spec.ts
+@@ -429,7 +429,8 @@ describe('rendermime/factories', () => {
+           'image/bmp',
+           'image/png',
+           'image/jpeg',
+-          'image/gif'
++          'image/gif',
++          'image/webp'
+         ]);
+       });
+     });

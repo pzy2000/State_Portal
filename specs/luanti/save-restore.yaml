@@ -1,0 +1,59 @@
+name: luanti save and restore world, player, and mod storage
+benchmark: "luanti"
+timeout_ms: 360000
+tags: ["luanti", "save", "restore", "persistence"]
+target:
+  kind: save_restore
+  nodes:
+    - pos: { x: 6, y: 1, z: 6 }
+      node: "basenodes:stone"
+  player:
+    hp: 18
+    inventory:
+      - { item: "basetools:pick_steel", count: 1 }
+  mod_storage:
+    - { key: "warptest_saved", value: "yes" }
+  validations:
+    - path: "node.6,1,6"
+      expected: "basenodes:stone"
+    - path: "mod_storage.warptest_saved"
+      expected: "yes"
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions: []
+assertions:
+  - type: luanti_node_is
+    pos: { x: 6, y: 1, z: 6 }
+    expected: "basenodes:stone"
+  - type: luanti_player_hp_gte
+    int_value: 18
+  - type: luanti_inventory_contains
+    item: "basetools:pick_steel"
+    count: 1
+  - type: luanti_mod_storage_equals
+    key: "warptest_saved"
+    value: "yes"
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/save-restore.golden.png
+  golden_before: visual/luanti-save-restore.before.golden.png
+  golden_after: visual/luanti-save-restore.after.golden.png
+  expected_label: correct
+  description: "After reloading the persisted Luanti world, the devtest world renders with the saved stone block present."
+  rubric:
+    must:
+      - "The 3D voxel world is rendered and visible."
+      - "The saved stone block remains visible after reload in the same coarse scene location as the golden oracle."
+      - "The scene shows the persisted checkpoint state, not merely an empty flat world."
+      - "No crash dialog, error overlay, or fully blank screen is shown."
+    must_not:
+      - "The saved stone block is missing, replaced by a clearly different material, or the world appears reset."
+      - "The screen is blank, black, or only shows the main menu."
+      - "An error dialog or exception stack trace is visible."
+    ignore:
+      - "Exact camera angle, lighting, or player position differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 800
+    full_page: false

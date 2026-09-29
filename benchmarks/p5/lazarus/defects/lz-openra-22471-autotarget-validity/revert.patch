@@ -1,0 +1,21 @@
+diff --git a/OpenRA.Mods.Common/Traits/AutoTarget.cs b/OpenRA.Mods.Common/Traits/AutoTarget.cs
+index e13269ee162658d13dddfa7cad7078f0b05a894f..6f4d907f838bcf7f1aff48d81b6981691d40a5e3 100644
+--- a/OpenRA.Mods.Common/Traits/AutoTarget.cs
++++ b/OpenRA.Mods.Common/Traits/AutoTarget.cs
+@@ -409,6 +409,7 @@ Target ChooseTarget(Actor self, AttackBase ab, PlayerRelationship attackStances,
+ 				else
+ 					continue;
+ 
++				validPriorities.Clear();
+ 				foreach (var ati in activePriorities)
+ 				{
+ 					// Already have a higher priority target
+@@ -461,8 +462,6 @@ static Func<Armament, bool> IsInRange(Actor self, Target target) =>
+ 						chosenTargetRange = targetRange;
+ 					}
+ 				}
+-
+-				validPriorities.Clear();
+ 			}
+ 
+ 			return chosenTarget;

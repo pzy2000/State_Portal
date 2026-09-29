@@ -1,0 +1,95 @@
+name: OpenRA RA Soviet Distant Thunder map checkpoint
+benchmark: OpenRA
+repo: ../../games/OpenRA
+tags: ["openra", "ra", "campaign", "soviet"]
+target:
+  kind: openra_map
+  mod: ra
+  requires_mod: ra
+  map: soviet-05
+  title: "05:   Distant Thunder"
+  visibility: MissionSelector
+  categories: ["Campaign"]
+  players:
+    - id: USSR
+      playable: true
+      required: true
+      faction: soviet
+    - id: Greece
+      bot: campaign
+      faction: allies
+    - id: France
+      bot: campaign
+      faction: allies
+  actors:
+    - type: gun
+      owner: Greece
+      min_count: 2
+    - type: 2tnk
+      owner: Greece
+      min_count: 1
+      location: "59,43"
+    - type: e1
+      owner: Greece
+      min_count: 8
+  objectives:
+    - owner: USSR
+      type: primary
+      id: capture-radar-dome
+    - owner: USSR
+      type: primary
+      id: defeat-allied-forces
+    - owner: USSR
+      type: primary
+      id: defend-radar-dome
+checkpoint:
+  allowed_strategies: ["openra_utility_map_validate"]
+  expected_validity: replay-reachable
+replay_from_start:
+  actions:
+    - type: openra_launch_map
+      mod: ra
+      map: soviet-05
+actions:
+  - type: openra_validate_map
+    mod: ra
+    map: soviet-05
+assertions:
+  - type: openra_map_loaded
+    mod: ra
+    map: soviet-05
+  - type: openra_player_exists
+    id: USSR
+    playable: true
+    faction: soviet
+  - type: openra_actor_count
+    actor: 2tnk
+    owner: Greece
+    location: "59,43"
+    min_count: 1
+  - type: openra_objective_declared
+    owner: USSR
+    objective_type: primary
+    objective: capture-radar-dome
+  - type: no_openra_utility_errors
+visual_oracle:
+  golden_image: visual/ra-soviet05-distant-thunder.golden.png
+  golden_before: visual/ra-soviet05-distant-thunder.before.golden.png
+  golden_after: visual/ra-soviet05-distant-thunder.after.golden.png
+  expected_label: correct
+  description: "The OpenRA Red Alert soviet-05 Distant Thunder mission has launched into the live in-game RTS world."
+  rubric:
+    must:
+      - "The live OpenRA in-game world is visible after launching ra/soviet-05."
+      - "The screenshot contains rendered terrain plus gameplay UI such as sidebar, minimap, command bar, or selection/status panels."
+      - "The game surface is non-blank and looks like an active RTS scene rather than a static asset file."
+    must_not:
+      - "The screenshot is blank, a crash log, or an unrelated application."
+      - "The screenshot shows only a standalone packaged map image instead of the live OpenRA UI."
+      - "The screenshot is stuck on the main menu, mission browser, or setup dialog."
+    ignore:
+      - "Small camera, animation, cursor, or UI timing differences after the clean map launch."
+  capture:
+    stage: post_smoke
+    wait_ms: 0
+    full_page: false

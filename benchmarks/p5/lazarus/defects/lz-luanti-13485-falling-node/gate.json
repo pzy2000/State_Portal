@@ -1,0 +1,239 @@
+{
+  "benchmark": "luanti",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_before_visual": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_before_visual": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "provenance_verified": true
+  },
+  "complete": true,
+  "evidence": {
+    "goldens": {
+      "before_equivalent": true,
+      "buggy_after_visual": true,
+      "buggy_before_visual": true,
+      "complete": true,
+      "failures": [],
+      "fixed_after_visual": true,
+      "fixed_before_visual": true,
+      "metadata_sha256": "257e9ff0c4e5e7fc1a0f8c418200d8667d315a5a5b408a38e231a14138346d86",
+      "task_id": "lz-luanti-13485-falling-node"
+    },
+    "provenance_errors": [],
+    "semantic": {
+      "buggy_signature": {
+        "checks": [
+          "target.state_synthesized:success",
+          "target.validate.node.0,0,0:success",
+          "target.validate.node.0,1,0:success",
+          "action[luanti_drop_falling_node]@1:success",
+          "action[luanti_set_player_pos]@2:success",
+          "assertion[luanti_node_is]@1:success",
+          "assertion[luanti_node_is]@2:success",
+          "assertion[no_luanti_mod_errors]@3:success"
+        ],
+        "invariants_ok": true,
+        "primary_ok": true,
+        "report_sha256": "66d850af38728d7750a3c0f4ed300e5aa8d7c61f67ad9dc8b7c1d4fe3a82a984",
+        "start_ok": true,
+        "status": "success"
+      },
+      "buggy_start": {
+        "checks": [
+          "target.state_synthesized:success",
+          "target.validate.node.0,0,0:success",
+          "target.validate.node.0,1,0:success"
+        ],
+        "invariants_ok": false,
+        "primary_ok": false,
+        "report_sha256": "4977a8f94cb2cec83f0a5577318dac345e9e4e2b85e9bf88b21983359adca96f",
+        "start_ok": true,
+        "status": "success"
+      },
+      "fixed_goal": {
+        "checks": [
+          "target.state_synthesized:success",
+          "target.validate.node.0,0,0:success",
+          "target.validate.node.0,1,0:success",
+          "action[luanti_drop_falling_node]@1:success",
+          "action[luanti_set_player_pos]@2:success",
+          "assertion[luanti_node_is]@1:success",
+          "assertion[luanti_node_is]@2:success",
+          "assertion[no_luanti_mod_errors]@3:success"
+        ],
+        "invariants_ok": true,
+        "primary_ok": true,
+        "report_sha256": "47d0d6ddf50a08cc72f15f2c7bb75c97e0440db2e229434a12690005bc7924db",
+        "start_ok": true,
+        "status": "success"
+      },
+      "fixed_signature": {
+        "checks": [
+          "target.state_synthesized:success",
+          "target.validate.node.0,0,0:success",
+          "target.validate.node.0,1,0:success",
+          "action[luanti_drop_falling_node]@1:success",
+          "action[luanti_set_player_pos]@2:success",
+          "assertion[luanti_node_is]@1:failure",
+          "assertion[luanti_node_is]@2:success",
+          "assertion[no_luanti_mod_errors]@3:success"
+        ],
+        "invariants_ok": true,
+        "primary_ok": false,
+        "report_sha256": "3ed484d07856bbc57eedac31c85d0268cfc19e25882d2194f9fd9be9d0951392",
+        "start_ok": true,
+        "status": "failure"
+      },
+      "fixed_start": {
+        "checks": [
+          "target.state_synthesized:success",
+          "target.validate.node.0,0,0:success",
+          "target.validate.node.0,1,0:success"
+        ],
+        "invariants_ok": false,
+        "primary_ok": false,
+        "report_sha256": "4977a8f94cb2cec83f0a5577318dac345e9e4e2b85e9bf88b21983359adca96f",
+        "start_ok": true,
+        "status": "success"
+      }
+    },
+    "upstream": {
+      "buggy": {
+        "complete": true,
+        "duration_ms": 11309.823457995662,
+        "failures": [
+          "upstream test luanti-pr15638-normal-node-f2p exited 1"
+        ],
+        "isolation": "apfs_cow_clone",
+        "passed": false,
+        "results": [
+          {
+            "duration_ms": 4168.244125001365,
+            "exit_code": 1,
+            "id": "luanti-pr15638-normal-node-f2p",
+            "passed": false,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "2263a10ba2c46016837c235d8988fa50628480212268a1c9d970f7708d80b7bc",
+            "timed_out": false
+          },
+          {
+            "duration_ms": 3342.9446250083856,
+            "exit_code": 0,
+            "id": "luanti-pr15638-torch-p2p",
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "4f27197a1ae834fa2b025ef086c9b05a04421cbd7bbfd6a1297021bae69a5a7a",
+            "timed_out": false
+          },
+          {
+            "duration_ms": 3341.0181250073947,
+            "exit_code": 0,
+            "id": "luanti-pr15638-liquid-p2p",
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "744e29b03500906248b0200fb311515431613f9b98f7399e347ccc5cd9b8dd6c",
+            "timed_out": false
+          }
+        ],
+        "test_ids": [
+          "luanti-pr15638-normal-node-f2p",
+          "luanti-pr15638-torch-p2p",
+          "luanti-pr15638-liquid-p2p"
+        ]
+      },
+      "fixed": {
+        "complete": true,
+        "duration_ms": 11715.551916015102,
+        "failures": [],
+        "isolation": "apfs_cow_clone",
+        "passed": true,
+        "results": [
+          {
+            "duration_ms": 4558.832750015426,
+            "exit_code": 0,
+            "id": "luanti-pr15638-normal-node-f2p",
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "83ec76e16e1e8441f0c96544be1a08061124bac9407a88de984db186293fd281",
+            "timed_out": false
+          },
+          {
+            "duration_ms": 3332.3059999966063,
+            "exit_code": 0,
+            "id": "luanti-pr15638-torch-p2p",
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "50fd29ba60f277ea9c3a3a9289e88b49e5e434c22d54f1bb9bbd86be9013703a",
+            "timed_out": false
+          },
+          {
+            "duration_ms": 3422.1707500109915,
+            "exit_code": 0,
+            "id": "luanti-pr15638-liquid-p2p",
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "3ecf5db316833d1b286555f0287c3a1714b0f5473271f76b19445841d32091f1",
+            "timed_out": false
+          }
+        ],
+        "test_ids": [
+          "luanti-pr15638-normal-node-f2p",
+          "luanti-pr15638-torch-p2p",
+          "luanti-pr15638-liquid-p2p"
+        ]
+      }
+    },
+    "versions": {
+      "buggy": {
+        "build_identity": {
+          "build_class": "none",
+          "status": "not_required"
+        },
+        "changed_files": [
+          "builtin/game/falling.lua"
+        ],
+        "patch_sha256": "373ae3750e3c545796d04f7339fecde9fc6c10e02d93028738ba240c278177d1",
+        "source_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+        "tree_sha256": "77af4580d0ff47cc54b2a57b202e6230453d5c37c18556895a4c7ea2215cb7f4"
+      },
+      "fixed": {
+        "build_identity": {
+          "build_class": "none",
+          "status": "not_required"
+        },
+        "changed_files": [],
+        "patch_sha256": "373ae3750e3c545796d04f7339fecde9fc6c10e02d93028738ba240c278177d1",
+        "source_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+        "tree_sha256": "afbd792bb437e369d59e1420f9f391b508f4b0ebe00b605a04e743d1b8cb1e63"
+      }
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "luanti-pr15638-normal-node-f2p"
+  ],
+  "failures": [],
+  "pass_to_pass": [
+    "luanti-pr15638-torch-p2p",
+    "luanti-pr15638-liquid-p2p"
+  ],
+  "passed": true,
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-luanti-13485-falling-node",
+  "upstream_f2p": true
+}

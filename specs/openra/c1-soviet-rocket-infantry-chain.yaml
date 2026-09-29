@@ -1,0 +1,88 @@
+name: C1 OpenRA Soviet rocket infantry mixed chain
+benchmark: openra
+repo: ../../games/OpenRA
+timeout_ms: 900000
+tags: [c1, long, openra, soviet, infantry]
+setup:
+  openra_gameplay_probe:
+    cash: 50000
+    fast_build: true
+    build_anywhere: false
+    all_tech: true
+    delay_ticks: 100
+target:
+  kind: openra_map
+  mod: ra
+  requires_mod: ra
+  map: soviet-05
+  players:
+    - {id: USSR, playable: true, required: true, faction: soviet}
+  actors:
+    - {id: startmcv, type: mcv, owner: USSR}
+checkpoint:
+  allowed_strategies: [openra_gameplay_production_validate]
+  expected_validity: replay-reachable
+replay_from_start:
+  actions:
+    - {type: openra_launch_map, mod: ra, map: soviet-05}
+actions:
+  - {type: openra_wait_ticks, ticks: 100}
+  - {type: openra_deploy_actor, player: USSR, actor_id: startmcv, wait_until_actor: fact, timeout_ticks: 900}
+  - {type: openra_build_actor, player: USSR, actor: powr, queue: Building, place_near: {anchor: startmcv, radius: 18}, timeout_ticks: 900}
+  - {type: openra_build_actor, player: USSR, actor: proc, queue: Building, place_near: {anchor: startmcv, radius: 18}, timeout_ticks: 900}
+  - {type: openra_build_actor, player: USSR, actor: barr, queue: Building, place_near: {anchor: startmcv, radius: 18}, timeout_ticks: 900}
+  - {type: openra_build_actor, player: USSR, actor: dome, queue: Building, place_near: {anchor: startmcv, radius: 18}, timeout_ticks: 900}
+  - type: openra_build_group
+    player: USSR
+    units: [{actor: e1, queue: Infantry, count: 2}, {actor: e3, queue: Infantry, count: 2}]
+    timeout_ticks: 1200
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: openra_actor_built, player: USSR, actor: barr, min_delta: 1}
+      - {type: openra_actor_built, player: USSR, actor: dome, min_delta: 1}
+      - {type: openra_actor_built, player: USSR, actor: e1, min_delta: 2}
+      - {type: openra_actor_built, player: USSR, actor: e3, min_delta: 2}
+      - {type: openra_production_prerequisite_respected, player: USSR, actor: e3}
+      - {type: no_openra_gameplay_probe_errors}
+    surfaces:
+      gui:
+        adapter: openra_live_gameplay_probe_v1
+        start:
+          validate_target: true
+          checks: []
+          expected_checks:
+          - name: assertions.0.actor_exists
+        goal:
+          use_assertions: true
+          checks: []
+          expected_checks:
+          - name: assertions.0.actor_built
+          - name: assertions.1.actor_built
+          - name: assertions.2.actor_built
+          - name: assertions.3.actor_built
+          - name: assertions.4.prerequisite_respected
+          - name: assertions.5.no_probe_errors
+      state:
+        adapter: openra_live_gameplay_probe_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/c1-soviet-rocket-infantry-chain.after.golden.png
+    golden_before: visual/c1-soviet-rocket-infantry-chain.before.golden.png
+    golden_after: visual/c1-soviet-rocket-infantry-chain.after.golden.png
+    expected_label: correct
+    description: The live Soviet MCV start is visible before the production chain.
+    after_description: The Soviet base, radar dome, rifle infantry, and rocket infantry are visible.
+    rubric:
+      must: [A live OpenRA gameplay frame and the Soviet start are visible]
+      must_not: [A menu, blank frame, or unrelated application is shown]
+    after_rubric:
+      must: [A Soviet base and mixed rifle and rocket infantry are visible]
+      must_not: [Only an undeployed MCV is visible, The frame is blank or crashed]
+    capture: {stage: post_smoke, wait_ms: 0, full_page: false}

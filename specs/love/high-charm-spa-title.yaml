@@ -1,0 +1,68 @@
+name: DatingSim spa charm title checkpoint
+benchmark: DatingSim
+tags:
+- love
+- spa
+- title
+- variant
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  seed: 41
+  player_name: WarpTest
+  gender: male
+  patch:
+    player:
+      resources:
+        money: 1000
+        energy: 40
+        health: 100
+        mood: 100
+      stats:
+        charm: 49
+    world:
+      location: gym
+  expect:
+    location: gym
+    resources:
+      money: 1000
+      energy: 40
+checkpoint:
+  allowed_strategies:
+  - test_hook_seeded_state
+  expected_validity: injection-only
+actions:
+- type: hook_action
+  action_id: spa_visit
+  wait_ms: 500
+assertions:
+- type: state_equals
+  path: player.resources.money
+  value: 950
+- type: state_equals
+  path: player.resources.energy
+  value: 90
+- type: state_equals
+  path: player.title
+  value: Love Master (情场高手)
+- type: no_real_openai
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/resource-action.golden.png
+  expected_label: correct
+  description: The DatingSim gameplay UI remains visible after a title-changing
+    spa visit.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

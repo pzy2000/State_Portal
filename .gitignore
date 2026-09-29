@@ -1,0 +1,28 @@
+.DS_Store
+**/__MACOSX/
+**/._*
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+
+# Experiment results, logs, and local caches
+reports/
+tmp/
+logs/
+*.log
+.warptest-cache/
+experiments/
+docs/*_RESULTS.md
+docs/c1_TASK_RATIONALITY_REPORT.md
+docs/c1_TASK_RATIONALITY_REPORT_HTML/
+docs/c1_TASK_RATIONALITY_REPORT_HTML.zip
+
+# Local relay-gateway credential source (template: credentials.example.py)
+test_model_batch.py
+
+# Local native build outputs
+/games/build_darwin_lite/
+/games/build_darwin/
+/build-luanti-*/

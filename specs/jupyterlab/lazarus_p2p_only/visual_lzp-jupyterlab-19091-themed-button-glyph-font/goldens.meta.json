@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.0060087719298245615,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 1.125657894736842
+  },
+  "before_buggy_sha256": "271da26efc87f41eb8040a3d540f96423557e9154b6870941a6c87d3359a2752",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "271da26efc87f41eb8040a3d540f96423557e9154b6870941a6c87d3359a2752",
+  "buggy_after_sha256": "93ec5034a00f800afc30686ac8b86e47a4f9f81fcc77c5fc9c40ca5c00cc7e0a",
+  "fixed_after_sha256": "7d9ceb9b52c91cb9b8aa18fb588af2aff32fe6454dd07a9e5ad2de5f056111d2",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "93ec5034a00f800afc30686ac8b86e47a4f9f81fcc77c5fc9c40ca5c00cc7e0a",
+      "quality": {
+        "image_size": [
+          760,
+          420
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 6100,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "431b30e5d4364908a0732dd351b3d180ca3c1ea3a90a5c28f71f236618b8bd9f"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "271da26efc87f41eb8040a3d540f96423557e9154b6870941a6c87d3359a2752",
+      "quality": {
+        "image_size": [
+          760,
+          420
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 3477,
+        "unique_byte_values": 254
+      },
+      "report_sha256": "62aadd50be82b4be1b3ca9243cef138e96fef03890455fceae39cf8317e9b960"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "7d9ceb9b52c91cb9b8aa18fb588af2aff32fe6454dd07a9e5ad2de5f056111d2",
+      "quality": {
+        "image_size": [
+          760,
+          420
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 5927,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "a1e1cac02f94de318e53296a58f8f7857292946397d69a11faa160883cf4c9a5"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "271da26efc87f41eb8040a3d540f96423557e9154b6870941a6c87d3359a2752",
+      "quality": {
+        "image_size": [
+          760,
+          420
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 3477,
+        "unique_byte_values": 254
+      },
+      "report_sha256": "62aadd50be82b4be1b3ca9243cef138e96fef03890455fceae39cf8317e9b960"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.002,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.0
+  },
+  "published_unix_ns": 1786981890459473000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lzp-jupyterlab-19091-themed-button-glyph-font"
+}

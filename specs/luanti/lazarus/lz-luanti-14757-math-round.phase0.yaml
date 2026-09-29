@@ -1,0 +1,92 @@
+name: C1-Lazarus Luanti half-way rounding
+benchmark: luanti
+timeout_ms: 2400000
+target:
+  kind: synthesized_world
+  nodes:
+    - pos: {x: 0, y: 0, z: 0}
+      node: basenodes:sand
+    - pos: {x: 0, y: 1, z: 0}
+      node: basenodes:cobble
+  player:
+    pos: {x: 0, y: 3, z: 6}
+    hover: true
+    look_at: {x: 0, y: 1, z: 0}
+  validations:
+    - path: node.0,0,0
+      expected: basenodes:sand
+    - path: node.0,1,0
+      expected: basenodes:cobble
+checkpoint:
+  allowed_strategies: [luanti_worldmod_state_validate]
+  expected_validity: save-restorable
+actions:
+  - type: luanti_round_half_boundary
+    marker_pos: {x: 0, y: 1, z: 0}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: luanti_live_world_v1
+        start: {validate_target: true, checks: []}
+        goal: {use_assertions: true, checks: []}
+      state:
+        adapter: luanti_live_world_v1
+        start: {validate_target: true, checks: []}
+        goal: {use_assertions: true, checks: []}
+  visual_oracle:
+    golden_image: visual_lz-luanti-14757-math-round-phase0/fixed.after.golden.png
+    expected_label: correct
+    description: A prepared half-way rounding marker is visible in the rendered development world.
+    rubric:
+      must:
+        - The rendered voxel world and prepared marker are visible.
+        - No crash dialog, error overlay, or blank frame is visible.
+      must_not:
+        - A main menu or unrelated empty application screen is shown.
+      ignore:
+        - Transient server text, HUD timing, lighting, and exact camera angle.
+    capture: {stage: post_smoke, wait_ms: 1000, full_page: false}
+  lazarus:
+    schema_version: 1
+    goal_checks:
+      - type: luanti_node_is
+        pos: {x: 0, y: 1, z: 0}
+        expected: basenodes:dirt_with_grass
+    defect_signature:
+      - type: luanti_node_is
+        pos: {x: 0, y: 1, z: 0}
+        expected: basenodes:desert_sand
+    invariant_checks:
+      - type: no_luanti_mod_errors
+    upstream_tests:
+      fail_to_pass: [luanti-pr14757-math-round-f2p]
+      pass_to_pass: [luanti-pr14757-formspec-escape-p2p]
+      per_trial_p2p: [luanti-pr14757-formspec-escape-p2p]
+    goldens:
+      before: visual_lz-luanti-14757-math-round-phase0/before.golden.png
+      buggy_before: visual_lz-luanti-14757-math-round-phase0/buggy.before.golden.png
+      fixed:
+        after: visual_lz-luanti-14757-math-round-phase0/fixed.after.golden.png
+        after_description: The prepared marker visibly records nearest-even rounding of both half-way values.
+        after_rubric:
+          must:
+            - The prepared marker shows the nearest-even rounding outcome.
+            - The rendered voxel world is visible without an error overlay.
+          must_not:
+            - A crash dialog, error overlay, or blank frame is visible.
+          ignore:
+            - Transient server text, HUD timing, lighting, and exact camera angle.
+      buggy:
+        after: visual_lz-luanti-14757-math-round-phase0/buggy.after.golden.png
+        after_description: The prepared marker visibly records the historical away-from-zero rounding.
+        after_rubric:
+          must:
+            - The prepared marker shows the historical rounding outcome.
+            - The rendered voxel world is visible without an error overlay.
+          must_not:
+            - A crash dialog, error overlay, or blank frame is visible.
+          ignore:
+            - Transient server text, HUD timing, lighting, and exact camera angle.

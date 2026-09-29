@@ -1,0 +1,25 @@
+tasks:
+  - slug: jupyterlab-text-file-edit
+    title: JupyterLab text file edit
+    benchmark: JupyterLab
+    description: "Create a JupyterLab spec that uses jupyterlab_workspace_api_validate, starts from text file notes/warptest.txt with content 'WarpTest initial\n', opens it, edits it to exactly 'WarpTest edited\n', and verifies the file exists, the content matches exactly, and no JupyterLab server errors occurred."
+  - slug: jupyterlab-markdown-file-save
+    title: JupyterLab markdown file save
+    benchmark: JupyterLab
+    description: "Create a JupyterLab spec that uses jupyterlab_workspace_api_validate, starts from Markdown text file notes/analysis.md with content '# WarpTest\n\nInitial note.\n', opens it, edits it to exactly '# WarpTest\n\nUpdated note.\n', and verifies the content matches exactly with no JupyterLab server errors."
+  - slug: jupyterlab-notebook-cell-output
+    title: JupyterLab notebook cell output
+    benchmark: JupyterLab
+    description: "Create a JupyterLab spec that uses jupyterlab_workspace_api_validate, creates notebooks/cell-output.ipynb with one code cell source \"print('warptest:42')\n\", opens the notebook, runs cell 0, and verifies the notebook output contains warptest:42 with no JupyterLab server errors."
+  - slug: jupyterlab-notebook-markdown-note
+    title: JupyterLab notebook markdown note
+    benchmark: JupyterLab
+    description: "Create a JupyterLab spec that uses jupyterlab_workspace_api_validate, creates notebooks/markdown-note.ipynb with one markdown cell source '## WarpTest note\n\nSaved through the Contents API.\n', opens the notebook, and verifies the notebook file exists with no JupyterLab server errors."
+  - slug: jupyterlab-workspace-layout
+    title: JupyterLab workspace layout
+    benchmark: JupyterLab
+    description: "Create a JupyterLab spec that uses jupyterlab_workspace_api_validate, starts from workspace warptest with paths notes/workspace.md and notebooks/workspace.ipynb, opens both paths in that workspace, saves the workspace layout with both paths, and verifies both paths are persisted with no JupyterLab server errors."
+  - slug: jupyterlab-session-smoke
+    title: JupyterLab kernel session smoke
+    benchmark: JupyterLab
+    description: "Create a JupyterLab spec that uses jupyterlab_workspace_api_validate, targets terminal_session path notebooks/session-smoke.ipynb, creates that notebook with no cells, starts a python3 session for it, and verifies the file exists, a session started, and no JupyterLab server errors occurred."

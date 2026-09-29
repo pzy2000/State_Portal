@@ -1,0 +1,64 @@
+name: C1 Blender product model pipeline
+benchmark: blender
+repo: ../../games/blender
+timeout_ms: 900000
+tags: [c1, long, blender, product, modeling]
+target:
+  kind: scene
+  objects: []
+checkpoint:
+  allowed_strategies: [blender_python_scene_validate]
+  expected_validity: save-restorable
+actions:
+  - {type: blender_add_primitive, primitive: cube, name: CoreBody, size: 2.0, location: [0.0, 0.0, 1.0], scale: [1.8, 1.0, 0.6]}
+  - {type: blender_add_primitive, primitive: cylinder, name: Lens, radius: 0.55, depth: 0.45, location: [0.0, -1.15, 1.0], rotation: [1.5708, 0.0, 0.0]}
+  - {type: blender_assign_material, object: CoreBody, material: {name: ProductBlue, color: [0.04, 0.22, 0.85, 1.0]}}
+  - {type: blender_assign_material, object: Lens, material: {name: LensOrange, color: [1.0, 0.28, 0.02, 1.0]}}
+  - {type: blender_add_modifier, object: CoreBody, name: ProductBevel, modifier_type: BEVEL, width: 0.18, segments: 3}
+  - {type: blender_apply_modifier, object: CoreBody, modifier: ProductBevel}
+  - {type: blender_save_as, path: c1-product-model.blend}
+  - {type: blender_reopen, path: c1-product-model.blend}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: blender_object_exists, object: CoreBody, object_type: MESH}
+      - {type: blender_object_exists, object: Lens, object_type: MESH}
+      - {type: blender_object_location, object: CoreBody, location: [0.0, 0.0, 1.0]}
+      - {type: blender_object_scale, object: CoreBody, scale: [1.8, 1.0, 0.6]}
+      - {type: blender_material_color, object: CoreBody, material: ProductBlue, color: [0.04, 0.22, 0.85, 1.0]}
+      - {type: blender_material_color, object: Lens, material: LensOrange, color: [1.0, 0.28, 0.02, 1.0]}
+      - {type: blender_modifier_applied, object: CoreBody, modifier: ProductBevel, vertex_count_min: 8}
+      - {type: blender_file_exists, path: c1-product-model.blend}
+      - {type: no_blender_python_errors}
+    surfaces:
+      gui:
+        adapter: blender_native_state_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: blender_native_state_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/c1-product-model-pipeline.after.golden.png
+    golden_before: visual/c1-product-model-pipeline.before.golden.png
+    golden_after: visual/c1-product-model-pipeline.after.golden.png
+    expected_label: correct
+    description: The deterministic Blender viewport begins as an empty product scene.
+    after_description: A complete blue beveled body with an orange lens is visible after save and reopen.
+    rubric:
+      must: [The Blender-rendered empty coordinate scene is visible]
+      must_not: [A crash screen or unrelated app is shown]
+    after_rubric:
+      must: [A blue product body and orange lens are both visible, The product is framed clearly]
+      must_not: [Either component is missing, The render is blank]
+    capture: {stage: post_smoke, wait_ms: 0, full_page: false}

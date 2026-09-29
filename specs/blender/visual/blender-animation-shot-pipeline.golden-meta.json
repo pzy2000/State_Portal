@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/blender/visual/c1-animation-shot-pipeline.after.golden.png",
+  "after_dimensions": [
+    1280,
+    720
+  ],
+  "after_sha256": "9563ca6ed80a05c117359d825d40382aca99988c88485e28e6825d2efc122a4f",
+  "before": "specs/blender/visual/c1-animation-shot-pipeline.before.golden.png",
+  "before_dimensions": [
+    1280,
+    720
+  ],
+  "before_sha256": "ac48e8d87dfc0894b391ea122abebe60ad0f15da04f8c46490acb862de887d77",
+  "benchmark": "blender",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/blender/c1-animation-shot-pipeline.yaml",
+  "spec_sha256": "58ad8a2fa7710bacd2b3a3eb94e836d13bd20144ac1db6eb7c473d6dface911c",
+  "task_id": "blender-animation-shot-pipeline"
+}

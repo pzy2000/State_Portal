@@ -1,0 +1,13 @@
+diff --git a/mods/ra/maps/allies-08a/map.yaml b/mods/ra/maps/allies-08a/map.yaml
+--- a/mods/ra/maps/allies-08a/map.yaml
++++ b/mods/ra/maps/allies-08a/map.yaml
+@@ -986,6 +986,9 @@ Actors:
+ 	ChronoshiftLocation: waypoint
+ 		Owner: Neutral
+ 		Location: 58,86
++	WarptestLazarusFactory: fact
++		Location: 30,80
++		Owner: Greece
+ 
+ Rules: ra|rules/campaign-rules.yaml, ra|rules/campaign-tooltips.yaml, ra|rules/campaign-palettes.yaml, rules.yaml
+ 

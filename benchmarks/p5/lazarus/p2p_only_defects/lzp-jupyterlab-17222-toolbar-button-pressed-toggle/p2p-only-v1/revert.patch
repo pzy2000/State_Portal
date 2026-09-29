@@ -1,0 +1,30 @@
+diff --git a/packages/ui-components/src/components/toolbar.tsx b/packages/ui-components/src/components/toolbar.tsx
+index 71cad9e0625e..198b5bde6328 100644
+--- a/packages/ui-components/src/components/toolbar.tsx
++++ b/packages/ui-components/src/components/toolbar.tsx
+@@ -983,8 +983,14 @@ export class ToolbarButton extends ReactWidget {
+   /**
+    * Returns the click handler for the button
+    */
+-  get onClick(): () => void {
+-    return this._onClick!;
++  get onClick(): (event?: React.SyntheticEvent) => void {
++    return (event?: React.SyntheticEvent) => {
++      // Toggle the `pressed` state of the button when clicked
++      this.pressed = !this.pressed;
++
++      // Call the original click handler, if defined
++      this._onClick(event);
++    };
+   }
+ 
+   render(): JSX.Element {
+@@ -1001,7 +1007,7 @@ export class ToolbarButton extends ReactWidget {
+ 
+   private _pressed: boolean;
+   private _enabled: boolean;
+-  private _onClick: () => void;
++  private _onClick: (event?: React.SyntheticEvent) => void;
+ }
+ 
+ /**

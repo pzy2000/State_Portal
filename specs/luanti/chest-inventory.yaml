@@ -1,0 +1,55 @@
+name: luanti store items in a chest node inventory
+benchmark: "luanti"
+timeout_ms: 300000
+tags: ["luanti", "inventory", "chest", "node-meta"]
+target:
+  kind: synthesized_world
+  meta_inventory:
+    - pos: { x: 5, y: 1, z: 5 }
+      node: "chest:chest"
+      list: "main"
+      items:
+        - { item: "basenodes:cobble", count: 10 }
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_meta_inventory
+    pos: { x: 5, y: 1, z: 5 }
+    list: "main"
+    items:
+      - { item: "basenodes:cobble", count: 25 }
+      - { item: "basenodes:tree", count: 5 }
+assertions:
+  - type: luanti_meta_inventory_contains
+    pos: { x: 5, y: 1, z: 5 }
+    item: "basenodes:cobble"
+    count: 25
+  - type: luanti_meta_inventory_contains
+    pos: { x: 5, y: 1, z: 5 }
+    item: "basenodes:tree"
+    count: 5
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/chest-inventory.golden.png
+  golden_before: visual/luanti-chest-inventory.before.golden.png
+  golden_after: visual/luanti-chest-inventory.after.golden.png
+  expected_label: correct
+  description: "A chest node is rendered near spawn in the Luanti devtest world."
+  rubric:
+    must:
+      - "The 3D voxel world is rendered and visible."
+      - "A chest block with recognizable chest/front texture is visible near spawn."
+      - "The chest location and surrounding block context match the golden oracle at a coarse visual level."
+      - "No crash dialog, error overlay, or fully blank screen is shown."
+    must_not:
+      - "The chest is missing or replaced by a generic stone, snow, lava, or other non-chest block."
+      - "The screen is blank, black, or only shows the main menu."
+      - "An error dialog or exception stack trace is visible."
+    ignore:
+      - "Exact camera angle, lighting, or player position differences."
+      - "Whether the chest inventory formspec is open or closed."
+  capture:
+    stage: post_smoke
+    wait_ms: 800
+    full_page: false

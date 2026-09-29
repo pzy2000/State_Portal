@@ -1,0 +1,102 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lz-luanti-14396-metadata-set-string-nil
+benchmark: luanti
+candidate:
+  repository_key: luanti
+  change_number: 14396
+  issue_number: 14391
+  defect_locus: at_goal
+authoritative_defect: null
+provenance:
+  formal_freeze_admission: null
+  frame_sources:
+    fixed_before: live_materialized_capture
+    fixed_after: live_materialized_capture
+    buggy_before: live_materialized_capture
+    buggy_after: live_materialized_capture
+  goldens_metadata: visual_lz-luanti-14396-metadata-set-string-nil/goldens.meta.json
+  before_equivalence:
+    changed_pixel_ratio: 0.0
+    ignored_top_fraction: 0.25
+    mean_absolute_difference: 0.0
+  after_differential:
+    changed_pixel_ratio: 0.004590567129629629
+    ignored_top_fraction: 0.25
+    mean_absolute_difference: 0.22080536265432096
+  golden_policy:
+    after_min_changed_pixel_ratio: 0.001
+    before_max_changed_pixel_ratio: 0.01
+    ignore_top_fraction: 0.25
+  captured_by: materialized_fixed_buggy_runtime_capture
+evaluation:
+  visual_oracle:
+    golden_image: visual_lz-luanti-14396-metadata-set-string-nil/fixed.after.golden.png
+    expected_label: correct
+    description: The rendered world shows a cobble marker block above a sand block, seen from
+      the hovering player's vantage.
+    rubric:
+      must:
+      - A live Luanti world is rendered from a hovering vantage with the normal heads-up display
+        present.
+      - A grey cobble block sits directly above a sand block at the centre of the view.
+      must_not:
+      - A main menu, a crash dialog, or a blank application frame is shown.
+      ignore:
+      - Server banner text, join messages, the frame counter, and transient chat lines above
+        the rendered world.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    runtime_status: probe_runtime_available
+    probe:
+      adapter: luanti_live_world_v1
+      spec: lz-luanti-14396-metadata-set-string-nil.yaml
+      registered_replay:
+      - restore_registered_candidate_start
+      - apply_registered_metadata_setter
+      - read_marker_node_name
+      versions_replayed:
+      - fixed
+      - buggy
+      re_executed_offline: true
+      provider_calls_required: false
+    upstream_tests:
+      fail_to_pass:
+      - luanti-pr14396-metadata-compat-f2p
+      pass_to_pass:
+      - luanti-vector-zero-construction-p2p
+    goldens:
+      before: visual_lz-luanti-14396-metadata-set-string-nil/before.golden.png
+      buggy_before: visual_lz-luanti-14396-metadata-set-string-nil/buggy.before.golden.png
+      fixed:
+        after: visual_lz-luanti-14396-metadata-set-string-nil/fixed.after.golden.png
+        after_description: The marker position now shows a grass-topped dirt block, so the
+          setter call with no value completed and cleared the stored field.
+        after_rubric:
+          must:
+          - A live Luanti world is rendered from a hovering vantage with the normal heads-up
+            display present.
+          - A grass-topped dirt block sits at the marker position above the sand block.
+          must_not:
+          - A main menu, a crash dialog, or a blank application frame is shown.
+          ignore:
+          - Server banner text, join messages, the frame counter, and transient chat lines
+            above the rendered world.
+      buggy:
+        after: visual_lz-luanti-14396-metadata-set-string-nil/buggy.after.golden.png
+        after_description: The marker position now shows a desert sand block, so the setter
+          call with no value did not complete and the stored field was left in place.
+        after_rubric:
+          must:
+          - A live Luanti world is rendered from a hovering vantage with the normal heads-up
+            display present.
+          - A pale desert sand block sits at the marker position above the sand block.
+          must_not:
+          - A main menu, a crash dialog, or a blank application frame is shown.
+          ignore:
+          - Server banner text, join messages, the frame counter, and transient chat lines
+            above the rendered world.

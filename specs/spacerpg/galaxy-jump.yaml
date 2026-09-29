@@ -1,0 +1,223 @@
+name: SpaceRPG galaxy map jump checkpoint
+benchmark: spacerpg
+tags: ["spacerpg", "galaxy-map", "jump", "deep-state"]
+setup:
+  disable_economy_backend: true
+target:
+  kind: galaxy_map
+  screen: galaxyMap
+  system_id: helion-reach
+  galaxy_map_mode: gate
+  gate_position: [1280, 140, -1240]
+checkpoint:
+  allowed_strategies: ["test_hook_jump_and_validate"]
+  expected_validity: "replay-reachable"
+actions:
+  - type: hook_call
+    method: jumpToSystem
+    args: ["kuro-belt"]
+  - type: wait
+    ms: 300
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: state_equals
+        path: screen
+        value: flight
+      - type: state_equals
+        path: currentSystemId
+        value: kuro-belt
+      - type: state_contains
+        path: knownSystems
+        value: kuro-belt
+      - type: no_severe_console
+    surfaces:
+      gui:
+        adapter: spacerpg_production_dom_save_v1
+        start:
+          validate_target: true
+          checks:
+          - name: dom.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.screen
+            expected:
+              value: galaxyMap
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: dom.current_system
+            metric: equals
+            actual:
+              probe: spacerpg.current_system
+              phase: current
+            expected:
+              value: helion-reach
+          - name: dom.galaxy_mode
+            metric: equals
+            actual:
+              probe: spacerpg.gate_mode
+              phase: current
+            expected:
+              value: true
+        goal:
+          use_assertions: true
+          checks:
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: dom.canvas.visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.visible
+            expected:
+              value: true
+          - name: dom.canvas.css_width
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.css_width
+            expected:
+              value: 33
+          - name: dom.canvas.css_height
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.css_height
+            expected:
+              value: 33
+          - name: dom.canvas.bitmap_width
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.bitmap_width
+            expected:
+              value: 33
+          - name: dom.canvas.bitmap_height
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.bitmap_height
+            expected:
+              value: 33
+          - name: transition.screen_trace_start
+            metric: equals
+            actual:
+              probe: spacerpg.screen_trace_start
+            expected:
+              value: galaxyMap
+          - name: transition.screen_trace_end
+            metric: equals
+            actual:
+              probe: spacerpg.screen_trace_end
+            expected:
+              value: flight
+      state:
+        adapter: spacerpg_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      gui_from_start_baseline:
+        adapter: spacerpg_gui_from_start_baseline_v1
+        start:
+          validate_target: false
+          checks: []
+        goal:
+          use_assertions: false
+          checks:
+          - name: visible.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: visible.screen
+            expected:
+              value: flight
+          - name: visible.body_text
+            metric: contains
+            actual:
+              probe: common.path
+              phase: current
+              path: visible.body_text
+            expected:
+              value: Kuro Belt
+          requirements:
+          - name: spacerpg.gui_from_start_recipe
+            recipe: galaxy_jump
+            reason: Expected GUI route to reach Kuro Belt flight.
+
+  visual_oracle:
+    golden_image: visual/galaxy-jump.golden.png
+    golden_before: visual/spacerpg-galaxy-jump.before.golden.png
+    golden_after: visual/spacerpg-galaxy-jump.after.golden.png
+    expected_label: correct
+    description: "The SpaceRPG run has jumped from the galaxy map into Kuro Belt flight, leaving the map and rendering a playable space scene."
+    rubric:
+      must:
+        - "A SpaceRPG flight HUD or rendered space scene is visible after the jump."
+        - "The screen is not stuck on the galaxy map."
+        - "The page is rendered normally without a crash."
+      must_not:
+        - "The galaxy map remains the primary screen after the jump action."
+        - "The canvas is blank or a browser error is visible."
+      ignore:
+        - "Minor target, distance, or animation differences."
+    capture:
+      stage: post_smoke
+      wait_ms: 300
+      full_page: false
+      hide_selectors: [".dialogue-backdrop", ".modal-overlay"]

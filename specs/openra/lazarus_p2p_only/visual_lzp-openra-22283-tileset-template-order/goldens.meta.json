@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.030038541666666668,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 2.5188956597222223
+  },
+  "before_buggy_sha256": "2a9e1911f4b3b5977826d9a1491b38f83a334fc046224fd3f33e2eadf8acc8e7",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0076,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.5519770833333334
+  },
+  "before_sha256": "87dd0dcddaa6d6f0c8a6e40ed1fbf805e220cebf1fafc3afc2654413c3b0f178",
+  "buggy_after_sha256": "bac9bc2d58fccb8a902625424aad1856f202a66a8a521a9161f1a99f1ea40bcc",
+  "fixed_after_sha256": "3f4905a0b951f9c1518891b14f474b822c2b941294a58460a67e248af6eef4da",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "bac9bc2d58fccb8a902625424aad1856f202a66a8a521a9161f1a99f1ea40bcc",
+      "quality": {
+        "image_size": [
+          1600,
+          1200
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 307097,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "2159625b95a45f53da7a42df7857be62d62e45e03d1ed6d0aed490bb5806c9f0"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "2a9e1911f4b3b5977826d9a1491b38f83a334fc046224fd3f33e2eadf8acc8e7",
+      "quality": {
+        "image_size": [
+          1600,
+          1200
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 291960,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "4bcc216aae0397e93e0266628b43c305ab48ae234b54694834d8dcd84e938d65"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "3f4905a0b951f9c1518891b14f474b822c2b941294a58460a67e248af6eef4da",
+      "quality": {
+        "image_size": [
+          1600,
+          1200
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 301362,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "4ad3252a2390ffbb4bdc9acb6496cd95efeace072c100833950fb7b477f43b14"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "87dd0dcddaa6d6f0c8a6e40ed1fbf805e220cebf1fafc3afc2654413c3b0f178",
+      "quality": {
+        "image_size": [
+          1600,
+          1200
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 291938,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "2f24d67d7f13cfafcd41e84ab34bf687f7325f64a2d22047bb559da1b32dada3"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.0
+  },
+  "published_unix_ns": 1787028704181392000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lzp-openra-22283-tileset-template-order"
+}

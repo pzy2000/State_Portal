@@ -1,0 +1,122 @@
+name: C1-Lazarus Luanti 14396-metadata-set-string-nil
+benchmark: luanti
+timeout_ms: 2400000
+tags:
+- c1
+- lazarus
+- luanti
+- production
+setup:
+  luanti_lazarus_probe:
+    task_id: lz-luanti-14396-metadata-set-string-nil
+    change_number: 14396
+    issue_number: 14391
+    adapter: luanti_live_world_v1
+    observation_source: live_materialized_replay
+    registered_replay:
+    - restore_registered_candidate_start
+    - apply_registered_metadata_setter
+    - read_marker_node_name
+    probe_executable: true
+target:
+  kind: synthesized_world
+  candidate_versions:
+  - fixed
+  - buggy
+  game: devtest
+  fixture: registered_candidate_worldmod
+checkpoint:
+  allowed_strategies:
+  - luanti_worldmod_state_validate
+  expected_validity: replay-reachable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: luanti_live_world_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: luanti_live_world_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-luanti-14396-metadata-set-string-nil/fixed.after.golden.png
+    expected_label: correct
+    description: The rendered world shows a cobble marker block above a sand block, seen from
+      the hovering player's vantage.
+    rubric:
+      must:
+      - A live Luanti world is rendered from a hovering vantage with the normal heads-up display
+        present.
+      - A grey cobble block sits directly above a sand block at the centre of the view.
+      must_not:
+      - A main menu, a crash dialog, or a blank application frame is shown.
+      ignore:
+      - Server banner text, join messages, the frame counter, and transient chat lines above
+        the rendered world.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: luanti_lazarus_state_audit
+      field: marker_node
+      expected: basenodes:dirt_with_grass
+    defect_signature:
+    - type: luanti_lazarus_state_audit
+      field: marker_node
+      expected: basenodes:desert_sand
+    invariant_checks:
+    - type: no_luanti_mod_errors
+    upstream_tests:
+      fail_to_pass:
+      - luanti-pr14396-metadata-compat-f2p
+      pass_to_pass:
+      - luanti-vector-zero-construction-p2p
+      per_trial_p2p:
+      - luanti-vector-zero-construction-p2p
+    goldens:
+      before: visual_lz-luanti-14396-metadata-set-string-nil/before.golden.png
+      buggy_before: visual_lz-luanti-14396-metadata-set-string-nil/buggy.before.golden.png
+      fixed:
+        after: visual_lz-luanti-14396-metadata-set-string-nil/fixed.after.golden.png
+        after_description: The marker position now shows a grass-topped dirt block, so the
+          setter call with no value completed and cleared the stored field.
+        after_rubric:
+          must:
+          - A live Luanti world is rendered from a hovering vantage with the normal heads-up
+            display present.
+          - A grass-topped dirt block sits at the marker position above the sand block.
+          must_not:
+          - A main menu, a crash dialog, or a blank application frame is shown.
+          ignore:
+          - Server banner text, join messages, the frame counter, and transient chat lines
+            above the rendered world.
+      buggy:
+        after: visual_lz-luanti-14396-metadata-set-string-nil/buggy.after.golden.png
+        after_description: The marker position now shows a desert sand block, so the setter
+          call with no value did not complete and the stored field was left in place.
+        after_rubric:
+          must:
+          - A live Luanti world is rendered from a hovering vantage with the normal heads-up
+            display present.
+          - A pale desert sand block sits at the marker position above the sand block.
+          must_not:
+          - A main menu, a crash dialog, or a blank application frame is shown.
+          ignore:
+          - Server banner text, join messages, the frame counter, and transient chat lines
+            above the rendered world.

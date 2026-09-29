@@ -1,0 +1,45 @@
+name: SpaceRPG galaxy map gate mode checkpoint
+benchmark: SpaceRPG
+tags:
+- spacerpg
+- galaxy-map
+- variant
+setup:
+  disable_economy_backend: true
+target:
+  kind: galaxy_map
+  screen: galaxyMap
+  system_id: helion-reach
+  galaxy_map_mode: gate
+checkpoint:
+  allowed_strategies:
+  - test_hook_jump_and_validate
+  expected_validity: replay-reachable
+actions:
+- type: wait
+  ms: 300
+assertions:
+- type: state_equals
+  path: screen
+  value: galaxyMap
+- type: state_equals
+  path: galaxyMapMode
+  value: gate
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/galaxy-jump.golden.png
+  expected_label: correct
+  description: The SpaceRPG galaxy map is open in gate mode and remains interactive.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

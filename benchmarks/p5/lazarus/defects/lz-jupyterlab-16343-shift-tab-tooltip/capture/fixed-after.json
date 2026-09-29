@@ -1,0 +1,22 @@
+{
+  "audit": {
+    "expected": "tooltip_shown",
+    "field": "tooltip_state",
+    "observed": "tooltip_shown",
+    "ok": true
+  },
+  "captured_at": "2026-08-16T11:38:26Z",
+  "change_number": 16343,
+  "invariants": {
+    "check": "no_jupyterlab_probe_errors",
+    "console_errors": [],
+    "ok": true,
+    "page_errors": []
+  },
+  "live_source": "jupyterlab_browser_capture",
+  "schema": "c1-lazarus-jupyterlab-golden-capture-v1",
+  "schema_version": 2,
+  "stage": "after",
+  "task_id": "lz-jupyterlab-16343-shift-tab-tooltip",
+  "version": "fixed"
+}

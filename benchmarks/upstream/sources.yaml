@@ -1,0 +1,23 @@
+# Fork -> upstream provenance map for the issue-guided fuzz pipeline.
+#
+# `.gitmodules` only records the FORK url (github.com/anonymous/*). Historical bug
+# reports / fix PRs live in the ORIGINAL upstream repository, so mining and (opt-in)
+# issue publishing must resolve the upstream here rather than from `.gitmodules`.
+#
+# This file is provenance-only: it is NOT `.gitmodules` and does not change any
+# submodule remote. `default_publish_repo` is the SAFE default target for filed
+# issues (the fork); publishing to `upstream` must be an explicit, guarded action.
+schema_version: 1
+
+sources:
+  luanti:
+    submodule_path: games/luanti
+    upstream: luanti-org/luanti
+    fork: anonymous/luanti
+    upstream_url: https://github.com/luanti-org/luanti
+    fork_url: https://github.com/anonymous/luanti
+    default_branch: master
+    # Where mined bug reports originate (read side).
+    source_repo: luanti-org/luanti
+    # SAFE default for any issue we FILE (write side). Never upstream by default.
+    default_publish_repo: anonymous/luanti

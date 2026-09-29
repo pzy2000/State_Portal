@@ -1,0 +1,72 @@
+name: luanti replace a stone node with cobble
+benchmark: luanti
+timeout_ms: 300000
+tags: ["luanti", "voxel", "replace"]
+target:
+  kind: synthesized_world
+  nodes:
+    - pos: { x: 4, y: 2, z: 4 }
+      node: "basenodes:stone"
+  validations:
+    - path: "node.4,2,4"
+      expected: "basenodes:stone"
+  meta_inventory:
+    - pos: { x: 2, y: 1, z: 4 }
+      node: "chest:chest"
+      list: "main"
+      items:
+        - { item: "basenodes:cobble", count: 1 }
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_node
+    pos: { x: 4, y: 2, z: 4 }
+    node: "basenodes:cobble"
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: luanti_node_is
+        pos: { x: 4, y: 2, z: 4 }
+        expected: "basenodes:cobble"
+      - type: no_luanti_mod_errors
+    surfaces:
+      gui:
+        adapter: luanti_live_world_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: luanti_live_world_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/replace-node.golden.png
+    golden_before: visual/luanti-replace-node.before.golden.png
+    golden_after: visual/luanti-replace-node.after.golden.png
+    expected_label: correct
+    description: "A Luanti devtest world is rendered near spawn after a stone block was replaced with cobble."
+    rubric:
+      must:
+        - "The 3D voxel world is rendered and visible."
+        - "The target block appears as cobble after replacement, not the original plain stone node."
+        - "The replacement block sits in the same coarse location/context as the golden oracle."
+        - "No crash dialog, error overlay, or fully blank screen is shown."
+      must_not:
+        - "The target block is still plain stone, missing, or replaced by a clearly different material such as snow or lava."
+        - "The screen is blank, black, or only shows the main menu."
+        - "An error dialog or exception stack trace is visible."
+      ignore:
+        - "Exact camera angle, lighting, or player position differences."
+    capture:
+      stage: post_smoke
+      wait_ms: 800
+      full_page: false

@@ -1,0 +1,74 @@
+name: OpenRA C&C Hot Box drop-zone lobby checkpoint
+benchmark: OpenRA
+repo: ../../games/OpenRA
+tags: ["openra", "cnc", "lobby", "drop-zone"]
+target:
+  kind: openra_map
+  mod: cnc
+  requires_mod: cnc
+  map: the-hot-box
+  title: The Hot Box
+  visibility: Lobby
+  categories: ["Drop Zone"]
+  players:
+    - id: Multi0
+      playable: true
+      faction: nod
+    - id: Multi9
+      playable: true
+      faction: nod
+  actors:
+    - type: apc
+      min_count: 10
+    - type: mpspawn
+      owner: Neutral
+      min_count: 10
+checkpoint:
+  allowed_strategies: ["openra_utility_map_validate"]
+  expected_validity: replay-reachable
+replay_from_start:
+  actions:
+    - type: openra_launch_map
+      mod: cnc
+      map: the-hot-box
+actions:
+  - type: openra_validate_map
+    mod: cnc
+    map: the-hot-box
+assertions:
+  - type: openra_map_loaded
+    mod: cnc
+    map: the-hot-box
+  - type: openra_player_exists
+    id: Multi0
+    playable: true
+    faction: nod
+  - type: openra_actor_count
+    actor: apc
+    min_count: 10
+  - type: openra_actor_count
+    actor: mpspawn
+    owner: Neutral
+    min_count: 10
+  - type: no_openra_utility_errors
+visual_oracle:
+  golden_image: visual/cnc-hot-box-dropzone.golden.png
+  golden_before: visual/cnc-hot-box-dropzone.before.golden.png
+  golden_after: visual/cnc-hot-box-dropzone.after.golden.png
+  expected_label: correct
+  description: "The OpenRA C&C the-hot-box Drop Zone map has launched into the live in-game RTS world."
+  rubric:
+    must:
+      - "The live OpenRA in-game world is visible after launching cnc/the-hot-box."
+      - "The screenshot contains rendered terrain plus gameplay UI such as sidebar, minimap, command bar, or selection/status panels."
+      - "The game surface is non-blank and looks like an active RTS scene rather than a static asset file."
+    must_not:
+      - "The screenshot is blank, a crash log, or an unrelated application."
+      - "The screenshot shows only a standalone packaged map image instead of the live OpenRA UI."
+      - "The screenshot is stuck on the main menu, mission browser, lobby, or setup dialog."
+    ignore:
+      - "Small camera, animation, cursor, or UI timing differences after the clean map launch."
+  capture:
+    stage: post_smoke
+    wait_ms: 0
+    full_page: false

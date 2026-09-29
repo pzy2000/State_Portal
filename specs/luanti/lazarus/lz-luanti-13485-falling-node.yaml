@@ -1,0 +1,105 @@
+name: C1-Lazarus Luanti prepared landing marker
+benchmark: luanti
+timeout_ms: 2400000
+target:
+  kind: synthesized_world
+  nodes:
+    - pos: {x: 0, y: 0, z: 0}
+      node: basenodes:cobble
+    - pos: {x: 0, y: 1, z: 0}
+      node: basenodes:stone
+  player:
+    pos: {x: 0, y: 3, z: 6}
+    hover: true
+    look_at: {x: 0, y: 1, z: 0}
+  validations:
+    - path: node.0,0,0
+      expected: basenodes:cobble
+    - path: node.0,1,0
+      expected: basenodes:stone
+checkpoint:
+  allowed_strategies: [luanti_worldmod_state_validate]
+  expected_validity: save-restorable
+actions:
+  - type: luanti_drop_falling_node
+    ground_pos: {x: 0, y: 0, z: 0}
+    node: basenodes:sand
+  # A deterministic observation reset after the real upstream action.  It has
+  # no semantic bearing on the node outcome and keeps the rendered landing cell
+  # in the same visible region for both versions.
+  - type: luanti_set_player_pos
+    pos: {x: 0, y: 3, z: 6}
+    hover: true
+    look_at: {x: 0, y: 1, z: 0}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: luanti_live_world_v1
+        start: {validate_target: true, checks: []}
+        goal: {use_assertions: true, checks: []}
+      state:
+        adapter: luanti_live_world_v1
+        start: {validate_target: true, checks: []}
+        goal: {use_assertions: true, checks: []}
+  visual_oracle:
+    golden_image: visual/fixed.after.golden.png
+    expected_label: correct
+    description: A prepared landing marker is visible in the rendered development world.
+    rubric:
+      must:
+        - The rendered voxel world and the prepared landing marker are visible.
+        - No crash dialog, error overlay, or blank frame is visible.
+      must_not:
+        - A main menu or unrelated empty application screen is shown.
+      ignore:
+        - Transient server text, HUD timing, lighting, and exact camera angle.
+    capture: {stage: post_smoke, wait_ms: 1000, full_page: false}
+  lazarus:
+    schema_version: 1
+    goal_checks:
+      - type: luanti_node_is
+        pos: {x: 0, y: 1, z: 0}
+        expected: basenodes:stone
+    defect_signature:
+      - type: luanti_node_is
+        pos: {x: 0, y: 1, z: 0}
+        expected: basenodes:sand
+    invariant_checks:
+      - type: luanti_node_is
+        pos: {x: 0, y: 0, z: 0}
+        expected: basenodes:cobble
+      - type: no_luanti_mod_errors
+    upstream_tests:
+      fail_to_pass: [luanti-pr15638-normal-node-f2p]
+      pass_to_pass:
+        - luanti-pr15638-torch-p2p
+        - luanti-pr15638-liquid-p2p
+      per_trial_p2p: [luanti-pr15638-torch-p2p]
+    goldens:
+      before: visual/before.golden.png
+      fixed:
+        after: visual/fixed.after.golden.png
+        after_description: The intact prepared landing marker remains visible after the release.
+        after_rubric:
+          must:
+            - The prepared landing marker remains intact and visible.
+            - The rendered voxel world is visible without an error overlay.
+          must_not:
+            - The landing marker is visibly covered by the released material.
+            - A crash dialog, error overlay, or blank frame is visible.
+          ignore:
+            - Transient server text, HUD timing, lighting, and exact camera angle.
+      buggy:
+        after: visual/buggy.after.golden.png
+        after_description: The released material is visibly resting on the landing marker.
+        after_rubric:
+          must:
+            - The released material is visible on the prepared landing marker.
+            - The rendered voxel world is visible without an error overlay.
+          must_not:
+            - A crash dialog, error overlay, or blank frame is visible.
+          ignore:
+            - Transient server text, HUD timing, lighting, and exact camera angle.

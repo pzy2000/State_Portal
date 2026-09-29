@@ -1,0 +1,71 @@
+# LEGACY C1-Lazarus 30-task manifest retained for historical artifact replay
+# and audit only. It is not the paper experiment. New paper runs must use
+# ``benchmarks/p5/lazarus_p2p_only_manifest.yaml`` and its ordered 11-task
+# ``lzp-*`` catalog. Every value below is equality-checked by
+# ``warptest.lazarus_manifest.validate_lazarus_manifest``; this file registers
+# the superseded design so old reports remain interpretable.
+#
+# Authorization is necessary but not sufficient.  A paid dispatch additionally
+# requires every catalog row to carry a passed construction gate, a fresh
+# calibration, and an executable runtime binding; a row whose oracle spec
+# declares ``probe_executable: false`` refuses the whole formal run.
+schema_version: 1
+experiment_id: c1_lazarus
+legacy_population: true
+paper_population: false
+task_schema: c1_lazarus_v1
+tasks: benchmarks/p5/c1_lazarus_tasks.yaml
+formal_task_count: 30
+formal_trial_count: 360
+# Blender reached the candidate pool but never had a row admitted, so the formal
+# population is drawn from three repositories.
+formal_benchmarks: [luanti, jupyterlab, openra]
+arms:
+  lazarus_state: {method: state_loop_semantic}
+  lazarus_agent_s: {method: agent_s_from_start}
+versions: [buggy, fixed]
+models: [gpt-5.6-terra]
+api: {provider: relay}
+model_request_profiles: {gpt-5.6-terra: thinking_disabled}
+observer_model: claude-sonnet-5@relay
+grounder_model: decision_model
+judge_model: qwen3-vl-flash@relay
+provider_timeout_s: 900
+decision_step_budget: 100
+budget_ms: 2400000
+per_trial_p2p_timeout_s: 300
+seeds: 3
+scheduler:
+  rotation_rule: buggy_before_fixed_state_v1
+  ready_scheduler: true
+  unity_canary: false
+calibration: {schema: lazarus-calibration-v1}
+# The pilot rows stay registered so the formal run inherits the same two
+# already-dispatched shapes rather than re-deriving them.
+phase0:
+  task_ids:
+    - lz-luanti-14757-math-round
+    - lz-openra-21453-hotkey-ready-building
+  seeds: [0]
+  serial: true
+  trial_count: 8
+  stop_on_failure: true
+# The K>=5 long-chain diagnostic is a separate run and contributes no formal
+# cell.  Each row is a multi-step task from its own repository.
+long_chain:
+  excluded_from_formal: true
+  min_k: 5
+  task_ids:
+    luanti: lz-luanti-11352-map-settings-hierarchy
+    openra: lz-openra-21453-hotkey-ready-building
+    jupyterlab: lz-jupyterlab-18579-read-only-cell-split
+authorization:
+  phase0_paid_pilot: true
+  formal_360_paid_run: true
+stats:
+  bootstrap_iterations: 10000
+  ci: 0.95
+  rng_seed: 1234
+  mcnemar: exact
+  cluster_unit: task_id
+  multiple_testing: holm_h1_h3

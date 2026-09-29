@@ -1,0 +1,13 @@
+{
+  "actions": 2,
+  "after": "specs/pal3/visual/pal3-scene-restore.after.golden.png",
+  "after_sha256": "b30479e6dad08904d3b502901568f0e46ab528c3bd03514f9806d3f5b34a8afd",
+  "before": "specs/pal3/visual/pal3-scene-restore.before.golden.png",
+  "before_sha256": "d74b5b8a1d07740f12575bdbb543c5d53478f9370b5729aac7420670f86dc159",
+  "benchmark": "pal3",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/pal3/scene-restore.yaml",
+  "spec_sha256": "35f0e298031a6237a3dafb0803727eabe94e0769667bdc11be8c97c3da3f0e10",
+  "task_id": "pal3-scene-restore"
+}

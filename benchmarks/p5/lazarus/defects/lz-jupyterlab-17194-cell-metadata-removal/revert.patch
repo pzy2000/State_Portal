@@ -1,0 +1,81 @@
+diff --git a/galata/test/jupyterlab/metadataform.test.ts b/galata/test/jupyterlab/metadataform.test.ts
+index d67499a6d53ce685840fee15a6cfbd2e3de986fb..e8c846f1408cf35bf50ef85277eae59c5418407e 100644
+--- a/galata/test/jupyterlab/metadataform.test.ts
++++ b/galata/test/jupyterlab/metadataform.test.ts
+@@ -718,3 +718,50 @@ test.describe('UISchema', () => {
+     );
+   });
+ });
++
++test.describe('Advanced tools', () => {
++  test('should remove a field from cellMedata and verify it is updated', async ({
++    page,
++    baseURL,
++    tmpPath
++  }) => {
++    // Open the Notebook.
++    await page.goto(baseURL);
++    await page.notebook.openByPath(`${tmpPath}/${nbFile}`);
++
++    // Activate the property inspector.
++    await activatePropertyInspector(page);
++
++    // Retrieves the form from its header's text, it should be collapsed.
++    const form = page.locator('.jp-NotebookTools .jp-Collapse', {
++      hasText: 'Advanced Tools'
++    });
++    await form.click();
++    const cellMetadataEditor = page.locator(
++      '.jp-CellMetadataEditor .cm-content'
++    );
++
++    // Modifying the cell metadata - removing the "trusted": "true" line
++    const trustedLine = cellMetadataEditor.locator('.cm-line').filter({
++      has: page.locator('span', { hasText: 'trusted' })
++    });
++    await trustedLine.evaluate(element => {
++      element.remove();
++    });
++    await page
++      .locator(
++        '.jp-CellMetadataEditor .jp-JSONEditor-header [title="Commit changes to data"]'
++      )
++      .click();
++
++    // Close the sidebar
++    await page.locator('[title="Property Inspector"]').click();
++    // Reopen the sidebar
++    await activatePropertyInspector(page);
++
++    // Verify the updaetd cellMetadata
++    const cmLinesAfter = cellMetadataEditor.locator('.cm-line');
++    await expect(cmLinesAfter).toHaveCount(1);
++    await expect(cellMetadataEditor).toContainText('{}');
++  });
++});
+diff --git a/packages/notebook-extension/src/tool-widgets/metadataEditorFields.tsx b/packages/notebook-extension/src/tool-widgets/metadataEditorFields.tsx
+index 9988d44ed4a512f9d135d8b6cb75c13dd46cbf70..fb4e40457e4aa89f63b2b4e5908a12e6eb92b50c 100644
+--- a/packages/notebook-extension/src/tool-widgets/metadataEditorFields.tsx
++++ b/packages/notebook-extension/src/tool-widgets/metadataEditorFields.tsx
+@@ -60,10 +60,17 @@ export class CellMetadataField extends NotebookTools.MetadataEditorTool {
+   }
+ 
+   private _onSourceChanged() {
+-    if (this.editor.source) {
+-      this._tracker.activeCell?.model.sharedModel.setMetadata(
+-        this.editor.source.toJSON()
+-      );
++    const activeCell = this._tracker.activeCell?.model.sharedModel;
++    if (activeCell && this.editor.source) {
++      const metadataKeys = Object.keys(activeCell.metadata ?? {});
++      const source = this.editor.source.toJSON() ?? {};
++
++      activeCell.transact(() => {
++        // Iterate over all existing metadata keys and delete each one.
++        // This ensures that any keys not present in the new metadata are removed.
++        metadataKeys.forEach(key => activeCell.deleteMetadata(key));
++        activeCell.setMetadata(source);
++      });
+     }
+   }
+ 

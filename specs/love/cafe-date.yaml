@@ -1,0 +1,245 @@
+name: DatingSim cafe date action
+benchmark: datingsim
+tags: ["love", "zustand", "deterministic", "location", "no-openai"]
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  player_name: WarpTest
+  gender: male
+  patch:
+    world:
+      location: cafe
+  expect:
+    location: cafe
+    resources:
+      money: 1000
+      energy: 100
+checkpoint:
+  allowed_strategies: ["test_hook_seeded_state"]
+  expected_validity: "injection-only"
+replay_from_start:
+  actions:
+    - type: click
+      selector: ".location-list .loc-btn:nth-child(4)"
+    - type: wait
+      ms: 250
+actions:
+  - type: hook_action
+    action_id: date_coffee
+    wait_ms: 1000
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: state_equals
+        path: player.resources.money
+        value: 920
+      - type: state_equals
+        path: player.resources.energy
+        value: 90
+      - type: state_equals
+        path: player.stats.communication
+        value: 11
+      - type: state_equals
+        path: world.location
+        value: cafe
+      - type: no_real_openai
+      - type: no_severe_console
+    surfaces:
+      gui:
+        adapter: love_production_save_roundtrip_v1
+        start:
+          validate_target: true
+          checks:
+          - name: probe.semantic_observation_error
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: semantic_observation_error
+            expected:
+              value: null
+          - name: screen.gameplay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.screen
+            expected:
+              value: gameplay
+          - name: state.isSetupComplete
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.isSetupComplete
+            expected:
+              value: true
+          - name: state.player.name
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.name
+            expected:
+              value: WarpTest
+          - name: state.player.gender
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.gender
+            expected:
+              value: male
+          - name: dom.player_name
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.player_name
+            expected:
+              value: WarpTest
+          - name: dom.app_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.app_visible
+            expected:
+              value: true
+          - name: dom.dashboard_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.dashboard_visible
+            expected:
+              value: true
+          - name: dom.location_panel_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.location_panel_visible
+            expected:
+              value: true
+          - name: dom.action_grid_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.action_grid_visible
+            expected:
+              value: true
+          - name: state.player.resources.money
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.resources.money
+            expected:
+              value: 1000
+          - name: state.player.resources.energy
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.resources.energy
+            expected:
+              value: 100
+          - name: state.world.location
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.world.location
+            expected:
+              value: cafe
+          - name: dom.active_location_index
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.active_location_index
+            expected:
+              value: 3
+          - name: dom.target_action_present
+            metric: equals
+            actual:
+              probe: love.target_action_present
+              path: dom.action_buttons.3
+            expected:
+              value: true
+          - name: dom.target_action_enabled
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.action_buttons.3.disabled
+            expected:
+              value: false
+          - name: dom.target_action_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.action_buttons.3.visible
+            expected:
+              value: true
+          - name: environment.ai_query_mode
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.ai_query_mode
+            expected:
+              value: mocked
+        goal:
+          use_assertions: true
+          checks:
+          - name: transition.target_action_count
+            metric: equals
+            actual:
+              probe: love.target_action_count
+              action_id: date_coffee
+            expected:
+              value: 1
+          - name: transition.new_log_entries
+            metric: equals
+            actual:
+              probe: love.new_log_entries
+            expected:
+              value: 1
+      state:
+        adapter: love_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual/cafe-date.golden.png
+    golden_before: visual/love-cafe-date.before.golden.png
+    golden_after: visual/love-cafe-date.after.golden.png
+    expected_label: correct
+    description: "The DatingSim game UI is visible after the cafe date action, with WarpTest on the main gameplay screen at the cafe. Exact money, energy, communication, and location values are checked by semantic assertions."
+    rubric:
+      must:
+        - "The DatingSim game UI is visible."
+        - "The player identity or game state for WarpTest is visible."
+        - "The resource/status area or location area is visible and does not visibly contradict the completed cafe date action."
+      must_not:
+        - "The setup screen or an unrelated page is the primary screen."
+        - "A real AI/API error dominates the UI."
+        - "The page is blank or shows a crash/browser error."
+      ignore:
+        - "Small text OCR mistakes in resource numbers; semantic assertions verify money 920, energy 90, communication 11, and cafe location."
+        - "Minor text wrapping differences."
+        - "Dynamic event text that does not contradict the post-action state."
+    capture:
+      stage: post_smoke
+      wait_ms: 300
+      full_page: false
+      hide_selectors: [".modal-overlay:has(.event-title)"]

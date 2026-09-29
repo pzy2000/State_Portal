@@ -1,0 +1,37 @@
+name: 2048 terminated / no-moves (isGameTerminated, over) (execution-grounded)
+benchmark: '2048'
+target:
+  board:
+  - - 2
+    - 4
+    - 2
+    - 4
+  - - 4
+    - 2
+    - 4
+    - 2
+  - - 2
+    - 4
+    - 2
+    - 4
+  - - 4
+    - 2
+    - 4
+    - 2
+  score: 512
+  bestScore: 512
+  won: false
+  over: true
+  keepPlaying: false
+checkpoint:
+  allowed_strategies:
+  - localStorage_restore_reload
+  expected_validity: save-restorable
+actions:
+- type: move
+  direction: left
+assertions:
+- type: state_equals
+  path: over
+  value: true
+- type: no_severe_console

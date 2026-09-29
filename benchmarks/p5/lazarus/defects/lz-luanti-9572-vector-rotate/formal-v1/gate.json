@@ -1,0 +1,125 @@
+{
+  "benchmark": "luanti",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": true,
+  "evidence": {
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.05858796296296296,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 4.509997106481482
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 0.0
+      },
+      "before_sha256": "d4465ca0b42bd1e71aedcca5c102e38df7e7e1816d18169b3740607dfe38755f",
+      "buggy_after_sha256": "e8e5d5572255af3705ec8ffe7ff8bbffa3551847fa24955d8ca28ba92bfe2a7a",
+      "fixed_after_sha256": "b428bc87dc19689b2e316ad3a4a26ec3bc79b93339043871b55afc910934b76f",
+      "metadata": "specs/luanti/lazarus/visual_lz-luanti-9572-vector-rotate/goldens.meta.json",
+      "metadata_sha256": "d21d26216d644bd2c982af5a3f715b0f5cd0698d86bef72f366daf726e94e758"
+    },
+    "probe_verification": null,
+    "provenance_errors": [],
+    "source_artifacts": {
+      "gate10": "admission:gate10_ordered_replay_hidden_oracle=passed",
+      "gate11": "admission:gate11_real_common_before_fixed_after_buggy_after=passed",
+      "gate12": "admission:gate12_before_equivalence_after_2x2=passed",
+      "gate13": "admission:gate13_same_lineage_construction=passed",
+      "gate8": "admission:gate8_real_client_pair=passed",
+      "gate9": "admission:gate9_registered_start=passed",
+      "gate_1_7_source": null,
+      "gate_1_7_truth_table": {},
+      "strict_gate_1_7": true
+    },
+    "upstream": [
+      {
+        "command": [
+          "busted",
+          "--filter",
+          "vector rotate()",
+          "builtin/common/tests/vector_spec.lua"
+        ],
+        "cwd": ".",
+        "id": "vector rotate()",
+        "kind": "fail_to_pass"
+      },
+      {
+        "command": [
+          "busted",
+          "--filter",
+          "vector rotate() rotates",
+          "builtin/common/tests/vector_spec.lua"
+        ],
+        "cwd": ".",
+        "id": "vector rotate() rotates",
+        "kind": "fail_to_pass"
+      },
+      {
+        "command": [
+          "busted",
+          "--filter",
+          "vector add()",
+          "builtin/common/tests/vector_spec.lua"
+        ],
+        "cwd": ".",
+        "id": "vector add()",
+        "kind": "pass_to_pass"
+      }
+    ],
+    "versions": {
+      "changed_files": [
+        "builtin/common/vector.lua"
+      ],
+      "patch_sha256": "c97611c48e3c2deb5ba14d522c89d0e17b9b12ae3217ae7c6348f11da22703a8",
+      "patch_source": "materialized_tree_difference",
+      "reverse_apply_reproduces_frozen_buggy_tree": true,
+      "tree_pair": "private/materialized/luanti/9572/current-v2"
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "vector rotate()",
+    "vector rotate() rotates"
+  ],
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "pass_to_pass": [
+    "vector add()"
+  ],
+  "passed": true,
+  "projection": {
+    "admission": "candidate_formal_freeze_admission/luanti/9572/real-f12-v3",
+    "closure_size": 45,
+    "fresh_gate_run": false,
+    "generator": "warptest.c1_lazarus_selection.c1_lazarus_formal_catalog",
+    "selection_mode": "c1_freeze_sprint_v2"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-luanti-9572-vector-rotate",
+  "upstream_f2p": true
+}

@@ -1,0 +1,163 @@
+name: C1-Lazarus Luanti 8704-minimal-craft-result
+benchmark: luanti
+timeout_ms: 2400000
+tags:
+- c1
+- lazarus
+- luanti
+- production
+setup:
+  luanti_lazarus_probe:
+    task_id: lz-luanti-8704-minimal-craft-result
+    change_number: 8704
+    issue_number: 8607
+    adapter: luanti_lazarus_frozen_evidence_v1
+    observation_source: frozen_gate10_evidence
+    registered_replay:
+    - restore_registered_candidate_start
+    - run_registered_candidate_replay
+    - read_admitted_gate10_semantic_observation
+    evidence_layout: observed_version_keyed
+    evidence_artifact_ids:
+    - candidate_oracle/luanti/8704/hidden-v3
+    formal_freeze_admission: candidate_formal_freeze_admission/luanti/8704/real-f12-v4
+    upstream_truth_table:
+      fixed:
+        f2p: true
+        p2p: true
+      buggy:
+        f2p: false
+        p2p: true
+target:
+  kind: synthesized_world
+  candidate_versions:
+  - fixed
+  - buggy
+  game: devtest
+  fixture: registered_candidate_worldmod
+checkpoint:
+  allowed_strategies:
+  - luanti_worldmod_state_validate
+  expected_validity: save-restorable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: luanti_lazarus_frozen_evidence_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: luanti_lazarus_frozen_evidence_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-luanti-8704-minimal-craft-result/fixed.after.golden.png
+    expected_label: correct
+    description: 'The title bar is dark blue-grey and reads "C1 LAZARUS #8704 CRAFT
+      RESULT REPLAY", and the body reads "COMMON START", "Registered coal plus stick
+      recipe is ready.", "Expected semantic result: default:torch x4" and "Waiting
+      for minetest.get_craft_result ...".'
+    rubric:
+      must:
+      - A Luanti client frame rendered by the candidate build shows a dark room behind
+        a centred formspec panel with a coloured title bar, above an eight-slot hotbar.
+      - 'The title bar is dark blue-grey and reads "C1 LAZARUS #8704 CRAFT RESULT
+        REPLAY", and the body reads "COMMON START", "Registered coal plus stick recipe
+        is ready.", "Expected semantic result: default:torch x4" and "Waiting for
+        minetest.get_craft_result ...".'
+      must_not:
+      - A blank frame, a crash dialog, or an unrelated application screen is shown.
+      ignore:
+      - The hotbar row, the crosshair, the node selection outline, the wielded item
+        at the lower right, and the server and chat text lines along the top.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: luanti_lazarus_state_audit
+      field: item_count
+      expected: 4
+    - type: luanti_lazarus_state_audit
+      field: item_name
+      expected: default:torch
+    - type: luanti_lazarus_state_audit
+      field: result_empty
+      expected: false
+    defect_signature:
+    - type: luanti_lazarus_state_audit
+      field: item_count
+      expected: 0
+    - type: luanti_lazarus_state_audit
+      field: item_name
+      expected: ''
+    - type: luanti_lazarus_state_audit
+      field: result_empty
+      expected: true
+    invariant_checks:
+    - type: no_luanti_mod_errors
+    upstream_tests:
+      fail_to_pass:
+      - minimal game test_get_craft_result
+      pass_to_pass:
+      - minimal control without test mod
+      per_trial_p2p:
+      - minimal control without test mod
+    goldens:
+      before: visual_lz-luanti-8704-minimal-craft-result/before.golden.png
+      buggy_before: visual_lz-luanti-8704-minimal-craft-result/buggy.before.golden.png
+      fixed:
+        after: visual_lz-luanti-8704-minimal-craft-result/fixed.after.golden.png
+        after_description: 'The title bar is green and reads "C1 LAZARUS #8704 ACTUAL
+          CRAFT RESULT", and the body shows "GOAL: TORCH RECIPE FOUND" with a yellow
+          torch icon beside "item name: default:torch", "item count: 4" and "semantic
+          state: goal_torch_x4".'
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a dark room
+            behind a centred formspec panel with a coloured title bar, above an eight-slot
+            hotbar.
+          - 'The title bar is green and reads "C1 LAZARUS #8704 ACTUAL CRAFT RESULT",
+            and the body shows "GOAL: TORCH RECIPE FOUND" with a yellow torch icon
+            beside "item name: default:torch", "item count: 4" and "semantic state:
+            goal_torch_x4".'
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the crosshair, the node selection outline, the wielded
+            item at the lower right, and the server and chat text lines along the
+            top.
+      buggy:
+        after: visual_lz-luanti-8704-minimal-craft-result/buggy.after.golden.png
+        after_description: 'The title bar is dark red and reads "C1 LAZARUS #8704
+          ACTUAL CRAFT RESULT", and the body shows "DEFECT: EMPTY CRAFT RESULT" with
+          no item icon, an "item name:" line with nothing after it, "item count: 0"
+          and "semantic state: defect_empty".'
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a dark room
+            behind a centred formspec panel with a coloured title bar, above an eight-slot
+            hotbar.
+          - 'The title bar is dark red and reads "C1 LAZARUS #8704 ACTUAL CRAFT RESULT",
+            and the body shows "DEFECT: EMPTY CRAFT RESULT" with no item icon, an
+            "item name:" line with nothing after it, "item count: 0" and "semantic
+            state: defect_empty".'
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the crosshair, the node selection outline, the wielded
+            item at the lower right, and the server and chat text lines along the
+            top.

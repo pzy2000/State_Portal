@@ -1,0 +1,13 @@
+{
+  "benchmark": "luanti",
+  "candidates_considered": 10,
+  "fixed_revision": "8972e829f2a30fa38916db7c0690ecabb51be120",
+  "patch_sha256": "05ea761184e4c9c88fcf66f6de183b04e18c2ec0cf7d1e3a4b2c8f99ffaa6129",
+  "pinned_host_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "repo": "games/luanti",
+  "schema": "c1-lazarus-materialization-base-v1",
+  "schema_version": 1,
+  "source": "patch_post_image_blob",
+  "task_id": "lz-luanti-14464-iconv-state-reset",
+  "verification": "reverse_apply_check_in_detached_worktree"
+}

@@ -1,0 +1,49 @@
+name: 2048 near win restored board
+benchmark: "2048"
+tags: ["2048", "localStorage", "near-win"]
+target:
+  kind: board
+  board:
+    - [1024, 1024, 0, 0]
+    - [4, 8, 16, 32]
+    - [0, 0, 0, 0]
+    - [0, 0, 0, 0]
+  score: 4096
+  bestScore: 4096
+checkpoint:
+  allowed_strategies: ["localStorage_restore_reload"]
+  expected_validity: "save-restorable"
+actions:
+  - type: move
+    direction: left
+    wait_ms: 450
+assertions:
+  - type: tile_value_present
+    value: 2048
+  - type: no_severe_console
+visual_oracle:
+  golden_image: visual/near-win.golden.png
+  golden_before: visual/2048-near-win.before.golden.png
+  golden_after: visual/2048-near-win.after.golden.png
+  expected_label: correct
+  description: "After one left move, the 2048 board visibly contains a 2048 tile from merging the top-row 1024 tiles. The original game may add one random 2 or 4 tile after the move."
+  rubric:
+    must:
+      - "The 2048 game board is visible."
+      - "A 2048 tile is visible on the board (the two starting 1024 tiles merged into it)."
+      - "The page is rendered normally without a crash or blank state."
+    must_not:
+      - "Two separate 1024 tiles are still present instead of a single merged 2048 tile."
+      - "A game crash, browser error, or blank page is visible."
+      - "The screenshot shows a different game or wrong screen."
+    ignore:
+      - "Any additional low-value random tile (a 2 or a 4) spawned after the move, in ANY cell INCLUDING the top row. Only the presence of the 2048 tile and the absence of two remaining 1024 tiles matter; a stray 2 or 4 next to the 2048 tile is the normal post-move spawn and must NOT count against the screenshot."
+      - "The exact location and value of the new random tile."
+      - "Small differences in total tile count caused by the one random spawned tile."
+      - "Score and best-score text differences when the semantic oracle already passed."
+      - "Winning overlay animation differences."
+      - "Minor tile animation position differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/blender/visual/c1-multiobject-scene-assembly.after.golden.png",
+  "after_dimensions": [
+    1280,
+    720
+  ],
+  "after_sha256": "5dd227a7b418c83fc0c0b5d099f6fafee6330c93e2c096ca6facb62fdd6e076e",
+  "before": "specs/blender/visual/c1-multiobject-scene-assembly.before.golden.png",
+  "before_dimensions": [
+    1280,
+    720
+  ],
+  "before_sha256": "ddbeba9976fa6c4d5d424417c6610eddd09e98ece26859a07696a31420358464",
+  "benchmark": "blender",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/blender/c1-multiobject-scene-assembly.yaml",
+  "spec_sha256": "0a14d5969d33d034b7fdd846fa1d697e07cedb0f2df79a994e695d405d105a20",
+  "task_id": "blender-multiobject-scene-assembly"
+}

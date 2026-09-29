@@ -1,0 +1,126 @@
+name: C1-Lazarus Jupyterlab 15634-markdown-focus-render
+benchmark: jupyterlab
+timeout_ms: 900000
+tags:
+- c1
+- lazarus
+- jupyterlab
+- production
+setup:
+  jupyterlab_lazarus_probe:
+    task_id: lz-jupyterlab-15634-markdown-focus-render
+    change_number: 15634
+    issue_number: 15595
+    adapter: jupyterlab_lazarus_app_probe_v1
+    observation_source: live_materialized_replay
+    registered_replay:
+    - load_materialized_dev_mode_bundle
+    - restore_registered_rendered_markdown_start
+    - focus_other_cell_editor
+    - read_markdown_render_state
+    probe_executable: true
+target:
+  kind: jupyterlab_lazarus_application
+  variants:
+  - fixed
+  - buggy
+  bundler: materialized_dev_mode_bundle
+  browser: chromium_via_playwright
+  change_number: 15634
+checkpoint:
+  allowed_strategies:
+  - jupyterlab_lazarus_app_replay_validate
+  expected_validity: replay-reachable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: jupyterlab_lazarus_app_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: jupyterlab_lazarus_app_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-15634-markdown-focus-render/fixed.after.golden.png
+    expected_label: correct
+    description: The markdown cell displays its heading as rendered text above the code cell,
+      and no cell editor is focused.
+    rubric:
+      must:
+      - A JupyterLab notebook window shows a rendered markdown heading reading "Lazarus rendered
+        heading" above one code cell.
+      - The markdown cell shows rendered heading text rather than markdown source in an editor.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the file browser's
+        relative modification times.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: jupyterlab_lazarus_app_audit
+      field: markdown_render_state
+      expected: previous_rendered
+    defect_signature:
+    - type: jupyterlab_lazarus_app_audit
+      field: markdown_render_state
+      expected: previous_unrendered
+    invariant_checks:
+    - type: no_jupyterlab_probe_errors
+    upstream_tests:
+      fail_to_pass:
+      - jupyterlab-15634-preserve-rendered-markdown-f2p
+      pass_to_pass:
+      - jupyterlab-cell-focus-edit-construction-p2p
+      - jupyterlab-coreutils-path-trial-p2p
+      per_trial_p2p:
+      - jupyterlab-coreutils-path-trial-p2p
+    goldens:
+      before: visual_lz-jupyterlab-15634-markdown-focus-render/before.golden.png
+      buggy_before: visual_lz-jupyterlab-15634-markdown-focus-render/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-15634-markdown-focus-render/fixed.after.golden.png
+        after_description: The markdown cell still displays its heading as rendered text while
+          the code cell below now has a focused editor.
+        after_rubric:
+          must:
+          - A JupyterLab notebook window shows the code cell's editor focused with a caret.
+          - The markdown cell above still shows the rendered heading text "Lazarus rendered
+            heading".
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the file
+            browser's relative modification times.
+      buggy:
+        after: visual_lz-jupyterlab-15634-markdown-focus-render/buggy.after.golden.png
+        after_description: The markdown cell now shows its own editor containing the heading's
+          markdown source, so it stopped displaying rendered text when the code cell's editor
+          took focus.
+        after_rubric:
+          must:
+          - A JupyterLab notebook window shows the code cell's editor focused with a caret.
+          - The markdown cell above shows an editor containing markdown source beginning with
+            a hash character.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the file
+            browser's relative modification times.

@@ -1,0 +1,51 @@
+name: SpaceRPG equipment inventory install
+benchmark: "SpaceRPG"
+tags: ["spacerpg", "equipment", "loadout", "station", "deep-state"]
+setup:
+  disable_economy_backend: true
+target:
+  kind: equipment_loadout
+  screen: station
+  system_id: helion-reach
+  station_id: helion-prime
+  station_tab: Hangar
+  equipment_inventory:
+    cargo-expansion: 1
+checkpoint:
+  allowed_strategies: ["test_hook_jump_and_validate"]
+  expected_validity: "injection-only"
+actions:
+  - type: hook_call
+    method: installEquipmentFromInventory
+    args: ["cargo-expansion"]
+  - type: wait
+    ms: 250
+assertions:
+  - type: state_contains
+    path: player.equipment
+    value: cargo-expansion
+  - type: state_equals
+    path: player.equipmentInventory.cargo-expansion
+    value: 0
+  - type: no_severe_console
+visual_oracle:
+  golden_image: visual/equipment-loadout.golden.png
+  golden_before: visual/spacerpg-equipment-loadout.before.golden.png
+  golden_after: visual/spacerpg-equipment-loadout.after.golden.png
+  expected_label: correct
+  description: "The SpaceRPG station loadout/hangar state remains visible after installing Cargo Expansion from inventory."
+  rubric:
+    must:
+      - "A SpaceRPG station, hangar, or equipment/loadout interface is visible."
+      - "The screen remains rendered normally after the install action."
+      - "Station controls or panels are visible."
+    must_not:
+      - "The page is blank, crashed, or on an unrelated screen."
+      - "The game is stuck at the main menu."
+    ignore:
+      - "Minor equipment list, selected tab, or notification text differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false
+    hide_selectors: [".dialogue-backdrop", ".modal-overlay"]

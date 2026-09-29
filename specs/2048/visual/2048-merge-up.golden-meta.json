@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "after": "specs/2048/visual/2048-merge-up.after.golden.png",
+  "after_sha256": "9469256ae99294cab953c074de2f58b698d3bf16972532bcdc88983b7956f130",
+  "before": "specs/2048/visual/2048-merge-up.before.golden.png",
+  "before_sha256": "50f307504c0c84586c4600f3c2d86f72013e43c1036e1923676f54a6e37cccfe",
+  "benchmark": "2048",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/2048/merge-up.yaml",
+  "spec_sha256": "f4f05dc496eed59caf2518984a07144f1066b17da9b11eb1eed0a9ab32073512",
+  "task_id": "2048-merge-up"
+}

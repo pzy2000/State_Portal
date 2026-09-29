@@ -1,0 +1,175 @@
+name: C1 SpaceRPG concealed contraband run
+benchmark: spacerpg
+tags: [spacerpg, c1, deep-chain, contraband, equipment]
+setup: {disable_economy_backend: true}
+target:
+  kind: equipment_loadout
+  screen: station
+  system_id: helion-reach
+  station_id: helion-prime
+  station_tab: Hangar
+  credits: 1725
+  equipment: [pulse-laser]
+  equipment_inventory:
+    shielded-holds: 1
+    decoy-transponder: 1
+  cargo: {}
+checkpoint:
+  allowed_strategies: [test_hook_jump_and_validate]
+  expected_validity: injection-only
+actions:
+  - {type: hook_call, method: installEquipmentFromInventory, args: [shielded-holds]}
+  - {type: hook_call, method: installEquipmentFromInventory, args: [decoy-transponder]}
+  - {type: hook_call, method: buy, args: [illegal-contraband, 1]}
+  - {type: hook_call, method: undock, args: []}
+  - {type: hook_call, method: jumpToSystem, args: [ashen-drift]}
+  - {type: hook_call, method: dockAt, args: [ashen-freeport]}
+  - {type: hook_call, method: sell, args: [illegal-contraband, 1]}
+  - {type: hook_call, method: setStationTab, args: [Hangar]}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: state_contains, path: player.equipment, value: shielded-holds}
+      - {type: state_contains, path: player.equipment, value: decoy-transponder}
+      - {type: state_absent, path: player.cargo.illegal-contraband}
+      - {type: state_equals, path: currentSystemId, value: ashen-drift}
+      - {type: state_equals, path: currentStationId, value: ashen-freeport}
+      - {type: state_gte, path: player.credits, value: 1726}
+      - {type: no_severe_console}
+    surfaces:
+      gui:
+        adapter: spacerpg_production_dom_save_v1
+        start:
+          validate_target: true
+          checks:
+          - name: dom.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.screen
+            expected:
+              value: station
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: dom.current_system
+            metric: equals
+            actual:
+              probe: spacerpg.current_system
+              phase: current
+            expected:
+              value: helion-reach
+          - name: dom.station
+            metric: equals
+            actual:
+              probe: spacerpg.station_id
+              phase: current
+            expected:
+              value: helion-prime
+        goal:
+          # The GUI surface checks only facts visible on the final station
+          # screen; installed-equipment and cargo absence remain authoritative
+          # state-surface assertions below.
+          use_assertions: true
+          checks:
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: dom.current_system
+            metric: equals
+            actual:
+              probe: spacerpg.current_system
+              phase: current
+            expected:
+              value: ashen-drift
+          - name: dom.station
+            metric: equals
+            actual:
+              probe: spacerpg.station_id
+              phase: current
+            expected:
+              value: ashen-freeport
+          - name: transition.credits_increased
+            metric: greater_than
+            actual:
+              probe: spacerpg.credits
+              phase: after
+            expected:
+              probe: spacerpg.credits
+              phase: before
+          - name: dom.station_active_tab
+            metric: equals
+            actual:
+              probe: spacerpg.normalized_tab
+              phase: current
+            expected:
+              value: hangar
+      state:
+        adapter: spacerpg_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+
+  visual_oracle:
+    golden_image: visual/spacerpg-contraband-stealth-run.after.golden.png
+    golden_before: visual/spacerpg-contraband-stealth-run.before.golden.png
+    golden_after: visual/spacerpg-contraband-stealth-run.after.golden.png
+    expected_label: correct
+    description: "The Helion Prime hangar is visible before the concealed-cargo refit."
+    after_description: "The Ashen Freeport hangar shows the installed stealth modules and empty cargo after the profitable sale raised the saved balance to 1,800 credits."
+    rubric:
+      must: ["A SpaceRPG hangar or equipment interface is visible.", "The page is rendered normally."]
+      must_not: ["A crash, blank page, or unrelated app is visible."]
+      ignore: ["Exact equipment-row selection."]
+    after_rubric:
+      must: ["The Ashen Freeport hangar is visible after the sale.", "Shielded Holds and Decoy Transponder are installed, and cargo reads 0/28."]
+      must_not: ["A confiscation/game-over screen, blank page, or crash is visible."]
+      ignore: ["Exact sale notification and price text."]
+    capture: {stage: post_smoke, wait_ms: 300, full_page: false, hide_selectors: [".dialogue-backdrop", ".modal-overlay"]}

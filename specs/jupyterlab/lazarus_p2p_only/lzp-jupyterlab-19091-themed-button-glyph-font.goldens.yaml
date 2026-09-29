@@ -1,0 +1,77 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lzp-jupyterlab-19091-themed-button-glyph-font
+benchmark: jupyterlab
+track: c1_lazarus_p2p_only_v1
+candidate:
+  repository_key: jupyterlab
+  change_number: 19091
+  issue_number: 19089
+  defect_locus: at_goal
+authoritative_defect: Font awesome icons do not render in buttons of outputs since JupyterLab 4.6.0a4
+provenance:
+  captured_by: materialized_pair_chromium_fixture_capture
+  capture_backend: playwright_chromium_png
+  frame_sources:
+    fixed_before: frames/lzp-jupyterlab-19091-themed-button-glyph-font/fixed/before.png
+    fixed_after: frames/lzp-jupyterlab-19091-themed-button-glyph-font/fixed/after.png
+    buggy_before: frames/lzp-jupyterlab-19091-themed-button-glyph-font/buggy/before.png
+    buggy_after: frames/lzp-jupyterlab-19091-themed-button-glyph-font/buggy/after.png
+  goldens_metadata: visual_lzp-jupyterlab-19091-themed-button-glyph-font/goldens.meta.json
+  defect_differential_source: rendered_frames
+evaluation:
+  visual_oracle:
+    golden_image: visual_lzp-jupyterlab-19091-themed-button-glyph-font/before.golden.png
+    description: A browser frame rendered by the candidate build shows a white page holding a themed container
+      with one or two large bordered buttons in a row near the top left. A single button reading "Plain"
+      is drawn in the proportional interface typeface. No second button is present.
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a white page holding a themed container
+        with one or two large bordered buttons in a row near the top left.
+      - A single button reading "Plain" is drawn in the proportional interface typeface. No second button
+        is present.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, and sub-pixel text shifts.
+  lazarus:
+    goldens:
+      before: visual_lzp-jupyterlab-19091-themed-button-glyph-font/before.golden.png
+      buggy_before: visual_lzp-jupyterlab-19091-themed-button-glyph-font/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-jupyterlab-19091-themed-button-glyph-font/fixed.after.golden.png
+        after_description: Two buttons are drawn. The second reads "WWWiii" in a fixed-width typeface,
+          so its six characters occupy six equal columns and the label runs noticeably wider than the
+          same text would in the interface typeface.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white page holding a themed container
+            with one or two large bordered buttons in a row near the top left.
+          - Two buttons are drawn. The second reads "WWWiii" in a fixed-width typeface, so its six characters
+            occupy six equal columns and the label runs noticeably wider than the same text would in the
+            interface typeface.
+          - Judge this frame by which typeface the label "WWWiii" is painted in and how wide that label
+            runs.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.
+      buggy:
+        after: visual_lzp-jupyterlab-19091-themed-button-glyph-font/buggy.after.golden.png
+        after_description: Two buttons are drawn. The second reads "WWWiii" in the same proportional interface
+          typeface as the first, so its three W characters are much wider than its three i characters
+          and the label runs narrower overall.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white page holding a themed container
+            with one or two large bordered buttons in a row near the top left.
+          - Two buttons are drawn. The second reads "WWWiii" in the same proportional interface typeface
+            as the first, so its three W characters are much wider than its three i characters and the
+            label runs narrower overall.
+          - Judge this frame by which typeface the label "WWWiii" is painted in and how wide that label
+            runs.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.

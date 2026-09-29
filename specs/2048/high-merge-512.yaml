@@ -1,0 +1,60 @@
+name: 2048 high value 512 merge checkpoint
+benchmark: '2048'
+tags:
+- '2048'
+- localStorage
+- high-value
+- variant
+target:
+  kind: board
+  board:
+  - - 512
+    - 512
+    - 0
+    - 0
+  - - 0
+    - 0
+    - 0
+    - 0
+  - - 0
+    - 0
+    - 0
+    - 0
+  - - 0
+    - 0
+    - 0
+    - 0
+  score: 2048
+  bestScore: 2048
+checkpoint:
+  allowed_strategies:
+  - localStorage_restore_reload
+  expected_validity: save-restorable
+actions:
+- type: move
+  direction: left
+  wait_ms: 450
+assertions:
+- type: score_increased_by_at_least
+  amount: 1024
+- type: tile_value_present
+  value: 1024
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/near-win.golden.png
+  expected_label: correct
+  description: A restored high-value 2048 board remains visible after merging two
+    512 tiles.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

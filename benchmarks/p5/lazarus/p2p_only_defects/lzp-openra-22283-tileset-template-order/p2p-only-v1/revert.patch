@@ -1,0 +1,161 @@
+diff --git a/OpenRA.Mods.Common/MapGenerator/MultiBrush.cs b/OpenRA.Mods.Common/MapGenerator/MultiBrush.cs
+index b4be1beb9de3..7376f22a3ab8 100644
+--- a/OpenRA.Mods.Common/MapGenerator/MultiBrush.cs
++++ b/OpenRA.Mods.Common/MapGenerator/MultiBrush.cs
+@@ -434,7 +434,7 @@ public MultiBrush(Map map, MultiBrushInfo info)
+ 		/// <summary>Load a named MultiBrush collection from a map's tileset.</summary>
+ 		public static ImmutableArray<MultiBrush> LoadCollection(Map map, string name)
+ 		{
+-			var templatedTerrainInfo = map.Rules.TerrainInfo as ITemplatedTerrainInfo;
++			var templatedTerrainInfo = (ITemplatedTerrainInfo)map.Rules.TerrainInfo;
+ 			return templatedTerrainInfo.MultiBrushCollections[name]
+ 				.Select(info => new MultiBrush(map, info))
+ 				.ToImmutableArray();
+diff --git a/OpenRA.Mods.Common/Terrain/DefaultTerrain.cs b/OpenRA.Mods.Common/Terrain/DefaultTerrain.cs
+index 5142be3ebaec..92b093e70a1b 100644
+--- a/OpenRA.Mods.Common/Terrain/DefaultTerrain.cs
++++ b/OpenRA.Mods.Common/Terrain/DefaultTerrain.cs
+@@ -87,6 +87,8 @@ public class DefaultTerrain : ITemplatedTerrainInfo, IDumpSheetsTerrainInfo, ITe
+ 		[FieldLoader.Ignore]
+ 		public readonly FrozenDictionary<ushort, TerrainTemplateInfo> Templates;
+ 		[FieldLoader.Ignore]
++		public readonly ImmutableArray<TerrainTemplateInfo> TemplatesInDefinitionOrder;
++		[FieldLoader.Ignore]
+ 		public readonly FrozenDictionary<string, ImmutableArray<MultiBrushInfo>> MultiBrushCollections;
+ 
+ 		[FieldLoader.Ignore]
+@@ -125,10 +127,11 @@ public DefaultTerrain(IReadOnlyFileSystem fileSystem, string filepath)
+ 			defaultWalkableTerrainIndex = GetTerrainIndex("Clear");
+ 
+ 			// Templates
+-			Templates = yaml["Templates"].ToDictionary().Values
+-				.Select(y => (TerrainTemplateInfo)new DefaultTerrainTemplateInfo(this, y))
+-				.ToDictionary(t => t.Id)
+-				.ToFrozenDictionary();
++			TemplatesInDefinitionOrder = yaml["Templates"].Nodes
++				.Select(n => (TerrainTemplateInfo)new DefaultTerrainTemplateInfo(this, n.Value))
++				.ToImmutableArray();
++			Templates = TemplatesInDefinitionOrder
++				.ToFrozenDictionary(t => t.Id);
+ 
+ 			MultiBrushCollections =
+ 				yaml.TryGetValue("MultiBrushCollections", out var collectionDefinitions)
+@@ -187,10 +190,11 @@ public bool TryGetTileInfo(TerrainTile r, out TerrainTileInfo info)
+ 		float ITerrainInfo.MinHeightColorBrightness => MinHeightColorBrightness;
+ 		float ITerrainInfo.MaxHeightColorBrightness => MaxHeightColorBrightness;
+ 
+-		TerrainTile ITerrainInfo.DefaultTerrainTile => new(Templates.First().Key, 0);
++		TerrainTile ITerrainInfo.DefaultTerrainTile => new(TemplatesInDefinitionOrder[0].Id, 0);
+ 
+ 		ImmutableArray<string> ITemplatedTerrainInfo.EditorTemplateOrder => EditorTemplateOrder;
+ 		FrozenDictionary<ushort, TerrainTemplateInfo> ITemplatedTerrainInfo.Templates => Templates;
++		ImmutableArray<TerrainTemplateInfo> ITemplatedTerrainInfo.TemplatesInDefinitionOrder => TemplatesInDefinitionOrder;
+ 		FrozenDictionary<string, ImmutableArray<MultiBrushInfo>> ITemplatedTerrainInfo.MultiBrushCollections => MultiBrushCollections;
+ 
+ 		void IDumpSheetsTerrainInfo.DumpSheets(string terrainName, ImmutablePalette palette, ref int sheetCount)
+diff --git a/OpenRA.Mods.Common/Terrain/TerrainInfo.cs b/OpenRA.Mods.Common/Terrain/TerrainInfo.cs
+index fb969668d0e7..3d57a02b0389 100644
+--- a/OpenRA.Mods.Common/Terrain/TerrainInfo.cs
++++ b/OpenRA.Mods.Common/Terrain/TerrainInfo.cs
+@@ -19,6 +19,7 @@ public interface ITemplatedTerrainInfo : ITerrainInfo
+ 	{
+ 		ImmutableArray<string> EditorTemplateOrder { get; }
+ 		FrozenDictionary<ushort, TerrainTemplateInfo> Templates { get; }
++		ImmutableArray<TerrainTemplateInfo> TemplatesInDefinitionOrder { get; }
+ 		FrozenDictionary<string, ImmutableArray<MultiBrushInfo>> MultiBrushCollections { get; }
+ 	}
+ 
+diff --git a/OpenRA.Mods.Common/Traits/World/TilingPathTool.cs b/OpenRA.Mods.Common/Traits/World/TilingPathTool.cs
+index 4c986a6b3e56..3f2726fb0bbc 100644
+--- a/OpenRA.Mods.Common/Traits/World/TilingPathTool.cs
++++ b/OpenRA.Mods.Common/Traits/World/TilingPathTool.cs
+@@ -341,7 +341,7 @@ public TilingPathTool(Actor self, TilingPathToolInfo info)
+ 			World = self.World;
+ 			TraitInfo = info;
+ 
+-			var templatedTerrainInfo = World.Map.Rules.TerrainInfo as ITemplatedTerrainInfo;
++			var templatedTerrainInfo = (ITemplatedTerrainInfo)World.Map.Rules.TerrainInfo;
+ 			SegmentedBrushes =
+ 				templatedTerrainInfo.MultiBrushCollections.Keys
+ 					.Order()
+diff --git a/OpenRA.Mods.Common/Widgets/Logic/Editor/TileSelectorLogic.cs b/OpenRA.Mods.Common/Widgets/Logic/Editor/TileSelectorLogic.cs
+index 1a5ab98701f6..67cf6790b0ad 100644
+--- a/OpenRA.Mods.Common/Widgets/Logic/Editor/TileSelectorLogic.cs
++++ b/OpenRA.Mods.Common/Widgets/Logic/Editor/TileSelectorLogic.cs
+@@ -43,7 +43,7 @@ public TileSelectorTemplate(TerrainTemplateInfo template)
+ 		}
+ 
+ 		readonly ITemplatedTerrainInfo terrainInfo;
+-		readonly TileSelectorTemplate[] allTemplates;
++		readonly ImmutableArray<TileSelectorTemplate> allTemplates;
+ 
+ 		[ObjectCreator.UseCtor]
+ 		public TileSelectorLogic(Widget widget, ModData modData, World world, WorldRenderer worldRenderer)
+@@ -53,7 +53,7 @@ public TileSelectorLogic(Widget widget, ModData modData, World world, WorldRende
+ 			if (terrainInfo == null)
+ 				throw new InvalidDataException("TileSelectorLogic requires a template-based tileset.");
+ 
+-			allTemplates = terrainInfo.Templates.Values.Select(t => new TileSelectorTemplate(t)).ToArray();
++			allTemplates = terrainInfo.TemplatesInDefinitionOrder.Select(t => new TileSelectorTemplate(t)).ToImmutableArray();
+ 
+ 			allCategories = allTemplates.SelectMany(t => t.Categories)
+ 				.Distinct()
+diff --git a/OpenRA.Mods.D2k/UtilityCommands/D2kMapImporter.cs b/OpenRA.Mods.D2k/UtilityCommands/D2kMapImporter.cs
+index a285249f5341..189b2d37a95e 100644
+--- a/OpenRA.Mods.D2k/UtilityCommands/D2kMapImporter.cs
++++ b/OpenRA.Mods.D2k/UtilityCommands/D2kMapImporter.cs
+@@ -276,7 +276,7 @@ public sealed class D2kMapImporter
+ 		Map map;
+ 		Size mapSize;
+ 		DefaultTerrain terrainInfo;
+-		List<TerrainTemplateInfo> tileSetsFromYaml;
++		List<DefaultTerrainTemplateInfo> tileSetsFromYaml;
+ 		int playerCount;
+ 
+ 		D2kMapImporter(string filename, string tileset, Ruleset rules)
+@@ -338,11 +338,10 @@ void Initialize(string mapFile)
+ 
+ 			// Get all templates from the tileset YAML file that have at least one frame and an Image property corresponding to the requested tileset
+ 			// Each frame is a tile from the Dune 2000 tileset files, with the Frame ID being the index of the tile in the original file
+-			tileSetsFromYaml = terrainInfo.Templates.Where(t =>
+-			{
+-				var templateInfo = (DefaultTerrainTemplateInfo)t.Value;
+-				return templateInfo.Frames != null && string.Equals(templateInfo.Images[0], tilesetName, StringComparison.InvariantCultureIgnoreCase);
+-			}).Select(ts => ts.Value).ToList();
++			tileSetsFromYaml = terrainInfo.TemplatesInDefinitionOrder
++				.Cast<DefaultTerrainTemplateInfo>()
++				.Where(templateInfo => templateInfo.Frames != null && string.Equals(templateInfo.Images[0], tilesetName, StringComparison.InvariantCultureIgnoreCase))
++				.ToList();
+ 
+ 			var players = new MapPlayers(map.Rules, playerCount);
+ 			map.PlayerDefinitions = players.ToMiniYaml();
+@@ -505,16 +504,14 @@ TerrainTile GetTile(int tileIndex)
+ 			}
+ 
+ 			// Get the first tileset template that contains the Frame ID of the original map's tile with the requested index
+-			var template = tileSetsFromYaml.FirstOrDefault(x => ((DefaultTerrainTemplateInfo)x).Frames.Contains(tileIndex));
++			var template = tileSetsFromYaml.FirstOrDefault(x => x.Frames.Contains(tileIndex));
+ 
+ 			// HACK: The arrakis.yaml tileset file seems to be missing some tiles, so just get a replacement for them
+ 			// Also used for duplicate tiles that are taken from only tileset
+ 			// Just get a template that contains a tile with the same ID as requested
+-			template ??= terrainInfo.Templates.FirstOrDefault(t =>
+-			{
+-				var templateInfo = (DefaultTerrainTemplateInfo)t.Value;
+-				return templateInfo.Frames != null && templateInfo.Frames.Contains(tileIndex);
+-			}).Value;
++			template ??= terrainInfo.TemplatesInDefinitionOrder
++				.Cast<DefaultTerrainTemplateInfo>()
++				.FirstOrDefault(templateInfo => templateInfo.Frames != null && templateInfo.Frames.Contains(tileIndex));
+ 
+ 			if (template == null)
+ 			{
+@@ -525,7 +522,7 @@ TerrainTile GetTile(int tileIndex)
+ 			}
+ 
+ 			var templateIndex = template.Id;
+-			var frameIndex = ((DefaultTerrainTemplateInfo)template).Frames.IndexOf(tileIndex);
++			var frameIndex = template.Frames.IndexOf(tileIndex);
+ 
+ 			return new TerrainTile(templateIndex, (byte)((frameIndex == -1) ? 0 : frameIndex));
+ 		}

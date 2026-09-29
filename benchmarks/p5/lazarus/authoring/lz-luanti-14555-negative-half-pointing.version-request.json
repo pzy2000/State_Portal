@@ -1,0 +1,12 @@
+{
+  "build_class": "incremental_cpp",
+  "declared_files": [
+    "src/unittest/test_voxelalgorithms.cpp",
+    "src/voxelalgorithms.cpp"
+  ],
+  "fixed_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "patch_sha256": "d94a134b545ef0a15cabe782a707587d3de8bddb70dbe784f32c0b2897e53813",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-luanti-14555-negative-half-pointing/revert.patch",
+  "source_repo": "games/luanti",
+  "task_id": "lz-luanti-14555-negative-half-pointing"
+}

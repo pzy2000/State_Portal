@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.26284288194444444,
+    "ignored_top_fraction": 0.25,
+    "mean_absolute_difference": 20.696537905092594
+  },
+  "before_buggy_sha256": "6c4924ea3fee5bfd89baeea06916b44cf5fd22b206eacbca2aef7447b0332505",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.25,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "0321f605644949b7b23c6df842ee71ebf279bf56f5857df17735077f0e95d7de",
+  "buggy_after_sha256": "2635087187d014081a0eca70c5b3d6d08855efd4750d86ffcf10e62b36232102",
+  "fixed_after_sha256": "f44a346f538f046b67c4bf16942c97c1c64e1840005f4988bcdadb05e1ec99b8",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "2635087187d014081a0eca70c5b3d6d08855efd4750d86ffcf10e62b36232102",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 776431,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "2668240e254407f75cb5b3cb678016bb5b0c0f1250f4841a864b92d4bfcd5c8d"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "6c4924ea3fee5bfd89baeea06916b44cf5fd22b206eacbca2aef7447b0332505",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 810018,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "e0453d9ac212e0780f26d1c0efd5cdb04501ea84d0400caee4da8b85a72aa9f4"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "f44a346f538f046b67c4bf16942c97c1c64e1840005f4988bcdadb05e1ec99b8",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 802029,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "3a1b0c209de5111dbc81a95e34f74173ca48adae14be8da0714d628763c80ef6"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "0321f605644949b7b23c6df842ee71ebf279bf56f5857df17735077f0e95d7de",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 810523,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "803fd4b53b0990108f34f1f12f6550e58efefcc8b449eaa02722ae1ef580956f"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.25
+  },
+  "published_unix_ns": 1786768325233338000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lz-luanti-14757-math-round"
+}

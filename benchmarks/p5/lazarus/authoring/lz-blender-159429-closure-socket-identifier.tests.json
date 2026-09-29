@@ -1,0 +1,137 @@
+{
+  "schema": "c1-lazarus-authoring-tests-v1",
+  "schema_version": 1,
+  "tests": [
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "build-lazarus",
+        "-R",
+        "^(geo_node_list_closure_to_list|geo_node_closure_closure_to_list_anonymous_attributes)$",
+        "--output-on-failure"
+      ],
+      "command": [
+        "ctest",
+        "--test-dir",
+        "build-lazarus",
+        "-R",
+        "^(geo_node_list_closure_to_list|geo_node_closure_closure_to_list_anonymous_attributes)$",
+        "--output-on-failure"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/files/modeling/geometry_nodes/list/closure_to_list.blend",
+          "sha256": "2f0b0b992e6c9cf770fd1b623a0741a514d1ff92be7205cf771f436d33958963",
+          "source_path": "upstream-tests/tests/files/modeling/geometry_nodes/list/closure_to_list.blend"
+        },
+        {
+          "destination_path": "tests/files/modeling/geometry_nodes/closure/closure_to_list_anonymous_attributes.blend",
+          "sha256": "da2631748d5d2ba5747585c5b9c8521e0ed7515355489fa9310b9d20799d370f",
+          "source_path": "upstream-tests/tests/files/modeling/geometry_nodes/closure/closure_to_list_anonymous_attributes.blend"
+        }
+      ],
+      "id": "blender-159429-closure-to-list-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_geometry_nodes_regression_suite",
+      "source_case": "geo_node_list_closure_to_list and anonymous_attributes",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/a1228b3187ca2eb5e3a4a151951742b7580dcd02/tests/files/modeling/geometry_nodes/list/closure_to_list.blend",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/files/modeling/geometry_nodes/list/closure_to_list.blend",
+          "sha256": "2f0b0b992e6c9cf770fd1b623a0741a514d1ff92be7205cf771f436d33958963",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/a1228b3187ca2eb5e3a4a151951742b7580dcd02/tests/files/modeling/geometry_nodes/list/closure_to_list.blend"
+        },
+        {
+          "path": "tests/files/modeling/geometry_nodes/closure/closure_to_list_anonymous_attributes.blend",
+          "sha256": "da2631748d5d2ba5747585c5b9c8521e0ed7515355489fa9310b9d20799d370f",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/a1228b3187ca2eb5e3a4a151951742b7580dcd02/tests/files/modeling/geometry_nodes/closure/closure_to_list_anonymous_attributes.blend"
+        }
+      ],
+      "upstream_test_path": "tests/files/modeling/geometry_nodes/list/closure_to_list.blend",
+      "upstream_test_sha256": "2f0b0b992e6c9cf770fd1b623a0741a514d1ff92be7205cf771f436d33958963"
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "build-lazarus",
+        "-R",
+        "^geo_node_list_basic_eval$",
+        "--output-on-failure"
+      ],
+      "command": [
+        "ctest",
+        "--test-dir",
+        "build-lazarus",
+        "-R",
+        "^geo_node_list_basic_eval$",
+        "--output-on-failure"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/files/modeling/geometry_nodes/list/basic_eval.blend",
+          "sha256": "884de1c1f407c69c5804b3d0d0c3dcd696763124e3601fb308b6a29c6f31e45f",
+          "source_path": "upstream-tests/tests/files/modeling/geometry_nodes/list/basic_eval.blend"
+        }
+      ],
+      "id": "blender-geometry-list-basic-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_geometry_nodes_test_suite",
+      "source_case": "geo_node_list_basic_eval",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/a1228b3187ca2eb5e3a4a151951742b7580dcd02/tests/files/modeling/geometry_nodes/list/basic_eval.blend",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/files/modeling/geometry_nodes/list/basic_eval.blend",
+          "sha256": "884de1c1f407c69c5804b3d0d0c3dcd696763124e3601fb308b6a29c6f31e45f",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/a1228b3187ca2eb5e3a4a151951742b7580dcd02/tests/files/modeling/geometry_nodes/list/basic_eval.blend"
+        }
+      ],
+      "upstream_test_path": "tests/files/modeling/geometry_nodes/list/basic_eval.blend",
+      "upstream_test_sha256": "884de1c1f407c69c5804b3d0d0c3dcd696763124e3601fb308b6a29c6f31e45f"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "cwd": ".",
+      "id": "blender-mathutils-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "repository_python_test_suite",
+      "source_case": "bl_pyapi_mathutils",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/bl_pyapi_mathutils.py",
+          "sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py"
+        }
+      ],
+      "upstream_test_path": "tests/python/bl_pyapi_mathutils.py",
+      "upstream_test_sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af"
+    }
+  ]
+}

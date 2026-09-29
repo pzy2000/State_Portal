@@ -1,0 +1,123 @@
+schema_version: 1
+benchmark: jupyterlab
+name: lzp-jupyterlab-17153-shortcut-chip-contrast
+target:
+  kind: jupyterlab_lazarus_candidate_bundle
+  change_number: 17153
+  variants:
+  - fixed
+  - buggy
+  capture_backend: playwright_chromium_png
+setup:
+  jupyterlab_lazarus_probe:
+    registered_replay:
+      fixture: warptest.c1_lazarus_selection.p2p_only_frames
+      build_packages: []
+      stylesheets:
+      - packages/theme-dark-extension/style/variables.css
+      - packages/shortcuts-extension/style/base.css
+      fixture_notes: The chip colour is read from the tree's palette and its stylesheet; the fixture only
+        decides which label becomes a chip.
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lzp-jupyterlab-17153-shortcut-chip-contrast/before.golden.png
+    description: A browser frame rendered by the candidate build shows a dark row on a dark page, holding
+      the short monospaced label "Ctrl A" near its top left. The label reads "Ctrl A" in white directly
+      on the dark row, with no chip drawn behind it.
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a dark row on a dark page, holding the short
+        monospaced label "Ctrl A" near its top left.
+      - The label reads "Ctrl A" in white directly on the dark row, with no chip drawn behind it.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, and sub-pixel text shifts.
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - id: rendered_goal_frame
+      kind: visual_frame
+      frame: fixed_after
+      expected: A medium blue chip is drawn behind "Ctrl A". The chip is distinctly darker than the white
+        label on it, so the label's white strokes read cleanly against the chip.
+    defect_signature:
+    - id: rendered_defect_frame
+      kind: visual_frame
+      frame: buggy_after
+      expected: A very pale, near-white blue chip is drawn behind "Ctrl A". The chip is almost as light
+        as the white label on it, so the label's white strokes nearly merge into the chip.
+    invariant_checks:
+    - id: shared_start_frame
+      kind: visual_frame
+      frame: before
+      expected: The label reads "Ctrl A" in white directly on the dark row, with no chip drawn behind
+        it.
+    f2p_absence:
+      reason: The defect is the contrast between a chip and the surface it sits on, decided by which palette
+        entry the chip resolves to. The document is identical either way, so the shortfall exists only
+        in the painted colours.
+      audited_paths: []
+    upstream_tests:
+      fail_to_pass: []
+      pass_to_pass:
+      - jupyterlab-pr17153-control-p2p
+      per_trial_p2p:
+      - jupyterlab-pr17153-control-p2p
+    goldens:
+      before: visual_lzp-jupyterlab-17153-shortcut-chip-contrast/before.golden.png
+      buggy_before: visual_lzp-jupyterlab-17153-shortcut-chip-contrast/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-jupyterlab-17153-shortcut-chip-contrast/fixed.after.golden.png
+        after_description: A medium blue chip is drawn behind "Ctrl A". The chip is distinctly darker
+          than the white label on it, so the label's white strokes read cleanly against the chip.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a dark row on a dark page, holding the
+            short monospaced label "Ctrl A" near its top left.
+          - A medium blue chip is drawn behind "Ctrl A". The chip is distinctly darker than the white
+            label on it, so the label's white strokes read cleanly against the chip.
+          - 'Judge this frame by comparing the shade of the chip drawn behind "Ctrl A" with the white
+            of the label drawn on it: whether the chip is dark enough for the white strokes to read cleanly
+            against it, or so light that those strokes nearly merge into the chip.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.
+      buggy:
+        after: visual_lzp-jupyterlab-17153-shortcut-chip-contrast/buggy.after.golden.png
+        after_description: A very pale, near-white blue chip is drawn behind "Ctrl A". The chip is almost
+          as light as the white label on it, so the label's white strokes nearly merge into the chip.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a dark row on a dark page, holding the
+            short monospaced label "Ctrl A" near its top left.
+          - A very pale, near-white blue chip is drawn behind "Ctrl A". The chip is almost as light as
+            the white label on it, so the label's white strokes nearly merge into the chip.
+          - 'Judge this frame by comparing the shade of the chip drawn behind "Ctrl A" with the white
+            of the label drawn on it: whether the chip is dark enough for the white strokes to read cleanly
+            against it, or so light that those strokes nearly merge into the chip.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.

@@ -1,0 +1,13 @@
+{
+  "benchmark": "luanti",
+  "candidates_considered": 6,
+  "fixed_revision": "cf650fcaac33af2c60af3880f9b28358e30d75a4",
+  "patch_sha256": "28f3de0fc342209cd078bfb9494d132508bf39c53314b940c7e9d47238b8b528",
+  "pinned_host_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "repo": "games/luanti",
+  "schema": "c1-lazarus-materialization-base-v1",
+  "schema_version": 1,
+  "source": "patch_post_image_blob",
+  "task_id": "lz-luanti-11866-mapgen-boundary",
+  "verification": "reverse_apply_check_in_detached_worktree"
+}

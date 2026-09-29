@@ -1,0 +1,101 @@
+name: pal3 transition from one scene to another
+benchmark: pal3
+timeout_ms: 900000
+tags: ["pal3", "scene", "transition"]
+target:
+  kind: synthesized_state
+  scene_city: "q01"
+  scene_name: "b"
+  story_vars:
+    - {key: 32768, value: 10401}
+  team_ids: [0]
+  make_playable: true
+  player_tile_x: 195
+  player_tile_y: 212
+  player_nav_layer: 0
+checkpoint:
+  allowed_strategies: ["pal3_console_save_validate"]
+  expected_validity: "injection-only"
+actions:
+  - type: pal3_set_story_var
+    var_id: 32768
+    value: 20200
+  - type: pal3_load_scene
+    city: "q02"
+    scene: "q02"
+    make_playable: true
+    player_tile_x: 70
+    player_tile_y: 209
+    player_nav_layer: 0
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: pal3_scene_is
+        city: "q02"
+        scene: "q02"
+      - type: pal3_team_contains
+        actor_id: 0
+      - type: no_pal3_utility_errors
+
+    surfaces:
+      gui:
+        adapter: pal3_unity_live_v1
+        start:
+          validate_target: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - c1.target.scene
+        goal:
+          use_assertions: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - assertion[pal3_scene_is]
+          - any_of:
+            - assertion[no_pal3_utility_errors]
+      state:
+        adapter: pal3_unity_live_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/pal3-scene-transition.after.golden.png
+    golden_before: visual/pal3-scene-transition.before.golden.png
+    golden_after: visual/pal3-scene-transition.after.golden.png
+    expected_label: correct
+    scene_key: pal3_q02_q02
+    description: "A headed PAL3 session is in the lit outdoor q01/b scene before the transition, with the on-screen movement control and copyright overlay drawn on top."
+    after_description: "After the normal story-jump setup, the controllable player is visible in the lit q02/q02 Bin Hua scene at the canonical Search for Xuejian entry point."
+    rubric:
+      must:
+        - "A PAL3 in-game camera view is rendered with the on-screen movement control visible."
+        - "Lit outdoor terrain fills most of the frame."
+        - "No crash dialog, exception overlay, or fully blank screen is shown."
+      must_not:
+        - "The frame is dark apart from the on-screen overlays."
+        - "The screenshot shows only the Unity splash screen, editor UI, or a loading-only frame."
+        - "An error dialog or exception stack trace is visible."
+      ignore:
+        - "Exact camera angle, lighting, animation frame, or HUD layout differences."
+        - "Internal state changes such as inventory, money, favor, script variables, or save-slot contents that are validated semantically."
+    after_rubric:
+      must:
+        - "The lit outdoor q01/b terrain is gone."
+        - "A normally lit q02/q02 Bin Hua game scene is rendered."
+        - "The player or other recognizable scene geometry is visible, with the on-screen movement control still drawn."
+      must_not:
+        - "The lit outdoor starting terrain is still visible."
+        - "The frame is black apart from overlays or a fade rectangle."
+        - "An error dialog, exception stack trace, or Unity editor UI is visible."
+      ignore:
+        - "Exact camera angle, NPC animation frame, or HUD layout."
+        - "Internal state validated semantically, such as money or script variables."
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false

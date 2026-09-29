@@ -1,0 +1,102 @@
+name: c4_replay_determinism
+schema: c4-replay-manifest-v1
+schema_version: 1
+
+# C4 measures whether an already-synthesized checkpoint keeps producing the
+# verdict it was graded with, at zero provider cost. It reuses the C1 execution
+# and grading path unchanged; only the source of the checkpoint differs.
+#
+# Two conditions are enforced by the harness rather than declared here:
+#   * no provider call may occur during a replay (cost.no_llm_guard), and
+#   * the visual channel may not escalate to the VLM judge
+#     (WARPTEST_DETERMINISTIC_VISUAL_ONLY), so it grades normalized image
+#     identity against the frozen reference frame.
+#
+# The experiment seed is deliberately NOT a factor. On the browser profiles the
+# seed keys the injected PRNG, so replaying at a different seed would change the
+# run itself; replays inherit the seed their reference verdict was graded at.
+
+source_arm: c1_state
+tasks: benchmarks/p5/c1_tasks.yaml
+
+# Factors that must not change a verdict:
+#   repetition  - repeated replays in the same environment
+#   environment - a differently-provisioned host, user, tmpdir and port
+#   position    - where a checkpoint sits inside an invocation, which matters
+#                 because the profiles reuse one live engine process
+factors:
+  repetition: per-profile (see repetitions below)
+  environment: declared by the caller via --environment
+  position: rotated once per repetition
+
+default_profile:
+  enabled: true
+  repetitions: 10
+  batch_size: 8
+  task_timeout_s: 2400
+
+profiles:
+  # Browser and web profiles restore inside a warm session and are cheap enough
+  # to replay the whole selected population many times.
+  "2048":
+    repetitions: 10
+  spacerpg:
+    repetitions: 10
+  datingsim:
+    repetitions: 10
+  jupyterlab:
+    repetitions: 10
+    batch_size: 4
+  luanti:
+    repetitions: 10
+    batch_size: 4
+
+  # Desktop applications pay a real process cost per checkpoint, so they get a
+  # deterministically sampled subset rather than a reduced-fidelity run.
+  libreoffice:
+    repetitions: 5
+    batch_size: 3
+    max_checkpoints: 6
+  blender:
+    repetitions: 5
+    batch_size: 3
+    max_checkpoints: 6
+  openra:
+    repetitions: 5
+    batch_size: 3
+    max_checkpoints: 6
+
+  # C1 State on Unity is a cold two-pass launch per checkpoint, which dominates
+  # wall clock; fewer repetitions, reported with its own n. Disabled by default
+  # because replaying them needs a licensed Unity Editor (UNITY_EDITOR_PATH);
+  # enable on a host that has one rather than letting every trial fail as
+  # infrastructure-blocked and dilute the reported denominators.
+  jynew:
+    enabled: false
+    requires: UNITY_EDITOR_PATH
+    repetitions: 3
+    batch_size: 2
+    max_checkpoints: 4
+  pal3:
+    enabled: false
+    requires: UNITY_EDITOR_PATH
+    repetitions: 3
+    batch_size: 2
+    max_checkpoints: 4
+
+stats:
+  bootstrap_iterations: 10000
+  ci: 0.95
+  bootstrap_cluster: checkpoint_id
+  rng_seed: 1234
+
+# Per-run token costs of the C1 arms, used for the regression-cost amortization
+# curve. They are parsed out of the C1 aggregate at report time rather than
+# restated here, so the curve can never quote a number the C1 run did not
+# produce. Pass the summary with `replay-bench aggregate --c1-summary`; the
+# markdown summary is used because its JSON sibling carries every trial record
+# and runs to hundreds of megabytes.
+amortization:
+  source: reports/warptest/<c1-run>/p5-scale-summary.md
+  checkpoint_arm: c1_state
+  max_runs: 20

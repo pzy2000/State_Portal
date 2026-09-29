@@ -1,0 +1,330 @@
+{
+  "authority": "github",
+  "benchmark": "jupyterlab",
+  "comments": [
+    {
+      "author": "jupyterlab-probot[bot]",
+      "body_normalized": "Thanks for making a pull request to jupyterlab!\nTo try out this branch on [binder](https://mybinder.org), follow this link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/MUFFANUJ/jupyterlab/tabOrderFix?urlpath=lab)",
+      "body_raw": "Thanks for making a pull request to jupyterlab!\nTo try out this branch on [binder](https://mybinder.org), follow this link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/MUFFANUJ/jupyterlab/tabOrderFix?urlpath=lab)",
+      "body_sha256": "c4af1c2d82b8707f5e581b94dde18b5fc7994eb548cbb6f0e61bf9541c12f144",
+      "created_at": "2025-07-16T11:35:14Z",
+      "id": 3078182924,
+      "source": "pull_request_comment",
+      "updated_at": "2025-07-16T11:35:14Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/17700#issuecomment-3078182924"
+    },
+    {
+      "author": "MUFFANUJ",
+      "body_normalized": "@meeseeksdev tag bug",
+      "body_raw": "@meeseeksdev tag bug",
+      "body_sha256": "25ba49b273a61e129aa5ba6bb57976a2a8457d7224e8ef256072fb880c4fe5b8",
+      "created_at": "2025-07-16T11:36:55Z",
+      "id": 3078189788,
+      "source": "pull_request_comment",
+      "updated_at": "2025-07-16T11:36:55Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/17700#issuecomment-3078189788"
+    },
+    {
+      "author": "MUFFANUJ",
+      "body_normalized": "hey @krassowski, can you please update the snapshots",
+      "body_raw": "hey @krassowski, can you please update the snapshots ",
+      "body_sha256": "0cfdf7123851710516cce69d9e0e274c375cdc5b30a1d67d3c4d688b0d15ebec",
+      "created_at": "2025-07-17T07:28:12Z",
+      "id": 3082926685,
+      "source": "pull_request_comment",
+      "updated_at": "2025-07-17T07:28:12Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/17700#issuecomment-3082926685"
+    },
+    {
+      "author": "krassowski",
+      "body_normalized": "bot please update snapshots",
+      "body_raw": "bot please update snapshots",
+      "body_sha256": "a389cd26fcbec2abce1bf7afbef389295ce8392fa01a9f4d8dad954d93d355bf",
+      "created_at": "2025-07-17T07:48:14Z",
+      "id": 3082995355,
+      "source": "pull_request_comment",
+      "updated_at": "2025-07-17T07:48:14Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/17700#issuecomment-3082995355"
+    },
+    {
+      "author": "github-actions[bot]",
+      "body_normalized": "Documentation snapshots updated.",
+      "body_raw": "Documentation snapshots updated.",
+      "body_sha256": "96c6faf4894aea0841f0d1f7123357e6876d20cabacb563759bf179acd6916f0",
+      "created_at": "2025-07-17T08:03:44Z",
+      "id": 3083047293,
+      "source": "pull_request_comment",
+      "updated_at": "2025-07-17T08:03:44Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/17700#issuecomment-3083047293"
+    },
+    {
+      "author": "MUFFANUJ",
+      "body_normalized": "Thank you @krassowski !",
+      "body_raw": "Thank you @krassowski !",
+      "body_sha256": "5235bcf5075ca404553e3918d10be6fd0789dbabe84d23fb2b807830e5c61658",
+      "created_at": "2025-07-17T08:05:44Z",
+      "id": 3083055497,
+      "source": "pull_request_comment",
+      "updated_at": "2025-07-17T08:05:44Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/17700#issuecomment-3083055497"
+    },
+    {
+      "author": "krassowski",
+      "body_normalized": "Hmm... Some of the documentation snapshot changes are just flaky, but the change on statusbar here looks related and off:\n\n<img width=\"1280\" height=\"720\" alt=\"image\" src=\"https://github.com/user-attachments/assets/d6464b70-be1d-43e5-99ca-f03a7398def7\" />\n\n<img width=\"1280\" height=\"720\" alt=\"image\" src=\"https://github.com/user-attachments/assets/f6c344e7-7712-4f23-9b2a-81773d68a5ea\" />",
+      "body_raw": "Hmm... Some of the documentation snapshot changes are just flaky, but the change on statusbar here looks related and off:\r\n\r\n<img width=\"1280\" height=\"720\" alt=\"image\" src=\"https://github.com/user-attachments/assets/d6464b70-be1d-43e5-99ca-f03a7398def7\" />\r\n\r\n<img width=\"1280\" height=\"720\" alt=\"image\" src=\"https://github.com/user-attachments/assets/f6c344e7-7712-4f23-9b2a-81773d68a5ea\" />\r\n",
+      "body_sha256": "c18123d1d7a8ac22f2620006a9db4629e3aa5a29df5f48568405b4b12e47af20",
+      "created_at": "2025-07-17T08:10:30Z",
+      "id": 3083072495,
+      "source": "pull_request_comment",
+      "updated_at": "2025-08-06T18:00:58Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/17700#issuecomment-3083072495"
+    },
+    {
+      "author": "github-actions[bot]",
+      "body_normalized": "Galata snapshots updated.",
+      "body_raw": "Galata snapshots updated.",
+      "body_sha256": "a6106c7462648daa7dbc7f46accb1c014e9c62177c97652b53dd413d39c075f4",
+      "created_at": "2025-07-17T08:26:36Z",
+      "id": 3083124974,
+      "source": "pull_request_comment",
+      "updated_at": "2025-08-06T18:00:52Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/17700#issuecomment-3083124974"
+    },
+    {
+      "author": "krassowski",
+      "body_normalized": "Ah, I was wrong - the snapshot update was just flaky and the snapshots here did not require updating.",
+      "body_raw": "Ah, I was wrong - the snapshot update was just flaky and the snapshots here did not require updating.",
+      "body_sha256": "db434a3d3f38fa169de66063c87d3f597099a5aa7ce9126c8e353477ea6937a1",
+      "created_at": "2025-08-06T18:01:25Z",
+      "id": 3161078208,
+      "source": "pull_request_comment",
+      "updated_at": "2025-08-06T18:01:25Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/17700#issuecomment-3161078208"
+    }
+  ],
+  "fix_commit": "31d45658d408fc4170ef91cce67c9c89645b1038",
+  "issue": {
+    "author": "krassowski",
+    "body_normalized": "## Description\n\nThe tab order is wrong in staatusbar for some items\n\n## Reproduce\n\n1. Pull https://github.com/jupyterlab/jupyterlab/pull/17591\n2. Tab to kernel item in status bar\n![Image](https://github.com/user-attachments/assets/e72830d6-3ea7-40b8-b994-fb3845da3921)\n3. Press Tab, see focus goes to bell icon\n![Image](https://github.com/user-attachments/assets/a51a1dcf-8f30-4677-8025-a6aafc9c2f17)\n4. Press Tab, see focus goes to lines and columns item\n![Image](https://github.com/user-attachments/assets/d2f446af-86b7-45e9-bccc-e01cf3739ad1)\n\n\n## Expected behavior\n\nIt goes to lines & columns first then to the bell icon\n\n## Context\n\n- JupyterLab version: 4.4.x",
+    "body_raw": "## Description\n\nThe tab order is wrong in staatusbar for some items\n\n## Reproduce\n\n1. Pull https://github.com/jupyterlab/jupyterlab/pull/17591\n2. Tab to kernel item in status bar \n![Image](https://github.com/user-attachments/assets/e72830d6-3ea7-40b8-b994-fb3845da3921)\n3. Press Tab, see focus goes to bell icon\n![Image](https://github.com/user-attachments/assets/a51a1dcf-8f30-4677-8025-a6aafc9c2f17)\n4. Press Tab, see focus goes to lines and columns item\n![Image](https://github.com/user-attachments/assets/d2f446af-86b7-45e9-bccc-e01cf3739ad1)\n\n\n## Expected behavior\n\nIt goes to lines & columns first then to the bell icon\n\n## Context\n\n- JupyterLab version: 4.4.x",
+    "body_sha256": "50864fdde6cb265eff5f6b1473ea49e9630fa889956c46bcaf4448ac49954e56",
+    "closed_at": "2025-08-06T18:21:32Z",
+    "created_at": "2025-07-04T11:46:47Z",
+    "merged_at": null,
+    "number": 17680,
+    "state": "closed",
+    "title": "Tab order for status bar items in the right group is swapped",
+    "updated_at": "2026-01-10T20:09:24Z",
+    "url": "https://github.com/jupyterlab/jupyterlab/issues/17680"
+  },
+  "patch_sha256": "7e2e5deb39cca73d58a1ef550fc040ffda8edd79cce0e361843dd402875bc95d",
+  "pinned_revision": "4a19f8fff4049a9536e21fa2980fe7e5ee592d01",
+  "pull_request": {
+    "author": "MUFFANUJ",
+    "body_normalized": "<!--\nThanks for contributing to JupyterLab!\nPlease fill out the following items to submit a pull request.\nSee the contributing guidelines for more information:\nhttps://github.com/jupyterlab/jupyterlab/blob/main/CONTRIBUTING.md\n-->\n\n## References\nFixes #17680\n<!-- Note issue numbers this pull request addresses (should be at least one, see contributing guidelines above). -->\n\n<!-- Note any other pull requests that address this issue and how this pull request is different. -->\n\nhttps://github.com/user-attachments/assets/326fe675-b83b-441c-9fa5-9064bafa24c1\n\n\n\n## Backwards-incompatible changes\nNone\n<!-- Describe any backwards-incompatible changes to JupyterLab public APIs. -->",
+    "body_raw": "<!--\r\nThanks for contributing to JupyterLab!\r\nPlease fill out the following items to submit a pull request.\r\nSee the contributing guidelines for more information:\r\nhttps://github.com/jupyterlab/jupyterlab/blob/main/CONTRIBUTING.md\r\n-->\r\n\r\n## References\r\nFixes #17680 \r\n<!-- Note issue numbers this pull request addresses (should be at least one, see contributing guidelines above). -->\r\n\r\n<!-- Note any other pull requests that address this issue and how this pull request is different. -->\r\n\r\nhttps://github.com/user-attachments/assets/326fe675-b83b-441c-9fa5-9064bafa24c1\r\n\r\n\r\n\r\n## Backwards-incompatible changes\r\nNone\r\n<!-- Describe any backwards-incompatible changes to JupyterLab public APIs. -->\r\n",
+    "body_sha256": "3b10d98110d0ad808b1e11eca7f57e77683328938969116cd6cfdf313723ab09",
+    "closed_at": "2025-08-06T18:21:31Z",
+    "created_at": "2025-07-16T11:35:11Z",
+    "merged_at": "2025-08-06T18:21:31Z",
+    "number": 17700,
+    "state": "closed",
+    "title": "Fix tab order for status bar items",
+    "updated_at": "2025-12-04T13:32:18Z",
+    "url": "https://github.com/jupyterlab/jupyterlab/pull/17700"
+  },
+  "record_sha256": "e5eb9bf17d82ec4f78cafc9173be1c83b28eaee00800e8d5ceb58ca9b66b7b99",
+  "repository": "jupyterlab/jupyterlab",
+  "retrieved_at": "2026-08-11T13:10:16Z",
+  "reviews": [
+    {
+      "author": "krassowski",
+      "body_normalized": "Thank you @MUFFANUJ!",
+      "body_raw": "Thank you @MUFFANUJ!",
+      "body_sha256": "4e57178bb63a2c06c1ee1f83c013377929a9df6fa3065c425928caf9bf7f060a",
+      "created_at": "2025-08-06T18:02:04Z",
+      "id": 3093683152,
+      "source": "pull_request_review",
+      "state": "APPROVED",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/17700#pullrequestreview-3093683152"
+    }
+  ],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-17700-statusbar-tab-order",
+  "tests": [
+    {
+      "argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/statusbar.spec.ts",
+        "-t",
+        "should put higher rank right items closer to the middle"
+      ],
+      "command": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/statusbar.spec.ts",
+        "-t",
+        "should put higher rank right items closer to the middle"
+      ],
+      "cwd": "packages/statusbar",
+      "frozen_test_sources": [
+        {
+          "destination_path": "packages/statusbar/test/statusbar.spec.ts",
+          "sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1",
+          "source_path": "upstream-tests/packages/statusbar/test/statusbar.spec.ts"
+        }
+      ],
+      "id": "jupyterlab-17700-right-rank-order-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_regression_test",
+      "source_case": "higher rank right items closer to the middle",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/31d45658d408fc4170ef91cce67c9c89645b1038/packages/statusbar/test/statusbar.spec.ts",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "956b29fd080c4ec5e8920c998d49af5cab701d845f7ad2c220032f3f8bd9eb23",
+      "upstream_runner_version_argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "76120c1f2c4311c2154c22a6b58e00e411e0ebe76afae0daf608d9196c61f114",
+      "upstream_test_files": [
+        {
+          "path": "packages/statusbar/test/statusbar.spec.ts",
+          "sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1",
+          "source_url": "https://github.com/jupyterlab/jupyterlab/blob/31d45658d408fc4170ef91cce67c9c89645b1038/packages/statusbar/test/statusbar.spec.ts"
+        }
+      ],
+      "upstream_test_path": "packages/statusbar/test/statusbar.spec.ts",
+      "upstream_test_sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1"
+    },
+    {
+      "argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/statusbar.spec.ts",
+        "-t",
+        "should put higher rank left items closer to the middle"
+      ],
+      "command": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/statusbar.spec.ts",
+        "-t",
+        "should put higher rank left items closer to the middle"
+      ],
+      "cwd": "packages/statusbar",
+      "frozen_test_sources": [
+        {
+          "destination_path": "packages/statusbar/test/statusbar.spec.ts",
+          "sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1",
+          "source_path": "upstream-tests/packages/statusbar/test/statusbar.spec.ts"
+        }
+      ],
+      "id": "jupyterlab-statusbar-left-order-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_test_suite",
+      "source_case": "higher rank left items closer to the middle",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/31d45658d408fc4170ef91cce67c9c89645b1038/packages/statusbar/test/statusbar.spec.ts",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "956b29fd080c4ec5e8920c998d49af5cab701d845f7ad2c220032f3f8bd9eb23",
+      "upstream_runner_version_argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "76120c1f2c4311c2154c22a6b58e00e411e0ebe76afae0daf608d9196c61f114",
+      "upstream_test_files": [
+        {
+          "path": "packages/statusbar/test/statusbar.spec.ts",
+          "sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1",
+          "source_url": "https://github.com/jupyterlab/jupyterlab/blob/31d45658d408fc4170ef91cce67c9c89645b1038/packages/statusbar/test/statusbar.spec.ts"
+        }
+      ],
+      "upstream_test_path": "packages/statusbar/test/statusbar.spec.ts",
+      "upstream_test_sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1"
+    },
+    {
+      "argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/path.spec.ts",
+        "-t",
+        "should return the last portion of a path"
+      ],
+      "command": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/path.spec.ts",
+        "-t",
+        "should return the last portion of a path"
+      ],
+      "cwd": "packages/coreutils",
+      "id": "jupyterlab-coreutils-path-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "repository_jest_test_suite",
+      "source_case": "PathExt.basename returns the last path portion",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/coreutils/test/path.spec.ts",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "956b29fd080c4ec5e8920c998d49af5cab701d845f7ad2c220032f3f8bd9eb23",
+      "upstream_runner_version_argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "76120c1f2c4311c2154c22a6b58e00e411e0ebe76afae0daf608d9196c61f114",
+      "upstream_test_files": [
+        {
+          "path": "packages/coreutils/test/path.spec.ts",
+          "sha256": "6faeb6443b54150d600511e7ee1569c337d19f72c9d2d6e1e686fa5e532a6897",
+          "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/coreutils/test/path.spec.ts"
+        }
+      ],
+      "upstream_test_path": "packages/coreutils/test/path.spec.ts",
+      "upstream_test_sha256": "6faeb6443b54150d600511e7ee1569c337d19f72c9d2d6e1e686fa5e532a6897"
+    }
+  ],
+  "touched_files": [
+    "packages/statusbar/src/statusbar.ts",
+    "packages/statusbar/test/statusbar.spec.ts"
+  ],
+  "upstream_commits": [
+    {
+      "author": "MUFFANUJ",
+      "authored_at": "2025-07-16T11:34:25Z",
+      "body_normalized": "fix Tab order for status bar items",
+      "body_raw": "fix Tab order for status bar items",
+      "body_sha256": "ad6107474c17a6ebac62a9193be2008aceef66fd19c2a5cb46ef029986b777e0",
+      "sha": "cbe63543c7d89ef7d12d3a1488ead8b84190924a",
+      "url": "https://github.com/jupyterlab/jupyterlab/commit/cbe63543c7d89ef7d12d3a1488ead8b84190924a"
+    },
+    {
+      "author": "MUFFANUJ",
+      "authored_at": "2025-07-16T12:34:07Z",
+      "body_normalized": "jlpm run prettier",
+      "body_raw": "jlpm run prettier",
+      "body_sha256": "f557ba92349b3612010b32a0555d9900c562ebb9a2b7ebd555e0e79f7c8a7b2d",
+      "sha": "0d035935185b7dc08e3226b4f54a05152d8f2d4c",
+      "url": "https://github.com/jupyterlab/jupyterlab/commit/0d035935185b7dc08e3226b4f54a05152d8f2d4c"
+    },
+    {
+      "author": "MUFFANUJ",
+      "authored_at": "2025-07-17T06:50:51Z",
+      "body_normalized": "updated tests",
+      "body_raw": "updated tests",
+      "body_sha256": "c84df2d6cb1597c96eb2d075ffc1ba98020f4f9e6af5001a7d2829d781addb03",
+      "sha": "80fda5f0004b7ac79141619fb566f6d93c54d85e",
+      "url": "https://github.com/jupyterlab/jupyterlab/commit/80fda5f0004b7ac79141619fb566f6d93c54d85e"
+    }
+  ]
+}

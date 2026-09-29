@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.0009604166666666667,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.3560338541666666
+  },
+  "before_buggy_sha256": "5c8dcca3d84e1ee72efdf517e3336897e45f077925f2077fe5c17b4f543f06a0",
+  "before_equivalence": {
+    "changed_pixel_ratio": 7.291666666666667e-05,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.005495138888888889
+  },
+  "before_sha256": "b688ca6fdf38925ddc158252267ba4890f0f8f5d6d9f4b4e6ae4fa57e0015983",
+  "buggy_after_sha256": "a462409b24e087228fc5a4dde98de97c22d2761bf90e0569805b8a41a54c88a4",
+  "fixed_after_sha256": "5fd23badac68b0949de113cbb3492d0e958f0581a6280f83d02d5d6cd2e85565",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "a462409b24e087228fc5a4dde98de97c22d2761bf90e0569805b8a41a54c88a4",
+      "quality": {
+        "image_size": [
+          1600,
+          1200
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 566223,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "741223d0eb35a3b6235ba5d637324473f620931a3dd1c56d128f8c5ad82edab3"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "5c8dcca3d84e1ee72efdf517e3336897e45f077925f2077fe5c17b4f543f06a0",
+      "quality": {
+        "image_size": [
+          1600,
+          1200
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 1305649,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "b9a9dd5a1c3379282a5d5800915a711cc137c4c549701d7b9d79b4fcdd011b99"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "5fd23badac68b0949de113cbb3492d0e958f0581a6280f83d02d5d6cd2e85565",
+      "quality": {
+        "image_size": [
+          1600,
+          1200
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 460119,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "c51748c4697453aeb8fc9b84778bfea9a34d9d7cb1ef8d7b964c8d5307b7b0c3"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "b688ca6fdf38925ddc158252267ba4890f0f8f5d6d9f4b4e6ae4fa57e0015983",
+      "quality": {
+        "image_size": [
+          1600,
+          1200
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 1305680,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "8228fe8b5eb2359e99bbfb1f89bb324dee8afcb910eb46c86f403877803c78a5"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.0001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.0
+  },
+  "published_unix_ns": 1787028608944376000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lzp-openra-22476-load-game-faction-filter"
+}

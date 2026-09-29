@@ -1,0 +1,51 @@
+name: luanti save and restore a chest inventory
+benchmark: "luanti"
+timeout_ms: 360000
+tags: ["luanti", "save", "restore", "chest"]
+target:
+  kind: save_restore
+  nodes:
+    - pos: { x: 7, y: 1, z: 7 }
+      node: "basenodes:stone"
+  meta_inventory:
+    - pos: { x: 7, y: 2, z: 7 }
+      node: "chest:chest"
+      list: "main"
+      items:
+        - { item: "basenodes:cobble", count: 33 }
+  validations:
+    - path: "node.7,1,7"
+      expected: "basenodes:stone"
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions: []
+assertions:
+  - type: luanti_node_is
+    pos: { x: 7, y: 2, z: 7 }
+    expected: "chest:chest"
+  - type: luanti_meta_inventory_contains
+    pos: { x: 7, y: 2, z: 7 }
+    item: "basenodes:cobble"
+    count: 33
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/save-restore-chest.golden.png
+  expected_label: correct
+  description: "After reloading the persisted Luanti world, a chest on a stone block is still present in the devtest world."
+  rubric:
+    must:
+      - "The 3D voxel world is rendered and visible."
+      - "After reload, a chest block remains visible on the saved stone support block."
+      - "The chest/stone arrangement matches the golden oracle at a coarse visual level."
+      - "No crash dialog, error overlay, or fully blank screen is shown."
+    must_not:
+      - "The chest is absent after reload, replaced by a non-chest block, or detached from the saved support block."
+      - "The screen is blank, black, or only shows the main menu."
+      - "An error dialog or exception stack trace is visible."
+    ignore:
+      - "Exact camera angle, lighting, or player position differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 800
+    full_page: false

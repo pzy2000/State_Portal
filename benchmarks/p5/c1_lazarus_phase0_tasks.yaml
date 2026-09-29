@@ -1,0 +1,89 @@
+# Phase-0-only catalog.  It is deliberately separate from the published formal
+# catalog (benchmarks/p5/c1_lazarus_tasks.yaml) so the two validated pilot tasks
+# cannot be mistaken for a completed formal population.
+schema_version: 1
+task_schema: c1_lazarus_v1
+benchmark_hosts:
+  luanti:
+    display_name: Luanti
+    repo: games/luanti
+    gitmodules_url: https://github.com/anonymous/luanti.git
+    revision: c48f698073df253fc6743d16cf056c1489b60dfb
+  blender:
+    display_name: Blender
+    repo: games/blender
+    gitmodules_url: https://github.com/anonymous/blender.git
+    revision: 3d018bcabdaeea66cf4ef4a96ce8913164831f6e
+  jupyterlab:
+    display_name: JupyterLab
+    repo: games/jupyterlab
+    gitmodules_url: https://github.com/anonymous/jupyterlab.git
+    revision: 4a19f8fff4049a9536e21fa2980fe7e5ee592d01
+  openra:
+    display_name: OpenRA
+    repo: games/OpenRA
+    gitmodules_url: https://github.com/anonymous/OpenRA.git
+    revision: 7e687f430ee5b194c0ffaa06caaba757dd9155fb
+  jynew:
+    display_name: jynew
+    repo: games/jynew
+    gitmodules_url: https://github.com/anonymous/jynew.git
+    revision: be27d95303cb1915bdfbcfe15046fa3f937b7eb7
+  pal3:
+    display_name: Pal3.Unity
+    repo: games/Pal3.Unity
+    gitmodules_url: https://github.com/anonymous/Pal3.Unity.git
+    revision: 577017d943751a81886604a7744996e9ac968318
+tasks:
+  - id: lz-luanti-14757-math-round
+    benchmark: luanti
+    repo: games/luanti
+    prompt_revision: lz-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: luanti_fixed_map_seed}
+    preconditions: A devtest world is open with a prepared rounding marker at (0, 1, 0), using `basenodes:cobble` above a `basenodes:sand` base at (0, 0, 0). The player is hovering at (0, 3, 6) and looking at the marker at (0, 1, 0).
+    reference_steps: Open chat and submit `/warp_round_half` once.
+    state_description: |-
+      Preconditions: A devtest world is open with a prepared rounding marker at (0, 1, 0), using `basenodes:cobble` above a `basenodes:sand` base at (0, 0, 0). The player is hovering at (0, 3, 6) and looking at the marker at (0, 1, 0).
+      Reference steps: Open chat and submit `/warp_round_half` once.
+    horizon_class: short
+    oracle_spec: specs/luanti/lazarus/lz-luanti-14757-math-round.phase0.yaml
+    tags: [c1, lazarus, luanti]
+    capabilities: [gui-localization, state-persistence]
+    budget_ms: 2400000
+    defect:
+      upstream:
+        pr: https://github.com/luanti-org/luanti/pull/14757
+      fix_commit: d693a07716f72c8e940e5dace1b11313af2cbdeb
+      revert_patch: benchmarks/p5/lazarus/defects/lz-luanti-14757-math-round/revert.patch
+      patch_sha256: 8fa137f5f9e886edcbc1da7b83c797dc6eb01dc766e1dcb99d743787ea8f02c5
+      build_class: none
+      defect_locus: at_goal
+      upstream_record: benchmarks/p5/lazarus/defects/lz-luanti-14757-math-round/upstream.json
+      gate_report: benchmarks/p5/lazarus/defects/lz-luanti-14757-math-round/gate.json
+  - id: lz-openra-21453-hotkey-ready-building
+    benchmark: openra
+    repo: games/OpenRA
+    prompt_revision: lz-v1
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: The Red Alert `allies-08a` map is open with one completed structure already in placement mode while the Buildings sidebar shows another palette page.
+    reference_steps: Cancel the current placement with a right click, then use the Buildings production hotkey once.
+    # goal_description: The completed structure returns to placement mode after the public sequence.
+    state_description: |-
+      Preconditions: The Red Alert `allies-08a` map is open with one completed structure already in placement mode while the Buildings sidebar shows another palette page.
+      Reference steps: Cancel the current placement with a right click, then use the Buildings production hotkey once.
+    horizon_class: mid
+    oracle_spec: specs/openra/lazarus/lz-openra-21453-hotkey-ready-building.yaml
+    tags: [c1, lazarus, openra]
+    capabilities: [gui-localization, state-persistence]
+    budget_ms: 2400000
+    defect:
+      upstream:
+        issue: https://github.com/OpenRA/OpenRA/issues/21197
+        pr: https://github.com/OpenRA/OpenRA/pull/21453
+      fix_commit: 387e594f4a7ceaaf17f5c00002bfa98829574031
+      revert_patch: benchmarks/p5/lazarus/defects/lz-openra-21453-hotkey-ready-building/revert.patch
+      patch_sha256: 492563431bc818e51eba1dfd1bf5164865b14915a20d7faa01b2cffbd0277c1d
+      build_class: incremental_dotnet
+      defect_locus: on_path
+      upstream_record: benchmarks/p5/lazarus/defects/lz-openra-21453-hotkey-ready-building/upstream.json
+      gate_report: benchmarks/p5/lazarus/defects/lz-openra-21453-hotkey-ready-building/gate.json

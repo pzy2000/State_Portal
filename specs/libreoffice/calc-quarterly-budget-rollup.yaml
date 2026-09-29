@@ -1,0 +1,113 @@
+name: LibreOffice Calc quarterly budget rollup deep state
+benchmark: libreoffice
+repo: ../../games/LibreOffice
+target:
+  kind: calc_spreadsheet
+  path: calc-quarterly-budget-rollup.ods
+  sheets:
+    January:
+      cells: {A1: Category, B1: Budget, C1: Actual, A2: Revenue, B2: 12000, C2: 11800, A3: Cost, B3: 7400, C3: 7600}
+    February:
+      cells: {A1: Category, B1: Budget, C1: Actual, A2: Revenue, B2: 13500, C2: 13200, A3: Cost, B3: 7900, C3: 8100}
+    March:
+      cells: {A1: Category, B1: Budget, C1: Actual, A2: Revenue, B2: 14100, C2: 13900, A3: Cost, B3: 8200, C3: 8400}
+    Summary:
+      cells: {A1: Metric, A2: Revenue Actual, A3: Cost Actual, A4: Margin}
+      formulas:
+        B2: "=SUM(January.C2;February.C2;March.C2)"
+        B3: "=SUM(January.C3;February.C3;March.C3)"
+        B4: "=B2-B3"
+checkpoint:
+  allowed_strategies: ["libreoffice_uno_document_validate"]
+  expected_validity: save-restorable
+actions:
+  - type: libreoffice_set_cell
+    sheet: March
+    cell: C2
+    value: 15000
+  - type: libreoffice_set_cell
+    sheet: March
+    cell: C3
+    value: 8300
+  - type: libreoffice_recalculate
+  - type: libreoffice_save
+  - type: libreoffice_reopen
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: libreoffice_cell_value_equals
+        sheet: Summary
+        cell: B2
+        expected: 40000
+      - type: libreoffice_cell_value_equals
+        sheet: Summary
+        cell: B4
+        expected: 16000
+      - type: libreoffice_sheet_exists
+        sheet: March
+      - type: no_libreoffice_errors
+    surfaces:
+      gui:
+        adapter: libreoffice_uno_persistence_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+          native_checks:
+          - transition.session_same
+          - transition.saved_url
+          - transition.persisted_file
+          - transition.not_modified
+          - transition.document_reopened
+      state:
+        adapter: libreoffice_uno_persistence_v1
+        goal:
+          checks: []
+          use_assertions: true
+          native_checks:
+          - transition.session_same
+          - transition.saved_url
+          - transition.persisted_file
+          - transition.not_modified
+          - transition.document_reopened
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/calc-quarterly-budget-rollup.after.golden.png
+    golden_before: visual/calc-quarterly-budget-rollup.before.golden.png
+    golden_after: visual/calc-quarterly-budget-rollup.after.golden.png
+    expected_label: correct
+    description: "A LibreOffice Calc quarterly budget workbook is visible with monthly sheets and a summary sheet."
+    rubric:
+      must:
+        - "LibreOffice Calc is visible with spreadsheet cells."
+        - "The workbook appears to contain budget or summary data."
+      must_not:
+        - "A blank sheet, crash dialog, or unrelated app is shown."
+      ignore:
+        - "Selected cell, scroll position, zoom, and toolbar differences."
+    after_description: "After the workflow, the Calc summary reflects updated March actuals and recalculated quarterly totals."
+    after_rubric:
+      must:
+        - "LibreOffice Calc displays a populated spreadsheet."
+        - "A summary/quarterly total or updated March-related values are visible."
+        - "The sheet is not blank or crashed."
+      must_not:
+        - "The screenshot shows an untouched or empty workbook."
+      ignore:
+        - "Exact selected cell, grid scroll, column widths, and toolbar differences."
+    capture:
+      stage: post_smoke
+      active_sheet: Summary
+      wait_ms: 500
+      full_page: false
+tags:
+  - libreoffice
+  - calc
+  - deep-state
+  - budget
+timeout_ms: 240000

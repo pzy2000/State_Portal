@@ -1,0 +1,184 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [],
+  "fix_commit": "196562870552b156265feb83043da2bc21bd6246",
+  "issue": null,
+  "patch_sha256": "62bc2f178e95ec10491678e9262b759eaf040e39647195ec9195fb67a6edc0be",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "author": "Desour",
+    "body_normalized": "- This is a bugfix.\n- In a rebase of #11039 I probably forgot to swap the table constructor with a call to the vector constructor.\n- Thanks to https://github.com/minetest/minetest_docs/pull/11 for finding this out.\n\n## To do\n\nThis PR is a Ready for Review.\nPlease merge before release.\n\n## How to test\n\nRun unittests:\n`$ busted builtin/`",
+    "body_raw": "- This is a bugfix.\r\n- In a rebase of #11039 I probably forgot to swap the table constructor with a call to the vector constructor.\r\n- Thanks to https://github.com/minetest/minetest_docs/pull/11 for finding this out.\r\n\r\n## To do\r\n\r\nThis PR is a Ready for Review.\r\nPlease merge before release.\r\n\r\n## How to test\r\n\r\nRun unittests:\r\n`$ busted builtin/`\r\n",
+    "body_sha256": "3491884185811ab1e3e284b1d05fed60fe29cd2557f3e8da359eb1328eb48ec1",
+    "closed_at": "2022-01-03T03:15:42Z",
+    "created_at": "2022-01-02T16:21:47Z",
+    "merged_at": "2022-01-03T03:15:42Z",
+    "number": 11919,
+    "state": "closed",
+    "title": "Fix vector.from_string returning a table without vector metatable",
+    "updated_at": "2022-01-03T14:39:48Z",
+    "url": "https://github.com/luanti-org/luanti/pull/11919"
+  },
+  "record_sha256": "dc1ec2d0c1e70fbd9beb40a1b69ac37dc645584a1018d9059046244052a59776",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-11T00:11:44Z",
+  "reviews": [
+    {
+      "author": "sfan5",
+      "body_normalized": "LGTM",
+      "body_raw": "LGTM",
+      "body_sha256": "be4b3d91e203e93bde6393ce41b9c9578eb9051951e1b2df69642085423770e7",
+      "created_at": "2022-01-02T22:21:04Z",
+      "id": 842448098,
+      "source": "pull_request_review",
+      "state": "APPROVED",
+      "url": "https://github.com/luanti-org/luanti/pull/11919#pullrequestreview-842448098"
+    },
+    {
+      "author": "ShadowNinja",
+      "body_normalized": "",
+      "body_raw": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "created_at": "2022-01-03T02:27:22Z",
+      "id": 842463419,
+      "source": "pull_request_review",
+      "state": "APPROVED",
+      "url": "https://github.com/luanti-org/luanti/pull/11919#pullrequestreview-842463419"
+    }
+  ],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-11919-vector-from-string",
+  "tests": [
+    {
+      "argv": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=from_string",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "command": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=from_string",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "cwd": ".",
+      "id": "luanti-pr11919-vector-from-string-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_regression_test",
+      "source_case": "vector from_string()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/196562870552b156265feb83043da2bc21bd6246/builtin/common/tests/vector_spec.lua",
+      "timeout_s": 60,
+      "upstream_runner_root": ".warptest-cache/lazarus/tools/luanti-busted-luajit",
+      "upstream_runner_tree_sha256": "8e52972a9ade81d36ec6225831d24ec6ceeef306f1841db8a29fd22c21fb19b2",
+      "upstream_test_path": "builtin/common/tests/vector_spec.lua",
+      "upstream_test_sha256": "384f2a554b002734aad22de76b8e0eb6523fc6d4028cf6a5e9fe66c1a25c8fd5",
+      "upstream_test_files": [
+        {
+          "path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "384f2a554b002734aad22de76b8e0eb6523fc6d4028cf6a5e9fe66c1a25c8fd5",
+          "source_url": "https://github.com/luanti-org/luanti/blob/196562870552b156265feb83043da2bc21bd6246/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "frozen_test_sources": [
+        {
+          "source_path": "upstream-tests/builtin/common/tests/vector_spec.lua",
+          "destination_path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "384f2a554b002734aad22de76b8e0eb6523fc6d4028cf6a5e9fe66c1a25c8fd5"
+        }
+      ]
+    },
+    {
+      "argv": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "command": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "cwd": ".",
+      "id": "luanti-vector-zero-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "vector zero()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/196562870552b156265feb83043da2bc21bd6246/builtin/common/tests/vector_spec.lua",
+      "timeout_s": 60,
+      "upstream_runner_root": ".warptest-cache/lazarus/tools/luanti-busted-luajit",
+      "upstream_runner_tree_sha256": "8e52972a9ade81d36ec6225831d24ec6ceeef306f1841db8a29fd22c21fb19b2",
+      "upstream_test_path": "builtin/common/tests/vector_spec.lua",
+      "upstream_test_sha256": "384f2a554b002734aad22de76b8e0eb6523fc6d4028cf6a5e9fe66c1a25c8fd5",
+      "upstream_test_files": [
+        {
+          "path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "384f2a554b002734aad22de76b8e0eb6523fc6d4028cf6a5e9fe66c1a25c8fd5",
+          "source_url": "https://github.com/luanti-org/luanti/blob/196562870552b156265feb83043da2bc21bd6246/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "frozen_test_sources": [
+        {
+          "source_path": "upstream-tests/builtin/common/tests/vector_spec.lua",
+          "destination_path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "384f2a554b002734aad22de76b8e0eb6523fc6d4028cf6a5e9fe66c1a25c8fd5"
+        }
+      ]
+    },
+    {
+      "argv": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=to_string",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "command": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=to_string",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "cwd": ".",
+      "id": "luanti-vector-to-string-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "vector to_string()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/196562870552b156265feb83043da2bc21bd6246/builtin/common/tests/vector_spec.lua",
+      "timeout_s": 60,
+      "upstream_runner_root": ".warptest-cache/lazarus/tools/luanti-busted-luajit",
+      "upstream_runner_tree_sha256": "8e52972a9ade81d36ec6225831d24ec6ceeef306f1841db8a29fd22c21fb19b2",
+      "upstream_test_path": "builtin/common/tests/vector_spec.lua",
+      "upstream_test_sha256": "384f2a554b002734aad22de76b8e0eb6523fc6d4028cf6a5e9fe66c1a25c8fd5",
+      "upstream_test_files": [
+        {
+          "path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "384f2a554b002734aad22de76b8e0eb6523fc6d4028cf6a5e9fe66c1a25c8fd5",
+          "source_url": "https://github.com/luanti-org/luanti/blob/196562870552b156265feb83043da2bc21bd6246/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "frozen_test_sources": [
+        {
+          "source_path": "upstream-tests/builtin/common/tests/vector_spec.lua",
+          "destination_path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "384f2a554b002734aad22de76b8e0eb6523fc6d4028cf6a5e9fe66c1a25c8fd5"
+        }
+      ]
+    }
+  ],
+  "touched_files": [
+    "builtin/common/tests/vector_spec.lua",
+    "builtin/common/vector.lua"
+  ],
+  "upstream_commits": [
+    {
+      "author": "Desour",
+      "authored_at": "2022-01-02T16:16:16Z",
+      "body_normalized": "Fix vector.from_string returning a table without vector metatable",
+      "body_raw": "Fix vector.from_string returning a table without vector metatable",
+      "body_sha256": "703417c49f47518fab2f8686a1069e65cb72ff3dcf4eac031f9c9f23221244f6",
+      "sha": "acc3700f4ac43c1cdabda61126cf67caf7d3a76f",
+      "url": "https://github.com/luanti-org/luanti/commit/acc3700f4ac43c1cdabda61126cf67caf7d3a76f"
+    }
+  ]
+}

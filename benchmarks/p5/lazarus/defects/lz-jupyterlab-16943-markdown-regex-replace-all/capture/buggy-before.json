@@ -1,0 +1,22 @@
+{
+  "audit": {
+    "expected": "digit_values_present",
+    "field": "regex_replace_start_state",
+    "observed": "digit_values_present",
+    "ok": true
+  },
+  "captured_at": "2026-08-16T11:39:21Z",
+  "change_number": 16943,
+  "invariants": {
+    "check": "no_jupyterlab_probe_errors",
+    "console_errors": [],
+    "ok": true,
+    "page_errors": []
+  },
+  "live_source": "jupyterlab_browser_capture",
+  "schema": "c1-lazarus-jupyterlab-golden-capture-v1",
+  "schema_version": 2,
+  "stage": "before",
+  "task_id": "lz-jupyterlab-16943-markdown-regex-replace-all",
+  "version": "buggy"
+}

@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "after": "specs/2048/visual/2048-merge-right.after.golden.png",
+  "after_sha256": "64d831454f63d0dd8fe46987f61e4fafcc325fcb4e467778396274d9a6fc4062",
+  "before": "specs/2048/visual/2048-merge-right.before.golden.png",
+  "before_sha256": "ab7253814898ef083eb9c99279cb16c3de5658250ab6552af39ba50f811c9ce6",
+  "benchmark": "2048",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/2048/merge-right.yaml",
+  "spec_sha256": "6eda8f9ad66872bbc1ac830d94786749a9a385aafb42f8fbe5380bb321d52395",
+  "task_id": "2048-merge-right"
+}

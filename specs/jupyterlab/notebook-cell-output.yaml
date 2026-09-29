@@ -1,0 +1,84 @@
+name: JupyterLab notebook cell output checkpoint
+benchmark: jupyterlab
+repo: ../../games/jupyterlab
+tags: [jupyterlab, smoke, notebook, kernel]
+target:
+  kind: notebook
+  path: notebooks/cell-output.ipynb
+  cells:
+    - cell_type: code
+      source: "print('warptest:42')\n"
+checkpoint:
+  allowed_strategies: [jupyterlab_workspace_api_validate]
+  expected_validity: save-restorable
+actions:
+  - type: jupyterlab_open_file
+    path: notebooks/cell-output.ipynb
+  - type: jupyterlab_run_notebook_cell
+    path: notebooks/cell-output.ipynb
+    cell_index: 0
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: jupyterlab_notebook_output_contains
+        path: notebooks/cell-output.ipynb
+        text: warptest:42
+      - type: no_jupyterlab_server_errors
+    surfaces:
+      gui:
+        adapter: jupyterlab_live_contents_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+          requirements:
+          -
+            name: transition.changed_from_start
+            probe: jupyter.changed_from_start
+            metric: equals
+            expected: true
+            meaningful_assertions:
+            - jupyterlab_file_text_equals
+            - jupyterlab_notebook_output_contains
+      state:
+        adapter: jupyterlab_live_contents_v1
+        goal:
+          checks: []
+          use_assertions: true
+          requirements:
+          - name: transition.changed_from_start
+            probe: jupyter.changed_from_start
+            metric: equals
+            expected: true
+            meaningful_assertions:
+            - jupyterlab_file_text_equals
+            - jupyterlab_notebook_output_contains
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/jupyterlab-notebook-cell-output.after.golden.png
+    golden_before: visual/jupyterlab-notebook-cell-output.before.golden.png
+    golden_after: visual/jupyterlab-notebook-cell-output.after.golden.png
+    expected_label: correct
+    description: "The JupyterLab notebook editor is visible with notebooks/cell-output.ipynb opened; the after golden shows the code cell output `warptest:42` below the executed cell."
+    rubric:
+      must:
+        - "A real JupyterLab UI is visible, including the top menu, left file browser, and central notebook area."
+        - "The notebook tab for cell-output.ipynb is open."
+        - "The code cell containing `print('warptest:42')` is visible."
+        - "The after screenshot shows the output text `warptest:42` rendered below the code cell."
+      must_not:
+        - "The page is blank, loading-only, or a browser/server error page."
+        - "The JupyterLab shell is missing or replaced by a crash dialog."
+        - "The after notebook lacks the expected output text below the cell."
+      ignore:
+        - "Execution count, kernel status, focus ring, cursor, or selected-file styling differences."
+        - "Small font rendering or antialiasing differences across JupyterLab builds."
+    capture:
+      stage: post_smoke
+      wait_ms: 500
+      full_page: false

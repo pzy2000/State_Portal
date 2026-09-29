@@ -1,0 +1,133 @@
+{
+  "benchmark": "jupyterlab",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": true,
+  "evidence": {
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.015027210884353742,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 2.5334160997732424
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.0
+      },
+      "before_sha256": "c01868723967f33a647c6f708bb679f2e2a2d987a5cdf63cfe596753d60748e2",
+      "buggy_after_sha256": "2a2115f49760307d6d2118a58d77648e480795473eca097103a9c2d5b6e159f3",
+      "fixed_after_sha256": "c01868723967f33a647c6f708bb679f2e2a2d987a5cdf63cfe596753d60748e2",
+      "metadata": "specs/jupyterlab/lazarus/visual_lz-jupyterlab-18579-read-only-cell-split/goldens.meta.json",
+      "metadata_sha256": "e81a29c1d85f8f685da6067ac32ecc0bec89155e674a0c73f7eaa3d242e635e0"
+    },
+    "probe_verification": {
+      "artifact": "c1_lazarus_jupyterlab_spec_verification/lazarus/v2-roster/current-v1",
+      "separates_goal_from_defect": true,
+      "versions_replayed": [
+        "fixed",
+        "buggy"
+      ]
+    },
+    "provenance_errors": [],
+    "source_artifacts": {
+      "gate10": "admission:gate10_hidden_oracle=passed",
+      "gate11": "admission:gate11_real_edge_observations=passed",
+      "gate12": "admission:gate12_semantic_pixel_2x2=passed",
+      "gate13": "admission:gate13_same_lineage=passed",
+      "gate8": "admission:gate8_materialization_runtime=passed",
+      "gate9": "admission:gate9_registered_start_replay=passed",
+      "gate_1_7_source": "candidate_gate57_18579_transition/jupyterlab/18579/current-v1",
+      "gate_1_7_truth_table": {
+        "buggy_f2p_3x": "passed_clean_failure",
+        "fixed_buggy_p2p_3x": "passed",
+        "fixed_f2p_3x": "passed",
+        "single_defect_mapping": "passed",
+        "source_authority": "passed",
+        "strict_inverse_patch": "passed",
+        "test_api_compatibility": "passed"
+      },
+      "strict_gate_1_7": true
+    },
+    "upstream": [
+      {
+        "command": [
+          "jlpm",
+          "test",
+          "--runTestsByPath",
+          "test/actions.spec.ts",
+          "-t",
+          "@jupyterlab/notebook NotebookActions #splitCell() should be a no-op if the active cell is not editable"
+        ],
+        "cwd": "packages/notebook",
+        "id": "@jupyterlab/notebook NotebookActions #splitCell() should be a no-op if the active cell is not editable",
+        "kind": "fail_to_pass"
+      },
+      {
+        "command": [
+          "jlpm",
+          "test",
+          "--runTestsByPath",
+          "test/actions.spec.ts",
+          "-t",
+          "@jupyterlab/notebook NotebookActions #splitCell() should split the active cell into two cells"
+        ],
+        "cwd": "packages/notebook",
+        "id": "@jupyterlab/notebook NotebookActions #splitCell() should split the active cell into two cells",
+        "kind": "pass_to_pass"
+      }
+    ],
+    "versions": {
+      "changed_files": [
+        "packages/notebook/src/actions.tsx",
+        "packages/notebook-extension/src/index.ts"
+      ],
+      "patch_sha256": "7619fcbe4b966a8d99f729ab80bdbc3f09ce0efc1816026605b92b09cabb93d9",
+      "patch_source": "materialized_tree_difference",
+      "reverse_apply_reproduces_frozen_buggy_tree": true,
+      "tree_pair": "private/materialized/jupyterlab/18579/current-v1"
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "@jupyterlab/notebook NotebookActions #splitCell() should be a no-op if the active cell is not editable"
+  ],
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "pass_to_pass": [
+    "@jupyterlab/notebook NotebookActions #splitCell() should split the active cell into two cells"
+  ],
+  "passed": true,
+  "projection": {
+    "admission": "candidate_formal_freeze_admission/jupyterlab/18579/real-readonly-split-v1",
+    "closure_size": 39,
+    "fresh_gate_run": false,
+    "generator": "warptest.c1_lazarus_selection.c1_lazarus_formal_catalog",
+    "selection_mode": "c1_freeze_sprint_v2"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-jupyterlab-18579-read-only-cell-split",
+  "upstream_f2p": true
+}

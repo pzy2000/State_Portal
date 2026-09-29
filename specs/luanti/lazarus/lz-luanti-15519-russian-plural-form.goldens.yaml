@@ -1,0 +1,101 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lz-luanti-15519-russian-plural-form
+benchmark: luanti
+candidate:
+  repository_key: luanti
+  change_number: 15519
+  issue_number: 15518
+  defect_locus: at_goal
+authoritative_defect: null
+provenance:
+  formal_freeze_admission: candidate_formal_freeze_admission/luanti/15519/current/v1
+  frame_sources:
+    fixed_before: candidate_gate11_f12_observation/luanti/15519/deterministic-v4/v1
+    fixed_after: candidate_gate11_f12_observation/luanti/15519/deterministic-v4/v1
+    buggy_before: candidate_gate11_f12_observation/luanti/15519/deterministic-v4/v1
+    buggy_after: candidate_gate11_f12_observation/luanti/15519/deterministic-v4/v1
+  goldens_metadata: visual_lz-luanti-15519-russian-plural-form/goldens.meta.json
+  before_equivalence:
+    changed_pixel_ratio: 0.0
+    ignored_top_fraction: 0.25
+    mean_absolute_difference: 0.0
+  after_differential:
+    changed_pixel_ratio: 0.0008055555555555556
+    ignored_top_fraction: 0.25
+    mean_absolute_difference: 0.10804259259259259
+  golden_policy:
+    after_min_changed_pixel_ratio: 0.0005
+    before_max_changed_pixel_ratio: 0.01
+    ignore_top_fraction: 0.25
+  captured_by: materialized_fixed_buggy_runtime_capture
+evaluation:
+  visual_oracle:
+    golden_image: visual_lz-luanti-15519-russian-plural-form/fixed.after.golden.png
+    expected_label: correct
+    description: The centred line reads "C1 COMMON BEFORE".
+    rubric:
+      must:
+      - A Luanti client frame rendered by the candidate build shows a near-black screen
+        carrying one short centred line of light text and nothing else.
+      - The centred line reads "C1 COMMON BEFORE".
+      must_not:
+      - A blank frame, a crash dialog, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, the exact position of the line, and sub-pixel differences
+        in the near-black background.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    runtime_status: frozen_evidence_available
+    probe:
+      adapter: luanti_lazarus_frozen_evidence_v1
+      spec: lz-luanti-15519-russian-plural-form.yaml
+      registered_replay:
+      - restore_registered_candidate_start
+      - run_registered_candidate_replay
+      - read_admitted_gate10_semantic_observation
+      versions_replayed:
+      - fixed
+      - buggy
+      re_executed_offline: false
+      provider_calls_required: false
+    upstream_tests:
+      fail_to_pass:
+      - test translations
+      pass_to_pass:
+      - TestSettings
+    goldens:
+      before: visual_lz-luanti-15519-russian-plural-form/before.golden.png
+      buggy_before: visual_lz-luanti-15519-russian-plural-form/buggy.before.golden.png
+      fixed:
+        after: visual_lz-luanti-15519-russian-plural-form/fixed.after.golden.png
+        after_description: The centred line reads the Cyrillic word "яблока", so the
+          message was translated into Russian.
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a near-black
+            screen carrying one short centred line of light text and nothing else.
+          - The centred line reads the Cyrillic word "яблока", so the message was
+            translated into Russian.
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, the exact position of the line, and sub-pixel differences
+            in the near-black background.
+      buggy:
+        after: visual_lz-luanti-15519-russian-plural-form/buggy.after.golden.png
+        after_description: The centred line reads the untranslated English word "apples".
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a near-black
+            screen carrying one short centred line of light text and nothing else.
+          - The centred line reads the untranslated English word "apples".
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, the exact position of the line, and sub-pixel differences
+            in the near-black background.

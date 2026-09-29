@@ -1,0 +1,119 @@
+schema_version: 1
+benchmark: jupyterlab
+name: lzp-jupyterlab-17618-high-contrast-selection-layer
+target:
+  kind: jupyterlab_lazarus_candidate_bundle
+  change_number: 17618
+  variants:
+  - fixed
+  - buggy
+  capture_backend: playwright_chromium_png
+setup:
+  jupyterlab_lazarus_probe:
+    registered_replay:
+      fixture: warptest.c1_lazarus_selection.p2p_only_frames
+      build_packages: []
+      stylesheets:
+      - packages/theme-dark-high-contrast-extension/style/variables.css
+      fixture_notes: The region colour is read from the tree's palette; the fixture only decides where
+        a region is drawn.
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lzp-jupyterlab-17618-high-contrast-selection-layer/before.golden.png
+    description: 'A browser frame rendered by the candidate build shows a near-black panel on a dark page,
+      holding the white line "select me" near its top left. The line sits directly on the panel: no band
+      of any other shade is drawn behind it.'
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a near-black panel on a dark page, holding
+        the white line "select me" near its top left.
+      - 'The line sits directly on the panel: no band of any other shade is drawn behind it.'
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, and sub-pixel text shifts.
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - id: rendered_goal_frame
+      kind: visual_frame
+      frame: fixed_after
+      expected: A clearly lighter mid-grey band is drawn behind the line "select me", standing out plainly
+        against the near-black panel around it.
+    defect_signature:
+    - id: rendered_defect_frame
+      kind: visual_frame
+      frame: buggy_after
+      expected: The band drawn behind the line "select me" is the same near-black shade as the panel,
+        so no band can be made out and the line looks unchanged from the start.
+    invariant_checks:
+    - id: shared_start_frame
+      kind: visual_frame
+      frame: before
+      expected: 'The line sits directly on the panel: no band of any other shade is drawn behind it.'
+    f2p_absence:
+      reason: The defect is that one painted layer is indistinguishable from the surface behind it under
+        one theme, because both resolve to the same colour. Every value involved is a stylesheet variable
+        the document never reads, so the collision is observable only once painted.
+      audited_paths: []
+    upstream_tests:
+      fail_to_pass: []
+      pass_to_pass:
+      - jupyterlab-pr17618-control-p2p
+      per_trial_p2p:
+      - jupyterlab-pr17618-control-p2p
+    goldens:
+      before: visual_lzp-jupyterlab-17618-high-contrast-selection-layer/before.golden.png
+      buggy_before: visual_lzp-jupyterlab-17618-high-contrast-selection-layer/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-jupyterlab-17618-high-contrast-selection-layer/fixed.after.golden.png
+        after_description: A clearly lighter mid-grey band is drawn behind the line "select me", standing
+          out plainly against the near-black panel around it.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a near-black panel on a dark page, holding
+            the white line "select me" near its top left.
+          - A clearly lighter mid-grey band is drawn behind the line "select me", standing out plainly
+            against the near-black panel around it.
+          - Judge this frame by whether the marked region can be told apart from the panel behind it,
+            comparing the shade drawn behind the line "select me" with the panel's own shade.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.
+      buggy:
+        after: visual_lzp-jupyterlab-17618-high-contrast-selection-layer/buggy.after.golden.png
+        after_description: The band drawn behind the line "select me" is the same near-black shade as
+          the panel, so no band can be made out and the line looks unchanged from the start.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a near-black panel on a dark page, holding
+            the white line "select me" near its top left.
+          - The band drawn behind the line "select me" is the same near-black shade as the panel, so no
+            band can be made out and the line looks unchanged from the start.
+          - Judge this frame by whether the marked region can be told apart from the panel behind it,
+            comparing the shade drawn behind the line "select me" with the panel's own shade.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.

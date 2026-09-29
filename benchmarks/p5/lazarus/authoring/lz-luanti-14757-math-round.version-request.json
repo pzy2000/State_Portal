@@ -1,0 +1,11 @@
+{
+  "build_class": "none",
+  "declared_files": [
+    "builtin/common/math.lua"
+  ],
+  "fixed_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "patch_sha256": "8fa137f5f9e886edcbc1da7b83c797dc6eb01dc766e1dcb99d743787ea8f02c5",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-luanti-14757-math-round/revert.patch",
+  "source_repo": "games/luanti",
+  "task_id": "lz-luanti-14757-math-round"
+}

@@ -1,0 +1,86 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lzp-openra-22283-tileset-template-order
+benchmark: openra
+track: c1_lazarus_p2p_only_v1
+candidate:
+  repository_key: openra
+  change_number: 22283
+  issue_number: 22280
+  defect_locus: at_goal
+authoritative_defect: Default tile for new maps and ordering of templates in map editor have changed
+provenance:
+  captured_by: materialized_pair_engine_screenshot_capture
+  capture_backend: openra_renderer_save_screenshot_sync_v1
+  frame_sources:
+    fixed_before: frames/lzp-openra-22283-tileset-template-order/fixed/before.png
+    fixed_after: frames/lzp-openra-22283-tileset-template-order/fixed/after.png
+    buggy_before: frames/lzp-openra-22283-tileset-template-order/buggy/before.png
+    buggy_after: frames/lzp-openra-22283-tileset-template-order/buggy/after.png
+  goldens_metadata: visual_lzp-openra-22283-tileset-template-order/goldens.meta.json
+  defect_differential_source: rendered_frames
+evaluation:
+  visual_oracle:
+    golden_image: visual_lzp-openra-22283-tileset-template-order/before.golden.png
+    description: A live OpenRA map editor is visible, not the main menu or a loading/error screen. The
+      tile-template palette is not displaying a populated template listing yet. A different palette, such
+      as overlays, may be open. Search/Filter controls identifying a populated tile-template listing are
+      not a valid pre-transition Start.
+    rubric:
+      must:
+      - A live OpenRA map editor is visible, not the main menu or a loading/error screen.
+      - The tile-template palette is not displaying a populated template listing yet. A different palette,
+        such as overlays, may be open. Search/Filter controls identifying a populated tile-template listing
+        are not a valid pre-transition Start.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Window chrome, font antialiasing, and cursor blink.
+      - Map identity, terrain arrangement, camera position, minimap contents, resource counts, viewport
+        size and UI scale. These are not specified by the public Start condition.
+      - Content of the non-tile palette (for example overlay icons) and unrelated editor toolbar layout.
+        Do not ignore whether the tile-template listing is already populated.
+  lazarus:
+    goldens:
+      before: visual_lzp-openra-22283-tileset-template-order/before.golden.png
+      buggy_before: visual_lzp-openra-22283-tileset-template-order/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-openra-22283-tileset-template-order/fixed.after.golden.png
+        after_description: The tile template selector is open in the lower right panel, under a "Search:"
+          field and a filter reading "All". Its grid begins with two plain pale tiles carrying no water,
+          and the blue speckled water templates are drawn after them.
+        after_rubric:
+          must:
+          - A live OpenRA map editor is visible, not the main menu or a loading/error screen.
+          - The tile template selector is open in the lower right panel, under a "Search:" field and a
+            filter reading "All". Its grid begins with two plain pale tiles carrying no water, and the
+            blue speckled water templates are drawn after them.
+          - 'Judge this frame by what the first cells of the tile template selector''s grid show, read
+            left to right from its top-left cell: whether the plain pale tiles or the blue speckled water
+            templates are drawn first.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Window chrome, font antialiasing, and cursor blink.
+          - Map identity, terrain arrangement, camera position, minimap contents, resource counts, viewport
+            size and UI scale. These are not specified by the public Start condition.
+      buggy:
+        after: visual_lzp-openra-22283-tileset-template-order/buggy.after.golden.png
+        after_description: The tile template selector is open in the lower right panel, under a "Search:"
+          field and a filter reading "All". Its grid begins with the blue speckled water templates, and
+          the plain pale tiles and the shore templates are drawn after them.
+        after_rubric:
+          must:
+          - A live OpenRA map editor is visible, not the main menu or a loading/error screen.
+          - The tile template selector is open in the lower right panel, under a "Search:" field and a
+            filter reading "All". Its grid begins with the blue speckled water templates, and the plain
+            pale tiles and the shore templates are drawn after them.
+          - 'Judge this frame by what the first cells of the tile template selector''s grid show, read
+            left to right from its top-left cell: whether the plain pale tiles or the blue speckled water
+            templates are drawn first.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Window chrome, font antialiasing, and cursor blink.
+          - Map identity, terrain arrangement, camera position, minimap contents, resource counts, viewport
+            size and UI scale. These are not specified by the public Start condition.

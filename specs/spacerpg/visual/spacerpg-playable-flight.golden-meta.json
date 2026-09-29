@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "after": "specs/spacerpg/visual/spacerpg-playable-flight.after.golden.png",
+  "after_sha256": "75f5b20a6c2e8c6dbaee72c8ec6555c5a320d93d213e2f704202d5b3d193f24d",
+  "before": "specs/spacerpg/visual/spacerpg-playable-flight.before.golden.png",
+  "before_sha256": "a368d6bf8d09301dcaeafb25e055912e54d4dfeede11d4bddb4107d1ec44c74b",
+  "benchmark": "spacerpg",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/spacerpg/playable-flight.yaml",
+  "spec_sha256": "34fc17afea909cc4e18dfb68d060dab13dd49e3b30bca2a65b3031c0b8ef44fd",
+  "task_id": "spacerpg-playable-flight"
+}

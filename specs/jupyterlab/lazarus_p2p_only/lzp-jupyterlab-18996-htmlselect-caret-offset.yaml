@@ -1,0 +1,130 @@
+schema_version: 1
+benchmark: jupyterlab
+name: lzp-jupyterlab-18996-htmlselect-caret-offset
+target:
+  kind: jupyterlab_lazarus_candidate_bundle
+  change_number: 18996
+  variants:
+  - fixed
+  - buggy
+  capture_backend: playwright_chromium_png
+setup:
+  jupyterlab_lazarus_probe:
+    registered_replay:
+      fixture: warptest.c1_lazarus_selection.p2p_only_frames
+      build_packages:
+      - packages/ui-components
+      stylesheets:
+      - packages/theme-light-extension/style/variables.css
+      - packages/ui-components/style/base.css
+      fixture_notes: The fixture provides the positioned popup ancestor; the caret offset and the stylesheet
+        that anchors it both come from the tree.
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lzp-jupyterlab-18996-htmlselect-caret-offset/before.golden.png
+    description: 'A browser frame rendered by the candidate build shows a white page with one grey control
+      strip near the top left whose right end holds a trigger reading "More". Nothing is drawn below the
+      strip: the area under it is blank white.'
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a white page with one grey control strip
+        near the top left whose right end holds a trigger reading "More".
+      - 'Nothing is drawn below the strip: the area under it is blank white.'
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, and sub-pixel text shifts.
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - id: rendered_goal_frame
+      kind: visual_frame
+      frame: fixed_after
+      expected: A bordered overflow panel is open under the strip, holding one dropdown selector reading
+        "Code". The chevron glyph sits inside the selector's box, vertically centred against its text
+        and just inside the box's right border.
+    defect_signature:
+    - id: rendered_defect_frame
+      kind: visual_frame
+      frame: buggy_after
+      expected: A bordered overflow panel is open under the strip, holding one dropdown selector reading
+        "Code". The chevron glyph is lifted above the selector's text into the panel's own top-right corner,
+        clear of the selector's box altogether.
+    invariant_checks:
+    - id: shared_start_frame
+      kind: visual_frame
+      frame: before
+      expected: 'Nothing is drawn below the strip: the area under it is blank white.'
+    f2p_absence:
+      reason: The defect is the painted position of a dropdown caret relative to its select box. It is
+        a product of stylesheet cascade and absolute positioning resolved by the browser's layout engine,
+        so an assertion would have to restate the layout engine's own arithmetic rather than observe the
+        misplacement.
+      audited_paths: []
+    upstream_tests:
+      fail_to_pass: []
+      pass_to_pass:
+      - jupyterlab-pr18996-control-p2p
+      per_trial_p2p:
+      - jupyterlab-pr18996-control-p2p
+    goldens:
+      before: visual_lzp-jupyterlab-18996-htmlselect-caret-offset/before.golden.png
+      buggy_before: visual_lzp-jupyterlab-18996-htmlselect-caret-offset/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-jupyterlab-18996-htmlselect-caret-offset/fixed.after.golden.png
+        after_description: A bordered overflow panel is open under the strip, holding one dropdown selector
+          reading "Code". The chevron glyph sits inside the selector's box, vertically centred against
+          its text and just inside the box's right border.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white page with one grey control strip
+            near the top left whose right end holds a trigger reading "More".
+          - A bordered overflow panel is open under the strip, holding one dropdown selector reading "Code".
+            The chevron glyph sits inside the selector's box, vertically centred against its text and
+            just inside the box's right border.
+          - 'Judge this frame by where the small chevron glyph of the overflow panel''s dropdown selector
+            is painted relative to that selector''s own box: its height within the box, and how far its
+            right edge sits from the box''s right edge.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.
+      buggy:
+        after: visual_lzp-jupyterlab-18996-htmlselect-caret-offset/buggy.after.golden.png
+        after_description: A bordered overflow panel is open under the strip, holding one dropdown selector
+          reading "Code". The chevron glyph is lifted above the selector's text into the panel's own top-right
+          corner, clear of the selector's box altogether.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white page with one grey control strip
+            near the top left whose right end holds a trigger reading "More".
+          - A bordered overflow panel is open under the strip, holding one dropdown selector reading "Code".
+            The chevron glyph is lifted above the selector's text into the panel's own top-right corner,
+            clear of the selector's box altogether.
+          - 'Judge this frame by where the small chevron glyph of the overflow panel''s dropdown selector
+            is painted relative to that selector''s own box: its height within the box, and how far its
+            right edge sits from the box''s right edge.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.

@@ -1,0 +1,47 @@
+name: luanti set player position and health together
+benchmark: "luanti"
+timeout_ms: 300000
+tags: ["luanti", "player", "pos", "hp"]
+target:
+  kind: synthesized_world
+  nodes:
+    - pos: { x: 10, y: 1, z: 10 }
+      node: "basenodes:cobble"
+  player:
+    pos: { x: 0, y: 2, z: 0 }
+    hp: 20
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_player_pos
+    pos: { x: 10, y: 2, z: 10 }
+  - type: luanti_set_player_hp
+    hp: 15
+assertions:
+  - type: luanti_player_pos_near
+    pos: { x: 10, y: 2, z: 10 }
+    radius: 2.0
+  - type: luanti_player_hp_gte
+    int_value: 15
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/player-pos-and-hp.golden.png
+  expected_label: correct
+  description: "The Luanti devtest world is rendered from the player's view after moving onto a marker block."
+  rubric:
+    must:
+      - "The 3D voxel world is rendered and visible from the player's view."
+      - "The player view is positioned at or near the visible cobble marker block from the golden oracle."
+      - "The health HUD is visible and remains in the expected high-health state."
+      - "No crash dialog, error overlay, or fully blank screen is shown."
+    must_not:
+      - "The marker block is not visible when it should be, or the HUD shows a clearly different health state."
+      - "The screen is blank, black, or only shows the main menu."
+      - "An error dialog or exception stack trace is visible."
+    ignore:
+      - "Small camera-angle, lighting, or heart-pixel differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 800
+    full_page: false

@@ -1,0 +1,160 @@
+name: C1-Lazarus Luanti 9572-vector-rotate
+benchmark: luanti
+timeout_ms: 2400000
+tags:
+- c1
+- lazarus
+- luanti
+- production
+setup:
+  luanti_lazarus_probe:
+    task_id: lz-luanti-9572-vector-rotate
+    change_number: 9572
+    issue_number: 9798
+    adapter: luanti_lazarus_frozen_evidence_v1
+    observation_source: frozen_gate10_evidence
+    registered_replay:
+    - restore_registered_candidate_start
+    - run_registered_candidate_replay
+    - read_admitted_gate10_semantic_observation
+    evidence_layout: observed_version_keyed
+    evidence_artifact_ids:
+    - candidate_oracle/luanti/9572/hidden-v2
+    formal_freeze_admission: candidate_formal_freeze_admission/luanti/9572/real-f12-v3
+    upstream_truth_table:
+      fixed:
+        f2p: true
+        p2p: true
+      buggy:
+        f2p: false
+        p2p: true
+target:
+  kind: synthesized_world
+  candidate_versions:
+  - fixed
+  - buggy
+  game: devtest
+  fixture: registered_candidate_worldmod
+checkpoint:
+  allowed_strategies:
+  - luanti_worldmod_state_validate
+  expected_validity: save-restorable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: luanti_lazarus_frozen_evidence_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: luanti_lazarus_frozen_evidence_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-luanti-9572-vector-rotate/fixed.after.golden.png
+    expected_label: correct
+    description: 'The title bar is dark blue-grey and reads "C1 LAZARUS #9572 VECTOR
+      ROTATE REPLAY", and the body reads "COMMON START", "Rotate (1,0,0) around Z
+      by pi/2.", "Expected result: approximately (0,-1,0)" and "vector.add remains
+      the invariant.".'
+    rubric:
+      must:
+      - A Luanti client frame rendered by the candidate build shows a dark room behind
+        a centred formspec panel with a coloured title bar, above an eight-slot hotbar.
+      - 'The title bar is dark blue-grey and reads "C1 LAZARUS #9572 VECTOR ROTATE
+        REPLAY", and the body reads "COMMON START", "Rotate (1,0,0) around Z by pi/2.",
+        "Expected result: approximately (0,-1,0)" and "vector.add remains the invariant.".'
+      must_not:
+      - A blank frame, a crash dialog, or an unrelated application screen is shown.
+      ignore:
+      - The hotbar row, the crosshair, the node selection outline, the wielded item
+        at the lower right, and the server and chat text lines along the top.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: luanti_lazarus_state_audit
+      field: add_ok
+      expected: true
+    - type: luanti_lazarus_state_audit
+      field: rotate_ok
+      expected: true
+    - type: luanti_lazarus_state_audit
+      field: rotate_type
+      expected: function
+    defect_signature:
+    - type: luanti_lazarus_state_audit
+      field: add_ok
+      expected: true
+    - type: luanti_lazarus_state_audit
+      field: rotate_ok
+      expected: false
+    - type: luanti_lazarus_state_audit
+      field: rotate_type
+      expected: nil
+    invariant_checks:
+    - type: no_luanti_mod_errors
+    upstream_tests:
+      fail_to_pass:
+      - vector rotate()
+      - vector rotate() rotates
+      pass_to_pass:
+      - vector add()
+      per_trial_p2p:
+      - vector add()
+    goldens:
+      before: visual_lz-luanti-9572-vector-rotate/before.golden.png
+      buggy_before: visual_lz-luanti-9572-vector-rotate/buggy.before.golden.png
+      fixed:
+        after: visual_lz-luanti-9572-vector-rotate/fixed.after.golden.png
+        after_description: 'The title bar is green and reads "C1 LAZARUS #9572 ACTUAL
+          VECTOR RESULT", and the body shows "GOAL: VECTOR ROTATE WORKS" above "rotate
+          type: function", "rotation correct: true" and "vector.add invariant: true".'
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a dark room
+            behind a centred formspec panel with a coloured title bar, above an eight-slot
+            hotbar.
+          - 'The title bar is green and reads "C1 LAZARUS #9572 ACTUAL VECTOR RESULT",
+            and the body shows "GOAL: VECTOR ROTATE WORKS" above "rotate type: function",
+            "rotation correct: true" and "vector.add invariant: true".'
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the crosshair, the node selection outline, the wielded
+            item at the lower right, and the server and chat text lines along the
+            top.
+      buggy:
+        after: visual_lz-luanti-9572-vector-rotate/buggy.after.golden.png
+        after_description: 'The title bar is dark red and reads "C1 LAZARUS #9572
+          ACTUAL VECTOR RESULT", and the body shows "DEFECT: VECTOR ROTATE MISSING"
+          above "rotate type: nil", "rotation correct: false" and "vector.add invariant:
+          true".'
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a dark room
+            behind a centred formspec panel with a coloured title bar, above an eight-slot
+            hotbar.
+          - 'The title bar is dark red and reads "C1 LAZARUS #9572 ACTUAL VECTOR RESULT",
+            and the body shows "DEFECT: VECTOR ROTATE MISSING" above "rotate type:
+            nil", "rotation correct: false" and "vector.add invariant: true".'
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the crosshair, the node selection outline, the wielded
+            item at the lower right, and the server and chat text lines along the
+            top.

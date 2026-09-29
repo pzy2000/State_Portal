@@ -1,0 +1,90 @@
+diff --git a/packages/shortcuts-extension/style/base.css b/packages/shortcuts-extension/style/base.css
+index 5b1689b54cf8..4b7968e0e9eb 100644
+--- a/packages/shortcuts-extension/style/base.css
++++ b/packages/shortcuts-extension/style/base.css
+@@ -68,7 +68,7 @@
+ }
+ 
+ .jp-mod-selected-InputText {
+-  background-color: var(--jp-brand-color3);
++  background-color: var(--jp-shortcuts-button-background);
+   overflow: hidden;
+ }
+ 
+@@ -228,7 +228,7 @@
+ 
+ .jp-Shortcuts-Plus {
+   opacity: 0;
+-  background: var(--jp-brand-color3);
++  background: var(--jp-shortcuts-button-background);
+   border-color: var(--jp-layout-color0);
+   border-radius: var(--jp-border-radius);
+   border-width: var(--jp-border-width);
+@@ -239,7 +239,7 @@
+ }
+ 
+ .jp-Shortcuts-Plus:hover {
+-  background-color: var(--jp-brand-color2);
++  background: var(--jp-shortcuts-button-hover-background);
+ }
+ 
+ .jp-Shortcuts-Plus:active {
+diff --git a/packages/theme-dark-extension/style/variables.css b/packages/theme-dark-extension/style/variables.css
+index 01c776ab5929..10af70d613bd 100644
+--- a/packages/theme-dark-extension/style/variables.css
++++ b/packages/theme-dark-extension/style/variables.css
+@@ -83,6 +83,15 @@ all of MD as it is not optimized for dense, information rich UIs.
+     0 24px 38px 3px var(--jp-shadow-penumbra-color),
+     0 9px 46px 8px var(--jp-shadow-ambient-color);
+ 
++  /* shortcut buttons
++   *
++   * The following css variables are used to specify the visual
++   * styling of the keyboard shortcut buttons
++   */
++
++  --jp-shortcuts-button-background: var(--jp-brand-color2);
++  --jp-shortcuts-button-hover-background: var(--jp-brand-color1);
++
+   /* Borders
+    *
+    * The following variables, specify the visual styling of borders in JupyterLab.
+diff --git a/packages/theme-dark-high-contrast-extension/style/variables.css b/packages/theme-dark-high-contrast-extension/style/variables.css
+index ff3200f48e37..7e264b7a2783 100644
+--- a/packages/theme-dark-high-contrast-extension/style/variables.css
++++ b/packages/theme-dark-high-contrast-extension/style/variables.css
+@@ -83,6 +83,15 @@ all of MD as it is not optimized for dense, information rich UIs.
+     0 24px 38px 3px var(--jp-shadow-penumbra-color),
+     0 9px 46px 8px var(--jp-shadow-ambient-color);
+ 
++  /* shortcut buttons
++   *
++   * The following css variables are used to specify the visual
++   * styling of the keyboard shortcut buttons
++   */
++
++  --jp-shortcuts-button-background: var(--jp-brand-color1);
++  --jp-shortcuts-button-hover-background: var(--jp-brand-color0);
++
+   /* Borders
+    *
+    * The following variables, specify the visual styling of borders in JupyterLab.
+diff --git a/packages/theme-light-extension/style/variables.css b/packages/theme-light-extension/style/variables.css
+index af4af4943966..2dfed82b0569 100644
+--- a/packages/theme-light-extension/style/variables.css
++++ b/packages/theme-light-extension/style/variables.css
+@@ -94,6 +94,14 @@ all of MD as it is not optimized for dense, information rich UIs.
+   --jp-inverse-border-color: var(--md-grey-600, #757575);
+   --jp-border-radius: 2px;
+ 
++  /* shortcut buttons
++   *
++   * The following css variables are used to specify the visual
++   * styling of the keyboard shortcut buttons
++   */
++  --jp-shortcuts-button-background: var(--jp-brand-color3);
++  --jp-shortcuts-button-hover-background: var(--jp-brand-color2);
++
+   /* UI Fonts
+    *
+    * The UI font CSS variables are used for the typography all of the JupyterLab

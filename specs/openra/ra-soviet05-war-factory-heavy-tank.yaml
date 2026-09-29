@@ -1,0 +1,124 @@
+name: OpenRA RA Soviet Distant Thunder war factory heavy tank checkpoint
+benchmark: OpenRA
+repo: ../../games/OpenRA
+tags: ["openra", "ra", "campaign", "soviet", "production", "vehicle"]
+timeout_ms: 180000
+setup:
+  openra_gameplay_probe:
+    cash: 50000
+    fast_build: true
+    build_anywhere: false
+target:
+  kind: openra_map
+  mod: ra
+  requires_mod: ra
+  map: soviet-05
+  title: "05:   Distant Thunder"
+  visibility: MissionSelector
+  categories: ["Campaign"]
+  players:
+    - id: USSR
+      playable: true
+      required: true
+      faction: soviet
+    - id: Greece
+      bot: campaign
+      faction: allies
+checkpoint:
+  allowed_strategies: ["openra_gameplay_production_validate"]
+  expected_validity: replay-reachable
+replay_from_start:
+  actions:
+    - type: openra_launch_map
+      mod: ra
+      map: soviet-05
+actions:
+  - type: openra_wait_ticks
+    ticks: 100
+  - type: openra_deploy_actor
+    player: USSR
+    actor_id: startmcv
+    wait_until_actor: fact
+    timeout_ticks: 900
+  - type: openra_wait_ticks
+    ticks: 10
+  - type: openra_build_actor
+    player: USSR
+    actor: powr
+    queue: Building
+    place_near: {anchor: "28,76", radius: 14}
+    timeout_ticks: 900
+  - type: openra_build_actor
+    player: USSR
+    actor: proc
+    queue: Building
+    place_near: {anchor: "28,76", radius: 14}
+    timeout_ticks: 900
+  - type: openra_build_actor
+    player: USSR
+    actor: weap
+    queue: Building
+    place_near: {anchor: "28,76", radius: 16}
+    timeout_ticks: 900
+  - type: openra_build_actor
+    player: USSR
+    actor: fix
+    queue: Building
+    place_near: {anchor: "28,76", radius: 16}
+    timeout_ticks: 900
+  - type: openra_build_actor
+    player: USSR
+    actor: 3tnk
+    queue: Vehicle
+    timeout_ticks: 900
+assertions:
+  - type: openra_actor_built
+    player: USSR
+    actor: weap
+    min_delta: 1
+  - type: openra_actor_built
+    player: USSR
+    actor: fix
+    min_delta: 1
+  - type: openra_actor_built
+    player: USSR
+    actor: 3tnk
+    min_delta: 1
+  - type: openra_production_prerequisite_respected
+    player: USSR
+    actor: 3tnk
+  - type: no_openra_gameplay_probe_errors
+visual_oracle:
+  golden_image: visual/ra-soviet05-distant-thunder.golden.png
+  golden_before: visual/ra-soviet05-war-factory-heavy-tank.before.golden.png
+  golden_after: visual/ra-soviet05-war-factory-heavy-tank.after.golden.png
+  expected_label: correct
+  description: "The OpenRA Red Alert soviet-05 Distant Thunder mission has launched into the live in-game RTS world."
+  rubric:
+    must:
+      - "The live OpenRA in-game world is visible after launching ra/soviet-05."
+      - "The screenshot contains rendered terrain plus gameplay UI such as sidebar, minimap, command bar, or selection/status panels."
+      - "The game surface is non-blank and looks like an active RTS scene rather than a static asset file."
+    must_not:
+      - "The screenshot is blank, a crash log, or an unrelated application."
+      - "The screenshot shows only a standalone packaged map image instead of the live OpenRA UI."
+      - "The screenshot is stuck on the main menu, mission browser, or setup dialog."
+    ignore:
+      - "Small camera, animation, cursor, or UI timing differences after the clean map launch."
+  after_description: "After deploying the MCV and running the Soviet production queues, the base shows the constructed war factory (and supporting buildings) with a newly produced heavy tank."
+  after_rubric:
+    must:
+      - "The live OpenRA in-game world is visible with rendered terrain plus gameplay UI (sidebar, minimap, or command bar)."
+      - "Several completed Soviet base structures are placed on the map (e.g. construction yard plus power plant, refinery, war factory, or service depot) rather than only the initial mobile construction vehicle."
+      - "At least one Soviet vehicle, consistent with a heavy tank, is present near the war factory."
+    must_not:
+      - "The screenshot shows only the initial undeployed MCV with no constructed buildings (the untouched mission start)."
+      - "The screenshot is blank, a crash log, a standalone packaged map image, or an unrelated application."
+      - "The screenshot is stuck on the main menu, mission browser, or setup dialog."
+    ignore:
+      - "Exact camera framing, unit stances, fog-of-war, animation, cursor, or UI timing differences."
+      - "Precise building placement offsets as long as the war factory and a heavy tank are visible."
+  capture:
+    stage: post_smoke
+    wait_ms: 0
+    full_page: false

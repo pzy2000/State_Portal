@@ -1,0 +1,113 @@
+{
+  "benchmark": "luanti",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": true,
+  "evidence": {
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.03672309027777778,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 2.3617597415123455
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 0.0
+      },
+      "before_sha256": "6245a935f482896db2cad8c8df3de0a27e7a3221215e25c25aa2ef8185a9effd",
+      "buggy_after_sha256": "0611cf67e5d42f53de44bd31630155840c8e792bb82b7d83563a31ed4dbf43ce",
+      "fixed_after_sha256": "750a8451315f23d278f311e53d76fb379bb8e6b87261636a605ee025bb949f5e",
+      "metadata": "specs/luanti/lazarus/visual_lz-luanti-15408-collision-acceleration/goldens.meta.json",
+      "metadata_sha256": "cfd512aab3941310966feccb6cd1160cbaa8b315826d74cfac4de7b8e22cd0c2"
+    },
+    "probe_verification": null,
+    "provenance_errors": [],
+    "source_artifacts": {
+      "gate10": "admission:gate10_status=passed_hidden_oracle_and_semantic_observations",
+      "gate11": "admission:gate11_status=passed_real_engine_frames",
+      "gate12": "admission:gate12_status=passed_before_equivalence_and_after_2x2",
+      "gate13": "admission:gate13_status=passed_same_lineage_construction",
+      "gate8": "closure:candidate_gate8_15408_recovery_v3_build/luanti/15408/recovery-v3",
+      "gate9": "admission:gate9_status=passed_ordered_replay",
+      "gate_1_7_source": null,
+      "gate_1_7_truth_table": {},
+      "strict_gate_1_7": true
+    },
+    "upstream": [
+      {
+        "command": [
+          "bin/luantiserver",
+          "--run-unittests",
+          "--test-module",
+          "TestCollision"
+        ],
+        "cwd": ".",
+        "id": "TestCollision",
+        "kind": "fail_to_pass"
+      },
+      {
+        "command": [
+          "bin/luantiserver",
+          "--run-unittests",
+          "--test-module",
+          "TestSettings"
+        ],
+        "cwd": ".",
+        "id": "TestSettings",
+        "kind": "pass_to_pass"
+      }
+    ],
+    "versions": {
+      "changed_files": [
+        "src/collision.cpp"
+      ],
+      "patch_sha256": "8f25449ca20695f7ccd1ba0b9239fba58ce24732a6dac83d635cc1e22dc49bfd",
+      "patch_source": "materialized_tree_difference",
+      "reverse_apply_reproduces_frozen_buggy_tree": true,
+      "tree_pair": "private/materialized/luanti/15408/application-recovery-v3"
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "TestCollision"
+  ],
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "pass_to_pass": [
+    "TestSettings"
+  ],
+  "passed": true,
+  "projection": {
+    "admission": "candidate_formal_freeze_admission/luanti/15408/current/v2",
+    "closure_size": 48,
+    "fresh_gate_run": false,
+    "generator": "warptest.c1_lazarus_selection.c1_lazarus_formal_catalog",
+    "selection_mode": "c1_freeze_sprint_v2"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-luanti-15408-collision-acceleration",
+  "upstream_f2p": true
+}

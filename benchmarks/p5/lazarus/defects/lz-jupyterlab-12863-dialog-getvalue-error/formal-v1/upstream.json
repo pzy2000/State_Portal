@@ -1,0 +1,110 @@
+{
+  "authority": "github",
+  "benchmark": "jupyterlab",
+  "comments": [],
+  "fix_commit": "222e68b0a7543b93952e3dd47ecedf994b155b53",
+  "issue": {
+    "body_normalized": "## Description\n\nIf `value = body.getValue()` at [dialog.tsx line 431](https://github.com/jupyterlab/jupyterlab/blob/b13556dca76c5b40d22d750d0d5bc97569bcb46f/packages/apputils/src/dialog.tsx#L431) throws an error, then the dialog hangs and cannot be resolved or rejected. Browser refresh is needed.\n\n1. In the `_resolve` method, `this.dispose()` is called after `value = body.getValue()`, so the dialog is not disposed. And `this._promise` is set to `null` before `value = body.getValue()`, so the dialog cannot be rejected.\n2. Since [line 178](https://github.com/jupyterlab/jupyterlab/blob/b13556dca76c5b40d22d750d0d5bc97569bcb46f/packages/apputils/src/dialog.tsx#L178) and [line 194](https://github.com/jupyterlab/jupyterlab/blob/b13556dca76c5b40d22d750d0d5bc97569bcb46f/packages/apputils/src/dialog.tsx#L194) return before `_resolve` is called, [line 419](https://github.com/jupyterlab/jupyterlab/blob/b13556dca76c5b40d22d750d0d5bc97569bcb46f/packages/apputils/src/dialog.tsx#L419) is unreachable, and the dialog won't respond to `resolve` or `reject`.\n\n## Reproduce\n\n1. Create an extension and throw an error in `getValue`\n\n```typescript\nconst plugin: JupyterFrontEndPlugin<void> = {\n  id: '@jupyterlab/mytest-extension',\n  autoStart: true,\n  requires: [ICommandPalette],\n  activate: async (app: JupyterFrontEnd, palette: ICommandPalette) => {\n    const command = 'mytest-command';\n    app.commands.addCommand(command, {\n      label: command,\n      execute: async () => {\n        await showDialog({\n          title: 'test',\n          body: new (class\n            extends Widget\n            implements Dialog.IBodyWidget<string> {\n            getValue(): string {\n              throw new Error('test');\n            }\n          })()\n        });\n      }\n    });\n    palette.addItem({ command, category: 'mytest', args: { isPalette: true } });\n  }\n};\n```\n\n2. Show the dialog. The dialog cannot be resolved or rejected\n\n## Expected behavior\n\nMaybe move `this._promise = null;` and `ArrayExt.removeFirstOf(Private.launchQueue, promise.promise);` between line 432 and line 433, so that users can still at least reject the dialog?\n\n## Context\n\n- Operating System and version: Windows 11 and WSL Ubuntu 20.04\n- Browser and version: Edge 103.0.1264.71\n- JupyterLab version: 3.4.3",
+    "body_raw": "## Description\r\n\r\nIf `value = body.getValue()` at [dialog.tsx line 431](https://github.com/jupyterlab/jupyterlab/blob/b13556dca76c5b40d22d750d0d5bc97569bcb46f/packages/apputils/src/dialog.tsx#L431) throws an error, then the dialog hangs and cannot be resolved or rejected. Browser refresh is needed.\r\n\r\n1. In the `_resolve` method, `this.dispose()` is called after `value = body.getValue()`, so the dialog is not disposed. And `this._promise` is set to `null` before `value = body.getValue()`, so the dialog cannot be rejected.\r\n2. Since [line 178](https://github.com/jupyterlab/jupyterlab/blob/b13556dca76c5b40d22d750d0d5bc97569bcb46f/packages/apputils/src/dialog.tsx#L178) and [line 194](https://github.com/jupyterlab/jupyterlab/blob/b13556dca76c5b40d22d750d0d5bc97569bcb46f/packages/apputils/src/dialog.tsx#L194) return before `_resolve` is called, [line 419](https://github.com/jupyterlab/jupyterlab/blob/b13556dca76c5b40d22d750d0d5bc97569bcb46f/packages/apputils/src/dialog.tsx#L419) is unreachable, and the dialog won't respond to `resolve` or `reject`.\r\n\r\n## Reproduce\r\n\r\n1. Create an extension and throw an error in `getValue`\r\n\r\n```typescript\r\nconst plugin: JupyterFrontEndPlugin<void> = {\r\n  id: '@jupyterlab/mytest-extension',\r\n  autoStart: true,\r\n  requires: [ICommandPalette],\r\n  activate: async (app: JupyterFrontEnd, palette: ICommandPalette) => {\r\n    const command = 'mytest-command';\r\n    app.commands.addCommand(command, {\r\n      label: command,\r\n      execute: async () => {\r\n        await showDialog({\r\n          title: 'test',\r\n          body: new (class\r\n            extends Widget\r\n            implements Dialog.IBodyWidget<string> {\r\n            getValue(): string {\r\n              throw new Error('test');\r\n            }\r\n          })()\r\n        });\r\n      }\r\n    });\r\n    palette.addItem({ command, category: 'mytest', args: { isPalette: true } });\r\n  }\r\n};\r\n```\r\n\r\n2. Show the dialog. The dialog cannot be resolved or rejected\r\n\r\n## Expected behavior\r\n\r\nMaybe move `this._promise = null;` and `ArrayExt.removeFirstOf(Private.launchQueue, promise.promise);` between line 432 and line 433, so that users can still at least reject the dialog?\r\n\r\n## Context\r\n\r\n- Operating System and version: Windows 11 and WSL Ubuntu 20.04\r\n- Browser and version: Edge 103.0.1264.71\r\n- JupyterLab version: 3.4.3",
+    "body_sha256": "cb4431471b1a9dea32a8f94c70122a37ae3053f0dc1162103602b25fc5b3ab5f",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 12863,
+    "state": "closed",
+    "title": "Dialog hangs if IBodyWidget<T>.getValue() throws an error",
+    "url": "https://github.com/jupyterlab/jupyterlab/issues/12863"
+  },
+  "patch_sha256": "3b8b0796c925c8e4e0ce8b4575e64520341dc0685b5173918b2dc34092c39b92",
+  "pinned_revision": "222e68b0a7543b93952e3dd47ecedf994b155b53",
+  "pull_request": null,
+  "record_sha256": "cf37376749c7a9340e500c50e8157d73b20055f78fa25bd69d8a0f4afa4b22d8",
+  "repository": "jupyterlab/jupyterlab",
+  "retrieved_at": "2026-08-15T01:34:41.358070Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-12863-dialog-getvalue-error",
+  "tests": [
+    {
+      "command": [
+        "jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/dialog.spec.tsx",
+        "-t",
+        "@jupyterlab/apputils showDialog() should reject the promise when getValue() throws"
+      ],
+      "cwd": "packages/apputils",
+      "frozen_attempt_command": [
+        "/opt/homebrew/Cellar/node@22/22.22.0_1/bin/node",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18938/current-v1/buggy/node_modules/jest/bin/jest.js",
+        "--config",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18938/current-v1/buggy/packages/apputils/jest.config.js",
+        "--runTestsByPath",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18938/current-v1/buggy/packages/apputils/test/dialog.spec.tsx",
+        "--testNamePattern",
+        "^@jupyterlab/apputils showDialog\\(\\) should give the value from the widget$",
+        "--runInBand",
+        "--no-cache",
+        "--cacheDirectory",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runtime-home/jupyterlab-18938-gate57-v1/p2p/buggy/3/jest-cache",
+        "--json"
+      ],
+      "id": "@jupyterlab/apputils showDialog() should reject the promise when getValue() throws",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_regression_test",
+      "source_case": "@jupyterlab/apputils showDialog() should reject the promise when getValue() throws",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/apputils/test/dialog.spec.tsx",
+      "upstream_test_path": "packages/apputils/test/dialog.spec.tsx",
+      "upstream_test_sha256": "bb17af1190498284eb3b0c7e610f5fd88d8a6fe401cae06fc4b2b8d1f9540b2d"
+    },
+    {
+      "command": [
+        "jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/dialog.spec.tsx",
+        "-t",
+        "@jupyterlab/apputils showDialog() should give the value from the widget"
+      ],
+      "cwd": "packages/apputils",
+      "frozen_attempt_command": [
+        "/opt/homebrew/Cellar/node@22/22.22.0_1/bin/node",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18938/current-v1/buggy/node_modules/jest/bin/jest.js",
+        "--config",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18938/current-v1/buggy/packages/apputils/jest.config.js",
+        "--runTestsByPath",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18938/current-v1/buggy/packages/apputils/test/dialog.spec.tsx",
+        "--testNamePattern",
+        "^@jupyterlab/apputils showDialog\\(\\) should give the value from the widget$",
+        "--runInBand",
+        "--no-cache",
+        "--cacheDirectory",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runtime-home/jupyterlab-18938-gate57-v1/p2p/buggy/3/jest-cache",
+        "--json"
+      ],
+      "id": "@jupyterlab/apputils showDialog() should give the value from the widget",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_regression_test",
+      "source_case": "@jupyterlab/apputils showDialog() should give the value from the widget",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/apputils/test/dialog.spec.tsx",
+      "upstream_test_path": "packages/apputils/test/dialog.spec.tsx",
+      "upstream_test_sha256": "bb17af1190498284eb3b0c7e610f5fd88d8a6fe401cae06fc4b2b8d1f9540b2d"
+    }
+  ],
+  "touched_files": [
+    "packages/apputils/src/dialog.tsx",
+    "packages/apputils/test/dialog.spec.tsx"
+  ],
+  "upstream_commits": [
+    {
+      "body_normalized": "Prevent dialog from hanging when `getValue()` throws (#18938)\n\n## Summary\n\nFixes #12863\n\nWhen a dialog body widget's `getValue()` method throws an error, the\ndialog's `_resolve` method would crash without disposing the dialog or\nresolving/rejecting the promise. This caused the dialog to hang\nindefinitely, requiring a browser refresh.\n\n## Changes\n\n- Modified `packages/apputils/src/dialog.tsx`:\n  - Added try-catch around `body.getValue()` call in `_resolve()`\n- If `getValue()` throws, the dialog is properly disposed and the\npromise is rejected\n- Added a unit test in `packages/apputils/test/dialog.spec.tsx` that\nverifies the promise is rejected when `getValue()` throws\n\n## Other PRs targeting this issue\n\nThere is another PR targeting this issue: #18345 by @GlobalStar117. That\nPR was opened in January 2026 and has had no activity since March. Our\nPR is based on the latest `main` branch and includes a unit test. The\ncode change is identical in approach (try-catch around `getValue()`), as\nthere is essentially only one correct way to fix this issue. We believe\nthis PR should be preferred because it is up-to-date and includes test\ncoverage.\n\n## LLM Usage Disclosure\n\nThis PR was developed with assistance from an AI coding assistant\n(Claude). The AI helped identify the bug, write the fix, and draft the\nunit test. All changes were reviewed before committing.\n\n## References\n\n- Original issue: #12863\n- Related PR: #18345\n\n---\n\n### Testing\n\nA unit test was added to `packages/apputils/test/dialog.spec.tsx` that\ncreates a widget body whose `getValue()` method throws, launches a\ndialog, clicks accept, and verifies the promise is rejected with the\nexpected error.\n\nAll 51 tests in the dialog test suite pass (50 existing + 1 new), and\nlinting passes with no errors.\n\nTo run the test:\n```bash\njlpm test packages/apputils -t \"should reject the promise when getValue() throws\"\n```",
+      "body_raw": "Prevent dialog from hanging when `getValue()` throws (#18938)\n\n## Summary\n\nFixes #12863\n\nWhen a dialog body widget's `getValue()` method throws an error, the\ndialog's `_resolve` method would crash without disposing the dialog or\nresolving/rejecting the promise. This caused the dialog to hang\nindefinitely, requiring a browser refresh.\n\n## Changes\n\n- Modified `packages/apputils/src/dialog.tsx`:\n  - Added try-catch around `body.getValue()` call in `_resolve()`\n- If `getValue()` throws, the dialog is properly disposed and the\npromise is rejected\n- Added a unit test in `packages/apputils/test/dialog.spec.tsx` that\nverifies the promise is rejected when `getValue()` throws\n\n## Other PRs targeting this issue\n\nThere is another PR targeting this issue: #18345 by @GlobalStar117. That\nPR was opened in January 2026 and has had no activity since March. Our\nPR is based on the latest `main` branch and includes a unit test. The\ncode change is identical in approach (try-catch around `getValue()`), as\nthere is essentially only one correct way to fix this issue. We believe\nthis PR should be preferred because it is up-to-date and includes test\ncoverage.\n\n## LLM Usage Disclosure\n\nThis PR was developed with assistance from an AI coding assistant\n(Claude). The AI helped identify the bug, write the fix, and draft the\nunit test. All changes were reviewed before committing.\n\n## References\n\n- Original issue: #12863\n- Related PR: #18345\n\n---\n\n### Testing\n\nA unit test was added to `packages/apputils/test/dialog.spec.tsx` that\ncreates a widget body whose `getValue()` method throws, launches a\ndialog, clicks accept, and verifies the promise is rejected with the\nexpected error.\n\nAll 51 tests in the dialog test suite pass (50 existing + 1 new), and\nlinting passes with no errors.\n\nTo run the test:\n```bash\njlpm test packages/apputils -t \"should reject the promise when getValue() throws\"\n```",
+      "body_sha256": "a7d3a805a29b22987060ccd3e5ca95d63ec1bf279b89a4577ac79156c4eca2b1",
+      "sha": "222e68b0a7543b93952e3dd47ecedf994b155b53",
+      "url": "https://github.com/jupyterlab/jupyterlab/commit/222e68b0a7543b93952e3dd47ecedf994b155b53"
+    }
+  ]
+}

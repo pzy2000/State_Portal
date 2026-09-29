@@ -1,0 +1,102 @@
+{
+  "buggy_tests": {
+    "jupyterlab-12863-dialog-getvalue-f2p": false,
+    "jupyterlab-dialog-value-construction-p2p": true
+  },
+  "complete": true,
+  "executions": [
+    {
+      "complete": true,
+      "duration_ms": 21621.645791979972,
+      "failures": [],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "packages/apputils/test/dialog.spec.tsx",
+          "sha256": "bb17af1190498284eb3b0c7e610f5fd88d8a6fe401cae06fc4b2b8d1f9540b2d",
+          "source_path": "upstream-tests/packages/apputils/test/dialog.spec.tsx"
+        }
+      ],
+      "passed": true,
+      "prepare_results": [],
+      "results": [
+        {
+          "duration_ms": 5863.750541990157,
+          "exit_code": 0,
+          "id": "jupyterlab-12863-dialog-getvalue-f2p",
+          "passed": true,
+          "stderr_sha256": "c8197d989d6830ddc8489f738be63c6a315a1a268c782afdbd3ed5089954bf09",
+          "stdout_sha256": "63b681c252f6740fc30fa3bd765353425f755df3965763e14232293233fd1db0",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1891.1989170010202,
+          "exit_code": 0,
+          "id": "jupyterlab-dialog-value-construction-p2p",
+          "passed": true,
+          "stderr_sha256": "0692b192e7d0913c5b9102a6ec9568452ab719089306ffde47b90f7ee443377c",
+          "stdout_sha256": "63b681c252f6740fc30fa3bd765353425f755df3965763e14232293233fd1db0",
+          "timed_out": false
+        }
+      ],
+      "test_ids": [
+        "jupyterlab-12863-dialog-getvalue-f2p",
+        "jupyterlab-dialog-value-construction-p2p"
+      ],
+      "version": "fixed"
+    },
+    {
+      "complete": false,
+      "duration_ms": 31552.43416700978,
+      "failures": [
+        "upstream test jupyterlab-12863-dialog-getvalue-f2p exited 1"
+      ],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "packages/apputils/test/dialog.spec.tsx",
+          "sha256": "bb17af1190498284eb3b0c7e610f5fd88d8a6fe401cae06fc4b2b8d1f9540b2d",
+          "source_path": "upstream-tests/packages/apputils/test/dialog.spec.tsx"
+        }
+      ],
+      "passed": false,
+      "prepare_results": [],
+      "results": [
+        {
+          "duration_ms": 15349.957166996319,
+          "exit_code": 1,
+          "id": "jupyterlab-12863-dialog-getvalue-f2p",
+          "passed": false,
+          "stderr_sha256": "da5feecf65351763d79de85218b7865147013ceb982b55529e61950d2e78a578",
+          "stdout_sha256": "72fe2ce441b91cc03fba5e4d1828ae0c6a68220ba706a558602525b08d659a72",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1942.6320829952601,
+          "exit_code": 0,
+          "id": "jupyterlab-dialog-value-construction-p2p",
+          "passed": true,
+          "stderr_sha256": "e5c33d674a2ec722cf3cf335e0c8693f7f2c56e7b0f31731af7e930997a64d39",
+          "stdout_sha256": "63b681c252f6740fc30fa3bd765353425f755df3965763e14232293233fd1db0",
+          "timed_out": false
+        }
+      ],
+      "test_ids": [
+        "jupyterlab-12863-dialog-getvalue-f2p",
+        "jupyterlab-dialog-value-construction-p2p"
+      ],
+      "version": "buggy"
+    }
+  ],
+  "failures": [],
+  "fixed_tests": {
+    "jupyterlab-12863-dialog-getvalue-f2p": true,
+    "jupyterlab-dialog-value-construction-p2p": true
+  },
+  "patch_sha256": "c18df7b9796388d67871ea1f06961affea563107e45964817d5313cb4b8446c7",
+  "qualified": true,
+  "record_sha256": "785da06f0d987be1ce369ec7c7779137101bc50369d1aa33ba28bcbd0a797d0a",
+  "schema": "c1-lazarus-formal-construction-tests-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-12863-dialog-getvalue-error"
+}

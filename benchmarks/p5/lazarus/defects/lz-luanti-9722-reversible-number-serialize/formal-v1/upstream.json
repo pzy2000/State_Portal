@@ -1,0 +1,240 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [
+    {
+      "body_normalized": "I think any limit should be documented and consistent across systems. 32 bits seems big enough for any usage. Perhaps then we should conciously limit to 32 bits in the code?",
+      "body_raw": "I think any limit should be documented and consistent across systems. 32 bits seems big enough for any usage. Perhaps then we should conciously limit to 32 bits in the code?",
+      "body_sha256": "7eede660dec2007ad18340a9a9feda8fac90f6c27835e4c93f2cf6d95cf08713",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/7925#issuecomment-443478217"
+    },
+    {
+      "body_normalized": "Yes it's big but that's what `minetest.hash_node_position` gives (48 bits integers).\nActually, it is not that important to fix it, but it's important to be aware that it's not possible to serialize hash_node_position result on some systems .\nWe could say that issue is opened for the records.",
+      "body_raw": "Yes it's big but that's what `minetest.hash_node_position` gives (48 bits integers).\r\nActually, it is not that important to fix it, but it's important to be aware that it's not possible to serialize hash_node_position result on some systems .\r\nWe could say that issue is opened for the records.",
+      "body_sha256": "534ef26b59be1fbd57899d00927835bc3490de393c48e9b00461ed8869e98bff",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/7925#issuecomment-443495744"
+    },
+    {
+      "body_normalized": "Would it be possible to try this change?\nhttps://github.com/minetest/minetest/blob/ff12630bc966ef6d72f4c6d07c59d952fd44dfb7/builtin/common/serialize.lua#L128\nto:\n```Lua\nreturn string.format(\"%.30g\", x)\n```\n\nSource: https://gitlab.com/VanessaE/pipeworks/commit/57fc8c67",
+      "body_raw": "Would it be possible to try this change?\r\nhttps://github.com/minetest/minetest/blob/ff12630bc966ef6d72f4c6d07c59d952fd44dfb7/builtin/common/serialize.lua#L128\r\nto:\r\n```Lua\r\nreturn string.format(\"%.30g\", x)\r\n```\r\n\r\nSource: https://gitlab.com/VanessaE/pipeworks/commit/57fc8c67",
+      "body_sha256": "8b2ce950b1f648de0df956b786858c5f3d79a76f49ce57b9a05ffccc0db7c7dc",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/7925#issuecomment-443510092"
+    },
+    {
+      "body_normalized": "It seems to be a good solution. Now, only missing thing is ... a Raspberry owner to test it :)",
+      "body_raw": "It seems to be a good solution. Now, only missing thing is ... a Raspberry owner to test it :)",
+      "body_sha256": "0c2b09f178e97eee392b1cc34b3eb543b422c9237858e1c3d941450ad3a579a3",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/7925#issuecomment-443512910"
+    },
+    {
+      "body_normalized": "What would testing it involve?",
+      "body_raw": "What would testing it involve?",
+      "body_sha256": "ca807a932619431a0a41a34ddd3afaf7bd86815565e2e54ddf17aaa664eae9fa",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/7925#issuecomment-443523151"
+    },
+    {
+      "body_normalized": "I think you should only need `%.17g`:\n>If an IEEE 754 double-precision number is converted to a decimal string with at least 17 significant digits, and then converted back to double-precision representation, the final result must match the original number.\n(https://en.wikipedia.org/wiki/Double-precision_floating-point_format)",
+      "body_raw": "I think you should only need `%.17g`:\r\n>If an IEEE 754 double-precision number is converted to a decimal string with at least 17 significant digits, and then converted back to double-precision representation, the final result must match the original number.\r\n(https://en.wikipedia.org/wiki/Double-precision_floating-point_format)",
+      "body_sha256": "625dcc5faf4d5b619ea292f212def52023b761705c84f7267080432873bbbc7a",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/7925#issuecomment-443524908"
+    },
+    {
+      "body_normalized": "No going over to the Pi 3B, yet, but here is the result in 64bit linux with lua 5.1. Appears there is a precision problem at digit 17. I see notes about later lua versions supporting true integers and at higher precision.\n```lua\nd = 12345678901234567\nprint(d)\nprint(string.format(\"%.30g\",d))\ne = 12345678901234567890\nprint(e)\nprint(string.format(\"%.30g\",e))\n```\nResults:\n1.2345678901235e+16\n12345678901234568\n1.2345678901235e+19\n12345678901234567168",
+      "body_raw": "No going over to the Pi 3B, yet, but here is the result in 64bit linux with lua 5.1. Appears there is a precision problem at digit 17. I see notes about later lua versions supporting true integers and at higher precision.\r\n```lua\r\nd = 12345678901234567\r\nprint(d)\r\nprint(string.format(\"%.30g\",d))\r\ne = 12345678901234567890\r\nprint(e)\r\nprint(string.format(\"%.30g\",e))\r\n```\r\nResults:\r\n1.2345678901235e+16\r\n12345678901234568\r\n1.2345678901235e+19\r\n12345678901234567168\r\n",
+      "body_sha256": "87124b95272ce97c5a7605a3aec8e35cb683c0aa9bf07f55269b0e6e9d6796fb",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/7925#issuecomment-475048334"
+    },
+    {
+      "body_normalized": "Output of that script on a Raspberry Pi 3B+:\n\n```lua\n$ lua\nLua 5.1.5  Copyright (C) 1994-2012 Lua.org, PUC-Rio\n> d = 12345678901234567\n> print(d)\n1.2345678901235e+16\n> print(string.format(\"%.30g\",d))\n12345678901234568\n> e = 12345678901234567890\n> print(e)\n1.2345678901235e+19\n> print(string.format(\"%.30g\",e))\n12345678901234567168\n```\n\n - OS: `Raspbian GNU/Linux 9.8 (stretch)`\n - `uname -a`: `Linux DEVICE_NAME 4.19.27-v7+ #1206 SMP Wed Mar 6 14:40:18 GMT 2019 armv7l GNU/Linux`\n\n<details>\n<summary><code>lscpu</code></summary>\n<pre><code>\nArchitecture:          armv7l\nByte Order:            Little Endian\nCPU(s):                4\nOn-line CPU(s) list:   0-3\nThread(s) per core:    1\nCore(s) per socket:    4\nSocket(s):             1\nModel:                 4\nModel name:            ARMv7 Processor rev 4 (v7l)\nCPU max MHz:           1200.0000\nCPU min MHz:           600.0000\nBogoMIPS:              38.40\nFlags:                 half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32\n</code></pre>\n</details>",
+      "body_raw": "Output of that script on a Raspberry Pi 3B+:\r\n\r\n```lua\r\n$ lua\r\nLua 5.1.5  Copyright (C) 1994-2012 Lua.org, PUC-Rio\r\n> d = 12345678901234567\r\n> print(d)\r\n1.2345678901235e+16\r\n> print(string.format(\"%.30g\",d))\r\n12345678901234568\r\n> e = 12345678901234567890\r\n> print(e)\r\n1.2345678901235e+19\r\n> print(string.format(\"%.30g\",e))\r\n12345678901234567168\r\n```\r\n\r\n - OS: `Raspbian GNU/Linux 9.8 (stretch)`\r\n - `uname -a`: `Linux DEVICE_NAME 4.19.27-v7+ #1206 SMP Wed Mar 6 14:40:18 GMT 2019 armv7l GNU/Linux`\r\n\r\n<details>\r\n<summary><code>lscpu</code></summary>\r\n<pre><code>\r\nArchitecture:          armv7l\r\nByte Order:            Little Endian\r\nCPU(s):                4\r\nOn-line CPU(s) list:   0-3\r\nThread(s) per core:    1\r\nCore(s) per socket:    4\r\nSocket(s):             1\r\nModel:                 4\r\nModel name:            ARMv7 Processor rev 4 (v7l)\r\nCPU max MHz:           1200.0000\r\nCPU min MHz:           600.0000\r\nBogoMIPS:              38.40\r\nFlags:                 half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm crc32\r\n</code></pre>\r\n</details>\r\n",
+      "body_sha256": "13825e78a5aef0df25bfcc9e325e315e82ae13888687e377ae5fb738838cbb35",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/7925#issuecomment-475227324"
+    },
+    {
+      "body_normalized": "`minetest.serialize` currently truncates the double variable I think:\n```lua\nlocal x = math.random()\nprint(x == minetest.deserialize(minetest.serialize(x)))\n```\nThis gives false for me (I hope I didn't write a typo).\nThe double is converted to a decimal number string.\n\nFor a reversible serialization, maybe `%a` could help:\n```lua\nlocal x = math.random()\nprint(x == tonumber((\"%a\"):format(x)))\n```",
+      "body_raw": "`minetest.serialize` currently truncates the double variable I think:\r\n```lua\r\nlocal x = math.random()\r\nprint(x == minetest.deserialize(minetest.serialize(x)))\r\n```\r\nThis gives false for me (I hope I didn't write a typo).\r\nThe double is converted to a decimal number string.\r\n\r\nFor a reversible serialization, maybe `%a` could help:\r\n```lua\r\nlocal x = math.random()\r\nprint(x == tonumber((\"%a\"):format(x)))\r\n```",
+      "body_sha256": "8d2ec16b34d63b23587606ad0622544b1422e4881a13f61db92a2fb33e1c3fe4",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/7925#issuecomment-610565621"
+    },
+    {
+      "body_normalized": "@HybridDog: Output on a Raspberry Pi 3B+ (unfortunately I'm not yet certain how to run Lua code directly in the context of a Minetest server):\n\n```\n$ lua\nLua 5.1.5  Copyright (C) 1994-2012 Lua.org, PUC-Rio\n> local x = math.random()\n> print(x == minetest.deserialize(minetest.serialize(x)))\nstdin:1: attempt to index global 'minetest' (a nil value)\nstack traceback:\n\tstdin:1: in main chunk\n\t[C]: ?\n> local x = math.random()\n> print(x == tonumber((\"%a\"):format(x)))\nstdin:1: invalid option '%a' to 'format'\nstack traceback:\n\t[C]: in function 'format'\n\tstdin:1: in main chunk\n\t[C]: ?\n```\n\nSorry for the late reply :P",
+      "body_raw": "@HybridDog: Output on a Raspberry Pi 3B+ (unfortunately I'm not yet certain how to run Lua code directly in the context of a Minetest server):\r\n\r\n```\r\n$ lua\r\nLua 5.1.5  Copyright (C) 1994-2012 Lua.org, PUC-Rio\r\n> local x = math.random()\r\n> print(x == minetest.deserialize(minetest.serialize(x)))\r\nstdin:1: attempt to index global 'minetest' (a nil value)\r\nstack traceback:\r\n\tstdin:1: in main chunk\r\n\t[C]: ?\r\n> local x = math.random()\r\n> print(x == tonumber((\"%a\"):format(x)))\r\nstdin:1: invalid option '%a' to 'format'\r\nstack traceback:\r\n\t[C]: in function 'format'\r\n\tstdin:1: in main chunk\r\n\t[C]: ?\r\n```\r\n\r\nSorry for the late reply :P",
+      "body_sha256": "b4ec1b1b0d09f130faa497b88085479ffecedd6d26af327ea869e6d8aefe527d",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/7925#issuecomment-617239910"
+    },
+    {
+      "body_normalized": "> unfortunately I'm not yet certain how to run Lua code directly in the context of a Minetest server\n\nYou can use the [luacmd](https://github.com/prestidigitator/minetest-mod-luacmd) mod, or simply add the code to the code of some mod which is enabled on the server.\n\n> `invalid option '%a' to 'format'`\n\nYou need to use Lua 5.2 or LuaJIT because [`%a` is not yet available in Lua 5.1](https://stackoverflow.com/a/51222710).\n\n#\nI have opened a Pull Request for the %a format: #9722",
+      "body_raw": "> unfortunately I'm not yet certain how to run Lua code directly in the context of a Minetest server\r\n\r\nYou can use the [luacmd](https://github.com/prestidigitator/minetest-mod-luacmd) mod, or simply add the code to the code of some mod which is enabled on the server.\r\n\r\n> `invalid option '%a' to 'format'`\r\n\r\nYou need to use Lua 5.2 or LuaJIT because [`%a` is not yet available in Lua 5.1](https://stackoverflow.com/a/51222710).\r\n\r\n#\r\nI have opened a Pull Request for the %a format: #9722",
+      "body_sha256": "a833cd2f4327b02b93012dc302d8a67c6294765a32f19f198e791fd419b38700",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/7925#issuecomment-617313256"
+    },
+    {
+      "body_normalized": "Got it, @HybridDog! Looks like my Minetest 5.2.0 server has the `/lua` command already (again, on the Raspberry Pi 3B+). Transcript:\n\n```\n] /lua local x = math.random(); print(x == minetest.deserialize(minetest.serialize(x))); local y = math.random(); print(x == tonumber((\"%a\"):format(x)))\nfalse\ntrue\n```",
+      "body_raw": "Got it, @HybridDog! Looks like my Minetest 5.2.0 server has the `/lua` command already (again, on the Raspberry Pi 3B+). Transcript:\r\n\r\n```\r\n] /lua local x = math.random(); print(x == minetest.deserialize(minetest.serialize(x))); local y = math.random(); print(x == tonumber((\"%a\"):format(x)))\r\nfalse\r\ntrue\r\n```",
+      "body_sha256": "5e6305f4471f60ecdb1c8e92e69d6ea1b6cc41bf43ef3c0d62285e1c85277409",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/7925#issuecomment-617353870"
+    },
+    {
+      "body_normalized": "Unfortunately, `%a` is not available in Lua 5.1.5; this version can be used in Minetest.\nHowever, `%.30g` could work.",
+      "body_raw": "Unfortunately, `%a` is not available in Lua 5.1.5; this version can be used in Minetest.\r\nHowever, `%.30g` could work.",
+      "body_sha256": "74853a756a14fe4f0baff646ebfb4a422515eea775dd88233c69ec4469e7af77",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/7925#issuecomment-617383651"
+    }
+  ],
+  "fix_commit": "5355cb1d87f60bc5548a8a9311e597b9c6046013",
+  "issue": {
+    "body_normalized": "##### Issue type\n - Bug report\n\n##### Minetest version\nMinetest Server Version 0.4.17-1 compiled from source\n\n##### OS / Hardware\nOperating system: Raspbian Lite (Debian 9.6)\nMachine: Raspberry Pi 2 / Raspberry Pi 3\n\n##### Summary\nUsing `minetest.serialize` and `minetest.deserialize` on Raspberry Pi with long numbers (> 32 bits) truncates the number to a max 32 bit number.\n\n##### Steps to reproduce\nA good case is serializing a table storing a position hash. This is a simplified extract of code storing a position hash in an entity static data:\n```\nlocal pos = {...}\nlocal staticdata = minetest.serialize({pos=minetest.hash_node_position(pos)})\n...\nlocal data = minetest.deserialize(staticdata)\n```\nRetrieved pos hash is not identical before and after.\n\nSome more information can be found in the original issue involving position loss: https://github.com/pyrollo/display_modpack/issues/19\n\nWhat I suspect is that the \"%q\" `string.format` flag is not working the same way on this system than on x64 systems.\n\nUnfortunately I do not have any Rapberry and can not investigate further.",
+    "body_raw": "##### Issue type\r\n - Bug report\r\n \r\n##### Minetest version\r\nMinetest Server Version 0.4.17-1 compiled from source\r\n\r\n##### OS / Hardware\r\nOperating system: Raspbian Lite (Debian 9.6)\r\nMachine: Raspberry Pi 2 / Raspberry Pi 3\r\n\r\n##### Summary\r\nUsing `minetest.serialize` and `minetest.deserialize` on Raspberry Pi with long numbers (> 32 bits) truncates the number to a max 32 bit number.\r\n\r\n##### Steps to reproduce\r\nA good case is serializing a table storing a position hash. This is a simplified extract of code storing a position hash in an entity static data:\r\n```\r\nlocal pos = {...}\r\nlocal staticdata = minetest.serialize({pos=minetest.hash_node_position(pos)})\r\n...\r\nlocal data = minetest.deserialize(staticdata)\r\n```\r\nRetrieved pos hash is not identical before and after.\r\n\r\nSome more information can be found in the original issue involving position loss: https://github.com/pyrollo/display_modpack/issues/19\r\n\r\nWhat I suspect is that the \"%q\" `string.format` flag is not working the same way on this system than on x64 systems.\r\n\r\nUnfortunately I do not have any Rapberry and can not investigate further.",
+    "body_sha256": "71b00f4496795a0701e62b3a049861a980c4e3858d490272436f413f4c10386d",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 7925,
+    "state": "closed",
+    "title": "minetest.serialize truncates big numbers on some systems (Raspberry Pi for instance)",
+    "url": "https://github.com/luanti-org/luanti/issues/7925"
+  },
+  "patch_sha256": "1d4b49ccf340ebbcb692a088544f9e3331c04d5150a81e56cdc7bafb3888d2ca",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "body_normalized": "The hexadecimal format is less human-readable, but for human-readable output the dump function should be used instead of minetest.serialize anyways.\n\nThis should fix #7925.\nPlease test and review.",
+    "body_raw": "The hexadecimal format is less human-readable, but for human-readable output the dump function should be used instead of minetest.serialize anyways.\r\n\r\nThis should fix #7925.\r\nPlease test and review.",
+    "body_sha256": "99f383bef52bf4430406d8017e298556754a6e9d265da2bd97414e9107899c5d",
+    "kind": "pull",
+    "merged_at": "2020-04-22T14:43:49Z",
+    "number": 9722,
+    "state": "closed",
+    "title": "minetest.serialize: Reversible number serialization",
+    "url": "https://github.com/luanti-org/luanti/pull/9722"
+  },
+  "record_sha256": "4381db41f74c51e6639e00a4e1acab7bbc6c3e3556d2fbc504794abdbceab753",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-13T08:38:40.801072Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-9722-reversible-number-serialize",
+  "tests": [
+    {
+      "command": [
+        "busted",
+        "--filter",
+        "serialize handles precise numbers",
+        "builtin/common/tests/serialize_spec.lua"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/cmake",
+        "--build",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/9722/runtime-v1/fixed",
+        "--target",
+        "minetestserver",
+        "--parallel",
+        "1"
+      ],
+      "id": "serialize handles precise numbers",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "serialize handles precise numbers",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/serialize_spec.lua",
+      "upstream_test_path": "builtin/common/tests/serialize_spec.lua",
+      "upstream_test_sha256": "545f6a73651920af4fed344b0236de71b941b0b13a26bc9d15d18527c469d206"
+    },
+    {
+      "command": [
+        "busted",
+        "--filter",
+        "serialize handles characters",
+        "builtin/common/tests/serialize_spec.lua"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/cmake",
+        "--build",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/9722/runtime-v1/fixed",
+        "--target",
+        "minetestserver",
+        "--parallel",
+        "1"
+      ],
+      "id": "serialize handles characters",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "serialize handles characters",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/serialize_spec.lua",
+      "upstream_test_path": "builtin/common/tests/serialize_spec.lua",
+      "upstream_test_sha256": "545f6a73651920af4fed344b0236de71b941b0b13a26bc9d15d18527c469d206"
+    }
+  ],
+  "touched_files": [
+    "builtin/common/serialize.lua",
+    "builtin/common/tests/serialize_spec.lua"
+  ],
+  "upstream_commits": []
+}

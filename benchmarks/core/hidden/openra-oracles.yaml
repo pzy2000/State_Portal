@@ -1,0 +1,21 @@
+oracles:
+  - task_id: cnc-gdi01-beachhead
+    hidden_spec: specs/openra/cnc-gdi01-beachhead.yaml
+  - task_id: cnc-nod03a-prison-break
+    hidden_spec: specs/openra/cnc-nod03a-prison-break.yaml
+  - task_id: cnc-hot-box-dropzone
+    hidden_spec: specs/openra/cnc-hot-box-dropzone.yaml
+  - task_id: ra-allies03a-dead-end
+    hidden_spec: specs/openra/ra-allies03a-dead-end.yaml
+  - task_id: ra-soviet05-distant-thunder
+    hidden_spec: specs/openra/ra-soviet05-distant-thunder.yaml
+  - task_id: ra-drop-zone
+    hidden_spec: specs/openra/ra-drop-zone.yaml
+  - task_id: ra-soviet05-war-factory-heavy-tank
+    hidden_spec: specs/openra/ra-soviet05-war-factory-heavy-tank.yaml
+  - task_id: ra-soviet05-barracks-rocket-infantry
+    hidden_spec: specs/openra/ra-soviet05-barracks-rocket-infantry.yaml
+  - task_id: ra-allies07-soviet-war-factory-produces-heavy-tank
+    hidden_spec: specs/openra/ra-allies07-soviet-war-factory-produces-heavy-tank.yaml
+  - task_id: ra-allies05a-soviet-war-factory-produces-vehicle
+    hidden_spec: specs/openra/ra-allies05a-soviet-war-factory-produces-vehicle.yaml

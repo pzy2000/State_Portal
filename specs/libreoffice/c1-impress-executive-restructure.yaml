@@ -1,0 +1,78 @@
+name: C1 LibreOffice Impress executive restructure workflow
+benchmark: libreoffice
+repo: ../../games/LibreOffice
+timeout_ms: 900000
+tags: [c1, long, libreoffice, impress, executive]
+target:
+  kind: impress_presentation
+  path: c1-impress-executive-restructure.odp
+  slides:
+    - {title: Appendix Metrics, bullets: [Raw operating details]}
+    - {title: Customer Impact, bullets: [Pilot customers stable, Support tickets down]}
+    - {title: Executive Summary, bullets: [Draft summary, Needs final order]}
+    - {title: Mitigation Plan, bullets: [Owner matrix ready]}
+checkpoint:
+  allowed_strategies: [libreoffice_uno_document_validate]
+  expected_validity: save-restorable
+actions:
+  - {type: libreoffice_move_slide, from: 3, to: 1}
+  - {type: libreoffice_set_slide_title, slide: 1, title: Executive Summary - Board Decision}
+  - {type: libreoffice_set_slide_bullets, slide: 1, bullets: [Revenue forecast 1.12M, Margin 35%, Customer impact stable]}
+  - {type: libreoffice_add_shape, slide: 1, shape: rectangle, text: "RISK: supplier recovery remains on critical path"}
+  - {type: libreoffice_save}
+  - {type: libreoffice_reopen}
+  - {type: libreoffice_export_pdf, path: c1-impress-executive-restructure.pdf}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: libreoffice_slide_count_equals, expected: 4}
+      - {type: libreoffice_slide_title_equals, slide: 1, expected: Executive Summary - Board Decision}
+      - {type: libreoffice_slide_text_contains, slide: 1, text: Revenue forecast 1.12M}
+      - {type: libreoffice_slide_text_contains, slide: 1, text: Margin 35%}
+      - {type: libreoffice_shape_text_contains, slide: 1, text: "RISK: supplier recovery"}
+      - {type: libreoffice_pdf_exists, path: c1-impress-executive-restructure.pdf}
+      - {type: no_libreoffice_errors}
+    surfaces:
+      gui:
+        adapter: libreoffice_uno_persistence_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+          native_checks:
+          - transition.session_same
+          - transition.saved_url
+          - transition.persisted_file
+          - transition.not_modified
+          - transition.document_reopened
+      state:
+        adapter: libreoffice_uno_persistence_v1
+        goal:
+          checks: []
+          use_assertions: true
+          native_checks:
+          - transition.session_same
+          - transition.saved_url
+          - transition.persisted_file
+          - transition.not_modified
+          - transition.document_reopened
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/c1-impress-executive-restructure.after.golden.png
+    golden_before: visual/c1-impress-executive-restructure.before.golden.png
+    golden_after: visual/c1-impress-executive-restructure.after.golden.png
+    expected_label: correct
+    description: The draft deck is visible with the appendix first and executive summary later.
+    after_description: The executive summary is first with revised bullets, revenue and margin KPIs, and a risk callout.
+    rubric:
+      must: [LibreOffice Impress displays the four-slide draft deck]
+      must_not: [A blank or crashed presentation window is shown]
+    after_rubric:
+      must: [The first slide is the executive board decision summary, Revenue, margin, and risk content are visible]
+      must_not: [The appendix remains first, The KPI or risk callout is absent]
+    capture: {stage: post_smoke, active_slide: 1, wait_ms: 500, full_page: false}

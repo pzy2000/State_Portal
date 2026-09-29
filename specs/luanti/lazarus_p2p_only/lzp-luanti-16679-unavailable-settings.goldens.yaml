@@ -1,0 +1,79 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lzp-luanti-16679-unavailable-settings
+benchmark: luanti
+track: c1_lazarus_p2p_only_v1
+candidate:
+  repository_key: luanti
+  change_number: 16679
+  issue_number: 14171
+  defect_locus: at_goal
+authoritative_defect: Settings tab hides settings whose requirements are not satisfied
+provenance:
+  captured_by: materialized_pair_engine_screenshot_capture
+  capture_backend: luanti_irrlicht_create_screenshot_v1
+  frame_sources:
+    fixed_before: frames/lzp-luanti-16679-unavailable-settings/fixed/before.png
+    fixed_after: frames/lzp-luanti-16679-unavailable-settings/fixed/after.png
+    buggy_before: frames/lzp-luanti-16679-unavailable-settings/buggy/before.png
+    buggy_after: frames/lzp-luanti-16679-unavailable-settings/buggy/after.png
+  goldens_metadata: visual_lzp-luanti-16679-unavailable-settings/goldens.meta.json
+  defect_differential_source: rendered_frames
+evaluation:
+  visual_oracle:
+    golden_image: visual_lzp-luanti-16679-unavailable-settings/before.golden.png
+    description: A Luanti client window shows the engine main menu. The local-game tab is showing. No
+      settings dialog is open.
+    rubric:
+      must:
+      - A Luanti client window shows the engine main menu.
+      - The local-game tab is showing. No settings dialog is open.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Window chrome, font antialiasing, and cursor blink.
+      - The main-menu Settings button, its hover tooltip, cursor position, menu decoration and background.
+        A Settings button/tooltip is not an open settings dialog; an actual settings dialog remains forbidden
+        at Start.
+  lazarus:
+    goldens:
+      before: visual_lzp-luanti-16679-unavailable-settings/before.golden.png
+      buggy_before: visual_lzp-luanti-16679-unavailable-settings/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-luanti-16679-unavailable-settings/fixed.after.golden.png
+        after_description: The settings dialog is open on its touchscreen page. Below the "Touchscreen
+          controls" dropdown the right-hand pane carries a section heading reading "Unavailable", and
+          under that heading several setting labels are drawn in a muted grey, packed tightly enough that
+          they overlap one another.
+        after_rubric:
+          must:
+          - A Luanti client window shows the engine main menu.
+          - The settings dialog is open on its touchscreen page. Below the "Touchscreen controls" dropdown
+            the right-hand pane carries a section heading reading "Unavailable", and under that heading
+            several setting labels are drawn in a muted grey, packed tightly enough that they overlap
+            one another.
+          - 'Judge this frame by what the settings dialog''s right-hand pane draws below its "Touchscreen
+            controls" dropdown: whether a section of muted grey setting labels is drawn there, or that
+            area is left empty.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Window chrome, font antialiasing, and cursor blink.
+      buggy:
+        after: visual_lzp-luanti-16679-unavailable-settings/buggy.after.golden.png
+        after_description: 'The settings dialog is open on its touchscreen page. Below the "Touchscreen
+          controls" dropdown the right-hand pane is empty: neither an "Unavailable" heading nor any muted
+          grey setting label is drawn there.'
+        after_rubric:
+          must:
+          - A Luanti client window shows the engine main menu.
+          - 'The settings dialog is open on its touchscreen page. Below the "Touchscreen controls" dropdown
+            the right-hand pane is empty: neither an "Unavailable" heading nor any muted grey setting
+            label is drawn there.'
+          - 'Judge this frame by what the settings dialog''s right-hand pane draws below its "Touchscreen
+            controls" dropdown: whether a section of muted grey setting labels is drawn there, or that
+            area is left empty.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Window chrome, font antialiasing, and cursor blink.

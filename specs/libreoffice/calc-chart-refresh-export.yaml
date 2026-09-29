@@ -1,0 +1,82 @@
+name: LibreOffice Calc chart refresh export deep state
+benchmark: LibreOffice
+repo: ../../games/LibreOffice
+target:
+  kind: calc_spreadsheet
+  path: calc-chart-refresh-export.ods
+  sheet: Metrics
+  cells:
+    A1: Month
+    B1: Revenue
+    A2: Jan
+    B2: 12000
+    A3: Feb
+    B3: 13500
+    A4: Mar
+    B4: 14100
+    A5: Apr
+    B5: 15200
+checkpoint:
+  allowed_strategies: ["libreoffice_uno_document_validate"]
+  expected_validity: save-restorable
+actions:
+  - type: libreoffice_set_cell
+    sheet: Metrics
+    cell: B5
+    value: 16800
+  - type: libreoffice_create_chart
+    sheet: Metrics
+    name: RevenueTrend
+    range: A1:B5
+    chart_type: line
+  - type: libreoffice_recalculate
+  - type: libreoffice_save
+  - type: libreoffice_reopen
+  - type: libreoffice_export_pdf
+    path: calc-chart-refresh-export.pdf
+assertions:
+  - type: libreoffice_chart_exists
+    sheet: Metrics
+    name: RevenueTrend
+  - type: libreoffice_cell_value_equals
+    sheet: Metrics
+    cell: B5
+    expected: 16800
+  - type: libreoffice_pdf_exists
+    path: calc-chart-refresh-export.pdf
+  - type: no_libreoffice_errors
+visual_oracle:
+  golden_image: visual/calc-chart-refresh-export.after.golden.png
+  golden_before: visual/calc-chart-refresh-export.before.golden.png
+  golden_after: visual/calc-chart-refresh-export.after.golden.png
+  expected_label: correct
+  description: "A LibreOffice Calc metrics sheet is visible before chart creation."
+  rubric:
+    must:
+      - "LibreOffice Calc shows a populated metrics table."
+      - "Revenue/month data or similar chart source data is visible."
+    must_not:
+      - "A blank sheet, crash dialog, or unrelated app is shown."
+    ignore:
+      - "Selected cell, zoom, and toolbar differences."
+  after_description: "After the workflow, the workbook contains an updated April revenue value and a revenue trend chart, with a PDF export produced."
+  after_rubric:
+    must:
+      - "Calc remains visible with the metrics table."
+      - "A chart-like object or updated revenue table is visible."
+      - "The workbook is not blank or crashed."
+    must_not:
+      - "The screenshot shows only the original source data with no chart/update evidence."
+    ignore:
+      - "Exact chart style, selected cell, toolbar, and zoom differences."
+  capture:
+    stage: post_smoke
+    active_sheet: Metrics
+    wait_ms: 500
+    full_page: false
+tags:
+  - libreoffice
+  - calc
+  - deep-state
+  - chart
+timeout_ms: 240000

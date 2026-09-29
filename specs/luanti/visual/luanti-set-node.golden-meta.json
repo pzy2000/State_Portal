@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "after": "specs/luanti/visual/luanti-set-node.after.golden.png",
+  "after_sha256": "bce42ade6ff7c93b1c01a40179873ff28e1c7e30039bb59b174923cba46c1be8",
+  "before": "specs/luanti/visual/luanti-set-node.before.golden.png",
+  "before_sha256": "a8990e3b5860c614bbbd652bfa6aa9e98045bd49da0b776d3403aed2ed7c8a73",
+  "benchmark": "luanti",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/luanti/set-node.yaml",
+  "spec_sha256": "6f461e46f5cd627c0b4912be9abd80fe3a7752b4d757b0b767acd4a4afce8e65",
+  "task_id": "luanti-set-node"
+}

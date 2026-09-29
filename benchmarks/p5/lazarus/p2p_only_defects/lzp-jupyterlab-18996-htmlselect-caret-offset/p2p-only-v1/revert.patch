@@ -1,0 +1,28 @@
+diff --git a/packages/ui-components/src/components/htmlselect.tsx b/packages/ui-components/src/components/htmlselect.tsx
+index bed420685cfa..0238dde4973e 100644
+--- a/packages/ui-components/src/components/htmlselect.tsx
++++ b/packages/ui-components/src/components/htmlselect.tsx
+@@ -97,7 +97,7 @@ export class HTMLSelect extends React.Component<IHTMLSelectProps> {
+             tag: 'span',
+             stylesheet: 'select',
+             right: '4px',
+-            top: '8px',
++            top: '4px',
+             ...iconProps
+           }}
+         />
+diff --git a/packages/ui-components/style/base.css b/packages/ui-components/style/base.css
+index f199d0c94aa4..c4b2c486bb3f 100644
+--- a/packages/ui-components/style/base.css
++++ b/packages/ui-components/style/base.css
+@@ -172,6 +172,10 @@
+   padding: 6px;
+ }
+ 
++.jp-HTMLSelect {
++  position: relative;
++}
++
+ .jp-HTMLSelect.jp-DefaultStyle {
+   /* Leave space for the focus outline */
+   padding: 0 2px;

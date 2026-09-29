@@ -1,0 +1,12 @@
+{
+  "build_class": "jlpm",
+  "declared_files": [
+    "packages/codemirror/src/editor.ts",
+    "packages/codemirror/test/editor.spec.ts"
+  ],
+  "fixed_revision": "4a19f8fff4049a9536e21fa2980fe7e5ee592d01",
+  "patch_sha256": "76f6b809dc6b1b8c27bb1bef7d5e7657b4256ea6ef46dc49b22bb63435b78ad4",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-jupyterlab-13657-replace-selection-command/revert.patch",
+  "source_repo": "games/jupyterlab",
+  "task_id": "lz-jupyterlab-13657-replace-selection-command"
+}

@@ -1,0 +1,61 @@
+tasks:
+  - id: cnc-gdi01-beachhead
+    benchmark: OpenRA
+    repo: games/OpenRA
+    issue: "A C&C beachhead campaign checkpoint should load through OpenRA's native utility path with the playable GDI side and Nod opposition intact."
+    tags: ["core-synthesis", "openra", "cnc", "campaign"]
+    budget_ms: 180000
+  - id: cnc-nod03a-prison-break
+    benchmark: OpenRA
+    repo: games/OpenRA
+    issue: "A C&C prison-break campaign checkpoint should load through OpenRA's native utility path with the playable Nod side and GDI guard setup intact."
+    tags: ["core-synthesis", "openra", "cnc", "campaign"]
+    budget_ms: 180000
+  - id: cnc-hot-box-dropzone
+    benchmark: OpenRA
+    repo: games/OpenRA
+    issue: "A C&C Drop Zone lobby checkpoint should load with the multiplayer drop-zone APC and spawn setup intact."
+    tags: ["core-synthesis", "openra", "cnc", "lobby", "drop-zone"]
+    budget_ms: 180000
+  - id: ra-allies03a-dead-end
+    benchmark: OpenRA
+    repo: games/OpenRA
+    issue: "An Allied Red Alert campaign checkpoint should load through OpenRA's native utility path with the playable Greece side and Soviet opposition intact."
+    tags: ["core-synthesis", "openra", "ra", "campaign"]
+    budget_ms: 180000
+  - id: ra-soviet05-distant-thunder
+    benchmark: OpenRA
+    repo: games/OpenRA
+    issue: "A Soviet Red Alert radar-dome campaign checkpoint should load through OpenRA's native utility path with Allied defenses intact."
+    tags: ["core-synthesis", "openra", "ra", "campaign"]
+    budget_ms: 180000
+  - id: ra-drop-zone
+    benchmark: OpenRA
+    repo: games/OpenRA
+    issue: "A Red Alert Drop Zone lobby checkpoint should load with the multiplayer APC and spawn setup intact."
+    tags: ["core-synthesis", "openra", "ra", "lobby", "drop-zone"]
+    budget_ms: 180000
+  - id: ra-soviet05-war-factory-heavy-tank
+    benchmark: OpenRA
+    repo: games/OpenRA
+    issue: "From its deployed MCV, the Soviet Distant Thunder mission should build power/refinery/war factory/service depot and produce a heavy tank through real OpenRA production queues."
+    tags: ["core-synthesis", "openra", "ra", "campaign", "production", "vehicle"]
+    budget_ms: 180000
+  - id: ra-soviet05-barracks-rocket-infantry
+    benchmark: OpenRA
+    repo: games/OpenRA
+    issue: "From its deployed MCV, the Soviet Distant Thunder mission should build a Soviet barracks and produce infantry through real OpenRA production queues."
+    tags: ["core-synthesis", "openra", "ra", "campaign", "production", "infantry"]
+    budget_ms: 180000
+  - id: ra-allies07-soviet-war-factory-produces-heavy-tank
+    benchmark: OpenRA
+    repo: games/OpenRA
+    issue: "In Allied mission 07, the Soviet war factory should remain live and produce a heavy tank through the real vehicle queue."
+    tags: ["core-synthesis", "openra", "ra", "campaign", "production", "vehicle"]
+    budget_ms: 180000
+  - id: ra-allies05a-soviet-war-factory-produces-vehicle
+    benchmark: OpenRA
+    repo: games/OpenRA
+    issue: "In Allied mission 05a, the second Soviet war factory should remain live and produce a heavy tank through the real vehicle queue."
+    tags: ["core-synthesis", "openra", "ra", "campaign", "production", "vehicle"]
+    budget_ms: 180000

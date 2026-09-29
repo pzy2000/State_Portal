@@ -1,0 +1,279 @@
+# Dedicated C1 extension manifest: Kimi K3 high effort, seed 0, fixed 16 tasks.
+name: p5_c1_kimi_k3_high_16tasks
+c1_reproducibility:
+  harness_revision: c1-harness-2026-07-31-v1
+  os: macOS 26.2 (25C56)
+  architecture: arm64
+  physical_screen: [3024, 1964]
+
+description: >-
+  Three-arm C1 extension over a fixed stratified 16-task sample using only
+  kimi-k3@relay with strict high reasoning effort.
+
+runtime_lock:
+  scope: machine-shared
+  lock_dir: /tmp/warptest-runtime-locks
+
+api:
+  provider: relay
+  key_env: RELAY_API_KEY
+  base_url_env: RELAY_BASE_URL
+  base_url: https://relay.example/v1
+  credentials_file: test_model_batch.py
+  temperature: 1.0
+  provider_timeout_s: 900.0
+
+models:
+  - kimi-k3@relay
+
+model_request_profiles:
+  kimi-k3: reasoning_high
+
+visual_bridge:
+  observer_model: claude-sonnet-5@relay
+  grounder_model: match_decision_model
+visual_judge:
+  key_env: RELAY_API_KEY
+  base_url_env: RELAY_BASE_URL
+  base_url: https://relay.example/v1
+  model: qwen3-vl-flash@relay
+visual_judge_model: qwen3-vl-flash@relay
+
+preflight:
+  required: true
+  max_age_hours: 24
+  artifact_env: WARPTEST_C1_PREFLIGHT_ARTIFACT
+
+calibration:
+  required: true
+  schema: c1-calibration-v4
+  max_age_hours: 24
+  artifact_env: WARPTEST_C1_CALIBRATION_ARTIFACT
+  luanti_input_protocol: luanti_chat_command_exact_v1
+
+usage_accounting:
+  schema: c1-usage-accounting-v2
+  required_primary_fields: [prompt_tokens, completion_tokens, total_tokens]
+  primary_total_equation: total_tokens=prompt_tokens+completion_tokens
+  reasoning_detail:
+    missing_policy: bounded_completion_token_mass
+    tolerance_fraction: 0.10
+    scope: provider_canonical_model
+    runtime_action: continue
+    imputation: forbidden
+
+c1_trial_persistence:
+  schema_version: 3
+  atomic_unit: trial
+  unknown_usage: quarantine_primary_attempt
+  same_attempt_resume: forbidden
+  source_import: all_completed_tuples
+  replacement_selection: all_noncompleted_tuples
+  legacy_import: forbidden
+  normal_execution: shared_invocation_incremental_snapshot_v1
+  recovery_execution: one_task_fresh_invocation_v1
+  recovery_unknown_resume: fresh_attempt_same_clean_root
+  replaceable_source_errors:
+    - exact_usage_task_timeout
+    - exact_usage_retryable_infrastructure
+  max_recovery_attempts_per_tuple: 3
+  attempt_order: deterministic_registered_tuple_order
+  global_unknown_stop: true
+
+c1_start_gate_protocol:
+  # v2 extends the runtime hold and the shared before-rubric registry to the
+  # state-managed arm, and binds both synthesizing arms to one accepted start
+  # spec, so E and D Start rates come from the same protocol.
+  schema_version: 2
+  sequence:
+    - semantic_start_grade
+    - before_visual_grade_under_runtime_hold
+    - phase_b_only_if_start_passed
+    - after_semantic_and_visual_grade
+  arms_under_runtime_hold:
+    - c1_gui
+    - c1_gui_synth
+    - c1_agent_s
+    - c1_agent_s_synth
+    - c1_agent_scalecua
+    - c1_agent_scalecua_synth
+    - c1_state
+  shared_start_visual_rubric:
+    default: BEFORE_RUBRIC
+    luanti: LUANTI_BEFORE_RUBRIC
+  shared_start_spec:
+    consumer: c1_self_synth
+    arms: [c1_state, c1_gui_synth, c1_agent_s_synth, c1_agent_scalecua_synth]
+    acceptance: c1_spec_acceptance.accept_c1_generated_spec
+  goal_evaluation_status:
+    passed: evaluated
+    semantic_failed: not_evaluated_start_failed
+    visual_failed: not_evaluated_start_failed
+    visual_incomplete: not_evaluated_start_failed
+  short_circuit:
+    semantic_failed: do_not_call_before_visual_or_phase_b_or_after
+    before_visual_incorrect: do_not_call_phase_b_or_after
+    before_visual_incomplete: do_not_call_phase_b_or_after
+  runtime_hold_backend:
+    browser: chromium_cdp_script_pause
+    luanti: sigstop
+    native_desktop: sigstop
+    # The state arm's Unity path grades after the adapter is closed, so the start
+    # cannot drift and there is nothing left to suspend.
+    state_unity_terminated: runtime_terminated_before_grading
+  synthesized_prestart_fair_zero:
+    allowed_start_construction_status: [synthesis_failed, restore_failed]
+    requires:
+      - incomplete_false
+      - policy_not_started
+      - start_grading_not_started
+      - visual_grading_not_started
+      - zero_steps
+      - goal_not_evaluated
+    start_gate_status: not_evaluated_start_construction_failed
+    goal_evaluation_status: not_evaluated_start_construction_failed
+    by_status:
+      synthesis_failed:
+        - runtime_not_started
+        - seed_unobserved
+        - prng_absent
+        - checkpoint_restore_zero
+      restore_failed:
+        - runtime_started
+        - seed_observed
+        - prng_observed
+        - restore_time_recorded
+
+c1_background_pixel_protocol:
+  schema_version: 1
+  protocol: warptest-agent-s-v2
+  scalecua_protocol: warptest-scalecua-v1
+  execution_backend: background_pixel_v1
+  foreground_required: false
+  native_window_policy: macos_process_group_hide_v1
+  native_window_creation_policy:
+    luanti: sdl_window_hidden_at_create_v1
+    openra: sdl_window_hidden_at_create_v1
+  native_window_transient_policy:
+    jynew: macos_auto_minimize_after_create_v1
+    pal3: macos_auto_minimize_after_create_v1
+  coordinate_space: frame_pixels_top_left_v1
+  fail_closed: true
+  allow_foreground_fallback: false
+  benchmarks:
+    "2048": {capture_backend: playwright_page_screenshot_v1, input_backend: playwright_page_input_v1, frame: [1280, 800]}
+    datingsim: {capture_backend: playwright_page_screenshot_v1, input_backend: playwright_page_input_v1, frame: [1280, 800]}
+    spacerpg: {capture_backend: playwright_page_screenshot_v1, input_backend: playwright_page_input_v1, frame: [1280, 800]}
+    jupyterlab: {capture_backend: playwright_page_screenshot_v1, input_backend: playwright_page_input_v1, frame: [1280, 800]}
+    luanti: {capture_backend: luanti_irrlicht_create_screenshot_v1, input_backend: luanti_irrlicht_sevent_v1, frame: [1280, 720]}
+    openra: {capture_backend: openra_renderer_save_screenshot_sync_v1, input_backend: openra_default_input_handler_v1, frame: [1280, 720]}
+    libreoffice: {capture_backend: libreoffice_svp_composited_v1, input_backend: libreoffice_vcl_post_event_v1, frame: [1440, 1000]}
+    blender: {capture_backend: blender_bpy_screen_screenshot_v1, input_backend: blender_window_event_simulate_v1, frame: [1280, 800]}
+    jynew: {capture_backend: unity_gameview_capture_v3, input_backend: unity_editor_queue_gameview_input_v1, frame: [1280, 720]}
+    pal3: {capture_backend: unity_gameview_capture_v3, input_backend: unity_editor_queue_gameview_input_v1, frame: [1280, 720]}
+
+seeds: 1
+seed_base: 0
+c1_task_count: 16
+c1_benchmark_task_counts:
+  "2048": 2
+  datingsim: 1
+  spacerpg: 2
+  luanti: 2
+  openra: 2
+  jupyterlab: 1
+  libreoffice: 2
+  blender: 1
+  jynew: 1
+  pal3: 2
+c1_task_ids:
+  - 2048-merge-down
+  - 2048-merge-up
+  - love-shopping-mall-spa
+  - spacerpg-station-save
+  - spacerpg-galaxy-jump
+  - luanti-water-source
+  - luanti-dig-node
+  - openra-target-lines-automatic
+  - openra-disable-edge-scroll
+  - jupyterlab-text-file-edit
+  - libreoffice-impress-status-deck
+  - libreoffice-calc-budget-rollup
+  - blender-apply-bevel-modifier
+  - jynew-save-restore
+  - pal3-scene-transition
+  - pal3-scene-restore
+
+cost:
+  verified: false
+  usd_per_mtok_by_model:
+    default: 0.60
+    kimi-k3: {prompt: 0.60, completion: 0.60}
+
+retry:
+  max_attempts: 6
+  base_sleep_s: 5.0
+  max_sleep_s: 90.0
+
+arms:
+  c1_agent_s:
+    experiment: agent_s_gui_baseline
+    tasks: benchmarks/p5/c1_tasks.yaml
+    per_model: true
+    policy_kind: agent_s
+    start_mode: from_start
+    step_budgets: {short: 100, mid: 100, long: 100}
+  c1_agent_s_synth:
+    experiment: agent_s_gui_synth_baseline
+    tasks: benchmarks/p5/c1_tasks.yaml
+    per_model: true
+    policy_kind: agent_s
+    start_mode: synthesized
+    step_budgets: {short: 100, mid: 100, long: 100}
+  c1_agent_scalecua:
+    experiment: scalecua_gui_baseline
+    tasks: benchmarks/p5/c1_tasks.yaml
+    per_model: true
+    policy_kind: scalecua
+    execution_backend: background_pixel_v1
+    foreground_required: false
+    coordinate_space: frame_pixels_top_left_v1
+    start_mode: from_start
+    prompt_revision: scalecua-native-ours-ubuntu-v1
+    step_budgets: {short: 100, mid: 100, long: 100}
+  c1_agent_scalecua_synth:
+    experiment: scalecua_gui_synth_baseline
+    tasks: benchmarks/p5/c1_tasks.yaml
+    per_model: true
+    policy_kind: scalecua
+    execution_backend: background_pixel_v1
+    foreground_required: false
+    coordinate_space: frame_pixels_top_left_v1
+    start_mode: synthesized
+    prompt_revision: scalecua-native-ours-ubuntu-v1
+    phase_b_prompt_revision: c1-public-checklist-v4
+    step_budgets: {short: 100, mid: 100, long: 100}
+  c1_state:
+    experiment: state_loop
+    tasks: benchmarks/p5/c1_tasks.yaml
+    per_model: true
+    seeds: 1
+    max_iters: 1
+    explore: true
+    restore_diagnostics: false
+
+pareto:
+  align_on: benchmarks/p5/c1_tasks.yaml
+  x_axis: total_tokens
+  x_axis_secondary: [time_e2e_excluding_synthesis_ms, time_e2e_including_synthesis_ms]
+  y_axis: e2e_success
+
+stats:
+  bootstrap_iterations: 10000
+  ci: 0.95
+  paired_binary_test: exact_mcnemar
+  bootstrap_cluster: task_id
+  family_correction: holm_across_models
+  rng_seed: 1234
+
+reports_root: reports/warptest

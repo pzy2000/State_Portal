@@ -1,0 +1,12 @@
+{
+  "build_class": "jlpm",
+  "declared_files": [
+    "galata/test/jupyterlab/metadataform.test.ts",
+    "packages/notebook-extension/src/tool-widgets/metadataEditorFields.tsx"
+  ],
+  "fixed_revision": "4a19f8fff4049a9536e21fa2980fe7e5ee592d01",
+  "patch_sha256": "072d21da0a7638fec26fc10f4a1ae0c6ce8ff87189b9d4f97f61a615a2654440",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-jupyterlab-17194-cell-metadata-removal/revert.patch",
+  "source_repo": "games/jupyterlab",
+  "task_id": "lz-jupyterlab-17194-cell-metadata-removal"
+}

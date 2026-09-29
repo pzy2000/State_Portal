@@ -1,0 +1,96 @@
+# LibreOffice state-loop tasks use per-checkpoint native UNO execution plus
+# before/after desktop screenshots rather than browser warm-session reuse.
+tasks:
+  - id: libreoffice-writer-board-report-toc
+    benchmark: LibreOffice
+    repo: games/LibreOffice
+    state_description: >-
+      Start from a multi-section Writer board report with a Milestones table,
+      then insert a contents section, append the Q3 recovery-owner paragraph,
+      mark Platform audit Complete, save/reopen, and export a PDF.
+    oracle_spec: specs/libreoffice/writer-board-report-toc.yaml
+    tags: ["state-loop", "libreoffice", "writer", "deep-state", "toc"]
+    budget_ms: 240000
+  - id: libreoffice-writer-invoice-table-rollup
+    benchmark: LibreOffice
+    repo: games/LibreOffice
+    state_description: >-
+      Start from a Writer invoice with subtotal/tax/grand-total rows, then add an
+      Incident review line item, revise totals, append a payment note, save/reopen,
+      and export a PDF.
+    oracle_spec: specs/libreoffice/writer-invoice-table-rollup.yaml
+    tags: ["state-loop", "libreoffice", "writer", "deep-state", "invoice"]
+    budget_ms: 240000
+  - id: libreoffice-writer-policy-cross-reference
+    benchmark: LibreOffice
+    repo: games/LibreOffice
+    state_description: >-
+      Start from a Writer policy document, then add an approval-criteria bookmark,
+      insert a reference paragraph, preserve the Audit Evidence heading style, and
+      save/reopen.
+    oracle_spec: specs/libreoffice/writer-policy-cross-reference.yaml
+    tags: ["state-loop", "libreoffice", "writer", "deep-state", "reference"]
+    budget_ms: 240000
+  - id: libreoffice-calc-quarterly-budget-rollup
+    benchmark: LibreOffice
+    repo: games/LibreOffice
+    state_description: >-
+      Start from a four-sheet quarterly budget workbook, update March actuals,
+      recalculate Summary revenue and margin, then save/reopen.
+    oracle_spec: specs/libreoffice/calc-quarterly-budget-rollup.yaml
+    tags: ["state-loop", "libreoffice", "calc", "deep-state", "rollup"]
+    budget_ms: 240000
+  - id: libreoffice-calc-sales-sort-ranking
+    benchmark: LibreOffice
+    repo: games/LibreOffice
+    state_description: >-
+      Start from a Calc sales ranking table, increase Casey's score, sort by
+      score descending, add a rank formula, then save/reopen.
+    oracle_spec: specs/libreoffice/calc-sales-sort-ranking.yaml
+    tags: ["state-loop", "libreoffice", "calc", "deep-state", "ranking"]
+    budget_ms: 240000
+  - id: libreoffice-calc-named-range-forecast
+    benchmark: LibreOffice
+    repo: games/LibreOffice
+    state_description: >-
+      Start from Inputs and Forecast sheets, define named ranges for assumptions,
+      raise the growth rate, recalculate forecast revenue/profit, then save/reopen.
+    oracle_spec: specs/libreoffice/calc-named-range-forecast.yaml
+    tags: ["state-loop", "libreoffice", "calc", "deep-state", "named-range"]
+    budget_ms: 240000
+  - id: libreoffice-calc-chart-refresh-export
+    benchmark: LibreOffice
+    repo: games/LibreOffice
+    state_description: >-
+      Start from a Calc revenue metrics sheet, update April revenue, create a
+      RevenueTrend chart, save/reopen, and export a PDF.
+    oracle_spec: specs/libreoffice/calc-chart-refresh-export.yaml
+    tags: ["state-loop", "libreoffice", "calc", "deep-state", "chart"]
+    budget_ms: 240000
+  - id: libreoffice-impress-status-deck-build
+    benchmark: LibreOffice
+    repo: games/LibreOffice
+    state_description: >-
+      Start from a four-slide Impress status deck, update the executive title,
+      replace delivery-health bullets, add a vendor-backup callout, then save/reopen.
+    oracle_spec: specs/libreoffice/impress-status-deck-build.yaml
+    tags: ["state-loop", "libreoffice", "impress", "deep-state", "deck"]
+    budget_ms: 240000
+  - id: libreoffice-impress-slide-reorder-summary
+    benchmark: LibreOffice
+    repo: games/LibreOffice
+    state_description: >-
+      Start from a four-slide Impress operations deck, move Decisions into the
+      second position, rewrite it as an owner summary, then save/reopen.
+    oracle_spec: specs/libreoffice/impress-slide-reorder-summary.yaml
+    tags: ["state-loop", "libreoffice", "impress", "deep-state", "reorder"]
+    budget_ms: 240000
+  - id: libreoffice-impress-kpi-chart-pdf
+    benchmark: LibreOffice
+    repo: games/LibreOffice
+    state_description: >-
+      Start from a two-slide Impress KPI deck, add current KPI bullets and trend
+      shape labels, save/reopen, and export a PDF.
+    oracle_spec: specs/libreoffice/impress-kpi-chart-pdf.yaml
+    tags: ["state-loop", "libreoffice", "impress", "deep-state", "pdf"]
+    budget_ms: 240000

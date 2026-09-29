@@ -1,0 +1,47 @@
+name: SpaceRPG station manual slot two save checkpoint
+benchmark: SpaceRPG
+tags:
+- spacerpg
+- station
+- save
+- variant
+setup:
+  disable_economy_backend: true
+target:
+  kind: station
+  screen: station
+  system_id: helion-reach
+  station_id: helion-prime
+checkpoint:
+  allowed_strategies:
+  - test_hook_jump_and_validate
+  expected_validity: save-restorable
+actions:
+- type: hook_call
+  method: saveGame
+  args:
+  - manual-2
+assertions:
+- type: state_equals
+  path: activeSaveSlotId
+  value: manual-2
+- type: localStorage_key_exists
+  key: spacerpg-save-slot:manual-2
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/save-restore.golden.png
+  expected_label: correct
+  description: The SpaceRPG station state can be saved to manual slot two.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

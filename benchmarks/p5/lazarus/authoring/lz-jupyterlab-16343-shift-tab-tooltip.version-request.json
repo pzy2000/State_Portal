@@ -1,0 +1,12 @@
+{
+  "build_class": "jlpm",
+  "declared_files": [
+    "galata/test/jupyterlab/inspector-tooltip.test.ts",
+    "packages/codemirror/src/commands.ts"
+  ],
+  "fixed_revision": "4a19f8fff4049a9536e21fa2980fe7e5ee592d01",
+  "patch_sha256": "e1f1c0b9126acd31ffe744de6db683c0a27d036cb6d0219193a6a6a5f2ca7a81",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-jupyterlab-16343-shift-tab-tooltip/revert.patch",
+  "source_repo": "games/jupyterlab",
+  "task_id": "lz-jupyterlab-16343-shift-tab-tooltip"
+}

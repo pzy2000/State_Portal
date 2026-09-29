@@ -1,0 +1,45 @@
+name: jynew team join role checkpoint
+benchmark: "jynew"
+timeout_ms: 900000
+tags: ["jynew", "team", "join", "sanity"]
+target:
+  kind: synthesized_state
+  mod_id: JYX2
+  player_level: 5
+  money: 500
+  team_ids: [0]
+checkpoint:
+  allowed_strategies: ["jynew_utility_save_validate"]
+  expected_validity: "injection-only"
+actions:
+  - type: jynew_join_team
+    role_id: 1
+assertions:
+  - type: jynew_team_contains
+    role_id: 1
+  - type: jynew_team_count
+    expected: "2"
+    comparator: equals
+  - type: no_jynew_utility_errors
+visual_oracle:
+  golden_image: visual/team-join.golden.png
+  expected_label: correct
+  scene_key: jynew_default_world
+  description: "After joining role 1 to the party, the game world scene is visible with two characters present. The team panel or HUD should reflect two party members."
+  rubric:
+    must:
+      - "The jynew 3D game world is rendered and visible."
+      - "The player character is visible in the scene."
+      - "No crash dialog, error overlay, or blank screen is shown."
+    must_not:
+      - "The screen is blank or shows only the Unity splash."
+      - "An error dialog or exception stack trace is visible."
+      - "The scene shows a menu screen instead of the game world."
+    ignore:
+      - "Exact character position or camera angle differences."
+      - "Minor lighting or shadow variations."
+      - "UI element positioning differences between runs."
+  capture:
+    stage: post_smoke
+    wait_ms: 1000
+    full_page: false

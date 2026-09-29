@@ -1,0 +1,11 @@
+{
+  "build_class": "incremental_dotnet",
+  "declared_files": [
+    "OpenRA.Mods.Common/Traits/AutoTarget.cs"
+  ],
+  "fixed_revision": "7e687f430ee5b194c0ffaa06caaba757dd9155fb",
+  "patch_sha256": "2bcca65b30419304a90da32b3b7da1f77171cd182fab834aea15983909c1e5af",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-openra-22471-autotarget-validity/revert.patch",
+  "source_repo": "games/OpenRA",
+  "task_id": "lz-openra-22471-autotarget-validity"
+}

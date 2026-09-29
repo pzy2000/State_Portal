@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "after": "specs/love/visual/love-office-work-coding.after.golden.png",
+  "after_sha256": "30ee845216384650f72a847732c817e27e5ac48ddb66b53fc6b36f111ae1f379",
+  "before": "specs/love/visual/love-office-work-coding.before.golden.png",
+  "before_sha256": "83afbb68c0580f1add348915a006245f9945cec28f91dfd1f41697e488110c32",
+  "benchmark": "DatingSim",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/love/office-work-coding.yaml",
+  "spec_sha256": "d77e98aef192bba9c4422c2f762ff436313c34f6d2ce6e04f8ee28d9972ae4c4",
+  "task_id": "love-office-work-coding"
+}

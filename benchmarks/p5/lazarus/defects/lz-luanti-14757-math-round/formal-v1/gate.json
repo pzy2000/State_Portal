@@ -1,0 +1,113 @@
+{
+  "benchmark": "luanti",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": true,
+  "evidence": {
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.26284288194444444,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 20.696537905092594
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 0.0
+      },
+      "before_sha256": "0321f605644949b7b23c6df842ee71ebf279bf56f5857df17735077f0e95d7de",
+      "buggy_after_sha256": "2635087187d014081a0eca70c5b3d6d08855efd4750d86ffcf10e62b36232102",
+      "fixed_after_sha256": "f44a346f538f046b67c4bf16942c97c1c64e1840005f4988bcdadb05e1ec99b8",
+      "metadata": "specs/luanti/lazarus/visual_lz-luanti-14757-math-round/goldens.meta.json",
+      "metadata_sha256": "082903660d6ac4c968aafa1c065eb76f2b4235bb6e96b4a0748643d3a0fd34ab"
+    },
+    "probe_verification": null,
+    "provenance_errors": [],
+    "source_artifacts": {
+      "gate10": "closure:candidate_gate10_server_side_oracle/luanti/14757/repackage-v3/v1",
+      "gate11": "closure:candidate_gate11_f12_hudfix_observation/luanti/14757/repackage-v3/v1",
+      "gate12": "closure:candidate_gate12_f12_hudfix_matrix/luanti/14757/repackage-v3/v1",
+      "gate13": "closure:candidate_curated_lineage_evidence/luanti/14757/current/v2",
+      "gate8": "admission:gate8_materialization_runtime=passed",
+      "gate9": "closure:candidate_gate9_current_v2_attempt/luanti/14757/repackage-v3/fixed/1/v1",
+      "gate_1_7_source": "candidate_downstream_status/luanti/14757/current/v2",
+      "gate_1_7_truth_table": {},
+      "strict_gate_1_7": true
+    },
+    "upstream": [
+      {
+        "command": [
+          "busted",
+          "--filter",
+          "math round()",
+          "builtin/common/tests/misc_helpers_spec.lua"
+        ],
+        "cwd": ".",
+        "id": "math round()",
+        "kind": "fail_to_pass"
+      },
+      {
+        "command": [
+          "busted",
+          "--filter",
+          "formspec_escape escapes",
+          "builtin/common/tests/misc_helpers_spec.lua"
+        ],
+        "cwd": ".",
+        "id": "formspec_escape escapes",
+        "kind": "pass_to_pass"
+      }
+    ],
+    "versions": {
+      "changed_files": [
+        "builtin/common/math.lua"
+      ],
+      "patch_sha256": "8fa137f5f9e886edcbc1da7b83c797dc6eb01dc766e1dcb99d743787ea8f02c5",
+      "patch_source": "pilot_patch:benchmarks/p5/lazarus/defects/lz-luanti-14757-math-round/revert.patch",
+      "reverse_apply_reproduces_frozen_buggy_tree": false,
+      "tree_pair": null
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "math round()"
+  ],
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "pass_to_pass": [
+    "formspec_escape escapes"
+  ],
+  "passed": true,
+  "projection": {
+    "admission": "candidate_formal_freeze_admission/luanti/14757/gap-closed-v1",
+    "closure_size": 86414,
+    "fresh_gate_run": false,
+    "generator": "warptest.c1_lazarus_selection.c1_lazarus_formal_catalog",
+    "selection_mode": "c1_freeze_sprint_v2"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-luanti-14757-math-round",
+  "upstream_f2p": true
+}

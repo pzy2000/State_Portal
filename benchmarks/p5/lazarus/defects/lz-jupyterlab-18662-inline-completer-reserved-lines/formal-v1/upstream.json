@@ -1,0 +1,124 @@
+{
+  "authority": "github",
+  "benchmark": "jupyterlab",
+  "comments": [],
+  "fix_commit": "131029c354651aa064a30dc42a7fba824403f31c",
+  "issue": {
+    "body_normalized": "## Description\n\nWhen testing #18555 I noticed that `Reserve space for the longest candidate` and `Reserve lines for inline completion` seem to have no effect.\n\n## Reproduce\n\n1. Create two cells:\n\n```python\ndef test():\n    pass\n```\n\n```python\ndef test123():\n    pass\n    pass\n    pass\n```\n\n2. Run both in order\n3. Enable inline completion from history\n4. Enable Reserve space for the longest candidate\n5. Start typing `def test` in a new cell\n6. See that the space is not reserved and editor height changes when toggling between the two matching suggestions\n\n## Expected behavior\n\nThey should reserve space for the extra lines? I may misremember the design here though.\n\n## Context\n\nReproduced as far back as JupyterLab 4.3.6, I did not try going further in the history.",
+    "body_raw": "\n\n## Description\n\nWhen testing #18555 I noticed that `Reserve space for the longest candidate` and `Reserve lines for inline completion` seem to have no effect.\n\n## Reproduce\n\n1. Create two cells:\n\n```python\ndef test():\n    pass\n```\n\n```python\ndef test123():\n    pass\n    pass\n    pass\n```\n\n2. Run both in order\n3. Enable inline completion from history\n4. Enable Reserve space for the longest candidate\n5. Start typing `def test` in a new cell\n6. See that the space is not reserved and editor height changes when toggling between the two matching suggestions\n\n## Expected behavior\n\nThey should reserve space for the extra lines? I may misremember the design here though.\n\n## Context\n \nReproduced as far back as JupyterLab 4.3.6, I did not try going further in the history.",
+    "body_sha256": "201c77e342ba7dfd87c9b291cb5b50fcacecf0491357a0b237cc5a2745919db9",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 18660,
+    "state": "closed",
+    "title": "`Reserve space for the longest candidate` and `Reserve lines for inline completion` have no effect?",
+    "url": "https://github.com/jupyterlab/jupyterlab/issues/18660"
+  },
+  "patch_sha256": "96f630fa50dcc5c708afe61be82fa68e24e7bf2eb1747fc195ae0cd2a50872d2",
+  "pinned_revision": "131029c354651aa064a30dc42a7fba824403f31c",
+  "pull_request": {
+    "body_normalized": "## References\n\nFixes #18660\n\n## Code changes\n\n`maxLines` defaults to `0` in the schema (meaning \"no limit\"), but the code in `_updateDOM` used a truthiness check (`if (this.options.maxLines)`) and nullish coalescing (`this.options.maxLines ?? Infinity`) which both treat `0` incorrectly — `0` is falsy but not nullish. This caused `minLines` to always be clamped to `0`, preventing placeholder lines from ever being added.\n\nFixed by normalizing with `this.options.maxLines || Infinity` so that `0` correctly maps to unlimited.\n\n## User-facing changes\n\nThe \"Reserve space for the longest candidate\" and \"Reserve lines for inline completion\" settings now work — the editor no longer resizes when cycling between completions of different lengths.\n\n## Backwards-incompatible changes\n\nNone.\n\n## AI usage\n\nNo AI was used to write this code.",
+    "body_raw": "## References\n\nFixes #18660\n\n## Code changes\n\n`maxLines` defaults to `0` in the schema (meaning \"no limit\"), but the code in `_updateDOM` used a truthiness check (`if (this.options.maxLines)`) and nullish coalescing (`this.options.maxLines ?? Infinity`) which both treat `0` incorrectly — `0` is falsy but not nullish. This caused `minLines` to always be clamped to `0`, preventing placeholder lines from ever being added.\n\nFixed by normalizing with `this.options.maxLines || Infinity` so that `0` correctly maps to unlimited.\n\n## User-facing changes\n\nThe \"Reserve space for the longest candidate\" and \"Reserve lines for inline completion\" settings now work — the editor no longer resizes when cycling between completions of different lengths.\n\n## Backwards-incompatible changes\n\nNone.\n\n## AI usage\n\nNo AI was used to write this code.",
+    "body_sha256": "c52c9111ba2c4c642b756f8800be61afecdb9dafc43c20b64f481cad09c4a7c1",
+    "kind": "pull",
+    "merged_at": "2026-03-27T14:04:40Z",
+    "number": 18662,
+    "state": "closed",
+    "title": "Fix inline completer space reservation settings having no effect",
+    "url": "https://github.com/jupyterlab/jupyterlab/pull/18662"
+  },
+  "record_sha256": "50826c7638d8f81a0cf107677e019fb2bfb7e71a990b47e953eb045886f0f85d",
+  "repository": "jupyterlab/jupyterlab",
+  "retrieved_at": "2026-08-15T02:39:32.821290Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-18662-inline-completer-reserved-lines",
+  "tests": [
+    {
+      "command": [
+        "jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/inline.spec.ts",
+        "-t",
+        "completer/inline InlineCompleter #configure() `minLines` should reserve space when maxLines is 0 (unlimited)"
+      ],
+      "cwd": "packages/completer",
+      "frozen_attempt_command": [
+        "/opt/homebrew/Cellar/node@22/22.22.0_1/bin/node",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18662/current-v1/buggy/node_modules/jest/bin/jest.js",
+        "--config",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18662/current-v1/buggy/packages/completer/jest.config.js",
+        "--runTestsByPath",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18662/current-v1/buggy/packages/completer/test/inline.spec.ts",
+        "--testNamePattern",
+        "^completer/inline InlineCompleter #configure\\(\\) `minLines` should add empty lines when needed$",
+        "--runInBand",
+        "--no-cache",
+        "--cacheDirectory",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runtime-home/jupyterlab-18662-gate57-v1/p2p/buggy/3/jest-cache",
+        "--json",
+        "--outputFile",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runtime-home/jupyterlab-18662-gate57-v1/p2p/buggy/3/jest-result.json"
+      ],
+      "id": "completer/inline InlineCompleter #configure() `minLines` should reserve space when maxLines is 0 (unlimited)",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_regression_test",
+      "source_case": "completer/inline InlineCompleter #configure() `minLines` should reserve space when maxLines is 0 (unlimited)",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/completer/test/inline.spec.ts",
+      "upstream_test_path": "packages/completer/test/inline.spec.ts",
+      "upstream_test_sha256": "38cdc9d6e475f5c71848ca05109cbfb9141bb743e066b812ec6e12c2d2b0007e"
+    },
+    {
+      "command": [
+        "jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/inline.spec.ts",
+        "-t",
+        "completer/inline InlineCompleter #configure() `minLines` should add empty lines when needed"
+      ],
+      "cwd": "packages/completer",
+      "frozen_attempt_command": [
+        "/opt/homebrew/Cellar/node@22/22.22.0_1/bin/node",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18662/current-v1/buggy/node_modules/jest/bin/jest.js",
+        "--config",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18662/current-v1/buggy/packages/completer/jest.config.js",
+        "--runTestsByPath",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18662/current-v1/buggy/packages/completer/test/inline.spec.ts",
+        "--testNamePattern",
+        "^completer/inline InlineCompleter #configure\\(\\) `minLines` should add empty lines when needed$",
+        "--runInBand",
+        "--no-cache",
+        "--cacheDirectory",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runtime-home/jupyterlab-18662-gate57-v1/p2p/buggy/3/jest-cache",
+        "--json",
+        "--outputFile",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runtime-home/jupyterlab-18662-gate57-v1/p2p/buggy/3/jest-result.json"
+      ],
+      "id": "completer/inline InlineCompleter #configure() `minLines` should add empty lines when needed",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_regression_test",
+      "source_case": "completer/inline InlineCompleter #configure() `minLines` should add empty lines when needed",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/completer/test/inline.spec.ts",
+      "upstream_test_path": "packages/completer/test/inline.spec.ts",
+      "upstream_test_sha256": "38cdc9d6e475f5c71848ca05109cbfb9141bb743e066b812ec6e12c2d2b0007e"
+    }
+  ],
+  "touched_files": [
+    "packages/completer/src/ghost.ts",
+    "packages/completer/test/inline.spec.ts"
+  ],
+  "upstream_commits": [
+    {
+      "body_normalized": "Fix inline completer space reservation settings having no effect (#18662)\n\n## References\n\nFixes #18660\n\n## Code changes\n\n`maxLines` defaults to `0` in the schema (meaning \"no limit\"), but the\ncode in `_updateDOM` used a truthiness check (`if\n(this.options.maxLines)`) and nullish coalescing (`this.options.maxLines\n?? Infinity`) which both treat `0` incorrectly — `0` is falsy but not\nnullish. This caused `minLines` to always be clamped to `0`, preventing\nplaceholder lines from ever being added.\n\nFixed by normalizing with `this.options.maxLines || Infinity` so that\n`0` correctly maps to unlimited.\n\n## User-facing changes\n\nThe \"Reserve space for the longest candidate\" and \"Reserve lines for\ninline completion\" settings now work — the editor no longer resizes when\ncycling between completions of different lengths.\n\n## Backwards-incompatible changes\n\nNone.\n\n## AI usage\n\nNo AI was used to write this code.\n\n---------\n\nCo-authored-by: moktamd <moktamd@users.noreply.github.com>\nCo-authored-by: Michał Krassowski <5832902+krassowski@users.noreply.github.com>",
+      "body_raw": "Fix inline completer space reservation settings having no effect (#18662)\n\n## References\n\nFixes #18660\n\n## Code changes\n\n`maxLines` defaults to `0` in the schema (meaning \"no limit\"), but the\ncode in `_updateDOM` used a truthiness check (`if\n(this.options.maxLines)`) and nullish coalescing (`this.options.maxLines\n?? Infinity`) which both treat `0` incorrectly — `0` is falsy but not\nnullish. This caused `minLines` to always be clamped to `0`, preventing\nplaceholder lines from ever being added.\n\nFixed by normalizing with `this.options.maxLines || Infinity` so that\n`0` correctly maps to unlimited.\n\n## User-facing changes\n\nThe \"Reserve space for the longest candidate\" and \"Reserve lines for\ninline completion\" settings now work — the editor no longer resizes when\ncycling between completions of different lengths.\n\n## Backwards-incompatible changes\n\nNone.\n\n## AI usage\n\nNo AI was used to write this code.\n\n---------\n\nCo-authored-by: moktamd <moktamd@users.noreply.github.com>\nCo-authored-by: Michał Krassowski <5832902+krassowski@users.noreply.github.com>",
+      "body_sha256": "dd38f0454ca7c0445815f976b68d3f80ea28a52924c6a123ddd4c411565f38c0",
+      "sha": "131029c354651aa064a30dc42a7fba824403f31c",
+      "url": "https://github.com/jupyterlab/jupyterlab/commit/131029c354651aa064a30dc42a7fba824403f31c"
+    }
+  ]
+}

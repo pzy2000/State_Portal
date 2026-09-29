@@ -1,0 +1,63 @@
+name: DatingSim cafe coding work checkpoint
+benchmark: DatingSim
+tags:
+- love
+- resources
+- work
+- variant
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  seed: 21
+  player_name: WarpTest
+  gender: male
+  patch:
+    player:
+      resources:
+        money: 500
+        energy: 90
+        health: 100
+        mood: 100
+    world:
+      location: cafe
+  expect:
+    location: cafe
+    resources:
+      money: 500
+      energy: 90
+checkpoint:
+  allowed_strategies:
+  - test_hook_seeded_state
+  expected_validity: injection-only
+actions:
+- type: hook_action
+  action_id: work_coding
+  wait_ms: 500
+assertions:
+- type: state_equals
+  path: player.resources.money
+  value: 600
+- type: state_equals
+  path: player.resources.energy
+  value: 70
+- type: no_real_openai
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/resource-action.golden.png
+  expected_label: correct
+  description: The DatingSim gameplay UI remains visible after coding work from
+    the cafe.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

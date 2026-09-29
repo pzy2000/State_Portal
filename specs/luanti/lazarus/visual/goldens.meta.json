@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.0026070601851851853,
+    "ignored_top_fraction": 0.25,
+    "mean_absolute_difference": 0.16648099922839507
+  },
+  "before_buggy_sha256": "0b0f05b3487c23132f1775bccfc888dcf4a9dbbb8e87a2c813faf0b258b69aa3",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.25,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "5f4b861f6d8506ca844b882d542b1a5c7394082447a8c2be66c298a24a95d72b",
+  "buggy_after_sha256": "ad65d46bb2b633b1565ff324a7378fbbecdc2ff02a243f6e23accce6c01d47c0",
+  "fixed_after_sha256": "7ec21e5276933dccca59c830db9eb3f61709c988c44d5ea9e9086d0d8bdc69b5",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "ad65d46bb2b633b1565ff324a7378fbbecdc2ff02a243f6e23accce6c01d47c0",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 300708,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "66d850af38728d7750a3c0f4ed300e5aa8d7c61f67ad9dc8b7c1d4fe3a82a984"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "0b0f05b3487c23132f1775bccfc888dcf4a9dbbb8e87a2c813faf0b258b69aa3",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 299870,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "4977a8f94cb2cec83f0a5577318dac345e9e4e2b85e9bf88b21983359adca96f"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "7ec21e5276933dccca59c830db9eb3f61709c988c44d5ea9e9086d0d8bdc69b5",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 299414,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "47d0d6ddf50a08cc72f15f2c7bb75c97e0440db2e229434a12690005bc7924db"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "5f4b861f6d8506ca844b882d542b1a5c7394082447a8c2be66c298a24a95d72b",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 299642,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "4977a8f94cb2cec83f0a5577318dac345e9e4e2b85e9bf88b21983359adca96f"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.25
+  },
+  "published_unix_ns": 1786379289526812000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lz-luanti-13485-falling-node"
+}

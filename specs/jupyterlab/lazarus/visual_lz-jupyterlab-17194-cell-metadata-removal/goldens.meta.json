@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.0103427734375,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 1.7392565104166666
+  },
+  "before_buggy_sha256": "849e77665bd5bf72728fe1de4343695dfc9b5f769cedbaad6f756fe8e8f52d9d",
+  "before_equivalence": {
+    "changed_pixel_ratio": 1.953125e-05,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.0026822916666666666
+  },
+  "before_sha256": "960b77a8876bdb289bd5d9fb98e5c5cb99fa39c347368d1f127280147cc15371",
+  "buggy_after_sha256": "849e77665bd5bf72728fe1de4343695dfc9b5f769cedbaad6f756fe8e8f52d9d",
+  "fixed_after_sha256": "584757cbb689d1e6b41ecd8cc4a85f69085cc883b23b7cbaaa02ddfe9480258e",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "849e77665bd5bf72728fe1de4343695dfc9b5f769cedbaad6f756fe8e8f52d9d",
+      "quality": {
+        "image_size": [
+          1280,
+          800
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 26778,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "c49072909be9164f47877fed3c081ff6de43e3edb273074a4578bfdd62c1cd07"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "849e77665bd5bf72728fe1de4343695dfc9b5f769cedbaad6f756fe8e8f52d9d",
+      "quality": {
+        "image_size": [
+          1280,
+          800
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 26778,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "71de065da4dd250810828cf5d8f0bac649392c57f37d41864b9946faf948738a"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "584757cbb689d1e6b41ecd8cc4a85f69085cc883b23b7cbaaa02ddfe9480258e",
+      "quality": {
+        "image_size": [
+          1280,
+          800
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 26455,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "5a0a1d61b12e3d115a0ab26ab09b3a63a292cc2bd370dc70c779702f44bb7419"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "960b77a8876bdb289bd5d9fb98e5c5cb99fa39c347368d1f127280147cc15371",
+      "quality": {
+        "image_size": [
+          1280,
+          800
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 26802,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "4d47b6626b9fc3068678ec4dedc290e691d174fdd59a3f6eb86543301996b643"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.0
+  },
+  "published_unix_ns": 1786880296096545000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lz-jupyterlab-17194-cell-metadata-removal"
+}

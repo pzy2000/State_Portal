@@ -1,0 +1,370 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [
+    {
+      "author": "Zughy",
+      "body_normalized": "Hello, please reopen the issue following the template and providing a minimal test",
+      "body_raw": "Hello, please reopen the issue following the template and providing a minimal test",
+      "body_sha256": "0e8c374bf4129e28b5bd9a59a12108fa72c31c9634f6e60d142dd41ef2a54263",
+      "created_at": "2023-05-07T12:52:27Z",
+      "id": 1537434549,
+      "source": "issue_comment",
+      "updated_at": "2023-05-07T12:52:27Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1537434549"
+    },
+    {
+      "author": "rubenwardy",
+      "body_normalized": "This should be a duplicate but can't find the original issue. Capture the Flag had an issue where falling nodes could be used to break the flag, and then allow players to place multiple flags for their team - making it quite hard for them to be defeated",
+      "body_raw": "This should be a duplicate but can't find the original issue. Capture the Flag had an issue where falling nodes could be used to break the flag, and then allow players to place multiple flags for their team - making it quite hard for them to be defeated",
+      "body_sha256": "7764d845bb1021194424ec9b35fb06b93270ec874658eb5adac99a85765fd54d",
+      "created_at": "2023-05-07T12:54:34Z",
+      "id": 1537435033,
+      "source": "issue_comment",
+      "updated_at": "2023-05-07T12:54:34Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1537435033"
+    },
+    {
+      "author": "rubenwardy",
+      "body_normalized": "Here is is: #3398",
+      "body_raw": "Here is is: #3398",
+      "body_sha256": "373138c7f272fc874e1a055c9f3c0d9cb744eb50eda5f18e58747692ab9c33ee",
+      "created_at": "2023-05-07T12:55:36Z",
+      "id": 1537435307,
+      "source": "issue_comment",
+      "updated_at": "2023-05-07T12:55:36Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1537435307"
+    },
+    {
+      "author": "tenplus1",
+      "body_normalized": "Can someone re-open this issue as I am unable to without creating a new issue.",
+      "body_raw": "Can someone re-open this issue as I am unable to without creating a new issue.",
+      "body_sha256": "716af12446322735eb4969be24d71c10ea0c52486737cda59ef7ba1df33d0778",
+      "created_at": "2023-05-07T19:26:55Z",
+      "id": 1537522702,
+      "source": "issue_comment",
+      "updated_at": "2023-05-07T19:26:55Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1537522702"
+    },
+    {
+      "author": "savilli",
+      "body_normalized": "You should use `diggable = false` property. Unbreakable or immortal groups do nothing for nodes.",
+      "body_raw": "You should use `diggable = false` property. Unbreakable or immortal groups do nothing for nodes.",
+      "body_sha256": "4a88639434ed83539b121fd08f7a7cca7f4cf04d74f6c623d13e9bbd5e7fa706",
+      "created_at": "2023-05-08T00:10:28Z",
+      "id": 1537577835,
+      "source": "issue_comment",
+      "updated_at": "2023-05-08T00:10:28Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1537577835"
+    },
+    {
+      "author": "tenplus1",
+      "body_normalized": "@savilli - those groups are custom, one for the mod itself and the other for mobs redo api to make sure mobs wont remove node.",
+      "body_raw": "@savilli - those groups are custom, one for the mod itself and the other for mobs redo api to make sure mobs wont remove node.",
+      "body_sha256": "7d05d3d7e261554ed2571c6bf1406560ffd6b8698bd063d559e66e87d149b414",
+      "created_at": "2023-05-08T05:39:11Z",
+      "id": 1537781835,
+      "source": "issue_comment",
+      "updated_at": "2023-05-08T05:39:11Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1537781835"
+    },
+    {
+      "author": "fluxionary",
+      "body_normalized": "probably `diggable = false` is not enough - in what case should a falling node ever replace an existing node, except when it has `buildable_to = true`?",
+      "body_raw": "probably `diggable = false` is not enough - in what case should a falling node ever replace an existing node, except when it has `buildable_to = true`?",
+      "body_sha256": "a790fa8b8578471307cd4f63f18f423d69899f65802c6ed6b4f552fe176679d8",
+      "created_at": "2023-05-11T22:26:42Z",
+      "id": 1544772942,
+      "source": "issue_comment",
+      "updated_at": "2023-05-11T22:26:42Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1544772942"
+    },
+    {
+      "author": "savilli",
+      "body_normalized": "What do you mean? `diggable = false` is enough to disallow a falling node to replace the node.",
+      "body_raw": "What do you mean? `diggable = false` is enough to disallow a falling node to replace the node.",
+      "body_sha256": "42fb1b1fc4f9311a8ebc1a71a2c6d5e2cab29ab1065f8d0fdc1aa194d096677a",
+      "created_at": "2023-05-11T23:19:03Z",
+      "id": 1544820213,
+      "source": "issue_comment",
+      "updated_at": "2023-05-11T23:19:03Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1544820213"
+    },
+    {
+      "author": "tenplus1",
+      "body_normalized": "In the test above falling nodes will always replace the thin node unless the area is protected, this is why I made my own falling_item mod to replace it with while it's broken.",
+      "body_raw": "In the test above falling nodes will always replace the thin node unless the area is protected, this is why I made my own falling_item mod to replace it with while it's broken.",
+      "body_sha256": "bbe4c88fdce5c31238f15444bf9e163c8116dea2526ef42ca40b285bc1da9c9c",
+      "created_at": "2023-05-12T13:29:26Z",
+      "id": 1545749048,
+      "source": "issue_comment",
+      "updated_at": "2023-05-12T13:29:26Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1545749048"
+    },
+    {
+      "author": "fluxionary",
+      "body_normalized": ">> probably `diggable = false` is not enough - in what case should a falling node ever replace an existing node, except when it has `buildable_to = true`?\n>\n> What do you mean? `diggable = false` is enough to disallow a falling node to replace the node.\n\napologies, that's badly worded. i meant to say it don't think checking `diggable = false` is sufficiently restrictive, and i think that  a falling node should never replace another node unless it has `buildable_to = true`",
+      "body_raw": ">> probably `diggable = false` is not enough - in what case should a falling node ever replace an existing node, except when it has `buildable_to = true`?\r\n>\r\n> What do you mean? `diggable = false` is enough to disallow a falling node to replace the node.\r\n\r\napologies, that's badly worded. i meant to say it don't think checking `diggable = false` is sufficiently restrictive, and i think that  a falling node should never replace another node unless it has `buildable_to = true`",
+      "body_sha256": "a8bbf3ac1fddea2ab67de84d2f7cf20d7c00bdec08b70d61a3826f8103a5f129",
+      "created_at": "2023-05-12T23:35:57Z",
+      "id": 1546435836,
+      "source": "issue_comment",
+      "updated_at": "2023-05-12T23:35:57Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1546435836"
+    },
+    {
+      "author": "savilli",
+      "body_normalized": "> > > probably `diggable = false` is not enough - in what case should a falling node ever replace an existing node, except when it has `buildable_to = true`?\n> >\n> >\n> > What do you mean? `diggable = false` is enough to disallow a falling node to replace the node.\n>\n> apologies, that's badly worded. i meant to say it don't think checking `diggable = false` is sufficiently restrictive, and i think that a falling node should never replace another node unless it has `buildable_to = true`\n\nI rather disagree. For example, torches have `buildable_to = false`, and people are used to falling nodes removing them.\nWhat problem are you trying to solve with this change?",
+      "body_raw": "> > > probably `diggable = false` is not enough - in what case should a falling node ever replace an existing node, except when it has `buildable_to = true`?\r\n> > \r\n> > \r\n> > What do you mean? `diggable = false` is enough to disallow a falling node to replace the node.\r\n> \r\n> apologies, that's badly worded. i meant to say it don't think checking `diggable = false` is sufficiently restrictive, and i think that a falling node should never replace another node unless it has `buildable_to = true`\r\n\r\nI rather disagree. For example, torches have `buildable_to = false`, and people are used to falling nodes removing them.\r\nWhat problem are you trying to solve with this change?",
+      "body_sha256": "f3fdf9ca781ec153fc34c7955d52d86ab5ebce3936fe368b9f4386a4b9d2cd95",
+      "created_at": "2023-05-13T01:02:25Z",
+      "id": 1546477417,
+      "source": "issue_comment",
+      "updated_at": "2023-05-13T01:02:25Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1546477417"
+    },
+    {
+      "author": "fluxionary",
+      "body_normalized": "> I rather disagree. For example, torches have `buildable_to = false`, and people are used to falling nodes removing them. What problem are you trying to solve with this change?\n\nthe immediate problem is falling nodes destroying bones nodes if a player dies at exactly the wrong time. this can be fixed by changing bones nodes to have `diggable = false`, and relying on the `on_punch` callback to remove them, but that's not a solution to *nearly every other node in the game* being susceptible to this. chests, machines, what have you. you can't make them all  `diggable = false`.",
+      "body_raw": "> I rather disagree. For example, torches have `buildable_to = false`, and people are used to falling nodes removing them. What problem are you trying to solve with this change?\r\n\r\nthe immediate problem is falling nodes destroying bones nodes if a player dies at exactly the wrong time. this can be fixed by changing bones nodes to have `diggable = false`, and relying on the `on_punch` callback to remove them, but that's not a solution to *nearly every other node in the game* being susceptible to this. chests, machines, what have you. you can't make them all  `diggable = false`. ",
+      "body_sha256": "897fb13b2686e561b537ea395116a655c47e771831abdba2d3347b2a20699f88",
+      "created_at": "2023-05-13T02:10:14Z",
+      "id": 1546495989,
+      "source": "issue_comment",
+      "updated_at": "2023-05-13T02:10:14Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1546495989"
+    },
+    {
+      "author": "savilli",
+      "body_normalized": "> > I rather disagree. For example, torches have `buildable_to = false`, and people are used to falling nodes removing them. What problem are you trying to solve with this change?\n>\n> the immediate problem is falling nodes destroying bones nodes if a player dies at exactly the wrong time. this can be fixed by changing bones nodes to have `diggable = false`, and relying on the `on_punch` callback to remove them, but that's not a solution to _nearly every other node in the game_ being susceptible to this. chests, machines, what have you. you can't make them all `diggable = false`.\n\nFalling nodes only replace nodes that have `walkable = true` and `diggable = true`, that's a rather small subset of nodes.\nWhy do bones, chests and machines have `walkable = true`? Bones in MTG for example have `walkable = false`.",
+      "body_raw": "> > I rather disagree. For example, torches have `buildable_to = false`, and people are used to falling nodes removing them. What problem are you trying to solve with this change?\r\n> \r\n> the immediate problem is falling nodes destroying bones nodes if a player dies at exactly the wrong time. this can be fixed by changing bones nodes to have `diggable = false`, and relying on the `on_punch` callback to remove them, but that's not a solution to _nearly every other node in the game_ being susceptible to this. chests, machines, what have you. you can't make them all `diggable = false`.\r\n\r\nFalling nodes only replace nodes that have `walkable = true` and `diggable = true`, that's a rather small subset of nodes.\r\nWhy do bones, chests and machines have `walkable = true`? Bones in MTG for example have `walkable = false`.\r\n",
+      "body_sha256": "feca8eb6dabd59a08427196950a2a02e875c943c714c3a88a457a13fe36990c9",
+      "created_at": "2023-05-13T16:21:43Z",
+      "id": 1546703920,
+      "source": "issue_comment",
+      "updated_at": "2023-05-13T16:21:43Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1546703920"
+    },
+    {
+      "author": "fluxionary",
+      "body_normalized": "> Falling nodes only replace nodes that have `walkable = true` and `diggable = true`, that's a rather small subset of nodes.\n> Why do bones, chests and machines have `walkable = true`? Bones in MTG for example have `walkable = false`.\n\nwhat? most nodes have `walkable = true`, including bones from MTG.",
+      "body_raw": " \r\n\r\n> Falling nodes only replace nodes that have `walkable = true` and `diggable = true`, that's a rather small subset of nodes.\r\n> Why do bones, chests and machines have `walkable = true`? Bones in MTG for example have `walkable = false`.\r\n\r\nwhat? most nodes have `walkable = true`, including bones from MTG. ",
+      "body_sha256": "04b4d121ee3b1d7f5ebc000a7140c807ca899718b5663852f233cd08345495ec",
+      "created_at": "2023-05-13T17:57:41Z",
+      "id": 1546720389,
+      "source": "issue_comment",
+      "updated_at": "2023-05-13T17:58:06Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1546720389"
+    },
+    {
+      "author": "savilli",
+      "body_normalized": "> > Falling nodes only replace nodes that have `walkable = true` and `diggable = true`, that's a rather small subset of nodes.\n> > Why do bones, chests and machines have `walkable = true`? Bones in MTG for example have `walkable = false`.\n>\n> what? most nodes have `walkable = true`, including bones from MTG.\n\nSorry, I messed up the meaning of `walkable`. The actual condition of falling nodes replacing nodes under them is `walkable = false` and `diggable = true`. Most nodes have `walkable = true` indeed.",
+      "body_raw": "> > Falling nodes only replace nodes that have `walkable = true` and `diggable = true`, that's a rather small subset of nodes.\r\n> > Why do bones, chests and machines have `walkable = true`? Bones in MTG for example have `walkable = false`.\r\n> \r\n> what? most nodes have `walkable = true`, including bones from MTG.\r\n\r\nSorry, I messed up the meaning of `walkable`. The actual condition of falling nodes replacing nodes under them is `walkable = false` and `diggable = true`. Most nodes have `walkable = true` indeed.",
+      "body_sha256": "f556b8854fb828ec39f70cab752da149b07d3869b8b94c8090ededf14926d089",
+      "created_at": "2023-05-13T20:19:03Z",
+      "id": 1546743260,
+      "source": "issue_comment",
+      "updated_at": "2023-05-13T20:19:03Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1546743260"
+    },
+    {
+      "author": "fluxionary",
+      "body_normalized": "> Sorry, I messed up the meaning of `walkable`. The actual condition of falling nodes replacing nodes under them is `walkable = false` and `diggable = true`. Most nodes have `walkable = true` indeed.\n\nnoting that i also possibly messed up too, as i can't get falling nodes to destroy bones, though i'm waiting for a response from the person who replicated the issue previously to see if there's something i'm doing wrong.\n\nbut why are falling nodes *digging anything*? i'd expect them to drop as items if they can't place properly.\n\nhttps://github.com/minetest/minetest/blob/15fb4cab15c8d57028a2f616e1b443e8dc02e4f9/builtin/game/falling.lua#L289",
+      "body_raw": "> Sorry, I messed up the meaning of `walkable`. The actual condition of falling nodes replacing nodes under them is `walkable = false` and `diggable = true`. Most nodes have `walkable = true` indeed.\r\n\r\nnoting that i also possibly messed up too, as i can't get falling nodes to destroy bones, though i'm waiting for a response from the person who replicated the issue previously to see if there's something i'm doing wrong. \r\n\r\nbut why are falling nodes *digging anything*? i'd expect them to drop as items if they can't place properly. \r\n\r\nhttps://github.com/minetest/minetest/blob/15fb4cab15c8d57028a2f616e1b443e8dc02e4f9/builtin/game/falling.lua#L289",
+      "body_sha256": "74ba424241269236eddd14f32ed7c3264a27c76aed9004bcd32347ddedbb1f45",
+      "created_at": "2023-05-13T21:46:24Z",
+      "id": 1546756089,
+      "source": "issue_comment",
+      "updated_at": "2023-05-13T22:09:37Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1546756089"
+    },
+    {
+      "author": "savilli",
+      "body_normalized": "> > Sorry, I messed up the meaning of `walkable`. The actual condition of falling nodes replacing nodes under them is `walkable = false` and `diggable = true`. Most nodes have `walkable = true` indeed.\n>\n> noting that i also possibly messed up too, as i can't get falling nodes to destroy bones, though i'm waiting for a response from the person who replicated the issue previously to see if there's something i'm doing wrong.\n>\n> but why are falling nodes _digging anything_? it'd expect them to drop as items if they can't place properly.\n>\n> https://github.com/minetest/minetest/blob/15fb4cab15c8d57028a2f616e1b443e8dc02e4f9/builtin/game/falling.lua#L289\n\nI think it's to remove torches. It was like that since 2011, so I don't think anyone remembers why exactly.",
+      "body_raw": "> > Sorry, I messed up the meaning of `walkable`. The actual condition of falling nodes replacing nodes under them is `walkable = false` and `diggable = true`. Most nodes have `walkable = true` indeed.\r\n> \r\n> noting that i also possibly messed up too, as i can't get falling nodes to destroy bones, though i'm waiting for a response from the person who replicated the issue previously to see if there's something i'm doing wrong.\r\n> \r\n> but why are falling nodes _digging anything_? it'd expect them to drop as items if they can't place properly.\r\n> \r\n> https://github.com/minetest/minetest/blob/15fb4cab15c8d57028a2f616e1b443e8dc02e4f9/builtin/game/falling.lua#L289\r\n\r\nI think it's to remove torches. It was like that since 2011, so I don't think anyone remembers why exactly.",
+      "body_sha256": "06dc857c0d281a3f5decb152d5fec605148f213b0d5a3fe9b65a02c641e0c8e9",
+      "created_at": "2023-05-13T22:06:13Z",
+      "id": 1546758658,
+      "source": "issue_comment",
+      "updated_at": "2023-05-13T22:06:13Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1546758658"
+    },
+    {
+      "author": "fluxionary",
+      "body_normalized": "> I think it's to remove torches. It was like that since 2011, so I don't think anyone remembers why exactly.\n\nah, you did mention the torches before. perhaps we need a \"fallable_to\" property? (and possibly a better name for it)",
+      "body_raw": "> I think it's to remove torches. It was like that since 2011, so I don't think anyone remembers why exactly.\r\n\r\nah, you did mention the torches before. perhaps we need a \"fallable_to\" property? (and possibly a better name for it)",
+      "body_sha256": "ffb46c020a65442a061b4e8d985191404de42763ba8641b4f7f2d5f7259523e0",
+      "created_at": "2023-05-13T22:12:50Z",
+      "id": 1546759372,
+      "source": "issue_comment",
+      "updated_at": "2023-05-13T22:12:50Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1546759372"
+    },
+    {
+      "author": "savilli",
+      "body_normalized": "> > I think it's to remove torches. It was like that since 2011, so I don't think anyone remembers why exactly.\n>\n> ah, you did mention the torches before. perhaps we need a \"fallable_to\" property? (and possibly a better name for it)\n\nThat's a possible solution, but it makes code and api more complicated. Maybe the current behavior is also fine?",
+      "body_raw": "> > I think it's to remove torches. It was like that since 2011, so I don't think anyone remembers why exactly.\r\n> \r\n> ah, you did mention the torches before. perhaps we need a \"fallable_to\" property? (and possibly a better name for it)\r\n\r\nThat's a possible solution, but it makes code and api more complicated. Maybe the current behavior is also fine?\r\n",
+      "body_sha256": "10b260ef41b769b70bf78b2658aeb168997fe78e7cb18ea37bb4ffc2a383f214",
+      "created_at": "2023-05-13T22:20:21Z",
+      "id": 1546760258,
+      "source": "issue_comment",
+      "updated_at": "2023-05-13T22:20:21Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-1546760258"
+    },
+    {
+      "author": "sfan5",
+      "body_normalized": "Bug still exists, here's an example with `default:cloud` which is even indestructible<b>(!)</b>:\n![x](https://github.com/user-attachments/assets/cc0b8177-b99c-4eb5-a16f-ccd54ff1f4f4)\n\nIn case it's not obvious: I place a cloud node in the empty space just before the falling node becomes solid.",
+      "body_raw": "Bug still exists, here's an example with `default:cloud` which is even indestructible<b>(!)</b>:\r\n![x](https://github.com/user-attachments/assets/cc0b8177-b99c-4eb5-a16f-ccd54ff1f4f4)\r\n\r\nIn case it's not obvious: I place a cloud node in the empty space just before the falling node becomes solid.",
+      "body_sha256": "3143c93756429f5549ed8a71d5d980003194bd328c9b2fd54525fcc25f04ee11",
+      "created_at": "2025-01-05T13:18:43Z",
+      "id": 2571624413,
+      "source": "issue_comment",
+      "updated_at": "2025-01-05T13:20:23Z",
+      "url": "https://github.com/luanti-org/luanti/issues/13485#issuecomment-2571624413"
+    }
+  ],
+  "fix_commit": "c3466124684771b27ed34c0b5e65b57ea30ff795",
+  "issue": {
+    "author": "tenplus1",
+    "body_normalized": "It seems that falling nodes have a tendency to replace blocks beneath them even if they have buildable_to set to false, most especially airblocks and thin node boxes that are important (invisible lights, barriers etc.)\n\nCould we add a check and only replace nodes with buildable_to set to true ?  This bug or glitch has been around since 2016 hence no template, to duplicate create following node and drop sand on top of it from a height:\n```\nminetest.register_node(\":invisiblocks:light\", {\n\tdescription = \"Invisible Light Source\",\n\tdrawtype = \"airlike\",\n\tbuildable_to = false,\n\tinventory_image = \"default_glass.png\",\n\twield_image = \"default_glass.png\",\n\tparamtype = \"light\",\n\tsunlight_propagates = true,\n\twalkable = false,\n\tlight_source = 14,\n\tsounds = default.node_sound_glass_defaults(),\n\tgroups = {invisible = 1, unbreakable = 1},\n\tselection_box = {\n\t\ttype = \"fixed\",\n\t\tfixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5}\n\t},\n})",
+    "body_raw": "It seems that falling nodes have a tendency to replace blocks beneath them even if they have buildable_to set to false, most especially airblocks and thin node boxes that are important (invisible lights, barriers etc.)\r\n\r\nCould we add a check and only replace nodes with buildable_to set to true ?  This bug or glitch has been around since 2016 hence no template, to duplicate create following node and drop sand on top of it from a height:\r\n```\r\nminetest.register_node(\":invisiblocks:light\", {\r\n\tdescription = \"Invisible Light Source\",\r\n\tdrawtype = \"airlike\",\r\n\tbuildable_to = false,\r\n\tinventory_image = \"default_glass.png\",\r\n\twield_image = \"default_glass.png\",\r\n\tparamtype = \"light\",\r\n\tsunlight_propagates = true,\r\n\twalkable = false,\r\n\tlight_source = 14,\r\n\tsounds = default.node_sound_glass_defaults(),\r\n\tgroups = {invisible = 1, unbreakable = 1},\r\n\tselection_box = {\r\n\t\ttype = \"fixed\",\r\n\t\tfixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5}\r\n\t},\r\n})",
+    "body_sha256": "670b4137c7d67f1ed18f4033b9a7e99bd163d7dd32cc85c670f3bcbb2ae6bea3",
+    "closed_at": "2025-01-06T18:42:12Z",
+    "created_at": "2023-05-07T10:41:50Z",
+    "merged_at": null,
+    "number": 13485,
+    "state": "closed",
+    "title": "Falling nodes dig and replace nodes they are not supposed to",
+    "updated_at": "2025-01-06T18:42:12Z",
+    "url": "https://github.com/luanti-org/luanti/issues/13485"
+  },
+  "patch_sha256": "373ae3750e3c545796d04f7339fecde9fc6c10e02d93028738ba240c278177d1",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "author": "sfan5",
+    "body_normalized": "fixes #13485\n\n## To do\n\nThis PR is Ready for Review.\n\n## How to test\n\n1. drop sand on liquids, torches, normal nodes\n2. try to replicate https://github.com/minetest/minetest/issues/13485#issuecomment-2571624413",
+    "body_raw": "fixes #13485\r\n\r\n## To do\r\n\r\nThis PR is Ready for Review.\r\n\r\n## How to test\r\n\r\n1. drop sand on liquids, torches, normal nodes\r\n2. try to replicate https://github.com/minetest/minetest/issues/13485#issuecomment-2571624413",
+    "body_sha256": "3da18febe01c63a68bd9e550baf95e51c48add5b35960c4386a8a918ca0cbd8d",
+    "closed_at": "2025-01-06T18:42:11Z",
+    "created_at": "2025-01-05T14:38:49Z",
+    "merged_at": "2025-01-06T18:42:11Z",
+    "number": 15638,
+    "state": "closed",
+    "title": "Fix falling nodes digging nodes they aren't supposed to",
+    "updated_at": "2025-01-06T18:42:15Z",
+    "url": "https://github.com/luanti-org/luanti/pull/15638"
+  },
+  "record_sha256": "54ce5e8f9f17503e2f415fb18ccb84010a89ae550e8df06d143280ffe57aa4d3",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-10T16:01:44Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-13485-falling-node",
+  "tests": [
+    {
+      "argv": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "luanti",
+        "--case",
+        "normal-node",
+        "--repo",
+        "."
+      ],
+      "command": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "luanti",
+        "--case",
+        "normal-node",
+        "--repo",
+        "."
+      ],
+      "cwd": ".",
+      "id": "luanti-pr15638-normal-node-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "pull_request_body_how_to_test",
+      "source_case": "drop sand on normal nodes",
+      "source_url": "https://github.com/luanti-org/luanti/pull/15638",
+      "timeout_s": 180
+    },
+    {
+      "argv": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "luanti",
+        "--case",
+        "torch",
+        "--repo",
+        "."
+      ],
+      "command": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "luanti",
+        "--case",
+        "torch",
+        "--repo",
+        "."
+      ],
+      "cwd": ".",
+      "id": "luanti-pr15638-torch-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "pull_request_body_how_to_test",
+      "source_case": "drop sand on torches",
+      "source_url": "https://github.com/luanti-org/luanti/pull/15638",
+      "timeout_s": 180
+    },
+    {
+      "argv": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "luanti",
+        "--case",
+        "liquid",
+        "--repo",
+        "."
+      ],
+      "command": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "luanti",
+        "--case",
+        "liquid",
+        "--repo",
+        "."
+      ],
+      "cwd": ".",
+      "id": "luanti-pr15638-liquid-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "pull_request_body_how_to_test",
+      "source_case": "drop sand on liquids",
+      "source_url": "https://github.com/luanti-org/luanti/pull/15638",
+      "timeout_s": 180
+    }
+  ],
+  "touched_files": [
+    "builtin/game/falling.lua"
+  ],
+  "upstream_commits": [
+    {
+      "author": "sfan5",
+      "authored_at": "2025-01-05T14:35:19Z",
+      "body_normalized": "Fix falling nodes digging nodes they aren't supposed to",
+      "body_raw": "Fix falling nodes digging nodes they aren't supposed to",
+      "body_sha256": "cde0fa49ce65bfc3bac47feaa9b6d32c07540c515e903d30a2d9d4fd9ecf4158",
+      "sha": "1a2e165451358224ef0e518ddc73dcd0ed1ef149",
+      "url": "https://github.com/luanti-org/luanti/commit/1a2e165451358224ef0e518ddc73dcd0ed1ef149"
+    }
+  ]
+}

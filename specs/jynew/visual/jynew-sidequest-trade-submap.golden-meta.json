@@ -1,0 +1,21 @@
+{
+  "actions": 7,
+  "after": "specs/jynew/visual/c1-sidequest-trade-submap.after.golden.png",
+  "after_dimensions": [
+    1280,
+    720
+  ],
+  "after_sha256": "5cd2653611f5d244bf1870cdf5c39e52d578498eae0a9be872eeddc1da0a499e",
+  "before": "specs/jynew/visual/c1-sidequest-trade-submap.before.golden.png",
+  "before_dimensions": [
+    1280,
+    720
+  ],
+  "before_sha256": "f3ec0030338848147b73937c842bb26c586a5b2e2f2527024cdbb002f6009d54",
+  "benchmark": "jynew",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/jynew/c1-sidequest-trade-submap.yaml",
+  "spec_sha256": "9ef43b0ba538cce8df08d67ff7390fb14f9aac00d757e2f9652b5b7784359f71",
+  "task_id": "jynew-sidequest-trade-submap"
+}

@@ -1,0 +1,109 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lz-jupyterlab-18572-single-char-code-render
+benchmark: jupyterlab
+candidate:
+  repository_key: jupyterlab
+  change_number: 18572
+  issue_number: 17779
+  defect_locus: at_goal
+authoritative_defect: null
+provenance:
+  formal_freeze_admission: candidate_formal_freeze_admission/jupyterlab/18572/current-v3
+  frame_sources:
+    fixed_before: candidate_gate11_edge_observation/jupyterlab/18572/fixed/current-v3
+    fixed_after: candidate_gate11_edge_observation/jupyterlab/18572/fixed/current-v3
+    buggy_before: candidate_gate11_edge_observation/jupyterlab/18572/buggy/current-v3
+    buggy_after: candidate_gate11_edge_observation/jupyterlab/18572/buggy/current-v3
+  goldens_metadata: visual_lz-jupyterlab-18572-single-char-code-render/goldens.meta.json
+  before_equivalence:
+    changed_pixel_ratio: 0.0
+    ignored_top_fraction: 0.0
+    mean_absolute_difference: 0.0
+  after_differential:
+    changed_pixel_ratio: 0.002400173611111111
+    ignored_top_fraction: 0.0
+    mean_absolute_difference: 0.4697873263888889
+  golden_policy:
+    after_min_changed_pixel_ratio: 0.001
+    before_max_changed_pixel_ratio: 0.01
+    ignore_top_fraction: 0.0
+  captured_by: materialized_fixed_buggy_runtime_capture
+evaluation:
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-18572-single-char-code-render/fixed.after.golden.png
+    expected_label: correct
+    description: The right column holds only the italic grey placeholder "Not rendered
+      yet".
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows one white card titled
+        "CodeMirror language highlight", split into a left "Input code" column holding
+        a single large letter X and a right "Rendered preview" column.
+      - The right column holds only the italic grey placeholder "Not rendered yet".
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    runtime_status: probe_runtime_available
+    probe:
+      adapter: jupyterlab_lazarus_edge_probe_v1
+      spec: lz-jupyterlab-18572-single-char-code-render.yaml
+      registered_replay:
+      - load_candidate_local_bundle
+      - restore_empty_registered_start
+      - invoke_editor_language_registry_highlight
+      - read_candidate_mutated_output_text
+      versions_replayed:
+      - fixed
+      - buggy
+      re_executed_offline: true
+      provider_calls_required: false
+    upstream_tests:
+      fail_to_pass:
+      - '^@jupyterlab/codemirror EditorLanguageRegistry #highlight should render single-character
+        code blocks$'
+      pass_to_pass:
+      - '^@jupyterlab/codemirror EditorLanguageRegistry #highlight should load a defined
+        spec$'
+    goldens:
+      before: visual_lz-jupyterlab-18572-single-char-code-render/before.golden.png
+      buggy_before: visual_lz-jupyterlab-18572-single-char-code-render/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-18572-single-char-code-render/fixed.after.golden.png
+        after_description: The right column holds one large letter X drawn in the
+          same style as the left column, and the placeholder is gone.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows one white card titled
+            "CodeMirror language highlight", split into a left "Input code" column
+            holding a single large letter X and a right "Rendered preview" column.
+          - The right column holds one large letter X drawn in the same style as the
+            left column, and the placeholder is gone.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+      buggy:
+        after: visual_lz-jupyterlab-18572-single-char-code-render/buggy.after.golden.png
+        after_description: 'The right column is empty: the placeholder is gone and
+          no letter appears in its place, so only the "Rendered preview" label remains.'
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows one white card titled
+            "CodeMirror language highlight", split into a left "Input code" column
+            holding a single large letter X and a right "Rendered preview" column.
+          - 'The right column is empty: the placeholder is gone and no letter appears
+            in its place, so only the "Rendered preview" label remains.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.

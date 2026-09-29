@@ -1,0 +1,52 @@
+diff --git a/packages/notebook/src/widget.ts b/packages/notebook/src/widget.ts
+index 888417f5b6af8dabc8d5bf54d52f5ee1f3ab86cc..05af9423f3863e93da452d1a0ef76d9f3b7cd2c4 100644
+--- a/packages/notebook/src/widget.ts
++++ b/packages/notebook/src/widget.ts
+@@ -2781,13 +2781,16 @@ export class Notebook extends StaticNotebook {
+       if (widget.editorWidget && !widget.editorWidget.node.contains(target)) {
+         this.setMode('command', { focus: false });
+       }
++
++      // Cell index needs to be updated before changing mode,
++      // otherwise the previous cell may get un-rendered.
++      this.activeCellIndex = index;
++
+       // If the editor has focus, ensure edit mode.
+       const node = widget.editorWidget?.node;
+       if (node?.contains(target)) {
+         this.setMode('edit', { focus: false });
+       }
+-      // This will set the focus
+-      this.activeCellIndex = index;
+     } else {
+       // No cell has focus, ensure command mode.
+       this.setMode('command', { focus: false });
+diff --git a/packages/notebook/test/widget.spec.ts b/packages/notebook/test/widget.spec.ts
+index e3dedac74d91f611cd9c32f9376d0eeb3295b4ea..d7a37765d48f5ac82d54d40200c09ad9ce52a265 100644
+--- a/packages/notebook/test/widget.spec.ts
++++ b/packages/notebook/test/widget.spec.ts
+@@ -1345,6 +1345,24 @@ describe('@jupyter/notebook', () => {
+           expect(widget.events).toEqual(expect.arrayContaining(['focusin']));
+           expect(widget.mode).toBe('command');
+         });
++
++        it('should not unrender previously active markdown cell', async () => {
++          widget.model!.sharedModel.insertCell(0, {
++            cell_type: 'markdown',
++            source: '# Hello'
++          });
++          const mdCell = widget.widgets[0] as MarkdownCell;
++          if (!mdCell.inViewport) {
++            await signalToPromise(mdCell.inViewportChanged);
++          }
++          widget.activeCellIndex = 0;
++          expect(mdCell.rendered).toBe(true);
++          const cellToActivate = widget.widgets[1];
++          expect(widget.mode).toBe('command');
++          simulate(cellToActivate.editorWidget!.node, 'focusin');
++          expect(widget.mode).toBe('edit');
++          expect(mdCell.rendered).toBe(true);
++        });
+       });
+ 
+       describe('focusout', () => {

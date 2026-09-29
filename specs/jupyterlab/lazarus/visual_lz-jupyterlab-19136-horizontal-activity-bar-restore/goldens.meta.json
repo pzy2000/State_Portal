@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.0027483333333333335,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.4146433333333333
+  },
+  "before_buggy_sha256": "586833705d89114f85928607d0d07fbaf8bc72ea4d98665165e83a4bf8b76bd5",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "586833705d89114f85928607d0d07fbaf8bc72ea4d98665165e83a4bf8b76bd5",
+  "buggy_after_sha256": "1a155bf291d3be641338799b5e034e71b8746d515c9bb4937bd5a345bdbfb38c",
+  "fixed_after_sha256": "586833705d89114f85928607d0d07fbaf8bc72ea4d98665165e83a4bf8b76bd5",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "1a155bf291d3be641338799b5e034e71b8746d515c9bb4937bd5a345bdbfb38c",
+      "quality": {
+        "image_size": [
+          1000,
+          600
+        ],
+        "informative": true,
+        "pixel_range": 230,
+        "size_bytes": 3208,
+        "unique_byte_values": 112
+      },
+      "report_sha256": "9b2be1057bcaae49fb04b449359aa531a15bae30e4a6024dffc6b665237dbca6"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "586833705d89114f85928607d0d07fbaf8bc72ea4d98665165e83a4bf8b76bd5",
+      "quality": {
+        "image_size": [
+          1000,
+          600
+        ],
+        "informative": true,
+        "pixel_range": 230,
+        "size_bytes": 5260,
+        "unique_byte_values": 254
+      },
+      "report_sha256": "86468ebbe0130b099a1d49f1c759ef422f73f932a9b24a7fd01865d1567695e7"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "586833705d89114f85928607d0d07fbaf8bc72ea4d98665165e83a4bf8b76bd5",
+      "quality": {
+        "image_size": [
+          1000,
+          600
+        ],
+        "informative": true,
+        "pixel_range": 230,
+        "size_bytes": 5260,
+        "unique_byte_values": 254
+      },
+      "report_sha256": "d61c568c2e88117555b57c7797a187bc4897b889a7ac7b4e81dcb5f0b420637e"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "586833705d89114f85928607d0d07fbaf8bc72ea4d98665165e83a4bf8b76bd5",
+      "quality": {
+        "image_size": [
+          1000,
+          600
+        ],
+        "informative": true,
+        "pixel_range": 230,
+        "size_bytes": 5260,
+        "unique_byte_values": 254
+      },
+      "report_sha256": "ef4448f616e8674828ef8f1ddc9a595a1edd155b4dc516a7ca8a4fe5f3a160ba"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.0
+  },
+  "published_unix_ns": 1786768710310014000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lz-jupyterlab-19136-horizontal-activity-bar-restore"
+}

@@ -1,0 +1,131 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [
+    {
+      "body_normalized": "See also: https://github.com/minetest/minetest/blob/master/games/devtest/mods/basenodes/textures/info.txt",
+      "body_raw": "See also: https://github.com/minetest/minetest/blob/master/games/devtest/mods/basenodes/textures/info.txt",
+      "body_sha256": "d2a9670fbfa2315f3125d4578e9e37184515ef7c3ae7b24e455a65595dfa9aa0",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/12557#issuecomment-1188387101"
+    },
+    {
+      "body_normalized": "As this seems to be a regression affecting mod load order I'm pinging @erlehmann since this may affect the hack used by `_mcl_autogroup`.",
+      "body_raw": "As this seems to be a regression affecting mod load order I'm pinging @erlehmann since this may affect the hack used by `_mcl_autogroup`.",
+      "body_sha256": "74b74e38d7dea1610dd624a72f09e346a885984952184fb09c61ce1485f46c44",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/12557#issuecomment-1190314791"
+    },
+    {
+      "body_normalized": "@corarona could this possibly affect MineClone2?",
+      "body_raw": "@corarona could this possibly affect MineClone2?",
+      "body_sha256": "5c9416851b4cf13be006478b0800a9387a8c300adcff972c1ac6271f9c16721e",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/12557#issuecomment-1190951281"
+    },
+    {
+      "body_normalized": "Can confirm that the suspected change is to blame: Works fine when checking out https://github.com/minetest/minetest/commit/1d512ef7f4071fadf10078825ce83e77a3707f06.",
+      "body_raw": "Can confirm that the suspected change is to blame: Works fine when checking out https://github.com/minetest/minetest/commit/1d512ef7f4071fadf10078825ce83e77a3707f06.",
+      "body_sha256": "2cf4507ee11cddfe40b189b42b8ae8108cad61e76d7770e1d2a9d3085997917a",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/12557#issuecomment-1197990912"
+    }
+  ],
+  "fix_commit": "99c8295e71eb86333ae21b1083b6f55fb9479565",
+  "issue": {
+    "body_normalized": "##### Minetest version\n```\nMinetest 5.6.0-dev-d400a98ef (Linux)\n```\n\n##### Summary\n![screenshot_20220718_222429](https://user-images.githubusercontent.com/1042418/179611682-255b37e5-fbe7-4c70-89a1-0d29d3e3a202.png)\n\n##### Background\n\nThe dirt texture exists twice, possibly to test mod loading order in combination with texture overrides:\n<pre>\n./games/devtest/mods/basenodes/textures/default_dirt.png\n./games/devtest/mods/unittests/textures/default_dirt.png\n</pre>\n\nsuspect change: 06de82fd86678e0a1c260c67792c5cd192863edd",
+    "body_raw": "##### Minetest version\r\n```\r\nMinetest 5.6.0-dev-d400a98ef (Linux)\r\n```\r\n\r\n##### Summary\r\n![screenshot_20220718_222429](https://user-images.githubusercontent.com/1042418/179611682-255b37e5-fbe7-4c70-89a1-0d29d3e3a202.png)\r\n\r\n##### Background\r\n\r\nThe dirt texture exists twice, possibly to test mod loading order in combination with texture overrides:\r\n<pre>\r\n./games/devtest/mods/basenodes/textures/default_dirt.png\r\n./games/devtest/mods/unittests/textures/default_dirt.png\r\n</pre>\r\n\r\nsuspect change: 06de82fd86678e0a1c260c67792c5cd192863edd\r\n",
+    "body_sha256": "6c740dfeb67304122e5e69ed4b11ead4fe7cc6f0b56c0788ce3d5db0b6ad9bf7",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 12557,
+    "state": "closed",
+    "title": "Mods can no longer override textures/media based on load order (devtest error)",
+    "url": "https://github.com/luanti-org/luanti/issues/12557"
+  },
+  "patch_sha256": "57f4dbadbfd56230313132821afeb606e3500da9e0defb19140cbb64c209e53f",
+  "pinned_revision": "5892fcf27837480143353d7fa156d9a9fbfa8c74",
+  "pull_request": {
+    "body_normalized": "Fixes #12557. Ruben replaced a [reverse iterator (`crbegin` & `crend`)](https://github.com/minetest/minetest/commit/06de82fd86678e0a1c260c67792c5cd192863edd#diff-24cd186c8d4fc53d29afe3e5c3b0a1c53fe9418edfb702996fc9a0ffdbbfa051L99) with a normal one. Reverted that and added a comment since this is a reregression (the second time mod media overriding was broken) so that this doesn't happen again.",
+    "body_raw": "Fixes #12557. Ruben replaced a [reverse iterator (`crbegin` & `crend`)](https://github.com/minetest/minetest/commit/06de82fd86678e0a1c260c67792c5cd192863edd#diff-24cd186c8d4fc53d29afe3e5c3b0a1c53fe9418edfb702996fc9a0ffdbbfa051L99) with a normal one. Reverted that and added a comment since this is a reregression (the second time mod media overriding was broken) so that this doesn't happen again.",
+    "body_sha256": "603ea870abda3b7faa8c523564069e91ffd9badcf9b736bae859bdf930bb729c",
+    "kind": "pull",
+    "merged_at": "2022-07-29T08:19:36Z",
+    "number": 12602,
+    "state": "closed",
+    "title": "Fix media overriding regression",
+    "url": "https://github.com/luanti-org/luanti/pull/12602"
+  },
+  "record_sha256": "6120c305dc9537de40a89904486baf4424ee58d92cd1611f86adf21eca3fae1b",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-13T09:07:24.074183Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-12602-media-override",
+  "tests": [
+    {
+      "command": [
+        "bin/luantiserver",
+        "--run-unittests",
+        "--test-module",
+        "TestServerModManager"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/luanti/12602/application-v1/buggy/bin/minetestserver",
+        "--run-unittests"
+      ],
+      "id": "TestServerModManager.testGetModMediaPaths",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestServerModManager.testGetModMediaPaths",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/src/unittest/test_servermodmanager.cpp",
+      "upstream_test_path": "src/unittest/test_servermodmanager.cpp",
+      "upstream_test_sha256": "4c46d1018e0274c208192ec279577f587cdda7d122cd5d3cd817c05b1b2542a9"
+    },
+    {
+      "command": [
+        "bin/luantiserver",
+        "--run-unittests",
+        "--test-module",
+        "TestServerModManager"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/luanti/12602/application-v1/buggy/bin/minetestserver",
+        "--run-unittests"
+      ],
+      "id": "TestServerModManager.testGetModNames",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestServerModManager.testGetModNames",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/src/unittest/test_servermodmanager.cpp",
+      "upstream_test_path": "src/unittest/test_servermodmanager.cpp",
+      "upstream_test_sha256": "4c46d1018e0274c208192ec279577f587cdda7d122cd5d3cd817c05b1b2542a9"
+    }
+  ],
+  "touched_files": [
+    "src/server/mods.cpp",
+    "src/unittest/test_servermodmanager.cpp"
+  ],
+  "upstream_commits": []
+}

@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/love/visual/love-elena-partner-ending-unlock.after.golden.png",
+  "after_dimensions": [
+    1280,
+    800
+  ],
+  "after_sha256": "54cfe45d71703d290bfa97dcc472e3f700a9398265373c2a61d14dd7de4ba943",
+  "before": "specs/love/visual/love-elena-partner-ending-unlock.before.golden.png",
+  "before_dimensions": [
+    1280,
+    800
+  ],
+  "before_sha256": "10cab83e224e6687b68d866a6c3cbe2db6c8322f2171a82dc63d1e708a7428d7",
+  "benchmark": "datingsim",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/love/c1-elena-partner-ending-unlock.yaml",
+  "spec_sha256": "21434c75100760327e596c32f314fd3410d0b385a6ae0471807630e7d0cb3dd6",
+  "task_id": "love-elena-partner-ending-unlock"
+}

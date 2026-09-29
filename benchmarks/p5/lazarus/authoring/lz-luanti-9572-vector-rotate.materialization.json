@@ -1,0 +1,13 @@
+{
+  "benchmark": "luanti",
+  "candidates_considered": 2,
+  "fixed_revision": "28e87ce9d5fdf163c1eb0daf83279e949f84765d",
+  "patch_sha256": "c97611c48e3c2deb5ba14d522c89d0e17b9b12ae3217ae7c6348f11da22703a8",
+  "pinned_host_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "repo": "games/luanti",
+  "schema": "c1-lazarus-materialization-base-v1",
+  "schema_version": 1,
+  "source": "patch_post_image_blob",
+  "task_id": "lz-luanti-9572-vector-rotate",
+  "verification": "reverse_apply_check_in_detached_worktree"
+}

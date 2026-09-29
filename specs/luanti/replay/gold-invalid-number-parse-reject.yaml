@@ -1,0 +1,35 @@
+# Gold replay: a world state with a non-finite number is rejected by core.parse_json.
+#
+# Reconstructed from the "invalid-number world won't load" class (BUGS/luanti/
+# issue-02): a non-finite value anywhere in the serialized state makes the engine's
+# own JSON parser reject the ENTIRE document, so the world silently fails to load.
+name: "luanti replay: non-finite number makes the world un-loadable"
+benchmark: luanti
+
+source:
+  upstream_repo: luanti-org/luanti
+  pr_number: null
+  pre_fix_sha: null
+  post_fix_sha: null
+  source_url: null
+  provenance: >-
+    Control-validated reproduction of the invalid-number / parse-rejection class
+    (see BUGS/luanti/issue-02). Author real pre/post SHA to promote to a gold pair.
+
+fixture:
+  target:
+    kind: synthesized_world
+    nodes:
+      - pos: { x: 0, y: 0, z: 0 }
+        node: "basenodes:stone"
+    overflow: .inf
+
+defect_oracle:
+  abnormal_exit: true
+  timeout: false
+  log_signatures: []
+  semantic_assertions:
+    - path: detail
+      contains: "parse_json rejected"
+
+timeout_s: 45

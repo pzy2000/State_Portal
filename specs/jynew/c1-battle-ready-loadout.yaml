@@ -1,0 +1,111 @@
+name: C1 jynew battle-ready loadout roundtrip
+benchmark: jynew
+timeout_ms: 900000
+tags: [c1, long, jynew, battle, loadout]
+target:
+  kind: synthesized_state
+  mod_id: JYX2
+  player_level: 9
+  money: 1200
+  team_ids: [0, 1]
+checkpoint:
+  allowed_strategies: [jynew_utility_save_validate]
+  expected_validity: save-restorable
+actions:
+  - {type: jynew_join_team, role_id: 2}
+  - {type: jynew_add_item, item_id: 101, item_count: 3}
+  - {type: jynew_learn_skill, skill_id: 1}
+  - {type: jynew_level_up}
+  - {type: jynew_rest}
+  - {type: jynew_save, save_index: 2}
+  - {type: jynew_load_save, save_index: 2}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: jynew_team_contains, role_id: 1}
+      - {type: jynew_team_contains, role_id: 2}
+      - {type: jynew_team_count, expected: "3", comparator: equals}
+      - {type: jynew_role_attr, role_id: 0, attr: Level, expected: "10", comparator: equals}
+      - {type: jynew_role_attr, role_id: 0, attr: Tili, expected: "30", comparator: gte}
+      - {type: jynew_skill_learned, role_id: 0, skill_id: 1}
+      - {type: jynew_item_count, item_id: 101, expected: "3", comparator: equals}
+      - {type: no_jynew_utility_errors}
+    surfaces:
+      gui:
+        adapter: jynew_unity_live_v1
+        start:
+          validate_target: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - c1.transition.armed
+          - any_of:
+            - c1.target.player_level
+          - any_of:
+            - c1.target.money
+          - any_of:
+            - c1.target.team.role_0
+          - any_of:
+            - c1.target.team.role_1
+        goal:
+          use_assertions: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - assertion[jynew_team_contains].role_1
+            - assertion[jynew_team_contains]
+          - any_of:
+            - assertion[jynew_team_contains].role_2
+            - assertion[jynew_team_contains]
+          - any_of:
+            - assertion[jynew_team_count]
+          - any_of:
+            - assertion[jynew_role_attr].Level
+            - assertion[jynew_role_attr]
+          - any_of:
+            - assertion[jynew_role_attr].Tili
+            - assertion[jynew_role_attr]
+          - any_of:
+            - assertion[jynew_skill_learned].skill_1
+            - assertion[jynew_skill_learned]
+          - any_of:
+            - assertion[jynew_item_count].item_101
+          - any_of:
+            - assertion[no_jynew_utility_errors]
+          - any_of:
+            - c1.transition.expectation
+          - any_of:
+            - c1.transition.save
+          - any_of:
+            - c1.transition.load
+          requirements:
+          - name: c1.public_save_load_witness
+            kind: save_then_load
+            slot: 2
+            ordered_events:
+            - save
+            - load
+      state:
+        adapter: jynew_unity_live_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/c1-battle-ready-loadout.after.golden.png
+    golden_before: visual/c1-battle-ready-loadout.before.golden.png
+    golden_after: visual/c1-battle-ready-loadout.after.golden.png
+    expected_label: correct
+    scene_key: jynew_default_world
+    description: The two-person level-9 party begins in exploration before final preparation.
+    after_description: The restored three-person level-10 party is in a normal full-rest battle-ready state.
+    rubric:
+      must: [The live jynew world and starting party state are visible]
+      must_not: [A blank, menu-only, or error screen is shown]
+    after_rubric:
+      must: [The restored game is visibly playable with the prepared party]
+      must_not: [A loading screen, crash, or unrelated battle is shown]
+    capture: {stage: post_smoke, wait_ms: 1000, full_page: false}

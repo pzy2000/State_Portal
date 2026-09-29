@@ -1,0 +1,50 @@
+segments:
+  - id: 2048-near-win-board
+    benchmark: "2048"
+    repo: games/2048
+    start_spec: specs/2048/near-win.yaml
+    public_description: "Public segment start for testing late 2048 win-state behavior from the same near-win board."
+    budget_ms: 30000
+    tags: ["segment-bank", "2048", "near-win"]
+  - id: spacerpg-station-market
+    benchmark: "SpaceRPG"
+    repo: games/SpaceRPG
+    start_spec: specs/spacerpg/trading-cargo.yaml
+    public_description: "Public SpaceRPG station-market segment start shared by all active bug discovery methods."
+    budget_ms: 90000
+    tags: ["segment-bank", "spacerpg", "station", "market"]
+  - id: spacerpg-story-flight
+    benchmark: "SpaceRPG"
+    repo: games/SpaceRPG
+    start_spec: specs/spacerpg/story-mission.yaml
+    public_description: "Public SpaceRPG story-flight segment start shared by all active bug discovery methods."
+    budget_ms: 90000
+    tags: ["segment-bank", "spacerpg", "story", "flight"]
+  - id: love-dialogue
+    benchmark: "DatingSim"
+    repo: games/DatingSim
+    start_spec: specs/love/dialogue-open.yaml
+    public_description: "Public DatingSim dialogue segment start shared by all active bug discovery methods."
+    budget_ms: 60000
+    tags: ["segment-bank", "love", "dialogue"]
+  - id: love-ending-precondition
+    benchmark: "DatingSim"
+    repo: games/DatingSim
+    start_spec: specs/love/ending-precondition.yaml
+    public_description: "Public DatingSim late-progression segment start shared by all active bug discovery methods."
+    budget_ms: 60000
+    tags: ["segment-bank", "love", "ending"]
+  - id: openra-cnc-beachhead-map
+    benchmark: OpenRA
+    repo: games/OpenRA
+    start_spec: specs/openra/cnc-gdi01-beachhead.yaml
+    public_description: "Public OpenRA C&C beachhead map segment start shared by all active bug discovery methods."
+    budget_ms: 90000
+    tags: ["segment-bank", "openra", "cnc", "campaign"]
+  - id: openra-ra-drop-zone-map
+    benchmark: OpenRA
+    repo: games/OpenRA
+    start_spec: specs/openra/ra-drop-zone.yaml
+    public_description: "Public OpenRA Red Alert Drop Zone lobby segment start shared by all active bug discovery methods."
+    budget_ms: 90000
+    tags: ["segment-bank", "openra", "ra", "drop-zone"]

@@ -1,0 +1,81 @@
+name: DatingSim dialogue reply mock-shape checkpoint
+benchmark: DatingSim
+tags:
+- love
+- dialogue
+- mock-shape
+- variant
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  seed: 44
+  player_name: WarpTest
+  gender: male
+  patch:
+    player:
+      relationships:
+        char_1:
+          trust: 40
+          attraction: 30
+          comfort: 35
+          respect: 25
+          investment: 10
+          conflict: 0
+          status: friend
+          history:
+          - Met Elena for coffee.
+          memories: []
+    world:
+      location: cafe
+  expect:
+    location: cafe
+    resources:
+      money: 1000
+      energy: 100
+    relationships:
+      char_1:
+        trust: 40
+        attraction: 30
+        status: friend
+checkpoint:
+  allowed_strategies:
+  - test_hook_seeded_state
+  expected_validity: injection-only
+actions:
+- type: hook_call
+  method: startDialogue
+  args:
+  - char_1
+  wait_ms: 300
+- type: click
+  selector: ".reply-options .choice-btn:nth-child(1)"
+- type: wait
+  ms: 1500
+assertions:
+- type: state_equals
+  path: activeDialogue.isOpen
+  value: true
+- type: no_real_openai
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/dialogue-open.golden.png
+  expected_label: correct
+  description: The seeded Elena dialogue accepts a greeting reply option under mocked
+    AI without crashing or blanking the UI.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+    - Exact reply bubble text content, since the mocked AI response payload shape
+      is what this checkpoint probes.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false
+    hide_selectors: [".modal-overlay:has(.event-title)"]

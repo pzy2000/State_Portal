@@ -1,0 +1,57 @@
+name: JupyterLab workspace layout checkpoint
+benchmark: JupyterLab
+repo: ../../games/jupyterlab
+tags: [jupyterlab, smoke, workspace, layout]
+target:
+  kind: workspace_layout
+  workspace: warptest
+  paths:
+    - notes/workspace.md
+    - notebooks/workspace.ipynb
+checkpoint:
+  allowed_strategies: [jupyterlab_workspace_api_validate]
+  expected_validity: save-restorable
+actions:
+  - type: jupyterlab_open_file
+    path: notes/workspace.md
+    workspace: warptest
+  - type: jupyterlab_open_file
+    path: notebooks/workspace.ipynb
+    workspace: warptest
+  - type: jupyterlab_set_workspace_layout
+    workspace: warptest
+    paths:
+      - notes/workspace.md
+      - notebooks/workspace.ipynb
+assertions:
+  - type: jupyterlab_workspace_contains
+    workspace: warptest
+    path: notes/workspace.md
+  - type: jupyterlab_workspace_contains
+    workspace: warptest
+    path: notebooks/workspace.ipynb
+  - type: no_jupyterlab_server_errors
+visual_oracle:
+  golden_image: visual/jupyterlab-workspace-layout.after.golden.png
+  golden_before: visual/jupyterlab-workspace-layout.before.golden.png
+  golden_after: visual/jupyterlab-workspace-layout.after.golden.png
+  expected_label: correct
+  description: "The JupyterLab workspace named warptest is visible with both the markdown file and notebook tabs restored in the central dock area."
+  rubric:
+    must:
+      - "A real JupyterLab UI is visible, including the top menu, left file browser, and central dock area."
+      - "The workspace layout shows tabs for workspace.md and workspace.ipynb."
+      - "The file browser shows the notebooks and notes directories."
+      - "The after screenshot remains in the warptest workspace rather than the default launcher-only view."
+    must_not:
+      - "The page is blank, loading-only, or a browser/server error page."
+      - "The JupyterLab shell is missing or replaced by a crash dialog."
+      - "Only one of the expected workspace tabs is present after the smoke actions."
+    ignore:
+      - "Which of the two workspace tabs is focused."
+      - "Minor timestamp, focus ring, cursor, or selected-file styling differences."
+      - "Small font rendering or antialiasing differences across JupyterLab builds."
+  capture:
+    stage: post_smoke
+    wait_ms: 500
+    full_page: false

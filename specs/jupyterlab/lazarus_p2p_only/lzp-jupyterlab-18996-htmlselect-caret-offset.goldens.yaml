@@ -1,0 +1,78 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lzp-jupyterlab-18996-htmlselect-caret-offset
+benchmark: jupyterlab
+track: c1_lazarus_p2p_only_v1
+candidate:
+  repository_key: jupyterlab
+  change_number: 18996
+  issue_number: 18956
+  defect_locus: at_goal
+authoritative_defect: The dropdown icon is misaligned when under ellipse
+provenance:
+  captured_by: materialized_pair_chromium_fixture_capture
+  capture_backend: playwright_chromium_png
+  frame_sources:
+    fixed_before: frames/lzp-jupyterlab-18996-htmlselect-caret-offset/fixed/before.png
+    fixed_after: frames/lzp-jupyterlab-18996-htmlselect-caret-offset/fixed/after.png
+    buggy_before: frames/lzp-jupyterlab-18996-htmlselect-caret-offset/buggy/before.png
+    buggy_after: frames/lzp-jupyterlab-18996-htmlselect-caret-offset/buggy/after.png
+  goldens_metadata: visual_lzp-jupyterlab-18996-htmlselect-caret-offset/goldens.meta.json
+  defect_differential_source: rendered_frames
+evaluation:
+  visual_oracle:
+    golden_image: visual_lzp-jupyterlab-18996-htmlselect-caret-offset/before.golden.png
+    description: 'A browser frame rendered by the candidate build shows a white page with one grey control
+      strip near the top left whose right end holds a trigger reading "More". Nothing is drawn below the
+      strip: the area under it is blank white.'
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a white page with one grey control strip
+        near the top left whose right end holds a trigger reading "More".
+      - 'Nothing is drawn below the strip: the area under it is blank white.'
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, and sub-pixel text shifts.
+  lazarus:
+    goldens:
+      before: visual_lzp-jupyterlab-18996-htmlselect-caret-offset/before.golden.png
+      buggy_before: visual_lzp-jupyterlab-18996-htmlselect-caret-offset/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-jupyterlab-18996-htmlselect-caret-offset/fixed.after.golden.png
+        after_description: A bordered overflow panel is open under the strip, holding one dropdown selector
+          reading "Code". The chevron glyph sits inside the selector's box, vertically centred against
+          its text and just inside the box's right border.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white page with one grey control strip
+            near the top left whose right end holds a trigger reading "More".
+          - A bordered overflow panel is open under the strip, holding one dropdown selector reading "Code".
+            The chevron glyph sits inside the selector's box, vertically centred against its text and
+            just inside the box's right border.
+          - 'Judge this frame by where the small chevron glyph of the overflow panel''s dropdown selector
+            is painted relative to that selector''s own box: its height within the box, and how far its
+            right edge sits from the box''s right edge.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.
+      buggy:
+        after: visual_lzp-jupyterlab-18996-htmlselect-caret-offset/buggy.after.golden.png
+        after_description: A bordered overflow panel is open under the strip, holding one dropdown selector
+          reading "Code". The chevron glyph is lifted above the selector's text into the panel's own top-right
+          corner, clear of the selector's box altogether.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white page with one grey control strip
+            near the top left whose right end holds a trigger reading "More".
+          - A bordered overflow panel is open under the strip, holding one dropdown selector reading "Code".
+            The chevron glyph is lifted above the selector's text into the panel's own top-right corner,
+            clear of the selector's box altogether.
+          - 'Judge this frame by where the small chevron glyph of the overflow panel''s dropdown selector
+            is painted relative to that selector''s own box: its height within the box, and how far its
+            right edge sits from the box''s right edge.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.

@@ -1,0 +1,114 @@
+name: C1 jynew sidequest trade and submap roundtrip
+benchmark: jynew
+timeout_ms: 900000
+tags: [c1, long, jynew, quest, trade, submap]
+target:
+  kind: synthesized_state
+  mod_id: JYX2
+  player_level: 5
+  money: 1000
+  map_id: 1
+  team_ids: [0]
+  items: [{id: 2, count: 0}]
+  key_values: [{key: c1_trade_quest_started, value: "1"}]
+checkpoint:
+  allowed_strategies: [jynew_utility_save_validate]
+  expected_validity: save-restorable
+actions:
+  - {type: jynew_add_item, item_id: 2, item_count: 1}
+  - {type: jynew_add_money, amount: -150}
+  - {type: jynew_set_key_value, key: c1_trade_quest_completed, value: "1"}
+  - {type: jynew_enter_submap, map_id: 2}
+  - {type: jynew_join_team, role_id: 2}
+  - {type: jynew_save, save_index: 1}
+  - {type: jynew_load_save, save_index: 1}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: jynew_key_value_equals, key: c1_trade_quest_started, str_value: "1"}
+      - {type: jynew_key_value_equals, key: c1_trade_quest_completed, str_value: "1"}
+      - {type: jynew_item_count, item_id: 2, expected: "1", comparator: equals}
+      - {type: jynew_money_equals, int_value: 850}
+      - {type: jynew_map_id, int_value: 2}
+      - {type: jynew_team_contains, role_id: 2}
+      - {type: jynew_team_count, expected: "2", comparator: equals}
+      - {type: no_jynew_utility_errors}
+    surfaces:
+      gui:
+        adapter: jynew_unity_live_v1
+        start:
+          validate_target: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - c1.transition.armed
+          - any_of:
+            - c1.target.player_level
+          - any_of:
+            - c1.target.money
+          - any_of:
+            - c1.target.map_id
+          - any_of:
+            - c1.target.team.role_0
+          - any_of:
+            - c1.target.item_2
+          - any_of:
+            - c1.target.key_c1_trade_quest_started
+        goal:
+          use_assertions: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - assertion[jynew_key_value_equals].c1_trade_quest_started
+          - any_of:
+            - assertion[jynew_key_value_equals].c1_trade_quest_completed
+          - any_of:
+            - assertion[jynew_item_count].item_2
+          - any_of:
+            - assertion[jynew_money_equals]
+          - any_of:
+            - assertion[jynew_map_id]
+          - any_of:
+            - assertion[jynew_team_contains].role_2
+            - assertion[jynew_team_contains]
+          - any_of:
+            - assertion[jynew_team_count]
+          - any_of:
+            - assertion[no_jynew_utility_errors]
+          - any_of:
+            - c1.transition.expectation
+          - any_of:
+            - c1.transition.save
+          - any_of:
+            - c1.transition.load
+          requirements:
+          - name: c1.public_save_load_witness
+            kind: save_then_load
+            slot: 1
+            ordered_events:
+            - save
+            - load
+      state:
+        adapter: jynew_unity_live_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/c1-sidequest-trade-submap.after.golden.png
+    golden_before: visual/c1-sidequest-trade-submap.before.golden.png
+    golden_after: visual/c1-sidequest-trade-submap.after.golden.png
+    expected_label: correct
+    scene_key: jynew_submap
+    description: The green Heluo Inn submap is rendered before the registered trade quest is completed.
+    after_description: The snowy Yunhe Cliff submap is rendered after trade completion, role 2 recruitment, save, and reload.
+    rubric:
+      must: [The green Heluo Inn scene and its location label are visible, A live jynew submap is rendered]
+      must_not: [The snowy Yunhe Cliff destination, a world map, blank frame, or crash is shown]
+    after_rubric:
+      must: [The snowy Yunhe Cliff scene and its location label are visible, A live destination submap is rendered after the roundtrip]
+      must_not: [The green Heluo Inn start scene or a loading screen remains]
+    capture: {stage: post_smoke, wait_ms: 1000, full_page: false}

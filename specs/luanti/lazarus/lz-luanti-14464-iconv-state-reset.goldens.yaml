@@ -1,0 +1,117 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lz-luanti-14464-iconv-state-reset
+benchmark: luanti
+candidate:
+  repository_key: luanti
+  change_number: 14464
+  issue_number: null
+  defect_locus: on_path
+authoritative_defect: null
+provenance:
+  formal_freeze_admission: candidate_formal_freeze_admission/luanti/14464/real-f12-v2
+  frame_sources:
+    fixed_before: candidate_gate11_14464_visual_observation/luanti/14464/real-f12-v2
+    fixed_after: candidate_gate11_14464_visual_observation/luanti/14464/real-f12-v2
+    buggy_before: candidate_gate11_14464_visual_observation/luanti/14464/real-f12-v2
+    buggy_after: candidate_gate11_14464_visual_observation/luanti/14464/real-f12-v2
+  goldens_metadata: visual_lz-luanti-14464-iconv-state-reset/goldens.meta.json
+  before_equivalence:
+    changed_pixel_ratio: 0.0
+    ignored_top_fraction: 0.25
+    mean_absolute_difference: 0.0
+  after_differential:
+    changed_pixel_ratio: 0.0350853587962963
+    ignored_top_fraction: 0.25
+    mean_absolute_difference: 2.743759162808642
+  golden_policy:
+    after_min_changed_pixel_ratio: 0.001
+    before_max_changed_pixel_ratio: 0.01
+    ignore_top_fraction: 0.25
+  captured_by: materialized_fixed_buggy_runtime_capture
+evaluation:
+  visual_oracle:
+    golden_image: visual_lz-luanti-14464-iconv-state-reset/fixed.after.golden.png
+    expected_label: correct
+    description: 'The title bar is dark blue-grey and reads "C1 LAZARUS #14464 ICONV
+      STATE REPLAY", and the body reads "COMMON START", "Fresh process, TestUtilities
+      28-test module registered.", "Input bytes: C4 then isolated 81" and "Waiting
+      for the ordered replay ...".'
+    rubric:
+      must:
+      - A Luanti client frame rendered by the candidate build shows a dark room behind
+        a centred formspec panel with a coloured title bar, above an eight-slot hotbar.
+      - 'The title bar is dark blue-grey and reads "C1 LAZARUS #14464 ICONV STATE
+        REPLAY", and the body reads "COMMON START", "Fresh process, TestUtilities
+        28-test module registered.", "Input bytes: C4 then isolated 81" and "Waiting
+        for the ordered replay ...".'
+      must_not:
+      - A blank frame, a crash dialog, or an unrelated application screen is shown.
+      ignore:
+      - The hotbar row, the crosshair, the node selection outline, the wielded item
+        at the lower right, and the server and chat text lines along the top.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    runtime_status: frozen_evidence_available
+    probe:
+      adapter: luanti_lazarus_frozen_evidence_v1
+      spec: lz-luanti-14464-iconv-state-reset.yaml
+      registered_replay:
+      - restore_registered_candidate_start
+      - run_registered_candidate_replay
+      - read_admitted_gate10_semantic_observation
+      versions_replayed:
+      - fixed
+      - buggy
+      re_executed_offline: false
+      provider_calls_required: false
+    upstream_tests:
+      fail_to_pass:
+      - TestUtilities.testUTF8
+      pass_to_pass:
+      - TestUtilities.testRemoveEscapes
+    goldens:
+      before: visual_lz-luanti-14464-iconv-state-reset/before.golden.png
+      buggy_before: visual_lz-luanti-14464-iconv-state-reset/buggy.before.golden.png
+      fixed:
+        after: visual_lz-luanti-14464-iconv-state-reset/fixed.after.golden.png
+        after_description: 'The title bar is green and reads "C1 LAZARUS #14464 REPLAY
+          RESULT", and the body shows "GOAL: 28 / 28 UTILITIES PASS" above "testUTF8:
+          PASS", "testWrapRows: PASS" and "testSanitizeDirName: PASS".'
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a dark room
+            behind a centred formspec panel with a coloured title bar, above an eight-slot
+            hotbar.
+          - 'The title bar is green and reads "C1 LAZARUS #14464 REPLAY RESULT", and
+            the body shows "GOAL: 28 / 28 UTILITIES PASS" above "testUTF8: PASS",
+            "testWrapRows: PASS" and "testSanitizeDirName: PASS".'
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the crosshair, the node selection outline, the wielded
+            item at the lower right, and the server and chat text lines along the
+            top.
+      buggy:
+        after: visual_lz-luanti-14464-iconv-state-reset/buggy.after.golden.png
+        after_description: 'The title bar is dark red and reads "C1 LAZARUS #14464
+          REPLAY RESULT", and the body shows "DEFECT: EXACT 3 / 28 FAIL" above "testUTF8:
+          FAIL", "testWrapRows: FAIL" and "testSanitizeDirName: FAIL".'
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a dark room
+            behind a centred formspec panel with a coloured title bar, above an eight-slot
+            hotbar.
+          - 'The title bar is dark red and reads "C1 LAZARUS #14464 REPLAY RESULT",
+            and the body shows "DEFECT: EXACT 3 / 28 FAIL" above "testUTF8: FAIL",
+            "testWrapRows: FAIL" and "testSanitizeDirName: FAIL".'
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the crosshair, the node selection outline, the wielded
+            item at the lower right, and the server and chat text lines along the
+            top.

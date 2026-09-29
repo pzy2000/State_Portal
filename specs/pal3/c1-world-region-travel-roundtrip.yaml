@@ -1,0 +1,114 @@
+name: C1 PAL3 world region travel roundtrip
+benchmark: pal3
+timeout_ms: 900000
+tags: [c1, long, pal3, region, travel, save]
+target:
+  kind: synthesized_state
+  scene_city: q01
+  scene_name: b
+  money: 800
+  team_ids: [0]
+  story_vars: [{key: 32768, value: 10401}]
+checkpoint:
+  allowed_strategies: [pal3_console_save_validate]
+  expected_validity: save-restorable
+actions:
+  - {type: pal3_enable_world_region, region: 1, flag: 2}
+  - {type: pal3_enable_world_region, region: 2, flag: 1}
+  - {type: pal3_set_story_var, var_id: 32768, value: 20200}
+  - {type: pal3_add_team_member, actor_id: 1}
+  - {type: pal3_set_favor, actor_id: 1, amount: 50}
+  - {type: pal3_load_scene, city: q02, scene: q02}
+  - {type: pal3_save, save_index: 4}
+  - {type: pal3_load_save, save_index: 4}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: pal3_world_region_enabled, region: 1, int_value: 2}
+      - {type: pal3_world_region_enabled, region: 2, int_value: 1}
+      - {type: pal3_story_var_equals, var_id: 32768, expected: "20200"}
+      - {type: pal3_team_contains, actor_id: 1}
+      - {type: pal3_favor_gte, actor_id: 1, int_value: 70}
+      - {type: pal3_scene_is, city: q02, scene: q02}
+      - {type: no_pal3_utility_errors}
+    surfaces:
+      gui:
+        adapter: pal3_unity_live_v1
+        start:
+          validate_target: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - c1.transition.armed
+          - any_of:
+            - c1.target.scene
+          - any_of:
+            - c1.target.money
+          - any_of:
+            - c1.target.team.actor_0
+          - any_of:
+            - c1.target.story_var_32768
+        goal:
+          use_assertions: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - assertion[pal3_world_region_enabled].region_1
+          - any_of:
+            - assertion[pal3_world_region_enabled].region_2
+          - any_of:
+            - assertion[pal3_story_var_equals].var_32768
+          - any_of:
+            - assertion[pal3_team_contains].actor_1
+            - assertion[pal3_team_contains]
+          - any_of:
+            - assertion[pal3_favor_gte].actor_1
+          - any_of:
+            - assertion[pal3_scene_is]
+          - any_of:
+            - assertion[no_pal3_utility_errors]
+          - any_of:
+            - c1.transition.expectation
+          - any_of:
+            - c1.transition.save
+          - any_of:
+            - c1.transition.load
+          requirements:
+          - name: c1.public_save_load_witness
+            kind: save_then_load
+            slot: 4
+            ordered_events:
+            - save
+            - reset
+            - scene_load
+            - load
+      state:
+        adapter: pal3_unity_live_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/c1-world-region-travel-roundtrip.after.golden.png
+    golden_before: visual/c1-world-region-travel-roundtrip.before.golden.png
+    golden_after: visual/c1-world-region-travel-roundtrip.after.golden.png
+    expected_label: correct
+    scene_key: pal3_q02_q02
+    description: The q01 starting scene is visible before unlocking travel regions.
+    after_description: After two region unlocks, companion progression, save, and reload the
+      session is in the unlit q02 interior. The golden was captured with the party formation
+      displayed and the world map open, the two surfaces on which this task's unlocked travel
+      regions and recruited actor are drawn; two party characters stand beside the map panel.
+    rubric:
+      must: [A live PAL3 starting scene is visible]
+      must_not: [A blank frame, splash, or crash is shown]
+    after_rubric:
+      must: [The bright outdoor starting scene is gone, The dim q02 interior is rendered]
+      must_not: [The original starting scene remains, A crash or exception overlay is shown]
+      ignore:
+        - "Whether the world map overlay is open and how many party members stand in the room; the golden displays both to make the unlocked regions and the recruited actor visible, which a live run need not do"
+        - "Exact camera angle and lighting of the dim q02 interior"
+    capture: {stage: post_smoke, wait_ms: 1000, full_page: false}

@@ -1,0 +1,146 @@
+{
+  "buggy_tests": {
+    "jupyterlab-17700-right-rank-order-f2p": false,
+    "jupyterlab-statusbar-left-order-construction-p2p": true
+  },
+  "complete": true,
+  "executions": [
+    {
+      "complete": true,
+      "duration_ms": 20525.11229098309,
+      "failures": [],
+      "isolation": "apfs_cow_clone",
+      "kind": "fail_to_pass",
+      "overlays": [
+        {
+          "destination_path": "packages/statusbar/test/statusbar.spec.ts",
+          "sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1",
+          "source_path": "upstream-tests/packages/statusbar/test/statusbar.spec.ts"
+        }
+      ],
+      "passed": true,
+      "prepare_results": [],
+      "results": [
+        {
+          "duration_ms": 5247.643375012558,
+          "exit_code": 0,
+          "id": "jupyterlab-17700-right-rank-order-f2p",
+          "passed": true,
+          "stderr_sha256": "7cd6a7a1ce15a03e208538bf56c005be015e16a9f487d6fb885d97191f06b41b",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        }
+      ],
+      "test_ids": [
+        "jupyterlab-17700-right-rank-order-f2p"
+      ],
+      "version": "fixed"
+    },
+    {
+      "complete": true,
+      "duration_ms": 19346.018749987707,
+      "failures": [],
+      "isolation": "apfs_cow_clone",
+      "kind": "pass_to_pass",
+      "overlays": [
+        {
+          "destination_path": "packages/statusbar/test/statusbar.spec.ts",
+          "sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1",
+          "source_path": "upstream-tests/packages/statusbar/test/statusbar.spec.ts"
+        }
+      ],
+      "passed": true,
+      "prepare_results": [],
+      "results": [
+        {
+          "duration_ms": 5116.409041977022,
+          "exit_code": 0,
+          "id": "jupyterlab-statusbar-left-order-construction-p2p",
+          "passed": true,
+          "stderr_sha256": "3a347abeab7a31aa73d45083e91b1136a4e04182f613c4b93f2dc1d4496e4c1a",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        }
+      ],
+      "test_ids": [
+        "jupyterlab-statusbar-left-order-construction-p2p"
+      ],
+      "version": "fixed"
+    },
+    {
+      "complete": false,
+      "duration_ms": 20680.84420901141,
+      "failures": [
+        "upstream test jupyterlab-17700-right-rank-order-f2p exited 1"
+      ],
+      "isolation": "apfs_cow_clone",
+      "kind": "fail_to_pass",
+      "overlays": [
+        {
+          "destination_path": "packages/statusbar/test/statusbar.spec.ts",
+          "sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1",
+          "source_path": "upstream-tests/packages/statusbar/test/statusbar.spec.ts"
+        }
+      ],
+      "passed": false,
+      "prepare_results": [],
+      "results": [
+        {
+          "duration_ms": 5486.672625003848,
+          "exit_code": 1,
+          "id": "jupyterlab-17700-right-rank-order-f2p",
+          "passed": false,
+          "stderr_sha256": "b7bdca7db4df587e1cb85bcc49140e2787d93a7ccbc8a51da6eed9e5e999dcee",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        }
+      ],
+      "test_ids": [
+        "jupyterlab-17700-right-rank-order-f2p"
+      ],
+      "version": "buggy"
+    },
+    {
+      "complete": true,
+      "duration_ms": 20240.968166996026,
+      "failures": [],
+      "isolation": "apfs_cow_clone",
+      "kind": "pass_to_pass",
+      "overlays": [
+        {
+          "destination_path": "packages/statusbar/test/statusbar.spec.ts",
+          "sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1",
+          "source_path": "upstream-tests/packages/statusbar/test/statusbar.spec.ts"
+        }
+      ],
+      "passed": true,
+      "prepare_results": [],
+      "results": [
+        {
+          "duration_ms": 5326.163583988091,
+          "exit_code": 0,
+          "id": "jupyterlab-statusbar-left-order-construction-p2p",
+          "passed": true,
+          "stderr_sha256": "31b4cdfff83242e88501837c8cf51674f6aa65d644b06133475611368c1b768c",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        }
+      ],
+      "test_ids": [
+        "jupyterlab-statusbar-left-order-construction-p2p"
+      ],
+      "version": "buggy"
+    }
+  ],
+  "failures": [],
+  "fixed_tests": {
+    "jupyterlab-17700-right-rank-order-f2p": true,
+    "jupyterlab-statusbar-left-order-construction-p2p": true
+  },
+  "patch_sha256": "7e2e5deb39cca73d58a1ef550fc040ffda8edd79cce0e361843dd402875bc95d",
+  "qualified": true,
+  "record_sha256": "e5eb9bf17d82ec4f78cafc9173be1c83b28eaee00800e8d5ceb58ca9b66b7b99",
+  "schema": "c1-lazarus-formal-construction-tests-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-17700-statusbar-tab-order"
+}

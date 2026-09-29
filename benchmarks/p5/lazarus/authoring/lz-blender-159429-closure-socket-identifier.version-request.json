@@ -1,0 +1,13 @@
+{
+  "build_class": "incremental_cpp",
+  "declared_files": [
+    "source/blender/nodes/geometry/include/NOD_geo_closure_to_list.hh",
+    "tests/files/modeling/geometry_nodes/closure/closure_to_list_anonymous_attributes.blend",
+    "tests/files/modeling/geometry_nodes/list/closure_to_list.blend"
+  ],
+  "fixed_revision": "3d018bcabdaeea66cf4ef4a96ce8913164831f6e",
+  "patch_sha256": "fbab8f99ce2bf7785412a8e99b9af18af2ca75167248a00fd2b308e9d3d73ebd",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-blender-159429-closure-socket-identifier/revert.patch",
+  "source_repo": "games/blender",
+  "task_id": "lz-blender-159429-closure-socket-identifier"
+}

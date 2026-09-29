@@ -1,0 +1,122 @@
+{
+  "benchmark": "luanti",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": true,
+  "evidence": {
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.20682725694444445,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 16.148451967592592
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 0.0
+      },
+      "before_sha256": "927594147ed2ee72f7d040c72702135868a8a064b5a46c184cb1a9bb667d9330",
+      "buggy_after_sha256": "14f1c168f6c0ae8fadbd2e0c6c0e2b4cc43a1c39a98727542ba4d75c3e1303ce",
+      "fixed_after_sha256": "3338b2c7df1308b2e3c2ffe65eff0785f7dbf08098cbe4160ee2c2ed17ed79b6",
+      "metadata": "specs/luanti/lazarus/visual_lz-luanti-13132-empty-separator/goldens.meta.json",
+      "metadata_sha256": "bf9ab483cda1684534f6e4ef0cd221b4cc0ad91bb650c722a4d8abb8b24eb949"
+    },
+    "probe_verification": null,
+    "provenance_errors": [],
+    "source_artifacts": {
+      "gate10": "admission:gate10_status=passed_hidden_oracle_and_semantic_observations",
+      "gate11": "admission:gate11_status=passed_real_engine_frames",
+      "gate12": "admission:gate12_status=passed_before_equivalence_and_after_2x2",
+      "gate13": "admission:gate13_status=passed_same_lineage_construction",
+      "gate8": "closure:candidate_gate8_9722_native_step/luanti/9722/fixed/build",
+      "gate9": "admission:gate9_status=passed_ordered_replay",
+      "gate_1_7_source": "candidate_gate57_13132_timeout_repair_transition/luanti/13132/lua/v1",
+      "gate_1_7_truth_table": {
+        "buggy_f2p_3x": "passed_clean_failure",
+        "buggy_p2p_3x": "passed",
+        "fixed_f2p_3x": "passed",
+        "fixed_p2p_3x": "passed",
+        "single_defect_mapping": "passed",
+        "source_authority": "passed",
+        "strict_inverse_patch": "passed",
+        "test_api_compatibility": "passed"
+      },
+      "strict_gate_1_7": true
+    },
+    "upstream": [
+      {
+        "command": [
+          "busted",
+          "--filter",
+          "string split() rejects empty separator",
+          "builtin/common/tests/misc_helpers_spec.lua"
+        ],
+        "cwd": ".",
+        "id": "string split() rejects empty separator",
+        "kind": "fail_to_pass"
+      },
+      {
+        "command": [
+          "busted",
+          "--filter",
+          "string split() removes empty",
+          "builtin/common/tests/misc_helpers_spec.lua"
+        ],
+        "cwd": ".",
+        "id": "string split() removes empty",
+        "kind": "pass_to_pass"
+      }
+    ],
+    "versions": {
+      "changed_files": [
+        "builtin/common/misc_helpers.lua"
+      ],
+      "patch_sha256": "8b439e8738286a25b6e819892f7a7b65652085f08e834f50446773c76b8e524d",
+      "patch_source": "materialized_tree_difference",
+      "reverse_apply_reproduces_frozen_buggy_tree": true,
+      "tree_pair": "private/materialized/luanti/13132/application-v1"
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "string split() rejects empty separator"
+  ],
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "pass_to_pass": [
+    "string split() removes empty"
+  ],
+  "passed": true,
+  "projection": {
+    "admission": "candidate_formal_freeze_admission/luanti/13132/current/v2",
+    "closure_size": 158,
+    "fresh_gate_run": false,
+    "generator": "warptest.c1_lazarus_selection.c1_lazarus_formal_catalog",
+    "selection_mode": "c1_freeze_sprint_v2"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-luanti-13132-empty-separator",
+  "upstream_f2p": true
+}

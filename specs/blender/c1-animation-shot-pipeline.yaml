@@ -1,0 +1,64 @@
+name: C1 Blender animation shot pipeline
+benchmark: blender
+repo: ../../games/blender
+timeout_ms: 900000
+tags: [c1, long, blender, animation]
+target:
+  kind: scene
+  frame: 1
+  objects:
+    - {name: HeroCube, type: MESH, primitive: cube, size: 1.5, location: [0.0, 0.0, 0.75], material: {name: HeroGold, color: [0.95, 0.5, 0.05, 1.0]}}
+checkpoint:
+  allowed_strategies: [blender_python_scene_validate]
+  expected_validity: save-restorable
+actions:
+  - {type: blender_set_keyframe, object: HeroCube, data_path: location, frame: 1, value: [0.0, 0.0, 0.75]}
+  - {type: blender_set_keyframe, object: HeroCube, data_path: rotation_euler, frame: 1, value: [0.0, 0.0, 0.0]}
+  - {type: blender_set_keyframe, object: HeroCube, data_path: location, frame: 24, value: [2.0, 1.0, 1.5]}
+  - {type: blender_set_keyframe, object: HeroCube, data_path: rotation_euler, frame: 24, value: [0.0, 0.4, 0.8]}
+  - {type: blender_set_keyframe, object: HeroCube, data_path: location, frame: 48, value: [4.0, 0.0, 2.0]}
+  - {type: blender_set_keyframe, object: HeroCube, data_path: rotation_euler, frame: 48, value: [0.2, 0.8, 1.6]}
+  - {type: blender_save_as, path: c1-animation-shot.blend}
+  - {type: blender_reopen, path: c1-animation-shot.blend}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: blender_animation_keyframes, object: HeroCube, data_path: location, frames: [1, 24, 48]}
+      - {type: blender_animation_keyframes, object: HeroCube, data_path: rotation_euler, frames: [1, 24, 48]}
+      - {type: blender_object_location, object: HeroCube, location: [4.0, 0.0, 2.0]}
+      - {type: blender_object_rotation, object: HeroCube, rotation: [0.2, 0.8, 1.6]}
+      - {type: blender_current_frame_equals, frame: 48}
+      - {type: blender_file_exists, path: c1-animation-shot.blend}
+      - {type: no_blender_python_errors}
+    surfaces:
+      gui:
+        adapter: blender_native_state_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: blender_native_state_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/c1-animation-shot-pipeline.after.golden.png
+    golden_before: visual/c1-animation-shot-pipeline.before.golden.png
+    golden_after: visual/c1-animation-shot-pipeline.after.golden.png
+    expected_label: correct
+    description: HeroCube is visible at its frame-1 starting pose.
+    after_description: HeroCube is visible at the elevated, rotated frame-48 final pose after reopen.
+    rubric:
+      must: [The gold HeroCube and coordinate reference are visible at the start]
+      must_not: [A blank render or crash screen is shown]
+    after_rubric:
+      must: [HeroCube is visibly translated and rotated into its final shot pose]
+      must_not: [The cube remains at its initial pose, The render is blank]
+    capture: {stage: post_smoke, wait_ms: 0, full_page: false}

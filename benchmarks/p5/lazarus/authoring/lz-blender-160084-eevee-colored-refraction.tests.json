@@ -1,0 +1,211 @@
+{
+  "schema": "c1-lazarus-authoring-tests-v1",
+  "schema_version": 1,
+  "tests": [
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/eevee_render_tests.py",
+        "--",
+        "--testdir",
+        "tests/files/render/principled_bsdf",
+        "--outdir",
+        ".warptest/eevee-f2p",
+        "--oiiotool",
+        "oiiotool",
+        "--gpu-backend",
+        "metal",
+        "--batch"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/eevee_render_tests.py",
+        "--",
+        "--testdir",
+        "tests/files/render/principled_bsdf",
+        "--outdir",
+        ".warptest/eevee-f2p",
+        "--oiiotool",
+        "oiiotool",
+        "--gpu-backend",
+        "metal",
+        "--batch"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/python/eevee_render_tests.py",
+          "sha256": "e9f2e59bbd6a419c2a45fed379695da2371d841538add3bdc36352e4429feacb",
+          "source_path": "upstream-tests/tests/python/eevee_render_tests.py"
+        },
+        {
+          "destination_path": "tests/files/render/principled_bsdf/principled_bsdf_transmission.blend",
+          "sha256": "35b2f88e37a873a4501ffa8c0f6fb3de12e0d83266ca080dc706e762167a0082",
+          "source_path": "upstream-tests/tests/files/render/principled_bsdf/principled_bsdf_transmission.blend"
+        },
+        {
+          "destination_path": "tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_transmission.png",
+          "sha256": "da587ee9c2dc9ae85e5cc0ce256191eee85d07d9cc4584bb5daa719fb935374f",
+          "source_path": "upstream-tests/tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_transmission.png"
+        }
+      ],
+      "id": "blender-160084-eevee-transmission-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_eevee_render_regression_suite",
+      "source_case": "principled_bsdf_transmission",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/python/eevee_render_tests.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/eevee_render_tests.py",
+          "sha256": "e9f2e59bbd6a419c2a45fed379695da2371d841538add3bdc36352e4429feacb",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/python/eevee_render_tests.py"
+        },
+        {
+          "path": "tests/files/render/principled_bsdf/principled_bsdf_transmission.blend",
+          "sha256": "35b2f88e37a873a4501ffa8c0f6fb3de12e0d83266ca080dc706e762167a0082",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/files/render/principled_bsdf/principled_bsdf_transmission.blend"
+        },
+        {
+          "path": "tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_transmission.png",
+          "sha256": "da587ee9c2dc9ae85e5cc0ce256191eee85d07d9cc4584bb5daa719fb935374f",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_transmission.png"
+        }
+      ],
+      "upstream_test_path": "tests/python/eevee_render_tests.py",
+      "upstream_test_sha256": "e9f2e59bbd6a419c2a45fed379695da2371d841538add3bdc36352e4429feacb"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/eevee_render_tests.py",
+        "--",
+        "--testdir",
+        "tests/files/render/principled_bsdf",
+        "--outdir",
+        ".warptest/eevee-p2p",
+        "--oiiotool",
+        "oiiotool",
+        "--gpu-backend",
+        "metal",
+        "--batch"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/eevee_render_tests.py",
+        "--",
+        "--testdir",
+        "tests/files/render/principled_bsdf",
+        "--outdir",
+        ".warptest/eevee-p2p",
+        "--oiiotool",
+        "oiiotool",
+        "--gpu-backend",
+        "metal",
+        "--batch"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/python/eevee_render_tests.py",
+          "sha256": "e9f2e59bbd6a419c2a45fed379695da2371d841538add3bdc36352e4429feacb",
+          "source_path": "upstream-tests/tests/python/eevee_render_tests.py"
+        },
+        {
+          "destination_path": "tests/files/render/principled_bsdf/principled_bsdf_default.blend",
+          "sha256": "eb1c4944e530c14a861822df3a86c98925554ce09c05e6e504c8152a408a5e34",
+          "source_path": "upstream-tests/tests/files/render/principled_bsdf/principled_bsdf_default.blend"
+        },
+        {
+          "destination_path": "tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_default.png",
+          "sha256": "9290f09b4d7f679898b061a87c0730f06154d1d7d480ebe5d937a7b394f2c505",
+          "source_path": "upstream-tests/tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_default.png"
+        }
+      ],
+      "id": "blender-eevee-default-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_eevee_render_test_suite",
+      "source_case": "principled_bsdf_default",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/python/eevee_render_tests.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/eevee_render_tests.py",
+          "sha256": "e9f2e59bbd6a419c2a45fed379695da2371d841538add3bdc36352e4429feacb",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/python/eevee_render_tests.py"
+        },
+        {
+          "path": "tests/files/render/principled_bsdf/principled_bsdf_default.blend",
+          "sha256": "eb1c4944e530c14a861822df3a86c98925554ce09c05e6e504c8152a408a5e34",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/files/render/principled_bsdf/principled_bsdf_default.blend"
+        },
+        {
+          "path": "tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_default.png",
+          "sha256": "9290f09b4d7f679898b061a87c0730f06154d1d7d480ebe5d937a7b394f2c505",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/ec92178a691a10b4b0076556d05daf69ec158200/tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_default.png"
+        }
+      ],
+      "upstream_test_path": "tests/python/eevee_render_tests.py",
+      "upstream_test_sha256": "e9f2e59bbd6a419c2a45fed379695da2371d841538add3bdc36352e4429feacb"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "cwd": ".",
+      "id": "blender-mathutils-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "repository_python_test_suite",
+      "source_case": "bl_pyapi_mathutils",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/bl_pyapi_mathutils.py",
+          "sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py"
+        }
+      ],
+      "upstream_test_path": "tests/python/bl_pyapi_mathutils.py",
+      "upstream_test_sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af"
+    }
+  ]
+}

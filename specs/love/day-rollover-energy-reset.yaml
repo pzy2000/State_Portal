@@ -1,0 +1,79 @@
+name: DatingSim day rollover energy reset checkpoint
+benchmark: DatingSim
+tags:
+- love
+- work
+- time
+- variant
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  seed: 47
+  player_name: WarpTest
+  gender: male
+  patch:
+    player:
+      resources:
+        money: 500
+        energy: 30
+        health: 100
+        mood: 100
+      dailyChatUsed: true
+    world:
+      location: office
+      timeSlot: night
+      day: 2
+      week: 1
+  expect:
+    location: office
+    resources:
+      money: 500
+      energy: 30
+checkpoint:
+  allowed_strategies:
+  - test_hook_seeded_state
+  expected_validity: injection-only
+actions:
+- type: hook_action
+  action_id: work_coding
+  wait_ms: 500
+assertions:
+- type: state_equals
+  path: player.resources.money
+  value: 600
+- type: state_equals
+  path: player.resources.energy
+  value: 60
+- type: state_equals
+  path: player.stats.intelligence
+  value: 11
+- type: state_equals
+  path: world.day
+  value: 3
+- type: state_equals
+  path: world.timeSlot
+  value: morning
+- type: state_equals
+  path: player.dailyChatUsed
+  value: false
+- type: no_real_openai
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/resource-action.golden.png
+  expected_label: correct
+  description: A work_coding action taken in the last time slot of the day rolls
+    the day/week forward, regenerates energy, and resets the daily chat limit.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

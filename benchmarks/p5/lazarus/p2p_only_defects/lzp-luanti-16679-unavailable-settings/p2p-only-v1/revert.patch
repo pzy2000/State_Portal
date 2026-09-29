@@ -1,0 +1,114 @@
+diff --git a/builtin/common/settings/components.lua b/builtin/common/settings/components.lua
+index 38af1b086268e..5f730c223232d 100644
+--- a/builtin/common/settings/components.lua
++++ b/builtin/common/settings/components.lua
+@@ -45,9 +45,10 @@ local function is_valid_number(value)
+ end
+ 
+ 
+-function make.heading(text)
++function make.heading(text, info_text)
+ 	return {
+ 		full_width = true,
++		info_text = info_text,
+ 		get_formspec = function(self, avail_w)
+ 			return ("label[0,0.6;%s]box[0,0.9;%f,0.05;#ccc6]"):format(core.formspec_escape(text), avail_w), 1.2
+ 		end,
+@@ -55,6 +56,22 @@ function make.heading(text)
+ end
+ 
+ 
++function make.unavail_list(settings)
++	return {
++		full_width = true,
++		get_formspec = function(self, avail_w)
++			local h = 0.2
++			local fs = {}
++			for _, setting in ipairs(settings) do
++				fs[#fs + 1] = ("label[0.3,%f;%s]"):format(h,
++					core.colorize("#bbb", core.formspec_escape(get_label(setting))))
++				h = h + 0.4
++			end
++			return table.concat(fs, ""), h
++		end,
++	}
++end
++
+ function make.note(text)
+ 	return {
+ 		full_width = true,
+diff --git a/builtin/common/settings/dlg_settings.lua b/builtin/common/settings/dlg_settings.lua
+index 77fc8be3f0663..07e8b04e402db 100644
+--- a/builtin/common/settings/dlg_settings.lua
++++ b/builtin/common/settings/dlg_settings.lua
+@@ -137,6 +137,7 @@ local function load()
+ 
+ 	-- insert after "touch_controls"
+ 	table.insert(page_by_id.controls_touchscreen.content, 2, touchscreen_layout)
++
+ 	do
+ 		local content = page_by_id.graphics_and_audio_effects.content
+ 		local idx = table.indexof(content, "enable_dynamic_shadows")
+@@ -407,18 +408,8 @@ function page_has_contents(page, actual_content)
+ 	for _, item in ipairs(actual_content) do
+ 		if item == false or item.heading then --luacheck: ignore
+ 			-- skip
+-		elseif type(item) == "string" then
+-			local setting = get_setting_info(item)
+-			assert(setting, "Unknown setting: " .. item)
+-			if check_requirements(setting.name, setting.requires, setting.context) then
+-				return true
+-			end
+-		elseif item.get_formspec then
+-			if check_requirements(item.id, item.requires, item.context) then
+-				return true
+-			end
+ 		else
+-			error("Unknown content in page: " .. dump(item))
++			return true
+ 		end
+ 	end
+ 
+@@ -429,6 +420,7 @@ end
+ local function build_page_components(page)
+ 	-- Filter settings based on requirements
+ 	local content = {}
++	local settings_off = {}
+ 	local last_heading
+ 	for _, item in ipairs(page.content) do
+ 		if item == false then --luacheck: ignore
+@@ -437,8 +429,9 @@ local function build_page_components(page)
+ 			last_heading = item
+ 		else
+ 			local name, requires, context
++			local setting
+ 			if type(item) == "string" then
+-				local setting = get_setting_info(item)
++				setting = get_setting_info(item)
+ 				assert(setting, "Unknown setting: " .. item)
+ 				name = setting.name
+ 				requires = setting.requires
+@@ -457,6 +450,8 @@ local function build_page_components(page)
+ 					last_heading = nil
+ 				end
+ 				content[#content + 1] = item
++			elseif setting then
++				settings_off[#settings_off + 1] = setting
+ 			end
+ 		end
+ 	end
+@@ -475,6 +470,14 @@ local function build_page_components(page)
+ 			retval[i] = component_funcs.heading(item.heading)
+ 		end
+ 	end
++
++	if #settings_off > 0 then
++		retval[#retval + 1] = component_funcs.heading(fgettext_ne("Unavailable"),
++			-- luacheck: ignore
++			fgettext_ne("These settings are unavailable due to your platform, hardware or in combination with the current settings.")
++		)
++		retval[#retval + 1] = component_funcs.unavail_list(settings_off)
++	end
+ 	return retval
+ end
+ 

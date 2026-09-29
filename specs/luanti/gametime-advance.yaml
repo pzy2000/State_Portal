@@ -1,0 +1,22 @@
+name: luanti advance server gametime past a threshold
+benchmark: "luanti"
+timeout_ms: 300000
+tags: ["luanti", "gametime", "globalstep"]
+target:
+  kind: synthesized_world
+  nodes:
+    - pos: { x: 1, y: 1, z: 1 }
+      node: "basenodes:stone"
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_wait_steps
+    steps: 20
+assertions:
+  - type: luanti_gametime_gte
+    value: 1
+  - type: luanti_node_is
+    pos: { x: 1, y: 1, z: 1 }
+    expected: "basenodes:stone"
+  - type: no_luanti_mod_errors

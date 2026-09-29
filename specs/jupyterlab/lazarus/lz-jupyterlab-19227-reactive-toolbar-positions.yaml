@@ -1,0 +1,161 @@
+name: C1-Lazarus JupyterLab 19227-reactive-toolbar-positions
+benchmark: jupyterlab
+timeout_ms: 900000
+tags:
+- c1
+- lazarus
+- jupyterlab
+- production
+setup:
+  jupyterlab_lazarus_probe:
+    task_id: lz-jupyterlab-19227-reactive-toolbar-positions
+    change_number: 19227
+    issue_number: 19226
+    adapter: jupyterlab_lazarus_edge_probe_v1
+    registered_replay:
+    - load_candidate_local_bundle
+    - build_reactive_toolbar_with_permanent_items
+    - insert_factory_items_before_the_close_button
+    - dispose_the_factory_items
+    - insert_replacement_factory_items_before_the_close_button
+    - read_item_names_and_rendered_left_to_right_order
+    probe_executable: true
+target:
+  kind: jupyterlab_lazarus_candidate_bundle
+  change_number: 19227
+  variants:
+  - fixed
+  - buggy
+  bundler: candidate_local_rspack
+  browser: microsoft_edge_via_playwright
+checkpoint:
+  allowed_strategies:
+  - jupyterlab_lazarus_edge_replay_validate
+  expected_validity: replay-reachable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-19227-reactive-toolbar-positions/fixed.after.golden.png
+    expected_label: correct
+    description: The row reads "spacer", "f1", "f2", "close" and then the overflow
+      button, from left to right.
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows one small white toolbar
+        strip in the top-left corner of an otherwise blank page, holding five items
+        in a single row that ends with a horizontal ellipsis overflow button.
+      - The row reads "spacer", "f1", "f2", "close" and then the overflow button,
+        from left to right.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_item_names
+      expected:
+      - spacer
+      - f1
+      - f2
+      - close
+      - toolbar-popup-opener
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_rendered_order
+      expected:
+      - spacer
+      - f1
+      - f2
+      - close
+      - toolbar-popup-opener
+    defect_signature:
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_item_names
+      expected:
+      - spacer
+      - close
+      - f2
+      - f1
+      - toolbar-popup-opener
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_rendered_order
+      expected:
+      - spacer
+      - close
+      - f2
+      - f1
+      - toolbar-popup-opener
+    invariant_checks:
+    - type: no_jupyterlab_probe_errors
+    upstream_tests:
+      fail_to_pass:
+      - '@jupyterlab/ui-components ReactiveToolbar #insertBefore() should insert before
+        the target after intermediate items have been removed'
+      pass_to_pass: &id001
+      - '@jupyterlab/ui-components Toolbar #insertBefore() should insert an item into
+        the toolbar before `c`'
+      per_trial_p2p: *id001
+    goldens:
+      before: visual_lz-jupyterlab-19227-reactive-toolbar-positions/before.golden.png
+      buggy_before: visual_lz-jupyterlab-19227-reactive-toolbar-positions/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-19227-reactive-toolbar-positions/fixed.after.golden.png
+        after_description: The row reads "spacer", "f1", "f2", "close" and then the
+          overflow button, from left to right.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows one small white
+            toolbar strip in the top-left corner of an otherwise blank page, holding
+            five items in a single row that ends with a horizontal ellipsis overflow
+            button.
+          - The row reads "spacer", "f1", "f2", "close" and then the overflow button,
+            from left to right.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+      buggy:
+        after: visual_lz-jupyterlab-19227-reactive-toolbar-positions/buggy.after.golden.png
+        after_description: The row reads "spacer", "close", "f2", "f1" and then the
+          overflow button, from left to right, so both factory items sit after the
+          close button and in reverse order.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows one small white
+            toolbar strip in the top-left corner of an otherwise blank page, holding
+            five items in a single row that ends with a horizontal ellipsis overflow
+            button.
+          - The row reads "spacer", "close", "f2", "f1" and then the overflow button,
+            from left to right, so both factory items sit after the close button and
+            in reverse order.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.

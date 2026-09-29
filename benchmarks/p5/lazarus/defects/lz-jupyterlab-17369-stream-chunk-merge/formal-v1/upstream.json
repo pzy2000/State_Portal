@@ -1,0 +1,176 @@
+{
+  "authority": "github",
+  "benchmark": "jupyterlab",
+  "comments": [
+    {
+      "author": "krassowski",
+      "body_normalized": "I can reproduce in 4.3.5 and 4.4.0b0. 4.2.5 is not affected. 4.3.2 is not affected.\n\nLooking at changelog, I would suspect this to be related to https://github.com/jupyterlab/jupyterlab/pull/17043. CC @davidbrochart\n\nProbably the same underlying issue as in https://github.com/jupyterlab/jupyterlab/issues/17320, but this reprodeucer works reliably.",
+      "body_raw": "I can reproduce in 4.3.5 and 4.4.0b0. 4.2.5 is not affected. 4.3.2 is not affected.\n\nLooking at changelog, I would suspect this to be related to https://github.com/jupyterlab/jupyterlab/pull/17043. CC @davidbrochart \n\nProbably the same underlying issue as in https://github.com/jupyterlab/jupyterlab/issues/17320, but this reprodeucer works reliably.",
+      "body_sha256": "6930755e4d187a658d17d4b97c7841e55b3d56c5062a84a0533326344e388620",
+      "created_at": "2025-03-03T15:25:13Z",
+      "id": 2694760332,
+      "source": "issue_comment",
+      "updated_at": "2025-03-03T15:25:13Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/issues/17358#issuecomment-2694760332"
+    },
+    {
+      "author": "jupyterlab-probot[bot]",
+      "body_normalized": "Thanks for making a pull request to jupyterlab!\nTo try out this branch on [binder](https://mybinder.org), follow this link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/davidbrochart/jupyterlab/fix-output?urlpath=lab)",
+      "body_raw": "Thanks for making a pull request to jupyterlab!\nTo try out this branch on [binder](https://mybinder.org), follow this link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/davidbrochart/jupyterlab/fix-output?urlpath=lab)",
+      "body_sha256": "85f9b077d357ec19de40d5a764e5153b5f0a30f11a191f9a848736b829a00e76",
+      "created_at": "2025-03-06T08:53:16Z",
+      "id": 2703200454,
+      "source": "pull_request_comment",
+      "updated_at": "2025-03-06T08:53:16Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/17369#issuecomment-2703200454"
+    },
+    {
+      "author": "krassowski",
+      "body_normalized": "I pushed a commit with a test case. I verified the test fails on `main`:\n\n![image](https://github.com/user-attachments/assets/b7158dd3-db17-46dc-ad0e-38743dd8e82e)",
+      "body_raw": "I pushed a commit with a test case. I verified the test fails on `main`:\r\n\r\n![image](https://github.com/user-attachments/assets/b7158dd3-db17-46dc-ad0e-38743dd8e82e)\r\n",
+      "body_sha256": "5f56aedfa1ddddad5c7438ded47e059c99dcca3e5308be2a5c10e15959b65f2f",
+      "created_at": "2025-03-12T15:36:21Z",
+      "id": 2718299838,
+      "source": "pull_request_comment",
+      "updated_at": "2025-03-12T15:36:21Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/17369#issuecomment-2718299838"
+    },
+    {
+      "author": "krassowski",
+      "body_normalized": "@meeseeksdev please backport to 4.3.x",
+      "body_raw": "@meeseeksdev please backport to 4.3.x",
+      "body_sha256": "f5674a899e5e866642cbc7ae66dd1e4db88e5f2b871cb9998ea2c6e22f5ff66b",
+      "created_at": "2025-03-12T17:46:51Z",
+      "id": 2718657613,
+      "source": "pull_request_comment",
+      "updated_at": "2025-03-12T17:46:51Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/17369#issuecomment-2718657613"
+    }
+  ],
+  "fix_commit": "5787c883ab6f3b7a9d1cdaa5c8d6d1e774823e75",
+  "issue": {
+    "author": "esnible",
+    "body_normalized": "## Description\n\n`print()` with newline and `end=\"\"` can produce corrupt output.\n\n## Reproduce\n\nCreate and execute a cell with the following code:\n\n```Python\nprint(\"The meaning of life is....\\nSome people... \", end=\"\", flush=True)\nprint(\"More text.\")\n```\n\nThe output, for me (Jupyter Lab 4.3.4) is\n```\nThe meaning of life is....\nMore text.e...\n```\n\nI originally discovered this in a cell magic, but it happens when I merely `print()` in a cell.\n\n## Expected behavior\n\nThe output should be\n```\nThe meaning of life is....\nSome people... More text.\n```\n\n## Context\n\n- Operating System and version: MacOS 15.3.1<!-- e.g. Linux Ubuntu 21.04 -->\n- Browser and version: Same behavior, 133.0.6943.126 (Official Build) (arm64), Safari, and Firefox.<!-- e.g. Chrome 92 -->\n- JupyterLab version: 4.3.4 <!-- e.g. 3.1.7 -->\n\nSame behavor in Jupyter Version: 7.3.2.\n\nNo Browser Output in the JavaScript console.",
+    "body_raw": "## Description\n\n`print()` with newline and `end=\"\"` can produce corrupt output.\n\n## Reproduce\n\nCreate and execute a cell with the following code:\n\n```Python\nprint(\"The meaning of life is....\\nSome people... \", end=\"\", flush=True)\nprint(\"More text.\")\n```\n\nThe output, for me (Jupyter Lab 4.3.4) is\n```\nThe meaning of life is....\nMore text.e... \n```\n\nI originally discovered this in a cell magic, but it happens when I merely `print()` in a cell.\n\n## Expected behavior\n\nThe output should be \n```\nThe meaning of life is....\nSome people... More text.\n```\n\n## Context\n\n- Operating System and version: MacOS 15.3.1<!-- e.g. Linux Ubuntu 21.04 -->\n- Browser and version: Same behavior, 133.0.6943.126 (Official Build) (arm64), Safari, and Firefox.<!-- e.g. Chrome 92 -->\n- JupyterLab version: 4.3.4 <!-- e.g. 3.1.7 -->\n\nSame behavor in Jupyter Version: 7.3.2.\n\nNo Browser Output in the JavaScript console.\n",
+    "body_sha256": "824fc86179cb5595e36f73110affd0dd51e7e2b564a76cad5bab78433afce72e",
+    "closed_at": "2025-03-12T17:46:43Z",
+    "created_at": "2025-03-03T14:52:03Z",
+    "merged_at": null,
+    "number": 17358,
+    "state": "closed",
+    "title": "`print()` with newline and `end=\"\"` can produce corrupt output",
+    "updated_at": "2026-02-14T00:45:33Z",
+    "url": "https://github.com/jupyterlab/jupyterlab/issues/17358"
+  },
+  "patch_sha256": "7fd62e2caa87bc19fe861519f15ecc0b3b7b0f0186c4b202d2015456f4e6f7fe",
+  "pinned_revision": "5787c883ab6f3b7a9d1cdaa5c8d6d1e774823e75",
+  "pull_request": {
+    "author": "davidbrochart",
+    "body_normalized": "## References\n\nFixes #17358.\n\n## Code changes\n\nUpdate current position to end of text.\n\n## User-facing changes\n\nBetter handling of cell output streams.\n\n## Backwards-incompatible changes\n\nNone.",
+    "body_raw": "## References\r\n\r\nFixes #17358.\r\n\r\n## Code changes\r\n\r\nUpdate current position to end of text.\r\n\r\n## User-facing changes\r\n\r\nBetter handling of cell output streams.\r\n\r\n## Backwards-incompatible changes\r\n\r\nNone.",
+    "body_sha256": "16865a45e5c4000954edb3d061076b57d6647dc0738856ba8c87b918c0e55d93",
+    "closed_at": "2025-03-12T17:46:42Z",
+    "created_at": "2025-03-06T08:53:14Z",
+    "merged_at": "2025-03-12T17:46:42Z",
+    "number": 17369,
+    "state": "closed",
+    "title": "Fix cell output stream if previous chunk did not end in new line",
+    "updated_at": "2026-02-16T00:47:30Z",
+    "url": "https://github.com/jupyterlab/jupyterlab/pull/17369"
+  },
+  "record_sha256": "c97d5df625bd6c213581e01893ba4b701a6c42e09287b92d0da6de1ee2ad9c9e",
+  "repository": "jupyterlab/jupyterlab",
+  "retrieved_at": "2026-08-11T13:13:05Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-17369-stream-chunk-merge",
+  "tests": [
+    {
+      "command": [
+        "jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/model.spec.ts",
+        "-t",
+        "should correctly merge lines if the first line does not end with new line"
+      ],
+      "cwd": "packages/outputarea",
+      "frozen_attempt_command": [
+        "/opt/homebrew/Cellar/node@22/22.22.0_1/bin/node",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/17369/current-v1/buggy/node_modules/jest/bin/jest.js",
+        "--runTestsByPath",
+        "test/model.spec.ts",
+        "-t",
+        "should consolidate consecutive stream outputs of the same kind",
+        "--runInBand",
+        "--no-cache",
+        "--cacheDirectory",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runtime-home/jupyterlab-17369-gate57-v1/p2p/buggy/3/jest-cache"
+      ],
+      "id": "should correctly merge lines if the first line does not end with new line",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_regression_test",
+      "source_case": "should correctly merge lines if the first line does not end with new line",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/outputarea/test/model.spec.ts",
+      "upstream_test_path": "packages/outputarea/test/model.spec.ts",
+      "upstream_test_sha256": "993aae792e84e5d6d0c04d8cfbcef3d36a182321975aad8eca5cf35350aea0d4"
+    },
+    {
+      "command": [
+        "jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/model.spec.ts",
+        "-t",
+        "should consolidate consecutive stream outputs of the same kind"
+      ],
+      "cwd": "packages/outputarea",
+      "frozen_attempt_command": [
+        "/opt/homebrew/Cellar/node@22/22.22.0_1/bin/node",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/17369/current-v1/buggy/node_modules/jest/bin/jest.js",
+        "--runTestsByPath",
+        "test/model.spec.ts",
+        "-t",
+        "should consolidate consecutive stream outputs of the same kind",
+        "--runInBand",
+        "--no-cache",
+        "--cacheDirectory",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runtime-home/jupyterlab-17369-gate57-v1/p2p/buggy/3/jest-cache"
+      ],
+      "id": "should consolidate consecutive stream outputs of the same kind",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_regression_test",
+      "source_case": "should consolidate consecutive stream outputs of the same kind",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/outputarea/test/model.spec.ts",
+      "upstream_test_path": "packages/outputarea/test/model.spec.ts",
+      "upstream_test_sha256": "993aae792e84e5d6d0c04d8cfbcef3d36a182321975aad8eca5cf35350aea0d4"
+    }
+  ],
+  "touched_files": [
+    "packages/outputarea/src/model.ts",
+    "packages/outputarea/test/model.spec.ts"
+  ],
+  "upstream_commits": [
+    {
+      "author": "David Brochart",
+      "authored_at": "2025-03-06T08:46:14Z",
+      "body_normalized": "Fix cell output stream",
+      "body_raw": "Fix cell output stream",
+      "body_sha256": "25cfaf3777c900e9772849a45b6f4f9f8c5572cde292657f735c94e3b22254de",
+      "sha": "f33f98f25e142a9abe57f2a81f3aaa22cfc2d1df",
+      "url": "https://github.com/jupyterlab/jupyterlab/commit/f33f98f25e142a9abe57f2a81f3aaa22cfc2d1df"
+    },
+    {
+      "author": "krassowski",
+      "authored_at": "2025-03-12T15:34:01Z",
+      "body_normalized": "Add a test",
+      "body_raw": "Add a test",
+      "body_sha256": "6b0724e0a52fee1b0e536c093990f35411a5f3ffe569ba6db33f63b64c696d33",
+      "sha": "ee104e5a368f237af47c963a1593696fe1a14013",
+      "url": "https://github.com/jupyterlab/jupyterlab/commit/ee104e5a368f237af47c963a1593696fe1a14013"
+    }
+  ]
+}

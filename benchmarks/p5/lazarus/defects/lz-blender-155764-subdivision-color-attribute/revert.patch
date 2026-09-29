@@ -1,0 +1,22 @@
+diff --git a/source/blender/blenkernel/BKE_attribute_math.hh b/source/blender/blenkernel/BKE_attribute_math.hh
+index 0e64c4c3c62f4db0d8d75a3acbb4be33916ead0f..9cdc4b9c05f984e4435451bae6022f07b80ccdc4 100644
+--- a/source/blender/blenkernel/BKE_attribute_math.hh
++++ b/source/blender/blenkernel/BKE_attribute_math.hh
+@@ -467,7 +467,7 @@ inline T mix_indices(const Span<T> src,
+   AccumT accum(0);
+   float weight_accum = 0.0f;
+   for (const int i : indices.index_range()) {
+-    accum += to_accum_fn(src[i]) * weights[i];
++    accum += to_accum_fn(src[indices[i]]) * weights[i];
+     weight_accum += weights[i];
+   }
+   return to_final_fn(accum * math::safe_rcp(weight_accum));
+diff --git a/tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend b/tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend
+new file mode 100644
+index 0000000000000000000000000000000000000000..1ffe09520a9c9b7b7aaa7d910fb220adefb1f7d2
+--- /dev/null
++++ b/tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend
+@@ -0,0 +1,3 @@
++version https://git-lfs.github.com/spec/v1
++oid sha256:f8e55621889e1d1e6db0a05c647aa3eeded08e2cc71a6331d628db8cf89df548
++size 342059

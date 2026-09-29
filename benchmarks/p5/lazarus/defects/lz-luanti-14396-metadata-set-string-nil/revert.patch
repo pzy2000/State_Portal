@@ -1,0 +1,64 @@
+diff --git a/games/devtest/mods/unittests/metadata.lua b/games/devtest/mods/unittests/metadata.lua
+index 6b0dcf04a3d70d95c45925579b9957fc3e392f82..defd81dd305c92485a3cd7533930b097080482cc 100644
+--- a/games/devtest/mods/unittests/metadata.lua
++++ b/games/devtest/mods/unittests/metadata.lua
+@@ -77,6 +77,29 @@ local function test_metadata(meta)
+ 	assert(not meta:equals(compare_meta))
+ end
+ 
++local function test_metadata_compat(meta)
++	-- key/value removal using set_string (undocumented, deprecated way)
++	meta:set_string("key", "value")
++	assert(meta:get_string("key") == "value")
++	meta:set_string("key", nil) -- ignore warning
++	assert(meta:to_table().fields["key"] == nil)
++
++	-- undocumented but supported consequence of Lua's
++	-- automatic string <--> number cast
++	meta:set_string("key", 2)
++	assert(meta:get_string("key") == "2")
++
++	-- from_table with non-string keys (supported)
++	local values = meta:to_table()
++	values.fields["new"] = 420
++	meta:from_table(values)
++	assert(meta:get_int("new") == 420)
++	values.fields["new"] = nil
++	meta:from_table(values)
++	assert(meta:get("new") == nil)
++end
++
++
+ local storage_a = core.get_mod_storage()
+ local storage_b = core.get_mod_storage()
+ local function test_mod_storage()
+@@ -86,7 +109,9 @@ end
+ unittests.register("test_mod_storage", test_mod_storage)
+ 
+ local function test_item_metadata()
+-	test_metadata(ItemStack("unittest:coal_lump"):get_meta())
++	local meta = ItemStack("unittest:coal_lump"):get_meta()
++	test_metadata(meta)
++	test_metadata_compat(meta)
+ end
+ unittests.register("test_item_metadata", test_item_metadata)
+ 
+diff --git a/src/script/lua_api/l_metadata.cpp b/src/script/lua_api/l_metadata.cpp
+index 58faeb48d1ffbdcba318cd4d3910ba4b71ed1e53..e5144259fe73143b0a7c300f112f20c9c1e773c6 100644
+--- a/src/script/lua_api/l_metadata.cpp
++++ b/src/script/lua_api/l_metadata.cpp
+@@ -115,7 +115,13 @@ int MetaDataRef::l_set_string(lua_State *L)
+ 
+ 	MetaDataRef *ref = checkAnyMetadata(L, 1);
+ 	std::string name = luaL_checkstring(L, 2);
+-	auto str = readParam<std::string_view>(L, 3);
++	std::string_view str;
++	if (!lua_isnoneornil(L, 3)) {
++		str = readParam<std::string_view>(L, 3);
++	} else {
++		log_deprecated(L, "Value passed to set_string is nil. This behaviour is"
++			" undocumented and will result in an error in the future.", 1, true);
++	}
+ 
+ 	IMetadata *meta = ref->getmeta(!str.empty());
+ 	if (meta != NULL && meta->setString(name, str))

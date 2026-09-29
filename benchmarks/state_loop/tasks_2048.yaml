@@ -1,0 +1,22 @@
+# 2048-only task set for C3 state fuzzing (fuzz-bench).
+# Subset of benchmarks/state_loop/tasks.yaml containing only the browser-backed
+# 2048 tasks so fuzz-bench runs the 2048 robustness mutations in isolation.
+tasks:
+  - id: 2048-merge-left
+    benchmark: "2048"
+    repo: games/2048
+    state_description: >-
+      Start from a 2048 board whose top row holds two 2 tiles with the score at 0,
+      then a single left move must merge them into a 4 and raise the score.
+    oracle_spec: specs/2048/merge-left.yaml
+    tags: ["state-loop", "2048", "merge"]
+    budget_ms: 60000
+  - id: 2048-near-win
+    benchmark: "2048"
+    repo: games/2048
+    state_description: >-
+      Start from a near-win 2048 board carrying two 1024 tiles in the top row,
+      then a single left move must produce a visible 2048 tile.
+    oracle_spec: specs/2048/near-win.yaml
+    tags: ["state-loop", "2048", "near-win"]
+    budget_ms: 60000

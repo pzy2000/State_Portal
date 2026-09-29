@@ -1,0 +1,68 @@
+name: C1 2048 six-move multistage win
+benchmark: "2048"
+tags: ["2048", c1, deep-chain, win]
+target:
+  kind: board
+  board:
+    - [512, 512, 0, 0]
+    - [512, 512, 0, 0]
+    - [64, 64, 32, 32]
+    - [16, 16, 8, 8]
+  score: 8192
+  bestScore: 8192
+  won: false
+  over: false
+  keepPlaying: true
+checkpoint:
+  allowed_strategies: [localStorage_restore_reload]
+  expected_validity: save-restorable
+actions:
+  - {type: move, direction: left, wait_ms: 300}
+  - {type: move, direction: down, wait_ms: 300}
+  - {type: move, direction: right, wait_ms: 300}
+  - {type: move, direction: up, wait_ms: 300}
+  - {type: move, direction: left, wait_ms: 300}
+  - {type: move, direction: down, wait_ms: 450}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: tile_value_present, value: 2048}
+      - {type: largest_tile_equals, value: 2048}
+      - {type: state_equals, path: won, value: true}
+      - {type: state_equals, path: keepPlaying, value: true}
+      - {type: state_equals, path: over, value: false}
+      - {type: no_severe_console}
+    surfaces:
+      gui:
+        adapter: 2048_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: 2048_state_profile_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/2048-multistage-win-2048.after.golden.png
+    golden_before: visual/2048-multistage-win-2048.before.golden.png
+    golden_after: visual/2048-multistage-win-2048.after.golden.png
+    expected_label: correct
+    description: "Four separated 512 tiles and their supporting merge chains are visible."
+    after_description: "A 2048 tile and the playable win state are visibly present."
+    rubric:
+      must: ["The board visibly contains four 512 tiles.", "The 2048 page is rendered normally."]
+      must_not: ["A crash, blank page, or unrelated app is visible."]
+      ignore: ["Score text and minor animation differences."]
+    after_rubric:
+      must: ["A 2048 tile is visible.", "The game remains rendered after the win."]
+      must_not: ["Two unmerged 1024 tiles remain with no 2048.", "A crash or blank page is visible."]
+      ignore: ["Low-value spawned tile positions and win-overlay animation timing."]
+    capture: {stage: post_smoke, wait_ms: 300, full_page: false}

@@ -1,0 +1,11 @@
+{
+  "task_id": "lz-luanti-13485-falling-node",
+  "source_repo": "games/luanti",
+  "fixed_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-luanti-13485-falling-node/revert.patch",
+  "patch_sha256": "373ae3750e3c545796d04f7339fecde9fc6c10e02d93028738ba240c278177d1",
+  "declared_files": [
+    "builtin/game/falling.lua"
+  ],
+  "build_class": "none"
+}

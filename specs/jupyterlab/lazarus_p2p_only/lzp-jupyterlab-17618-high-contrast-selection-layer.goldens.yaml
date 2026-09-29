@@ -1,0 +1,73 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lzp-jupyterlab-17618-high-contrast-selection-layer
+benchmark: jupyterlab
+track: c1_lazarus_p2p_only_v1
+candidate:
+  repository_key: jupyterlab
+  change_number: 17618
+  issue_number: 17447
+  defect_locus: at_goal
+authoritative_defect: Text selection is not visible within Terminal Window while using high contrast theme
+  due to selection color being the same as background color
+provenance:
+  captured_by: materialized_pair_chromium_fixture_capture
+  capture_backend: playwright_chromium_png
+  frame_sources:
+    fixed_before: frames/lzp-jupyterlab-17618-high-contrast-selection-layer/fixed/before.png
+    fixed_after: frames/lzp-jupyterlab-17618-high-contrast-selection-layer/fixed/after.png
+    buggy_before: frames/lzp-jupyterlab-17618-high-contrast-selection-layer/buggy/before.png
+    buggy_after: frames/lzp-jupyterlab-17618-high-contrast-selection-layer/buggy/after.png
+  goldens_metadata: visual_lzp-jupyterlab-17618-high-contrast-selection-layer/goldens.meta.json
+  defect_differential_source: rendered_frames
+evaluation:
+  visual_oracle:
+    golden_image: visual_lzp-jupyterlab-17618-high-contrast-selection-layer/before.golden.png
+    description: 'A browser frame rendered by the candidate build shows a near-black panel on a dark page,
+      holding the white line "select me" near its top left. The line sits directly on the panel: no band
+      of any other shade is drawn behind it.'
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a near-black panel on a dark page, holding
+        the white line "select me" near its top left.
+      - 'The line sits directly on the panel: no band of any other shade is drawn behind it.'
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, and sub-pixel text shifts.
+  lazarus:
+    goldens:
+      before: visual_lzp-jupyterlab-17618-high-contrast-selection-layer/before.golden.png
+      buggy_before: visual_lzp-jupyterlab-17618-high-contrast-selection-layer/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-jupyterlab-17618-high-contrast-selection-layer/fixed.after.golden.png
+        after_description: A clearly lighter mid-grey band is drawn behind the line "select me", standing
+          out plainly against the near-black panel around it.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a near-black panel on a dark page, holding
+            the white line "select me" near its top left.
+          - A clearly lighter mid-grey band is drawn behind the line "select me", standing out plainly
+            against the near-black panel around it.
+          - Judge this frame by whether the marked region can be told apart from the panel behind it,
+            comparing the shade drawn behind the line "select me" with the panel's own shade.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.
+      buggy:
+        after: visual_lzp-jupyterlab-17618-high-contrast-selection-layer/buggy.after.golden.png
+        after_description: The band drawn behind the line "select me" is the same near-black shade as
+          the panel, so no band can be made out and the line looks unchanged from the start.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a near-black panel on a dark page, holding
+            the white line "select me" near its top left.
+          - The band drawn behind the line "select me" is the same near-black shade as the panel, so no
+            band can be made out and the line looks unchanged from the start.
+          - Judge this frame by whether the marked region can be told apart from the panel behind it,
+            comparing the shade drawn behind the line "select me" with the panel's own shade.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.

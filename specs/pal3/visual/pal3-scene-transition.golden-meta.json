@@ -1,0 +1,13 @@
+{
+  "actions": 2,
+  "after": "specs/pal3/visual/pal3-scene-transition.after.golden.png",
+  "after_sha256": "9584faae4eb83736790dc60f3cff6da6f26fc8c42423f537717230d231cd331f",
+  "before": "specs/pal3/visual/pal3-scene-transition.before.golden.png",
+  "before_sha256": "d751a9731b5b227678fbc83699132aaf3ff4ae4f1362965bb32987accb6d2858",
+  "benchmark": "pal3",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/pal3/scene-transition.yaml",
+  "spec_sha256": "95512267b78853de19dada43778ffd5025143bfe1e1697d8b2b7cb362297b3fc",
+  "task_id": "pal3-scene-transition"
+}

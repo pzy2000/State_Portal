@@ -1,0 +1,119 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lz-jupyterlab-19136-horizontal-activity-bar-restore
+benchmark: jupyterlab
+candidate:
+  repository_key: jupyterlab
+  change_number: 19136
+  issue_number: 19114
+  defect_locus: at_goal
+authoritative_defect: a horizontal activity bar makes the shell save the right side
+  area as collapsed, so the restored right sidebar has width zero
+provenance:
+  formal_freeze_admission: candidate_formal_freeze_admission/jupyterlab/19136/real-shell-v1
+  frame_sources:
+    fixed_before: candidate_gate11_edge_observation/jupyterlab/19136/fixed/real-shell-v1
+    fixed_after: candidate_gate11_edge_observation/jupyterlab/19136/fixed/real-shell-v1
+    buggy_before: candidate_gate11_edge_observation/jupyterlab/19136/buggy/real-shell-v1
+    buggy_after: candidate_gate11_edge_observation/jupyterlab/19136/buggy/real-shell-v1
+  goldens_metadata: visual_lz-jupyterlab-19136-horizontal-activity-bar-restore/goldens.meta.json
+  before_equivalence:
+    changed_pixel_ratio: 0.0
+    ignored_top_fraction: 0.0
+    mean_absolute_difference: 0.0
+  after_differential:
+    changed_pixel_ratio: 0.0027483333333333335
+    ignored_top_fraction: 0.0
+    mean_absolute_difference: 0.4146433333333333
+  golden_policy:
+    after_min_changed_pixel_ratio: 0.001
+    before_max_changed_pixel_ratio: 0.01
+    ignore_top_fraction: 0.0
+  captured_by: materialized_fixed_buggy_runtime_capture
+evaluation:
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-19136-horizontal-activity-bar-restore/fixed.after.golden.png
+    expected_label: correct
+    description: A vertical border about three quarters across the frame bounds the
+      main dock area, and the side area beyond it carries a grey "Property Inspector"
+      tab at the bottom right.
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a mostly white JupyterLab
+        shell with a thin horizontal rule near the top and a small blue dot at the
+        top left corner.
+      - A vertical border about three quarters across the frame bounds the main dock
+        area, and the side area beyond it carries a grey "Property Inspector" tab
+        at the bottom right.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    runtime_status: probe_runtime_available
+    probe:
+      adapter: jupyterlab_lazarus_edge_probe_v1
+      spec: lz-jupyterlab-19136-horizontal-activity-bar-restore.yaml
+      registered_replay:
+      - load_candidate_local_bundle
+      - build_a_shell_with_a_horizontal_activity_bar_and_a_right_widget
+      - save_the_layout_with_the_candidate_shell
+      - restore_a_second_shell_with_an_explicit_not_collapsed_flag
+      - restore_a_second_shell_from_the_candidate_saved_layout
+      - measure_right_area_visibility_and_width
+      versions_replayed:
+      - fixed
+      - buggy
+      re_executed_offline: true
+      provider_calls_required: false
+    upstream_tests:
+      fail_to_pass:
+      - 'LabShell #activityBarPosition should restore a horizontal right activity
+        bar with no current widget'
+      pass_to_pass:
+      - 'LabShell #activityBarPosition should report the collapsed state via rightCollapsed
+        in horizontal mode'
+    goldens:
+      before: visual_lz-jupyterlab-19136-horizontal-activity-bar-restore/before.golden.png
+      buggy_before: visual_lz-jupyterlab-19136-horizontal-activity-bar-restore/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-19136-horizontal-activity-bar-restore/fixed.after.golden.png
+        after_description: A vertical border about three quarters across the frame
+          bounds the main dock area, and the side area beyond it carries a grey "Property
+          Inspector" tab at the bottom right.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a mostly white JupyterLab
+            shell with a thin horizontal rule near the top and a small blue dot at
+            the top left corner.
+          - A vertical border about three quarters across the frame bounds the main
+            dock area, and the side area beyond it carries a grey "Property Inspector"
+            tab at the bottom right.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+      buggy:
+        after: visual_lz-jupyterlab-19136-horizontal-activity-bar-restore/buggy.after.golden.png
+        after_description: 'No vertical border and no side area are drawn: the horizontal
+          rule runs the full frame width and the right-hand side is empty white with
+          no "Property Inspector" tab.'
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a mostly white JupyterLab
+            shell with a thin horizontal rule near the top and a small blue dot at
+            the top left corner.
+          - 'No vertical border and no side area are drawn: the horizontal rule runs
+            the full frame width and the right-hand side is empty white with no "Property
+            Inspector" tab.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.

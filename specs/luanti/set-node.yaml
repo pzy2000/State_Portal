@@ -1,0 +1,73 @@
+name: luanti set a stone node and verify it
+benchmark: luanti
+timeout_ms: 300000
+tags: ["luanti", "voxel", "set-node", "sanity"]
+target:
+  kind: synthesized_world
+  nodes:
+    - pos: { x: 2, y: 1, z: 2 }
+      node: "basenodes:dirt"
+  validations:
+    - path: "node.2,1,2"
+      expected: "basenodes:dirt"
+  meta_inventory:
+    - pos: { x: 4, y: 1, z: 2 }
+      node: "chest:chest"
+      list: "main"
+      items:
+        - { item: "basenodes:stone", count: 1 }
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_node
+    pos: { x: 2, y: 2, z: 2 }
+    node: "basenodes:stone"
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: luanti_node_is
+        pos: { x: 2, y: 2, z: 2 }
+        expected: "basenodes:stone"
+      - type: no_luanti_mod_errors
+    surfaces:
+      gui:
+        adapter: luanti_live_world_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: luanti_live_world_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/set-node.golden.png
+    golden_before: visual/luanti-set-node.before.golden.png
+    golden_after: visual/luanti-set-node.after.golden.png
+    expected_label: correct
+    description: "A Luanti devtest world is rendered with a dirt base and a stone block placed on top near the spawn area."
+    rubric:
+      must:
+        - "The 3D voxel world is rendered and visible."
+        - "A placed gray stone block is visible on the dirt base near spawn."
+        - "The stone-on-dirt arrangement matches the golden oracle at a coarse visual level."
+        - "No crash dialog, error overlay, or fully blank screen is shown."
+      must_not:
+        - "The placed block is missing, still dirt, or replaced by a clearly different material such as snow, lava, or chest."
+        - "The screen is blank, black, or only shows the main menu."
+        - "An error dialog or exception stack trace is visible."
+      ignore:
+        - "Exact camera angle, lighting, or player position differences."
+        - "HUD/hotbar layout differences between runs."
+    capture:
+      stage: post_smoke
+      wait_ms: 800
+      full_page: false

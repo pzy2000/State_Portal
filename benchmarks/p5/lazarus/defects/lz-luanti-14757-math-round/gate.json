@@ -1,0 +1,255 @@
+{
+  "benchmark": "luanti",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_before_visual": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_before_visual": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "provenance_verified": true
+  },
+  "complete": true,
+  "evidence": {
+    "goldens": {
+      "before_equivalent": true,
+      "buggy_after_visual": true,
+      "buggy_before_visual": true,
+      "complete": true,
+      "failures": [],
+      "fixed_after_visual": true,
+      "fixed_before_visual": true,
+      "metadata_sha256": "c8e1543efb24db1c695d73e988247d08cc87f37bc0e184881616b125e5709596",
+      "task_id": "lz-luanti-14757-math-round"
+    },
+    "provenance_errors": [],
+    "semantic": {
+      "buggy_signature": {
+        "checks": [
+          "target.state_synthesized:success",
+          "target.validate.node.0,0,0:success",
+          "target.validate.node.0,1,0:success",
+          "action[luanti_round_half_boundary]@1:success",
+          "assertion[luanti_node_is]@1:success",
+          "assertion[no_luanti_mod_errors]@2:success"
+        ],
+        "invariants_ok": true,
+        "primary_ok": true,
+        "report_sha256": "45edc029193f8d9d8a9635ced46f00c372ccce94a8002f5cae0ff9443c35a9eb",
+        "start_ok": true,
+        "status": "success",
+        "view_ok": false
+      },
+      "buggy_start": {
+        "checks": [
+          "target.state_synthesized:success",
+          "target.validate.node.0,0,0:success",
+          "target.validate.node.0,1,0:success",
+          "assertion[luanti_player_view_matches]@1:success"
+        ],
+        "invariants_ok": false,
+        "primary_ok": false,
+        "report_sha256": "8c56f3696304659ae45e5e104757b0d837d13255ac49f23a6bff8b0770b8b1e4",
+        "start_ok": true,
+        "status": "success",
+        "view_ok": true
+      },
+      "fixed_goal": {
+        "checks": [
+          "target.state_synthesized:success",
+          "target.validate.node.0,0,0:success",
+          "target.validate.node.0,1,0:success",
+          "action[luanti_round_half_boundary]@1:success",
+          "assertion[luanti_node_is]@1:success",
+          "assertion[no_luanti_mod_errors]@2:success"
+        ],
+        "invariants_ok": true,
+        "primary_ok": true,
+        "report_sha256": "5d3fef97d0ef1cadf1f3fd3ceeaa56008661434aeb3fc29478c1dcbaa72eb97e",
+        "start_ok": true,
+        "status": "success",
+        "view_ok": false
+      },
+      "fixed_signature": {
+        "checks": [
+          "target.state_synthesized:success",
+          "target.validate.node.0,0,0:success",
+          "target.validate.node.0,1,0:success",
+          "action[luanti_round_half_boundary]@1:success",
+          "assertion[luanti_node_is]@1:failure",
+          "assertion[no_luanti_mod_errors]@2:success"
+        ],
+        "invariants_ok": true,
+        "primary_ok": false,
+        "report_sha256": "08e21e001e29d9427776fa0786a39cb2b8ee350a3bd856b961e3ac37bc6edc87",
+        "start_ok": false,
+        "status": "failure",
+        "view_ok": false
+      },
+      "fixed_start": {
+        "checks": [
+          "target.state_synthesized:success",
+          "target.validate.node.0,0,0:success",
+          "target.validate.node.0,1,0:success",
+          "assertion[luanti_player_view_matches]@1:success"
+        ],
+        "invariants_ok": false,
+        "primary_ok": false,
+        "report_sha256": "8c56f3696304659ae45e5e104757b0d837d13255ac49f23a6bff8b0770b8b1e4",
+        "start_ok": true,
+        "status": "success",
+        "view_ok": true
+      }
+    },
+    "upstream": {
+      "buggy": {
+        "complete": true,
+        "duration_ms": 396.27870800177334,
+        "failures": [
+          "upstream test luanti-pr14757-math-round-f2p exited 1"
+        ],
+        "isolation": "apfs_cow_clone",
+        "passed": false,
+        "results": [
+          {
+            "duration_ms": 17.32458300102735,
+            "exit_code": 1,
+            "id": "luanti-pr14757-math-round-f2p",
+            "output_capture": {
+              "redaction": "environment_and_credential_markers_v1",
+              "schema": "c1-lazarus-subprocess-output-v1",
+              "schema_version": 1,
+              "stderr": "",
+              "stderr_truncated": false,
+              "stdout": "-\n0 successes / 1 failure / 0 errors / 0 pending : 0.002139 seconds\n\nFailure -> builtin/common/tests/misc_helpers_spec.lua @ 223\nmath round()\nbuiltin/common/tests/misc_helpers_spec.lua:231: Expected objects to be equal.\nPassed in:\n(number) 1\nExpected:\n(number) 0\n",
+              "stdout_truncated": false
+            },
+            "passed": false,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "3b40c02ec058b87f59a339edcb8929207c2d4b1f7e5eaf7ba05dbe33ae9cfc42",
+            "timed_out": false
+          },
+          {
+            "duration_ms": 14.76879099936923,
+            "exit_code": 0,
+            "id": "luanti-pr14757-formspec-escape-p2p",
+            "output_capture": {
+              "redaction": "environment_and_credential_markers_v1",
+              "schema": "c1-lazarus-subprocess-output-v1",
+              "schema_version": 1,
+              "stderr": "",
+              "stderr_truncated": false,
+              "stdout": "+\n1 success / 0 failures / 0 errors / 0 pending : 0.002211 seconds\n",
+              "stdout_truncated": false
+            },
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "7a23b7e23e4d1d8e2be6b45f97c2a650f9ccfc183c81fc613f1f542908791cde",
+            "timed_out": false
+          }
+        ],
+        "test_ids": [
+          "luanti-pr14757-math-round-f2p",
+          "luanti-pr14757-formspec-escape-p2p"
+        ]
+      },
+      "fixed": {
+        "complete": true,
+        "duration_ms": 391.8037500043283,
+        "failures": [],
+        "isolation": "apfs_cow_clone",
+        "passed": true,
+        "results": [
+          {
+            "duration_ms": 35.98729200166417,
+            "exit_code": 0,
+            "id": "luanti-pr14757-math-round-f2p",
+            "output_capture": {
+              "redaction": "environment_and_credential_markers_v1",
+              "schema": "c1-lazarus-subprocess-output-v1",
+              "schema_version": 1,
+              "stderr": "",
+              "stderr_truncated": false,
+              "stdout": "+\n1 success / 0 failures / 0 errors / 0 pending : 0.001976 seconds\n",
+              "stdout_truncated": false
+            },
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "e4fac40f60969af7e0c57e5ef276809b427df944985f6f73cc4a9cb782e740cb",
+            "timed_out": false
+          },
+          {
+            "duration_ms": 15.14254200446885,
+            "exit_code": 0,
+            "id": "luanti-pr14757-formspec-escape-p2p",
+            "output_capture": {
+              "redaction": "environment_and_credential_markers_v1",
+              "schema": "c1-lazarus-subprocess-output-v1",
+              "schema_version": 1,
+              "stderr": "",
+              "stderr_truncated": false,
+              "stdout": "+\n1 success / 0 failures / 0 errors / 0 pending : 0.001261 seconds\n",
+              "stdout_truncated": false
+            },
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "d8bb2c81e0efdeed7d477c0912f0adeed82e8aebf9785c9386a901298d6a49dc",
+            "timed_out": false
+          }
+        ],
+        "test_ids": [
+          "luanti-pr14757-math-round-f2p",
+          "luanti-pr14757-formspec-escape-p2p"
+        ]
+      }
+    },
+    "versions": {
+      "buggy": {
+        "build_identity": {
+          "build_class": "none",
+          "status": "not_required"
+        },
+        "changed_files": [
+          "builtin/common/math.lua"
+        ],
+        "patch_sha256": "8fa137f5f9e886edcbc1da7b83c797dc6eb01dc766e1dcb99d743787ea8f02c5",
+        "source_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+        "tree_sha256": "8e47d6a39e57508be14079c91498b4aa7acc94f53b541baf2b9d42da53b2d296"
+      },
+      "fixed": {
+        "build_identity": {
+          "build_class": "none",
+          "status": "not_required"
+        },
+        "changed_files": [],
+        "patch_sha256": "8fa137f5f9e886edcbc1da7b83c797dc6eb01dc766e1dcb99d743787ea8f02c5",
+        "source_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+        "tree_sha256": "de3de5a5bf16ce079f6dfce523b328724d664177a97cb8fe8ffcb7b9c9bc4b74"
+      }
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "luanti-pr14757-math-round-f2p"
+  ],
+  "failures": [],
+  "pass_to_pass": [
+    "luanti-pr14757-formspec-escape-p2p"
+  ],
+  "passed": true,
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-luanti-14757-math-round",
+  "upstream_f2p": true
+}

@@ -1,0 +1,237 @@
+name: C1 SpaceRPG trade refit mining sortie
+benchmark: spacerpg
+tags: [spacerpg, c1, deep-chain, mining, refit]
+setup: {disable_economy_backend: true}
+target:
+  kind: equipment_loadout
+  screen: station
+  system_id: helion-reach
+  station_id: helion-prime
+  station_tab: Hangar
+  credits: 10000
+  equipment: [pulse-laser]
+  cargo:
+    basic-food: 3
+    mechanical-parts: 2
+    plastics: 2
+    titanium: 2
+    iron: 4
+    energy-cells: 2
+  equipment_inventory: {}
+  unlocked_blueprint_ids: [pulse-laser, homing-missile, shield-booster, armor-plating, mining-beam, scanner, cargo-expansion]
+checkpoint:
+  allowed_strategies: [test_hook_jump_and_validate]
+  expected_validity: injection-only
+actions:
+  - {type: hook_call, method: sell, args: [basic-food, 1]}
+  - {type: hook_call, method: unlockBlueprint, args: [industrial-mining-beam]}
+  - {type: hook_call, method: craftEquipment, args: [cargo-expansion]}
+  - {type: hook_call, method: installEquipmentFromInventory, args: [cargo-expansion]}
+  - {type: hook_call, method: dockAt, args: [meridian-dock]}
+  - {type: hook_call, method: craftEquipment, args: [industrial-mining-beam]}
+  - {type: hook_call, method: installEquipmentFromInventory, args: [industrial-mining-beam]}
+  - {type: spacerpg_mine_sortie, resource: iron, amount: 2, system_id: kuro-belt}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: state_contains, path: player.equipment, value: cargo-expansion}
+      - {type: state_contains, path: player.equipment, value: industrial-mining-beam}
+      - {type: state_equals, path: player.cargo.iron, value: 2}
+      - {type: state_equals, path: runtime.mined.iron, value: 2}
+      - {type: state_equals, path: currentSystemId, value: kuro-belt}
+      - {type: state_equals, path: screen, value: flight}
+      - {type: state_gte, path: player.credits, value: 6500}
+      - {type: no_severe_console}
+    surfaces:
+      gui:
+        adapter: spacerpg_production_dom_save_v1
+        start:
+          validate_target: true
+          checks:
+          - name: dom.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.screen
+            expected:
+              value: station
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: dom.current_system
+            metric: equals
+            actual:
+              probe: spacerpg.current_system
+              phase: current
+            expected:
+              value: helion-reach
+          - name: dom.station
+            metric: equals
+            actual:
+              probe: spacerpg.station_id
+              phase: current
+            expected:
+              value: helion-prime
+          # This start is the Helion Prime hangar (target.station_tab: Hangar),
+          # so the public surface is graded on what the hangar exposes. The
+          # per-item market row and its sell button are only rendered on the
+          # market tab, which this start does not open.
+          - name: dom.station_active_tab
+            metric: equals
+            actual:
+              probe: spacerpg.normalized_tab
+              phase: current
+            expected:
+              value: hangar
+          - name: dom.hangar_cargo
+            metric: contains
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.hangar_cargo_text
+            expected:
+              value: 'Cargo 15/'
+          - name: dom.hangar_installed_equipment
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.hangar_installed_equipment_text
+            expected:
+              value: [Pulse Laser]
+        goal:
+          use_assertions: true
+          checks:
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: dom.canvas.visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.visible
+            expected:
+              value: true
+          - name: dom.canvas.css_width
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.css_width
+            expected:
+              value: 33
+          - name: dom.canvas.css_height
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.css_height
+            expected:
+              value: 33
+          - name: dom.canvas.bitmap_width
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.bitmap_width
+            expected:
+              value: 33
+          - name: dom.canvas.bitmap_height
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.bitmap_height
+            expected:
+              value: 33
+          - name: transition.basic_food_delta
+            metric: equals
+            actual:
+              probe: spacerpg.numeric_delta
+              path: basic_food
+            expected:
+              value: 1
+          - name: transition.credits_increased
+            metric: greater_than
+            actual:
+              probe: spacerpg.credits
+              phase: after
+            expected:
+              probe: spacerpg.credits
+              phase: before
+          - name: transition.basic_food_sell_intent
+            metric: equals
+            actual:
+              probe: spacerpg.basic_food_sell_intent
+            expected:
+              value: true
+      state:
+        adapter: spacerpg_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+
+  visual_oracle:
+    golden_image: visual/spacerpg-trade-refit-mining-sortie.after.golden.png
+    golden_before: visual/spacerpg-trade-refit-mining-sortie.before.golden.png
+    golden_after: visual/spacerpg-trade-refit-mining-sortie.after.golden.png
+    expected_label: correct
+    description: "The Helion Prime hangar and refit context are visible before the mining build."
+    after_description: "A rendered Kuro Belt flight/mining scene is visible after the industrial refit and completed ore cycle."
+    rubric:
+      must: ["A SpaceRPG station hangar or equipment interface is visible.", "The screen is rendered normally."]
+      must_not: ["The main menu, blank canvas, or crash is visible."]
+      ignore: ["Minor station-tab and notification differences."]
+    after_rubric:
+      must: ["A rendered SpaceRPG flight HUD and space scene are visible.", "The frame is consistent with a mining sortie rather than a station menu."]
+      must_not: ["A blank canvas, crash, or unrelated app is visible."]
+      ignore: ["Exact asteroid position and HUD animation."]
+    capture: {stage: post_smoke, wait_ms: 300, full_page: false, hide_selectors: [".dialogue-backdrop", ".modal-overlay"]}

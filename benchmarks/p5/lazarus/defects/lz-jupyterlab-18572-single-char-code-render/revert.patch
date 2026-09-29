@@ -1,0 +1,47 @@
+diff --git a/packages/codemirror/src/language.ts b/packages/codemirror/src/language.ts
+index f1186a543cd229c480e49546491fab1d0e6c8573..c56a247cbe222fd68797dbd3de577b6c0033b8b7 100644
+--- a/packages/codemirror/src/language.ts
++++ b/packages/codemirror/src/language.ts
+@@ -249,9 +249,13 @@ export class EditorLanguageRegistry implements IEditorLanguageRegistry {
+       pos = to;
+     });
+ 
+-    if (pos < tree.length - 1) {
+-      // No style applied on the trailing text
+-      el.appendChild(document.createTextNode(code.slice(pos, tree.length)));
++    if (pos === 0 && code.length > 0) {
++      // No tokens were emitted (e.g., single unrecognized character like 'x')
++      // Render the entire code as plain text fallback
++      el.appendChild(document.createTextNode(code));
++    } else if (pos < code.length) {
++      // Handle any remaining unstyled content
++      el.appendChild(document.createTextNode(code.slice(pos, code.length)));
+     }
+   }
+ 
+diff --git a/packages/codemirror/test/language.spec.ts b/packages/codemirror/test/language.spec.ts
+index c38bcf9f84a93798ff52e225b4db575ba3e89833..03ed05b56c14f0c0e175195a82084c2362180660 100644
+--- a/packages/codemirror/test/language.spec.ts
++++ b/packages/codemirror/test/language.spec.ts
+@@ -63,6 +63,21 @@ describe('@jupyterlab/codemirror', () => {
+         <span class="ͼ1d">#t</span><span class="ͼ19">)</span><span class="ͼ19">)</span>`
+         );
+       });
++
++      it('should render single-character code blocks', async () => {
++        const container = document.createElement('pre');
++
++        const singleChar = 'x';
++        await languages.highlight(
++          singleChar,
++          languages.findBest('text/foo'),
++          container
++        );
++
++        // Before the fix: container was empty, textContent === ''
++        // After the fix: textContent should equal the original code
++        expect(container.textContent).toBe(singleChar);
++      });
+     });
+   });
+ });

@@ -1,0 +1,92 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [],
+  "fix_commit": "5df60d85f71215b091430a32c7834dd9c90bf79a",
+  "issue": null,
+  "patch_sha256": "05ea761184e4c9c88fcf66f6de183b04e18c2ec0cf7d1e3a4b2c8f99ffaa6129",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "body_normalized": "first: fixes #14463 and also cleaner in general\nsecond: after seeing `iconv_open` appear in my flamegraph I checked the docs and realized we can reuse it.\n\n## To do\n\nThis PR is Ready for Review.\n\n## How to test\n\n1. check that it compiles\n2. check that string conversion works (we have an unittest)",
+    "body_raw": "first: fixes #14463 and also cleaner in general\r\nsecond: after seeing `iconv_open` appear in my flamegraph I checked the docs and realized we can reuse it.\r\n\r\n## To do\r\n\r\nThis PR is Ready for Review.\r\n\r\n## How to test\r\n\r\n1. check that it compiles\r\n2. check that string conversion works (we have an unittest)",
+    "body_sha256": "f1af69de3906dad7983ac00a6f8c3f6f4636cef88e30f789e21374027d675efd",
+    "kind": "pull",
+    "merged_at": "2024-03-30T10:07:02Z",
+    "number": 14464,
+    "state": "closed",
+    "title": "[no sq.] Iconv fixes and improvements",
+    "url": "https://github.com/luanti-org/luanti/pull/14464"
+  },
+  "record_sha256": "8e1c4a122bff6b6eedc2d1fac028f4c8275a8cbd4777c597a1b0398681c55d5f",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-13T09:42:48.493404Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-14464-iconv-state-reset",
+  "tests": [
+    {
+      "command": [
+        "bin/luantiserver",
+        "--run-unittests",
+        "--test-module",
+        "TestUtilities"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/cmake",
+        "--build",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/14464/gate8-v1/buggy",
+        "--target",
+        "minetestserver",
+        "--parallel",
+        "1"
+      ],
+      "id": "TestUtilities.testUTF8",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestUtilities.testUTF8",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/src/unittest/test_utilities.cpp",
+      "upstream_test_path": "src/unittest/test_utilities.cpp",
+      "upstream_test_sha256": "3b1a32ba54dbbefe174a757169e7291f339c01f1e5fc7a20be3d9f3a99dc250f"
+    },
+    {
+      "command": [
+        "bin/luantiserver",
+        "--run-unittests",
+        "--test-module",
+        "TestUtilities"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/cmake",
+        "--build",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/14464/gate8-v1/buggy",
+        "--target",
+        "minetestserver",
+        "--parallel",
+        "1"
+      ],
+      "id": "TestUtilities.testRemoveEscapes",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestUtilities.testRemoveEscapes",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/src/unittest/test_utilities.cpp",
+      "upstream_test_path": "src/unittest/test_utilities.cpp",
+      "upstream_test_sha256": "3b1a32ba54dbbefe174a757169e7291f339c01f1e5fc7a20be3d9f3a99dc250f"
+    }
+  ],
+  "touched_files": [
+    "src/content_nodemeta.cpp",
+    "src/nodemetadata.cpp",
+    "src/object_properties.cpp",
+    "src/script/common/c_converter.cpp",
+    "src/serialization.cpp",
+    "src/util/serialize.h",
+    "src/util/string.cpp",
+    "src/unittest/test_utilities.cpp"
+  ],
+  "upstream_commits": []
+}

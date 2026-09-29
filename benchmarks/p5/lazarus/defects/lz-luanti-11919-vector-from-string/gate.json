@@ -1,0 +1,241 @@
+{
+  "benchmark": "luanti",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_before_visual": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_before_visual": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "provenance_verified": true
+  },
+  "complete": true,
+  "evidence": {
+    "goldens": {
+      "before_equivalent": true,
+      "buggy_after_visual": true,
+      "buggy_before_visual": true,
+      "complete": true,
+      "failures": [],
+      "fixed_after_visual": true,
+      "fixed_before_visual": true,
+      "metadata_sha256": "d356527e5e1df2590590f8d35268409fae153fd1e8762ace52f641aefe7f2962",
+      "task_id": "lz-luanti-11919-vector-from-string"
+    },
+    "provenance_errors": [],
+    "semantic": {
+      "buggy_signature": {
+        "checks": [
+          "target.state_synthesized:success",
+          "target.validate.node.0,0,0:success",
+          "target.validate.node.0,1,0:success",
+          "action[luanti_import_vector_string]@1:success",
+          "assertion[luanti_node_is]@1:success",
+          "assertion[no_luanti_mod_errors]@2:success"
+        ],
+        "invariants_ok": true,
+        "primary_ok": true,
+        "report_sha256": "87415438695dff9108f5ed60647b47e783f8f3da1ab7b03950792ffd82ea8cf9",
+        "start_ok": true,
+        "status": "success",
+        "view_ok": false
+      },
+      "buggy_start": {
+        "checks": [
+          "target.state_synthesized:success",
+          "target.validate.node.0,0,0:success",
+          "target.validate.node.0,1,0:success",
+          "assertion[luanti_player_view_matches]@1:success"
+        ],
+        "invariants_ok": false,
+        "primary_ok": false,
+        "report_sha256": "7a80790da90aa044e8990e53cdead1b86cb4a943fbb27635eeb1eccf46460a80",
+        "start_ok": true,
+        "status": "success",
+        "view_ok": true
+      },
+      "fixed_goal": {
+        "checks": [
+          "target.state_synthesized:success",
+          "target.validate.node.0,0,0:success",
+          "target.validate.node.0,1,0:success",
+          "action[luanti_import_vector_string]@1:success",
+          "assertion[luanti_node_is]@1:success",
+          "assertion[no_luanti_mod_errors]@2:success"
+        ],
+        "invariants_ok": true,
+        "primary_ok": true,
+        "report_sha256": "3185ef4cfa1eee4c11150b55cc454f7a5259312c89f5205f8e30970be17a5008",
+        "start_ok": true,
+        "status": "success",
+        "view_ok": false
+      },
+      "fixed_signature": {
+        "checks": [
+          "target.state_synthesized:success",
+          "target.validate.node.0,0,0:success",
+          "target.validate.node.0,1,0:success",
+          "action[luanti_import_vector_string]@1:success",
+          "assertion[luanti_node_is]@1:failure",
+          "assertion[no_luanti_mod_errors]@2:success"
+        ],
+        "invariants_ok": true,
+        "primary_ok": false,
+        "report_sha256": "5c872445a0c04e89b24a8fccdc8e22f95aae35ccb7b93ea5519e9fef5c2c2bea",
+        "start_ok": false,
+        "status": "failure",
+        "view_ok": false
+      },
+      "fixed_start": {
+        "checks": [
+          "target.state_synthesized:success",
+          "target.validate.node.0,0,0:success",
+          "target.validate.node.0,1,0:success",
+          "assertion[luanti_player_view_matches]@1:success"
+        ],
+        "invariants_ok": false,
+        "primary_ok": false,
+        "report_sha256": "7a80790da90aa044e8990e53cdead1b86cb4a943fbb27635eeb1eccf46460a80",
+        "start_ok": true,
+        "status": "success",
+        "view_ok": true
+      }
+    },
+    "upstream": {
+      "buggy": {
+        "complete": true,
+        "duration_ms": 445.33254200359806,
+        "failures": [
+          "upstream test luanti-pr11919-vector-from-string-f2p exited 1"
+        ],
+        "isolation": "apfs_cow_clone",
+        "passed": false,
+        "results": [
+          {
+            "duration_ms": 16.383792011765763,
+            "exit_code": 1,
+            "id": "luanti-pr11919-vector-from-string-f2p",
+            "passed": false,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "db7d7ce441c6c1a00b78a6ddc15696e98c54cb9193e1b042aca5e20bd1cb54ce",
+            "timed_out": false
+          },
+          {
+            "duration_ms": 13.444250012980774,
+            "exit_code": 0,
+            "id": "luanti-vector-zero-p2p",
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "f8f4fc108899bf35f3dd3a2c65c554607d790911bda4e6597c66b626254cc856",
+            "timed_out": false
+          },
+          {
+            "duration_ms": 12.816667003789917,
+            "exit_code": 0,
+            "id": "luanti-vector-to-string-p2p",
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "886cf9451ead1d62ad71d0e44d2d513034a777c79af31351882fc0de471d370b",
+            "timed_out": false
+          }
+        ],
+        "test_ids": [
+          "luanti-pr11919-vector-from-string-f2p",
+          "luanti-vector-zero-p2p",
+          "luanti-vector-to-string-p2p"
+        ]
+      },
+      "fixed": {
+        "complete": true,
+        "duration_ms": 465.92275000875816,
+        "failures": [],
+        "isolation": "apfs_cow_clone",
+        "passed": true,
+        "results": [
+          {
+            "duration_ms": 37.976083025569096,
+            "exit_code": 0,
+            "id": "luanti-pr11919-vector-from-string-f2p",
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "1242fd27765e30713ac56331ef22ca14848b4dbb206b4a44c9cb0acf3f9fa9fb",
+            "timed_out": false
+          },
+          {
+            "duration_ms": 14.670333010144532,
+            "exit_code": 0,
+            "id": "luanti-vector-zero-p2p",
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "39cbda0231624ea7b4f8baa9d375323e608e9574a3b7b28305d8fe1fe823adbb",
+            "timed_out": false
+          },
+          {
+            "duration_ms": 13.738499983446673,
+            "exit_code": 0,
+            "id": "luanti-vector-to-string-p2p",
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "2a4553fa808235bf48119f820599087cd48096e1bf75417946b16999fe3ea813",
+            "timed_out": false
+          }
+        ],
+        "test_ids": [
+          "luanti-pr11919-vector-from-string-f2p",
+          "luanti-vector-zero-p2p",
+          "luanti-vector-to-string-p2p"
+        ]
+      }
+    },
+    "versions": {
+      "buggy": {
+        "build_identity": {
+          "build_class": "none",
+          "status": "not_required"
+        },
+        "changed_files": [
+          "builtin/common/tests/vector_spec.lua",
+          "builtin/common/vector.lua"
+        ],
+        "patch_sha256": "62bc2f178e95ec10491678e9262b759eaf040e39647195ec9195fb67a6edc0be",
+        "source_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+        "tree_sha256": "aebfdb8708fc11078a1746b888634dba05e6ce51ae8502ca69f69a862a89f266"
+      },
+      "fixed": {
+        "build_identity": {
+          "build_class": "none",
+          "status": "not_required"
+        },
+        "changed_files": [],
+        "patch_sha256": "62bc2f178e95ec10491678e9262b759eaf040e39647195ec9195fb67a6edc0be",
+        "source_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+        "tree_sha256": "afbd792bb437e369d59e1420f9f391b508f4b0ebe00b605a04e743d1b8cb1e63"
+      }
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "luanti-pr11919-vector-from-string-f2p"
+  ],
+  "failures": [],
+  "pass_to_pass": [
+    "luanti-vector-zero-p2p",
+    "luanti-vector-to-string-p2p"
+  ],
+  "passed": true,
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-luanti-11919-vector-from-string",
+  "upstream_f2p": true
+}

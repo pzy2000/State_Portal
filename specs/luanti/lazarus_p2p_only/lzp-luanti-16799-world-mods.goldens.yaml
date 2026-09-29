@@ -1,0 +1,72 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lzp-luanti-16799-world-mods
+benchmark: luanti
+track: c1_lazarus_p2p_only_v1
+candidate:
+  repository_key: luanti
+  change_number: 16799
+  issue_number: 12291
+  defect_locus: at_goal
+authoritative_defect: 'Select Mods: Show world mods'
+provenance:
+  captured_by: materialized_pair_engine_screenshot_capture
+  capture_backend: luanti_irrlicht_create_screenshot_v1
+  frame_sources:
+    fixed_before: frames/lzp-luanti-16799-world-mods/fixed/before.png
+    fixed_after: frames/lzp-luanti-16799-world-mods/fixed/after.png
+    buggy_before: frames/lzp-luanti-16799-world-mods/buggy/before.png
+    buggy_after: frames/lzp-luanti-16799-world-mods/buggy/after.png
+  goldens_metadata: visual_lzp-luanti-16799-world-mods/goldens.meta.json
+  defect_differential_source: rendered_frames
+evaluation:
+  visual_oracle:
+    golden_image: visual_lzp-luanti-16799-world-mods/before.golden.png
+    description: A Luanti client window shows the engine main menu. The local-game tab visibly lists at
+      least one world name, and the configure-world dialog is not open. Worldmods membership is checked
+      separately against the candidate menu observation.
+    rubric:
+      must:
+      - A Luanti client window shows the engine main menu.
+      - The local-game tab visibly lists at least one world name, and the configure-world dialog is not
+        open. Worldmods membership is checked separately against the candidate menu observation.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Window chrome, font antialiasing, and cursor blink.
+      - The specific world name (p2p_world in the reference is only an example), installed-game labels,
+        menu background and decorative controls. Do not ignore an empty world list or an open dialog.
+  lazarus:
+    goldens:
+      before: visual_lzp-luanti-16799-world-mods/before.golden.png
+      buggy_before: visual_lzp-luanti-16799-world-mods/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-luanti-16799-world-mods/fixed.after.golden.png
+        after_description: The configure-world dialog is open. The select-mods list includes a worldmods
+          group drawn among the other mod rows.
+        after_rubric:
+          must:
+          - A Luanti client window shows the engine main menu.
+          - The configure-world dialog is open. The select-mods list includes a worldmods group drawn
+            among the other mod rows.
+          - Judge this frame by whether the select-mods list draws a worldmods group among the listed
+            mods.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Window chrome, font antialiasing, and cursor blink.
+      buggy:
+        after: visual_lzp-luanti-16799-world-mods/buggy.after.golden.png
+        after_description: The configure-world dialog is open. The select-mods list has no worldmods group;
+          only global and game mods are drawn.
+        after_rubric:
+          must:
+          - A Luanti client window shows the engine main menu.
+          - The configure-world dialog is open. The select-mods list has no worldmods group; only global
+            and game mods are drawn.
+          - Judge this frame by whether the select-mods list draws a worldmods group among the listed
+            mods.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Window chrome, font antialiasing, and cursor blink.

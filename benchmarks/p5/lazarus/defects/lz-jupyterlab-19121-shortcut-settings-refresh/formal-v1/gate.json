@@ -1,0 +1,132 @@
+{
+  "benchmark": "jupyterlab",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": true,
+  "evidence": {
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.002437037037037037,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.2171
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.0
+      },
+      "before_sha256": "afc1510adc4ec453fa1de84c865fd8f1b5e053c4dfc4636be71a14d65a4665f6",
+      "buggy_after_sha256": "afc1510adc4ec453fa1de84c865fd8f1b5e053c4dfc4636be71a14d65a4665f6",
+      "fixed_after_sha256": "a0d0e2db59157e7552e23ca0103013e8d1cb9873fa83ec1d47e0c6238f461c11",
+      "metadata": "specs/jupyterlab/lazarus/visual_lz-jupyterlab-19121-shortcut-settings-refresh/goldens.meta.json",
+      "metadata_sha256": "f9a238006b57248241bca373883f5ad96482815e879df5eddc8a0dae90527128"
+    },
+    "probe_verification": {
+      "artifact": "c1_lazarus_jupyterlab_spec_verification/lazarus/v2-roster/current-v1",
+      "separates_goal_from_defect": true,
+      "versions_replayed": [
+        "fixed",
+        "buggy"
+      ]
+    },
+    "provenance_errors": [],
+    "source_artifacts": {
+      "gate10": "admission:gate10_hidden_oracle=passed",
+      "gate11": "admission:gate11_real_edge_observations=passed",
+      "gate12": "admission:gate12_semantic_pixel_2x2=passed",
+      "gate13": "admission:gate13_same_lineage=passed",
+      "gate8": "admission:gate8_materialization_runtime=passed",
+      "gate9": "admission:gate9_registered_start_replay=passed",
+      "gate_1_7_source": "candidate_gate57_19121_transition/jupyterlab/19121/current-v1",
+      "gate_1_7_truth_table": {
+        "buggy_f2p_3x": "passed_clean_failure",
+        "fixed_buggy_p2p_3x": "passed",
+        "fixed_f2p_3x": "passed",
+        "single_defect_mapping": "passed",
+        "source_authority": "passed",
+        "strict_inverse_patch": "passed",
+        "test_api_compatibility": "passed"
+      },
+      "strict_gate_1_7": true
+    },
+    "upstream": [
+      {
+        "command": [
+          "jlpm",
+          "test",
+          "--runTestsByPath",
+          "test/components/ShortcutUI.spec.ts",
+          "-t",
+          "@jupyterlab/shortcut-extension ShortcutUI #changed should refresh shortcut list when settings change externally"
+        ],
+        "cwd": "packages/shortcuts-extension",
+        "id": "@jupyterlab/shortcut-extension ShortcutUI #changed should refresh shortcut list when settings change externally",
+        "kind": "fail_to_pass"
+      },
+      {
+        "command": [
+          "jlpm",
+          "test",
+          "--runTestsByPath",
+          "test/components/ShortcutUI.spec.ts",
+          "-t",
+          "@jupyterlab/shortcut-extension ShortcutUI #addKeybinding() should add a keybinding for given target"
+        ],
+        "cwd": "packages/shortcuts-extension",
+        "id": "@jupyterlab/shortcut-extension ShortcutUI #addKeybinding() should add a keybinding for given target",
+        "kind": "pass_to_pass"
+      }
+    ],
+    "versions": {
+      "changed_files": [
+        "packages/shortcuts-extension/src/components/ShortcutUI.tsx"
+      ],
+      "patch_sha256": "9e0e5c4ff4a9c62f3b100dc4ae8e6d97a63acfe12663568e7c302f8997f27218",
+      "patch_source": "materialized_tree_difference",
+      "reverse_apply_reproduces_frozen_buggy_tree": true,
+      "tree_pair": "private/materialized/jupyterlab/19121/current-v1"
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "@jupyterlab/shortcut-extension ShortcutUI #changed should refresh shortcut list when settings change externally"
+  ],
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "pass_to_pass": [
+    "@jupyterlab/shortcut-extension ShortcutUI #addKeybinding() should add a keybinding for given target"
+  ],
+  "passed": true,
+  "projection": {
+    "admission": "candidate_formal_freeze_admission/jupyterlab/19121/real-shortcuts-v1",
+    "closure_size": 39,
+    "fresh_gate_run": false,
+    "generator": "warptest.c1_lazarus_selection.c1_lazarus_formal_catalog",
+    "selection_mode": "c1_freeze_sprint_v2"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-jupyterlab-19121-shortcut-settings-refresh",
+  "upstream_f2p": true
+}

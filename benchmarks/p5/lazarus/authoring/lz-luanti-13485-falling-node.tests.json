@@ -1,0 +1,96 @@
+{
+  "schema": "c1-lazarus-authoring-tests-v1",
+  "schema_version": 1,
+  "tests": [
+    {
+      "id": "luanti-pr15638-normal-node-f2p",
+      "kind": "fail_to_pass",
+      "provenance": "pull_request_body_how_to_test",
+      "source_url": "https://github.com/luanti-org/luanti/pull/15638",
+      "source_case": "drop sand on normal nodes",
+      "origin": "upstream",
+      "cwd": ".",
+      "timeout_s": 180,
+      "argv": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "luanti",
+        "--case",
+        "normal-node",
+        "--repo",
+        "."
+      ],
+      "command": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "luanti",
+        "--case",
+        "normal-node",
+        "--repo",
+        "."
+      ]
+    },
+    {
+      "id": "luanti-pr15638-torch-p2p",
+      "kind": "pass_to_pass",
+      "provenance": "pull_request_body_how_to_test",
+      "source_url": "https://github.com/luanti-org/luanti/pull/15638",
+      "source_case": "drop sand on torches",
+      "origin": "upstream",
+      "cwd": ".",
+      "timeout_s": 180,
+      "argv": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "luanti",
+        "--case",
+        "torch",
+        "--repo",
+        "."
+      ],
+      "command": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "luanti",
+        "--case",
+        "torch",
+        "--repo",
+        "."
+      ]
+    },
+    {
+      "id": "luanti-pr15638-liquid-p2p",
+      "kind": "pass_to_pass",
+      "provenance": "pull_request_body_how_to_test",
+      "source_url": "https://github.com/luanti-org/luanti/pull/15638",
+      "source_case": "drop sand on liquids",
+      "origin": "upstream",
+      "cwd": ".",
+      "timeout_s": 180,
+      "argv": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "luanti",
+        "--case",
+        "liquid",
+        "--repo",
+        "."
+      ],
+      "command": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "luanti",
+        "--case",
+        "liquid",
+        "--repo",
+        "."
+      ]
+    }
+  ]
+}

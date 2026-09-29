@@ -1,0 +1,262 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [
+    {
+      "author": "j-r",
+      "body_normalized": "Forgot to add: partially reverting only the changes to  src/script/lua_api/l_metadata.cpp fixes the issue.\n\nAFAICS there are no other instances of replacing tolstring.",
+      "body_raw": "Forgot to add: partially reverting only the changes to  src/script/lua_api/l_metadata.cpp fixes the issue.\r\n\r\nAFAICS there are no other instances of replacing tolstring.",
+      "body_sha256": "d9bda67d04a71aa85e1148aa99ed5c2f5661e78ae56313537f749f20dd32abaa",
+      "created_at": "2024-02-20T01:16:00Z",
+      "id": 1953339429,
+      "source": "issue_comment",
+      "updated_at": "2024-02-20T01:16:36Z",
+      "url": "https://github.com/luanti-org/luanti/issues/14391#issuecomment-1953339429"
+    },
+    {
+      "author": "sfan5",
+      "body_normalized": "should be moved to `unittests`",
+      "body_raw": "should be moved to `unittests`",
+      "body_sha256": "3b9401769ee7e1fea7c3f92f34328117d64eee94cd90f74f1eaf34fa09bf6777",
+      "created_at": "2024-02-21T19:16:56Z",
+      "id": 1498165244,
+      "source": "pull_request_inline_comment",
+      "updated_at": "2024-02-21T19:17:58Z",
+      "url": "https://github.com/luanti-org/luanti/pull/14396#discussion_r1498165244"
+    },
+    {
+      "author": "sfan5",
+      "body_normalized": "```suggestion\n\tif (!lua_isnoneornil(L, 3)) {\n```",
+      "body_raw": "```suggestion\r\n\tif (!lua_isnoneornil(L, 3)) {\r\n```",
+      "body_sha256": "2517d61489ad1895bcc0881514d59a54b17b5f1fefc0242a7391a4bc234e4c4d",
+      "created_at": "2024-02-21T19:17:54Z",
+      "id": 1498166600,
+      "source": "pull_request_inline_comment",
+      "updated_at": "2024-02-21T19:17:58Z",
+      "url": "https://github.com/luanti-org/luanti/pull/14396#discussion_r1498166600"
+    },
+    {
+      "author": "sfan5",
+      "body_normalized": "cleaner imo\n```suggestion\n\tassert(not meta:contains(\"key\"))\n```",
+      "body_raw": "cleaner imo\r\n```suggestion\r\n\tassert(not meta:contains(\"key\"))\r\n```",
+      "body_sha256": "3fd38db53f078f5bec61d2fffdd423bf26e886ed8fd658faf8dd47c082bf8911",
+      "created_at": "2024-02-22T21:41:18Z",
+      "id": 1499969168,
+      "source": "pull_request_inline_comment",
+      "updated_at": "2024-02-22T21:41:18Z",
+      "url": "https://github.com/luanti-org/luanti/pull/14396#discussion_r1499969168"
+    },
+    {
+      "author": "SmallJoker",
+      "body_normalized": "This is to check the `to_table()` functionality. Setters + `to_table` were already tested previously but not removing keys. It *should not* make a difference after all, but I found this to be a good addition to the already existing checks.",
+      "body_raw": "This is to check the `to_table()` functionality. Setters + `to_table` were already tested previously but not removing keys. It *should not* make a difference after all, but I found this to be a good addition to the already existing checks.",
+      "body_sha256": "d511f23981d9fa2b222bdb0d2b4c11a7b8c7684fea5ceb1511de0ae291a7be8a",
+      "created_at": "2024-02-23T17:32:43Z",
+      "id": 1500976520,
+      "source": "pull_request_inline_comment",
+      "updated_at": "2024-02-23T17:32:43Z",
+      "url": "https://github.com/luanti-org/luanti/pull/14396#discussion_r1500976520"
+    }
+  ],
+  "fix_commit": "fa1d80b53b12beedac2e8c1045ffe86e07b89423",
+  "issue": {
+    "author": "j-r",
+    "body_normalized": "### Minetest version\n\n6ca214fefc9e1eb707f006631d39c1e4dbafe1b5\n\n### Operating system and version\n\nDebian Oldstable (no upgrade path available)\n\n### Summary\n\nThe commit effectively replaces tolstring with checklstring.\n\nThe documentation doesn't say anything about nil. If I understand the code correctly nil is handled as an empty string which  is documented to have the effect of removing an entry. So nil isn't really needed for anything, but since assigning nil is the LUA way of removing a mapping, it probably should be kept functional.\n\n### Steps to reproduce\n\nGet a MetaDataRef in LUA and call set_string(\"something\", nil) on it",
+    "body_raw": "### Minetest version\r\n\r\n6ca214fefc9e1eb707f006631d39c1e4dbafe1b5\r\n\r\n### Operating system and version\r\n\r\nDebian Oldstable (no upgrade path available)\r\n\r\n### Summary\r\n\r\nThe commit effectively replaces tolstring with checklstring.\r\n\r\nThe documentation doesn't say anything about nil. If I understand the code correctly nil is handled as an empty string which  is documented to have the effect of removing an entry. So nil isn't really needed for anything, but since assigning nil is the LUA way of removing a mapping, it probably should be kept functional.\r\n\r\n### Steps to reproduce\r\n\r\nGet a MetaDataRef in LUA and call set_string(\"something\", nil) on it",
+    "body_sha256": "0dee6af5b0bb5638d59e7cdbc63bf5dc478018c8477699c856e047eec92ec4eb",
+    "closed_at": "2024-02-25T15:03:06Z",
+    "created_at": "2024-02-20T01:14:49Z",
+    "merged_at": null,
+    "number": 14391,
+    "state": "closed",
+    "title": "6ca214fefc9e1eb707f006631d39c1e4dbafe1b5 changes handling of nil in MetaDataRef:set_string (breaking e.g. Digtron)",
+    "updated_at": "2024-02-25T15:03:06Z",
+    "url": "https://github.com/luanti-org/luanti/issues/14391"
+  },
+  "patch_sha256": "aed3828296cc29150662e8aaab2a68dd76d99a2b639aba658a44f5564eb92a51",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "author": "SmallJoker",
+    "body_normalized": "Fixes #14391\n\n## To do\n\nThis PR is Ready for Review.>\n\n## How to test\n\n1. Devtest game\n2. `/unittests`\n3. All tests must pass.",
+    "body_raw": "Fixes #14391\r\n\r\n## To do\r\n\r\nThis PR is Ready for Review.>\r\n\r\n## How to test\r\n\r\n1. Devtest game\r\n2. `/unittests`\r\n3. All tests must pass.",
+    "body_sha256": "04a8b94da15623a60b6a54e5ff574197cad7431960d92bcd42769cb4ebefb166",
+    "closed_at": "2024-02-25T15:03:05Z",
+    "created_at": "2024-02-21T19:15:01Z",
+    "merged_at": "2024-02-25T15:03:05Z",
+    "number": 14396,
+    "state": "closed",
+    "title": "MetaData: restore undocumented set_string behaviour",
+    "updated_at": "2024-08-26T14:22:05Z",
+    "url": "https://github.com/luanti-org/luanti/pull/14396"
+  },
+  "record_sha256": "4f1787631703ee279877b71cdb14909d88b93093cca5f48df2693bed5796a4ef",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-11T13:12:11Z",
+  "reviews": [
+    {
+      "author": "sfan5",
+      "body_normalized": "",
+      "body_raw": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "created_at": "2024-02-21T19:17:58Z",
+      "id": 1894223660,
+      "source": "pull_request_review",
+      "state": "CHANGES_REQUESTED",
+      "url": "https://github.com/luanti-org/luanti/pull/14396#pullrequestreview-1894223660"
+    },
+    {
+      "author": "sfan5",
+      "body_normalized": "",
+      "body_raw": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "created_at": "2024-02-22T21:41:18Z",
+      "id": 1897007375,
+      "source": "pull_request_review",
+      "state": "COMMENTED",
+      "url": "https://github.com/luanti-org/luanti/pull/14396#pullrequestreview-1897007375"
+    },
+    {
+      "author": "sfan5",
+      "body_normalized": "looks good otherwise",
+      "body_raw": "looks good otherwise",
+      "body_sha256": "ed94018384f199f7d8214730755dadfc342d1d9070ee6de605cd056c8214d679",
+      "created_at": "2024-02-22T21:48:24Z",
+      "id": 1897017135,
+      "source": "pull_request_review",
+      "state": "APPROVED",
+      "url": "https://github.com/luanti-org/luanti/pull/14396#pullrequestreview-1897017135"
+    },
+    {
+      "author": "SmallJoker",
+      "body_normalized": "",
+      "body_raw": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "created_at": "2024-02-23T17:32:43Z",
+      "id": 1898616813,
+      "source": "pull_request_review",
+      "state": "COMMENTED",
+      "url": "https://github.com/luanti-org/luanti/pull/14396#pullrequestreview-1898616813"
+    }
+  ],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-14396-metadata-set-string-nil",
+  "tests": [
+    {
+      "argv": [
+        "./util/test_multiplayer.sh"
+      ],
+      "command": [
+        "./util/test_multiplayer.sh"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "games/devtest/mods/unittests/metadata.lua",
+          "sha256": "541dc4e30b29121ed36efe24f399a22dcd8b19db9474031a80fd8b268c432ad2",
+          "source_path": "upstream-tests/games/devtest/mods/unittests/metadata.lua"
+        }
+      ],
+      "id": "luanti-pr14396-metadata-compat-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_devtest_multiplayer_regression_suite",
+      "source_case": "test_item_metadata to test_metadata_compat",
+      "source_url": "https://github.com/luanti-org/luanti/blob/fa1d80b53b12beedac2e8c1045ffe86e07b89423/games/devtest/mods/unittests/metadata.lua",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "games/devtest/mods/unittests/metadata.lua",
+          "sha256": "541dc4e30b29121ed36efe24f399a22dcd8b19db9474031a80fd8b268c432ad2",
+          "source_url": "https://github.com/luanti-org/luanti/blob/fa1d80b53b12beedac2e8c1045ffe86e07b89423/games/devtest/mods/unittests/metadata.lua"
+        }
+      ],
+      "upstream_test_path": "games/devtest/mods/unittests/metadata.lua",
+      "upstream_test_sha256": "541dc4e30b29121ed36efe24f399a22dcd8b19db9474031a80fd8b268c432ad2"
+    },
+    {
+      "argv": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "command": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed",
+          "source_path": "upstream-tests/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "id": "luanti-vector-zero-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "vector zero()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/fa1d80b53b12beedac2e8c1045ffe86e07b89423/builtin/common/tests/vector_spec.lua",
+      "timeout_s": 60,
+      "upstream_runner_root": ".warptest-cache/lazarus/tools/luanti-busted-luajit",
+      "upstream_runner_tree_sha256": "8e52972a9ade81d36ec6225831d24ec6ceeef306f1841db8a29fd22c21fb19b2",
+      "upstream_test_files": [
+        {
+          "path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed",
+          "source_url": "https://github.com/luanti-org/luanti/blob/fa1d80b53b12beedac2e8c1045ffe86e07b89423/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "upstream_test_path": "builtin/common/tests/vector_spec.lua",
+      "upstream_test_sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed"
+    },
+    {
+      "argv": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "command": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "cwd": ".",
+      "id": "luanti-vector-zero-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "vector zero()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/vector_spec.lua",
+      "timeout_s": 60,
+      "upstream_runner_root": ".warptest-cache/lazarus/tools/luanti-busted-luajit",
+      "upstream_runner_tree_sha256": "8e52972a9ade81d36ec6225831d24ec6ceeef306f1841db8a29fd22c21fb19b2",
+      "upstream_test_files": [
+        {
+          "path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "1a9934c6e46eba7ab58894285e676e65970b0dab419df3ea05be66cdc50139f0",
+          "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "upstream_test_path": "builtin/common/tests/vector_spec.lua",
+      "upstream_test_sha256": "1a9934c6e46eba7ab58894285e676e65970b0dab419df3ea05be66cdc50139f0"
+    }
+  ],
+  "touched_files": [
+    "games/devtest/mods/unittests/metadata.lua",
+    "src/script/lua_api/l_metadata.cpp"
+  ],
+  "upstream_commits": [
+    {
+      "author": "SmallJoker",
+      "authored_at": "2024-02-21T19:10:50Z",
+      "body_normalized": "MetaData: restore undocumented set_string behaviour",
+      "body_raw": "MetaData: restore undocumented set_string behaviour",
+      "body_sha256": "f91235dfbc2bde14b1ec10317a1855740fcd919f001d26664ab5d86a0e146103",
+      "sha": "610c9cd488640b0674dbc8aabbac92e8416a1b7b",
+      "url": "https://github.com/luanti-org/luanti/commit/610c9cd488640b0674dbc8aabbac92e8416a1b7b"
+    }
+  ]
+}

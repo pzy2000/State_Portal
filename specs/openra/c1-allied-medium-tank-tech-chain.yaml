@@ -1,0 +1,88 @@
+name: C1 OpenRA Allied medium tank industrial chain
+benchmark: openra
+repo: ../../games/OpenRA
+timeout_ms: 900000
+tags: [c1, long, openra, allied, production]
+setup:
+  openra_gameplay_probe:
+    cash: 50000
+    fast_build: true
+    build_anywhere: false
+    delay_ticks: 100
+    remove_player_actor_types:
+      Greece: [fact, powr, proc, tent, weap, 2tnk, e1, e3]
+target:
+  kind: openra_map
+  mod: ra
+  requires_mod: ra
+  map: allies-08a
+  players:
+    - {id: Greece, playable: true, required: true, faction: allies}
+  actors:
+    - {id: mcv, type: mcv, owner: Greece}
+checkpoint:
+  allowed_strategies: [openra_gameplay_production_validate]
+  expected_validity: replay-reachable
+replay_from_start:
+  actions:
+    - {type: openra_launch_map, mod: ra, map: allies-08a}
+actions:
+  - {type: openra_wait_ticks, ticks: 100}
+  - {type: openra_deploy_actor, player: Greece, actor_id: mcv, wait_until_actor: fact, timeout_ticks: 900}
+  - {type: openra_build_actor, player: Greece, actor: powr, queue: Building, place_near: {anchor: "26,64", radius: 18}, timeout_ticks: 900}
+  - {type: openra_build_actor, player: Greece, actor: proc, queue: Building, place_near: {anchor: "26,64", radius: 18}, timeout_ticks: 900}
+  - {type: openra_build_actor, player: Greece, actor: tent, queue: Building, place_near: {anchor: "26,64", radius: 18}, timeout_ticks: 900}
+  - {type: openra_build_actor, player: Greece, actor: weap, queue: Building, place_near: {anchor: "26,64", radius: 18}, timeout_ticks: 900}
+  - {type: openra_build_actor, player: Greece, actor: 2tnk, queue: Vehicle, timeout_ticks: 900}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: openra_actor_built, player: Greece, actor: powr, min_delta: 1}
+      - {type: openra_actor_built, player: Greece, actor: proc, min_delta: 1}
+      - {type: openra_actor_built, player: Greece, actor: tent, min_delta: 1}
+      - {type: openra_actor_built, player: Greece, actor: weap, min_delta: 1}
+      - {type: openra_actor_built, player: Greece, actor: 2tnk, min_delta: 1}
+      - {type: openra_production_prerequisite_respected, player: Greece, actor: 2tnk}
+      - {type: no_openra_gameplay_probe_errors}
+    surfaces:
+      gui:
+        adapter: openra_live_gameplay_probe_v1
+        start:
+          validate_target: true
+          checks: []
+          expected_checks:
+          - name: assertions.0.actor_exists
+        goal:
+          use_assertions: true
+          checks: []
+          expected_checks:
+          - name: assertions.0.actor_built
+          - name: assertions.1.actor_built
+          - name: assertions.2.actor_built
+          - name: assertions.3.actor_built
+          - name: assertions.4.actor_built
+          - name: assertions.5.prerequisite_respected
+          - name: assertions.6.no_probe_errors
+      state:
+        adapter: openra_live_gameplay_probe_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/c1-allied-medium-tank-tech-chain.after.golden.png
+    golden_before: visual/c1-allied-medium-tank-tech-chain.before.golden.png
+    golden_after: visual/c1-allied-medium-tank-tech-chain.after.golden.png
+    expected_label: correct
+    description: The live starting MCV and terrain are visible before construction.
+    after_description: The Allied power plant, refinery, barracks, war factory, and completed medium tank are visible in one native frame.
+    rubric:
+      must: [A live OpenRA gameplay frame is visible, The undeployed Allied MCV and terrain are visible]
+      must_not: [The main menu or a blank frame is shown]
+    after_rubric:
+      must: [The Allied production base and a medium tank are visible together]
+      must_not: [Only the starting MCV is visible, A menu or crash screen is shown]
+    capture: {stage: post_smoke, wait_ms: 0, full_page: false}

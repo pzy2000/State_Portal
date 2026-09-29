@@ -1,0 +1,62 @@
+name: Blender animation keyframes
+benchmark: Blender
+target:
+  kind: scene
+  objects:
+    - name: AnimatedCube
+      type: MESH
+      primitive: cube
+      size: 1.0
+      location: [0.0, 0.0, 0.0]
+checkpoint:
+  allowed_strategies: [blender_python_scene_validate]
+  expected_validity: save-restorable
+actions:
+  - type: blender_set_keyframe
+    object: AnimatedCube
+    data_path: location
+    frame: 1
+    value: [0.0, 0.0, 0.0]
+  - type: blender_set_keyframe
+    object: AnimatedCube
+    data_path: location
+    frame: 24
+    value: [4.0, 0.0, 0.0]
+assertions:
+  - type: blender_object_exists
+    object: AnimatedCube
+    object_type: MESH
+  - type: blender_animation_keyframes
+    object: AnimatedCube
+    data_path: location
+    frames: [1, 24]
+  - type: no_blender_python_errors
+visual_oracle:
+  golden_image: visual/animation-keyframes.golden.png
+  golden_before: visual/blender-animation-keyframes.before.golden.png
+  golden_after: visual/blender-animation-keyframes.after.golden.png
+  expected_label: correct
+  description: "A deterministic Blender render shows AnimatedCube after keyframing its location; XYZ axes, an XY grid, and object coordinate labels make the final keyed position visible relative to the restored before frame."
+  rubric:
+    must:
+      - "The Blender-rendered cube is visible against the gray render background."
+      - "The coordinate reference layer is visible: red X axis, green Y axis, blue Z axis, an XY grid, an origin label, and an object coordinate label."
+      - "The before screenshot shows the cube at the restored starting position."
+      - "The after screenshot shows the cube shifted toward the final keyed location."
+      - "The after screenshot labels AnimatedCube at [4,0,0]."
+    must_not:
+      - "The render is blank, transparent, or a crash/error screen."
+      - "The coordinate axes, grid, or AnimatedCube coordinate label are missing from the render."
+      - "The after screenshot still shows the cube only at the restored starting position."
+      - "The cube disappears or becomes an unrelated object."
+    ignore:
+      - "Minor lighting or antialiasing differences from Blender renderer versions."
+      - "Small object size or edge-highlight differences."
+      - "Small text antialiasing differences on coordinate labels."
+  capture:
+    stage: post_smoke
+    wait_ms: 0
+    full_page: false
+tags:
+  - blender
+  - animation

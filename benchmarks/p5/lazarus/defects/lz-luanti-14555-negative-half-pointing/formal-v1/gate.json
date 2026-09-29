@@ -1,0 +1,122 @@
+{
+  "benchmark": "luanti",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": true,
+  "evidence": {
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.832377025462963,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 38.69337239583333
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 0.0
+      },
+      "before_sha256": "6946f86ab17a42222d4026cf412ad5a6679abbde3313bcadef84fc490e936521",
+      "buggy_after_sha256": "b933e73382557b6e30799c8b4eaef3747edd793bc69701cd060372fd95abe6c6",
+      "fixed_after_sha256": "baea06407f47cb70e75481b5f5731f5bc4a29f4377f2609a0bb5dc1cd5dae772",
+      "metadata": "specs/luanti/lazarus/visual_lz-luanti-14555-negative-half-pointing/goldens.meta.json",
+      "metadata_sha256": "d3db1e523719d7d02345485391768204c1252d9d5479e8d0c8fcb171bc5f519e"
+    },
+    "probe_verification": null,
+    "provenance_errors": [],
+    "source_artifacts": {
+      "gate10": "admission:gate10_hidden_oracle=passed",
+      "gate11": "closure:candidate_gate11_14555_opaque_attempt/luanti/14555/buggy/1/v1",
+      "gate12": "closure:candidate_gate12_14555_opaque_matrix/luanti/14555/v1",
+      "gate13": "closure:candidate_gate13_14555_opaque_receipt/luanti/14555/v1",
+      "gate8": "closure:candidate_gate813_14555_client_closure/luanti/14555/v1",
+      "gate9": "closure:luanti_14555_rendered_observation/buggy/repetition-1/v2",
+      "gate_1_7_source": "candidate_gate57_14555_fresh_transition/luanti/14555/v1",
+      "gate_1_7_truth_table": {
+        "buggy_f2p_3x": "passed_clean_failure",
+        "buggy_p2p_3x": "passed",
+        "fixed_f2p_3x": "passed",
+        "fixed_p2p_3x": "passed",
+        "single_defect_mapping": "passed",
+        "source_authority": "passed",
+        "strict_inverse_patch": "passed",
+        "test_api_compatibility": "passed"
+      },
+      "strict_gate_1_7": true
+    },
+    "upstream": [
+      {
+        "command": [
+          "./bin/luanti",
+          "--run-unittests",
+          "--test-module",
+          "TestVoxelAlgorithms"
+        ],
+        "cwd": ".",
+        "id": "luanti-pr14555-voxel-line-iterator-f2p",
+        "kind": "fail_to_pass"
+      },
+      {
+        "command": [
+          "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+          "--filter=zero",
+          "builtin/common/tests/vector_spec.lua"
+        ],
+        "cwd": ".",
+        "id": "luanti-vector-zero-construction-p2p",
+        "kind": "pass_to_pass"
+      }
+    ],
+    "versions": {
+      "changed_files": [
+        "src/unittest/test_voxelalgorithms.cpp",
+        "src/voxelalgorithms.cpp"
+      ],
+      "patch_sha256": "d94a134b545ef0a15cabe782a707587d3de8bddb70dbe784f32c0b2897e53813",
+      "patch_source": "pilot_patch:benchmarks/p5/lazarus/defects/lz-luanti-14555-negative-half-pointing/revert.patch",
+      "reverse_apply_reproduces_frozen_buggy_tree": false,
+      "tree_pair": null
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "luanti-pr14555-voxel-line-iterator-f2p"
+  ],
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "pass_to_pass": [
+    "luanti-vector-zero-construction-p2p"
+  ],
+  "passed": true,
+  "projection": {
+    "admission": "candidate_formal_freeze_admission/luanti/14555/gap-closed-v1",
+    "closure_size": 86396,
+    "fresh_gate_run": false,
+    "generator": "warptest.c1_lazarus_selection.c1_lazarus_formal_catalog",
+    "selection_mode": "c1_freeze_sprint_v2"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-luanti-14555-negative-half-pointing",
+  "upstream_f2p": true
+}

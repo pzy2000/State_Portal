@@ -1,0 +1,46 @@
+diff --git a/source/blender/nodes/shader/nodes/node_shader_bsdf_principled.cc b/source/blender/nodes/shader/nodes/node_shader_bsdf_principled.cc
+index dc01dd6f9a6c2803adcc3ce4264d888b17dc848d..afa52d74c81cdd1e3159f1ff514f594b6736b51c 100644
+--- a/source/blender/nodes/shader/nodes/node_shader_bsdf_principled.cc
++++ b/source/blender/nodes/shader/nodes/node_shader_bsdf_principled.cc
+@@ -407,12 +407,16 @@ static int node_shader_gpu_bsdf_principled(GPUMaterial *mat,
+     flag |= GPU_MATFLAG_TRANSLUCENT;
+   }
+ 
++  const bool refraction_might_be_tinted = use_refract && in[SOCK_BASE_COLOR_ID].might_be_tinted();
++
+   if (might_have_tinted_specular(
+-          in[SOCK_BASE_COLOR_ID], in[SOCK_METALLIC_ID], in[SOCK_SPECULAR_TINT_ID]))
++          in[SOCK_BASE_COLOR_ID], in[SOCK_METALLIC_ID], in[SOCK_SPECULAR_TINT_ID]) ||
++      /* Multiscatter GGX can tint the reflection lobe. See `bsdf_lut`. */
++      (refraction_might_be_tinted && node->custom1 == SHD_GLOSSY_MULTI_GGX))
+   {
+     flag |= GPU_MATFLAG_REFLECTION_MAYBE_COLORED;
+   }
+-  if (use_refract && in[SOCK_BASE_COLOR_ID].might_be_tinted()) {
++  if (refraction_might_be_tinted) {
+     flag |= GPU_MATFLAG_REFRACTION_MAYBE_COLORED;
+   }
+   if (use_coat && in[SOCK_COAT_TINT_ID].might_be_tinted()) {
+diff --git a/tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_transmission.png b/tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_transmission.png
+index b3c03c4e956a42709b405f8f8f03600c9420fa66..0de8dd474ad51f136e0dc12f5950d3c8aefcbff7 100644
+--- a/tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_transmission.png
++++ b/tests/files/render/principled_bsdf/eevee_renders/principled_bsdf_transmission.png
+@@ -1,3 +1,3 @@
+ version https://git-lfs.github.com/spec/v1
+-oid sha256:b0a40ecf5d9c295fd2804a65cdfb38ff80995225b5aedc22b7bdea8ca54659cc
+-size 17217
++oid sha256:89df25c5780d690c16753a5da07a1ea32df328b665ce41d66ae5870f9f1888ae
++size 17468
+diff --git a/tests/python/eevee_render_tests.py b/tests/python/eevee_render_tests.py
+index a26f7f05b7427c4dd8cae256057aac6187504ea4..40613de4984e73daf927f1b815e27f6891ee8988 100644
+--- a/tests/python/eevee_render_tests.py
++++ b/tests/python/eevee_render_tests.py
+@@ -40,8 +40,6 @@ BLOCKLIST = [
+     "light_path_is_shadow_ray.blend",
+     # Blocked as the test seems to alternate between two different states
+     "light_path_is_diffuse_ray.blend",
+-    # Blocked due to stochastic diffuse/transmission layering resulting in non-deterministic surfel lighting.
+-    "principled_bsdf_transmission.blend",
+     # Blocked due to platform-dependent noise differences (likely floating-point/fast-math differences).
+     "raycast_bump.blend",
+     # Blocked due to platform-dependent uninitialized pixels.

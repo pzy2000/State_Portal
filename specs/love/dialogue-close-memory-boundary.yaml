@@ -1,0 +1,96 @@
+name: DatingSim dialogue close memory boundary checkpoint
+benchmark: DatingSim
+tags:
+- love
+- dialogue
+- memory
+- variant
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  seed: 45
+  player_name: WarpTest
+  gender: male
+  patch:
+    player:
+      relationships:
+        char_1:
+          trust: 50
+          attraction: 30
+          comfort: 35
+          respect: 25
+          investment: 10
+          conflict: 0
+          status: friend
+          history:
+          - Met Elena for coffee.
+          memories:
+          - Elena mentioned she loves quiet cafes.
+          - Elena talked about a gallery opening.
+          - Elena seemed tired after work.
+          - Elena laughed at a joke about coffee.
+          - Elena asked about weekend plans.
+    world:
+      location: cafe
+    activeDialogue:
+      characterId: char_1
+      isOpen: true
+      replyOptions: []
+      messages:
+      - role: user
+        content: Hi!
+      - role: assistant
+        content: Hello there.
+      - role: user
+        content: How has your week been?
+      - role: assistant
+        content: Busy, but good.
+  expect:
+    location: cafe
+    resources:
+      money: 1000
+      energy: 100
+    relationships:
+      char_1:
+        trust: 50
+        attraction: 30
+        status: friend
+checkpoint:
+  allowed_strategies:
+  - test_hook_seeded_state
+  expected_validity: injection-only
+actions:
+- type: hook_call
+  method: closeDialogue
+  args: []
+  wait_ms: 1500
+assertions:
+- type: state_equals
+  path: activeDialogue
+  value: null
+- type: state_equals
+  path: player.relationships.char_1.trust
+  value: 50
+- type: no_real_openai
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/resource-action.golden.png
+  expected_label: correct
+  description: Closing a dialogue with an already-full (5 entry) memory list and
+    a 4-message transcript triggers background memory summarization without crashing.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+    - Exact memory list contents, since the mocked summarizer payload shape is what
+      this checkpoint probes.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

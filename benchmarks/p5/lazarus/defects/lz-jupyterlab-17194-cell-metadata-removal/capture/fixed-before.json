@@ -1,0 +1,22 @@
+{
+  "audit": {
+    "expected": "trusted_entry_present",
+    "field": "cell_metadata_start_state",
+    "observed": "trusted_entry_present",
+    "ok": true
+  },
+  "captured_at": "2026-08-16T11:38:03Z",
+  "change_number": 17194,
+  "invariants": {
+    "check": "no_jupyterlab_probe_errors",
+    "console_errors": [],
+    "ok": true,
+    "page_errors": []
+  },
+  "live_source": "jupyterlab_browser_capture",
+  "schema": "c1-lazarus-jupyterlab-golden-capture-v1",
+  "schema_version": 2,
+  "stage": "before",
+  "task_id": "lz-jupyterlab-17194-cell-metadata-removal",
+  "version": "fixed"
+}

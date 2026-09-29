@@ -1,0 +1,131 @@
+{
+  "benchmark": "jupyterlab",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "defect_differential_source": "rendered_frames",
+  "derived_from_frozen_artifacts": false,
+  "evidence": {
+    "control_matrix": {
+      "attempt_count": 6,
+      "cells": 6,
+      "control_test_path": "packages/shortcuts-extension/test/shortcuts.spec.ts",
+      "control_test_relation": "same_package",
+      "phase": "p2p",
+      "repetitions_per_cell": 3
+    },
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.013095238095238096,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.5813022138680034
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.0
+      },
+      "metadata": "specs/jupyterlab/lazarus_p2p_only/visual_lzp-jupyterlab-17153-shortcut-chip-contrast/goldens.meta.json"
+    },
+    "patch": {
+      "hash": "28b191e3c800333d81dad03c3018cb14211e3490e9875eb76cbc934b1a1378ef",
+      "production_paths": [
+        "packages/shortcuts-extension/style/base.css",
+        "packages/theme-dark-extension/style/variables.css",
+        "packages/theme-dark-high-contrast-extension/style/variables.css",
+        "packages/theme-light-extension/style/variables.css"
+      ],
+      "source": "upstream_production_only_inverse"
+    },
+    "static_gates": {
+      "evidence": {
+        "authoritative_bug_count": 1,
+        "authoritative_issue": 16801,
+        "base_revision": "87cb79fe29c623f1e2f3d00e8d0d51c656ef12d4",
+        "changed_paths": [
+          "packages/shortcuts-extension/style/base.css",
+          "packages/theme-dark-extension/style/variables.css",
+          "packages/theme-dark-high-contrast-extension/style/variables.css",
+          "packages/theme-light-extension/style/variables.css"
+        ],
+        "control_test_path": "packages/shortcuts-extension/test/shortcuts.spec.ts",
+        "control_test_relation": "same_package",
+        "f2p_absence": {
+          "audited_paths": [],
+          "reason": "The defect is the contrast between a chip and the surface it sits on, decided by which palette entry the chip resolves to. The document is identical either way, so the shortfall exists only in the painted colours."
+        },
+        "fixed_revision": "f9ba3d176b0029511a32316cddd57009c0c84f1b",
+        "inverse_patch_hash": "28b191e3c800333d81dad03c3018cb14211e3490e9875eb76cbc934b1a1378ef",
+        "issue_labels": [
+          "bug",
+          "good first issue",
+          "tag:Accessibility"
+        ],
+        "issue_link_source": "pull_request_body",
+        "merged": true,
+        "non_production_changed_paths": [],
+        "production_paths": [
+          "packages/shortcuts-extension/style/base.css",
+          "packages/theme-dark-extension/style/variables.css",
+          "packages/theme-dark-high-contrast-extension/style/variables.css",
+          "packages/theme-light-extension/style/variables.css"
+        ],
+        "timeline_cites_fix_commit": false,
+        "timeline_links_fix_change": true
+      },
+      "gate_1_source_authority": "passed",
+      "gate_2_single_defect_mapping": "passed_authoritative_issue_16801",
+      "gate_3_strict_inverse_patch": "passed_production_only_4_paths",
+      "gate_4_test_api_compatibility": "passed_static_control_test_untouched",
+      "gate_5_f2p_absence": "passed_no_f2p",
+      "passed": true,
+      "task_id": "lzp-jupyterlab-17153-shortcut-chip-contrast"
+    }
+  },
+  "f2p_absence": {
+    "audited_paths": [],
+    "reason": "The defect is the contrast between a chip and the surface it sits on, decided by which palette entry the chip resolves to. The document is identical either way, so the shortfall exists only in the painted colours."
+  },
+  "f2p_claim": "none_registered_defect_is_not_test_expressible",
+  "failures": [],
+  "formal_trials_authorized": false,
+  "gate_1_6_status": {
+    "buggy_f2p_3x": "not_applicable_no_f2p",
+    "f2p_absence_confirmed": "passed_no_f2p",
+    "fixed_buggy_p2p_3x": "passed",
+    "fixed_f2p_3x": "not_applicable_no_f2p",
+    "single_defect_mapping": "passed_authoritative_issue_16801",
+    "source_authority": "passed",
+    "strict_inverse_patch": "passed_production_only_4_paths",
+    "test_api_compatibility": "passed_static_control_test_untouched"
+  },
+  "gate_vocabulary": "p2p_only",
+  "paid_actions_authorized": false,
+  "projection": {
+    "admission": "p2p_only_gate16_passed",
+    "fresh_gate_run": true,
+    "generator": "scripts.publish_lazarus_p2p_only_catalog",
+    "selection_mode": "c1_lazarus_p2p_only_v1"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lzp-jupyterlab-17153-shortcut-chip-contrast",
+  "track": "c1_lazarus_p2p_only_v1",
+  "upstream_f2p": false
+}

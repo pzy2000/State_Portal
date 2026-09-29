@@ -1,0 +1,12 @@
+{
+  "build_class": "incremental_cpp",
+  "declared_files": [
+    "source/blender/blenkernel/BKE_attribute_math.hh",
+    "tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend"
+  ],
+  "fixed_revision": "3d018bcabdaeea66cf4ef4a96ce8913164831f6e",
+  "patch_sha256": "18ca07da41334ccf5667ebdfebb8b4d7c164778140577b6ff726b2ba678d5f1c",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-blender-155764-subdivision-color-attribute/revert.patch",
+  "source_repo": "games/blender",
+  "task_id": "lz-blender-155764-subdivision-color-attribute"
+}

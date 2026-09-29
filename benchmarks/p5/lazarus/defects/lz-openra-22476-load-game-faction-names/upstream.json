@@ -1,0 +1,259 @@
+{
+  "authority": "github",
+  "benchmark": "openra",
+  "comments": [
+    {
+      "author": "ycamlad",
+      "body_normalized": "Hey, I was looking at your fix for the faction dropdown issue and I tried to understand it on my own before reaching out.\n\nFrom what I saw:\n\nThe save file stores faction IDs like \"ukraine\" / \"russia\"\nThe UI was passing those directly to Fluent, which didn’t match keys\nI found the faction .ftl entries (faction-ukraine, etc.) and tried mapping them\n\nI got pretty close, but I ran into a UI issue where the dropdown ended up showing the same faction multiple times.\n\nIf you have any tips for navigating this repo (especially around UI + traits), I’d really appreciate it.\n\nThanks!",
+      "body_raw": "Hey, I was looking at your fix for the faction dropdown issue and I tried to understand it on my own before reaching out.\r\n\r\nFrom what I saw:\r\n\r\nThe save file stores faction IDs like \"ukraine\" / \"russia\"\r\nThe UI was passing those directly to Fluent, which didn’t match keys\r\nI found the faction .ftl entries (faction-ukraine, etc.) and tried mapping them\r\n\r\nI got pretty close, but I ran into a UI issue where the dropdown ended up showing the same faction multiple times.\r\n\r\nIf you have any tips for navigating this repo (especially around UI + traits), I’d really appreciate it.\r\n\r\nThanks!",
+      "body_sha256": "9deaa61265318741cf5912fb0c337260d0ddc2b2bbbef9d611b7d9268a101d69",
+      "created_at": "2026-05-06T02:44:25Z",
+      "id": 4384698203,
+      "source": "pull_request_comment",
+      "updated_at": "2026-05-06T02:44:25Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/22476#issuecomment-4384698203"
+    },
+    {
+      "author": "xan2622",
+      "body_normalized": "Hi @ycamlad\n\nYour analysis is correct: the save file uses internal faction IDs, but Fluent expects message keys.\n\nWhen looking into this, I found that `FactionInfo` traits from `modData.DefaultRules.Actors[SystemActors.World]` already link internal names to Fluent keys, so I reused that instead of mapping via .ftl.\n\nFor the duplicate issue, my guess is that it depends on when deduplication is applied. In this fix, `Distinct()` runs on the raw IDs (case-insensitive) before resolving display names, that might be the difference.\n\nFor the UI logic, you can look under `OpenRA.Mods.Common/Widgets/Logic/`, and if I am correct, traits are accessed via `actor.TraitInfos<T>()`, `SystemActors.World` is the actor key used to access global rules like factions.",
+      "body_raw": "Hi @ycamlad \r\n\r\nYour analysis is correct: the save file uses internal faction IDs, but Fluent expects message keys.\r\n\r\nWhen looking into this, I found that `FactionInfo` traits from `modData.DefaultRules.Actors[SystemActors.World]` already link internal names to Fluent keys, so I reused that instead of mapping via .ftl. \r\n\r\nFor the duplicate issue, my guess is that it depends on when deduplication is applied. In this fix, `Distinct()` runs on the raw IDs (case-insensitive) before resolving display names, that might be the difference.\r\n\r\nFor the UI logic, you can look under `OpenRA.Mods.Common/Widgets/Logic/`, and if I am correct, traits are accessed via `actor.TraitInfos<T>()`, `SystemActors.World` is the actor key used to access global rules like factions.",
+      "body_sha256": "a489fa7e0d8b39266f5a07c9b4925da20e2f29ef8a87d6b4a7d4564b8b4eca93",
+      "created_at": "2026-05-06T09:16:42Z",
+      "id": 4386639518,
+      "source": "pull_request_comment",
+      "updated_at": "2026-05-06T09:16:42Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/22476#issuecomment-4386639518"
+    },
+    {
+      "author": "ycamlad",
+      "body_normalized": "Thanks, that helped a lot!",
+      "body_raw": "Thanks, that helped a lot!",
+      "body_sha256": "993eb4d36747165e69b606617de787880103a296094c3cb4e5e4835cffd27647",
+      "created_at": "2026-05-06T14:07:31Z",
+      "id": 4388893592,
+      "source": "pull_request_comment",
+      "updated_at": "2026-05-06T14:07:31Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/22476#issuecomment-4388893592"
+    },
+    {
+      "author": "PunkPun",
+      "body_normalized": "https://github.com/OpenRA/OpenRA/wiki/Changelog/_compare/87440584c5d4582d61dd35e9392f686016965ae5...fcbd8af42310f7216205b804256c1f8b88e48d96",
+      "body_raw": "https://github.com/OpenRA/OpenRA/wiki/Changelog/_compare/87440584c5d4582d61dd35e9392f686016965ae5...fcbd8af42310f7216205b804256c1f8b88e48d96",
+      "body_sha256": "4244e1d3f15d9f0c8ce6f8385a6fe294764700020133f3a23892f97ffbd74127",
+      "created_at": "2026-05-24T14:55:33Z",
+      "id": 4529075215,
+      "source": "pull_request_comment",
+      "updated_at": "2026-05-24T14:55:33Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/22476#issuecomment-4529075215"
+    },
+    {
+      "author": "pchote",
+      "body_normalized": "The previous and new approaches both look incorrect here: `FluentProvider.GetMessage` should not be called from GetText, it should generally always be wrapped in a `CachedTransform`. Take a look at how other parts of the UI handle this.",
+      "body_raw": "The previous and new approaches both look incorrect here: `FluentProvider.GetMessage` should not be called from GetText, it should generally always be wrapped in a `CachedTransform`. Take a look at how other parts of the UI handle this.",
+      "body_sha256": "f5ff5cb8f6f666c2b1d876935700c60f907cce5ffdb3800467c11d1352837d15",
+      "created_at": "2026-05-05T09:11:21Z",
+      "id": 3187252977,
+      "source": "pull_request_inline_comment",
+      "updated_at": "2026-05-05T09:11:21Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/22476#discussion_r3187252977"
+    }
+  ],
+  "fix_commit": "8a1f0ad7ca88b348e80d4123046a6940a58dfceb",
+  "issue": {
+    "author": "michaeldgg2",
+    "body_normalized": "## Issue Summary\n\nThe new game load/save browser doesn't resolve faction display name. Instead it shows just the faction's internal name.\n\n## Reproduction\n\n- start SP mission or Skirmish with non-Random player factions\n- save game\n- open Load game dialog\n- enable filters\n- open Faction dropdown\n\n\n## Expected behavior\n\nFluent string resolved from `FactionInfo.Name` is shown instead.\n\n\n## Screenshots\n\n<img width=\"357\" height=\"415\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/7e2c5dbd-89f5-4f00-bb2b-5a2b99a20250\" />",
+    "body_raw": "## Issue Summary\n\nThe new game load/save browser doesn't resolve faction display name. Instead it shows just the faction's internal name.\n\n## Reproduction\n\n- start SP mission or Skirmish with non-Random player factions\n- save game\n- open Load game dialog\n- enable filters\n- open Faction dropdown\n\n\n## Expected behavior\n\nFluent string resolved from `FactionInfo.Name` is shown instead.\n\n\n## Screenshots\n\n<img width=\"357\" height=\"415\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/7e2c5dbd-89f5-4f00-bb2b-5a2b99a20250\" />\n\n\n",
+    "body_sha256": "d7c46f20c63a1109e00cbcabaa43b67d4a739b3e18e9c3fafdf2ce82396bd301",
+    "closed_at": "2026-05-24T14:54:18Z",
+    "created_at": "2026-05-01T17:14:57Z",
+    "merged_at": null,
+    "number": 22472,
+    "state": "closed",
+    "title": "New load dialog shows faction's internal name in filter dropdown",
+    "updated_at": "2026-05-24T14:54:18Z",
+    "url": "https://github.com/OpenRA/OpenRA/issues/22472"
+  },
+  "patch_sha256": "9e9ff299be5cf5b1bb05a7684d812bc3c209fd2f2333882ef087301124254a7a",
+  "pinned_revision": "7e687f430ee5b194c0ffaa06caaba757dd9155fb",
+  "pull_request": {
+    "author": "xan2622",
+    "body_normalized": "Fix Load Game faction filter showing internal names instead of display names\n\nFixes https://github.com/OpenRA/OpenRA/issues/22472\n\n<img width=\"1457\" height=\"841\" alt=\"image\" src=\"https://github.com/user-attachments/assets/e43af99d-109b-4f2b-9325-efd2c6b54226\" />",
+    "body_raw": "Fix Load Game faction filter showing internal names instead of display names\r\n\r\nFixes https://github.com/OpenRA/OpenRA/issues/22472\r\n\r\n<img width=\"1457\" height=\"841\" alt=\"image\" src=\"https://github.com/user-attachments/assets/e43af99d-109b-4f2b-9325-efd2c6b54226\" />\r\n\r\n",
+    "body_sha256": "0e1cc9650bd2efa8dc6f04be6bcda5fa91c7ecee28b8d33fd74be10586d2b289",
+    "closed_at": "2026-05-24T14:54:17Z",
+    "created_at": "2026-05-05T08:03:25Z",
+    "merged_at": "2026-05-24T14:54:16Z",
+    "number": 22476,
+    "state": "closed",
+    "title": "Fix Load Game faction filter showing internal names instead of display names",
+    "updated_at": "2026-05-24T16:43:53Z",
+    "url": "https://github.com/OpenRA/OpenRA/pull/22476"
+  },
+  "record_sha256": "bf01c986e0414bfe0077b3f31fd656145df67e67a7331f450a42fd30a905b868",
+  "repository": "OpenRA/OpenRA",
+  "retrieved_at": "2026-08-11T13:14:05Z",
+  "reviews": [
+    {
+      "author": "pchote",
+      "body_normalized": "",
+      "body_raw": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "created_at": "2026-05-05T09:11:20Z",
+      "id": 4226661534,
+      "source": "pull_request_review",
+      "state": "COMMENTED",
+      "url": "https://github.com/OpenRA/OpenRA/pull/22476#pullrequestreview-4226661534"
+    },
+    {
+      "author": "PunkPun",
+      "body_normalized": "Ok.\n\nUnrelated, but I see filters don't get updated on save deletion.",
+      "body_raw": "Ok.\n\nUnrelated, but I see filters don't get updated on save deletion.",
+      "body_sha256": "5a4af845aa0e0d0aa590cbefea270217c1f2d7fc9dad0449b74cc24f5e2e9e38",
+      "created_at": "2026-05-24T14:54:11Z",
+      "id": 4352997130,
+      "source": "pull_request_review",
+      "state": "APPROVED",
+      "url": "https://github.com/OpenRA/OpenRA/pull/22476#pullrequestreview-4352997130"
+    }
+  ],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-openra-22476-load-game-faction-names",
+  "tests": [
+    {
+      "argv": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "openra-load-game-faction-names"
+      ],
+      "command": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "openra-load-game-faction-names"
+      ],
+      "cwd": ".",
+      "id": "openra-22476-load-game-faction-names-f2p",
+      "kind": "fail_to_pass",
+      "origin": "issue_derived_gui_differential",
+      "provenance": "issue_and_pull_request_gui_differential",
+      "timeout_s": 300
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "command": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+          "sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e",
+          "source_path": "upstream-tests/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs"
+        }
+      ],
+      "id": "openra-action-queue-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "OpenRA.Test_repository_test_suite",
+      "source_case": "OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder",
+      "source_url": "https://github.com/OpenRA/OpenRA/blob/8a1f0ad7ca88b348e80d4123046a6940a58dfceb/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "8a689f0098e892e824754da2e3ce905d9f71304ab7aadc59487f03e34c015a0f",
+      "upstream_runner_version_argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "82d951c581cf3fc23d9cb0a2ce1a127d107aa4720c1cab9c69a2d10e55fa1ce9",
+      "upstream_test_files": [
+        {
+          "path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+          "sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e",
+          "source_url": "https://github.com/OpenRA/OpenRA/blob/8a1f0ad7ca88b348e80d4123046a6940a58dfceb/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs"
+        }
+      ],
+      "upstream_test_path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "upstream_test_sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e"
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "command": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "cwd": ".",
+      "id": "openra-action-queue-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "OpenRA.Test_repository_test_suite",
+      "source_case": "OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder",
+      "source_url": "https://github.com/OpenRA/OpenRA/blob/7e687f430ee5b194c0ffaa06caaba757dd9155fb/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "8a689f0098e892e824754da2e3ce905d9f71304ab7aadc59487f03e34c015a0f",
+      "upstream_runner_version_argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "82d951c581cf3fc23d9cb0a2ce1a127d107aa4720c1cab9c69a2d10e55fa1ce9",
+      "upstream_test_files": [
+        {
+          "path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+          "sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e",
+          "source_url": "https://github.com/OpenRA/OpenRA/blob/7e687f430ee5b194c0ffaa06caaba757dd9155fb/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs"
+        }
+      ],
+      "upstream_test_path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "upstream_test_sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e"
+    }
+  ],
+  "touched_files": [
+    "OpenRA.Mods.Common/Widgets/Logic/LoadGameBrowserLogic.cs"
+  ],
+  "upstream_commits": [
+    {
+      "author": "xan2622",
+      "authored_at": "2026-05-05T07:56:29Z",
+      "body_normalized": "Fix Load Game faction filter showing internal names instead of display names",
+      "body_raw": "Fix Load Game faction filter showing internal names instead of display names",
+      "body_sha256": "3010bf9b83e3beabe88995a74a4b8fc9779c37a2bd4e2f051957460dced1c70b",
+      "sha": "7dcb92d9b200942b0d3223708a07ea7004216fe2",
+      "url": "https://github.com/OpenRA/OpenRA/commit/7dcb92d9b200942b0d3223708a07ea7004216fe2"
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "benchmark": "luanti",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": true,
+  "evidence": {
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.05943576388888889,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 4.615391107253086
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 0.0
+      },
+      "before_sha256": "091091c5fad2495294619998a90bd47061540a86ff54218eb95298bd47576ceb",
+      "buggy_after_sha256": "8a13754790d18180cac83cd65d424f64a04e2b59bed933b91c99176ac7bdb247",
+      "fixed_after_sha256": "8f7342989d3755e06521a938406302c79a50101f9fe7b88557e5f98c46e2759e",
+      "metadata": "specs/luanti/lazarus/visual_lz-luanti-8704-minimal-craft-result/goldens.meta.json",
+      "metadata_sha256": "07bd85ff979abaf133a6d69f1d26ef11cb45234d26cc619ba94c885a0bda9475"
+    },
+    "probe_verification": null,
+    "provenance_errors": [],
+    "source_artifacts": {
+      "gate10": "admission:gate10_ordered_replay_hidden_oracle=passed",
+      "gate11": "admission:gate11_real_common_before_fixed_after_buggy_after=passed",
+      "gate12": "admission:gate12_before_equivalence_after_2x2=passed",
+      "gate13": "admission:gate13_same_lineage_construction=passed",
+      "gate8": "admission:gate8_real_client_pair=passed",
+      "gate9": "admission:gate9_registered_start=passed",
+      "gate_1_7_source": null,
+      "gate_1_7_truth_table": {},
+      "strict_gate_1_7": true
+    },
+    "upstream": [
+      {
+        "command": [
+          "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/ninja",
+          "-C",
+          "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/8704/gate8-v1/buggy",
+          "-j1",
+          "minetestserver"
+        ],
+        "cwd": ".",
+        "id": "minimal game test_get_craft_result",
+        "kind": "fail_to_pass"
+      },
+      {
+        "command": [
+          "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/ninja",
+          "-C",
+          "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/8704/gate8-v1/buggy",
+          "-j1",
+          "minetestserver"
+        ],
+        "cwd": ".",
+        "id": "minimal control without test mod",
+        "kind": "pass_to_pass"
+      }
+    ],
+    "versions": {
+      "changed_files": [
+        "src/craftdef.cpp",
+        "src/craftdef.h"
+      ],
+      "patch_sha256": "5f89eaa916879cb25fe6f47f75d714b92bec67c298848bc3b6a3d08d355e8901",
+      "patch_source": "materialized_tree_difference",
+      "reverse_apply_reproduces_frozen_buggy_tree": true,
+      "tree_pair": "private/materialized/luanti/8704/application-v1"
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "minimal game test_get_craft_result"
+  ],
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "pass_to_pass": [
+    "minimal control without test mod"
+  ],
+  "passed": true,
+  "projection": {
+    "admission": "candidate_formal_freeze_admission/luanti/8704/real-f12-v4",
+    "closure_size": 54,
+    "fresh_gate_run": false,
+    "generator": "warptest.c1_lazarus_selection.c1_lazarus_formal_catalog",
+    "selection_mode": "c1_freeze_sprint_v2"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-luanti-8704-minimal-craft-result",
+  "upstream_f2p": true
+}

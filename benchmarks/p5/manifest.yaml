@@ -1,0 +1,552 @@
+# P5 full-scale experiment manifest.
+#
+# Single source of truth for the P5 cost-accuracy / transfer / robustness run:
+# models, seeds, task universe, the stratified real-vision GUI subset, the cost
+# ledger, the retry policy, and the statistics config. The orchestrator
+# (`warptest p5-scale`) reads this file and stamps its hash into every produced
+# report (`run_context.task_manifest_hash`), so results are reproducible and
+# auditable. Edit this file, not the code, to change the experiment shape.
+
+name: p5_scale
+description: >-
+  Five-arm C1 performance study (Agent S3 and ScaleCUA, each cold and
+  checkpoint-seeded, plus StatePortal) over 10 games / 61 tasks / 4 Relay
+  decision models. The paper runs seeds 0-2 (`--seeds 3`: 60 invocations /
+  3,660 trials); the default seed count below is the single-seed shakeout.
+  Legacy C2/C3 arms remain selectable but are outside the paper.
+
+c1_reproducibility:
+  harness_revision: c1-harness-2026-07-31-v1
+  os: macOS 26.2 (25C56)
+  architecture: arm64
+  physical_screen: [3024, 1964]
+
+# All independently launched P5 processes use the same per-checkout lease
+# namespace. The orchestrator resolves this path, binds it into run provenance,
+# and rejects an environment override that points anywhere else.
+runtime_lock:
+  scope: machine-shared
+  lock_dir: /tmp/warptest-runtime-locks
+  # Resource-queue time is infrastructure overhead, not model execution time.
+  # With outer=2 and inner=4, at most seven native trials can be ahead of one
+  # waiter; 3 hours bounds that queue independently of the 1200-second task
+  # clock, which starts only after every required backend lease is acquired.
+  wait_timeout_s: 10800.0
+
+api:
+  provider: relay
+  key_env: RELAY_API_KEY
+  base_url_env: RELAY_BASE_URL
+  base_url: https://relay.example/v1
+  credentials_file: test_model_batch.py
+  temperature: 1.0
+  # One patient single-shot transport deadline for every paid C1 route:
+  # synthesis, GUI decisions, visual observer/grounder/judge, Agent-S, and
+  # online preflight. Runtime metadata and both formal gates verify this value.
+  provider_timeout_s: 900.0
+
+# Fallback hard execution budget for one registered C1 task, covering synthesis,
+# runtime bootstrap, actions, and grading. The authoritative per-task value is
+# ``budget_ms`` in the task file, which every formal task sets to the same
+# 2400000; this key only covers a task row that omits the field. Backend resource
+# queueing is governed separately by runtime_lock.wait_timeout_s; the clock starts
+# only after the trial owns every required lease. Blocking provider requests are
+# capped to the remaining task budget; timeout closes task-owned resources and
+# stops the invocation before another task starts.
+#
+# The budget is slack by design: the decision-step budget is the binding
+# constraint, so results do not depend on how fast the host or the provider is.
+c1_task_timeout_s: 2400.0
+
+# Generation / decision models routed through the manifest's Relay provider.
+# Credentials are parsed as allowlisted literals from ``credentials_file`` and
+# exposed only through the temporary RELAY_* environment.
+models:
+  - "gpt-5.6-terra@relay"
+  - "gemini-3.5-flash@relay"
+  - "kimi-k2.6@relay"
+  - "gpt-6-astra@relay"
+
+# Fixed visual bridge and independent visual judge used by every GUI arm.
+visual_bridge:
+  observer_model: "claude-sonnet-5@relay"
+  # Agent-S visual grounding follows the per-trial decision model instead of a
+  # single fixed grounder, so each model grounds through its own policy model.
+  grounder_model: "match_decision_model"
+visual_judge:
+  key_env: RELAY_API_KEY
+  base_url_env: RELAY_BASE_URL
+  base_url: https://relay.example/v1
+  model: "qwen3-vl-flash@relay"
+visual_judge_model: "qwen3-vl-flash@relay"
+
+# Every paid route must pass the auditable 8192 -> 16384 request-profile-aware probe
+# before the formal run. The artifact is bound to this manifest and harness.
+preflight:
+  required: true
+  max_age_hours: 24
+  artifact_env: WARPTEST_C1_PREFLIGHT_ARTIFACT
+  command: >-
+    python -m warptest.c1_experiment --output
+    reports/warptest/c1-preflight.json
+
+# Fixed request behavior is part of the treatment. All four decision models use
+# the provider's explicit no-thinking request so decision, synthesis, Agent-S
+# worker/reflection, and matched-grounding calls all share the same
+# disabled-thinking treatment. The canonical profile resolves to
+# reasoning_effort=none for GPT and thinking.type=disabled for Gemini/Kimi.
+model_request_profiles:
+  gpt-5.6-terra: thinking_disabled
+  gemini-3.5-flash: thinking_disabled
+  kimi-k2.6: thinking_disabled
+  gpt-6-astra: thinking_disabled
+
+# Primary billable usage remains fail-closed. The reasoning-token breakout is a
+# secondary diagnostic already included in completion/total tokens, so a bounded
+# omission never stops dispatch or causes a duplicate paid retry.
+usage_accounting:
+  schema: c1-usage-accounting-v2
+  required_primary_fields: [prompt_tokens, completion_tokens, total_tokens]
+  primary_total_equation: total_tokens=prompt_tokens+completion_tokens
+  reasoning_detail:
+    missing_policy: bounded_completion_token_mass
+    tolerance_fraction: 0.10
+    scope: provider_canonical_model
+    runtime_action: continue
+    imputation: forbidden
+
+# Formal paid C-D runs require a separately produced, passed background-pixel
+# calibration artifact before any synthesis or policy model is called.  The
+# proof is protocol-specific and must show that no target became frontmost and
+# that neither the system pointer nor clipboard changed.
+calibration:
+  required: true
+  schema: c1-calibration-v4
+  max_age_hours: 24
+  artifact_env: WARPTEST_C1_CALIBRATION_ARTIFACT
+  luanti_input_protocol: luanti_chat_command_exact_v1
+  command: >-
+    python -m warptest.c1_calibration --background-pixel --output
+    reports/warptest/c1-calibration.json
+
+# Frozen execution identity for the formal C/D treatment.  Agent-S observes
+# only the listed application/page framebuffer and emits only low-level pixel
+# actions in frame_pixels_top_left_v1.  Any unavailable bridge, frame drift,
+# stale frame, or attempted foreground fallback is a terminal infrastructure
+# failure.  Arm E is semantic state management and intentionally stays outside
+# this execution protocol.
+c1_background_pixel_protocol:
+  schema_version: 1
+  protocol: warptest-agent-s-v2
+  # ScaleCUA arms (F/G) share this execution protocol and frame table; their
+  # policy identity is recorded separately so each baseline's identity stays
+  # attributable. Absent the key, no ScaleCUA arm may run.
+  scalecua_protocol: warptest-scalecua-v1
+  execution_backend: background_pixel_v1
+  foreground_required: false
+  native_window_policy: macos_process_group_hide_v1
+  native_window_creation_policy:
+    luanti: sdl_window_hidden_at_create_v1
+    openra: sdl_window_hidden_at_create_v1
+  native_window_transient_policy:
+    jynew: macos_auto_minimize_after_create_v1
+    pal3: macos_auto_minimize_after_create_v1
+  coordinate_space: frame_pixels_top_left_v1
+  fail_closed: true
+  allow_foreground_fallback: false
+  benchmarks:
+    "2048": {capture_backend: playwright_page_screenshot_v1, input_backend: playwright_page_input_v1, frame: [1280, 800]}
+    datingsim: {capture_backend: playwright_page_screenshot_v1, input_backend: playwright_page_input_v1, frame: [1280, 800]}
+    spacerpg: {capture_backend: playwright_page_screenshot_v1, input_backend: playwright_page_input_v1, frame: [1280, 800]}
+    jupyterlab: {capture_backend: playwright_page_screenshot_v1, input_backend: playwright_page_input_v1, frame: [1280, 800]}
+    luanti: {capture_backend: luanti_irrlicht_create_screenshot_v1, input_backend: luanti_irrlicht_sevent_v1, frame: [1280, 720]}
+    openra: {capture_backend: openra_renderer_save_screenshot_sync_v1, input_backend: openra_default_input_handler_v1, frame: [1280, 720]}
+    libreoffice: {capture_backend: libreoffice_svp_composited_v1, input_backend: libreoffice_vcl_post_event_v1, frame: [1440, 1000]}
+    blender: {capture_backend: blender_bpy_screen_screenshot_v1, input_backend: blender_window_event_simulate_v1, frame: [1280, 800]}
+    jynew: {capture_backend: unity_gameview_capture_v3, input_backend: unity_editor_queue_gameview_input_v1, frame: [1280, 720]}
+    pal3: {capture_backend: unity_gameview_capture_v3, input_backend: unity_editor_queue_gameview_input_v1, frame: [1280, 720]}
+
+seeds: 1
+seed_base: 0
+c1_task_count: 61
+c1_benchmark_task_counts:
+  "2048": 8
+  datingsim: 7
+  spacerpg: 8
+  luanti: 8
+  openra: 5
+  jupyterlab: 5
+  libreoffice: 5
+  blender: 5
+  jynew: 5
+  pal3: 5
+
+# C1 validity and persistence are trial-atomic without changing the normal
+# treatment lifecycle: a healthy arm×model×seed producer still shares one policy
+# worker across its ordered tasks and writes incremental reports. The
+# orchestrator snapshots each completed task as immutable evidence. On unknown
+# primary usage it globally stops; a separately launched clean root may import ALL
+# completed tuples from the source index and run exactly every pre-registered
+# noncompleted tuple. Legacy invocation-level indexes (including v1/v2) cannot
+# be imported.
+c1_trial_persistence:
+  schema_version: 3
+  atomic_unit: trial
+  unknown_usage: quarantine_primary_attempt
+  same_attempt_resume: forbidden
+  source_import: all_completed_tuples
+  replacement_selection: all_noncompleted_tuples
+  legacy_import: forbidden
+  normal_execution: shared_invocation_incremental_snapshot_v1
+  recovery_execution: one_task_fresh_invocation_v1
+  recovery_unknown_resume: fresh_attempt_same_clean_root
+  replaceable_source_errors:
+    - exact_usage_task_timeout
+    - exact_usage_retryable_infrastructure
+  max_recovery_attempts_per_tuple: 3
+  attempt_order: deterministic_registered_tuple_order
+  global_unknown_stop: true
+
+# Outcome-affecting start-gate protocol shared by C-D. The hidden semantic probe
+# is grader-only and runs first. A visual before-grade runs only after semantic
+# success while the game is held fixed; Phase B and every after-grade run only
+# after the full start gate passes.
+c1_start_gate_protocol:
+  # v4 freezes one pair-level semantic/visual Start verdict before either E
+  # transition and makes both arms consume it after local restore attestation.
+  schema_version: 4
+  sequence:
+    - shared_pair_semantic_start_grade
+    - shared_pair_before_visual_grade_under_runtime_hold
+    - arm_local_restore_semantic_and_liveness_attestation
+    - phase_b_only_if_start_passed
+    - after_semantic_and_visual_grade
+  arms_under_runtime_hold:
+    - c1_gui
+    - c1_gui_synth
+    - c1_agent_s
+    - c1_agent_s_synth
+    - c1_agent_scalecua
+    - c1_agent_scalecua_synth
+    - c1_state
+    - c1_state_minimal_agent
+  shared_start_visual_rubric:
+    default: BEFORE_RUBRIC
+    luanti: LUANTI_BEFORE_RUBRIC
+  shared_start_spec:
+    consumer: c1_self_synth
+    arms: [c1_state, c1_state_minimal_agent, c1_gui_synth, c1_agent_s_synth, c1_agent_scalecua_synth]
+    acceptance: c1_spec_acceptance.accept_c1_generated_spec
+  pair_start_gate:
+    protocol: c1-paired-start-gate-v1
+    comparison_validity: c1-minimal-core-outcome-validity-v1
+    accepted_start_identity: run_scoped_plain_id
+    sha_policy: optional_diagnostic_never_comparison_gate
+    cache: run_scoped_immutable_before_transition
+    before_visual_judge_max_calls_per_pair: 1
+    local_attestation:
+      - restore_success
+      - hidden_semantic_matches_pair
+      - registered_capture_source
+      - informative_screenshot
+      - runtime_healthy
+    local_drift_status: retryable_infrastructure
+  goal_evaluation_status:
+    passed: evaluated
+    semantic_failed: not_evaluated_start_failed
+    visual_failed: not_evaluated_start_failed
+    visual_incomplete: not_evaluated_start_failed
+  short_circuit:
+    semantic_failed: do_not_call_before_visual_or_phase_b_or_after
+    before_visual_incorrect: do_not_call_phase_b_or_after
+    before_visual_incomplete: do_not_call_phase_b_or_after
+  runtime_hold_backend:
+    browser: chromium_cdp_script_pause
+    luanti: sigstop
+    native_desktop: sigstop
+    # The state arm's Unity path grades after the adapter is closed, so the start
+    # cannot drift and there is nothing left to suspend.
+    state_unity_terminated: runtime_terminated_before_grading
+  synthesized_prestart_fair_zero:
+    allowed_start_construction_status: [synthesis_failed, restore_failed]
+    requires:
+      - incomplete_false
+      - policy_not_started
+      - start_grading_not_started
+      - visual_grading_not_started
+      - zero_steps
+      - goal_not_evaluated
+    start_gate_status: not_evaluated_start_construction_failed
+    goal_evaluation_status: not_evaluated_start_construction_failed
+    by_status:
+      synthesis_failed:
+        - runtime_not_started
+        - seed_unobserved
+        - prng_absent
+        - checkpoint_restore_zero
+      restore_failed:
+        - runtime_started
+        - seed_observed
+        - prng_observed
+        - restore_time_recorded
+
+# The diagnostic shakeout intentionally exposes the historically fragile native
+# engine first. This ordering applies only when --task-ids selects this exact
+# four-task set; the 61-task formal source order and arm Latin square are unchanged.
+shakeout:
+  task_ids:
+    - 2048-merge-left
+    - love-office-work-coding
+    - spacerpg-station-save
+    - luanti-set-node
+  execution_order:
+    - luanti-set-node
+    - 2048-merge-left
+    - love-office-work-coding
+    - spacerpg-station-save
+
+# Arm E restore-path diagnostics remain a fixed four-task audit over the legacy
+# games. They are intentionally not expanded to the 61-task formal matrix and
+# are reported separately from both the C-D main table and E's formal points.
+c1_restore_diagnostic_sample:
+  task_ids:
+    - 2048-merge-left
+    - love-office-work-coding
+    - spacerpg-station-save
+    - luanti-set-node
+  excluded_from_formal: true
+  reporting: separate_nonpaper
+
+# Optional USD rates. The orchestrator exports these only when verified=true;
+# otherwise the formal C1 main axes remain tokens and time.
+#
+# VERIFY these against the current provider price list before an
+# official run; they are editable defaults (verified: false), not committed truth.
+cost:
+  env: WARPTEST_LLM_USD_PER_MTOK_BY_MODEL
+  verified: false
+  usd_per_mtok_by_model:
+    default: 0.60
+    "gpt-5.6-terra": { prompt: 0.60, completion: 0.60 }
+    "gemini-3.5-flash": { prompt: 0.60, completion: 0.60 }
+    "kimi-k2.6": { prompt: 0.60, completion: 0.60 }
+    "gpt-6-astra": { prompt: 0.60, completion: 0.60 }
+
+# Orchestrator-level retry policy (see warptest/run_context.py).
+#   * infra + rate_limit failures are retried (env must become healthy);
+#   * a model that returns an unusable output is a genuine failure (no retry).
+retry:
+  max_attempts: 6
+  base_sleep_s: 5.0
+  max_sleep_s: 90.0
+
+# Experiment arms. `per_model: true` arms are repeated for every model above.
+arms:
+  c1_state:
+    experiment: state_loop
+    tasks: benchmarks/p5/c1_tasks.yaml
+    per_model: true
+    seeds: 1
+    max_iters: 1
+    explore: true
+    # Must stay equal to c1_agent_s_synth: the budget is quoted verbatim in the
+    # synthesis prompt, so an unequal value makes the two Start numbers
+    # incomparable.
+    max_explore_steps: 16
+    restore_diagnostics: false
+    # Full state-managed side: all profiles the warm/fast restore supports.
+    note: >-
+      Pure semantic state-managed path (arm E). It is evaluated on exactly the
+      same 61 tasks as C-D and appears only in the separate Pareto analysis.
+
+  c1_state_minimal_agent:
+    experiment: state_loop_minimal_action_agent
+    tasks: benchmarks/p5/c1_tasks.yaml
+    per_model: true
+    seeds: 1
+    max_iters: 1
+    explore: true
+    max_explore_steps: 16
+    restore_diagnostics: false
+    transition_action_source: source_agent_v2
+    source_action_max_steps: 16
+    source_action_max_tokens: 8192
+    source_action_format_repairs: 1
+    source_action_prompt_revision: c1-source-transition-v2
+    pair_start_protocol: c1-paired-start-gate-v1
+    formal: false
+    excluded_from_formal: true
+    note: >-
+      Non-formal E-prime v2 diagnostic. It consumes the same paired Start verdict
+      as E, ignores the checkpoint's original actions/assertions, then uses the
+      same read-only repository tools and budget as checkpoint synthesis to emit
+      independent semantic actions plus auxiliary assertions.
+
+  # Temporarily disabled formal arms A/B (GuiAgent). Producer code remains;
+  # uncomment to restore the five-arm design.
+  # c1_gui:
+  #   experiment: gui_agent_baseline
+  #   tasks: benchmarks/p5/c1_tasks.yaml
+  #   per_model: true
+  #   policy_kind: gui_agent
+  #   start_mode: from_start
+  #   step_budgets: { short: 100, mid: 100, long: 100 }
+  #   note: >-
+  #     Arm A: GuiAgentClient plays from the application entry state. Phase A and
+  #     Phase B share one uniform decision budget.
+  #
+  # c1_gui_synth:
+  #   experiment: gui_agent_synth_baseline
+  #   tasks: benchmarks/p5/c1_tasks.yaml
+  #   per_model: true
+  #   policy_kind: gui_agent
+  #   step_budgets: { short: 100, mid: 100, long: 100 }
+  #   start_mode: synthesized
+  #   note: >-
+  #     The fair same-start arm gives the GUI agent the same start-construction burden as
+  #     the method: it must synthesize and inject its OWN deep start before the pixel agent
+  #     completes only the transition. The report separates start_success,
+  #     goal_success_given_start, e2e_success, time, and token breakdowns.
+
+  c1_agent_s:
+    experiment: agent_s_gui_baseline
+    tasks: benchmarks/p5/c1_tasks.yaml
+    per_model: true
+    policy_kind: agent_s
+    execution_backend: background_pixel_v1
+    foreground_required: false
+    coordinate_space: frame_pixels_top_left_v1
+    start_mode: from_start
+    prompt_revision: c1-public-checklist-v4
+    step_budgets: { short: 100, mid: 100, long: 100 }
+    note: >-
+      Arm C: Agent-S S3 uses the fixed Claude observer while pixel grounding
+      follows the per-trial decision model. It plays from the application entry
+      state through the fail-closed background pixel backend; Phase A and Phase B
+      share one decision budget.
+
+  c1_agent_s_synth:
+    experiment: agent_s_gui_synth_baseline
+    tasks: benchmarks/p5/c1_tasks.yaml
+    per_model: true
+    policy_kind: agent_s
+    execution_backend: background_pixel_v1
+    foreground_required: false
+    coordinate_space: frame_pixels_top_left_v1
+    start_mode: synthesized
+    prompt_revision: c1-deep30-v3
+    phase_b_prompt_revision: c1-public-checklist-v4
+    max_explore_steps: 16
+    step_budgets: { short: 100, mid: 100, long: 100 }
+    note: >-
+      Arm D: the arm synthesizes and restores its own checkpoint, then Agent-S
+      S3 completes Phase B using the same uniform total budget as C.
+
+  c1_agent_scalecua:
+    experiment: scalecua_gui_baseline
+    tasks: benchmarks/p5/c1_tasks.yaml
+    per_model: true
+    policy_kind: scalecua
+    execution_backend: background_pixel_v1
+    foreground_required: false
+    coordinate_space: frame_pixels_top_left_v1
+    start_mode: from_start
+    prompt_revision: scalecua-native-ours-ubuntu-v1
+    step_budgets: { short: 100, mid: 100, long: 100 }
+    note: >-
+      Arm F: the pinned ScaleCUA native prompt/parse loop (single model plans
+      and grounds through the per-trial decision model) plays from the
+      application entry state through the fail-closed background pixel
+      backend; Phase A and Phase B share one decision budget.
+
+  c1_agent_scalecua_synth:
+    experiment: scalecua_gui_synth_baseline
+    tasks: benchmarks/p5/c1_tasks.yaml
+    per_model: true
+    policy_kind: scalecua
+    execution_backend: background_pixel_v1
+    foreground_required: false
+    coordinate_space: frame_pixels_top_left_v1
+    start_mode: synthesized
+    prompt_revision: scalecua-native-ours-ubuntu-v1
+    phase_b_prompt_revision: c1-public-checklist-v4
+    max_explore_steps: 16
+    step_budgets: { short: 100, mid: 100, long: 100 }
+    note: >-
+      Arm G: the arm synthesizes and restores its own checkpoint, then the
+      ScaleCUA native loop completes Phase B using the same uniform total
+      budget as F.
+
+  c2_phase3:
+    experiment: evo_phase3_core_suite
+    split: benchmarks/core/splits/evo_phase3.yaml
+    per_model: true
+    iterations: 2
+    population: 2
+    primary_metric: heldout_strict_success
+    baseline_variant: A5            # evolution_no_memory
+    full_variant: A9                # full_evoportal
+
+  c2_memory_baseline:
+    experiment: memory_baseline_transfer_suite
+    split: benchmarks/core/splits/evo_phase3.yaml
+    per_model: true
+    iterations: 2
+    anchor_backend: stateportal-anchor
+    baseline_backends: [amem, mem0]
+    primary_metric: heldout_strict_success
+
+  c3_fuzz:
+    experiment: state_fuzzing
+    # C3 has its own executable task universe.  Keep C1 on tasks.yaml so
+    # OpenRA's native C3 session never leaks into the State Loop arm.
+    tasks: benchmarks/state_loop/tasks_c3.yaml
+    # C3 is not a model-comparison arm, but it still needs one real mutation
+    # engine.  Tag it so FuzzConfig resolves the manifest's GATEWAY_API_KEY.
+    model: "glm-5.2@gateway"
+    per_model: false                # mutators are deterministic; restores vary by seed
+    seeds: 3
+    primary_metric: unique_defects
+    secondary_metrics: [defects, robust, rejected]
+
+# C1 Pareto construction. All three formal arms (C/D/E) use the same committed
+# 61-task source; shakeouts may select a run-local subset with --task-ids.
+pareto:
+  align_on: benchmarks/p5/c1_tasks.yaml
+  x_axis: total_tokens
+  x_axis_secondary: [time_e2e_excluding_synthesis_ms, time_e2e_including_synthesis_ms]
+  y_axis: e2e_success
+
+# Statistics for the figures/summary (see warptest/p5_stats.py).
+stats:
+  bootstrap_iterations: 10000
+  ci: 0.95
+  paired_binary_test: exact_mcnemar
+  bootstrap_cluster: task_id
+  family_correction: holm_across_models
+  rng_seed: 1234
+  sensitivity_analyses:
+    - equal_weight_10_game_macro
+    - capability_multilabel
+  # Administrative restrictions are fixed before observing outcomes and shared
+  # by C-E. They use 1,200,000 ms per registered decision step plus 600,000 ms
+  # fixed non-synthesis overhead and 7,200,000 ms synthesis allowance. They
+  # intentionally truncate slower completions; they are not inferred from
+  # successful-event times or claimed as runtime maxima. The decision-step budget
+  # is uniform at 100, so all three horizons resolve to the same tau; the
+  # per-horizon shape is retained only so horizon-keyed reports still validate.
+  c1_administrative_rmst_tau_ms:
+    short:
+      e2e_excluding_synthesis: 120600000
+      e2e_including_synthesis: 127800000
+      termination: 127800000
+    mid:
+      e2e_excluding_synthesis: 120600000
+      e2e_including_synthesis: 127800000
+      termination: 127800000
+    long:
+      e2e_excluding_synthesis: 120600000
+      e2e_including_synthesis: 127800000
+      termination: 127800000
+
+reports_root: reports/warptest

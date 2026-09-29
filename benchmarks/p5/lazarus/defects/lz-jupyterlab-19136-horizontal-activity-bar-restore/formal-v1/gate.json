@@ -1,0 +1,132 @@
+{
+  "benchmark": "jupyterlab",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": true,
+  "evidence": {
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.0027483333333333335,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.4146433333333333
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.0
+      },
+      "before_sha256": "586833705d89114f85928607d0d07fbaf8bc72ea4d98665165e83a4bf8b76bd5",
+      "buggy_after_sha256": "1a155bf291d3be641338799b5e034e71b8746d515c9bb4937bd5a345bdbfb38c",
+      "fixed_after_sha256": "586833705d89114f85928607d0d07fbaf8bc72ea4d98665165e83a4bf8b76bd5",
+      "metadata": "specs/jupyterlab/lazarus/visual_lz-jupyterlab-19136-horizontal-activity-bar-restore/goldens.meta.json",
+      "metadata_sha256": "6439e1f63aba8a9f75b91ec4472eeb1139941d5d9e115344e0e544cbfb28612a"
+    },
+    "probe_verification": {
+      "artifact": "c1_lazarus_jupyterlab_spec_verification/lazarus/v2-roster/current-v1",
+      "separates_goal_from_defect": true,
+      "versions_replayed": [
+        "fixed",
+        "buggy"
+      ]
+    },
+    "provenance_errors": [],
+    "source_artifacts": {
+      "gate10": "admission:gate10_hidden_oracle=passed",
+      "gate11": "admission:gate11_real_edge_observations=passed",
+      "gate12": "admission:gate12_semantic_pixel_2x2=passed",
+      "gate13": "admission:gate13_same_lineage=passed",
+      "gate8": "admission:gate8_materialization_runtime=passed",
+      "gate9": "admission:gate9_registered_start_replay=passed",
+      "gate_1_7_source": "candidate_gate57_19136_transition/jupyterlab/19136/current-v1",
+      "gate_1_7_truth_table": {
+        "buggy_f2p_3x": "passed_clean_failure",
+        "fixed_buggy_p2p_3x": "passed",
+        "fixed_f2p_3x": "passed",
+        "single_defect_mapping": "passed",
+        "source_authority": "passed",
+        "strict_inverse_patch": "passed",
+        "test_api_compatibility": "passed"
+      },
+      "strict_gate_1_7": true
+    },
+    "upstream": [
+      {
+        "command": [
+          "jlpm",
+          "test",
+          "--runTestsByPath",
+          "test/shell.spec.ts",
+          "-t",
+          "LabShell #activityBarPosition should restore a horizontal right activity bar with no current widget"
+        ],
+        "cwd": "packages/application",
+        "id": "LabShell #activityBarPosition should restore a horizontal right activity bar with no current widget",
+        "kind": "fail_to_pass"
+      },
+      {
+        "command": [
+          "jlpm",
+          "test",
+          "--runTestsByPath",
+          "test/shell.spec.ts",
+          "-t",
+          "LabShell #activityBarPosition should report the collapsed state via rightCollapsed in horizontal mode"
+        ],
+        "cwd": "packages/application",
+        "id": "LabShell #activityBarPosition should report the collapsed state via rightCollapsed in horizontal mode",
+        "kind": "pass_to_pass"
+      }
+    ],
+    "versions": {
+      "changed_files": [
+        "packages/application/src/shell.ts"
+      ],
+      "patch_sha256": "082dcd5f0de9b08849ace4b4c136b2a50e65080cff1ee8bc661b75486a73cf25",
+      "patch_source": "materialized_tree_difference",
+      "reverse_apply_reproduces_frozen_buggy_tree": true,
+      "tree_pair": "private/materialized/jupyterlab/19136/current-v1"
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "LabShell #activityBarPosition should restore a horizontal right activity bar with no current widget"
+  ],
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "pass_to_pass": [
+    "LabShell #activityBarPosition should report the collapsed state via rightCollapsed in horizontal mode"
+  ],
+  "passed": true,
+  "projection": {
+    "admission": "candidate_formal_freeze_admission/jupyterlab/19136/real-shell-v1",
+    "closure_size": 39,
+    "fresh_gate_run": false,
+    "generator": "warptest.c1_lazarus_selection.c1_lazarus_formal_catalog",
+    "selection_mode": "c1_freeze_sprint_v2"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-jupyterlab-19136-horizontal-activity-bar-restore",
+  "upstream_f2p": true
+}

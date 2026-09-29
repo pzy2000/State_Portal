@@ -1,0 +1,154 @@
+{
+  "authority": "github",
+  "benchmark": "openra",
+  "comments": [
+    {
+      "author": "PunkPun",
+      "body_normalized": "[changelog](https://github.com/OpenRA/OpenRA/wiki/Changelog-(bleed)/_compare/f84767bc86c43955e37723d421abaa959e670807...f32c99b431e34a1a703b3daa001a6fcd42b9e5b6)",
+      "body_raw": "[changelog](https://github.com/OpenRA/OpenRA/wiki/Changelog-(bleed)/_compare/f84767bc86c43955e37723d421abaa959e670807...f32c99b431e34a1a703b3daa001a6fcd42b9e5b6)",
+      "body_sha256": "69915a4ad5f8c217f281afec2e601570b4135aed1106b6252d72f0ce95f4a618",
+      "created_at": "2024-06-28T21:04:06Z",
+      "id": 2197658387,
+      "source": "pull_request_comment",
+      "updated_at": "2024-06-28T21:04:06Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/21453#issuecomment-2197658387"
+    }
+  ],
+  "fix_commit": "387e594f4a7ceaaf17f5c00002bfa98829574031",
+  "issue": {
+    "author": "MikillRosen",
+    "body_normalized": "## Issue Summary\n\nIf you have enough structures to make 2 pages in your sidebar and you try to select a ready building from a later page without it on screen, it will not work. It does work if the building is on screen though, although it scrolls up to the first page where you don't see the ready structure. This bug is a little rare as you normally don't have many buildings in your sidebar, but it is possible.\n\n\n## Reproduction\n\nThis is the map I played to reproduce the bug I experienced (https://resource.openra.net/maps/54879/).\n1: Play as the Fremen subfaction\n2: Reach your highest tech level. The silo building should then be in the second page.\n3: Build the silo, and get the silo icon off-screen, by going to a page that doesn't have it or go to another category.\n4: Attempt to select the building with a hotkey once ready. You may also select the building with a hotkey while the building is on-screen to experience the other bug.\n\n## Expected behavior\nThe ready building should be in your cursor no matter what, if you use a hotkey. The hotkey should also scroll to the page that has the ready building.",
+    "body_raw": "## Issue Summary\r\n\r\nIf you have enough structures to make 2 pages in your sidebar and you try to select a ready building from a later page without it on screen, it will not work. It does work if the building is on screen though, although it scrolls up to the first page where you don't see the ready structure. This bug is a little rare as you normally don't have many buildings in your sidebar, but it is possible.\r\n\r\n\r\n## Reproduction\r\n\r\nThis is the map I played to reproduce the bug I experienced (https://resource.openra.net/maps/54879/).\r\n1: Play as the Fremen subfaction\r\n2: Reach your highest tech level. The silo building should then be in the second page.\r\n3: Build the silo, and get the silo icon off-screen, by going to a page that doesn't have it or go to another category.\r\n4: Attempt to select the building with a hotkey once ready. You may also select the building with a hotkey while the building is on-screen to experience the other bug.\r\n\r\n## Expected behavior\r\nThe ready building should be in your cursor no matter what, if you use a hotkey. The hotkey should also scroll to the page that has the ready building.",
+    "body_sha256": "0f0c67ce5ec32c25cb7a000f2b6b3e39adf777e82fa4399ac3ef3cd0d2877e25",
+    "closed_at": "2024-06-28T21:00:51Z",
+    "created_at": "2023-11-09T01:05:32Z",
+    "merged_at": null,
+    "number": 21197,
+    "state": "closed",
+    "title": "Selecting a ready building with a hotkey doesn't work properly with too many buildings in sidebar",
+    "updated_at": "2024-06-28T21:00:51Z",
+    "url": "https://github.com/OpenRA/OpenRA/issues/21197"
+  },
+  "patch_sha256": "492563431bc818e51eba1dfd1bf5164865b14915a20d7faa01b2cffbd0277c1d",
+  "pinned_revision": "7e687f430ee5b194c0ffaa06caaba757dd9155fb",
+  "pull_request": {
+    "author": "tjk-ws",
+    "body_normalized": "Fixes #21197, test with fake missile silos/construction yards in RA under developer mode.",
+    "body_raw": "Fixes #21197, test with fake missile silos/construction yards in RA under developer mode.",
+    "body_sha256": "49afb57a087ac1a0cba8d4b319ab5d3ef1112b734315488b27721c9db275ec19",
+    "closed_at": "2024-06-28T21:00:50Z",
+    "created_at": "2024-06-17T03:00:59Z",
+    "merged_at": "2024-06-28T21:00:50Z",
+    "number": 21453,
+    "state": "closed",
+    "title": "Allow hotkeying ready buildings not visible in production palette",
+    "updated_at": "2024-07-07T01:23:03Z",
+    "url": "https://github.com/OpenRA/OpenRA/pull/21453"
+  },
+  "record_sha256": "e00a8236570e7255faca4da5021a66b2638dea33b0669aca55389e362154a47a",
+  "repository": "OpenRA/OpenRA",
+  "retrieved_at": "2026-08-11T00:19:27Z",
+  "reviews": [
+    {
+      "author": "PunkPun",
+      "body_normalized": "LGTM. Thanks this bug was always a PITA",
+      "body_raw": "LGTM. Thanks this bug was always a PITA",
+      "body_sha256": "72482634ead4895569d8c3b49a77729fd55af41108482487642d1f0f61e84b2b",
+      "created_at": "2024-06-28T21:00:46Z",
+      "id": 2148979204,
+      "source": "pull_request_review",
+      "state": "APPROVED",
+      "url": "https://github.com/OpenRA/OpenRA/pull/21453#pullrequestreview-2148979204"
+    }
+  ],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-openra-21453-hotkey-ready-building",
+  "tests": [
+    {
+      "argv": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "openra",
+        "--case",
+        "hidden-ready-building",
+        "--repo",
+        "."
+      ],
+      "command": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "openra",
+        "--case",
+        "hidden-ready-building",
+        "--repo",
+        "."
+      ],
+      "cwd": ".",
+      "id": "openra-pr21453-hidden-ready-building-f2p",
+      "kind": "fail_to_pass",
+      "origin": "issue_derived_gui_differential",
+      "provenance": "issue_21197_and_pull_request_21453",
+      "source_case": "Use the Buildings production hotkey after a completed building has scrolled out of the visible palette.",
+      "source_url": "https://github.com/OpenRA/OpenRA/pull/21453",
+      "timeout_s": 240
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "command": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "cwd": ".",
+      "id": "openra-action-queue-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "OpenRA.Test_upstream_regression_suite",
+      "source_case": "ActionQueue performs actions ordered by time and insertion order.",
+      "source_url": "https://github.com/OpenRA/OpenRA/tree/bleed/OpenRA.Test",
+      "timeout_s": 120,
+      "upstream_runner_executable_sha256": "8a689f0098e892e824754da2e3ce905d9f71304ab7aadc59487f03e34c015a0f",
+      "upstream_runner_version_argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "82d951c581cf3fc23d9cb0a2ce1a127d107aa4720c1cab9c69a2d10e55fa1ce9",
+      "upstream_test_path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "upstream_test_sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e"
+    }
+  ],
+  "touched_files": [
+    "OpenRA.Mods.Common/Widgets/ProductionPaletteWidget.cs"
+  ],
+  "upstream_commits": [
+    {
+      "author": "tjk-ws",
+      "authored_at": "2024-06-17T02:57:30Z",
+      "body_normalized": "Allow hotkeying completed buildings whose icons are not visible on the production palette",
+      "body_raw": "Allow hotkeying completed buildings whose icons are not visible on the production palette",
+      "body_sha256": "d11337febac976d607e33100b66f051324408e87b175b56d239f61fdb34712a9",
+      "sha": "2d92e454756e05062c94f1e65c13b0ede94e94a3",
+      "url": "https://github.com/OpenRA/OpenRA/commit/2d92e454756e05062c94f1e65c13b0ede94e94a3"
+    }
+  ]
+}

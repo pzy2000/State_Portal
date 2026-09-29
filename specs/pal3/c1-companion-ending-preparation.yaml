@@ -1,0 +1,117 @@
+name: C1 PAL3 companion ending preparation roundtrip
+benchmark: pal3
+timeout_ms: 900000
+tags: [c1, long, pal3, companion, ending, save]
+target:
+  kind: synthesized_state
+  scene_city: q02
+  scene_name: q02
+  money: 1000
+  team_ids: [0]
+  story_vars: [{key: 32768, value: 30000}]
+checkpoint:
+  allowed_strategies: [pal3_console_save_validate]
+  expected_validity: save-restorable
+actions:
+  - {type: pal3_set_story_var, var_id: 32768, value: 40000}
+  - {type: pal3_add_team_member, actor_id: 1}
+  - {type: pal3_set_favor, actor_id: 1, amount: 50}
+  - {type: pal3_add_item, item_id: 6001, item_count: 3}
+  - {type: pal3_add_money, amount: 1000}
+  - {type: pal3_save, save_index: 5}
+  - {type: pal3_load_save, save_index: 5}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: pal3_story_var_equals, var_id: 32768, expected: "40000"}
+      - {type: pal3_team_contains, actor_id: 1}
+      - {type: pal3_favor_gte, actor_id: 1, int_value: 70}
+      - {type: pal3_item_count, item_id: 6001, expected: "3"}
+      - {type: pal3_money_gte, int_value: 2000}
+      - {type: pal3_scene_is, city: q02, scene: q02}
+      - {type: no_pal3_utility_errors}
+    surfaces:
+      gui:
+        adapter: pal3_unity_live_v1
+        start:
+          validate_target: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - c1.transition.armed
+          - any_of:
+            - c1.target.scene
+          - any_of:
+            - c1.target.money
+          - any_of:
+            - c1.target.team.actor_0
+          - any_of:
+            - c1.target.story_var_32768
+        goal:
+          use_assertions: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - assertion[pal3_story_var_equals].var_32768
+          - any_of:
+            - assertion[pal3_team_contains].actor_1
+            - assertion[pal3_team_contains]
+          - any_of:
+            - assertion[pal3_favor_gte].actor_1
+          - any_of:
+            - assertion[pal3_item_count].item_6001
+          - any_of:
+            - assertion[pal3_money_gte]
+          - any_of:
+            - assertion[pal3_scene_is]
+          - any_of:
+            - assertion[no_pal3_utility_errors]
+          - any_of:
+            - c1.transition.expectation
+          - any_of:
+            - c1.transition.save
+          - any_of:
+            - c1.transition.load
+          requirements:
+          - name: c1.public_save_load_witness
+            kind: save_then_load
+            slot: 5
+            ordered_events:
+            - save
+            - reset
+            - scene_load
+            - load
+      state:
+        adapter: pal3_unity_live_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/c1-companion-ending-preparation.after.golden.png
+    golden_before: visual/c1-companion-ending-preparation.before.golden.png
+    golden_after: visual/c1-companion-ending-preparation.after.golden.png
+    expected_label: correct
+    scene_key: pal3_q02_q02
+    description: The late-game checkpoint is inside the unlit q02 interior, with the on-screen
+      movement control and copyright overlay drawn over the dark room.
+    after_description: After the commitment steps, save, and reload the session is still inside
+      the same unlit q02 interior. The golden was captured with the party formation displayed,
+      so the recruited companion Xue Jian stands beside the player where the before frame shows
+      the player alone; money and items have no HUD and stay provable only by the semantic probes.
+    rubric:
+      must: [A live PAL3 camera view with the on-screen movement control is visible]
+      must_not: [A splash screen, main menu, or error overlay is shown]
+      ignore: [How much of the dark q02 interior geometry is discernible]
+    after_rubric:
+      must:
+        - "The same unlit q02 interior is still rendered with its on-screen overlays"
+        - "At least one playable character stands in the room"
+      must_not: [A load screen, crash, or unrelated lit scene is shown]
+      ignore:
+        - "How many party members stand beside the player; the golden displays the formation to make the recruited companion visible, which a live run need not do"
+        - "Money and item totals, which PAL3 never draws on screen"
+    capture: {stage: post_smoke, wait_ms: 1000, full_page: false}

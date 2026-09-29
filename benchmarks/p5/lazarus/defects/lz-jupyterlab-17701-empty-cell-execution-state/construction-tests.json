@@ -1,0 +1,259 @@
+{
+  "buggy_tests": {
+    "jupyterlab-17701-execution-counter-f2p": false,
+    "jupyterlab-control-enter-construction-p2p": false
+  },
+  "complete": true,
+  "executions": [
+    {
+      "complete": false,
+      "duration_ms": 51867.35408401,
+      "failures": [
+        "upstream test jupyterlab-17701-execution-counter-f2p exited 1",
+        "upstream test jupyterlab-control-enter-construction-p2p exited 1"
+      ],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "galata/test/jupyterlab/cells.test.ts",
+          "sha256": "15d9a40097aa0953030a19a7e68e88512c7fa00443c05c3c0b9f7425f75fe2c7",
+          "source_path": "upstream-tests/galata/test/jupyterlab/cells.test.ts"
+        }
+      ],
+      "passed": false,
+      "prepare_results": [
+        {
+          "duration_ms": 3406.8918750272132,
+          "exit_code": 0,
+          "id": "jupyterlab-scoped-build-cells",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "lerna notice cli v7.1.4\nlerna info versioning independent\nlerna notice filter including \"@jupyterlab/cells\"\nlerna info filter [ '@jupyterlab/cells' ]\n(node:93313) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.\n(Use `node --trace-deprecation ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/cells:build\n\n\n \n\n >  Lerna (powered by Nx)   Successfully ran target build for project @jupyterlab/cells\n\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "fb195dd4a56767f4eaa0420fe77634f5b63220bbed5e837148b8c4123d6d53db",
+          "stdout_sha256": "03c8350219eab847a24e1e9fe8f04db4ca42242bcbcb2a32a658b659cd85284e",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 3949.8672910267487,
+          "exit_code": 0,
+          "id": "jupyterlab-dev-mode-bundle",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/application-top@4.7.0-alpha.0 clean\n> rimraf build\n\nWARNING in ⚠ color\n  │   Multiple versions of color found:\n  │     3.2.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/react-base16-styling/~/color\n  │     5.0.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/color\n  │\n\nWARNING in ⚠ color-convert\n  │   Multiple versions of color-convert found:\n  │     1.9.3 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/color-convert\n  │     3.1.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/color/~/color-convert\n  │\n\nWARNING in ⚠ color-name\n  │   Multiple versions of color-name found:\n  │     1.1.3 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/color-convert/~/color-name\n  │     1.1.4 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/color-name\n  │     2.0.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/color/~/color-name\n  │\n\nWARNING in ⚠ color-string\n  │   Multiple versions of color-string found:\n  │     1.9.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/color-string\n  │     2.0.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/color/~/color-string\n  │\n\nWARNING in ⚠ cose-base\n  │   Multiple versions of cose-base found:\n  │     1.0.3 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/cose-base\n  │     2.2.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/cytoscape-fcose/~/cose-base\n  │\n\nWARNING in ⚠ d3-array\n  │   Multiple versions of d3-array found:\n  │     2.12.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/d3-sankey/~/d3-array\n  │     3.2.4 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/d3-array\n  │\n\nWARNING in ⚠ d3-path\n  │   Multiple versions of d3-path found:\n  │     1.0.9 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/d3-sankey/~/d3-path\n  │     3.1.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/d3-path\n  │\n\nWARNING in ⚠ d3-shape\n  │   Multiple versions of d3-shape found:\n  │     1.3.7 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/d3-sankey/~/d3-shape\n  │     3.2.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/d3-shape\n  │\n\nWARNING in ⚠ layout-base\n  │   Multiple versions of layout-base found:\n  │     1.0.2 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/layout-base\n  │     2.0.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/cytoscape-fcose/~/layout-base\n  │\n\nWARNING in ⚠ tslib\n  │   Multiple versions of tslib found:\n  │     1.14.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/@microsoft/fast-foundation/~/tslib\n  │     2.5.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/tslib\n  │\n\nWARNING in ⚠ vega-expression\n  │   Multiple versions of vega-expression found:\n  │     5.0.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/vega-lite/~/vega-expression\n  │     5.2.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/~/vega-expression\n  │ \n  │ Check how you can resolve duplicate packages:\n  │ https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin#resolving-duplicate-packages-in-your-bundle\n  │\n\nWARNING in ../node_modules/mathjax-full/js/components/loader.js\n  ⚠ Module parse warning:\n  ╰─▶   ⚠ \"__dirname\" is used and has been mocked. Remove it from your code, or set `node.__dirname` to disable this warning.\n\nRspack compiled with 12 warnings in 839 ms\n\nRspack compiled successfully in 356 ms\n\nRspack compiled successfully in 356 ms\n\nRspack compiled successfully in 355 ms\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "79586627862e1a91be95900968749a7c530999bdb6d73565483f829112396b51",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 2344.879249983933,
+          "exit_code": 0,
+          "id": "jupyterlab-test-build-galata",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "\nCompilation starting…\n\n\nCompilation finished\n\n",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/galata@5.7.0-alpha.0 build:extension\n> cd extension && npm run build && cd ..\n\n\n> @jupyterlab/galata-extension@5.7.0-alpha.0 build\n> npm run build:lib && npm run build:labextension\n\n\n> @jupyterlab/galata-extension@5.7.0-alpha.0 build:lib\n> tsc\n\n\n> @jupyterlab/galata-extension@5.7.0-alpha.0 build:labextension\n> node ../../node_modules/@jupyter/builder/lib/build-labextension.js --development --core-package-file ../../dev_mode/package.json .\n\nWARNING in ../lib/extension/fonts.js\n  ⚠ No required version specified and unable to automatically determine one. Unable to find required version for \"@fontsource/dejavu-sans\" in description file/s\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/galata/package.json\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/package.json\n  │ It need to be in dependencies, devDependencies or peerDependencies. file: shared module @fontsource/dejavu-sans\n @ ../lib/extension/index.js\n @ container entry\n\nWARNING in ../lib/extension/fonts.js\n  ⚠ No required version specified and unable to automatically determine one. Unable to find required version for \"@fontsource/dejavu-mono\" in description file/s\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/galata/package.json\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/package.json\n  │ It need to be in dependencies, devDependencies or peerDependencies. file: shared module @fontsource/dejavu-mono\n @ ../lib/extension/index.js\n @ container entry\n\nWARNING in ../lib/extension/fonts.js\n  ⚠ No required version specified and unable to automatically determine one. Unable to find required version for \"@fontsource-variable/noto-sans-sc\" in description file/s\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/galata/package.json\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/prepared/package.json\n  │ It need to be in dependencies, devDependencies or peerDependencies. file: shared module @fontsource-variable/noto-sans-sc\n @ ../lib/extension/index.js\n @ container entry\n\nRspack 2.0.2 compiled with 3 warnings in 119 ms\n\n> @jupyterlab/galata@5.7.0-alpha.0 build:galata\n> tsc -b\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "5dd3605b3acd3ecf12efe7b08b728cc053887bc7b4745c25d7c8323eddab04e6",
+          "stdout_sha256": "7d66768cd64c4d0712222f90a70baa1e19f774ddabcdb878ba1a48db5465bc87",
+          "timed_out": false
+        }
+      ],
+      "results": [
+        {
+          "duration_ms": 12332.133541000076,
+          "exit_code": 1,
+          "id": "jupyterlab-17701-execution-counter-f2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "(node:93990) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:93990) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\nRunning 1 test using 1 worker\n\n  ✘  1 [jupyterlab] › test/jupyterlab/cells.test.ts:57:7 › Run Cells › Should update the cell execution counter (8.6s)\n\n\n  1) [jupyterlab] › test/jupyterlab/cells.test.ts:57:7 › Run Cells › Should update the cell execution counter \n\n    Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\n    Locator:  getByRole('main').locator('[role=\"tabpanel\"][id=\"id-fd9a944c-2061-454c-9211-5fc3968b9acc\"]').locator('.jp-NotebookPanel-notebook').first().locator('.jp-Cell[data-windowed-list-index=\"0\"]').locator('.jp-InputPrompt')\n    Expected: \u001b[32m\"[\u001b[7m \u001b[27m]:\"\u001b[39m\n    Received: \u001b[31m\"[\u001b[7m3\u001b[27m]:\"\u001b[39m\n    Timeout:  5000ms\n\n    Call log:\n    \u001b[2m  - Expect \"toHaveText\" with timeout 5000ms\u001b[22m\n    \u001b[2m  - waiting for getByRole('main').locator('[role=\"tabpanel\"][id=\"id-fd9a944c-2061-454c-9211-5fc3968b9acc\"]').locator('.jp-NotebookPanel-notebook').first().locator('.jp-Cell[data-windowed-list-index=\"0\"]').locator('.jp-InputPrompt')\u001b[22m\n    \u001b[2m    14 × locator resolved to <div class=\"lm-Widget jp-InputPrompt jp-InputArea-prompt\">[3]:</div>\u001b[22m\n    \u001b[2m       - unexpected value \"[3]:\"\u001b[22m\n\n\n      73 |\n      74 |     await page.notebook.runCell(0);\n    > 75 |     await expect(inputPrompt).toHaveText('[ ]:');\n         |                               ^\n      76 |   });\n      77 | });\n      78 |\n        at $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/lazarus-p2p-g7z7nme2/repo/galata/test/jupyterlab/cells.test.ts:75:31\n\n    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────\n    test-results/test-jupyterlab-cells-Run--60353--the-cell-execution-counter-jupyterlab/video.webm\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n\n    Error Context: test-results/test-jupyterlab-cells-Run--60353--the-cell-execution-counter-jupyterlab/error-context.md\n\n  1 failed\n    [jupyterlab] › test/jupyterlab/cells.test.ts:57:7 › Run Cells › Should update the cell execution counter \n",
+            "stdout_truncated": false
+          },
+          "passed": false,
+          "stderr_sha256": "7f50f65113ff55e09f11f2b1f1cd798b066642e64e6997260c0ad6fba191d785",
+          "stdout_sha256": "ad682499d93c5be84e27dc706b797d61333cc737482cb5d5db5fd094add866c1",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 4996.762416994898,
+          "exit_code": 1,
+          "id": "jupyterlab-control-enter-construction-p2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "(node:94350) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:94350) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\nRunning 1 test using 1 worker\n\n  ✘  1 [jupyterlab] › test/jupyterlab/cells.test.ts:41:7 › Run Cells › Run code cell with Ctrl + Enter (2.9s)\n\n\n  1) [jupyterlab] › test/jupyterlab/cells.test.ts:41:7 › Run Cells › Run code cell with Ctrl + Enter \n\n    Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n    Expected: \u001b[32m[\"4294967296\"]\u001b[39m\n    Received: \u001b[31mnull\u001b[39m\n\n      48 |     // Confirm that the cell has be executed by checking output\n      49 |     const output = await page.notebook.getCellTextOutput(0);\n    > 50 |     expect(output).toEqual(['4294967296']);\n         |                    ^\n      51 |\n      52 |     // Expect the input to NOT include an extra line;\n      53 |     const text = await page.notebook.getCellTextInput(0);\n        at $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-vnok3wvp/lazarus-p2p-g7z7nme2/repo/galata/test/jupyterlab/cells.test.ts:50:20\n\n    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────\n    test-results/test-jupyterlab-cells-Run--65a9e-n-code-cell-with-Ctrl-Enter-jupyterlab/video.webm\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n\n    Error Context: test-results/test-jupyterlab-cells-Run--65a9e-n-code-cell-with-Ctrl-Enter-jupyterlab/error-context.md\n\n  1 failed\n    [jupyterlab] › test/jupyterlab/cells.test.ts:41:7 › Run Cells › Run code cell with Ctrl + Enter \n",
+            "stdout_truncated": false
+          },
+          "passed": false,
+          "stderr_sha256": "8ee42f87bcff1419e7d83f847f533649509684bb279ac273c3dadf79780cd55e",
+          "stdout_sha256": "b0ac23fe1faabb9baf9c6c87951eb9ba6c3e5de45e880bf7ad9de2c58210f310",
+          "timed_out": false
+        }
+      ],
+      "terminal_failure_class": null,
+      "test_ids": [
+        "jupyterlab-17701-execution-counter-f2p",
+        "jupyterlab-control-enter-construction-p2p"
+      ],
+      "version": "fixed"
+    },
+    {
+      "complete": false,
+      "duration_ms": 50948.58845800627,
+      "failures": [
+        "upstream test jupyterlab-17701-execution-counter-f2p exited 1",
+        "upstream test jupyterlab-control-enter-construction-p2p exited 1"
+      ],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "galata/test/jupyterlab/cells.test.ts",
+          "sha256": "15d9a40097aa0953030a19a7e68e88512c7fa00443c05c3c0b9f7425f75fe2c7",
+          "source_path": "upstream-tests/galata/test/jupyterlab/cells.test.ts"
+        }
+      ],
+      "passed": false,
+      "prepare_results": [
+        {
+          "duration_ms": 3281.712249998236,
+          "exit_code": 0,
+          "id": "jupyterlab-scoped-build-cells",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "lerna notice cli v7.1.4\nlerna info versioning independent\nlerna notice filter including \"@jupyterlab/cells\"\nlerna info filter [ '@jupyterlab/cells' ]\n(node:95124) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.\n(Use `node --trace-deprecation ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/cells:build\n\n\n \n\n >  Lerna (powered by Nx)   Successfully ran target build for project @jupyterlab/cells\n\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "0b345480932b81609b828c8784d6746be259778d35ba82acfa812d2527dc07b9",
+          "stdout_sha256": "03c8350219eab847a24e1e9fe8f04db4ca42242bcbcb2a32a658b659cd85284e",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 4084.589625010267,
+          "exit_code": 0,
+          "id": "jupyterlab-dev-mode-bundle",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/application-top@4.7.0-alpha.0 clean\n> rimraf build\n\nWARNING in ⚠ color\n  │   Multiple versions of color found:\n  │     3.2.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/react-base16-styling/~/color\n  │     5.0.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/color\n  │\n\nWARNING in ⚠ color-convert\n  │   Multiple versions of color-convert found:\n  │     1.9.3 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/color-convert\n  │     3.1.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/color/~/color-convert\n  │\n\nWARNING in ⚠ color-name\n  │   Multiple versions of color-name found:\n  │     1.1.3 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/color-convert/~/color-name\n  │     1.1.4 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/color-name\n  │     2.0.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/color/~/color-name\n  │\n\nWARNING in ⚠ color-string\n  │   Multiple versions of color-string found:\n  │     1.9.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/color-string\n  │     2.0.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/color/~/color-string\n  │\n\nWARNING in ⚠ cose-base\n  │   Multiple versions of cose-base found:\n  │     1.0.3 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/cose-base\n  │     2.2.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/cytoscape-fcose/~/cose-base\n  │\n\nWARNING in ⚠ d3-array\n  │   Multiple versions of d3-array found:\n  │     2.12.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/d3-sankey/~/d3-array\n  │     3.2.4 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/d3-array\n  │\n\nWARNING in ⚠ d3-path\n  │   Multiple versions of d3-path found:\n  │     1.0.9 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/d3-sankey/~/d3-path\n  │     3.1.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/d3-path\n  │\n\nWARNING in ⚠ d3-shape\n  │   Multiple versions of d3-shape found:\n  │     1.3.7 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/d3-sankey/~/d3-shape\n  │     3.2.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/d3-shape\n  │\n\nWARNING in ⚠ layout-base\n  │   Multiple versions of layout-base found:\n  │     1.0.2 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/layout-base\n  │     2.0.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/cytoscape-fcose/~/layout-base\n  │\n\nWARNING in ⚠ tslib\n  │   Multiple versions of tslib found:\n  │     1.14.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/@microsoft/fast-foundation/~/tslib\n  │     2.5.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/tslib\n  │\n\nWARNING in ⚠ vega-expression\n  │   Multiple versions of vega-expression found:\n  │     5.0.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/vega-lite/~/vega-expression\n  │     5.2.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/~/vega-expression\n  │ \n  │ Check how you can resolve duplicate packages:\n  │ https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin#resolving-duplicate-packages-in-your-bundle\n  │\n\nWARNING in ../node_modules/mathjax-full/js/components/loader.js\n  ⚠ Module parse warning:\n  ╰─▶   ⚠ \"__dirname\" is used and has been mocked. Remove it from your code, or set `node.__dirname` to disable this warning.\n\nRspack compiled with 12 warnings in 806 ms\n\nRspack compiled successfully in 344 ms\n\nRspack compiled successfully in 343 ms\n\nRspack compiled successfully in 346 ms\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "54ab19626634e991fdf29d1204a6aabd4933bac257b35b3f8ca5e6b443823b2c",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 2362.4570420070086,
+          "exit_code": 0,
+          "id": "jupyterlab-test-build-galata",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "\nCompilation starting…\n\n\nCompilation finished\n\n",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/galata@5.7.0-alpha.0 build:extension\n> cd extension && npm run build && cd ..\n\n\n> @jupyterlab/galata-extension@5.7.0-alpha.0 build\n> npm run build:lib && npm run build:labextension\n\n\n> @jupyterlab/galata-extension@5.7.0-alpha.0 build:lib\n> tsc\n\n\n> @jupyterlab/galata-extension@5.7.0-alpha.0 build:labextension\n> node ../../node_modules/@jupyter/builder/lib/build-labextension.js --development --core-package-file ../../dev_mode/package.json .\n\nWARNING in ../lib/extension/fonts.js\n  ⚠ No required version specified and unable to automatically determine one. Unable to find required version for \"@fontsource-variable/noto-sans-sc\" in description file/s\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/galata/package.json\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/package.json\n  │ It need to be in dependencies, devDependencies or peerDependencies. file: shared module @fontsource-variable/noto-sans-sc\n @ ../lib/extension/index.js\n @ container entry\n\nWARNING in ../lib/extension/fonts.js\n  ⚠ No required version specified and unable to automatically determine one. Unable to find required version for \"@fontsource/dejavu-mono\" in description file/s\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/galata/package.json\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/package.json\n  │ It need to be in dependencies, devDependencies or peerDependencies. file: shared module @fontsource/dejavu-mono\n @ ../lib/extension/index.js\n @ container entry\n\nWARNING in ../lib/extension/fonts.js\n  ⚠ No required version specified and unable to automatically determine one. Unable to find required version for \"@fontsource/dejavu-sans\" in description file/s\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/galata/package.json\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/prepared/package.json\n  │ It need to be in dependencies, devDependencies or peerDependencies. file: shared module @fontsource/dejavu-sans\n @ ../lib/extension/index.js\n @ container entry\n\nRspack 2.0.2 compiled with 3 warnings in 121 ms\n\n> @jupyterlab/galata@5.7.0-alpha.0 build:galata\n> tsc -b\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "5dd3605b3acd3ecf12efe7b08b728cc053887bc7b4745c25d7c8323eddab04e6",
+          "stdout_sha256": "47a1c02fb6bb347e21c099539c0d2443a001c66ffa18971908a19aa1ca3bff7a",
+          "timed_out": false
+        }
+      ],
+      "results": [
+        {
+          "duration_ms": 12908.761667000363,
+          "exit_code": 1,
+          "id": "jupyterlab-17701-execution-counter-f2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "(node:95757) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:95757) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\nRunning 1 test using 1 worker\n\n  ✘  1 [jupyterlab] › test/jupyterlab/cells.test.ts:57:7 › Run Cells › Should update the cell execution counter (8.8s)\n\n\n  1) [jupyterlab] › test/jupyterlab/cells.test.ts:57:7 › Run Cells › Should update the cell execution counter \n\n    Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\n    Locator:  getByRole('main').locator('[role=\"tabpanel\"][id=\"id-73922829-0659-4db6-bbdd-4094223a16ca\"]').locator('.jp-NotebookPanel-notebook').first().locator('.jp-Cell[data-windowed-list-index=\"0\"]').locator('.jp-InputPrompt')\n    Expected: \u001b[32m\"[\u001b[7m \u001b[27m]:\"\u001b[39m\n    Received: \u001b[31m\"[\u001b[7m3\u001b[27m]:\"\u001b[39m\n    Timeout:  5000ms\n\n    Call log:\n    \u001b[2m  - Expect \"toHaveText\" with timeout 5000ms\u001b[22m\n    \u001b[2m  - waiting for getByRole('main').locator('[role=\"tabpanel\"][id=\"id-73922829-0659-4db6-bbdd-4094223a16ca\"]').locator('.jp-NotebookPanel-notebook').first().locator('.jp-Cell[data-windowed-list-index=\"0\"]').locator('.jp-InputPrompt')\u001b[22m\n    \u001b[2m    14 × locator resolved to <div class=\"lm-Widget jp-InputPrompt jp-InputArea-prompt\">[3]:</div>\u001b[22m\n    \u001b[2m       - unexpected value \"[3]:\"\u001b[22m\n\n\n      73 |\n      74 |     await page.notebook.runCell(0);\n    > 75 |     await expect(inputPrompt).toHaveText('[ ]:');\n         |                               ^\n      76 |   });\n      77 | });\n      78 |\n        at $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/lazarus-p2p-v29xus0i/repo/galata/test/jupyterlab/cells.test.ts:75:31\n\n    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────\n    test-results/test-jupyterlab-cells-Run--60353--the-cell-execution-counter-jupyterlab/video.webm\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n\n    Error Context: test-results/test-jupyterlab-cells-Run--60353--the-cell-execution-counter-jupyterlab/error-context.md\n\n  1 failed\n    [jupyterlab] › test/jupyterlab/cells.test.ts:57:7 › Run Cells › Should update the cell execution counter \n",
+            "stdout_truncated": false
+          },
+          "passed": false,
+          "stderr_sha256": "a83a152c605f77b42e864c061a271df315b8bd7fa59542468c6bf55d9d073f52",
+          "stdout_sha256": "c9a688a7e38bbeb1f36ae7f06966dba63d26edb27be9b42da83e66905ed121dc",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 5151.066874997923,
+          "exit_code": 1,
+          "id": "jupyterlab-control-enter-construction-p2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "(node:96273) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:96273) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\nRunning 1 test using 1 worker\n\n  ✘  1 [jupyterlab] › test/jupyterlab/cells.test.ts:41:7 › Run Cells › Run code cell with Ctrl + Enter (3.1s)\n\n\n  1) [jupyterlab] › test/jupyterlab/cells.test.ts:41:7 › Run Cells › Run code cell with Ctrl + Enter \n\n    Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n    Expected: \u001b[32m[\"4294967296\"]\u001b[39m\n    Received: \u001b[31mnull\u001b[39m\n\n      48 |     // Confirm that the cell has be executed by checking output\n      49 |     const output = await page.notebook.getCellTextOutput(0);\n    > 50 |     expect(output).toEqual(['4294967296']);\n         |                    ^\n      51 |\n      52 |     // Expect the input to NOT include an extra line;\n      53 |     const text = await page.notebook.getCellTextInput(0);\n        at $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-n86clbxr/lazarus-p2p-v29xus0i/repo/galata/test/jupyterlab/cells.test.ts:50:20\n\n    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────\n    test-results/test-jupyterlab-cells-Run--65a9e-n-code-cell-with-Ctrl-Enter-jupyterlab/video.webm\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n\n    Error Context: test-results/test-jupyterlab-cells-Run--65a9e-n-code-cell-with-Ctrl-Enter-jupyterlab/error-context.md\n\n  1 failed\n    [jupyterlab] › test/jupyterlab/cells.test.ts:41:7 › Run Cells › Run code cell with Ctrl + Enter \n",
+            "stdout_truncated": false
+          },
+          "passed": false,
+          "stderr_sha256": "0cf410b38fba2bb520e3363ee0efdefa526902e23b3e5f5c9cb3884523ec9c05",
+          "stdout_sha256": "59d8ef5fe69202ef76692c599a476798868af55c8c0732fb775e038097e58a8e",
+          "timed_out": false
+        }
+      ],
+      "terminal_failure_class": null,
+      "test_ids": [
+        "jupyterlab-17701-execution-counter-f2p",
+        "jupyterlab-control-enter-construction-p2p"
+      ],
+      "version": "buggy"
+    }
+  ],
+  "failures": [
+    "fixed fail_to_pass did not pass",
+    "fixed pass_to_pass did not pass",
+    "buggy pass_to_pass did not pass"
+  ],
+  "fixed_tests": {
+    "jupyterlab-17701-execution-counter-f2p": false,
+    "jupyterlab-control-enter-construction-p2p": false
+  },
+  "patch_sha256": "52725793ff89f974d6530516b297ad32a04a26bd8167f3d9c0ce45d5d68cec23",
+  "qualified": false,
+  "record_sha256": "5a565ca267d13fe26ba42665cf47e843c1c013c6ae6d9ac748d87bad4bc4f134",
+  "schema": "c1-lazarus-formal-construction-tests-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-17701-empty-cell-execution-state",
+  "terminal_failure_class": null
+}

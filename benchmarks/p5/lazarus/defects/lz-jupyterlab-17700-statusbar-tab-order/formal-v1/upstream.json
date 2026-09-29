@@ -1,0 +1,106 @@
+{
+  "authority": "github",
+  "benchmark": "jupyterlab",
+  "comments": [],
+  "fix_commit": "31d45658d408fc4170ef91cce67c9c89645b1038",
+  "issue": {
+    "body_normalized": "## Description\n\nThe tab order is wrong in staatusbar for some items\n\n## Reproduce\n\n1. Pull https://github.com/jupyterlab/jupyterlab/pull/17591\n2. Tab to kernel item in status bar\n![Image](https://github.com/user-attachments/assets/e72830d6-3ea7-40b8-b994-fb3845da3921)\n3. Press Tab, see focus goes to bell icon\n![Image](https://github.com/user-attachments/assets/a51a1dcf-8f30-4677-8025-a6aafc9c2f17)\n4. Press Tab, see focus goes to lines and columns item\n![Image](https://github.com/user-attachments/assets/d2f446af-86b7-45e9-bccc-e01cf3739ad1)\n\n\n## Expected behavior\n\nIt goes to lines & columns first then to the bell icon\n\n## Context\n\n- JupyterLab version: 4.4.x",
+    "body_raw": "## Description\n\nThe tab order is wrong in staatusbar for some items\n\n## Reproduce\n\n1. Pull https://github.com/jupyterlab/jupyterlab/pull/17591\n2. Tab to kernel item in status bar \n![Image](https://github.com/user-attachments/assets/e72830d6-3ea7-40b8-b994-fb3845da3921)\n3. Press Tab, see focus goes to bell icon\n![Image](https://github.com/user-attachments/assets/a51a1dcf-8f30-4677-8025-a6aafc9c2f17)\n4. Press Tab, see focus goes to lines and columns item\n![Image](https://github.com/user-attachments/assets/d2f446af-86b7-45e9-bccc-e01cf3739ad1)\n\n\n## Expected behavior\n\nIt goes to lines & columns first then to the bell icon\n\n## Context\n\n- JupyterLab version: 4.4.x",
+    "body_sha256": "50864fdde6cb265eff5f6b1473ea49e9630fa889956c46bcaf4448ac49954e56",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 17680,
+    "state": "closed",
+    "title": "Tab order for status bar items in the right group is swapped",
+    "url": "https://github.com/jupyterlab/jupyterlab/issues/17680"
+  },
+  "patch_sha256": "0270db16a23a9f6b117204af4b2c2e9567e17840c24dec6ae3750ea87aae646e",
+  "pinned_revision": "80fda5f0004b7ac79141619fb566f6d93c54d85e",
+  "pull_request": {
+    "body_normalized": "<!--\nThanks for contributing to JupyterLab!\nPlease fill out the following items to submit a pull request.\nSee the contributing guidelines for more information:\nhttps://github.com/jupyterlab/jupyterlab/blob/main/CONTRIBUTING.md\n-->\n\n## References\nFixes #17680\n<!-- Note issue numbers this pull request addresses (should be at least one, see contributing guidelines above). -->\n\n<!-- Note any other pull requests that address this issue and how this pull request is different. -->\n\nhttps://github.com/user-attachments/assets/326fe675-b83b-441c-9fa5-9064bafa24c1\n\n\n\n## Backwards-incompatible changes\nNone\n<!-- Describe any backwards-incompatible changes to JupyterLab public APIs. -->",
+    "body_raw": "<!--\r\nThanks for contributing to JupyterLab!\r\nPlease fill out the following items to submit a pull request.\r\nSee the contributing guidelines for more information:\r\nhttps://github.com/jupyterlab/jupyterlab/blob/main/CONTRIBUTING.md\r\n-->\r\n\r\n## References\r\nFixes #17680 \r\n<!-- Note issue numbers this pull request addresses (should be at least one, see contributing guidelines above). -->\r\n\r\n<!-- Note any other pull requests that address this issue and how this pull request is different. -->\r\n\r\nhttps://github.com/user-attachments/assets/326fe675-b83b-441c-9fa5-9064bafa24c1\r\n\r\n\r\n\r\n## Backwards-incompatible changes\r\nNone\r\n<!-- Describe any backwards-incompatible changes to JupyterLab public APIs. -->\r\n",
+    "body_sha256": "3b10d98110d0ad808b1e11eca7f57e77683328938969116cd6cfdf313723ab09",
+    "kind": "pull",
+    "merged_at": "2025-08-06T18:21:31Z",
+    "number": 17700,
+    "state": "closed",
+    "title": "Fix tab order for status bar items",
+    "url": "https://github.com/jupyterlab/jupyterlab/pull/17700"
+  },
+  "record_sha256": "d2f6ce79bcff87753d110955383580bb54c1a5581ac0500611e9aa2ddaa88556",
+  "repository": "jupyterlab/jupyterlab",
+  "retrieved_at": "2026-08-15T00:36:54.166261Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-17700-statusbar-tab-order",
+  "tests": [
+    {
+      "command": [
+        "jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/statusbar.spec.ts",
+        "-t",
+        "should put higher rank right items closer to the middle"
+      ],
+      "cwd": "packages/statusbar",
+      "frozen_attempt_command": [
+        "/opt/homebrew/Cellar/node@22/22.22.0_1/bin/node",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/17700/current-v1/buggy/node_modules/jest/bin/jest.js",
+        "--runTestsByPath",
+        "test/statusbar.spec.ts",
+        "-t",
+        "should put higher rank left items closer to the middle",
+        "--runInBand",
+        "--no-cache",
+        "--cacheDirectory",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runtime-home/jupyterlab-17700-gate57-v1/p2p/buggy/3/jest-cache"
+      ],
+      "id": "should put higher rank right items closer to the middle",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_regression_test",
+      "source_case": "should put higher rank right items closer to the middle",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/statusbar/test/statusbar.spec.ts",
+      "upstream_test_path": "packages/statusbar/test/statusbar.spec.ts",
+      "upstream_test_sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1"
+    },
+    {
+      "command": [
+        "jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/statusbar.spec.ts",
+        "-t",
+        "should put higher rank left items closer to the middle"
+      ],
+      "cwd": "packages/statusbar",
+      "frozen_attempt_command": [
+        "/opt/homebrew/Cellar/node@22/22.22.0_1/bin/node",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/17700/current-v1/buggy/node_modules/jest/bin/jest.js",
+        "--runTestsByPath",
+        "test/statusbar.spec.ts",
+        "-t",
+        "should put higher rank left items closer to the middle",
+        "--runInBand",
+        "--no-cache",
+        "--cacheDirectory",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runtime-home/jupyterlab-17700-gate57-v1/p2p/buggy/3/jest-cache"
+      ],
+      "id": "should put higher rank left items closer to the middle",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_regression_test",
+      "source_case": "should put higher rank left items closer to the middle",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/statusbar/test/statusbar.spec.ts",
+      "upstream_test_path": "packages/statusbar/test/statusbar.spec.ts",
+      "upstream_test_sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1"
+    }
+  ],
+  "touched_files": [
+    "packages/statusbar/src/statusbar.ts",
+    "packages/statusbar/test/statusbar.spec.ts"
+  ],
+  "upstream_commits": []
+}

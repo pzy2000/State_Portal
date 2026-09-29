@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.03672309027777778,
+    "ignored_top_fraction": 0.25,
+    "mean_absolute_difference": 2.3617597415123455
+  },
+  "before_buggy_sha256": "6245a935f482896db2cad8c8df3de0a27e7a3221215e25c25aa2ef8185a9effd",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.25,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "6245a935f482896db2cad8c8df3de0a27e7a3221215e25c25aa2ef8185a9effd",
+  "buggy_after_sha256": "0611cf67e5d42f53de44bd31630155840c8e792bb82b7d83563a31ed4dbf43ce",
+  "fixed_after_sha256": "750a8451315f23d278f311e53d76fb379bb8e6b87261636a605ee025bb949f5e",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "0611cf67e5d42f53de44bd31630155840c8e792bb82b7d83563a31ed4dbf43ce",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 299365,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "2981c9aeb4faea32586421abd8a4d7cde06606cf06d33436269e70a753a6a643"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "6245a935f482896db2cad8c8df3de0a27e7a3221215e25c25aa2ef8185a9effd",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 307228,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "58be62baadc6fa1c9460175c177dd564de7fa1f8d88c412133f9af7880cd47e2"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "750a8451315f23d278f311e53d76fb379bb8e6b87261636a605ee025bb949f5e",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 302104,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "d804eb39dbd186cd7ec5a362e1785499aa010a6619c00899e91f0167bf91dfab"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "6245a935f482896db2cad8c8df3de0a27e7a3221215e25c25aa2ef8185a9effd",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 307228,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "b1a8ec43fc586578ac9f813d8213d86bab2f01a0553ca13e54b3958673f15c03"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.25
+  },
+  "published_unix_ns": 1786768710151193000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lz-luanti-15408-collision-acceleration"
+}

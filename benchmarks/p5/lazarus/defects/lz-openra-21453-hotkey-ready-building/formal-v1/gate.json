@@ -1,0 +1,94 @@
+{
+  "benchmark": "openra",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": false,
+  "evidence": {
+    "captures": {
+      "source": "registered_gui_construction_gate"
+    },
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.005030381944444444,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.43204065393518515
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 8.680555555555556e-05,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.015523365162037036
+      },
+      "before_sha256": "792248bab9701c4e21ff686dfa0f7699b0cf62ff01c7a2b65da90fa1e67e6c1f",
+      "buggy_after_sha256": "e7035f257e23c9e7163ca18de78a450c758a2b60c71d804647cb6072881d54e7",
+      "buggy_before_visual": true,
+      "fixed_after_sha256": "eecb7da35e93b78834396807b624aefd62a9d44d146c97a936fd41c1e4cd9812",
+      "fixed_before_visual": true,
+      "metadata": "specs/openra/lazarus/visual_lz-openra-21453-hotkey-ready-building/goldens.meta.json",
+      "metadata_sha256": "338d202f5eea1a6b9236bdf60985ba279d8d33695a83588fb66334e998325447"
+    },
+    "kind": "live_construction_run_v1",
+    "patch": {
+      "production_paths": [
+        "OpenRA.Mods.Common/Widgets/ProductionPaletteWidget.cs"
+      ],
+      "sha256": "b4d205fb6d8f39d23ea8deb88ff2718039eef6b16828041883d8a8d396a06074",
+      "source": "materialized_tree_difference"
+    },
+    "upstream": {
+      "checks": {
+        "before_equivalent": true,
+        "buggy_after_visual": true,
+        "buggy_before_semantic": true,
+        "buggy_before_visual": true,
+        "buggy_defect_signature": true,
+        "buggy_f2p": false,
+        "buggy_invariants": true,
+        "buggy_p2p": true,
+        "fixed_after_visual": true,
+        "fixed_before_semantic": true,
+        "fixed_before_visual": true,
+        "fixed_defect_signature": false,
+        "fixed_f2p": true,
+        "fixed_goal_checks": true,
+        "fixed_invariants": true,
+        "fixed_p2p": true,
+        "provenance_verified": true
+      },
+      "f2p_origin": "issue_derived_gui_differential",
+      "kind": "registered_gui_construction_gate",
+      "receipt": "benchmarks/p5/lazarus/defects/lz-openra-21453-hotkey-ready-building/gate.json"
+    }
+  },
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "projection": {
+    "admission": null,
+    "closure_size": 0,
+    "fresh_gate_run": true,
+    "generator": "warptest.lazarus_expansion_gate",
+    "selection_mode": "c1_roster_expansion_v1"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-openra-21453-hotkey-ready-building"
+}

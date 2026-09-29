@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.0060491071428571425,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.9042410714285715
+  },
+  "before_buggy_sha256": "3cebcf44607f279440a9361597edec03d65b74cf9327c54262f02cc662a0ec71",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "3cebcf44607f279440a9361597edec03d65b74cf9327c54262f02cc662a0ec71",
+  "buggy_after_sha256": "14dd2494662cd45fb49d1ceb43dad6ff560683e8e087b58c59baac4528b5e6a2",
+  "fixed_after_sha256": "3cebcf44607f279440a9361597edec03d65b74cf9327c54262f02cc662a0ec71",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "14dd2494662cd45fb49d1ceb43dad6ff560683e8e087b58c59baac4528b5e6a2",
+      "quality": {
+        "image_size": [
+          560,
+          240
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 3632,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "7117871be6e01201de595d8ced922fd59e9ca111ca53d7cf984e9c3e5f0a6a1b"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "3cebcf44607f279440a9361597edec03d65b74cf9327c54262f02cc662a0ec71",
+      "quality": {
+        "image_size": [
+          560,
+          240
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 3680,
+        "unique_byte_values": 255
+      },
+      "report_sha256": "0e843d9ebb044b7fde1882f84c65157f641159ea2ba37f862c155a5c1d93f1de"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "3cebcf44607f279440a9361597edec03d65b74cf9327c54262f02cc662a0ec71",
+      "quality": {
+        "image_size": [
+          560,
+          240
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 3680,
+        "unique_byte_values": 255
+      },
+      "report_sha256": "6ace880d7eb506f9d5eee4289acb24a134c7cc832e9f09c569da244ec3a43594"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "3cebcf44607f279440a9361597edec03d65b74cf9327c54262f02cc662a0ec71",
+      "quality": {
+        "image_size": [
+          560,
+          240
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 3680,
+        "unique_byte_values": 255
+      },
+      "report_sha256": "ac0ef59e142433717cdab45482c248d04883877d1855a46c7f59859bed7ad781"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.0
+  },
+  "published_unix_ns": 1786768710439596000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lz-jupyterlab-18662-inline-completer-reserved-lines"
+}

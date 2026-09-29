@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.05858796296296296,
+    "ignored_top_fraction": 0.25,
+    "mean_absolute_difference": 4.509997106481482
+  },
+  "before_buggy_sha256": "d4465ca0b42bd1e71aedcca5c102e38df7e7e1816d18169b3740607dfe38755f",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.25,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "d4465ca0b42bd1e71aedcca5c102e38df7e7e1816d18169b3740607dfe38755f",
+  "buggy_after_sha256": "e8e5d5572255af3705ec8ffe7ff8bbffa3551847fa24955d8ca28ba92bfe2a7a",
+  "fixed_after_sha256": "b428bc87dc19689b2e316ad3a4a26ec3bc79b93339043871b55afc910934b76f",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "e8e5d5572255af3705ec8ffe7ff8bbffa3551847fa24955d8ca28ba92bfe2a7a",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 18013,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "19963604528a2b1477ef0d03de0763d07677de7ef4d35d8bd1efc6bd157d9479"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "d4465ca0b42bd1e71aedcca5c102e38df7e7e1816d18169b3740607dfe38755f",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 14283,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "15125b718330849a3bf23a1a8f9c3fae0804db9fac5fbf9296b5b1065fe6208c"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "b428bc87dc19689b2e316ad3a4a26ec3bc79b93339043871b55afc910934b76f",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 18007,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "9fb8cafe34c86575afc0935780ec5904725352038fc1bc83ee96c5992c79a00d"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "d4465ca0b42bd1e71aedcca5c102e38df7e7e1816d18169b3740607dfe38755f",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 14283,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "b0b80432532936b58bce0e748723c9585540cfba63f4261fca5308792e471573"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.25
+  },
+  "published_unix_ns": 1786768710769845000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lz-luanti-9572-vector-rotate"
+}

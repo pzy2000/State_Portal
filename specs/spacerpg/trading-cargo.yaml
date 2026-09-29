@@ -1,0 +1,218 @@
+name: SpaceRPG station trade updates cargo
+benchmark: spacerpg
+tags: ["spacerpg", "station", "trading", "cargo", "deep-state"]
+setup:
+  disable_economy_backend: true
+target:
+  kind: station
+  screen: station
+  system_id: helion-reach
+  station_id: helion-prime
+checkpoint:
+  allowed_strategies: ["test_hook_jump_and_validate"]
+  expected_validity: "replay-reachable"
+actions:
+  - type: hook_call
+    method: sell
+    args: ["basic-food", 1]
+  - type: wait
+    ms: 250
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: state_equals
+        path: player.cargo.basic-food
+        value: 2
+      - type: state_gte
+        path: player.credits
+        value: 1726
+      - type: no_severe_console
+    surfaces:
+      gui:
+        adapter: spacerpg_production_dom_save_v1
+        start:
+          validate_target: true
+          checks:
+          - name: dom.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.screen
+            expected:
+              value: station
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: dom.current_system
+            metric: equals
+            actual:
+              probe: spacerpg.current_system
+              phase: current
+            expected:
+              value: helion-reach
+          - name: dom.station
+            metric: equals
+            actual:
+              probe: spacerpg.station_id
+              phase: current
+            expected:
+              value: helion-prime
+          - name: dom.station_active_tab
+            metric: equals
+            actual:
+              probe: spacerpg.normalized_tab
+              phase: current
+            expected:
+              value: market
+          - name: dom.basic_food
+            metric: equals
+            actual:
+              probe: spacerpg.basic_food
+              phase: current
+            expected:
+              value: 3
+          - name: dom.market_sell_enabled
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.market_sell_enabled
+            expected:
+              value: true
+        goal:
+          use_assertions: true
+          checks:
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: transition.basic_food_delta
+            metric: equals
+            actual:
+              probe: spacerpg.numeric_delta
+              path: basic_food
+            expected:
+              value: 1
+          - name: transition.credits_increased
+            metric: greater_than
+            actual:
+              probe: spacerpg.credits
+              phase: after
+            expected:
+              probe: spacerpg.credits
+              phase: before
+          - name: transition.basic_food_sell_intent
+            metric: equals
+            actual:
+              probe: spacerpg.basic_food_sell_intent
+            expected:
+              value: true
+      state:
+        adapter: spacerpg_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      gui_from_start_baseline:
+        adapter: spacerpg_gui_from_start_baseline_v1
+        start:
+          validate_target: false
+          checks: []
+        goal:
+          use_assertions: false
+          checks:
+          - name: visible.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: visible.screen
+            expected:
+              value: station
+          - name: save_auto.player.cargo.basic-food
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: save_auto.player.cargo.basic-food
+            expected:
+              value: 2
+          - name: save_auto.player.credits
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: save_auto.player.credits
+            expected:
+              value: 1726
+          requirements:
+          - name: spacerpg.gui_from_start_recipe
+            recipe: trading_cargo
+            reason: Expected Basic Food cargo to be 2 and credits >= 1726 after GUI sell.
+
+  visual_oracle:
+    golden_image: visual/trading-cargo.golden.png
+    golden_before: visual/spacerpg-trading-cargo.before.golden.png
+    golden_after: visual/spacerpg-trading-cargo.after.golden.png
+    expected_label: correct
+    description: "The SpaceRPG station market remains visible after selling one Basic Food unit, with station controls and market/cargo context intact."
+    rubric:
+      must:
+        - "A SpaceRPG station or market interface is visible."
+        - "The screen is rendered normally after the trade action."
+        - "Station panels or controls remain usable."
+      must_not:
+        - "The page is blank, crashed, or dominated by a browser error."
+        - "The primary screen is unrelated to SpaceRPG station trading."
+      ignore:
+        - "Minor price, cargo, or notification text differences."
+    capture:
+      stage: post_smoke
+      wait_ms: 300
+      full_page: false
+      hide_selectors: [".dialogue-backdrop", ".modal-overlay"]

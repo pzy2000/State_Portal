@@ -1,0 +1,40 @@
+name: jynew learn new martial art skill
+benchmark: "jynew"
+tags: ["jynew", "skill", "wugong", "learn"]
+target:
+  kind: synthesized_state
+  mod_id: JYX2
+  player_level: 5
+checkpoint:
+  allowed_strategies: ["jynew_utility_save_validate"]
+  expected_validity: "injection-only"
+actions:
+  - type: jynew_learn_skill
+    skill_id: 1
+assertions:
+  - type: jynew_skill_learned
+    role_id: 0
+    skill_id: 1
+  - type: no_jynew_utility_errors
+visual_oracle:
+  golden_image: visual/skill-learn.golden.png
+  expected_label: correct
+  scene_key: jynew_default_world
+  description: "After learning martial art skill 1, the game world is rendered with the player character present. The skill system has been updated internally."
+  rubric:
+    must:
+      - "The jynew 3D game world is rendered and visible."
+      - "The player character is present in the scene."
+      - "The game is in a normal interactive state."
+    must_not:
+      - "The screen is blank or frozen."
+      - "An error dialog or crash dump is shown."
+      - "The scene shows a different game state (e.g. battle)."
+    ignore:
+      - "Whether the skill panel UI is open or closed."
+      - "Exact character pose or animation frame."
+      - "Minor rendering differences between runs."
+  capture:
+    stage: post_smoke
+    wait_ms: 1000
+    full_page: false

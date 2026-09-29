@@ -1,0 +1,41 @@
+tasks:
+  - slug: openra-cnc-gdi01-beachhead
+    title: OpenRA C&C GDI beachhead
+    benchmark: OpenRA
+    description: "Create an OpenRA spec for cnc/gdi01 titled exactly '01:   Storm the Beachhead' with visibility MissionSelector and categories ['Campaign']; validate playable GDI, Nod e1 actors, the eliminate-nod primary objective, and no utility errors."
+  - slug: openra-cnc-nod03a-prison-break
+    title: OpenRA C&C Nod prison break
+    benchmark: OpenRA
+    description: "Create an OpenRA spec for cnc/nod03a titled exactly '03a: Sudanese Prison Break' with visibility MissionSelector and categories ['Campaign']; validate playable Nod, GDI jeep actors, the capture-prison primary objective, and no utility errors."
+  - slug: openra-cnc-hot-box-dropzone
+    title: OpenRA C&C Hot Box Drop Zone
+    benchmark: OpenRA
+    description: "Create an OpenRA spec for cnc/the-hot-box titled exactly 'The Hot Box' with visibility Lobby and categories ['Drop Zone']; validate playable Multi0 Nod, Neutral mpspawn actors, and no utility errors."
+  - slug: openra-ra-allies03a-dead-end
+    title: OpenRA RA Allies Dead End
+    benchmark: OpenRA
+    description: "Create an OpenRA spec for ra/allies-03a titled exactly '03a: Dead End' with visibility MissionSelector and categories ['Campaign']; target.players must include Greece faction allies and USSR faction soviet; validate playable Greece, USSR e1 actors with match_prefix true and min_count 20, the destroy-bridges primary objective, and no utility errors."
+  - slug: openra-ra-soviet05-distant-thunder
+    title: OpenRA RA Soviet Distant Thunder
+    benchmark: OpenRA
+    description: "Create an OpenRA spec for ra/soviet-05 titled exactly '05:   Distant Thunder' with visibility MissionSelector and categories ['Campaign']; target.players must include USSR faction soviet, Greece faction allies, and France faction allies; validate playable USSR, Greece 2tnk at 59,43, the capture-radar-dome primary objective, and no utility errors."
+  - slug: openra-ra-drop-zone
+    title: OpenRA RA Drop Zone
+    benchmark: OpenRA
+    description: "Create an OpenRA spec for ra/drop-zone titled exactly 'Drop Zone' with visibility Lobby and categories ['Drop Zone']; validate playable Multi0 Soviet, Neutral mpspawn actors, and no utility errors."
+  - slug: openra-ra-soviet05-war-factory-heavy-tank
+    title: OpenRA RA Soviet war factory heavy tank
+    benchmark: OpenRA
+    description: "Create an OpenRA gameplay production spec for ra/soviet-05 titled exactly '05:   Distant Thunder'; use openra_gameplay_production_validate, wait briefly, deploy startmcv for USSR into fact, build powr, proc, weap, fix through the Building queue near 28,76, then build 3tnk through the Vehicle queue; assert weap, fix, and 3tnk were built, 3tnk respected production prerequisites, and no gameplay probe errors."
+  - slug: openra-ra-soviet05-barracks-rocket-infantry
+    title: OpenRA RA Soviet barracks rifle infantry
+    benchmark: OpenRA
+    description: "Create an OpenRA gameplay production spec for ra/soviet-05 titled exactly '05:   Distant Thunder'; use openra_gameplay_production_validate, wait briefly, deploy startmcv for USSR into fact, build powr and barr through the Building queue near 28,76, then build e1 through the Infantry queue; assert barr and e1 were built, e1 respected production prerequisites, and no gameplay probe errors."
+  - slug: openra-ra-allies07-soviet-war-factory-produces-heavy-tank
+    title: OpenRA RA Allies 07 Soviet heavy tank
+    benchmark: OpenRA
+    description: "Create an OpenRA gameplay production spec for ra/allies-07 titled exactly '07:   Sunken Treasure'; use openra_gameplay_production_validate, confirm actor_id USSRWarFactory exists for USSR, build 3tnk through the Vehicle queue, and assert the 3tnk count increased, production prerequisites were respected, and no gameplay probe errors."
+  - slug: openra-ra-allies05a-soviet-war-factory-produces-vehicle
+    title: OpenRA RA Allies 05a Soviet vehicle
+    benchmark: OpenRA
+    description: "Create an OpenRA gameplay production spec for ra/allies-05a titled exactly \"05a: Tanya's Tale\"; use openra_gameplay_production_validate, confirm actor_id Warfactory2 exists for USSR, build 3tnk through the Vehicle queue, and assert the 3tnk count increased, production prerequisites were respected, and no gameplay probe errors."

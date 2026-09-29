@@ -1,0 +1,162 @@
+name: C1-Lazarus JupyterLab 18992-collapsed-heading-visibility
+benchmark: jupyterlab
+timeout_ms: 900000
+tags:
+- c1
+- lazarus
+- jupyterlab
+- production
+setup:
+  jupyterlab_lazarus_probe:
+    task_id: lz-jupyterlab-18992-collapsed-heading-visibility
+    change_number: 18992
+    issue_number: 18991
+    adapter: jupyterlab_lazarus_edge_probe_v1
+    registered_replay:
+    - load_candidate_local_bundle
+    - build_a_notebook_with_two_heading_sections
+    - collapse_the_first_section_heading
+    - move_the_collapsed_heading_down_past_the_following_section
+    - read_cell_sources_and_rendered_visibility
+    probe_executable: true
+target:
+  kind: jupyterlab_lazarus_candidate_bundle
+  change_number: 18992
+  variants:
+  - fixed
+  - buggy
+  bundler: candidate_local_rspack
+  browser: microsoft_edge_via_playwright
+checkpoint:
+  allowed_strategies:
+  - jupyterlab_lazarus_edge_replay_validate
+  expected_validity: replay-reachable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-18992-collapsed-heading-visibility/fixed.after.golden.png
+    expected_label: correct
+    description: A small grey pill reading "+ 2 cells hidden" sits between the headings
+      "First section" and "Second section", and no code cell is visible anywhere on
+      the page.
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a white notebook page
+        of rendered markdown headings, each ending in a blue pilcrow, with a blue
+        active bar left of the top heading "Title".
+      - A small grey pill reading "+ 2 cells hidden" sits between the headings "First
+        section" and "Second section", and no code cell is visible anywhere on the
+        page.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_hidden
+      expected:
+      - false
+      - false
+      - false
+      - false
+      - false
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_sources
+      expected:
+      - '# Title'
+      - first = 1
+      - second = 2
+      - '## First section'
+      - '## Second section'
+    defect_signature:
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_hidden
+      expected:
+      - false
+      - true
+      - true
+      - false
+      - false
+    - type: jupyterlab_lazarus_dom_audit
+      field: after_sources
+      expected:
+      - '# Title'
+      - first = 1
+      - second = 2
+      - '## First section'
+      - '## Second section'
+    invariant_checks:
+    - type: no_jupyterlab_probe_errors
+    upstream_tests:
+      fail_to_pass:
+      - '@jupyter/notebook StaticNotebook #moveCell() should refresh hidden cells
+        after moving a collapsed heading down'
+      pass_to_pass: &id001
+      - '@jupyter/notebook StaticNotebook #moveCell() should preserve isDirty state
+        after moving a code cell'
+      per_trial_p2p: *id001
+    goldens:
+      before: visual_lz-jupyterlab-18992-collapsed-heading-visibility/before.golden.png
+      buggy_before: visual_lz-jupyterlab-18992-collapsed-heading-visibility/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-18992-collapsed-heading-visibility/fixed.after.golden.png
+        after_description: Two code cells reading "first = 1" and "second = 2" are
+          visible directly under "Title", the headings "First section" and "Second
+          section" follow below them, and no hidden-cells pill is on the page.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white notebook
+            page of rendered markdown headings, each ending in a blue pilcrow, with
+            a blue active bar left of the top heading "Title".
+          - Two code cells reading "first = 1" and "second = 2" are visible directly
+            under "Title", the headings "First section" and "Second section" follow
+            below them, and no hidden-cells pill is on the page.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+      buggy:
+        after: visual_lz-jupyterlab-18992-collapsed-heading-visibility/buggy.after.golden.png
+        after_description: 'Only the three headings "Title", "First section" and "Second
+          section" are on the page: no code cell is visible and no hidden-cells pill
+          marks the missing ones.'
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white notebook
+            page of rendered markdown headings, each ending in a blue pilcrow, with
+            a blue active bar left of the top heading "Title".
+          - 'Only the three headings "Title", "First section" and "Second section"
+            are on the page: no code cell is visible and no hidden-cells pill marks
+            the missing ones.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.

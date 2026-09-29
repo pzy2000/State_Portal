@@ -1,0 +1,45 @@
+name: JupyterLab markdown file save checkpoint
+benchmark: JupyterLab
+repo: ../../games/jupyterlab
+tags: [jupyterlab, smoke, contents, markdown]
+target:
+  kind: text_file
+  path: notes/analysis.md
+  content: "# WarpTest\n\nInitial note.\n"
+checkpoint:
+  allowed_strategies: [jupyterlab_workspace_api_validate]
+  expected_validity: save-restorable
+actions:
+  - type: jupyterlab_open_file
+    path: notes/analysis.md
+  - type: jupyterlab_edit_text_file
+    path: notes/analysis.md
+    content: "# WarpTest\n\nUpdated note.\n"
+assertions:
+  - type: jupyterlab_file_text_equals
+    path: notes/analysis.md
+    content: "# WarpTest\n\nUpdated note.\n"
+  - type: no_jupyterlab_server_errors
+visual_oracle:
+  golden_image: visual/jupyterlab-markdown-file-save.after.golden.png
+  golden_before: visual/jupyterlab-markdown-file-save.before.golden.png
+  golden_after: visual/jupyterlab-markdown-file-save.after.golden.png
+  expected_label: correct
+  description: "The JupyterLab text editor is visible with notes/analysis.md opened; the after golden shows the markdown content updated and saved."
+  rubric:
+    must:
+      - "A real JupyterLab UI is visible, including the top menu, left file browser, and central editor area."
+      - "The editor tab for analysis.md is open."
+      - "The after screenshot shows the markdown heading `# WarpTest` and the body text `Updated note.`"
+      - "The file browser shows the notes folder or the analysis.md file."
+    must_not:
+      - "The page is blank, loading-only, or a browser/server error page."
+      - "The JupyterLab shell is missing or replaced by a crash dialog."
+      - "The after editor content still shows only `Initial note.`"
+    ignore:
+      - "Minor timestamp, focus ring, cursor, or selected-file styling differences."
+      - "Small font rendering or antialiasing differences across JupyterLab builds."
+  capture:
+    stage: post_smoke
+    wait_ms: 500
+    full_page: false

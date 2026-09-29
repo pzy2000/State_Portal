@@ -1,0 +1,13 @@
+{
+  "build_class": "incremental_cpp",
+  "declared_files": [
+    "source/blender/blenlib/BLI_path_utils.hh",
+    "source/blender/blenlib/intern/path_utils.cc",
+    "source/blender/blenlib/tests/BLI_path_utils_test.cc"
+  ],
+  "fixed_revision": "3d018bcabdaeea66cf4ef4a96ce8913164831f6e",
+  "patch_sha256": "b1d3041187af0f3f06c39068332191033a570178a90ca7887923c91c17624b18",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-blender-156442-vse-long-frame-number/revert.patch",
+  "source_repo": "games/blender",
+  "task_id": "lz-blender-156442-vse-long-frame-number"
+}

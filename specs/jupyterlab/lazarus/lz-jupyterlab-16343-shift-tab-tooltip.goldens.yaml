@@ -1,0 +1,105 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lz-jupyterlab-16343-shift-tab-tooltip
+benchmark: jupyterlab
+candidate:
+  repository_key: jupyterlab
+  change_number: 16343
+  issue_number: 16319
+  defect_locus: at_goal
+authoritative_defect: null
+provenance:
+  formal_freeze_admission: null
+  frame_sources:
+    fixed_before: live_materialized_capture
+    fixed_after: live_materialized_capture
+    buggy_before: live_materialized_capture
+    buggy_after: live_materialized_capture
+  goldens_metadata: visual_lz-jupyterlab-16343-shift-tab-tooltip/goldens.meta.json
+  before_equivalence:
+    changed_pixel_ratio: 1.953125e-05
+    ignored_top_fraction: 0.0
+    mean_absolute_difference: 0.0026822916666666666
+  after_differential:
+    changed_pixel_ratio: 0.00660546875
+    ignored_top_fraction: 0.0
+    mean_absolute_difference: 0.6800725911458333
+  golden_policy:
+    after_min_changed_pixel_ratio: 0.001
+    before_max_changed_pixel_ratio: 0.01
+    ignore_top_fraction: 0.0
+  captured_by: materialized_fixed_buggy_runtime_capture
+evaluation:
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-16343-shift-tab-tooltip/fixed.after.golden.png
+    expected_label: correct
+    description: The notebook shows one code cell whose editor holds a three-character built-in
+      name, with no panel over the notebook area.
+    rubric:
+      must:
+      - A JupyterLab notebook window shows exactly one code cell whose editor holds a short
+        lowercase name.
+      - No panel or overlay covers the notebook area below the toolbar.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the file browser's
+        relative modification times.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    runtime_status: probe_runtime_available
+    probe:
+      adapter: jupyterlab_lazarus_app_probe_v1
+      spec: lz-jupyterlab-16343-shift-tab-tooltip.yaml
+      registered_replay:
+      - load_materialized_dev_mode_bundle
+      - restore_registered_code_cell_start
+      - press_shift_tab_once
+      - read_inspector_tooltip_state
+      versions_replayed:
+      - fixed
+      - buggy
+      re_executed_offline: true
+      provider_calls_required: false
+    upstream_tests:
+      fail_to_pass:
+      - jupyterlab-16343-shift-tab-tooltip-f2p
+      pass_to_pass:
+      - jupyterlab-docmanager-activate-construction-p2p
+      - jupyterlab-coreutils-path-trial-p2p
+    goldens:
+      before: visual_lz-jupyterlab-16343-shift-tab-tooltip/before.golden.png
+      buggy_before: visual_lz-jupyterlab-16343-shift-tab-tooltip/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-16343-shift-tab-tooltip/fixed.after.golden.png
+        after_description: A panel appears directly under the caret reporting the name's signature,
+          its documentation line, and its type.
+        after_rubric:
+          must:
+          - A JupyterLab notebook window shows one code cell whose editor holds a short lowercase
+            name.
+          - A panel over the notebook area lists a signature line, a documentation line, and
+            a type line for that name.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the file
+            browser's relative modification times.
+      buggy:
+        after: visual_lz-jupyterlab-16343-shift-tab-tooltip/buggy.after.golden.png
+        after_description: No panel appears over the notebook area, so the key combination
+          produced no inspector output for the name under the caret.
+        after_rubric:
+          must:
+          - A JupyterLab notebook window shows one code cell whose editor holds a short lowercase
+            name.
+          - No panel or overlay covers the notebook area below the toolbar.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the file
+            browser's relative modification times.

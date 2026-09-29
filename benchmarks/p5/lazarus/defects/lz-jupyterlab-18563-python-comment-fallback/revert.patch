@@ -1,0 +1,69 @@
+diff --git a/galata/test/documentation/commands.test.ts-snapshots/commandsList-documentation-linux.json b/galata/test/documentation/commands.test.ts-snapshots/commandsList-documentation-linux.json
+index 7cbd9a5239daadcb398e0c10f2dd546e60aaf785..b8be9c3f408465f611055671a478a259ac078eb8 100644
+--- a/galata/test/documentation/commands.test.ts-snapshots/commandsList-documentation-linux.json
++++ b/galata/test/documentation/commands.test.ts-snapshots/commandsList-documentation-linux.json
+@@ -943,7 +943,7 @@
+   {
+     "id": "codemirror:toggle-block-comment",
+     "label": "Toggle Block Comment",
+-    "caption": "Toggles block comments in languages which support it (e.g. C, JavaScript)",
++    "caption": "Toggles block comments; falls back to regular comment toggle when block comment syntax is unavailable",
+     "shortcuts": [
+       "Alt A"
+     ],
+diff --git a/galata/test/jupyterlab/file-edit.test.ts b/galata/test/jupyterlab/file-edit.test.ts
+index cdb551f02763dd7095000811436e90014378ddad..180dd2953ddbbe5326a4c732b619ff3b4aa50225 100644
+--- a/galata/test/jupyterlab/file-edit.test.ts
++++ b/galata/test/jupyterlab/file-edit.test.ts
+@@ -46,6 +46,18 @@ test.describe('File Edit Operations', () => {
+     await page.keyboard.press('Alt+A');
+     expect(await getEditorText(page)).toBe('first\n/* second\nthird */');
+   });
++  test('Should fall back to line comment on Alt + A for Python', async ({
++    page
++  }) => {
++    // Python has no block comment syntax, so Alt+A should fall back to
++    // line comments (via toggleBlockCommentWithFallback)
++    // Select "second" and "third"
++    await page.getByRole('textbox').getByText('second').last().dblclick();
++    await page.keyboard.press('Shift+ArrowDown');
++    // Toggle block comment (falls back to line comment for Python)
++    await page.keyboard.press('Alt+A');
++    expect(await getEditorText(page)).toBe('first\n# second\n# third');
++  });
+ });
+ 
+ test.describe('Console Interactions', () => {
+diff --git a/packages/codemirror-extension/src/commands.ts b/packages/codemirror-extension/src/commands.ts
+index 4ae34f69461b79240faf5023fb9440d97c0fbe56..b40140be8acfeddee636e9c40106e0bb5b906943 100644
+--- a/packages/codemirror-extension/src/commands.ts
++++ b/packages/codemirror-extension/src/commands.ts
+@@ -48,6 +48,10 @@ namespace CommandIDs {
+   export const unfoldAll = 'codemirror:unfold-all';
+ }
+ 
++function toggleBlockCommentWithFallback(view: EditorView): boolean {
++  return toggleBlockComment(view) || toggleComment(view);
++}
++
+ /**
+  * Selector for CodeMirror editor with `cmTile` attribute.
+  */
+@@ -219,7 +223,7 @@ export const commandsPlugin: JupyterFrontEndPlugin<void> = {
+     app.commands.addCommand(CommandIDs.toggleBlockComment, {
+       label: trans.__('Toggle Block Comment'),
+       caption: trans.__(
+-        'Toggles block comments in languages which support it (e.g. C, JavaScript)'
++        'Toggles block comments; falls back to regular comment toggle when block comment syntax is unavailable'
+       ),
+       describedBy: {
+         args: {
+@@ -232,7 +236,7 @@ export const commandsPlugin: JupyterFrontEndPlugin<void> = {
+         if (!view) {
+           return;
+         }
+-        toggleBlockComment(view);
++        toggleBlockCommentWithFallback(view);
+       },
+       isEnabled
+     });

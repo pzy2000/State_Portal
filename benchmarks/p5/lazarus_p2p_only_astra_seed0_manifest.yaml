@@ -1,0 +1,154 @@
+schema_version: 3
+experiment_id: c1_lazarus_p2p_only
+task_schema: c1_lazarus_v1
+tasks: benchmarks/p5/c1_lazarus_p2p_only_tasks.yaml
+catalog_sha256: a04f414d3b65aac441aaa7f6743030b81d1c92fe1f48dc5133fd18c6100ffd5b
+task_count: 11
+expected_cells: 110
+formal: false
+confirmatory: false
+paper_ready: false
+models:
+- gpt-6-astra@relay
+model_request_profiles:
+  gpt-6-astra: thinking_disabled
+api:
+  provider: relay
+observer_model: claude-sonnet-5@relay
+grounder_model: decision_model
+judge_model: qwen3-vl-flash@relay
+arms:
+- lazarus_agent_s
+- lazarus_agent_s_synth
+- lazarus_state
+- lazarus_scalecua
+- lazarus_scalecua_synth
+versions:
+- buggy
+- fixed
+seeds:
+- 0
+provider_timeout_s: 900
+task_timeout_s: 2400
+per_trial_p2p_timeout_s: 300
+outer_workers: 2
+start_protocol: real_cold_start_v1
+decision_budget:
+  total_steps: 100
+  sharing: phase_a_then_phase_b_remaining
+cold_start_bindings:
+  jupyterlab: real_lab_launcher_benchmark_extension_v1
+  luanti: native_neutral_main_menu_v1
+  openra: native_post_boot_main_menu_v1
+jupyter_benchmark_extension:
+  id: stateportal-lazarus-p2p-only-start
+  contract: visible_launcher_entry_opens_candidate_component_only_v1
+scheduler:
+  rotation_rule: cdefg_rotating_buggy_then_reverse_fixed_v4
+  group_identity:
+  - task_id
+  - model
+  - seed
+  cells_per_group: 10
+statistics:
+  mode: exploratory_descriptive_by_model
+  h2: not_applicable_all_tasks_at_goal
+authorization:
+  scope: c1-lazarus-p2p-only-11tasks-astra-seed0-cdefg-v4
+  formal_astra_110_paid_run: true
+method_protocol: p2p-only-generated-state-cdefg-v4
+methods:
+  lazarus_agent_s:
+    start_mode: from_start
+    transition: agent_s
+    decision_steps: 100
+    budget_sharing: phase_a_then_phase_b_remaining
+    policy_kind: agent_s
+    temperature: 0.2
+    observer_model: claude-sonnet-5@relay
+    grounder_model: decision_model
+    phase_b_prompt_revision: lzp-public-reference-steps-v3
+    execution_backend: background_pixel_v1
+    foreground_required:
+      jupyterlab: false
+      luanti: true
+      openra: false
+    coordinate_space: frame_pixels_top_left_v1
+  lazarus_agent_s_synth:
+    start_mode: shared_generated_state
+    transition: agent_s
+    decision_steps: 100
+    budget_sharing: phase_b_only
+    policy_kind: agent_s
+    temperature: 0.2
+    observer_model: claude-sonnet-5@relay
+    grounder_model: decision_model
+    phase_b_prompt_revision: lzp-public-reference-steps-v3
+    execution_backend: background_pixel_v1
+    foreground_required:
+      jupyterlab: false
+      luanti: true
+      openra: false
+    coordinate_space: frame_pixels_top_left_v1
+  lazarus_state:
+    start_mode: shared_generated_state
+    transition: generated_semantic_actions
+    semantic_action_limit: 100
+  lazarus_scalecua:
+    start_mode: from_start
+    transition: scalecua
+    decision_steps: 100
+    budget_sharing: phase_a_then_phase_b_remaining
+    policy_kind: scalecua
+    temperature: 0.2
+    observer_model: claude-sonnet-5@relay
+    phase_b_prompt_revision: lzp-public-reference-steps-v3
+    execution_backend: background_pixel_v1
+    foreground_required:
+      jupyterlab: false
+      luanti: true
+      openra: false
+    coordinate_space: frame_pixels_top_left_v1
+  lazarus_scalecua_synth:
+    start_mode: shared_generated_state
+    transition: scalecua
+    decision_steps: 100
+    budget_sharing: phase_b_only
+    policy_kind: scalecua
+    temperature: 0.2
+    observer_model: claude-sonnet-5@relay
+    phase_b_prompt_revision: lzp-public-reference-steps-v3
+    execution_backend: background_pixel_v1
+    foreground_required:
+      jupyterlab: false
+      luanti: true
+      openra: false
+    coordinate_space: frame_pixels_top_left_v1
+shared_synthesis:
+  consumer: lazarus_p2p_only_shared_v3
+  model: decision_model
+  explore: true
+  max_explore_steps: 16
+  max_tokens: 8192
+  temperature: 0.2
+  sharing: task_model_seed_across_de_and_versions
+  format_repairs: 1
+  fallback: none
+start_gate:
+  protocol: p2p-only-before-transition-v3
+  requires:
+  - independent_semantic
+  - independent_visual
+  - runtime_healthy
+  shared_verdict: de_per_version_with_local_attestation
+  failure: skip_phase_b
+cost_accounting:
+  phases:
+  - synthesis
+  - restore
+  - execution
+  - bootstrap
+  - grading
+  - p2p
+  actual_synthesis: once_per_group
+  attributed_synthesis: once_per_method_per_group

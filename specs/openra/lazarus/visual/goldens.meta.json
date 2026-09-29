@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.005031467013888889,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.429496166087963
+  },
+  "before_buggy_sha256": "792248bab9701c4e21ff686dfa0f7699b0cf62ff01c7a2b65da90fa1e67e6c1f",
+  "before_equivalence": {
+    "changed_pixel_ratio": 8.680555555555556e-05,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.015523365162037036
+  },
+  "before_sha256": "ea689f280a5d0e30084cdc07fda8874c7aee1abb6209ba1ac5df40176c3b8a7f",
+  "buggy_after_sha256": "127a6f7f1d96e68f26df0e0dd4ce8dfe3a7e49e2fdd7d5b88e4425481d674cf4",
+  "fixed_after_sha256": "e490aa9ed036e80d472bdb47a1e86c6b22375016c9eb025de3ec0735898bbd47",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "127a6f7f1d96e68f26df0e0dd4ce8dfe3a7e49e2fdd7d5b88e4425481d674cf4",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 614436,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "e0e5c182015652b1c5f9236eaf33981b0d909ae07293e4a6486ddbb50a5856ff"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "792248bab9701c4e21ff686dfa0f7699b0cf62ff01c7a2b65da90fa1e67e6c1f",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 624491,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "e0e5c182015652b1c5f9236eaf33981b0d909ae07293e4a6486ddbb50a5856ff"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "e490aa9ed036e80d472bdb47a1e86c6b22375016c9eb025de3ec0735898bbd47",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 630086,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "8b1fc9a5e3a1ea7ebab8898e08b5d4d0b3f66f558654937601a639eee87ed4d3"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "ea689f280a5d0e30084cdc07fda8874c7aee1abb6209ba1ac5df40176c3b8a7f",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 624617,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "8b1fc9a5e3a1ea7ebab8898e08b5d4d0b3f66f558654937601a639eee87ed4d3"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.0
+  },
+  "published_unix_ns": 1786397960049799000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lz-openra-21453-hotkey-ready-building"
+}

@@ -1,0 +1,78 @@
+name: DatingSim relationship dialogue opens
+benchmark: "DatingSim"
+tags: ["love", "zustand", "dialogue", "relationship", "no-openai"]
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  seed: 11
+  player_name: WarpTest
+  gender: male
+  patch:
+    player:
+      relationships:
+        char_1:
+          trust: 45
+          attraction: 35
+          comfort: 40
+          respect: 30
+          investment: 15
+          conflict: 0
+          status: friend
+          history: ["Met Elena through a gallery opening."]
+          memories: []
+    world:
+      location: cafe
+  expect:
+    location: cafe
+    resources:
+      money: 1000
+      energy: 100
+    relationships:
+      char_1:
+        trust: 45
+        attraction: 35
+        status: friend
+checkpoint:
+  allowed_strategies: ["test_hook_seeded_state"]
+  expected_validity: "injection-only"
+actions:
+  - type: hook_call
+    method: startDialogue
+    args: ["char_1"]
+    wait_ms: 300
+assertions:
+  - type: state_equals
+    path: activeDialogue.isOpen
+    value: true
+  - type: state_equals
+    path: activeDialogue.characterId
+    value: char_1
+  - type: state_equals
+    path: player.dailyChatUsed
+    value: true
+  - type: no_real_openai
+  - type: no_severe_console
+visual_oracle:
+  golden_image: visual/dialogue-open.golden.png
+  golden_before: visual/love-dialogue-open.before.golden.png
+  golden_after: visual/love-dialogue-open.after.golden.png
+  expected_label: correct
+  description: "The DatingSim dialogue modal is open for Elena after starting a relationship dialogue from a seeded state."
+  rubric:
+    must:
+      - "A DatingSim dialogue or chat modal is visible."
+      - "The dialogue is associated with Elena or the visible character contact."
+      - "The underlying game UI remains rendered normally."
+    must_not:
+      - "The setup screen is still visible."
+      - "A real AI/API error dominates the UI."
+      - "The page is blank or crashed."
+    ignore:
+      - "Minor typewriter animation differences."
+      - "Exact greeting option text."
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false
+    hide_selectors: [".modal-overlay:has(.event-title)"]

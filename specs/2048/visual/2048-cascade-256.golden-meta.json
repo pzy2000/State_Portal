@@ -1,0 +1,21 @@
+{
+  "actions": 6,
+  "after": "specs/2048/visual/2048-cascade-256.after.golden.png",
+  "after_dimensions": [
+    1280,
+    800
+  ],
+  "after_sha256": "77788438798075d047ef91d03839648067b25cb7641d21bb254a93103361cac2",
+  "before": "specs/2048/visual/2048-cascade-256.before.golden.png",
+  "before_dimensions": [
+    1280,
+    800
+  ],
+  "before_sha256": "ac3ec3a8cc99b0381d0b4e1115d923b3b6d0b6126912eec9f0ca1ec144067261",
+  "benchmark": "2048",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/2048/c1-cascade-256.yaml",
+  "spec_sha256": "8f11008f695e5daed903d203fd272db418c6e1ff3be27dc609f38e38de465ae2",
+  "task_id": "2048-cascade-256"
+}

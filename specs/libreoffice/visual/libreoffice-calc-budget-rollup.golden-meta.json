@@ -1,0 +1,13 @@
+{
+  "actions": 5,
+  "after": "specs/libreoffice/visual/calc-quarterly-budget-rollup.after.golden.png",
+  "after_sha256": "c9b2b0b4b397bf500a8f797a4cca2e1900b95c9a61e96121880eb47429908ec4",
+  "before": "specs/libreoffice/visual/calc-quarterly-budget-rollup.before.golden.png",
+  "before_sha256": "93cdd1d3613755146eecbd4f04848ca6f6a0d0170a418ca432e562d6411565b4",
+  "benchmark": "libreoffice",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/libreoffice/calc-quarterly-budget-rollup.yaml",
+  "spec_sha256": "fce85b25be595f3ba26b84b41acfde26aa73f16c8c59bfe74634adc84d398960",
+  "task_id": "libreoffice-calc-budget-rollup"
+}

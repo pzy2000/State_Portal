@@ -1,0 +1,13 @@
+diff --git a/packages/codemirror/src/commands.ts b/packages/codemirror/src/commands.ts
+index bc0b43a..e795317 100644
+--- a/packages/codemirror/src/commands.ts
++++ b/packages/codemirror/src/commands.ts
+@@ -154,7 +154,7 @@ export namespace StateCommands {
+     dispatch: (transaction: Transaction) => void;
+   }): boolean {
+     if (target.dom.closest(TOOLTIP_OPENER_SELECTOR)) {
+-      return true;
++      return false;
+     }
+     return indentLess(target);
+   }

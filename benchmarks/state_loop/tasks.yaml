@@ -1,0 +1,204 @@
+# State Loop MVP task set.
+#
+# New benchmark format for the "state-management driven Gen+Test loop":
+#   Input  : state_description (a test-target description, like a test case) + repo.
+#   Output : a checkpoint config (the method's generated_spec) -- config only, no source edit.
+#   Eval   : run -> GUI screenshot_before / screenshot_after -> VS. Oracle goldens -> True/False.
+#
+# Each task reuses an existing core public-issue id so the deterministic offline agent
+# (which keys templates by id) and the LLM exploration agent both produce a runnable
+# config. `oracle_spec` points at the hidden ground-truth spec used ONLY by the grader
+# to auto-generate the before/after golden screenshots (Repo_Oracle -> goldens).
+#
+# Scope: browser-backed profiles use warm browser state restore; Luanti and Blender
+# use native before/after pair evaluation paths with engine-produced screenshots.
+tasks:
+  - id: 2048-merge-left
+    benchmark: "2048"
+    repo: games/2048
+    state_description: >-
+      Start from a 2048 board whose top row holds two 2 tiles with the score at 0,
+      then a single left move must merge them into a 4 and raise the score.
+      Tiles only move in response to the keyboard Left/Right/Up/Down arrow keys;
+      clicking on the board does not move tiles.
+    oracle_spec: specs/2048/merge-left.yaml
+    tags: ["state-loop", "2048", "merge"]
+    budget_ms: 60000
+  - id: 2048-near-win
+    benchmark: "2048"
+    repo: games/2048
+    state_description: >-
+      Start from a near-win 2048 board carrying two 1024 tiles in the top row,
+      then a single left move must produce a visible 2048 tile.
+      Tiles only move in response to the keyboard Left/Right/Up/Down arrow keys;
+      clicking on the board does not move tiles.
+    oracle_spec: specs/2048/near-win.yaml
+    tags: ["state-loop", "2048", "near-win"]
+    budget_ms: 60000
+  - id: spacerpg-playable-flight
+    benchmark: "SpaceRPG"
+    repo: games/SpaceRPG
+    state_description: >-
+      Reach a playable Helion Reach flight state where the flight screen is rendered
+      and the ship still accepts throttle input.
+    oracle_spec: specs/spacerpg/playable-flight.yaml
+    tags: ["state-loop", "spacerpg", "flight"]
+    budget_ms: 180000
+  - id: spacerpg-station-save
+    benchmark: "SpaceRPG"
+    repo: games/SpaceRPG
+    state_description: >-
+      Reach the docked Helion Prime station screen and save to the auto slot from
+      that station state.
+    oracle_spec: specs/spacerpg/station-save.yaml
+    tags: ["state-loop", "spacerpg", "station", "save"]
+    budget_ms: 180000
+  - id: love-resource-action
+    benchmark: "DatingSim"
+    repo: games/DatingSim
+    state_description: >-
+      Reach a seeded DatingSim state where a deterministic coding work action can
+      change money and energy without any real AI calls.
+    oracle_spec: specs/love/resource-action.yaml
+    tags: ["state-loop", "love", "resources"]
+    budget_ms: 90000
+  - id: love-dialogue-reply-mock-shape
+    benchmark: "DatingSim"
+    repo: games/DatingSim
+    state_description: >-
+      Reach a seeded Elena dialogue state, then click a greeting reply option so
+      the mocked AI dialogue-reply path (DialogueManager.generateReply) actually
+      runs end to end without a real AI call.
+    oracle_spec: specs/love/dialogue-reply-mock-shape.yaml
+    tags: ["state-loop", "love", "dialogue", "mock-shape"]
+    budget_ms: 90000
+  - id: love-dialogue-close-memory-boundary
+    benchmark: "DatingSim"
+    repo: games/DatingSim
+    state_description: >-
+      Reach a seeded Elena relationship whose memory list is already at the 5-entry
+      cap with a 4-message dialogue transcript, then close the dialogue so the
+      background memory-summarization/shift path runs without a real AI call.
+    oracle_spec: specs/love/dialogue-close-memory-boundary.yaml
+    tags: ["state-loop", "love", "dialogue", "memory"]
+    budget_ms: 90000
+  - id: love-save-load-corrupted
+    benchmark: "DatingSim"
+    repo: games/DatingSim
+    state_description: >-
+      Reach a seeded DatingSim state, overwrite the localStorage save with a
+      valid-JSON-but-incomplete payload missing player.resources/stats, then load
+      it to probe PersistenceManager.loadGame()'s lack of schema validation.
+    oracle_spec: specs/love/save-load-corrupted.yaml
+    tags: ["state-loop", "love", "save", "corrupted"]
+    budget_ms: 90000
+  - id: love-day-rollover-energy-reset
+    benchmark: "DatingSim"
+    repo: games/DatingSim
+    state_description: >-
+      Reach a seeded DatingSim state in the last time slot of the day with low
+      energy, then perform a time-costing action so the day/week rollover, energy
+      regeneration, and daily-chat-limit reset all fire together.
+    oracle_spec: specs/love/day-rollover-energy-reset.yaml
+    tags: ["state-loop", "love", "time", "resources"]
+    budget_ms: 90000
+  - id: love-female-route-char4-dialogue
+    benchmark: "DatingSim"
+    repo: games/DatingSim
+    state_description: >-
+      Reach a seeded female-route DatingSim state with the Lucas (char_4)
+      relationship, then open a dialogue with Lucas without any real AI call.
+    oracle_spec: specs/love/female-route-char4-dialogue.yaml
+    tags: ["state-loop", "love", "dialogue", "female-route"]
+    budget_ms: 90000
+  - id: jupyterlab-text-file-edit
+    benchmark: "JupyterLab"
+    repo: games/jupyterlab
+    state_description: >-
+      Start from a JupyterLab text file at notes/warptest.txt, then save an exact
+      edit through the Contents-backed editor path.
+    oracle_spec: specs/jupyterlab/text-file-edit.yaml
+    tags: ["state-loop", "jupyterlab", "contents", "text"]
+    budget_ms: 180000
+  - id: jupyterlab-notebook-cell-output
+    benchmark: "JupyterLab"
+    repo: games/jupyterlab
+    state_description: >-
+      Start from a JupyterLab notebook with a Python code cell, then run the cell
+      through a kernel session and persist output containing warptest:42.
+    oracle_spec: specs/jupyterlab/notebook-cell-output.yaml
+    tags: ["state-loop", "jupyterlab", "notebook", "kernel"]
+    budget_ms: 240000
+  - id: libreoffice-writer-board-report-toc
+    benchmark: "LibreOffice"
+    repo: games/LibreOffice
+    state_description: >-
+      Start from a multi-section Writer board report with a Milestones table,
+      then insert a contents section, append the Q3 recovery-owner paragraph,
+      mark Platform audit Complete, save/reopen, and export a PDF.
+    oracle_spec: specs/libreoffice/writer-board-report-toc.yaml
+    tags: ["state-loop", "libreoffice", "writer", "deep-state", "toc"]
+    budget_ms: 240000
+  - id: libreoffice-calc-quarterly-budget-rollup
+    benchmark: "LibreOffice"
+    repo: games/LibreOffice
+    state_description: >-
+      Start from a four-sheet quarterly budget workbook, update March actuals,
+      recalculate Summary revenue and margin, then save/reopen.
+    oracle_spec: specs/libreoffice/calc-quarterly-budget-rollup.yaml
+    tags: ["state-loop", "libreoffice", "calc", "deep-state", "rollup"]
+    budget_ms: 240000
+  - id: libreoffice-impress-status-deck-build
+    benchmark: "LibreOffice"
+    repo: games/LibreOffice
+    state_description: >-
+      Start from a four-slide Impress status deck, update the executive title,
+      replace delivery-health bullets, add a vendor-backup callout, then save/reopen.
+    oracle_spec: specs/libreoffice/impress-status-deck-build.yaml
+    tags: ["state-loop", "libreoffice", "impress", "deep-state", "deck"]
+    budget_ms: 240000
+  - id: luanti-set-node
+    benchmark: "luanti"
+    repo: games/luanti
+    state_description: >-
+      Reach a Luanti devtest world with a dirt base block near spawn, then place a
+      stone node on top of it.
+    oracle_spec: specs/luanti/set-node.yaml
+    tags: ["state-loop", "luanti", "voxel", "set-node"]
+    budget_ms: 300000
+  - id: blender-scene-cube-material
+    benchmark: "Blender"
+    repo: games/blender
+    state_description: >-
+      Start from a visible Blender scene with cube WarpCube and red material WarpRed,
+      then move the cube to location [1.0, 2.0, 3.0].
+    oracle_spec: specs/blender/scene-cube-material.yaml
+    tags: ["state-loop", "blender", "scene", "material"]
+    budget_ms: 300000
+  - id: blender-save-reopen-scene
+    benchmark: "Blender"
+    repo: games/blender
+    state_description: >-
+      Start from a visible Blender scene with cube PersistCube and blue material
+      PersistBlue, then save and reopen the .blend file without losing the object.
+    oracle_spec: specs/blender/save-reopen-scene.yaml
+    tags: ["state-loop", "blender", "persistence"]
+    budget_ms: 300000
+  - id: blender-modifier-apply
+    benchmark: "Blender"
+    repo: games/blender
+    state_description: >-
+      Start from cube BevelCube in Blender, then add and apply a bevel modifier
+      named WarpBevel so the modifier is baked into mesh data.
+    oracle_spec: specs/blender/modifier-apply.yaml
+    tags: ["state-loop", "blender", "modifier"]
+    budget_ms: 300000
+  - id: blender-animation-keyframes
+    benchmark: "Blender"
+    repo: games/blender
+    state_description: >-
+      Start from cube AnimatedCube in Blender, then insert location keyframes at
+      frames 1 and 24.
+    oracle_spec: specs/blender/animation-keyframes.yaml
+    tags: ["state-loop", "blender", "animation"]
+    budget_ms: 300000

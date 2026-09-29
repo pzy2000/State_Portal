@@ -1,0 +1,250 @@
+name: SpaceRPG playable flight checkpoint
+benchmark: spacerpg
+tags: ["spacerpg", "flight", "webgl", "zustand", "hook"]
+setup:
+  disable_economy_backend: true
+target:
+  kind: flight
+  screen: flight
+  system_id: helion-reach
+checkpoint:
+  allowed_strategies: ["test_hook_jump_and_validate"]
+  expected_validity: "replay-reachable"
+actions:
+  - type: key
+    key: "W"
+    wait_ms: 300
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: state_equals
+        path: screen
+        value: flight
+      - type: no_severe_console
+    surfaces:
+      gui:
+        adapter: spacerpg_production_dom_save_v1
+        start:
+          validate_target: true
+          checks:
+          - name: dom.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.screen
+            expected:
+              value: flight
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: dom.canvas.visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.visible
+            expected:
+              value: true
+          - name: dom.canvas.css_width
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.css_width
+            expected:
+              value: 33
+          - name: dom.canvas.css_height
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.css_height
+            expected:
+              value: 33
+          - name: dom.canvas.bitmap_width
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.bitmap_width
+            expected:
+              value: 33
+          - name: dom.canvas.bitmap_height
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.bitmap_height
+            expected:
+              value: 33
+          - name: dom.current_system
+            metric: equals
+            actual:
+              probe: spacerpg.current_system
+              phase: current
+            expected:
+              value: helion-reach
+        goal:
+          use_assertions: true
+          checks:
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: dom.canvas.visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.visible
+            expected:
+              value: true
+          - name: dom.canvas.css_width
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.css_width
+            expected:
+              value: 33
+          - name: dom.canvas.css_height
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.css_height
+            expected:
+              value: 33
+          - name: dom.canvas.bitmap_width
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.bitmap_width
+            expected:
+              value: 33
+          - name: dom.canvas.bitmap_height
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.canvas.bitmap_height
+            expected:
+              value: 33
+          - name: transition.throttle_delta
+            metric: greater_than
+            actual:
+              probe: spacerpg.throttle_percent
+              phase: after
+            expected:
+              probe: spacerpg.throttle_percent
+              phase: before
+          - name: transition.throttle_intent_count
+            metric: equals
+            actual:
+              probe: spacerpg.throttle_intent_count
+            expected:
+              value: 1
+      state:
+        adapter: spacerpg_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      gui_from_start_baseline:
+        adapter: spacerpg_gui_from_start_baseline_v1
+        start:
+          validate_target: false
+          checks: []
+        goal:
+          use_assertions: false
+          checks:
+          - name: visible.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: visible.screen
+            expected:
+              value: flight
+          - name: visible.body_text
+            metric: contains
+            actual:
+              probe: common.path
+              phase: current
+              path: visible.body_text
+            expected:
+              value: Helion Reach
+          requirements:
+          - name: spacerpg.gui_from_start_recipe
+            recipe: playable_flight
+            reason: Expected visible Helion Reach flight screen.
+
+  visual_oracle:
+    golden_image: visual/playable-flight.golden.png
+    golden_before: visual/spacerpg-playable-flight.before.golden.png
+    golden_after: visual/spacerpg-playable-flight.after.golden.png
+    expected_label: correct
+    description: "The SpaceRPG flight HUD is visible in Helion Reach with a rendered space scene/canvas and no station, map, pause, or crash screen."
+    rubric:
+      must:
+        - "A SpaceRPG flight or space HUD is visible."
+        - "The current system context is Helion Reach or the flight HUD clearly indicates playable flight."
+        - "The central flight canvas is rendered with non-blank space visuals."
+      must_not:
+        - "The station interface, galaxy map, pause menu, or main menu is the primary screen."
+        - "The canvas is blank or missing."
+        - "A crash, browser error, or severe error overlay is visible."
+      ignore:
+        - "Minor ship/camera position changes."
+        - "Small animation or particle differences."
+    capture:
+      stage: post_smoke
+      wait_ms: 300
+      full_page: false
+      hide_selectors: [".dialogue-backdrop", ".modal-overlay"]

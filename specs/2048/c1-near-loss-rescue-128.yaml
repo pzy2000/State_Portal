@@ -1,0 +1,70 @@
+name: C1 2048 six-move near-loss rescue
+benchmark: "2048"
+tags: ["2048", c1, deep-chain, rescue]
+target:
+  kind: board
+  board:
+    - [2, 32, 2, 4]
+    - [8, 4, 4, 64]
+    - [0, 64, 64, 64]
+    - [2, 32, 64, 2]
+  score: 2048
+  bestScore: 4096
+  won: false
+  over: false
+  keepPlaying: false
+checkpoint:
+  allowed_strategies: [localStorage_restore_reload]
+  expected_validity: save-restorable
+actions:
+  - {type: move, direction: left, wait_ms: 300}
+  - {type: move, direction: left, wait_ms: 300}
+  - {type: move, direction: left, wait_ms: 300}
+  - {type: move, direction: left, wait_ms: 300}
+  - {type: move, direction: left, wait_ms: 300}
+  - {type: move, direction: up, wait_ms: 450}
+# Every assertion below is the worst case over the whole post-move spawn tree
+# (value 2 or 4 in any empty cell after each move), so the oracle re-passes on an
+# unpinned run. tests/test_2048_deep_task_spawn_invariance.py proves it.
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: tile_count_at_least, value: 128, count: 2}
+      - {type: largest_tile_equals, value: 128}
+      - {type: empty_cell_count_at_least, count: 2}
+      - {type: state_equals, path: over, value: false}
+      - {type: no_severe_console}
+    surfaces:
+      gui:
+        adapter: 2048_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: 2048_state_profile_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/2048-near-loss-rescue-128.after.golden.png
+    golden_before: visual/2048-near-loss-rescue-128.before.golden.png
+    golden_after: visual/2048-near-loss-rescue-128.after.golden.png
+    expected_label: correct
+    description: "A nearly full 2048 board with a narrow rescue route is visible."
+    after_description: "The rescued board visibly contains two 128 tiles and is no longer completely full."
+    rubric:
+      must: ["A nearly full 2048 board is visible.", "The page is rendered normally."]
+      must_not: ["A game-over overlay, crash, or blank page is visible."]
+      ignore: ["Minor score or animation differences."]
+    after_rubric:
+      must: ["Two 128 tiles are visible.", "At least one cell is empty.", "The board is not game over."]
+      must_not: ["The board remains completely full.", "A tile larger than 128 is visible.", "A crash or blank page is visible."]
+      ignore: ["Exact low-value spawned tile placement."]
+    capture: {stage: post_smoke, wait_ms: 300, full_page: false}

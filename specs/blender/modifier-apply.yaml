@@ -1,0 +1,91 @@
+name: Blender modifier apply
+benchmark: blender
+target:
+  kind: scene
+  objects:
+    - name: BevelCube
+      type: MESH
+      primitive: cube
+      size: 2.0
+      location: [0.0, 0.0, 0.0]
+checkpoint:
+  allowed_strategies: [blender_python_scene_validate]
+  expected_validity: save-restorable
+actions:
+  - type: blender_add_modifier
+    object: BevelCube
+    name: WarpBevel
+    modifier_type: BEVEL
+    width: 0.2
+    segments: 2
+  - type: blender_apply_modifier
+    object: BevelCube
+    modifier: WarpBevel
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: blender_object_exists
+        object: BevelCube
+        object_type: MESH
+      - type: blender_modifier_applied
+        object: BevelCube
+        modifier: WarpBevel
+        vertex_count_min: 9
+      # The counts pin segments (1/2/3 segments give 24/56/96 vertices) and the
+      # volume pins width, which the counts cannot see: width 0.5 keeps the same
+      # 56 vertices but drops the volume to 6.516.
+      - type: blender_mesh_geometry
+        object: BevelCube
+        vertex_count: 56
+        edge_count: 108
+        face_count: 54
+        volume: 7.736296
+        volume_tolerance: 0.001
+      - type: no_blender_python_errors
+    surfaces:
+      gui:
+        adapter: blender_native_state_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: blender_native_state_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/modifier-apply.golden.png
+    golden_before: visual/blender-modifier-apply.before.golden.png
+    golden_after: visual/blender-modifier-apply.after.golden.png
+    expected_label: correct
+    description: "A deterministic Blender render shows BevelCube before and after applying the bevel modifier; XYZ axes, an XY grid, and object coordinate labels provide spatial reference while the after screenshot shows visibly softened or beveled cube edges."
+    rubric:
+      must:
+        - "The Blender-rendered cube is visible against the gray render background."
+        - "The coordinate reference layer is visible: red X axis, green Y axis, blue Z axis, an XY grid, an origin label, and an object coordinate label."
+        - "The before screenshot shows a plain sharp-edged cube."
+        - "The after screenshot shows rounded or beveled cube edges."
+        - "The before and after screenshots label BevelCube at [0,0,0]."
+      must_not:
+        - "The render is blank, transparent, or a crash/error screen."
+        - "The coordinate axes, grid, or BevelCube coordinate label are missing from the render."
+        - "The after screenshot still shows only the unchanged sharp-edged cube."
+        - "The cube disappears or turns into an unrelated object."
+      ignore:
+        - "Minor lighting or antialiasing differences from Blender renderer versions."
+        - "Small differences in bevel edge shading."
+        - "Small text antialiasing differences on coordinate labels."
+    capture:
+      stage: post_smoke
+      wait_ms: 0
+      full_page: false
+tags:
+  - blender
+  - modifier

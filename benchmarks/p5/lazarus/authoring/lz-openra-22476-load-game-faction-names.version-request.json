@@ -1,0 +1,11 @@
+{
+  "build_class": "incremental_dotnet",
+  "declared_files": [
+    "OpenRA.Mods.Common/Widgets/Logic/LoadGameBrowserLogic.cs"
+  ],
+  "fixed_revision": "7e687f430ee5b194c0ffaa06caaba757dd9155fb",
+  "patch_sha256": "9e9ff299be5cf5b1bb05a7684d812bc3c209fd2f2333882ef087301124254a7a",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-openra-22476-load-game-faction-names/revert.patch",
+  "source_repo": "games/OpenRA",
+  "task_id": "lz-openra-22476-load-game-faction-names"
+}

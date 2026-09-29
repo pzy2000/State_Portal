@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "after": "specs/luanti/visual/luanti-replace-node.after.golden.png",
+  "after_sha256": "ad0af6a0fe4cc0f30dc44d3603a5308f8832f72381338c78cb1763a8a7c95755",
+  "before": "specs/luanti/visual/luanti-replace-node.before.golden.png",
+  "before_sha256": "8cbbdd7f04566abfd9748e072e99d70d5569c59a41b7d50d66e62f31f093005e",
+  "benchmark": "luanti",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/luanti/replace-node.yaml",
+  "spec_sha256": "7863f88be333f96fd58b34f6e1acaaa12de857f2a86ccbe47c018abc447be51e",
+  "task_id": "luanti-replace-node"
+}

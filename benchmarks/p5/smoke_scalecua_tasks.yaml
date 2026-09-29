@@ -1,0 +1,28 @@
+tasks:
+- id: 2048-merge-left
+  benchmark: '2048'
+  repo: games/2048
+  prompt_revision: c1-legacy-v1
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: mulberry32
+  preconditions: A 2048 board with [2, 2, 0, 0] in the top row, all other cells empty,
+    and score 0.
+  reference_steps: Make exactly one left move.
+  state_description: 'Preconditions: A 2048 board with [2, 2, 0, 0] in the top row,
+    all other cells empty, and score 0.
+
+    Reference steps: Make exactly one left move.'
+  horizon_class: short
+  oracle_spec: specs/2048/merge-left.yaml
+  tags:
+  - c1
+  - '2048'
+  capabilities:
+  - numeric-reasoning
+  - spatial-reasoning
+  budget_ms: 2400000

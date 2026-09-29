@@ -1,0 +1,84 @@
+name: JupyterLab text file edit checkpoint
+benchmark: jupyterlab
+repo: ../../games/jupyterlab
+tags: [jupyterlab, smoke, contents, text]
+target:
+  kind: text_file
+  path: notes/warptest.txt
+  content: "WarpTest initial\n"
+checkpoint:
+  allowed_strategies: [jupyterlab_workspace_api_validate]
+  expected_validity: save-restorable
+actions:
+  - type: jupyterlab_open_file
+    path: notes/warptest.txt
+  - type: jupyterlab_edit_text_file
+    path: notes/warptest.txt
+    content: "WarpTest edited\n"
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: jupyterlab_file_exists
+        path: notes/warptest.txt
+      - type: jupyterlab_file_text_equals
+        path: notes/warptest.txt
+        content: "WarpTest edited\n"
+      - type: no_jupyterlab_server_errors
+    surfaces:
+      gui:
+        adapter: jupyterlab_live_contents_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+          requirements:
+          -
+            name: transition.changed_from_start
+            probe: jupyter.changed_from_start
+            metric: equals
+            expected: true
+            meaningful_assertions:
+            - jupyterlab_file_text_equals
+            - jupyterlab_notebook_output_contains
+      state:
+        adapter: jupyterlab_live_contents_v1
+        goal:
+          checks: []
+          use_assertions: true
+          requirements:
+          - name: transition.changed_from_start
+            probe: jupyter.changed_from_start
+            metric: equals
+            expected: true
+            meaningful_assertions:
+            - jupyterlab_file_text_equals
+            - jupyterlab_notebook_output_contains
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/jupyterlab-text-file-edit.after.golden.png
+    golden_before: visual/jupyterlab-text-file-edit.before.golden.png
+    golden_after: visual/jupyterlab-text-file-edit.after.golden.png
+    expected_label: correct
+    description: "The JupyterLab file editor is visible with notes/warptest.txt opened; the before golden shows the initial text and the after golden shows the edited text saved in the same editor."
+    rubric:
+      must:
+        - "A real JupyterLab UI is visible, including the top menu, left file browser, and central editor area."
+        - "The file editor tab for warptest.txt is open."
+        - "The after screenshot shows the text content `WarpTest edited` in the editor."
+        - "The file browser shows the notes folder or the warptest.txt file."
+      must_not:
+        - "The page is blank, loading-only, or a browser/server error page."
+        - "The JupyterLab shell is missing or replaced by a crash dialog."
+        - "The editor still shows only the initial text after the smoke actions."
+      ignore:
+        - "Minor timestamp, focus ring, cursor, or selected-file styling differences."
+        - "Small font rendering or antialiasing differences across JupyterLab builds."
+    capture:
+      stage: post_smoke
+      wait_ms: 500
+      full_page: false

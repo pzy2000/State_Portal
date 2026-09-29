@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.02371484375,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 2.1922431640625
+  },
+  "before_buggy_sha256": "01c26ed0f49f298796b01bec7e2aa75680dca90be5d18bb92aacfb669aff57d3",
+  "before_equivalence": {
+    "changed_pixel_ratio": 1.953125e-05,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.0026822916666666666
+  },
+  "before_sha256": "686b1ca3b8f748fb3a042c49ab604e49dbd237b4c412ef75a7fe9100b1060b17",
+  "buggy_after_sha256": "6ccd2a76525a834e533003c72bfd0c4bb427026622d1f5fdb8a1ebd7ee8f53a6",
+  "fixed_after_sha256": "79a04e815f68eae38475bde17f7dbf7e3d0d23f30ef4b39c0978b504c2d1275a",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "6ccd2a76525a834e533003c72bfd0c4bb427026622d1f5fdb8a1ebd7ee8f53a6",
+      "quality": {
+        "image_size": [
+          1280,
+          800
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 19783,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "2f34c8bc0d2716e4f6da7656654d47c1471edd2e1a793c23075dae93542f615d"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "01c26ed0f49f298796b01bec7e2aa75680dca90be5d18bb92aacfb669aff57d3",
+      "quality": {
+        "image_size": [
+          1280,
+          800
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 20265,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "e4f85f37c56b98f9da80d62233ad93212719b5e0f50911c6454a0d26381b3fa6"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "79a04e815f68eae38475bde17f7dbf7e3d0d23f30ef4b39c0978b504c2d1275a",
+      "quality": {
+        "image_size": [
+          1280,
+          800
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 20015,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "97621bc25d18a49b36f7319d8fe34a3a92933a6bfb7e2a7b3b19836f27ce69f1"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "686b1ca3b8f748fb3a042c49ab604e49dbd237b4c412ef75a7fe9100b1060b17",
+      "quality": {
+        "image_size": [
+          1280,
+          800
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 20299,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "43577e9f256418b5b68da2c3cdd02c4246460a54647e3a9dc41237a4acddfb3d"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.0
+  },
+  "published_unix_ns": 1786880338691659000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lz-jupyterlab-15634-markdown-focus-render"
+}

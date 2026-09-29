@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.007800751879699248,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.6056610275689223
+  },
+  "before_buggy_sha256": "f750d21e5e7aa419254cc91d45ae1cb7244b09eaeb789848843973f94198a4cb",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "f750d21e5e7aa419254cc91d45ae1cb7244b09eaeb789848843973f94198a4cb",
+  "buggy_after_sha256": "f750d21e5e7aa419254cc91d45ae1cb7244b09eaeb789848843973f94198a4cb",
+  "fixed_after_sha256": "8f62ef0629a33416cf3765977834c1f16ee2e22df3c7759f199d2f9f7c45b2f0",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "f750d21e5e7aa419254cc91d45ae1cb7244b09eaeb789848843973f94198a4cb",
+      "quality": {
+        "image_size": [
+          760,
+          420
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 4102,
+        "unique_byte_values": 255
+      },
+      "report_sha256": "a161c3b8c90af23bb393f31ef09cdd3ca514a7290b3c94b35d3c75960a6564d6"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "f750d21e5e7aa419254cc91d45ae1cb7244b09eaeb789848843973f94198a4cb",
+      "quality": {
+        "image_size": [
+          760,
+          420
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 4102,
+        "unique_byte_values": 255
+      },
+      "report_sha256": "62aadd50be82b4be1b3ca9243cef138e96fef03890455fceae39cf8317e9b960"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "8f62ef0629a33416cf3765977834c1f16ee2e22df3c7759f199d2f9f7c45b2f0",
+      "quality": {
+        "image_size": [
+          760,
+          420
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 4049,
+        "unique_byte_values": 254
+      },
+      "report_sha256": "b22812023d82da6d347b4b40dd69ca269093a34ec4ba30e2c6c6a3ec0755329d"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "f750d21e5e7aa419254cc91d45ae1cb7244b09eaeb789848843973f94198a4cb",
+      "quality": {
+        "image_size": [
+          760,
+          420
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 4102,
+        "unique_byte_values": 255
+      },
+      "report_sha256": "62aadd50be82b4be1b3ca9243cef138e96fef03890455fceae39cf8317e9b960"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.002,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.0
+  },
+  "published_unix_ns": 1786981823565806000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lzp-jupyterlab-17618-high-contrast-selection-layer"
+}

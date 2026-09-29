@@ -1,0 +1,22 @@
+{
+  "audit": {
+    "expected": "markdown_rendered_beside_code",
+    "field": "markdown_start_state",
+    "observed": "markdown_rendered_beside_code",
+    "ok": true
+  },
+  "captured_at": "2026-08-16T11:38:48Z",
+  "change_number": 15634,
+  "invariants": {
+    "check": "no_jupyterlab_probe_errors",
+    "console_errors": [],
+    "ok": true,
+    "page_errors": []
+  },
+  "live_source": "jupyterlab_browser_capture",
+  "schema": "c1-lazarus-jupyterlab-golden-capture-v1",
+  "schema_version": 2,
+  "stage": "before",
+  "task_id": "lz-jupyterlab-15634-markdown-focus-render",
+  "version": "fixed"
+}

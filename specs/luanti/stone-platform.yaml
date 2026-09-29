@@ -1,0 +1,50 @@
+name: luanti raise a stone platform and cap it
+benchmark: "luanti"
+timeout_ms: 300000
+tags: ["luanti", "voxel", "platform"]
+target:
+  kind: synthesized_world
+  fill:
+    - from: { x: -2, y: 1, z: -2 }
+      to: { x: 0, y: 1, z: 0 }
+      node: "basenodes:stone"
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_fill
+    from: { x: -2, y: 2, z: -2 }
+    to: { x: 0, y: 2, z: 0 }
+    node: "basenodes:dirt"
+assertions:
+  - type: luanti_node_count
+    from: { x: -2, y: 2, z: -2 }
+    to: { x: 0, y: 2, z: 0 }
+    node: "basenodes:dirt"
+    min_count: 9
+  - type: luanti_node_count
+    from: { x: -2, y: 1, z: -2 }
+    to: { x: 0, y: 1, z: 0 }
+    node: "basenodes:stone"
+    min_count: 9
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/stone-platform.golden.png
+  expected_label: correct
+  description: "A two-layer stone-and-dirt platform is rendered near spawn in the Luanti devtest world."
+  rubric:
+    must:
+      - "The 3D voxel world is rendered and visible."
+      - "A raised multi-block stone platform or cap is visible near spawn."
+      - "The platform is not just a single isolated block and matches the golden oracle at a coarse layout level."
+      - "No crash dialog, error overlay, or fully blank screen is shown."
+    must_not:
+      - "The platform is missing, flattened into an empty world, or made of a clearly different material."
+      - "The screen is blank, black, or only shows the main menu."
+      - "An error dialog or exception stack trace is visible."
+    ignore:
+      - "Exact camera angle, lighting, or player position differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 800
+    full_page: false

@@ -1,0 +1,446 @@
+schema: c1-lazarus-p2p-only-profiles-v1
+schema_version: 1
+hosts:
+  jupyterlab:
+    key: jupyterlab
+    slug: jupyterlab/jupyterlab
+    repo_path: games/jupyterlab
+    forbidden_control_token: JupyterServer
+    pinned_revision: 4a19f8fff4049a9536e21fa2980fe7e5ee592d01
+  luanti:
+    key: luanti
+    slug: luanti-org/luanti
+    repo_path: games/luanti
+    forbidden_control_token: ''
+    pinned_revision: ba414e29fddf52337b16d673e17f87165bab3eff
+  openra:
+    key: openra
+    slug: OpenRA/OpenRA
+    repo_path: games/OpenRA
+    forbidden_control_token: ''
+    pinned_revision: 7e687f430ee5b194c0ffaa06caaba757dd9155fb
+profiles:
+- task_id: lzp-jupyterlab-17153-shortcut-chip-contrast
+  host: jupyterlab
+  change_number: 17153
+  issue_number: 16801
+  title: Improve contrast for 'Add' button in Keyboard Shortcuts UI in both dark and light theme
+  issue_title: In dark theme the "Add" button in keyboard shortcuts UI is not readable
+  issue_labels:
+  - bug
+  - good first issue
+  - tag:Accessibility
+  issue_state: closed
+  issue_link_source: pull_request_body
+  fixed_revision: f9ba3d176b0029511a32316cddd57009c0c84f1b
+  base_revision: 87cb79fe29c623f1e2f3d00e8d0d51c656ef12d4
+  merged_at: '2025-01-17T10:35:38Z'
+  package_directory: packages/shortcuts-extension
+  production_paths:
+  - packages/shortcuts-extension/style/base.css
+  - packages/theme-dark-extension/style/variables.css
+  - packages/theme-dark-high-contrast-extension/style/variables.css
+  - packages/theme-light-extension/style/variables.css
+  changed_paths:
+  - packages/shortcuts-extension/style/base.css
+  - packages/theme-dark-extension/style/variables.css
+  - packages/theme-dark-high-contrast-extension/style/variables.css
+  - packages/theme-light-extension/style/variables.css
+  control_test_path: packages/shortcuts-extension/test/shortcuts.spec.ts
+  control_test_relation: same_package
+  raw_root: .warptest-cache/lazarus-p2p-only/raw/jupyterlab/17153
+  raw_hashes:
+    pull.json: 357516f4a6fc1f1b65def8a2d463d10fce66e57629b03fecfaa77dc47ce4bdae
+    commit.json: 4be52f3aa33068bf9c008bc06888b140fb4014637ed7229b64c985089097a68a
+    issue-16801.json: 9175a6ce15eaf9000f95413706735bb9b5ecca5c5bcf57e11c8438285bfaa3af
+    issue-timeline.json: f0201195e3ed69885d0d89609004f5cd8e806e6754ac070a3b4ce570ec78110f
+    commit.diff: 28b191e3c800333d81dad03c3018cb14211e3490e9875eb76cbc934b1a1378ef
+    inverse.patch: 28b191e3c800333d81dad03c3018cb14211e3490e9875eb76cbc934b1a1378ef
+  inverse_patch_sha256: 28b191e3c800333d81dad03c3018cb14211e3490e9875eb76cbc934b1a1378ef
+  timeline_cites_fix_commit: false
+  timeline_links_fix_change: true
+  added_test_paths: []
+- task_id: lzp-jupyterlab-17222-toolbar-button-pressed-toggle
+  host: jupyterlab
+  change_number: 17222
+  issue_number: 14464
+  title: Update `aria-pressed` state for `ToolbarButton` when pressed
+  issue_title: '`More commands` three dots button on toolbar does not reflect status'
+  issue_labels:
+  - bug
+  - tag:Accessibility
+  issue_state: closed
+  issue_link_source: pull_request_body
+  fixed_revision: 2a285417e79db4bac7b4a7bf9ca9e88b75a61ecc
+  base_revision: 46cf497c6b304620d1ee7c7ae094f0227b69160a
+  merged_at: '2026-01-07T13:47:57Z'
+  package_directory: packages/ui-components
+  production_paths:
+  - packages/ui-components/src/components/toolbar.tsx
+  changed_paths:
+  - packages/ui-components/src/components/toolbar.tsx
+  control_test_path: packages/ui-components/test/styling.spec.ts
+  control_test_relation: same_package
+  raw_root: .warptest-cache/lazarus-p2p-only/raw/jupyterlab/17222
+  raw_hashes:
+    pull.json: 5c85bb3123695e87c76fabb7d06a23e2bde9061fed105e752c616fae37ac1e99
+    commit.json: e7d721c85eeaa036647e6fcbf823fafb3546e38d30d061b96d9a7b49b65b8c0c
+    issue-14464.json: 00d25d9a0db4ee5963f50a96b34d0a8d470dfd466441382b5b3aff9a07a10f8d
+    issue-timeline.json: 882634120048b130ed7de0a49a8e31a5df9842769d87add5157ac9380f14bef6
+    commit.diff: f36db48c069fec0366acf38fb42a7093a04eeb09245bc96b8d8f54142cd1ebfb
+    inverse.patch: f36db48c069fec0366acf38fb42a7093a04eeb09245bc96b8d8f54142cd1ebfb
+  inverse_patch_sha256: f36db48c069fec0366acf38fb42a7093a04eeb09245bc96b8d8f54142cd1ebfb
+  timeline_cites_fix_commit: false
+  timeline_links_fix_change: true
+  added_test_paths: []
+- task_id: lzp-jupyterlab-17618-high-contrast-selection-layer
+  host: jupyterlab
+  change_number: 17618
+  issue_number: 17447
+  title: Fix selection visibility in terminal while using Dark High Contrast theme
+  issue_title: Text selection is not visible within Terminal Window while using high contrast theme due
+    to selection color being the same as background color
+  issue_labels:
+  - bug
+  - status:Needs Discussion
+  - status:resolved-locked
+  - tag:CSS
+  issue_state: closed
+  issue_link_source: pull_request_body
+  fixed_revision: 1f18828225e5e16c569dcb810eb4c6137cd33d9b
+  base_revision: 3f644bcc539c127496b7dabe95ec90415c95a8a6
+  merged_at: '2025-06-10T09:05:41Z'
+  package_directory: packages/theme-dark-high-contrast-extension
+  production_paths:
+  - packages/theme-dark-high-contrast-extension/style/variables.css
+  changed_paths:
+  - packages/theme-dark-high-contrast-extension/style/variables.css
+  control_test_path: packages/application/test/shell.spec.ts
+  control_test_relation: cross_package_touched_package_ships_no_tests
+  raw_root: .warptest-cache/lazarus-p2p-only/raw/jupyterlab/17618
+  raw_hashes:
+    pull.json: d2d1fab5a4cd5c698942f165183c832ed2208075fd69111777823a7785a18497
+    commit.json: 90b38fa135728ff5f51554d9eb965f98cc178d96466cf0b3b7e0ad75481f771e
+    issue-17447.json: a40b6ae3e40243ca353de72b4ce8a3347e51d9f04545e18071fa57e8c4e88e19
+    issue-timeline.json: 4d9e528938ba7caef5738ca203d0ff726e9fbef8a25103e5ee9b11ce6c976ab5
+    commit.diff: 0a9faedd694ed81223dc743e1c1aa6e40722cffad2003f23e4ffe7d56b157597
+    inverse.patch: 0a9faedd694ed81223dc743e1c1aa6e40722cffad2003f23e4ffe7d56b157597
+  inverse_patch_sha256: 0a9faedd694ed81223dc743e1c1aa6e40722cffad2003f23e4ffe7d56b157597
+  timeline_cites_fix_commit: false
+  timeline_links_fix_change: true
+  added_test_paths: []
+- task_id: lzp-jupyterlab-18464-debugger-zero-variable-detail
+  host: jupyterlab
+  change_number: 18464
+  issue_number: 18463
+  title: Fix debugger variable panel to render value 0 properly
+  issue_title: Debugger variables panel fails to render value 0 properly
+  issue_labels:
+  - bug
+  - pkg:debugger
+  - status:Needs Triage
+  issue_state: closed
+  issue_link_source: pull_request_body
+  fixed_revision: 7d5a498b50c43f4156e3f078f49ed8329b43c93c
+  base_revision: 71135ee4e7f054906134f1f5232d8e62db98df0d
+  merged_at: '2026-02-08T18:48:52Z'
+  package_directory: packages/debugger
+  production_paths:
+  - packages/debugger/src/panels/variables/tree.tsx
+  changed_paths:
+  - packages/debugger/src/panels/variables/tree.tsx
+  control_test_path: packages/debugger/test/config.spec.ts
+  control_test_relation: same_package
+  raw_root: .warptest-cache/lazarus-p2p-only/raw/jupyterlab/18464
+  raw_hashes:
+    pull.json: 0eb9b6575513a7827ceae6de562f6cf3d951c9ce5137ca0f3bc9bc4bd037fde0
+    commit.json: a84e8b57b98572d37ba84c8fb96cf88172d2c0d617abf8d0864edde868f7943e
+    issue-18463.json: f2d34c001f84e7938f4fb81046913c2dd358b2505109d00883c05b9444fd1f31
+    issue-timeline.json: ccac5b4c47a4db3ca1f6ef07421226e86e05bab95eada84b0231857c70f5c7d3
+    commit.diff: 178d0e8a92538426aade73dd57e552ebdf2bc25708af757945b13ddfdef289d9
+    inverse.patch: 178d0e8a92538426aade73dd57e552ebdf2bc25708af757945b13ddfdef289d9
+  inverse_patch_sha256: 178d0e8a92538426aade73dd57e552ebdf2bc25708af757945b13ddfdef289d9
+  timeline_cites_fix_commit: false
+  timeline_links_fix_change: true
+  added_test_paths: []
+- task_id: lzp-jupyterlab-18996-htmlselect-caret-offset
+  host: jupyterlab
+  change_number: 18996
+  issue_number: 18956
+  title: Fix `HTMLSelect` dropdown icon misalignment in toolbar popup
+  issue_title: The dropdown icon is misaligned when under ellipse
+  issue_labels:
+  - bug
+  issue_state: closed
+  issue_link_source: commit_message
+  fixed_revision: c7ea21da9ba6ef473796a438ec5f3c0a141c3f14
+  base_revision: 9a086de89048b9d87be7abf3b5343ed1fb2fd904
+  merged_at: '2026-06-09T09:49:02Z'
+  package_directory: packages/ui-components
+  production_paths:
+  - packages/ui-components/src/components/htmlselect.tsx
+  - packages/ui-components/style/base.css
+  changed_paths:
+  - packages/ui-components/src/components/htmlselect.tsx
+  - packages/ui-components/style/base.css
+  control_test_path: packages/ui-components/test/styling.spec.ts
+  control_test_relation: same_package
+  raw_root: .warptest-cache/lazarus-p2p-only/raw/jupyterlab/18996
+  raw_hashes:
+    pull.json: e2c877f21ebb856a6feffc169f3a09b5b8a5f4ecf6eb46b607488745735d87c0
+    commit.json: 56ad6e818a38b6159895875833d5434ce8e5ac051a39fb6cd0d18d4ec0bc71d8
+    issue-18956.json: f53b2016a9e9a29dbf7158d073c7f33abe034a08a129ee307c2e18280bf873d1
+    issue-timeline.json: e001bf0ef3505aa266bfeefa7b4244bfe70e8298bb0eb566f85998c7036fae51
+    commit.diff: c7b7e865ad336c45d06a26f7db6f92af928832b12d98021484c414241a5a835e
+    inverse.patch: c7b7e865ad336c45d06a26f7db6f92af928832b12d98021484c414241a5a835e
+  inverse_patch_sha256: c7b7e865ad336c45d06a26f7db6f92af928832b12d98021484c414241a5a835e
+  timeline_cites_fix_commit: true
+  timeline_links_fix_change: true
+  added_test_paths: []
+- task_id: lzp-jupyterlab-19091-themed-button-glyph-font
+  host: jupyterlab
+  change_number: 19091
+  issue_number: 19089
+  title: Fix Font Awesome icon rendering on buttons
+  issue_title: Font awesome icons do not render in buttons of outputs since JupyterLab 4.6.0a4
+  issue_labels:
+  - bug
+  - status:Needs Triage
+  issue_state: closed
+  issue_link_source: commit_message
+  fixed_revision: 4731e0b325aa8a21249af6e1cb244316504f74ee
+  base_revision: 6d8e90752ca296f0d8ea6917365948a83b2d0576
+  merged_at: '2026-06-27T21:38:31Z'
+  package_directory: packages/application
+  production_paths:
+  - packages/application/style/buttons.css
+  changed_paths:
+  - packages/application/style/buttons.css
+  control_test_path: packages/application/test/shell.spec.ts
+  control_test_relation: same_package
+  raw_root: .warptest-cache/lazarus-p2p-only/raw/jupyterlab/19091
+  raw_hashes:
+    pull.json: 54e113d8e8ed2d74b7f5085cf0861ea1b0cda8be0e3957d6dda9cfb1b41da9d9
+    commit.json: c3a1d240ba88ebd5f861fd47706899d09687ef24578938ed8497168567156c84
+    issue-19089.json: 95de737a2145dbf03b8f231f46f1cd9d54299a6487b8f679e871ac170c44613f
+    issue-timeline.json: ec1f9aa02ff44211bf2e09a239cc04ca9fe5293df3cbad59fa3e6155d6a27e05
+    commit.diff: d7e47a10bd017eb711bff59036bf2e60f8e448b21083b4938f394f1ac82f6021
+    inverse.patch: d7e47a10bd017eb711bff59036bf2e60f8e448b21083b4938f394f1ac82f6021
+  inverse_patch_sha256: d7e47a10bd017eb711bff59036bf2e60f8e448b21083b4938f394f1ac82f6021
+  timeline_cites_fix_commit: true
+  timeline_links_fix_change: true
+  added_test_paths: []
+- task_id: lzp-luanti-16679-unavailable-settings
+  host: luanti
+  change_number: 16679
+  issue_number: 14171
+  title: Show unavailable settings in menu
+  issue_title: Settings tab hides settings whose requirements are not satisfied
+  issue_labels:
+  - '@ Mainmenu / Settingsmenu'
+  - Bug
+  - UI/UX
+  issue_state: closed
+  issue_link_source: pull_request_body
+  fixed_revision: 7e53e6554946e33863e023df1d9581eacd092896
+  base_revision: 7c310cd7f5c30bde9b38fb817ba99060c7b4e96e
+  merged_at: '2025-11-16T13:59:56Z'
+  package_directory: builtin
+  production_paths:
+  - builtin/common/settings/components.lua
+  - builtin/common/settings/dlg_settings.lua
+  changed_paths:
+  - builtin/common/settings/components.lua
+  - builtin/common/settings/dlg_settings.lua
+  control_test_path: games/devtest/mods/unittests/misc.lua
+  control_test_relation: cross_package_touched_package_ships_no_tests
+  raw_root: .warptest-cache/lazarus-p2p-only/raw/luanti/16679
+  raw_hashes:
+    pull.json: fac47e18be0427cfec8d5d5362565c3e492b1e1f5fdc18fb69d9589f2e3a3910
+    commit.json: ca831cc3411266a7547312254e79048fce1eb29c7b64db9d830970d5c2baa723
+    issue-14171.json: d0a8c06e7d14668f119901a1618f3a19a0da4a5f63c880e18386c86d24c03838
+    issue-timeline.json: 4da7145efb465f058e7d4e6cd7640f4cceeb7e2a02e0ddfd96845cf028ccf8b9
+    commit.diff: df144ab754505a6755032aa2b5100650f05a0c55af6788049585c620b69f0c8c
+    inverse.patch: df144ab754505a6755032aa2b5100650f05a0c55af6788049585c620b69f0c8c
+  inverse_patch_sha256: df144ab754505a6755032aa2b5100650f05a0c55af6788049585c620b69f0c8c
+  timeline_cites_fix_commit: false
+  timeline_links_fix_change: true
+  added_test_paths: []
+- task_id: lzp-luanti-16799-world-mods
+  host: luanti
+  change_number: 16799
+  issue_number: 12291
+  title: 'Select Mods: Show world mods'
+  issue_title: 'Select Mods: Show world mods'
+  issue_labels:
+  - '@ Content / PkgMgr'
+  - '@ Mainmenu / Settingsmenu'
+  - Bug
+  issue_state: closed
+  issue_link_source: pull_request_body
+  fixed_revision: 14427725ae8869d5e4b2d8942f7ecf230a87b752
+  base_revision: 3d10d4e859ad2d37645eb6ba7173332075dcfb38
+  merged_at: '2026-01-03T14:48:13Z'
+  package_directory: builtin
+  production_paths:
+  - builtin/mainmenu/content/pkgmgr.lua
+  - builtin/mainmenu/dlg_config_world.lua
+  changed_paths:
+  - builtin/mainmenu/content/pkgmgr.lua
+  - builtin/mainmenu/dlg_config_world.lua
+  control_test_path: games/devtest/mods/unittests/misc.lua
+  control_test_relation: cross_package_touched_package_ships_no_tests
+  raw_root: .warptest-cache/lazarus-p2p-only/raw/luanti/16799
+  raw_hashes:
+    pull.json: dbe3a0f9f3e497619522d3c294e3d600715ac711101b51ba886b31fb41faf62a
+    commit.json: 0bee166a3a18be0076910870cd6c3482cddec1ac18c01220208c05d72a2d69b0
+    issue-12291.json: 6f2f5887481a68350952aa47b00ab2c1fd466432074ff78be72b992e81d2b531
+    issue-timeline.json: b70f230d3c8cf20106913dceab3cb5895285396c9758a04cb4efeeb011f852f3
+    commit.diff: 40885e65c9f3a5a0f9138d102156aa637788d665e153f7ea8d61732d94c8c7db
+    inverse.patch: 40885e65c9f3a5a0f9138d102156aa637788d665e153f7ea8d61732d94c8c7db
+  inverse_patch_sha256: 40885e65c9f3a5a0f9138d102156aa637788d665e153f7ea8d61732d94c8c7db
+  timeline_cites_fix_commit: false
+  timeline_links_fix_change: true
+  added_test_paths: []
+- task_id: lzp-luanti-17152-server-list-search-tooltip
+  host: luanti
+  change_number: 17152
+  issue_number: 17150
+  title: Fix server list sort filter tooltip
+  issue_title: Cryptic server list sort filter tooltip
+  issue_labels:
+  - '@ Mainmenu / Settingsmenu'
+  - Bug
+  issue_state: closed
+  issue_link_source: pull_request_body
+  fixed_revision: f03874c5252d9a181de2a5eabd31667a64c8d7cb
+  base_revision: 9d5821f3e61db8dd0707fd3e2e9e3d0a0498c643
+  merged_at: '2026-05-08T16:36:48Z'
+  package_directory: builtin
+  production_paths:
+  - builtin/mainmenu/tab_online.lua
+  changed_paths:
+  - builtin/mainmenu/tab_online.lua
+  control_test_path: games/devtest/mods/unittests/misc.lua
+  control_test_relation: cross_package_touched_package_ships_no_tests
+  raw_root: .warptest-cache/lazarus-p2p-only/raw/luanti/17152
+  raw_hashes:
+    pull.json: 577d9b128277a9ced3a3a533a171abdc0007d01575f5f2b4114f895b26260642
+    commit.json: 34f1ac593fb361ed32b8ce2a489b2d78f9763675d5af4f0f4b2b0b2a3cebcc73
+    issue-17150.json: 7a498e13b47d5dde0327a2d71053df6bc1da3aeea36503b5dfd5ca0acf040fed
+    issue-timeline.json: 8fa70bcc750f47369a5d6ae87194e38dc26ca1598ab7a329de35239155180222
+    commit.diff: d75381cda76f28a169b2f4fcda9c04d8de49a8ab7b1e2c321a9d9a8152f7d43c
+    inverse.patch: d75381cda76f28a169b2f4fcda9c04d8de49a8ab7b1e2c321a9d9a8152f7d43c
+  inverse_patch_sha256: d75381cda76f28a169b2f4fcda9c04d8de49a8ab7b1e2c321a9d9a8152f7d43c
+  timeline_cites_fix_commit: false
+  timeline_links_fix_change: true
+  added_test_paths: []
+- task_id: lzp-openra-22283-tileset-template-order
+  host: openra
+  change_number: 22283
+  issue_number: 22280
+  title: Fix tileset templates to appear in the map editor in their order in YAML.
+  issue_title: Default tile for new maps and ordering of templates in map editor have changed
+  issue_labels:
+  - Bug
+  issue_state: closed
+  issue_link_source: pull_request_body
+  fixed_revision: c47ebfbb52d70312c127c3c7bd3f5736b1fab164
+  base_revision: 2c0a4f5873054daac4b6f2749620b17a5a19bbea
+  merged_at: '2026-01-04T12:13:34Z'
+  package_directory: OpenRA.Mods.Common
+  production_paths:
+  - OpenRA.Mods.Common/MapGenerator/MultiBrush.cs
+  - OpenRA.Mods.Common/Terrain/DefaultTerrain.cs
+  - OpenRA.Mods.Common/Terrain/TerrainInfo.cs
+  - OpenRA.Mods.Common/Traits/World/TilingPathTool.cs
+  - OpenRA.Mods.Common/Widgets/Logic/Editor/TileSelectorLogic.cs
+  - OpenRA.Mods.D2k/UtilityCommands/D2kMapImporter.cs
+  changed_paths:
+  - OpenRA.Mods.Common/MapGenerator/MultiBrush.cs
+  - OpenRA.Mods.Common/Terrain/DefaultTerrain.cs
+  - OpenRA.Mods.Common/Terrain/TerrainInfo.cs
+  - OpenRA.Mods.Common/Traits/World/TilingPathTool.cs
+  - OpenRA.Mods.Common/Widgets/Logic/Editor/TileSelectorLogic.cs
+  - OpenRA.Mods.D2k/UtilityCommands/D2kMapImporter.cs
+  control_test_path: OpenRA.Test/OpenRA.Game/MiniYamlTest.cs
+  control_test_relation: cross_package_touched_package_ships_no_tests
+  raw_root: .warptest-cache/lazarus-p2p-only/raw/openra/22283
+  raw_hashes:
+    pull.json: 6f313ae6623f04b888c84bfb6a724fcb5ecf667a8370d16c8edf008bd13000c3
+    commit.json: 17c4c632560e5fc77fc5f3ccf2427cd47f2e074976fb942a7846558fc1bdaef1
+    issue-22280.json: 86d62bc05ec2a9c306c79e50b5ab8f3ca1b15ef43d2f32ffdca6cc3328f677aa
+    issue-timeline.json: ccc7127421c3666d8769aff907b67deb8eea33b05d2307c02f9b8472af860f90
+    commit.diff: b86ddd08bc6b3352fa72ea208b43de6d348528f23da86c4624d74ae7c7d7706f
+    inverse.patch: b86ddd08bc6b3352fa72ea208b43de6d348528f23da86c4624d74ae7c7d7706f
+  inverse_patch_sha256: b86ddd08bc6b3352fa72ea208b43de6d348528f23da86c4624d74ae7c7d7706f
+  timeline_cites_fix_commit: false
+  timeline_links_fix_change: true
+  added_test_paths: []
+- task_id: lzp-openra-22325-color-picker-overflow
+  host: openra
+  catalog_admission: false
+  catalog_exclusion_reason: four-frame luma differential is zero at the registered capture geometries
+  change_number: 22325
+  issue_number: 20466
+  title: Shift Color Picker panel left if it would extend beyond the right edge of the screen
+  issue_title: Color picker can go outside the screen
+  issue_labels:
+  - Bug
+  - UI
+  issue_state: closed
+  issue_link_source: pull_request_body
+  fixed_revision: efe7bce08acb60ae203d7f8189a47b360ecab6d2
+  base_revision: a6f5002a84f12ff0b1f1dd31700c2e20a5a8f806
+  merged_at: '2026-02-07T16:02:01Z'
+  package_directory: OpenRA.Mods.Common
+  production_paths:
+  - OpenRA.Mods.Common/Widgets/DropDownButtonWidget.cs
+  changed_paths:
+  - OpenRA.Mods.Common/Widgets/DropDownButtonWidget.cs
+  control_test_path: OpenRA.Test/OpenRA.Game/MiniYamlTest.cs
+  control_test_relation: cross_package_touched_package_ships_no_tests
+  raw_root: .warptest-cache/lazarus-p2p-only/raw/openra/22325
+  raw_hashes:
+    pull.json: 39c3262b650b0e4a0225816aeb3ea3677a33bb53c450ebdad52b1efed17c8fbd
+    commit.json: 11508de7674b6c38f683a2bb10c6a1fea620cb2c01c92361e1984cc895ee9744
+    issue-20466.json: 7b5d494e5bd993a81040ba7018f4a8e1a8b94e8952519e8a1a13756e9e5c47d5
+    issue-timeline.json: 9621edab1aa042cc43f9a03fd59f38118e436492dcab653e04f92ddfc9c072f7
+    commit.diff: a4f4543f87d5ee37b188cd643c10cb99da8e70ecde2c31833ba255dac26c12bd
+    inverse.patch: a4f4543f87d5ee37b188cd643c10cb99da8e70ecde2c31833ba255dac26c12bd
+  inverse_patch_sha256: a4f4543f87d5ee37b188cd643c10cb99da8e70ecde2c31833ba255dac26c12bd
+  timeline_cites_fix_commit: false
+  timeline_links_fix_change: true
+  added_test_paths: []
+- task_id: lzp-openra-22476-load-game-faction-filter
+  host: openra
+  change_number: 22476
+  issue_number: 22472
+  title: Fix Load Game faction filter showing internal names instead of display names
+  issue_title: New load dialog shows faction's internal name in filter dropdown
+  issue_labels:
+  - Bug
+  issue_state: closed
+  issue_link_source: pull_request_body
+  fixed_revision: 8a1f0ad7ca88b348e80d4123046a6940a58dfceb
+  base_revision: 847e764e129373efb1e481d6eb6e01cbb2df0347
+  merged_at: '2026-05-24T14:54:16Z'
+  package_directory: OpenRA.Mods.Common
+  production_paths:
+  - OpenRA.Mods.Common/Widgets/Logic/LoadGameBrowserLogic.cs
+  changed_paths:
+  - OpenRA.Mods.Common/Widgets/Logic/LoadGameBrowserLogic.cs
+  control_test_path: OpenRA.Test/OpenRA.Game/MiniYamlTest.cs
+  control_test_relation: cross_package_touched_package_ships_no_tests
+  raw_root: .warptest-cache/lazarus-p2p-only/raw/openra/22476
+  raw_hashes:
+    pull.json: 507beb52411560b7bab14e02c555b70351799d344b90a5b092b7ae2464091168
+    commit.json: 72fe41e46b878bb6948ebcfa4461acec443322e7aa9b0435312600091689ac81
+    issue-22472.json: 53347bc80bfc37fa6eb226e449ff42d65a63490de5ac6ccc4520d349da668b86
+    issue-timeline.json: fad347dad0fcac66bf31726fa80b1e3524295a30efc43f8483d7e6f7707fbf2b
+    commit.diff: 5fbb1d1f6ac0f47eedc6ada960ba602c12aed793e736a05ac4b3ab0ece02984b
+    inverse.patch: 5fbb1d1f6ac0f47eedc6ada960ba602c12aed793e736a05ac4b3ab0ece02984b
+  inverse_patch_sha256: 5fbb1d1f6ac0f47eedc6ada960ba602c12aed793e736a05ac4b3ab0ece02984b
+  timeline_cites_fix_commit: false
+  timeline_links_fix_change: true
+  added_test_paths: []

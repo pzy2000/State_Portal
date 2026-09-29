@@ -1,0 +1,259 @@
+diff --git a/src/content_nodemeta.cpp b/src/content_nodemeta.cpp
+index 39743c1..f3ffc4b 100644
+--- a/src/content_nodemeta.cpp
++++ b/src/content_nodemeta.cpp
+@@ -22,6 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
+ #include "nodetimer.h"
+ #include "inventory.h"
+ #include "log.h"
++#include "debug.h"
+ #include "serialization.h"
+ #include "util/serialize.h"
+ #include "util/string.h"
+diff --git a/src/nodemetadata.cpp b/src/nodemetadata.cpp
+index 43770fe..a11503e 100644
+--- a/src/nodemetadata.cpp
++++ b/src/nodemetadata.cpp
+@@ -23,6 +23,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
+ #include "inventory.h"
+ #include "irrlicht_changes/printing.h"
+ #include "log.h"
++#include "debug.h"
+ #include "util/serialize.h"
+ #include "constants.h" // MAP_BLOCKSIZE
+ #include <sstream>
+diff --git a/src/object_properties.cpp b/src/object_properties.cpp
+index df3d245..5fb6a7d 100644
+--- a/src/object_properties.cpp
++++ b/src/object_properties.cpp
+@@ -21,6 +21,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
+ #include "irrlicht_changes/printing.h"
+ #include "irrlichttypes_bloated.h"
+ #include "exceptions.h"
++#include "log.h"
+ #include "util/serialize.h"
+ #include <sstream>
+ 
+diff --git a/src/script/common/c_converter.cpp b/src/script/common/c_converter.cpp
+index a7b1836..446f88f 100644
+--- a/src/script/common/c_converter.cpp
++++ b/src/script/common/c_converter.cpp
+@@ -25,6 +25,7 @@ extern "C" {
+ #include "util/numeric.h"
+ #include "util/serialize.h"
+ #include "util/string.h"
++#include "log.h"
+ #include "common/c_converter.h"
+ #include "common/c_internal.h"
+ #include "constants.h"
+diff --git a/src/serialization.cpp b/src/serialization.cpp
+index 689e4d9..4134126 100644
+--- a/src/serialization.cpp
++++ b/src/serialization.cpp
+@@ -18,7 +18,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
+ */
+ 
+ #include "serialization.h"
+-
++#include "log.h"
+ #include "util/serialize.h"
+ 
+ #include <zlib.h>
+diff --git a/src/util/serialize.h b/src/util/serialize.h
+index 00250ec..5065de6 100644
+--- a/src/util/serialize.h
++++ b/src/util/serialize.h
+@@ -21,28 +21,39 @@ with this program; if not, write to the Free Software Foundation, Inc.,
+ 
+ #include "irrlichttypes_bloated.h"
+ #include "exceptions.h" // for SerializationError
+-#include "debug.h" // for assert
+ #include "ieee_float.h"
+ 
+ #include "config.h"
+-#if HAVE_ENDIAN_H
+-	#ifdef _WIN32
+-		#define __BYTE_ORDER 0
+-		#define __LITTLE_ENDIAN 0
+-		#define __BIG_ENDIAN 1
+-	#elif defined(__MACH__) && defined(__APPLE__)
+-		#include <machine/endian.h>
+-	#elif defined(__FreeBSD__) || defined(__DragonFly__)
+-		#include <sys/endian.h>
+-	#else
+-		#include <endian.h>
+-	#endif
+-#endif
+ #include <cstring> // for memcpy
++#include <cassert>
+ #include <iostream>
+ #include <string>
+ #include <string_view>
+ 
++/* make sure BYTE_ORDER macros are available */
++#ifdef _WIN32
++	#define BYTE_ORDER 1234
++#elif defined(__MACH__) && defined(__APPLE__)
++	#include <machine/endian.h>
++#elif defined(__FreeBSD__) || defined(__DragonFly__)
++	#include <sys/endian.h>
++#elif HAVE_ENDIAN_H
++	#include <endian.h>
++#else
++	#error "Can't detect endian (missing header)"
++#endif
++#ifndef LITTLE_ENDIAN
++	#define LITTLE_ENDIAN 1234
++#endif
++#ifndef BIG_ENDIAN
++	#define BIG_ENDIAN 4321
++#endif
++#if !defined(BYTE_ORDER) && defined(_BYTE_ORDER)
++	#define BYTE_ORDER _BYTE_ORDER
++#elif !defined(BYTE_ORDER) && defined(__BYTE_ORDER)
++	#define BYTE_ORDER __BYTE_ORDER
++#endif
++
+ #define FIXEDPOINT_FACTOR 1000.0f
+ 
+ // 0x7FFFFFFF / 1000.0f is not serializable.
+diff --git a/src/util/string.cpp b/src/util/string.cpp
+index 6c2ae7c..0c896e6 100644
+--- a/src/util/string.cpp
++++ b/src/util/string.cpp
+@@ -18,7 +18,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
+ */
+ 
+ #include "string.h"
+-#include "pointer.h"
++#include "serialize.h" // BYTE_ORDER
+ #include "numeric.h"
+ #include "log.h"
+ 
+@@ -41,49 +41,70 @@ with this program; if not, write to the Free Software Foundation, Inc.,
+ 
+ #ifndef _WIN32
+ 
+-static bool convert(const char *to, const char *from, char *outbuf,
+-		size_t *outbuf_size, char *inbuf, size_t inbuf_size)
++namespace {
++	class IconvSmartPointer {
++		iconv_t m_cd;
++		static const iconv_t null_value;
++	public:
++		IconvSmartPointer() : m_cd(null_value) {}
++		~IconvSmartPointer() { reset(); }
++
++		DISABLE_CLASS_COPY(IconvSmartPointer)
++		ALLOW_CLASS_MOVE(IconvSmartPointer)
++
++		iconv_t get() const { return m_cd; }
++		operator bool() const { return m_cd != null_value; }
++		void reset(iconv_t cd = null_value) {
++			if (m_cd != null_value)
++				iconv_close(m_cd);
++			m_cd = cd;
++		}
++	};
++
++	// note that this can't be constexpr if iconv_t is a pointer
++	const iconv_t IconvSmartPointer::null_value = (iconv_t) -1;
++}
++
++static bool convert(iconv_t cd, char *outbuf, size_t *outbuf_size,
++	char *inbuf, size_t inbuf_size)
+ {
+-	iconv_t cd = iconv_open(to, from);
++	// reset conversion state
++	iconv(cd, nullptr, nullptr, nullptr, nullptr);
+ 
+ 	char *inbuf_ptr = inbuf;
+ 	char *outbuf_ptr = outbuf;
+ 
+-	size_t *inbuf_left_ptr = &inbuf_size;
+-
+ 	const size_t old_outbuf_size = *outbuf_size;
+ 	size_t old_size = inbuf_size;
+ 	while (inbuf_size > 0) {
+-		iconv(cd, &inbuf_ptr, inbuf_left_ptr, &outbuf_ptr, outbuf_size);
++		iconv(cd, &inbuf_ptr, &inbuf_size, &outbuf_ptr, outbuf_size);
+ 		if (inbuf_size == old_size) {
+-			iconv_close(cd);
+ 			return false;
+ 		}
+ 		old_size = inbuf_size;
+ 	}
+ 
+-	iconv_close(cd);
+ 	*outbuf_size = old_outbuf_size - *outbuf_size;
+ 	return true;
+ }
+ 
+-#ifdef __ANDROID__
+-// On Android iconv disagrees how big a wchar_t is for whatever reason
+-const char *DEFAULT_ENCODING = "UTF-32LE";
+-#elif defined(__NetBSD__) || defined(__OpenBSD__) || defined(__FreeBSD__)
+-	// NetBSD does not allow "WCHAR_T" as a charset input to iconv.
+-	#include <sys/endian.h>
+-	#if BYTE_ORDER == BIG_ENDIAN
+-	const char *DEFAULT_ENCODING = "UTF-32BE";
+-	#else
+-	const char *DEFAULT_ENCODING = "UTF-32LE";
+-	#endif
+-#else
+-const char *DEFAULT_ENCODING = "WCHAR_T";
+-#endif
++// select right encoding for wchar_t size
++constexpr auto DEFAULT_ENCODING = ([] () -> const char* {
++	constexpr auto sz = sizeof(wchar_t);
++	static_assert(sz == 2 || sz == 4, "Unexpected wide char size");
++	if constexpr (sz == 2) {
++		return (BYTE_ORDER == BIG_ENDIAN) ? "UTF-16BE" : "UTF-16LE";
++	} else {
++		return (BYTE_ORDER == BIG_ENDIAN) ? "UTF-32BE" : "UTF-32LE";
++	}
++})();
+ 
+ std::wstring utf8_to_wide(std::string_view input)
+ {
++	thread_local IconvSmartPointer cd;
++	if (!cd)
++		cd.reset(iconv_open(DEFAULT_ENCODING, "UTF-8"));
++
+ 	const size_t inbuf_size = input.length();
+ 	// maximum possible size, every character is sizeof(wchar_t) bytes
+ 	size_t outbuf_size = input.length() * sizeof(wchar_t);
+@@ -93,12 +114,8 @@ std::wstring utf8_to_wide(std::string_view input)
+ 	std::wstring out;
+ 	out.resize(outbuf_size / sizeof(wchar_t));
+ 
+-#if defined(__ANDROID__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__FreeBSD__)
+-	static_assert(sizeof(wchar_t) == 4, "Unexpected wide char size");
+-#endif
+-
+ 	char *outbuf = reinterpret_cast<char*>(&out[0]);
+-	if (!convert(DEFAULT_ENCODING, "UTF-8", outbuf, &outbuf_size, inbuf, inbuf_size)) {
++	if (!convert(cd.get(), outbuf, &outbuf_size, inbuf, inbuf_size)) {
+ 		infostream << "Couldn't convert UTF-8 string 0x" << hex_encode(input)
+ 			<< " into wstring" << std::endl;
+ 		delete[] inbuf;
+@@ -112,6 +129,10 @@ std::wstring utf8_to_wide(std::string_view input)
+ 
+ std::string wide_to_utf8(std::wstring_view input)
+ {
++	thread_local IconvSmartPointer cd;
++	if (!cd)
++		cd.reset(iconv_open("UTF-8", DEFAULT_ENCODING));
++
+ 	const size_t inbuf_size = input.length() * sizeof(wchar_t);
+ 	// maximum possible size: utf-8 encodes codepoints using 1 up to 4 bytes
+ 	size_t outbuf_size = input.length() * 4;
+@@ -121,7 +142,7 @@ std::string wide_to_utf8(std::wstring_view input)
+ 	std::string out;
+ 	out.resize(outbuf_size);
+ 
+-	if (!convert("UTF-8", DEFAULT_ENCODING, &out[0], &outbuf_size, inbuf, inbuf_size)) {
++	if (!convert(cd.get(), &out[0], &outbuf_size, inbuf, inbuf_size)) {
+ 		infostream << "Couldn't convert wstring 0x" << hex_encode(inbuf, inbuf_size)
+ 			<< " into UTF-8 string" << std::endl;
+ 		delete[] inbuf;

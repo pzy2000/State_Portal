@@ -1,0 +1,77 @@
+name: luanti build a tree-trunk column
+benchmark: luanti
+timeout_ms: 300000
+tags: ["luanti", "voxel", "build", "column"]
+target:
+  kind: synthesized_world
+  nodes:
+    - pos: { x: 0, y: 1, z: 0 }
+      node: "basenodes:tree"
+    - pos: { x: 0, y: 2, z: 0 }
+      node: "basenodes:tree"
+  player:
+    pos: { x: 0, y: 3, z: 6 }
+    hover: true
+    look_at: { x: 0, y: 2, z: 0 }
+    inventory:
+      - item: "basenodes:tree"
+        count: 1
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_node
+    pos: { x: 0, y: 3, z: 0 }
+    node: "basenodes:tree"
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: luanti_node_count
+        from: { x: 0, y: 1, z: 0 }
+        to: { x: 0, y: 3, z: 0 }
+        node: "basenodes:tree"
+        min_count: 3
+      - type: luanti_node_is
+        pos: { x: 0, y: 3, z: 0 }
+        expected: "basenodes:tree"
+      - type: no_luanti_mod_errors
+    surfaces:
+      gui:
+        adapter: luanti_live_world_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: luanti_live_world_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/build-column.golden.png
+    golden_before: visual/luanti-build-column.before.golden.png
+    golden_after: visual/luanti-build-column.after.golden.png
+    expected_label: correct
+    description: "A vertical column of tree-trunk blocks is rendered near spawn in the Luanti devtest world."
+    rubric:
+      must:
+        - "The 3D voxel world is rendered and visible."
+        - "A narrow vertical column/pillar of tree-trunk blocks is visible near the center of the scene."
+        - "The column appears taller than a single placed block."
+        - "No crash dialog, error overlay, or fully blank screen is shown."
+      must_not:
+        - "Only a flat floor, one isolated block, or a different material pillar is visible."
+        - "The screen is blank, black, or only shows the main menu."
+        - "An error dialog or exception stack trace is visible."
+      ignore:
+        - "Exact camera angle, lighting, or player position differences."
+    capture:
+      stage: post_smoke
+      wait_ms: 800
+      full_page: false

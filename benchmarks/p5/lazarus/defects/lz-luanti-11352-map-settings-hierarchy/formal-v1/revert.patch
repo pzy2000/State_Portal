@@ -1,0 +1,459 @@
+diff --git a/src/httpfetch.cpp b/src/httpfetch.cpp
+index 6137782..1307bfe 100644
+--- a/src/httpfetch.cpp
++++ b/src/httpfetch.cpp
+@@ -761,10 +761,12 @@ void httpfetch_cleanup()
+ {
+ 	verbosestream<<"httpfetch_cleanup: cleaning up"<<std::endl;
+ 
+-	g_httpfetch_thread->stop();
+-	g_httpfetch_thread->requestWakeUp();
+-	g_httpfetch_thread->wait();
+-	delete g_httpfetch_thread;
++	if (g_httpfetch_thread) {
++		g_httpfetch_thread->stop();
++		g_httpfetch_thread->requestWakeUp();
++		g_httpfetch_thread->wait();
++		delete g_httpfetch_thread;
++	}
+ 
+ 	curl_global_cleanup();
+ }
+diff --git a/src/main.cpp b/src/main.cpp
+index 4a69f83..ffbdb7b 100644
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -91,6 +91,7 @@ static void list_worlds(bool print_name, bool print_path);
+ static bool setup_log_params(const Settings &cmd_args);
+ static bool create_userdata_path();
+ static bool init_common(const Settings &cmd_args, int argc, char *argv[]);
++static void uninit_common();
+ static void startup_message();
+ static bool read_config_file(const Settings &cmd_args);
+ static void init_log_streams(const Settings &cmd_args);
+@@ -201,6 +202,7 @@ int main(int argc, char *argv[])
+ 		errorstream << "Unittest support is not enabled in this binary. "
+ 			<< "If you want to enable it, compile project with BUILD_UNITTESTS=1 flag."
+ 			<< std::endl;
++		return 1;
+ #endif
+ 	}
+ #endif
+@@ -236,9 +238,6 @@ int main(int argc, char *argv[])
+ 
+ 	print_modified_quicktune_values();
+ 
+-	// Stop httpfetch thread (if started)
+-	httpfetch_cleanup();
+-
+ 	END_DEBUG_EXCEPTION_HANDLER
+ 
+ 	return retval;
+@@ -486,13 +485,14 @@ static bool init_common(const Settings &cmd_args, int argc, char *argv[])
+ 	startup_message();
+ 	set_default_settings();
+ 
+-	// Initialize sockets
+ 	sockets_init();
+-	atexit(sockets_cleanup);
+ 
+ 	// Initialize g_settings
+ 	Settings::createLayer(SL_GLOBAL);
+ 
++	// Set cleanup callback(s) to run at process exit
++	atexit(uninit_common);
++
+ 	if (!read_config_file(cmd_args))
+ 		return false;
+ 
+@@ -511,6 +511,17 @@ static bool init_common(const Settings &cmd_args, int argc, char *argv[])
+ 	return true;
+ }
+ 
++static void uninit_common()
++{
++	httpfetch_cleanup();
++
++	sockets_cleanup();
++
++	// It'd actually be okay to leak these but we want to please valgrind...
++	for (int i = 0; i < (int)SL_TOTAL_COUNT; i++)
++		delete Settings::getLayer((SettingsLayer)i);
++}
++
+ static void startup_message()
+ {
+ 	infostream << PROJECT_NAME << " " << _("with")
+diff --git a/src/map_settings_manager.cpp b/src/map_settings_manager.cpp
+index 99e3cb0..7e86a99 100644
+--- a/src/map_settings_manager.cpp
++++ b/src/map_settings_manager.cpp
+@@ -26,15 +26,24 @@ with this program; if not, write to the Free Software Foundation, Inc.,
+ #include "map_settings_manager.h"
+ 
+ MapSettingsManager::MapSettingsManager(const std::string &map_meta_path):
+-	m_map_meta_path(map_meta_path)
++	m_map_meta_path(map_meta_path),
++	m_hierarchy(g_settings)
+ {
+-	m_map_settings = Settings::createLayer(SL_MAP, "[end_of_params]");
+-	Mapgen::setDefaultSettings(Settings::getLayer(SL_DEFAULTS));
++	/*
++	 * We build our own hierarchy which falls back to the global one.
++	 * It looks as follows: (lowest prio first)
++	 * 0: whatever is picked up from g_settings (incl. engine defaults)
++	 * 1: defaults set by scripts (override_meta = false)
++	 * 2: settings present in map_meta.txt or overriden by scripts
++	 */
++	m_defaults = new Settings("", &m_hierarchy, 1);
++	m_map_settings = new Settings("[end_of_params]", &m_hierarchy, 2);
+ }
+ 
+ 
+ MapSettingsManager::~MapSettingsManager()
+ {
++	delete m_defaults;
+ 	delete m_map_settings;
+ 	delete mapgen_params;
+ }
+@@ -43,14 +52,13 @@ MapSettingsManager::~MapSettingsManager()
+ bool MapSettingsManager::getMapSetting(
+ 	const std::string &name, std::string *value_out)
+ {
+-	// Get from map_meta.txt, then try from all other sources
++	// Try getting it normally first
+ 	if (m_map_settings->getNoEx(name, *value_out))
+ 		return true;
+ 
+-	// Compatibility kludge
++	// If not we may have to resolve some compatibility kludges
+ 	if (name == "seed")
+ 		return Settings::getLayer(SL_GLOBAL)->getNoEx("fixed_map_seed", *value_out);
+-
+ 	return false;
+ }
+ 
+@@ -72,7 +80,7 @@ bool MapSettingsManager::setMapSetting(
+ 	if (override_meta)
+ 		m_map_settings->set(name, value);
+ 	else
+-		Settings::getLayer(SL_GLOBAL)->set(name, value);
++		m_defaults->set(name, value);
+ 
+ 	return true;
+ }
+@@ -87,7 +95,7 @@ bool MapSettingsManager::setMapSettingNoiseParams(
+ 	if (override_meta)
+ 		m_map_settings->setNoiseParams(name, *value);
+ 	else
+-		Settings::getLayer(SL_GLOBAL)->setNoiseParams(name, *value);
++		m_defaults->setNoiseParams(name, *value);
+ 
+ 	return true;
+ }
+@@ -146,15 +154,8 @@ MapgenParams *MapSettingsManager::makeMapgenParams()
+ 	if (mapgen_params)
+ 		return mapgen_params;
+ 
+-	assert(m_map_settings != NULL);
+-
+-	// At this point, we have (in order of precedence):
+-	// 1). SL_MAP containing map_meta.txt settings or
+-	//     explicit overrides from scripts
+-	// 2). SL_GLOBAL containing all user-specified config file
+-	//     settings
+-	// 3). SL_DEFAULTS containing any low-priority settings from
+-	//     scripts, e.g. mods using Lua as an enhanced config file)
++	assert(m_map_settings);
++	assert(m_defaults);
+ 
+ 	// Now, get the mapgen type so we can create the appropriate MapgenParams
+ 	std::string mg_name;
+diff --git a/src/map_settings_manager.h b/src/map_settings_manager.h
+index 9258d30..fa27126 100644
+--- a/src/map_settings_manager.h
++++ b/src/map_settings_manager.h
+@@ -20,8 +20,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
+ #pragma once
+ 
+ #include <string>
++#include "settings.h"
+ 
+-class Settings;
+ struct NoiseParams;
+ struct MapgenParams;
+ 
+@@ -70,6 +70,8 @@ class MapSettingsManager {
+ 
+ private:
+ 	std::string m_map_meta_path;
+-	// TODO: Rename to "m_settings"
++
++	SettingsHierarchy m_hierarchy;
++	Settings *m_defaults;
+ 	Settings *m_map_settings;
+ };
+diff --git a/src/settings.cpp b/src/settings.cpp
+index cff393e..0a94249 100644
+--- a/src/settings.cpp
++++ b/src/settings.cpp
+@@ -33,35 +33,90 @@ with this program; if not, write to the Free Software Foundation, Inc.,
+ #include <cctype>
+ #include <algorithm>
+ 
+-Settings *g_settings = nullptr; // Populated in main()
++Settings *g_settings = nullptr;
++static SettingsHierarchy g_hierarchy;
+ std::string g_settings_path;
+ 
+-Settings *Settings::s_layers[SL_TOTAL_COUNT] = {0}; // Zeroed by compiler
+ std::unordered_map<std::string, const FlagDesc *> Settings::s_flags;
+ 
++/* Settings hierarchy implementation */
+ 
+-Settings *Settings::createLayer(SettingsLayer sl, const std::string &end_tag)
++SettingsHierarchy::SettingsHierarchy(Settings *fallback)
++{
++	layers.push_back(fallback);
++}
++
++
++Settings *SettingsHierarchy::getLayer(int layer) const
+ {
+-	if ((int)sl < 0 || sl >= SL_TOTAL_COUNT)
++	if (layer < 0 || layer >= layers.size())
+ 		throw BaseException("Invalid settings layer");
++	return layers[layer];
++}
++
+ 
+-	Settings *&pos = s_layers[(size_t)sl];
++Settings *SettingsHierarchy::getParent(int layer) const
++{
++	assert(layer >= 0 && layer < layers.size());
++	// iterate towards the origin (0) to find the next fallback layer
++	for (int i = layer - 1; i >= 0; --i) {
++		if (layers[i])
++			return layers[i];
++	}
++
++	return nullptr;
++}
++
++
++void SettingsHierarchy::onLayerCreated(int layer, Settings *obj)
++{
++	if (layer < 0)
++		throw BaseException("Invalid settings layer");
++	if (layers.size() < layer+1)
++		layers.resize(layer+1);
++
++	Settings *&pos = layers[layer];
+ 	if (pos)
+-		throw BaseException("Setting layer " + std::to_string(sl) + " already exists");
++		throw BaseException("Setting layer " + itos(layer) + " already exists");
++
++	pos = obj;
++	// This feels bad
++	if (this == &g_hierarchy && layer == (int)SL_GLOBAL)
++		g_settings = obj;
++}
++
++
++void SettingsHierarchy::onLayerRemoved(int layer)
++{
++	assert(layer >= 0 && layer < layers.size());
++	layers[layer] = nullptr;
++	if (this == &g_hierarchy && layer == (int)SL_GLOBAL)
++		g_settings = nullptr;
++}
+ 
+-	pos = new Settings(end_tag);
+-	pos->m_settingslayer = sl;
++/* Settings implementation */
+ 
+-	if (sl == SL_GLOBAL)
+-		g_settings = pos;
+-	return pos;
++Settings *Settings::createLayer(SettingsLayer sl, const std::string &end_tag)
++{
++	return new Settings(end_tag, &g_hierarchy, (int)sl);
+ }
+ 
+ 
+ Settings *Settings::getLayer(SettingsLayer sl)
+ {
+ 	sanity_check((int)sl >= 0 && sl < SL_TOTAL_COUNT);
+-	return s_layers[(size_t)sl];
++	return g_hierarchy.layers[(int)sl];
++}
++
++
++Settings::Settings(const std::string &end_tag, SettingsHierarchy *h,
++		int settings_layer) :
++	m_end_tag(end_tag),
++	m_hierarchy(h),
++	m_settingslayer(settings_layer)
++{
++	if (m_hierarchy)
++		m_hierarchy->onLayerCreated(m_settingslayer, this);
+ }
+ 
+ 
+@@ -69,12 +124,8 @@ Settings::~Settings()
+ {
+ 	MutexAutoLock lock(m_mutex);
+ 
+-	if (m_settingslayer < SL_TOTAL_COUNT)
+-		s_layers[(size_t)m_settingslayer] = nullptr;
+-
+-	// Compatibility
+-	if (m_settingslayer == SL_GLOBAL)
+-		g_settings = nullptr;
++	if (m_hierarchy)
++		m_hierarchy->onLayerRemoved(m_settingslayer);
+ 
+ 	clearNoLock();
+ }
+@@ -86,8 +137,8 @@ Settings & Settings::operator = (const Settings &other)
+ 		return *this;
+ 
+ 	// TODO: Avoid copying Settings objects. Make this private.
+-	FATAL_ERROR_IF(m_settingslayer != SL_TOTAL_COUNT && other.m_settingslayer != SL_TOTAL_COUNT,
+-		("Tried to copy unique Setting layer " + std::to_string(m_settingslayer)).c_str());
++	FATAL_ERROR_IF(m_hierarchy || other.m_hierarchy,
++		"Cannot copy or overwrite Settings object that belongs to a hierarchy");
+ 
+ 	MutexAutoLock lock(m_mutex);
+ 	MutexAutoLock lock2(other.m_mutex);
+@@ -410,18 +461,7 @@ bool Settings::parseCommandLine(int argc, char *argv[],
+ 
+ Settings *Settings::getParent() const
+ {
+-	// If the Settings object is within the hierarchy structure,
+-	// iterate towards the origin (0) to find the next fallback layer
+-	if (m_settingslayer >= SL_TOTAL_COUNT)
+-		return nullptr;
+-
+-	for (int i = (int)m_settingslayer - 1; i >= 0; --i) {
+-		if (s_layers[i])
+-			return s_layers[i];
+-	}
+-
+-	// No parent
+-	return nullptr;
++	return m_hierarchy ? m_hierarchy->getParent(m_settingslayer) : nullptr;
+ }
+ 
+ 
+@@ -823,6 +863,8 @@ bool Settings::set(const std::string &name, const std::string &value)
+ // TODO: Remove this function
+ bool Settings::setDefault(const std::string &name, const std::string &value)
+ {
++	FATAL_ERROR_IF(m_hierarchy != &g_hierarchy, "setDefault is only valid on "
++		"global settings");
+ 	return getLayer(SL_DEFAULTS)->set(name, value);
+ }
+ 
+diff --git a/src/settings.h b/src/settings.h
+index e22d949..7791413 100644
+--- a/src/settings.h
++++ b/src/settings.h
+@@ -21,6 +21,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
+ 
+ #include "irrlichttypes_bloated.h"
+ #include "util/string.h"
++#include "util/basic_macros.h"
+ #include <string>
+ #include <list>
+ #include <set>
+@@ -60,14 +61,36 @@ enum SettingsParseEvent {
+ 	SPE_MULTILINE,
+ };
+ 
++// Describes the global setting layers, SL_GLOBAL is where settings are read from
+ enum SettingsLayer {
+ 	SL_DEFAULTS,
+ 	SL_GAME,
+ 	SL_GLOBAL,
+-	SL_MAP,
+ 	SL_TOTAL_COUNT
+ };
+ 
++// Implements the hierarchy a settings object may be part of
++class SettingsHierarchy {
++public:
++	/*
++	 * A settings object that may be part of another hierarchy can
++	 * occupy the index 0 as a fallback. If not set you can use 0 on your own.
++	 */
++	SettingsHierarchy(Settings *fallback = nullptr);
++
++	DISABLE_CLASS_COPY(SettingsHierarchy)
++
++	Settings *getLayer(int layer) const;
++
++private:
++	friend class Settings;
++	Settings *getParent(int layer) const;
++	void onLayerCreated(int layer, Settings *obj);
++	void onLayerRemoved(int layer);
++
++	std::vector<Settings*> layers;
++};
++
+ struct ValueSpec {
+ 	ValueSpec(ValueType a_type, const char *a_help=NULL)
+ 	{
+@@ -100,13 +123,15 @@ typedef std::unordered_map<std::string, SettingsEntry> SettingEntries;
+ 
+ class Settings {
+ public:
++	/* These functions operate on the global hierarchy! */
+ 	static Settings *createLayer(SettingsLayer sl, const std::string &end_tag = "");
+ 	static Settings *getLayer(SettingsLayer sl);
+-	SettingsLayer getLayerType() const { return m_settingslayer; }
++	/**/
+ 
+ 	Settings(const std::string &end_tag = "") :
+ 		m_end_tag(end_tag)
+ 	{}
++	Settings(const std::string &end_tag, SettingsHierarchy *h, int settings_layer);
+ 	~Settings();
+ 
+ 	Settings & operator += (const Settings &other);
+@@ -200,9 +225,9 @@ class Settings {
+ 	// remove a setting
+ 	bool remove(const std::string &name);
+ 
+-	/**************
+-	 * Miscellany *
+-	 **************/
++	/*****************
++	 * Miscellaneous *
++	 *****************/
+ 
+ 	void setDefault(const std::string &name, const FlagDesc *flagdesc, u32 flags);
+ 	const FlagDesc *getFlagDescFallback(const std::string &name) const;
+@@ -214,6 +239,10 @@ class Settings {
+ 
+ 	void removeSecureSettings();
+ 
++	// Returns the settings layer this object is.
++	// If within the global hierarchy you can cast this to enum SettingsLayer
++	inline int getLayer() const { return m_settingslayer; }
++
+ private:
+ 	/***********************
+ 	 * Reading and writing *
+@@ -257,7 +286,8 @@ class Settings {
+ 	// All methods that access m_settings/m_defaults directly should lock this.
+ 	mutable std::mutex m_mutex;
+ 
+-	static Settings *s_layers[SL_TOTAL_COUNT];
+-	SettingsLayer m_settingslayer = SL_TOTAL_COUNT;
++	SettingsHierarchy *m_hierarchy = nullptr;
++	int m_settingslayer = -1;
++
+ 	static std::unordered_map<std::string, const FlagDesc *> s_flags;
+ };

@@ -1,0 +1,13 @@
+{
+  "benchmark": "luanti",
+  "candidates_considered": 2,
+  "fixed_revision": "120155f312cb1977b9a325acc7c7679103eb3800",
+  "patch_sha256": "5f89eaa916879cb25fe6f47f75d714b92bec67c298848bc3b6a3d08d355e8901",
+  "pinned_host_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "repo": "games/luanti",
+  "schema": "c1-lazarus-materialization-base-v1",
+  "schema_version": 1,
+  "source": "patch_post_image_blob",
+  "task_id": "lz-luanti-8704-minimal-craft-result",
+  "verification": "reverse_apply_check_in_detached_worktree"
+}

@@ -1,0 +1,262 @@
+name: SpaceRPG manual save restores station checkpoint
+benchmark: spacerpg
+tags: ["spacerpg", "save", "restore", "localStorage", "deep-state"]
+setup:
+  disable_economy_backend: true
+target:
+  kind: station
+  screen: station
+  system_id: helion-reach
+  station_id: helion-prime
+checkpoint:
+  allowed_strategies: ["test_hook_jump_and_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: hook_call
+    method: saveGame
+    args: ["manual-1"]
+  - type: hook_call
+    method: setScreen
+    args: ["flight"]
+  - type: hook_call
+    method: loadGame
+    args: ["manual-1"]
+  - type: wait
+    ms: 300
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: state_equals
+        path: screen
+        value: station
+      - type: state_equals
+        path: activeSaveSlotId
+        value: manual-1
+      - type: localStorage_key_exists
+        key: spacerpg-save-slot:manual-1
+      - type: no_severe_console
+    surfaces:
+      gui:
+        adapter: spacerpg_production_dom_save_v1
+        start:
+          validate_target: true
+          checks:
+          - name: dom.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.screen
+            expected:
+              value: station
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: dom.current_system
+            metric: equals
+            actual:
+              probe: spacerpg.current_system
+              phase: current
+            expected:
+              value: helion-reach
+          - name: dom.station
+            metric: equals
+            actual:
+              probe: spacerpg.station_id
+              phase: current
+            expected:
+              value: helion-prime
+          - name: storage.manual_1_absent
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: storage.manual_1.exists
+            expected:
+              value: false
+        goal:
+          use_assertions: true
+          checks:
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: storage.manual-1.exists
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: storage.manual_1.exists
+            expected:
+              value: true
+          - name: storage.manual-1.parse_ok
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: storage.manual_1.parse_ok
+            expected:
+              value: true
+          - name: storage.manual-1.version
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: storage.manual_1.value.version
+            expected:
+              value: 3
+          - name: storage.manual-1.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: storage.manual_1.value.screen
+            expected:
+              value: station
+          - name: storage.manual-1.system
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: storage.manual_1.value.current_system_id
+            expected:
+              value: helion-reach
+          - name: storage.manual-1.station
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: storage.manual_1.value.current_station_id
+            expected:
+              value: helion-prime
+          - name: storage.index.last_played
+            metric: equals
+            actual:
+              probe: spacerpg.last_played_slot
+              phase: current
+            expected:
+              value: manual-1
+          - name: transition.station_flight_station
+            metric: equals
+            actual:
+              probe: spacerpg.screen_trace_ordered
+              values:
+              - station
+              - flight
+              - station
+            expected:
+              value: true
+          - name: transition.manual_save_intent
+            metric: equals
+            actual:
+              probe: spacerpg.save_intent
+              slot: manual-1
+            expected:
+              value: true
+          - name: transition.manual_load_intent
+            metric: equals
+            actual:
+              probe: spacerpg.load_intent
+              slot: manual-1
+            expected:
+              value: true
+      state:
+        adapter: spacerpg_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      gui_from_start_baseline:
+        adapter: spacerpg_gui_from_start_baseline_v1
+        start:
+          validate_target: false
+          checks: []
+        goal:
+          use_assertions: false
+          checks:
+          - name: save_manual_1.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: save_manual_1.screen
+            expected:
+              value: station
+          - name: save_manual_1.currentStationId
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: save_manual_1.currentStationId
+            expected:
+              value: helion-prime
+          requirements:
+          - name: spacerpg.gui_from_start_recipe
+            recipe: save_restore
+            reason: Expected manual-1 station save created and restorable.
+
+  visual_oracle:
+    golden_image: visual/save-restore.golden.png
+    golden_before: visual/spacerpg-save-restore.before.golden.png
+    golden_after: visual/spacerpg-save-restore.after.golden.png
+    expected_label: correct
+    description: "The SpaceRPG station state is restored from the manual save slot, with station UI visible after loading."
+    rubric:
+      must:
+        - "A SpaceRPG station interface is visible after the load action."
+        - "The page is rendered normally without a crash or blank state."
+        - "Station panels or controls are visible."
+      must_not:
+        - "The primary screen remains flight after loading the station save."
+        - "A browser error, crash overlay, or blank page is visible."
+      ignore:
+        - "Minor save notification or timestamp differences."
+    capture:
+      stage: post_smoke
+      wait_ms: 300
+      full_page: false
+      hide_selectors: [".dialogue-backdrop", ".modal-overlay"]

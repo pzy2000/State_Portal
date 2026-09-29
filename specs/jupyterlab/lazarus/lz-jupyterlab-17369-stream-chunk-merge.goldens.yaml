@@ -1,0 +1,117 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lz-jupyterlab-17369-stream-chunk-merge
+benchmark: jupyterlab
+candidate:
+  repository_key: jupyterlab
+  change_number: 17369
+  issue_number: null
+  defect_locus: at_goal
+authoritative_defect: null
+provenance:
+  formal_freeze_admission: candidate_formal_freeze_admission/jupyterlab/17369/real-ui-v2
+  frame_sources:
+    fixed_before: candidate_gate11_17369_ui_observation/jupyterlab/17369/real-ui-v1
+    fixed_after: candidate_gate11_17369_ui_observation/jupyterlab/17369/real-ui-v1
+    buggy_before: candidate_gate11_17369_ui_observation/jupyterlab/17369/real-ui-v1
+    buggy_after: candidate_gate11_17369_ui_observation/jupyterlab/17369/real-ui-v1
+  goldens_metadata: visual_lz-jupyterlab-17369-stream-chunk-merge/goldens.meta.json
+  before_equivalence:
+    changed_pixel_ratio: 0.0
+    ignored_top_fraction: 0.0
+    mean_absolute_difference: 0.0
+  after_differential:
+    changed_pixel_ratio: 0.002223184342184837
+    ignored_top_fraction: 0.0
+    mean_absolute_difference: 0.20788806650539704
+  golden_policy:
+    after_min_changed_pixel_ratio: 0.001
+    before_max_changed_pixel_ratio: 0.01
+    ignore_top_fraction: 0.0
+  captured_by: materialized_fixed_buggy_runtime_capture
+evaluation:
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-17369-stream-chunk-merge/fixed.after.golden.png
+    expected_label: correct
+    description: The card carries a grey left border and a grey "COMMON START" badge,
+      and its monospaced body holds exactly two lines, "The meaning of life is...."
+      and "Some people...".
+    rubric:
+      must:
+      - 'A browser frame rendered by the candidate build shows the output-area replay
+        page: a white top bar reading "JupyterLab · OutputAreaModel replay" above
+        one white "stdout" card on a light grey page.'
+      - The card carries a grey left border and a grey "COMMON START" badge, and its
+        monospaced body holds exactly two lines, "The meaning of life is...." and
+        "Some people...".
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, scrollbar rendering, window chrome, and the
+        grey footnote line under the card.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    runtime_status: probe_runtime_available
+    probe:
+      adapter: jupyterlab_lazarus_edge_probe_v1
+      spec: lz-jupyterlab-17369-stream-chunk-merge.yaml
+      registered_replay:
+      - load_candidate_local_bundle
+      - restore_registered_output_area_start
+      - add_stdout_stream_chunk
+      - read_consolidated_output_text
+      versions_replayed:
+      - fixed
+      - buggy
+      re_executed_offline: true
+      provider_calls_required: false
+    upstream_tests:
+      fail_to_pass:
+      - should correctly merge lines if the first line does not end with new line
+      pass_to_pass:
+      - should consolidate consecutive stream outputs of the same kind
+    goldens:
+      before: visual_lz-jupyterlab-17369-stream-chunk-merge/before.golden.png
+      buggy_before: visual_lz-jupyterlab-17369-stream-chunk-merge/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-17369-stream-chunk-merge/fixed.after.golden.png
+        after_description: The card carries a green left border and a green "CORRECT
+          MERGE" badge, and its monospaced body holds exactly two lines, "The meaning
+          of life is...." and "Some people... More text.".
+        after_rubric:
+          must:
+          - 'A browser frame rendered by the candidate build shows the output-area
+            replay page: a white top bar reading "JupyterLab · OutputAreaModel replay"
+            above one white "stdout" card on a light grey page.'
+          - The card carries a green left border and a green "CORRECT MERGE" badge,
+            and its monospaced body holds exactly two lines, "The meaning of life
+            is...." and "Some people... More text.".
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, window chrome, and
+            the grey footnote line under the card.
+      buggy:
+        after: visual_lz-jupyterlab-17369-stream-chunk-merge/buggy.after.golden.png
+        after_description: The card carries a red left border and a red "CORRUPT MERGE"
+          badge, and its monospaced body holds exactly two lines, "The meaning of
+          life is...." and "More text.e...", so the second starting line is gone.
+        after_rubric:
+          must:
+          - 'A browser frame rendered by the candidate build shows the output-area
+            replay page: a white top bar reading "JupyterLab · OutputAreaModel replay"
+            above one white "stdout" card on a light grey page.'
+          - The card carries a red left border and a red "CORRUPT MERGE" badge, and
+            its monospaced body holds exactly two lines, "The meaning of life is...."
+            and "More text.e...", so the second starting line is gone.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, window chrome, and
+            the grey footnote line under the card.

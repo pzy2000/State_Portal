@@ -1,0 +1,49 @@
+# This manifest authorizes only the eight-cell Phase-0 pilot.  It cannot be
+# used for the formal 30-task / 360-cell matrix, whose rows each carry their own
+# passed construction gate.
+schema_version: 1
+experiment_id: c1_lazarus_phase0
+phase0_only: true
+task_schema: c1_lazarus_v1
+tasks: benchmarks/p5/c1_lazarus_phase0_tasks.yaml
+formal_task_count: 30
+formal_trial_count: 360
+arms:
+  lazarus_state: {method: state_loop_semantic}
+  lazarus_agent_s: {method: agent_s_from_start}
+versions: [buggy, fixed]
+models: [gpt-5.6-luna]
+api: {provider: relay}
+model_request_profiles: {gpt-5.6-luna: thinking_disabled}
+observer_model: claude-sonnet-5@relay
+grounder_model: decision_model
+judge_model: qwen3-vl-flash@relay
+provider_timeout_s: 900
+decision_step_budget: 100
+budget_ms: 2400000
+per_trial_p2p_timeout_s: 300
+seeds: 3
+scheduler:
+  rotation_rule: buggy_before_fixed_state_v1
+  ready_scheduler: true
+  unity_canary: true
+calibration: {schema: lazarus-calibration-v1}
+phase0:
+  task_ids:
+    - lz-luanti-14757-math-round
+    - lz-openra-21453-hotkey-ready-building
+  seeds: [0]
+  serial: true
+  trial_count: 8
+  stop_on_failure: true
+long_chain: {status: deferred_until_formal_catalog}
+authorization:
+  phase0_paid_pilot: true
+  formal_360_paid_run: false
+stats:
+  bootstrap_iterations: 10000
+  ci: 0.95
+  rng_seed: 1234
+  mcnemar: exact
+  cluster_unit: task_id
+  multiple_testing: holm_h1_h3

@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.013095238095238096,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.5813022138680034
+  },
+  "before_buggy_sha256": "0f1d6efa4025503841ef46f19844e62ee9b5e336af14cc524f7fe85168295b11",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "0f1d6efa4025503841ef46f19844e62ee9b5e336af14cc524f7fe85168295b11",
+  "buggy_after_sha256": "4c5c37ffa1ea1439a901048e936a67a48a45e3ae6b8280ce731266c54fc33084",
+  "fixed_after_sha256": "ced5e6151e21a31e056ab6517428d8aeda7b74a729cd0e80b8cd4ecb48a03cb4",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "4c5c37ffa1ea1439a901048e936a67a48a45e3ae6b8280ce731266c54fc33084",
+      "quality": {
+        "image_size": [
+          760,
+          420
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 3305,
+        "unique_byte_values": 253
+      },
+      "report_sha256": "30ee1fc39d38cf2989aed642144d700baeec04c4af83c8caaa53cf8b59b4977c"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "0f1d6efa4025503841ef46f19844e62ee9b5e336af14cc524f7fe85168295b11",
+      "quality": {
+        "image_size": [
+          760,
+          420
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 3429,
+        "unique_byte_values": 253
+      },
+      "report_sha256": "62aadd50be82b4be1b3ca9243cef138e96fef03890455fceae39cf8317e9b960"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "ced5e6151e21a31e056ab6517428d8aeda7b74a729cd0e80b8cd4ecb48a03cb4",
+      "quality": {
+        "image_size": [
+          760,
+          420
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 3477,
+        "unique_byte_values": 254
+      },
+      "report_sha256": "a8ce3b90792122f8738340255c64bad792e8c69c93b41d09d8965c02c74edfb4"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "0f1d6efa4025503841ef46f19844e62ee9b5e336af14cc524f7fe85168295b11",
+      "quality": {
+        "image_size": [
+          760,
+          420
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 3429,
+        "unique_byte_values": 253
+      },
+      "report_sha256": "62aadd50be82b4be1b3ca9243cef138e96fef03890455fceae39cf8317e9b960"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.002,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.0
+  },
+  "published_unix_ns": 1786983275161318000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lzp-jupyterlab-17153-shortcut-chip-contrast"
+}

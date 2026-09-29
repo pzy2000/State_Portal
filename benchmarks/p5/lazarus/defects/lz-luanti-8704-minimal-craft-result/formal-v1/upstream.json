@@ -1,0 +1,170 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [
+    {
+      "body_normalized": "Setting your logs to verbose gives you some info about that bug:\n\n```\n2019-06-19 04:12:47: INFO[Main]: cobble cooking input: {\n\titem = <userdata>,\n\ttime = 40,\n\treplacements = {\n\n\t}\n}\n2019-06-19 04:12:47: INFO[Main]: cobble cooking output: {\n\titem = <userdata>,\n\ttime = 0,\n\treplacements = {\n\n\t}\n}\n2019-06-19 04:12:47: INFO[Main]: cobble cooking decremented input: {\n\titems = {\n\t\t<userdata>\n\t},\n\tmethod = \"cooking\",\n\twidth = 1\n}\n```",
+      "body_raw": "Setting your logs to verbose gives you some info about that bug:\r\n\r\n```\r\n2019-06-19 04:12:47: INFO[Main]: cobble cooking input: {\r\n\titem = <userdata>,\r\n\ttime = 40,\r\n\treplacements = {\r\n\t\t\r\n\t}\r\n}\r\n2019-06-19 04:12:47: INFO[Main]: cobble cooking output: {\r\n\titem = <userdata>,\r\n\ttime = 0,\r\n\treplacements = {\r\n\t\t\r\n\t}\r\n}\r\n2019-06-19 04:12:47: INFO[Main]: cobble cooking decremented input: {\r\n\titems = {\r\n\t\t<userdata>\r\n\t},\r\n\tmethod = \"cooking\",\r\n\twidth = 1\r\n}\r\n```",
+      "body_sha256": "3e5e9ab9ddf890c63edc7683fafec885dc07cb4fe0d996dfcc99c7d008161ebb",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/8607#issuecomment-503457024"
+    },
+    {
+      "body_normalized": "I am able to reproduce with a build of a feature branch fork (the one for the scroll_container; it's relatively new; no related code is changed).\nSee http://irc.minetest.net/minetest/2019-06-07#i_5552584.",
+      "body_raw": "I am able to reproduce with a build of a feature branch fork (the one for the scroll_container; it's relatively new; no related code is changed).\r\nSee http://irc.minetest.net/minetest/2019-06-07#i_5552584.",
+      "body_sha256": "9c669b32300b8d38e63c4e6f3ab9312020d855f4f580fd8ba8a9b232a2d24bee",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/8607#issuecomment-503519654"
+    },
+    {
+      "body_normalized": "@HybridDog",
+      "body_raw": "@HybridDog ",
+      "body_sha256": "4c8781b433f85c5be0ca25a53cb09618be81fdc33f97d85c84361d3b1ab64ec1",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/8607#issuecomment-503553088"
+    },
+    {
+      "body_normalized": "I changed those log messages a bit and didn't get a crash at first. After restarting minetest, the torch craft recipe assertion in line 1857 failed.\n```diff\ndiff --git a/games/minimal/mods/default/init.lua b/games/minimal/mods/default/init.lua\nindex bfd93821..2664fc8d 100644\n--- a/games/minimal/mods/default/init.lua\n+++ b/games/minimal/mods/default/init.lua\n@@ -1874,10 +1874,12 @@ local function test_get_craft_result()\n                width = 1,\n                items = {\"default:cobble\"}\n        }\n-       minetest.log(\"info\", \"cobble cooking input: \"..dump(output))\n+       minetest.log(\"action\", \"cobble cooking input: \"..dump(input))\n        local output, decremented_input = minetest.get_craft_result(input)\n-       minetest.log(\"info\", \"cobble cooking output: \"..dump(output))\n-       minetest.log(\"info\", \"cobble cooking decremented input: \"..dump(decremented_input))\n+       minetest.log(\"action\", \"cobble cooking output: \"..dump(output))\n+       minetest.log(\"action\", \"cobble cooking output item: \".. output.item:to_string())\n+       minetest.log(\"action\", \"cobble cooking decremented input: \"..dump(decremented_input))\n+       minetest.log(\"action\", \"cobble cooking decremented input item: \".. decremented_input.items[1]:to_string())\n        assert(output.time)\n        assert(output.time > 0)\n        assert(output.item)\n```\n```\n2019-06-19 22:32:50: ACTION[Main]: cobble cooking input: {\n\twidth = 1,\n\titems = {\n\t\t\"default:cobble\"\n\t},\n\tmethod = \"cooking\"\n}\n2019-06-19 22:32:50: ACTION[Main]: cobble cooking output: {\n\ttime = 3,\n\treplacements = {\n\n\t},\n\titem = <userdata>\n}\n2019-06-19 22:32:50: ACTION[Main]: cobble cooking output item: default:stone\n2019-06-19 22:32:50: ACTION[Main]: cobble cooking decremented input: {\n\twidth = 1,\n\titems = {\n\t\t<userdata>\n\t},\n\tmethod = \"cooking\"\n}\n2019-06-19 22:32:50: ACTION[Main]: cobble cooking decremented input item:\n```\nThe decremented input item is an empty string. When the torch recipe assertion failed, the output.time was 0.",
+      "body_raw": "I changed those log messages a bit and didn't get a crash at first. After restarting minetest, the torch craft recipe assertion in line 1857 failed.\r\n```diff\r\ndiff --git a/games/minimal/mods/default/init.lua b/games/minimal/mods/default/init.lua\r\nindex bfd93821..2664fc8d 100644\r\n--- a/games/minimal/mods/default/init.lua\r\n+++ b/games/minimal/mods/default/init.lua\r\n@@ -1874,10 +1874,12 @@ local function test_get_craft_result()\r\n                width = 1,\r\n                items = {\"default:cobble\"}\r\n        }\r\n-       minetest.log(\"info\", \"cobble cooking input: \"..dump(output))\r\n+       minetest.log(\"action\", \"cobble cooking input: \"..dump(input))\r\n        local output, decremented_input = minetest.get_craft_result(input)\r\n-       minetest.log(\"info\", \"cobble cooking output: \"..dump(output))\r\n-       minetest.log(\"info\", \"cobble cooking decremented input: \"..dump(decremented_input))\r\n+       minetest.log(\"action\", \"cobble cooking output: \"..dump(output))\r\n+       minetest.log(\"action\", \"cobble cooking output item: \".. output.item:to_string())\r\n+       minetest.log(\"action\", \"cobble cooking decremented input: \"..dump(decremented_input))\r\n+       minetest.log(\"action\", \"cobble cooking decremented input item: \".. decremented_input.items[1]:to_string())\r\n        assert(output.time)\r\n        assert(output.time > 0)\r\n        assert(output.item)\r\n```\r\n```\r\n2019-06-19 22:32:50: ACTION[Main]: cobble cooking input: {\r\n\twidth = 1,\r\n\titems = {\r\n\t\t\"default:cobble\"\r\n\t},\r\n\tmethod = \"cooking\"\r\n}\r\n2019-06-19 22:32:50: ACTION[Main]: cobble cooking output: {\r\n\ttime = 3,\r\n\treplacements = {\r\n\t\t\r\n\t},\r\n\titem = <userdata>\r\n}\r\n2019-06-19 22:32:50: ACTION[Main]: cobble cooking output item: default:stone\r\n2019-06-19 22:32:50: ACTION[Main]: cobble cooking decremented input: {\r\n\twidth = 1,\r\n\titems = {\r\n\t\t<userdata>\r\n\t},\r\n\tmethod = \"cooking\"\r\n}\r\n2019-06-19 22:32:50: ACTION[Main]: cobble cooking decremented input item: \r\n```\r\nThe decremented input item is an empty string. When the torch recipe assertion failed, the output.time was 0.",
+      "body_sha256": "64e8a6e08f76b6ba5d81ecaa60101fb7eefad23d64bed8627ff644718ecda800",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/8607#issuecomment-503737951"
+    },
+    {
+      "body_normalized": "This is a very tricky bug to reproduce. It does not seem to depend on whether you've just created the world nor on whether you've just started the client. It seems pretty random from here (seems like a 1 in 3 shot or less).",
+      "body_raw": "This is a very tricky bug to reproduce. It does not seem to depend on whether you've just created the world nor on whether you've just started the client. It seems pretty random from here (seems like a 1 in 3 shot or less).",
+      "body_sha256": "892b1e2674458d355e547da57a1abd57870d0c4f2afec8a9c5afc674e453dabd",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/8607#issuecomment-504420494"
+    },
+    {
+      "body_normalized": "The recipes are stored differently while loading the mods and when the game runs; maybe this has something to do with the problem.\nThe initHashes function is called after loading the mods: http://github.com/minetest/minetest/blob/39c54e13c3ee3558f330f4d5716d8073b48de11a/src/server.cpp#L376\nThis function moves the recipes around that they can be found more efficiently: http://github.com/minetest/minetest/blob/39c54e13c3ee3558f330f4d5716d8073b48de11a/src/craftdef.cpp#L1090-L1105\nWhen executing get_craft_result, the recipes are traversed: http://github.com/minetest/minetest/blob/39c54e13c3ee3558f330f4d5716d8073b48de11a/src/craftdef.cpp#L893",
+      "body_raw": "The recipes are stored differently while loading the mods and when the game runs; maybe this has something to do with the problem.\r\nThe initHashes function is called after loading the mods: http://github.com/minetest/minetest/blob/39c54e13c3ee3558f330f4d5716d8073b48de11a/src/server.cpp#L376\r\nThis function moves the recipes around that they can be found more efficiently: http://github.com/minetest/minetest/blob/39c54e13c3ee3558f330f4d5716d8073b48de11a/src/craftdef.cpp#L1090-L1105\r\nWhen executing get_craft_result, the recipes are traversed: http://github.com/minetest/minetest/blob/39c54e13c3ee3558f330f4d5716d8073b48de11a/src/craftdef.cpp#L893",
+      "body_sha256": "811398326ffad8d118b039bd3a6bb382760f36ae6008c3edada386a7663c2712",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/8607#issuecomment-504523766"
+    },
+    {
+      "body_normalized": "I can reproduce this bug too. Assertion fails twice out of 3 times for me.",
+      "body_raw": "I can reproduce this bug too. Assertion fails twice out of 3 times for me.",
+      "body_sha256": "fcf9c290e386f12b8145b497488434e041fd99b3060091d4e9ac482745fa4957",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/8607#issuecomment-507538337"
+    }
+  ],
+  "fix_commit": "fe6c666da26e08b726bd21f34d25558cf456bd1f",
+  "issue": {
+    "body_normalized": "##### Minetest version\n<!--\nPaste Minetest version between quotes below\nIf you are on a devel version, please add git commit hash\nYou can use `minetest --version` to find it.\n-->\n```\ncf9108433c21bf921603258d757a5b7dad8396bb\n```\n\n##### Summary\n<!-- Describe your problem here -->\n #8445 broke `minetest.get_craft_result`.\n\n##### Steps to reproduce\n<!-- For bug reports or build issues, explain how the problem happened -->\nStart a Minimal Development Test game, see assertion fail:\n```\nModError: Failed to load and run script from /home/paul/src/minetest/minetest/bin/../games/minimal/mods/default/init.lua:\n...test/minetest/bin/../games/minimal/mods/default/init.lua:1857: assertion failed!\nstack traceback:\n\t[C]: in function 'assert'\n\t...test/minetest/bin/../games/minimal/mods/default/init.lua:1857: in function 'test_get_craft_result'\n\t...test/minetest/bin/../games/minimal/mods/default/init.lua:1888: in main chunk\n```",
+    "body_raw": "##### Minetest version\r\n<!--\r\nPaste Minetest version between quotes below\r\nIf you are on a devel version, please add git commit hash\r\nYou can use `minetest --version` to find it.\r\n-->\r\n```\r\ncf9108433c21bf921603258d757a5b7dad8396bb\r\n```\r\n\r\n##### Summary\r\n<!-- Describe your problem here -->\r\n #8445 broke `minetest.get_craft_result`.\r\n\r\n##### Steps to reproduce\r\n<!-- For bug reports or build issues, explain how the problem happened -->\r\nStart a Minimal Development Test game, see assertion fail:\r\n```\r\nModError: Failed to load and run script from /home/paul/src/minetest/minetest/bin/../games/minimal/mods/default/init.lua:\r\n...test/minetest/bin/../games/minimal/mods/default/init.lua:1857: assertion failed!\r\nstack traceback:\r\n\t[C]: in function 'assert'\r\n\t...test/minetest/bin/../games/minimal/mods/default/init.lua:1857: in function 'test_get_craft_result'\r\n\t...test/minetest/bin/../games/minimal/mods/default/init.lua:1888: in main chunk\r\n```\r\n",
+    "body_sha256": "9745e8c633039e79bb95cbf845a37d0dbb3ef1cb7a4d421ce9a27049609cdd35",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 8607,
+    "state": "closed",
+    "title": "minetest.get_craft_result regression",
+    "url": "https://github.com/luanti-org/luanti/issues/8607"
+  },
+  "patch_sha256": "5f89eaa916879cb25fe6f47f75d714b92bec67c298848bc3b6a3d08d355e8901",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "body_normalized": "Fixes #8607\n\n`getCraftResult` was not working before the `initHashes` call because it uses the recipe priority which was not initialized until the hashes are inited.\n\n## To do\n\nThis PR is Ready for Review.\n\n## How to test\n\n- Start a world in the minimal game, there should be no assertion failure\n- In MTG, try placing a wooden stair or slab in the fuel slot of a furnace",
+    "body_raw": "Fixes #8607\r\n\r\n`getCraftResult` was not working before the `initHashes` call because it uses the recipe priority which was not initialized until the hashes are inited.\r\n\r\n## To do\r\n\r\nThis PR is Ready for Review.\r\n\r\n## How to test\r\n\r\n- Start a world in the minimal game, there should be no assertion failure\r\n- In MTG, try placing a wooden stair or slab in the fuel slot of a furnace",
+    "body_sha256": "0d787f54b22acb0e2b6c3a9007143f66bd7c43af6913444a6b9937fc4a353633",
+    "kind": "pull",
+    "merged_at": "2019-07-27T12:42:42Z",
+    "number": 8704,
+    "state": "closed",
+    "title": "Fix get_craft_result when called before initHashes",
+    "url": "https://github.com/luanti-org/luanti/pull/8704"
+  },
+  "record_sha256": "a767af47f0f50a9f52faf5461665bbd3e5bcf86fac248f918ce9bc527b19617e",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-13T08:19:15.320775Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-8704-minimal-craft-result",
+  "tests": [
+    {
+      "command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/ninja",
+        "-C",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/8704/gate8-v1/buggy",
+        "-j1",
+        "minetestserver"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/ninja",
+        "-C",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/8704/gate8-v1/buggy",
+        "-j1",
+        "minetestserver"
+      ],
+      "id": "minimal game test_get_craft_result",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_game_mod_regression_test",
+      "source_case": "minimal game test_get_craft_result",
+      "upstream_test_path": "games/minimal/mods/test/init.lua"
+    },
+    {
+      "command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/ninja",
+        "-C",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/8704/gate8-v1/buggy",
+        "-j1",
+        "minetestserver"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/ninja",
+        "-C",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/8704/gate8-v1/buggy",
+        "-j1",
+        "minetestserver"
+      ],
+      "id": "minimal control without test mod",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_game_mod_regression_test",
+      "source_case": "minimal control without test mod",
+      "upstream_test_path": "games/minimal/mods/test/init.lua"
+    }
+  ],
+  "touched_files": [
+    "src/craftdef.cpp",
+    "src/craftdef.h",
+    "games/minimal/mods/test/init.lua",
+    "games/minimal/mods/test/mod.conf"
+  ],
+  "upstream_commits": []
+}

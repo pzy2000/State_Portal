@@ -1,0 +1,102 @@
+{
+  "buggy_tests": {
+    "jupyterlab-17369-stream-line-merge-f2p": false,
+    "jupyterlab-stream-consolidation-construction-p2p": true
+  },
+  "complete": true,
+  "executions": [
+    {
+      "complete": true,
+      "duration_ms": 25552.73016600404,
+      "failures": [],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "packages/outputarea/test/model.spec.ts",
+          "sha256": "993aae792e84e5d6d0c04d8cfbcef3d36a182321975aad8eca5cf35350aea0d4",
+          "source_path": "upstream-tests/packages/outputarea/test/model.spec.ts"
+        }
+      ],
+      "passed": true,
+      "prepare_results": [],
+      "results": [
+        {
+          "duration_ms": 5400.207750004483,
+          "exit_code": 0,
+          "id": "jupyterlab-17369-stream-line-merge-f2p",
+          "passed": true,
+          "stderr_sha256": "db814e686c729673d74de2880735af534e338e0b3e1412b7fccdc3cac6be3240",
+          "stdout_sha256": "5cac4d4ae136e29b98e9680d51788067fe1e9a3ab2c2d8cd5cff41223f7af591",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1777.249834005488,
+          "exit_code": 0,
+          "id": "jupyterlab-stream-consolidation-construction-p2p",
+          "passed": true,
+          "stderr_sha256": "ed17f9fda4a16958b6d7a1d153c221c45f24c721a2a3e8fc2b98631b5650c206",
+          "stdout_sha256": "5cac4d4ae136e29b98e9680d51788067fe1e9a3ab2c2d8cd5cff41223f7af591",
+          "timed_out": false
+        }
+      ],
+      "test_ids": [
+        "jupyterlab-17369-stream-line-merge-f2p",
+        "jupyterlab-stream-consolidation-construction-p2p"
+      ],
+      "version": "fixed"
+    },
+    {
+      "complete": false,
+      "duration_ms": 26315.037458989536,
+      "failures": [
+        "upstream test jupyterlab-17369-stream-line-merge-f2p exited 1"
+      ],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "packages/outputarea/test/model.spec.ts",
+          "sha256": "993aae792e84e5d6d0c04d8cfbcef3d36a182321975aad8eca5cf35350aea0d4",
+          "source_path": "upstream-tests/packages/outputarea/test/model.spec.ts"
+        }
+      ],
+      "passed": false,
+      "prepare_results": [],
+      "results": [
+        {
+          "duration_ms": 5890.003792010248,
+          "exit_code": 1,
+          "id": "jupyterlab-17369-stream-line-merge-f2p",
+          "passed": false,
+          "stderr_sha256": "391522752da22c7b1ad47fba8cd508b34df24c56d98df04f0e5ec64a82f6e666",
+          "stdout_sha256": "5cac4d4ae136e29b98e9680d51788067fe1e9a3ab2c2d8cd5cff41223f7af591",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1966.0490829846822,
+          "exit_code": 0,
+          "id": "jupyterlab-stream-consolidation-construction-p2p",
+          "passed": true,
+          "stderr_sha256": "ca0b87402802490413f9fe20c28aa243417707a695521ea1e84999cbcbc96de1",
+          "stdout_sha256": "5cac4d4ae136e29b98e9680d51788067fe1e9a3ab2c2d8cd5cff41223f7af591",
+          "timed_out": false
+        }
+      ],
+      "test_ids": [
+        "jupyterlab-17369-stream-line-merge-f2p",
+        "jupyterlab-stream-consolidation-construction-p2p"
+      ],
+      "version": "buggy"
+    }
+  ],
+  "failures": [],
+  "fixed_tests": {
+    "jupyterlab-17369-stream-line-merge-f2p": true,
+    "jupyterlab-stream-consolidation-construction-p2p": true
+  },
+  "patch_sha256": "2f66e02c8d89454cb389da046218eba984922968cf145766e8c54396cb804c78",
+  "qualified": true,
+  "record_sha256": "8a9c247f45094feb6c745a9dbc8c4b1fef096293ad74b3b8be57116db2995f53",
+  "schema": "c1-lazarus-formal-construction-tests-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-17369-stream-chunk-merge"
+}

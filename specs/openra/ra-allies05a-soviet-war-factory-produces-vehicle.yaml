@@ -1,0 +1,79 @@
+name: OpenRA RA Allies Tanya Tale Soviet war factory vehicle checkpoint
+benchmark: OpenRA
+repo: ../../games/OpenRA
+tags: ["openra", "ra", "campaign", "allies", "soviet", "production", "vehicle"]
+timeout_ms: 180000
+setup:
+  openra_gameplay_probe:
+    cash: 50000
+    fast_build: true
+    build_anywhere: false
+target:
+  kind: openra_map
+  mod: ra
+  requires_mod: ra
+  map: allies-05a
+  title: "05a: Tanya's Tale"
+  visibility: MissionSelector
+  categories: ["Campaign"]
+  players:
+    - id: Greece
+      playable: true
+      required: true
+      faction: allies
+    - id: USSR
+      bot: campaign
+      faction: soviet
+  actors:
+    - id: Warfactory2
+      type: weap
+      owner: USSR
+checkpoint:
+  allowed_strategies: ["openra_gameplay_production_validate"]
+  expected_validity: replay-reachable
+replay_from_start:
+  actions:
+    - type: openra_launch_map
+      mod: ra
+      map: allies-05a
+actions:
+  - type: openra_wait_ticks
+    ticks: 20
+  - type: openra_build_actor
+    player: USSR
+    actor: 3tnk
+    queue: Vehicle
+    timeout_ticks: 900
+assertions:
+  - type: openra_actor_exists
+    player: USSR
+    actor_id: Warfactory2
+  - type: openra_actor_built
+    player: USSR
+    actor: 3tnk
+    min_delta: 1
+  - type: openra_production_prerequisite_respected
+    player: USSR
+    actor: 3tnk
+  - type: no_openra_gameplay_probe_errors
+visual_oracle:
+  golden_image: visual/ra-allies05a-war-factory.golden.png
+  golden_before: visual/ra-allies05a-soviet-war-factory-produces-vehicle.before.golden.png
+  golden_after: visual/ra-allies05a-soviet-war-factory-produces-vehicle.after.golden.png
+  expected_label: correct
+  description: "The OpenRA Red Alert allies-05a Tanya's Tale mission has launched into the live in-game RTS world."
+  rubric:
+    must:
+      - "The live OpenRA in-game world is visible after launching ra/allies-05a."
+      - "The screenshot contains rendered terrain plus gameplay UI such as sidebar, minimap, command bar, or selection/status panels."
+      - "The game surface is non-blank and looks like an active RTS scene rather than a static asset file."
+    must_not:
+      - "The screenshot is blank, a crash log, or an unrelated application."
+      - "The screenshot shows only a standalone packaged map image instead of the live OpenRA UI."
+      - "The screenshot is stuck on the main menu, mission browser, or setup dialog."
+    ignore:
+      - "Small camera, animation, cursor, or UI timing differences after the clean map launch."
+  capture:
+    stage: post_smoke
+    wait_ms: 0
+    full_page: false

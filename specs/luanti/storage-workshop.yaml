@@ -1,0 +1,120 @@
+name: luanti restore a storage workshop with categorized chests
+benchmark: "luanti"
+timeout_ms: 360000
+tags: ["luanti", "production", "storage", "workshop", "inventory"]
+target:
+  kind: synthesized_world
+  fill:
+    - from: { x: -1, y: 0, z: -1 }
+      to: { x: 9, y: 0, z: 8 }
+      node: "basenodes:dirt_with_grass"
+    - from: { x: 1, y: 1, z: 1 }
+      to: { x: 8, y: 1, z: 6 }
+      node: "basenodes:stone"
+    - from: { x: 1, y: 2, z: 1 }
+      to: { x: 8, y: 3, z: 1 }
+      node: "basenodes:cobble"
+    - from: { x: 1, y: 2, z: 6 }
+      to: { x: 8, y: 3, z: 6 }
+      node: "basenodes:cobble"
+    - from: { x: 1, y: 2, z: 1 }
+      to: { x: 1, y: 3, z: 6 }
+      node: "basenodes:tree"
+    - from: { x: 8, y: 2, z: 1 }
+      to: { x: 8, y: 3, z: 6 }
+      node: "basenodes:tree"
+    - from: { x: 0, y: 4, z: 0 }
+      to: { x: 9, y: 4, z: 7 }
+      node: "stairs:slab_stone"
+      param2: 0
+  nodes:
+    - pos: { x: 0, y: 1, z: 2 }
+      node: "basenodes:cobble"
+    - pos: { x: 0, y: 1, z: 3 }
+      node: "basenodes:cobble"
+    - pos: { x: 0, y: 1, z: 4 }
+      node: "basenodes:cobble"
+  meta_inventory:
+    - pos: { x: 0, y: 2, z: 2 }
+      node: "chest:chest"
+      list: "main"
+      items:
+        - { item: "basenodes:stone", count: 80 }
+        - { item: "basenodes:cobble", count: 40 }
+    - pos: { x: 0, y: 2, z: 3 }
+      node: "chest:chest"
+      list: "main"
+      items:
+        - { item: "basenodes:tree", count: 48 }
+        - { item: "basenodes:leaves", count: 24 }
+    - pos: { x: 0, y: 2, z: 4 }
+      node: "chest:chest"
+      list: "main"
+      items:
+        - { item: "basetools:pick_steel", count: 2 }
+        - { item: "basenodes:mossycobble", count: 12 }
+  mod_storage:
+    - { key: "warptest_workshop_state", value: "stocked" }
+    - { key: "warptest_order", value: "roofing" }
+  validations:
+    - path: "mod_storage.warptest_workshop_state"
+      expected: "stocked"
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_meta_inventory
+    pos: { x: 0, y: 2, z: 4 }
+    list: "main"
+    items:
+      - { item: "basetools:pick_steel", count: 1 }
+      - { item: "basenodes:mossycobble", count: 24 }
+  - type: luanti_set_mod_storage
+    key: "warptest_order"
+    value: "ready-for-build"
+assertions:
+  - type: luanti_node_count
+    from: { x: 0, y: 2, z: 2 }
+    to: { x: 0, y: 2, z: 4 }
+    node: "chest:chest"
+    min_count: 3
+  - type: luanti_meta_inventory_contains
+    pos: { x: 0, y: 2, z: 2 }
+    item: "basenodes:stone"
+    count: 80
+  - type: luanti_meta_inventory_contains
+    pos: { x: 0, y: 2, z: 3 }
+    item: "basenodes:tree"
+    count: 48
+  - type: luanti_meta_inventory_contains
+    pos: { x: 0, y: 2, z: 4 }
+    item: "basetools:pick_steel"
+    count: 1
+  - type: luanti_meta_inventory_contains
+    pos: { x: 0, y: 2, z: 4 }
+    item: "basenodes:mossycobble"
+    count: 24
+  - type: luanti_mod_storage_equals
+    key: "warptest_order"
+    value: "ready-for-build"
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/storage-workshop.golden.png
+  golden_before: visual/luanti-storage-workshop.before.golden.png
+  golden_after: visual/luanti-storage-workshop.after.golden.png
+  expected_label: correct
+  description: "A storage workshop or warehouse with roofed structure and multiple categorized chests is visible in the Luanti devtest world."
+  rubric:
+    must:
+      - "A roofed or walled workshop-like structure is visible."
+      - "Multiple chest or storage blocks are present as part of the scene."
+      - "No crash dialog, error overlay, main menu, or fully blank screen is shown."
+    must_not:
+      - "Only an empty flat world or a one-block smoke-test scene is visible."
+      - "The screen is black, blank, or blocked by an error dialog."
+    ignore:
+      - "Exact chest texture details, camera angle, lighting, HUD, or whether inventory UI is open."
+  capture:
+    stage: post_smoke
+    wait_ms: 1000
+    full_page: false

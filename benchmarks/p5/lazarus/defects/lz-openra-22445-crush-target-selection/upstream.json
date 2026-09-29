@@ -1,0 +1,191 @@
+{
+  "authority": "github",
+  "benchmark": "openra",
+  "comments": [
+    {
+      "author": "PunkPun",
+      "body_normalized": "https://github.com/OpenRA/OpenRA/wiki/Changelog/_compare/1d245cc266b9a311fd594f418f06f448e14aafbe...1711e82f0d6cd9e54b6562d7f7762c40a18f1f6d",
+      "body_raw": "https://github.com/OpenRA/OpenRA/wiki/Changelog/_compare/1d245cc266b9a311fd594f418f06f448e14aafbe...1711e82f0d6cd9e54b6562d7f7762c40a18f1f6d",
+      "body_sha256": "8790d017c04d02ad4e5ca34650e097d4e71a9c3553344eb000fd795fba42111b",
+      "created_at": "2026-05-01T15:46:55Z",
+      "id": 4360146870,
+      "source": "pull_request_comment",
+      "updated_at": "2026-05-01T15:46:55Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/22445#issuecomment-4360146870"
+    }
+  ],
+  "fix_commit": "8f2138c71106aaffd8a288b56d1c9ef6013700ba",
+  "issue": null,
+  "patch_sha256": "f08fcb5f92d50471ba9d6990dc1dac20533027b658712de99960cff04df87fb0",
+  "pinned_revision": "7e687f430ee5b194c0ffaa06caaba757dd9155fb",
+  "pull_request": {
+    "author": "Porenutak",
+    "body_normalized": "- Fix target selection in crush logic\n- remove hunt function from crush logic (if unit is on IdleHunt, hunt will reactivate automatically)",
+    "body_raw": "- Fix target selection in crush logic\r\n- remove hunt function from crush logic (if unit is on IdleHunt, hunt will reactivate automatically)",
+    "body_sha256": "5419bbda37061eb231c86c608b6128ad3d42f8c5fa797133fe6722eb1700b0ec",
+    "closed_at": "2026-05-01T15:44:49Z",
+    "created_at": "2026-04-10T08:30:50Z",
+    "merged_at": "2026-05-01T15:44:49Z",
+    "number": 22445,
+    "state": "closed",
+    "title": "Fix target selection in crush logic",
+    "updated_at": "2026-05-01T15:46:55Z",
+    "url": "https://github.com/OpenRA/OpenRA/pull/22445"
+  },
+  "record_sha256": "0d66dde9278f1367252b7e0c3f78d4b0d1636b25cce299371dc47e6eb0eec244",
+  "repository": "OpenRA/OpenRA",
+  "retrieved_at": "2026-08-11T13:14:17Z",
+  "reviews": [
+    {
+      "author": "PunkPun",
+      "body_normalized": "Makes sense",
+      "body_raw": "Makes sense",
+      "body_sha256": "f2c1081c4527b3eb73a092ac1f11472b4ec4fa738018926e1f39042eff394330",
+      "created_at": "2026-05-01T15:44:43Z",
+      "id": 4211897199,
+      "source": "pull_request_review",
+      "state": "APPROVED",
+      "url": "https://github.com/OpenRA/OpenRA/pull/22445#pullrequestreview-4211897199"
+    }
+  ],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-openra-22445-crush-target-selection",
+  "tests": [
+    {
+      "argv": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "openra-crush-target-selection"
+      ],
+      "command": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "openra-crush-target-selection"
+      ],
+      "cwd": ".",
+      "id": "openra-22445-crush-target-selection-f2p",
+      "kind": "fail_to_pass",
+      "origin": "issue_derived_gui_differential",
+      "provenance": "pull_request_gui_differential",
+      "timeout_s": 300
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "command": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+          "sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e",
+          "source_path": "upstream-tests/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs"
+        }
+      ],
+      "id": "openra-action-queue-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "OpenRA.Test_repository_test_suite",
+      "source_case": "OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder",
+      "source_url": "https://github.com/OpenRA/OpenRA/blob/8f2138c71106aaffd8a288b56d1c9ef6013700ba/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "8a689f0098e892e824754da2e3ce905d9f71304ab7aadc59487f03e34c015a0f",
+      "upstream_runner_version_argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "82d951c581cf3fc23d9cb0a2ce1a127d107aa4720c1cab9c69a2d10e55fa1ce9",
+      "upstream_test_files": [
+        {
+          "path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+          "sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e",
+          "source_url": "https://github.com/OpenRA/OpenRA/blob/8f2138c71106aaffd8a288b56d1c9ef6013700ba/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs"
+        }
+      ],
+      "upstream_test_path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "upstream_test_sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e"
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "command": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "cwd": ".",
+      "id": "openra-action-queue-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "OpenRA.Test_repository_test_suite",
+      "source_case": "OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder",
+      "source_url": "https://github.com/OpenRA/OpenRA/blob/7e687f430ee5b194c0ffaa06caaba757dd9155fb/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "8a689f0098e892e824754da2e3ce905d9f71304ab7aadc59487f03e34c015a0f",
+      "upstream_runner_version_argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "82d951c581cf3fc23d9cb0a2ce1a127d107aa4720c1cab9c69a2d10e55fa1ce9",
+      "upstream_test_files": [
+        {
+          "path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+          "sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e",
+          "source_url": "https://github.com/OpenRA/OpenRA/blob/7e687f430ee5b194c0ffaa06caaba757dd9155fb/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs"
+        }
+      ],
+      "upstream_test_path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "upstream_test_sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e"
+    }
+  ],
+  "touched_files": [
+    "mods/d2k/scripts/campaign.lua"
+  ],
+  "upstream_commits": [
+    {
+      "author": "N.N",
+      "authored_at": "2026-04-10T08:26:52Z",
+      "body_normalized": "Fix crush logic",
+      "body_raw": "Fix crush logic",
+      "body_sha256": "8d4bb6369e60973f7936ca6952375cebba2a7462562815734fbff0da1238423d",
+      "sha": "2774e1bc9dbabb50699b5eb0ad7afefedaa4f536",
+      "url": "https://github.com/OpenRA/OpenRA/commit/2774e1bc9dbabb50699b5eb0ad7afefedaa4f536"
+    }
+  ]
+}

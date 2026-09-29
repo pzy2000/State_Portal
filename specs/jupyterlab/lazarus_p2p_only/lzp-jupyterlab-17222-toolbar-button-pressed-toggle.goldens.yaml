@@ -1,0 +1,71 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lzp-jupyterlab-17222-toolbar-button-pressed-toggle
+benchmark: jupyterlab
+track: c1_lazarus_p2p_only_v1
+candidate:
+  repository_key: jupyterlab
+  change_number: 17222
+  issue_number: 14464
+  defect_locus: at_goal
+authoritative_defect: '`More commands` three dots button on toolbar does not reflect status'
+provenance:
+  captured_by: materialized_pair_chromium_fixture_capture
+  capture_backend: playwright_chromium_png
+  frame_sources:
+    fixed_before: frames/lzp-jupyterlab-17222-toolbar-button-pressed-toggle/fixed/before.png
+    fixed_after: frames/lzp-jupyterlab-17222-toolbar-button-pressed-toggle/fixed/after.png
+    buggy_before: frames/lzp-jupyterlab-17222-toolbar-button-pressed-toggle/buggy/before.png
+    buggy_after: frames/lzp-jupyterlab-17222-toolbar-button-pressed-toggle/buggy/after.png
+  goldens_metadata: visual_lzp-jupyterlab-17222-toolbar-button-pressed-toggle/goldens.meta.json
+  defect_differential_source: rendered_frames
+evaluation:
+  visual_oracle:
+    golden_image: visual_lzp-jupyterlab-17222-toolbar-button-pressed-toggle/before.golden.png
+    description: A browser frame rendered by the candidate build shows a white page with one grey control
+      strip near the top left holding a single square button. The button paints a filled circle glyph.
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a white page with one grey control strip
+        near the top left holding a single square button.
+      - The button paints a filled circle glyph.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, and sub-pixel text shifts.
+  lazarus:
+    goldens:
+      before: visual_lzp-jupyterlab-17222-toolbar-button-pressed-toggle/before.golden.png
+      buggy_before: visual_lzp-jupyterlab-17222-toolbar-button-pressed-toggle/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-jupyterlab-17222-toolbar-button-pressed-toggle/fixed.after.golden.png
+        after_description: 'The button paints a hollow square glyph and reports itself as engaged, and
+          the strip below it reads "engaged: true".'
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white page with one grey control strip
+            near the top left holding a single square button.
+          - 'The button paints a hollow square glyph and reports itself as engaged, and the strip below
+            it reads "engaged: true".'
+          - Judge this frame by which glyph the button paints and what engaged state the button reports
+            for itself.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.
+      buggy:
+        after: visual_lzp-jupyterlab-17222-toolbar-button-pressed-toggle/buggy.after.golden.png
+        after_description: 'The button still paints the filled circle glyph and reports itself as not
+          engaged, and the strip below it reads "engaged: false".'
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white page with one grey control strip
+            near the top left holding a single square button.
+          - 'The button still paints the filled circle glyph and reports itself as not engaged, and the
+            strip below it reads "engaged: false".'
+          - Judge this frame by which glyph the button paints and what engaged state the button reports
+            for itself.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.

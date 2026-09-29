@@ -1,0 +1,76 @@
+name: DatingSim Elena cafe dialogue checkpoint
+benchmark: DatingSim
+tags:
+- love
+- dialogue
+- variant
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  seed: 37
+  player_name: WarpTest
+  gender: male
+  patch:
+    player:
+      relationships:
+        char_1:
+          trust: 50
+          attraction: 30
+          comfort: 35
+          respect: 25
+          investment: 10
+          conflict: 0
+          status: friend
+          history:
+          - Met Elena for coffee.
+          memories: []
+    world:
+      location: cafe
+  expect:
+    location: cafe
+    resources:
+      money: 1000
+      energy: 100
+    relationships:
+      char_1:
+        trust: 50
+        attraction: 30
+        status: friend
+checkpoint:
+  allowed_strategies:
+  - test_hook_seeded_state
+  expected_validity: injection-only
+actions:
+- type: hook_call
+  method: startDialogue
+  args:
+  - char_1
+  wait_ms: 300
+assertions:
+- type: state_equals
+  path: activeDialogue.isOpen
+  value: true
+- type: state_equals
+  path: activeDialogue.characterId
+  value: char_1
+- type: no_real_openai
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/dialogue-open.golden.png
+  expected_label: correct
+  description: The seeded Elena relationship can open a cafe dialogue without real
+    AI calls.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

@@ -1,0 +1,82 @@
+name: LibreOffice Calc named range forecast deep state
+benchmark: LibreOffice
+repo: ../../games/LibreOffice
+target:
+  kind: calc_spreadsheet
+  path: calc-named-range-forecast.ods
+  sheets:
+    Inputs:
+      cells: {A1: Metric, B1: Value, A2: BaseRevenue, B2: 50000, A3: GrowthRate, B3: 0.08, A4: CostRate, B4: 0.62}
+    Forecast:
+      cells: {A1: Metric, A2: Forecast Revenue, A3: Forecast Cost, A4: Forecast Profit}
+      formulas:
+        B2: "=Inputs.B2*(1+Inputs.B3)"
+        B3: "=B2*Inputs.B4"
+        B4: "=B2-B3"
+checkpoint:
+  allowed_strategies: ["libreoffice_uno_document_validate"]
+  expected_validity: save-restorable
+actions:
+  - type: libreoffice_define_named_range
+    name: GrowthRate
+    sheet: Inputs
+    range: B3
+  - type: libreoffice_define_named_range
+    name: CostRate
+    sheet: Inputs
+    range: B4
+  - type: libreoffice_set_cell
+    sheet: Inputs
+    cell: B3
+    value: 0.12
+  - type: libreoffice_recalculate
+  - type: libreoffice_save
+  - type: libreoffice_reopen
+assertions:
+  - type: libreoffice_named_range_exists
+    name: GrowthRate
+  - type: libreoffice_cell_value_equals
+    sheet: Forecast
+    cell: B2
+    expected: 56000
+  - type: libreoffice_cell_value_equals
+    sheet: Forecast
+    cell: B4
+    expected: 21280
+  - type: no_libreoffice_errors
+visual_oracle:
+  golden_image: visual/calc-named-range-forecast.after.golden.png
+  golden_before: visual/calc-named-range-forecast.before.golden.png
+  golden_after: visual/calc-named-range-forecast.after.golden.png
+  expected_label: correct
+  description: "A LibreOffice Calc forecast workbook is visible with Inputs and Forecast sheets."
+  rubric:
+    must:
+      - "LibreOffice Calc is visible with a populated forecast or input table."
+      - "The workbook is not blank."
+    must_not:
+      - "A crash dialog or unrelated app is visible."
+    ignore:
+      - "Selected cell, zoom, and toolbar differences."
+  after_description: "After the workflow, the forecast workbook has recalculated revenue/profit values based on a higher growth rate."
+  after_rubric:
+    must:
+      - "A populated forecast spreadsheet remains visible."
+      - "Updated forecast, growth, or profit values are visible."
+      - "The sheet is rendered normally."
+    must_not:
+      - "Only the original forecast values are visible with no recalculation."
+      - "The screenshot is blank or crashed."
+    ignore:
+      - "Exact scroll position, selected cell, and toolbar differences."
+  capture:
+    stage: post_smoke
+    active_sheet: Forecast
+    wait_ms: 500
+    full_page: false
+tags:
+  - libreoffice
+  - calc
+  - deep-state
+  - forecast
+timeout_ms: 240000

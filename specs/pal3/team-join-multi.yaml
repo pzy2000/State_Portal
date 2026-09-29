@@ -1,0 +1,44 @@
+name: pal3 add multiple companions to the party
+benchmark: "pal3"
+timeout_ms: 900000
+tags: ["pal3", "team", "multi"]
+target:
+  kind: synthesized_state
+  team_ids: [0]
+checkpoint:
+  allowed_strategies: ["pal3_console_save_validate"]
+  expected_validity: "injection-only"
+actions:
+  - type: pal3_add_team_member
+    actor_id: 1
+  - type: pal3_add_team_member
+    actor_id: 2
+assertions:
+  - type: pal3_team_contains
+    actor_id: 2
+  - type: pal3_team_count
+    expected: "3"
+  - type: no_pal3_utility_errors
+
+visual_oracle:
+  golden_image: visual/team-join-multi.golden.png
+  expected_label: correct
+  scene_key: pal3_default_scene
+  description: "A PAL3 Unity 3D game scene is rendered after the checkpoint and smoke actions complete. The visual oracle checks that the game reached a real rendered frame without requiring internal semantic state to be visible in the screenshot."
+  rubric:
+    must:
+      - "A PAL3 Unity 3D scene or in-game camera view is rendered and visible."
+      - "The frame contains visible game content with non-flat color and detail."
+      - "No crash dialog, exception overlay, or fully blank screen is shown."
+    must_not:
+      - "The screenshot is blank, black, or only a single flat color."
+      - "The screenshot shows only the Unity splash screen, editor UI, or a loading-only frame."
+      - "An error dialog or exception stack trace is visible."
+    ignore:
+      - "Exact camera angle, lighting, animation frame, or HUD layout differences."
+      - "Internal state changes such as inventory, money, favor, script variables, or save-slot contents that are validated semantically."
+      - "Small character or prop position differences within the same rendered PAL3 scene."
+  capture:
+    stage: post_smoke
+    wait_ms: 1000
+    full_page: false

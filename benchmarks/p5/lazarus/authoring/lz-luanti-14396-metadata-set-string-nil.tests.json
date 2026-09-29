@@ -1,0 +1,107 @@
+{
+  "schema": "c1-lazarus-authoring-tests-v1",
+  "schema_version": 1,
+  "tests": [
+    {
+      "argv": [
+        "./util/test_multiplayer.sh"
+      ],
+      "command": [
+        "./util/test_multiplayer.sh"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "games/devtest/mods/unittests/metadata.lua",
+          "sha256": "541dc4e30b29121ed36efe24f399a22dcd8b19db9474031a80fd8b268c432ad2",
+          "source_path": "upstream-tests/games/devtest/mods/unittests/metadata.lua"
+        }
+      ],
+      "id": "luanti-pr14396-metadata-compat-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_devtest_multiplayer_regression_suite",
+      "source_case": "test_item_metadata to test_metadata_compat",
+      "source_url": "https://github.com/luanti-org/luanti/blob/fa1d80b53b12beedac2e8c1045ffe86e07b89423/games/devtest/mods/unittests/metadata.lua",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "games/devtest/mods/unittests/metadata.lua",
+          "sha256": "541dc4e30b29121ed36efe24f399a22dcd8b19db9474031a80fd8b268c432ad2",
+          "source_url": "https://github.com/luanti-org/luanti/blob/fa1d80b53b12beedac2e8c1045ffe86e07b89423/games/devtest/mods/unittests/metadata.lua"
+        }
+      ],
+      "upstream_test_path": "games/devtest/mods/unittests/metadata.lua",
+      "upstream_test_sha256": "541dc4e30b29121ed36efe24f399a22dcd8b19db9474031a80fd8b268c432ad2"
+    },
+    {
+      "argv": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "command": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed",
+          "source_path": "upstream-tests/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "id": "luanti-vector-zero-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "vector zero()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/fa1d80b53b12beedac2e8c1045ffe86e07b89423/builtin/common/tests/vector_spec.lua",
+      "timeout_s": 60,
+      "upstream_runner_root": ".warptest-cache/lazarus/tools/luanti-busted-luajit",
+      "upstream_runner_tree_sha256": "8e52972a9ade81d36ec6225831d24ec6ceeef306f1841db8a29fd22c21fb19b2",
+      "upstream_test_files": [
+        {
+          "path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed",
+          "source_url": "https://github.com/luanti-org/luanti/blob/fa1d80b53b12beedac2e8c1045ffe86e07b89423/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "upstream_test_path": "builtin/common/tests/vector_spec.lua",
+      "upstream_test_sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed"
+    },
+    {
+      "argv": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "command": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "cwd": ".",
+      "id": "luanti-vector-zero-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "vector zero()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/vector_spec.lua",
+      "timeout_s": 60,
+      "upstream_runner_root": ".warptest-cache/lazarus/tools/luanti-busted-luajit",
+      "upstream_runner_tree_sha256": "8e52972a9ade81d36ec6225831d24ec6ceeef306f1841db8a29fd22c21fb19b2",
+      "upstream_test_files": [
+        {
+          "path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "1a9934c6e46eba7ab58894285e676e65970b0dab419df3ea05be66cdc50139f0",
+          "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "upstream_test_path": "builtin/common/tests/vector_spec.lua",
+      "upstream_test_sha256": "1a9934c6e46eba7ab58894285e676e65970b0dab419df3ea05be66cdc50139f0"
+    }
+  ]
+}

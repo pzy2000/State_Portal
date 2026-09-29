@@ -1,0 +1,57 @@
+name: SpaceRPG galaxy jump then save checkpoint
+benchmark: SpaceRPG
+tags:
+- spacerpg
+- galaxy-map
+- jump
+- save
+- variant
+setup:
+  disable_economy_backend: true
+target:
+  kind: galaxy_map
+  screen: galaxyMap
+  system_id: helion-reach
+  galaxy_map_mode: gate
+checkpoint:
+  allowed_strategies:
+  - test_hook_jump_and_validate
+  expected_validity: replay-reachable
+actions:
+- type: hook_call
+  method: jumpToSystem
+  args:
+  - kuro-belt
+- type: hook_call
+  method: saveGame
+  args:
+  - manual-1
+- type: wait
+  ms: 300
+assertions:
+- type: state_equals
+  path: screen
+  value: flight
+- type: state_equals
+  path: currentSystemId
+  value: kuro-belt
+- type: localStorage_key_exists
+  key: spacerpg-save-slot:manual-1
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/galaxy-jump.golden.png
+  expected_label: correct
+  description: The SpaceRPG route can jump to Kuro Belt and save the resulting state.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

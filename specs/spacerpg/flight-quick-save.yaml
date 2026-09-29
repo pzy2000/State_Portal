@@ -1,0 +1,46 @@
+name: SpaceRPG flight quick save checkpoint
+benchmark: SpaceRPG
+tags:
+- spacerpg
+- flight
+- save
+- variant
+setup:
+  disable_economy_backend: true
+target:
+  kind: flight
+  screen: flight
+  system_id: helion-reach
+checkpoint:
+  allowed_strategies:
+  - test_hook_jump_and_validate
+  expected_validity: replay-reachable
+actions:
+- type: hook_call
+  method: saveGame
+  args:
+  - auto
+assertions:
+- type: state_equals
+  path: screen
+  value: flight
+- type: localStorage_key_exists
+  key: spacerpg-save-slot:auto
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/playable-flight.golden.png
+  expected_label: correct
+  description: The SpaceRPG flight HUD remains visible after a quick save.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

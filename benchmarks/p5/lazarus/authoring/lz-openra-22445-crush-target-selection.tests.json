@@ -1,0 +1,127 @@
+{
+  "schema": "c1-lazarus-authoring-tests-v1",
+  "schema_version": 1,
+  "tests": [
+    {
+      "argv": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "openra-crush-target-selection"
+      ],
+      "command": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "openra-crush-target-selection"
+      ],
+      "cwd": ".",
+      "id": "openra-22445-crush-target-selection-f2p",
+      "kind": "fail_to_pass",
+      "origin": "issue_derived_gui_differential",
+      "provenance": "pull_request_gui_differential",
+      "timeout_s": 300
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "command": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+          "sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e",
+          "source_path": "upstream-tests/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs"
+        }
+      ],
+      "id": "openra-action-queue-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "OpenRA.Test_repository_test_suite",
+      "source_case": "OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder",
+      "source_url": "https://github.com/OpenRA/OpenRA/blob/8f2138c71106aaffd8a288b56d1c9ef6013700ba/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "8a689f0098e892e824754da2e3ce905d9f71304ab7aadc59487f03e34c015a0f",
+      "upstream_runner_version_argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "82d951c581cf3fc23d9cb0a2ce1a127d107aa4720c1cab9c69a2d10e55fa1ce9",
+      "upstream_test_files": [
+        {
+          "path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+          "sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e",
+          "source_url": "https://github.com/OpenRA/OpenRA/blob/8f2138c71106aaffd8a288b56d1c9ef6013700ba/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs"
+        }
+      ],
+      "upstream_test_path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "upstream_test_sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e"
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "command": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "cwd": ".",
+      "id": "openra-action-queue-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "OpenRA.Test_repository_test_suite",
+      "source_case": "OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder",
+      "source_url": "https://github.com/OpenRA/OpenRA/blob/7e687f430ee5b194c0ffaa06caaba757dd9155fb/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "8a689f0098e892e824754da2e3ce905d9f71304ab7aadc59487f03e34c015a0f",
+      "upstream_runner_version_argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "82d951c581cf3fc23d9cb0a2ce1a127d107aa4720c1cab9c69a2d10e55fa1ce9",
+      "upstream_test_files": [
+        {
+          "path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+          "sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e",
+          "source_url": "https://github.com/OpenRA/OpenRA/blob/7e687f430ee5b194c0ffaa06caaba757dd9155fb/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs"
+        }
+      ],
+      "upstream_test_path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "upstream_test_sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e"
+    }
+  ]
+}

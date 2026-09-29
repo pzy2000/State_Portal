@@ -1,0 +1,44 @@
+diff --git a/packages/outputarea/src/model.ts b/packages/outputarea/src/model.ts
+index a147b92552535805ea13dab466cf35533abf1d1d..f9e99616352a19cbbdf973265874294e6a1b6fa4 100644
+--- a/packages/outputarea/src/model.ts
++++ b/packages/outputarea/src/model.ts
+@@ -569,11 +569,11 @@ namespace Private {
+       );
+       text = text.slice(0, idx0) + prefix + text.slice(idx0 + prefix.length);
+       lastEnd = idx1 + 1;
++      idx0 += prefix.length;
+ 
+       if (idx1 === -1) {
+         break;
+       }
+-      idx0 += prefix.length;
+ 
+       const newChar = newText[idx1];
+       if (newChar === '\b') {
+diff --git a/packages/outputarea/test/model.spec.ts b/packages/outputarea/test/model.spec.ts
+index fd153c44415abddb3599a72c3f28095d76ccddb1..ea46eae27a701ca3330cfc55dc66c595f80f1cdd 100644
+--- a/packages/outputarea/test/model.spec.ts
++++ b/packages/outputarea/test/model.spec.ts
+@@ -183,6 +183,22 @@ describe('outputarea/model', () => {
+         expect(model.get(0).toJSON().text).toBe('abc\n-');
+       });
+ 
++      it('should correctly merge lines if the first line does not end with new line', () => {
++        model.add({
++          name: 'stdout',
++          output_type: 'stream',
++          text: ['The meaning of life is....\nSome people... ']
++        });
++        model.add({
++          name: 'stdout',
++          output_type: 'stream',
++          text: ['More text.']
++        });
++        expect(model.get(0).toJSON().text).toBe(
++          'The meaning of life is....\nSome people... More text.'
++        );
++      });
++
+       it('should be fast in sparse presence of returns and backspaces', () => {
+         // locally this test run in 36 ms; setting it to 10 times
+         // more to allow for slower runs on CI

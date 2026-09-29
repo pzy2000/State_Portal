@@ -1,0 +1,153 @@
+name: C1-Lazarus Luanti 12602-media-override
+benchmark: luanti
+timeout_ms: 2400000
+tags:
+- c1
+- lazarus
+- luanti
+- production
+setup:
+  luanti_lazarus_probe:
+    task_id: lz-luanti-12602-media-override
+    change_number: 12602
+    issue_number: 12557
+    adapter: luanti_lazarus_frozen_evidence_v1
+    observation_source: frozen_gate10_evidence
+    registered_replay:
+    - restore_registered_candidate_start
+    - run_registered_candidate_replay
+    - read_admitted_gate10_semantic_observation
+    evidence_layout: observed_version_keyed
+    evidence_artifact_ids:
+    - candidate_oracle/luanti/12602/hidden-v1
+    formal_freeze_admission: candidate_formal_freeze_admission/luanti/12602/real-f12-v4
+    upstream_truth_table:
+      fixed:
+        f2p: true
+        p2p: true
+      buggy:
+        f2p: false
+        p2p: true
+target:
+  kind: synthesized_world
+  candidate_versions:
+  - fixed
+  - buggy
+  game: devtest
+  fixture: registered_candidate_worldmod
+checkpoint:
+  allowed_strategies:
+  - luanti_worldmod_state_validate
+  expected_validity: save-restorable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: luanti_lazarus_frozen_evidence_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: luanti_lazarus_frozen_evidence_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-luanti-12602-media-override/fixed.after.golden.png
+    expected_label: correct
+    description: 'No tiled texture covers the room yet: the view is a flat dark blue-grey
+      background behind a centred dialog titled "C1 LAZARUS  #12602  MEDIA OVERRIDE
+      REPLAY" whose body reads "COMMON START", "Two ordered mods provide the same
+      texture filename.", "The later override mod must win." and "Waiting for the
+      registered replay ...".'
+    rubric:
+      must:
+      - A Luanti client frame rendered by the candidate build shows the player inside
+        a closed room of display nodes, looking straight ahead at the far wall.
+      - 'No tiled texture covers the room yet: the view is a flat dark blue-grey background
+        behind a centred dialog titled "C1 LAZARUS  #12602  MEDIA OVERRIDE REPLAY"
+        whose body reads "COMMON START", "Two ordered mods provide the same texture
+        filename.", "The later override mod must win." and "Waiting for the registered
+        replay ...".'
+      must_not:
+      - A blank frame, a crash dialog, or an unrelated application screen is shown.
+      ignore:
+      - The green slab at the lower right, the hotbar row, the crosshair, the node
+        selection outline, and the server and chat text lines along the top.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: luanti_lazarus_state_audit
+      field: TestServerModManager.testGetModMediaPaths
+      expected: pass
+    - type: luanti_lazarus_state_audit
+      field: TestServerModManager.testGetModNames
+      expected: pass
+    defect_signature:
+    - type: luanti_lazarus_state_audit
+      field: TestServerModManager.testGetModMediaPaths
+      expected: failure
+    - type: luanti_lazarus_state_audit
+      field: TestServerModManager.testGetModNames
+      expected: pass
+    invariant_checks:
+    - type: no_luanti_mod_errors
+    upstream_tests:
+      fail_to_pass:
+      - TestServerModManager.testGetModMediaPaths
+      pass_to_pass:
+      - TestServerModManager.testGetModNames
+      per_trial_p2p:
+      - TestServerModManager.testGetModNames
+    goldens:
+      before: visual_lz-luanti-12602-media-override/before.golden.png
+      buggy_before: visual_lz-luanti-12602-media-override/buggy.before.golden.png
+      fixed:
+        after: visual_lz-luanti-12602-media-override/fixed.after.golden.png
+        after_description: The dialog is gone and every wall, floor and ceiling surface
+          in view is tiled with the override mod's green texture, a bright green grid
+          on a dark green background, with no red tiling on those surfaces.
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows the player
+            inside a closed room of display nodes, looking straight ahead at the far
+            wall.
+          - The dialog is gone and every wall, floor and ceiling surface in view is
+            tiled with the override mod's green texture, a bright green grid on a
+            dark green background, with no red tiling on those surfaces.
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The green slab at the lower right, the hotbar row, the crosshair, the
+            node selection outline, and the server and chat text lines along the top.
+      buggy:
+        after: visual_lz-luanti-12602-media-override/buggy.after.golden.png
+        after_description: The dialog is gone and every wall, floor and ceiling surface
+          in view is tiled with the base mod's red texture, a bright red grid on a
+          dark red background, with no green tiling on those surfaces.
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows the player
+            inside a closed room of display nodes, looking straight ahead at the far
+            wall.
+          - The dialog is gone and every wall, floor and ceiling surface in view is
+            tiled with the base mod's red texture, a bright red grid on a dark red
+            background, with no green tiling on those surfaces.
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The green slab at the lower right, the hotbar row, the crosshair, the
+            node selection outline, and the server and chat text lines along the top.

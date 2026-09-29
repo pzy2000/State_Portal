@@ -1,0 +1,845 @@
+# Uniform Hook Onboarding protocol for all ten applications. Source commits and
+# held-out cases are inherited from manifest.yaml; this overlay adds the agent
+# self-test contract, the visible development suites, and runtime notes.
+schema_version: 1
+pilot_id: hook-onboarding-uniform
+prompt: prompt_hook.md
+base_manifest: manifest.yaml
+agent_self_tests:
+  required: true
+  min_cases: 5
+  max_cases: 10
+  timeout_s: 1800
+agent_limits:
+  max_rounds: 120
+  max_tool_calls: 280
+  wall_time_s: 10800
+app_overrides:
+  '2048':
+    runtime_notes: A static local HTTP server and Playwright are available. The harness exports WARPTEST_PLAYWRIGHT_CHROMIUM_EXECUTABLE;
+      pass it to Playwright as executable_path.
+    reference:
+      argv:
+      - '{python}'
+      - '{harness_root}/scripts/run_hook_onboarding_reference.py'
+      - --manifest
+      - '{harness_root}/benchmarks/onboarding/manifest_hook.yaml'
+      - --app
+      - '2048'
+      - --repo
+      - '{repo}'
+      - --report-dir
+      - '{report_dir}'
+      timeout_s: 900
+    development_suite:
+    - id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 120
+      target:
+        board:
+        - - 2
+          - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+          - 0
+        score: 0
+        bestScore: 0
+      expected:
+        board:
+        - - 2
+          - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+          - 0
+        score: 0
+        bestScore: 0
+    - id: development-live-midgame
+      roundtrip: live
+      timeout_s: 120
+      target:
+        board:
+        - - 4
+          - 8
+          - 0
+          - 0
+        - - 16
+          - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+          - 0
+        score: 28
+        bestScore: 64
+      expected:
+        board:
+        - - 4
+          - 8
+          - 0
+          - 0
+        - - 16
+          - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+          - 0
+        - - 0
+          - 0
+          - 0
+          - 0
+        score: 28
+        bestScore: 64
+    - id: development-reload-varied
+      roundtrip: save_reload
+      timeout_s: 120
+      target:
+        board:
+        - - 0
+          - 2
+          - 4
+          - 8
+        - - 0
+          - 0
+          - 16
+          - 32
+        - - 0
+          - 0
+          - 0
+          - 64
+        - - 0
+          - 0
+          - 0
+          - 0
+        score: 256
+        bestScore: 512
+      expected:
+        board:
+        - - 0
+          - 2
+          - 4
+          - 8
+        - - 0
+          - 0
+          - 16
+          - 32
+        - - 0
+          - 0
+          - 0
+          - 64
+        - - 0
+          - 0
+          - 0
+          - 0
+        score: 256
+        bestScore: 512
+  spacerpg:
+    runtime_notes: 'Node, npm, Vite, and Playwright are available. Keep network-backed economy disabled.
+      The harness exports WARPTEST_PLAYWRIGHT_CHROMIUM_EXECUTABLE; pass it to Playwright. Finalization
+      invariant: every write_file or apply_patch invalidates all earlier check passes. After the last
+      edit, run self_tests, development_suite, and build again, then inspect get_diff and return final
+      without making any further source edit.'
+    reference:
+      argv:
+      - '{python}'
+      - '{harness_root}/scripts/run_hook_onboarding_reference.py'
+      - --manifest
+      - '{harness_root}/benchmarks/onboarding/manifest_hook.yaml'
+      - --app
+      - spacerpg
+      - --repo
+      - '{repo}'
+      - --report-dir
+      - '{report_dir}'
+      timeout_s: 1500
+    development_suite:
+    - id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 180
+      target:
+        screen: flight
+        currentSystemId: helion-reach
+        currentStationId: helion-prime
+        player:
+          credits: 1000
+          cargo:
+            basic-food: 1
+      expected:
+        screen: flight
+        currentSystemId: helion-reach
+        currentStationId: helion-prime
+        player:
+          credits: 1000
+          cargo:
+            basic-food: 1
+    - id: development-optional-cargo-omitted
+      roundtrip: save_reload
+      timeout_s: 180
+      target:
+        screen: flight
+        currentSystemId: helion-reach
+        currentStationId: helion-prime
+        player:
+          credits: 1250
+      expected:
+        screen: flight
+        currentSystemId: helion-reach
+        currentStationId: helion-prime
+        player:
+          credits: 1250
+    - id: development-live-cargo
+      roundtrip: live
+      timeout_s: 180
+      target:
+        screen: flight
+        currentSystemId: helion-reach
+        currentStationId: helion-prime
+        player:
+          credits: 1400
+          cargo:
+            basic-food: 2
+      expected:
+        screen: flight
+        currentSystemId: helion-reach
+        currentStationId: helion-prime
+        player:
+          credits: 1400
+          cargo:
+            basic-food: 2
+  datingsim:
+    runtime_notes: Node, npm, Vite, and Playwright are available. Keep all external AI disabled. The harness
+      exports WARPTEST_PLAYWRIGHT_CHROMIUM_EXECUTABLE; pass it to Playwright.
+    reference:
+      argv:
+      - '{python}'
+      - '{harness_root}/scripts/run_hook_onboarding_reference.py'
+      - --manifest
+      - '{harness_root}/benchmarks/onboarding/manifest_hook.yaml'
+      - --app
+      - datingsim
+      - --repo
+      - '{repo}'
+      - --report-dir
+      - '{report_dir}'
+      timeout_s: 1500
+    development_suite:
+    - id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 180
+      target:
+        player_name: Dev
+        gender: male
+        player:
+          resources:
+            money: 1000
+            energy: 100
+        world:
+          location: home
+          week: 1
+          day: 0
+          timeSlot: morning
+      expected:
+        player_name: Dev
+        gender: male
+        player:
+          resources:
+            money: 1000
+            energy: 100
+        world:
+          location: home
+          week: 1
+          day: 0
+          timeSlot: morning
+    - id: development-live-profile
+      roundtrip: live
+      timeout_s: 180
+      target:
+        player_name: Mira
+        gender: female
+        player:
+          resources:
+            money: 650
+            energy: 55
+        world:
+          location: gym
+          week: 1
+          day: 2
+          timeSlot: afternoon
+      expected:
+        player_name: Mira
+        gender: female
+        player:
+          resources:
+            money: 650
+            energy: 55
+        world:
+          location: gym
+          week: 1
+          day: 2
+          timeSlot: afternoon
+    - id: development-reload-profile
+      roundtrip: save_reload
+      timeout_s: 180
+      target:
+        player_name: Kai
+        gender: male
+        player:
+          resources:
+            money: 2222
+            energy: 88
+        world:
+          location: home
+          week: 3
+          day: 4
+          timeSlot: evening
+      expected:
+        player_name: Kai
+        gender: male
+        player:
+          resources:
+            money: 2222
+            energy: 88
+        world:
+          location: home
+          week: 3
+          day: 4
+          timeSlot: evening
+  openra:
+    reference:
+      argv:
+      - '{python}'
+      - '{harness_root}/scripts/run_hook_onboarding_reference.py'
+      - --manifest
+      - '{harness_root}/benchmarks/onboarding/manifest_hook.yaml'
+      - --app
+      - openra
+      - --repo
+      - '{repo}'
+      - --report-dir
+      - '{report_dir}'
+      timeout_s: 2100
+    development_suite:
+    - id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 180
+      target:
+        kind: openra_settings
+        settings:
+          Game:
+            StatusBars: Standard
+      expected:
+        kind: openra_settings
+        settings:
+          Game:
+            StatusBars: Standard
+    - id: development-live-edge-scroll
+      roundtrip: live
+      timeout_s: 180
+      target:
+        kind: openra_settings
+        settings:
+          Game:
+            ViewportEdgeScroll: true
+      expected:
+        kind: openra_settings
+        settings:
+          Game:
+            ViewportEdgeScroll: true
+    - id: development-reload-target-lines
+      roundtrip: save_reload
+      timeout_s: 180
+      target:
+        kind: openra_settings
+        settings:
+          Game:
+            TargetLines: Manual
+      expected:
+        kind: openra_settings
+        settings:
+          Game:
+            TargetLines: Manual
+  jupyterlab:
+    reference:
+      argv:
+      - '{python}'
+      - '{harness_root}/scripts/run_hook_onboarding_reference.py'
+      - --manifest
+      - '{harness_root}/benchmarks/onboarding/manifest_hook.yaml'
+      - --app
+      - jupyterlab
+      - --repo
+      - '{repo}'
+      - --report-dir
+      - '{report_dir}'
+      timeout_s: 1800
+    development_suite:
+    - id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 240
+      target:
+        kind: text_file
+        path: notes/development.txt
+        content: development-smoke
+      expected:
+        kind: text_file
+        path: notes/development.txt
+        content: development-smoke
+    - id: development-live-nested-text
+      roundtrip: live
+      timeout_s: 240
+      target:
+        kind: text_file
+        path: nested/visible/live.txt
+        content: 'visible live text
+
+          line two'
+      expected:
+        kind: text_file
+        path: nested/visible/live.txt
+        content: 'visible live text
+
+          line two'
+    - id: development-reload-notebook-shorthand
+      roundtrip: save_reload
+      timeout_s: 300
+      target:
+        kind: notebook
+        path: notebooks/development-v2.ipynb
+        cells:
+        - cell_type: markdown
+          source:
+          - '# Visible notebook'
+        - cell_type: code
+          source:
+          - 'answer = 7
+
+            '
+          - answer
+      expected:
+        kind: notebook
+        path: notebooks/development-v2.ipynb
+        cells:
+        - cell_type: markdown
+          source:
+          - '# Visible notebook'
+        - cell_type: code
+          source:
+          - 'answer = 7
+
+            '
+          - answer
+  libreoffice:
+    runtime_notes: Use the public Java UNO bridge with an isolated LibreOffice user profile and no GUI
+      automation. The exact executable is provided in WARPTEST_ONBOARDING_SOFFICE and the matching public
+      aggregate UNO JAR is provided in WARPTEST_ONBOARDING_LIBREOFFICE_JAR; use these variables directly
+      and do not search parent directories. Start soffice with a unique localhost UNO accept socket, wait
+      until that socket is ready, and connect with the Java UNO URL resolver. Remote UNO transport threads
+      can remain non-daemon after the requested document is closed, so ensure a successful Java helper
+      exits explicitly after it has written the observed result. The host Python 3.13 pyuno ABI is incompatible.
+    driver_env:
+      WARPTEST_ONBOARDING_SOFFICE: '{harness_root}/games/LibreOffice/instdir/LibreOfficeDev.app/Contents/MacOS/soffice'
+      WARPTEST_ONBOARDING_LIBREOFFICE_JAR: '{harness_root}/games/LibreOffice/instdir/LibreOfficeDev.app/Contents/Resources/java/libreoffice.jar'
+    reference:
+      argv:
+      - '{python}'
+      - '{harness_root}/scripts/run_hook_onboarding_reference.py'
+      - --manifest
+      - '{harness_root}/benchmarks/onboarding/manifest_hook.yaml'
+      - --app
+      - libreoffice
+      - --repo
+      - '{repo}'
+      - --report-dir
+      - '{report_dir}'
+      timeout_s: 1800
+    development_suite:
+    - id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 240
+      target:
+        kind: writer_document
+        path: development.odt
+        paragraphs:
+        - text: Development Smoke
+          style: Heading 1
+        - text: roundtrip
+      expected:
+        kind: writer_document
+        path: development.odt
+        paragraphs:
+        - text: Development Smoke
+          style: Heading 1
+        - text: roundtrip
+    - id: development-live-writer
+      roundtrip: live
+      timeout_s: 240
+      target:
+        kind: writer_document
+        path: development-live.odt
+        paragraphs:
+        - text: Visible Writer
+        - text: live-read
+      expected:
+        kind: writer_document
+        path: development-live.odt
+        paragraphs:
+        - text: Visible Writer
+        - text: live-read
+    - id: development-reload-calc
+      roundtrip: save_reload
+      timeout_s: 240
+      target:
+        kind: calc_spreadsheet
+        path: development-v2.ods
+        sheets:
+          Sheet1:
+            cells:
+              A1: Visible
+              B1: 17
+      expected:
+        kind: calc_spreadsheet
+        path: development-v2.ods
+        sheets:
+          Sheet1:
+            cells:
+              A1: Visible
+              B1: 17
+  blender:
+    reference:
+      argv:
+      - '{python}'
+      - '{harness_root}/scripts/run_hook_onboarding_reference.py'
+      - --manifest
+      - '{harness_root}/benchmarks/onboarding/manifest_hook.yaml'
+      - --app
+      - blender
+      - --repo
+      - '{repo}'
+      - --report-dir
+      - '{report_dir}'
+      timeout_s: 1800
+    development_suite:
+    - id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 240
+      target:
+        kind: scene
+        save_as: development.blend
+        objects:
+        - name: DevelopmentCube
+          type: MESH
+          primitive: cube
+          location:
+          - 0.0
+          - 0.0
+          - 0.0
+      expected:
+        kind: scene
+        save_as: development.blend
+        objects:
+        - name: DevelopmentCube
+          type: MESH
+          primitive: cube
+          location:
+          - 0.0
+          - 0.0
+          - 0.0
+    - id: development-live-material
+      roundtrip: live
+      timeout_s: 240
+      target:
+        kind: scene
+        save_as: development-live.blend
+        objects:
+        - name: VisibleSphere
+          type: MESH
+          primitive: uv_sphere
+          location:
+          - 2.0
+          - 0.0
+          - -1.0
+          material:
+            name: VisibleGreen
+            color:
+            - 0.1
+            - 0.8
+            - 0.2
+            - 1.0
+      expected:
+        kind: scene
+        save_as: development-live.blend
+        objects:
+        - name: VisibleSphere
+          type: MESH
+          primitive: uv_sphere
+          location:
+          - 2.0
+          - 0.0
+          - -1.0
+          material:
+            name: VisibleGreen
+            color:
+            - 0.1
+            - 0.8
+            - 0.2
+            - 1.0
+    - id: development-reload-multiple
+      roundtrip: save_reload
+      timeout_s: 240
+      target:
+        kind: scene
+        save_as: development-multiple.blend
+        objects:
+        - name: VisibleCube
+          type: MESH
+          primitive: cube
+          location:
+          - 1.0
+          - 1.0
+          - 1.0
+        - name: VisibleCubeSecond
+          type: MESH
+          primitive: cube
+          location:
+          - -1.0
+          - 0.0
+          - 0.0
+      expected:
+        kind: scene
+        save_as: development-multiple.blend
+        objects:
+        - name: VisibleCube
+          type: MESH
+          primitive: cube
+          location:
+          - 1.0
+          - 1.0
+          - 1.0
+        - name: VisibleCubeSecond
+          type: MESH
+          primitive: cube
+          location:
+          - -1.0
+          - 0.0
+          - 0.0
+  jynew:
+    reference:
+      argv:
+      - '{python}'
+      - '{harness_root}/scripts/run_hook_onboarding_reference.py'
+      - --manifest
+      - '{harness_root}/benchmarks/onboarding/manifest_hook.yaml'
+      - --app
+      - jynew
+      - --repo
+      - '{repo}'
+      - --report-dir
+      - '{report_dir}'
+      timeout_s: 5400
+    development_suite:
+    - id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 900
+      target:
+        mod_id: JYX2
+        money: 100
+      expected:
+        mod_id: JYX2
+        money: 100
+    - id: development-live-items
+      roundtrip: live
+      timeout_s: 900
+      target:
+        mod_id: JYX2
+        money: 300
+        items:
+        - id: 1
+          count: 2
+      expected:
+        mod_id: JYX2
+        money: 300
+        items:
+        - id: 1
+          count: 2
+    - id: development-reload-key-values
+      roundtrip: save_reload
+      timeout_s: 900
+      target:
+        mod_id: JYX2
+        player_level: 2
+        map_id: 2
+        key_values:
+        - key: visible_quest_started
+          value: '1'
+      expected:
+        mod_id: JYX2
+        player_level: 2
+        map_id: 2
+        key_values:
+        - key: visible_quest_started
+          value: '1'
+  pal3:
+    reference:
+      argv:
+      - '{python}'
+      - '{harness_root}/scripts/run_hook_onboarding_reference.py'
+      - --manifest
+      - '{harness_root}/benchmarks/onboarding/manifest_hook.yaml'
+      - --app
+      - pal3
+      - --repo
+      - '{repo}'
+      - --report-dir
+      - '{report_dir}'
+      timeout_s: 5400
+    development_suite:
+    - id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 900
+      target:
+        scene_city: q01
+        scene_name: b
+        money: 100
+      expected:
+        scene_city: q01
+        scene_name: b
+        money: 100
+    - id: development-live-story-vars
+      roundtrip: live
+      timeout_s: 900
+      target:
+        scene_city: q01
+        scene_name: b
+        story_vars:
+        - key: 101
+          value: 2
+      expected:
+        scene_city: q01
+        scene_name: b
+        story_vars:
+        - key: 101
+          value: 2
+    - id: development-reload-money-story
+      roundtrip: save_reload
+      timeout_s: 900
+      target:
+        scene_city: q01
+        scene_name: b
+        money: 250
+        story_vars:
+        - key: 102
+          value: 3
+      expected:
+        scene_city: q01
+        scene_name: b
+        money: 250
+        story_vars:
+        - key: 102
+          value: 3
+  luanti:
+    runtime_notes: A clean headless Luanti server is built before the agent starts. Reuse repo/bin/luantiserver
+      or the executable named by WARPTEST_ONBOARDING_LUANTI; do not download dependencies.
+    prepare:
+    - argv:
+      - '{python}'
+      - '{harness_root}/scripts/prepare_hook_onboarding_luanti.py'
+      - --repo
+      - '{repo}'
+      - --report-dir
+      - '{report_dir}'
+      timeout_s: 2700
+    driver_env:
+      WARPTEST_ONBOARDING_LUANTI: '{repo}/bin/luantiserver'
+    reference:
+      argv:
+      - '{python}'
+      - '{harness_root}/scripts/run_hook_onboarding_reference.py'
+      - --manifest
+      - '{harness_root}/benchmarks/onboarding/manifest_hook.yaml'
+      - --app
+      - luanti
+      - --repo
+      - '{repo}'
+      - --report-dir
+      - '{report_dir}'
+      timeout_s: 5400
+    development_suite:
+    - id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 600
+      target:
+        nodes:
+        - pos:
+            x: 1
+            y: 1
+            z: 1
+          node: basenodes:dirt
+      expected:
+        nodes:
+        - pos:
+            x: 1
+            y: 1
+            z: 1
+          node: basenodes:dirt
+    - id: development-live-storage
+      roundtrip: live
+      timeout_s: 600
+      target:
+        mod_storage:
+        - key: visible_progress
+          value: chapter-1
+      expected:
+        mod_storage:
+        - key: visible_progress
+          value: chapter-1
+    - id: development-reload-node-storage
+      roundtrip: save_reload
+      timeout_s: 600
+      target:
+        nodes:
+        - pos:
+            x: 3
+            y: 1
+            z: 3
+          node: basenodes:dirt
+        mod_storage:
+        - key: visible_flag
+          value: ready
+      expected:
+        nodes:
+        - pos:
+            x: 3
+            y: 1
+            z: 3
+          node: basenodes:dirt
+        mod_storage:
+        - key: visible_flag
+          value: ready

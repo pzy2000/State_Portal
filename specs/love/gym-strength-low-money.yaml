@@ -1,0 +1,65 @@
+name: DatingSim gym workout low money checkpoint
+benchmark: DatingSim
+tags:
+- love
+- gym
+- resources
+- variant
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  seed: 25
+  player_name: WarpTest
+  gender: male
+  patch:
+    player:
+      resources:
+        money: 100
+        energy: 100
+        health: 100
+        mood: 100
+    world:
+      location: gym
+  expect:
+    location: gym
+    resources:
+      money: 100
+      energy: 100
+checkpoint:
+  allowed_strategies:
+  - test_hook_seeded_state
+  expected_validity: injection-only
+actions:
+- type: hook_action
+  action_id: gym_workout
+  wait_ms: 500
+assertions:
+- type: state_equals
+  path: player.resources.money
+  value: 90
+- type: state_equals
+  path: player.resources.energy
+  value: 70
+- type: state_equals
+  path: player.stats.strength
+  value: 12
+- type: no_real_openai
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/resource-action.golden.png
+  expected_label: correct
+  description: The DatingSim gameplay UI remains visible after a gym workout.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

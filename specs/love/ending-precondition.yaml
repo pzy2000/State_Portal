@@ -1,0 +1,88 @@
+name: DatingSim partner ending precondition
+benchmark: "DatingSim"
+tags: ["love", "zustand", "ending", "relationship", "progression", "no-openai"]
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  seed: 19
+  player_name: WarpTest
+  gender: male
+  patch:
+    player:
+      title: Committed Partner
+      relationships:
+        char_1:
+          trust: 85
+          attraction: 90
+          comfort: 80
+          respect: 75
+          investment: 65
+          conflict: 0
+          status: partner
+          history: ["Completed Elena gallery arc.", "Committed to a long-term relationship."]
+          memories: ["Elena trusts WarpTest after the final gallery event."]
+    world:
+      week: 8
+      day: 5
+      timeSlot: evening
+      location: restaurant
+      globalFlags:
+        elena_gallery_arc_complete: true
+        elena_partner_ending_ready: true
+  expect:
+    location: restaurant
+    player_title: Committed Partner
+    resources:
+      money: 1000
+      energy: 100
+    relationships:
+      char_1:
+        trust: 85
+        attraction: 90
+        status: partner
+    global_flags:
+      elena_partner_ending_ready: true
+checkpoint:
+  allowed_strategies: ["test_hook_seeded_state"]
+  expected_validity: "injection-only"
+actions:
+  - type: hook_call
+    method: save
+    args: []
+    wait_ms: 300
+assertions:
+  - type: state_equals
+    path: player.title
+    value: Committed Partner
+  - type: state_equals
+    path: player.relationships.char_1.status
+    value: partner
+  - type: state_equals
+    path: world.globalFlags.elena_partner_ending_ready
+    value: true
+  - type: no_real_openai
+  - type: no_severe_console
+visual_oracle:
+  golden_image: visual/ending-precondition.golden.png
+  golden_before: visual/love-ending-precondition.before.golden.png
+  golden_after: visual/love-ending-precondition.after.golden.png
+  expected_label: correct
+  description: "The DatingSim main UI shows a late-progression partner-ending precondition state with WarpTest and Elena relationship context visible."
+  rubric:
+    must:
+      - "The DatingSim main game UI is visible."
+      - "WarpTest is visible as the player identity."
+      - "The contacts or status area is visible and consistent with an advanced relationship state."
+    must_not:
+      - "The setup screen is still visible."
+      - "A real AI/API error dominates the UI."
+      - "The page is blank or crashed."
+    ignore:
+      - "Exact localization of the relationship status label."
+      - "Minor dynamic layout differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false
+    hide_selectors: [".modal-overlay:has(.event-title)"]

@@ -1,0 +1,45 @@
+name: luanti teleport the player onto a marker block
+benchmark: "luanti"
+timeout_ms: 300000
+tags: ["luanti", "player", "teleport"]
+target:
+  kind: synthesized_world
+  nodes:
+    - pos: { x: 8, y: 1, z: 8 }
+      node: "basenodes:stone"
+  player:
+    pos: { x: 0, y: 2, z: 0 }
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_player_pos
+    pos: { x: 8, y: 2, z: 8 }
+    hover: true
+    look_at: { x: 8, y: 1, z: 8 }
+assertions:
+  - type: luanti_player_pos_near
+    pos: { x: 8, y: 2, z: 8 }
+    radius: 2.0
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/player-teleport.golden.png
+  golden_before: visual/luanti-player-teleport.before.golden.png
+  golden_after: visual/luanti-player-teleport.after.golden.png
+  expected_label: correct
+  description: "The Luanti devtest world is rendered from the player's view after teleporting onto a stone marker block."
+  rubric:
+    must:
+      - "The 3D voxel world is rendered and visible from a first/third person player view."
+      - "The camera is positioned at or near the stone marker block from the golden oracle."
+      - "No crash dialog, error overlay, or fully blank screen is shown."
+    must_not:
+      - "The player appears to be in an unrelated empty area with no visible marker/context from the golden oracle."
+      - "The screen is blank, black, or only shows the main menu."
+      - "An error dialog or exception stack trace is visible."
+    ignore:
+      - "Exact camera angle, lighting, or surrounding terrain differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 800
+    full_page: false

@@ -1,0 +1,36 @@
+# Gold replay: a world state with a huge filled region hangs the server (100% CPU).
+#
+# Reconstructed from a control-validated, headless-server reproducible defect: a
+# fill region spanning to i32-max makes synthesis spin in an unbounded synchronous
+# loop; the server main thread never services shutdown and must be SIGKILLed.
+#
+# The defect oracle is EXPLICIT (Contract 3): the hang is detected by the watchdog
+# timeout, not by any status field.
+name: "luanti replay: huge filled region hangs the server"
+benchmark: luanti
+
+source:
+  upstream_repo: luanti-org/luanti
+  pr_number: null
+  pre_fix_sha: null
+  post_fix_sha: null
+  source_url: null
+  provenance: >-
+    Control-validated headless reproduction of the huge-fill hang class (see
+    BUGS/luanti/issue-03). Author real pre/post SHA to promote to a gold pair.
+
+fixture:
+  target:
+    kind: synthesized_world
+    fill:
+      - from: { x: 6, y: 1, z: 0 }
+        to: { x: 2147483647, y: 1, z: 2 }
+        node: "basenodes:stone"
+
+defect_oracle:
+  abnormal_exit: false
+  timeout: true
+  log_signatures: []
+  semantic_assertions: []
+
+timeout_s: 25

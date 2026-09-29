@@ -1,0 +1,104 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [],
+  "fix_commit": "d693a07716f72c8e940e5dace1b11313af2cbdeb",
+  "issue": {
+    "body_normalized": "math.round returns 1 for 0.49999999999999994 and -1 for -0.49999999999999994; both values are below the half boundary and should round to zero.",
+    "body_raw": "math.round returns 1 for 0.49999999999999994 and -1 for -0.49999999999999994; both values are below the half boundary and should round to zero.",
+    "body_sha256": "61ade4f762e5457983751b23586e3d0fe164fc65af70fb59fb0802e986433707",
+    "closed_at": "2024-06-24T19:57:07Z",
+    "created_at": "2024-06-15T14:48:03Z",
+    "number": 14755,
+    "state": "closed",
+    "title": "math.round returns 1 for 0.49999999999999994",
+    "url": "https://github.com/luanti-org/luanti/issues/14755"
+  },
+  "patch_sha256": "8fa137f5f9e886edcbc1da7b83c797dc6eb01dc766e1dcb99d743787ea8f02c5",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "body_normalized": "Fixes #14755. Test math.round at both floating-point values immediately below the positive and negative half boundaries.",
+    "body_raw": "Fixes #14755. Test math.round at both floating-point values immediately below the positive and negative half boundaries.",
+    "body_sha256": "1d6c39713fd844fdc919523c0a7b92428ea27e1190994ec8bdbde5f36c87c39d",
+    "merged_at": "2024-06-24T19:57:06Z",
+    "number": 14757,
+    "state": "closed",
+    "title": "Fix math.round floating point bug",
+    "url": "https://github.com/luanti-org/luanti/pull/14757"
+  },
+  "record_sha256": "a773942f675856e3677de873f9ade32d1f5371b5c8320fcbd725feb922cdcded",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-13T09:48:03Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-14757-math-round",
+  "tests": [
+    {
+      "argv": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=math round()",
+        "builtin/common/tests/misc_helpers_spec.lua"
+      ],
+      "command": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=math round()",
+        "builtin/common/tests/misc_helpers_spec.lua"
+      ],
+      "cwd": ".",
+      "id": "luanti-pr14757-math-round-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "math round()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/d693a07716f72c8e940e5dace1b11313af2cbdeb/builtin/common/tests/misc_helpers_spec.lua",
+      "timeout_s": 60,
+      "upstream_runner_root": ".warptest-cache/lazarus/tools/luanti-busted-luajit",
+      "upstream_runner_tree_sha256": "8e52972a9ade81d36ec6225831d24ec6ceeef306f1841db8a29fd22c21fb19b2",
+      "upstream_test_files": [
+        {
+          "path": "builtin/common/tests/misc_helpers_spec.lua",
+          "sha256": "c683a6c684a90702c9fb983806a6f752cefe83f5d2a72a4ad974e93606d7c2ed",
+          "source_url": "https://github.com/luanti-org/luanti/blob/d693a07716f72c8e940e5dace1b11313af2cbdeb/builtin/common/tests/misc_helpers_spec.lua"
+        }
+      ],
+      "upstream_test_path": "builtin/common/tests/misc_helpers_spec.lua",
+      "upstream_test_sha256": "c683a6c684a90702c9fb983806a6f752cefe83f5d2a72a4ad974e93606d7c2ed"
+    },
+    {
+      "argv": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=formspec_escape escapes",
+        "builtin/common/tests/misc_helpers_spec.lua"
+      ],
+      "command": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=formspec_escape escapes",
+        "builtin/common/tests/misc_helpers_spec.lua"
+      ],
+      "cwd": ".",
+      "id": "luanti-pr14757-formspec-escape-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "formspec_escape escapes",
+      "source_url": "https://github.com/luanti-org/luanti/blob/d693a07716f72c8e940e5dace1b11313af2cbdeb/builtin/common/tests/misc_helpers_spec.lua",
+      "timeout_s": 60,
+      "upstream_runner_root": ".warptest-cache/lazarus/tools/luanti-busted-luajit",
+      "upstream_runner_tree_sha256": "8e52972a9ade81d36ec6225831d24ec6ceeef306f1841db8a29fd22c21fb19b2",
+      "upstream_test_files": [
+        {
+          "path": "builtin/common/tests/misc_helpers_spec.lua",
+          "sha256": "c683a6c684a90702c9fb983806a6f752cefe83f5d2a72a4ad974e93606d7c2ed",
+          "source_url": "https://github.com/luanti-org/luanti/blob/d693a07716f72c8e940e5dace1b11313af2cbdeb/builtin/common/tests/misc_helpers_spec.lua"
+        }
+      ],
+      "upstream_test_path": "builtin/common/tests/misc_helpers_spec.lua",
+      "upstream_test_sha256": "c683a6c684a90702c9fb983806a6f752cefe83f5d2a72a4ad974e93606d7c2ed"
+    }
+  ],
+  "touched_files": [
+    "builtin/common/math.lua"
+  ],
+  "upstream_commits": []
+}

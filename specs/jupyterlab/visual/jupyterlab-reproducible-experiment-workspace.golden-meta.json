@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/jupyterlab/visual/c1-reproducible-experiment-workspace.after.golden.png",
+  "after_dimensions": [
+    1280,
+    800
+  ],
+  "after_sha256": "92cd87d62b85e5a14c9047a2a7b6784f8e67880d1f0ff3102cfd3d574114c25f",
+  "before": "specs/jupyterlab/visual/c1-reproducible-experiment-workspace.before.golden.png",
+  "before_dimensions": [
+    1280,
+    800
+  ],
+  "before_sha256": "b5c4f1dc26319d6519d2c54b2b28324193ea132a0fc7b257c10f85f334a12d02",
+  "benchmark": "jupyterlab",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/jupyterlab/c1-reproducible-experiment-workspace.yaml",
+  "spec_sha256": "dc12e82e15798084a1424722c4519dcb9d107480627b5296a0f6472b4ed64dbe",
+  "task_id": "jupyterlab-reproducible-experiment-workspace"
+}

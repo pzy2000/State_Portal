@@ -1,0 +1,1092 @@
+# LEGACY C1-Lazarus catalog retained only for historical artifact replay and
+# audit. It is not the paper population and must not be used for new provider
+# dispatch or paper task counts. The paper's only C1-Lazarus authority is the
+# ordered 11-task P2P-only catalog at
+# ``benchmarks/p5/c1_lazarus_p2p_only_tasks.yaml``.
+#
+# This file preserves the former frozen-24 plus six-row expansion shape so old
+# reports remain interpretable. ``formal_population`` below is a legacy schema
+# marker, not a current paper/formal designation.
+#
+# Public rows carry only the start and the reference steps; the goal, the
+# defect metadata and the hidden oracle stay out of the model payload.
+#
+# The frozen rows' private artifacts were derived from the freeze sprint's own
+# evidence: revert.patch is the difference between the materialized buggy and
+# fixed trees, upstream.json is rebuilt from the cached upstream authority, and
+# gate.json projects the frozen Gate 1-13 verdicts instead of re-running the
+# construction gate.
+#
+# The expansion rows appended after them share the first two, but their
+# gate.json is a live receipt: it reports a construction run that executed in
+# this repository, so it declares derived_from_frozen_artifacts: false and
+# fresh_gate_run: true. See warptest/lazarus_expansion_gate.py.
+#
+# Budgets are uniform: every task gets the same budget_ms, so horizon_class is
+# a descriptive label only.
+schema_version: 1
+task_schema: c1_lazarus_v1
+formal_population: true
+legacy_population: true
+paper_population: false
+benchmark_hosts:
+  luanti:
+    display_name: Luanti
+    repo: games/luanti
+    gitmodules_url: https://github.com/anonymous/luanti.git
+    revision: c48f698073df253fc6743d16cf056c1489b60dfb
+  jupyterlab:
+    display_name: JupyterLab
+    repo: games/jupyterlab
+    gitmodules_url: https://github.com/anonymous/jupyterlab.git
+    revision: 4a19f8fff4049a9536e21fa2980fe7e5ee592d01
+  openra:
+    display_name: OpenRA
+    repo: games/OpenRA
+    gitmodules_url: https://github.com/anonymous/OpenRA.git
+    revision: 7e687f430ee5b194c0ffaa06caaba757dd9155fb
+tasks:
+- id: lz-jupyterlab-17369-stream-chunk-merge
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'A JupyterLab output area is restored from the registered start on the candidate build''s replay page: it holds exactly one standard-output stream, the stream renders as two monospaced lines inside a single output card, and its second line stops mid-sentence without a trailing newline.'
+  reference_steps: Append one further standard-output chunk to that same stream, then read the consolidated body the output area renders, counting its lines and reading how the appended chunk joins the line that carried no trailing newline.
+  state_description: |-
+    Preconditions: A JupyterLab output area is restored from the registered start on the candidate build's replay page: it holds exactly one standard-output stream, the stream renders as two monospaced lines inside a single output card, and its second line stops mid-sentence without a trailing newline.
+    Reference steps: Append one further standard-output chunk to that same stream, then read the consolidated body the output area renders, counting its lines and reading how the appended chunk joins the line that carried no trailing newline.
+  horizon_class: short
+  oracle_spec: specs/jupyterlab/lazarus/lz-jupyterlab-17369-stream-chunk-merge.yaml
+  tags:
+  - c1
+  - lazarus
+  - jupyterlab
+  capabilities:
+  - structured-artifact-editing
+  - gui-localization
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/17369
+      issue: https://github.com/jupyterlab/jupyterlab/issues/17358
+    fix_commit: 5787c883ab6f3b7a9d1cdaa5c8d6d1e774823e75
+    revert_patch: benchmarks/p5/lazarus/defects/lz-jupyterlab-17369-stream-chunk-merge/formal-v1/revert.patch
+    patch_sha256: 7fd62e2caa87bc19fe861519f15ecc0b3b7b0f0186c4b202d2015456f4e6f7fe
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-jupyterlab-17369-stream-chunk-merge/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-jupyterlab-17369-stream-chunk-merge/formal-v1/gate.json
+- id: lz-jupyterlab-17700-statusbar-tab-order
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'A JupyterLab status bar is loaded from the candidate build at the bottom of an otherwise empty page: three items are registered in the right-hand group in ascending rank and render from left to right as "Ln 1, Col 1", "Kernel Idle" and "Bell", and no item holds keyboard focus yet.'
+  reference_steps: Press Tab three times and read which right-hand item takes the focus outline on each press, then compare that focus order with the order the three items are rendered in.
+  state_description: |-
+    Preconditions: A JupyterLab status bar is loaded from the candidate build at the bottom of an otherwise empty page: three items are registered in the right-hand group in ascending rank and render from left to right as "Ln 1, Col 1", "Kernel Idle" and "Bell", and no item holds keyboard focus yet.
+    Reference steps: Press Tab three times and read which right-hand item takes the focus outline on each press, then compare that focus order with the order the three items are rendered in.
+  horizon_class: short
+  oracle_spec: specs/jupyterlab/lazarus/lz-jupyterlab-17700-statusbar-tab-order.yaml
+  tags:
+  - c1
+  - lazarus
+  - jupyterlab
+  capabilities:
+  - gui-localization
+  - spatial-reasoning
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/17700
+      issue: https://github.com/jupyterlab/jupyterlab/issues/17680
+    fix_commit: 31d45658d408fc4170ef91cce67c9c89645b1038
+    revert_patch: benchmarks/p5/lazarus/defects/lz-jupyterlab-17700-statusbar-tab-order/formal-v1/revert.patch
+    patch_sha256: 0270db16a23a9f6b117204af4b2c2e9567e17840c24dec6ae3750ea87aae646e
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-jupyterlab-17700-statusbar-tab-order/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-jupyterlab-17700-statusbar-tab-order/formal-v1/gate.json
+- id: lz-jupyterlab-18518-xsrf-duplicate-cookie
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: A JupyterLab services connection is loaded from the candidate build on a routed origin whose real cookie jar already holds two same-named security cookies stored at two different paths, one on the origin root and one on the routed sub-path. The page shows only the grey heading "XSRF token received by the server" with no token printed under it.
+  reference_steps: Let the connection build one authenticated POST request, then read the security header value the endpoint echoes back under that heading and compare it with the cookie the server itself treats as current.
+  state_description: |-
+    Preconditions: A JupyterLab services connection is loaded from the candidate build on a routed origin whose real cookie jar already holds two same-named security cookies stored at two different paths, one on the origin root and one on the routed sub-path. The page shows only the grey heading "XSRF token received by the server" with no token printed under it.
+    Reference steps: Let the connection build one authenticated POST request, then read the security header value the endpoint echoes back under that heading and compare it with the cookie the server itself treats as current.
+  horizon_class: mid
+  oracle_spec: specs/jupyterlab/lazarus/lz-jupyterlab-18518-xsrf-duplicate-cookie.yaml
+  tags:
+  - c1
+  - lazarus
+  - jupyterlab
+  capabilities:
+  - state-persistence
+  - multi-step-planning
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/18518
+      issue: https://github.com/jupyterlab/jupyterlab/issues/15083
+    fix_commit: 149cfb63a45592a085adc352785ea6de9b34378e
+    revert_patch: benchmarks/p5/lazarus/defects/lz-jupyterlab-18518-xsrf-duplicate-cookie/formal-v1/revert.patch
+    patch_sha256: 73e17cad1d00d7e44ed68257dd580d6251c0af4851914cca7dfa2fc7eb2ba90b
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-jupyterlab-18518-xsrf-duplicate-cookie/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-jupyterlab-18518-xsrf-duplicate-cookie/formal-v1/gate.json
+- id: lz-jupyterlab-18572-single-char-code-render
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'A JupyterLab editor language registry is loaded from the candidate build on a page holding one card titled "CodeMirror language highlight": its left "Input code" column holds a code block of one single character, the capital letter X, and its right "Rendered preview" column is an empty rendering target showing the italic grey placeholder "Not rendered yet".'
+  reference_steps: Ask the registry to highlight that one-character code block into the preview target, then read the text the preview column holds afterwards.
+  state_description: |-
+    Preconditions: A JupyterLab editor language registry is loaded from the candidate build on a page holding one card titled "CodeMirror language highlight": its left "Input code" column holds a code block of one single character, the capital letter X, and its right "Rendered preview" column is an empty rendering target showing the italic grey placeholder "Not rendered yet".
+    Reference steps: Ask the registry to highlight that one-character code block into the preview target, then read the text the preview column holds afterwards.
+  horizon_class: short
+  oracle_spec: specs/jupyterlab/lazarus/lz-jupyterlab-18572-single-char-code-render.yaml
+  tags:
+  - c1
+  - lazarus
+  - jupyterlab
+  capabilities:
+  - structured-artifact-editing
+  - gui-localization
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/18572
+      issue: https://github.com/jupyterlab/jupyterlab/issues/17779
+    fix_commit: 4e38172c7407dcf900fa7cc4b93a11713fcbb6c5
+    revert_patch: benchmarks/p5/lazarus/defects/lz-jupyterlab-18572-single-char-code-render/formal-v1/revert.patch
+    patch_sha256: cc5e216f5950290f050cb8e803cb5b7f85003aa5bf8ddfe7b2c4fb2594c0429c
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-jupyterlab-18572-single-char-code-render/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-jupyterlab-18572-single-char-code-render/formal-v1/gate.json
+- id: lz-jupyterlab-18579-read-only-cell-split
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: A JupyterLab notebook is built from the candidate build with exactly two code cells, each holding one single-line assignment, and every cell marked non-editable. The upper cell is active and the text cursor sits inside it, five characters into its only line.
+  reference_steps: Request a cell split at that cursor through the notebook actions, then read how many cells the notebook holds afterwards and what each one contains.
+  state_description: |-
+    Preconditions: A JupyterLab notebook is built from the candidate build with exactly two code cells, each holding one single-line assignment, and every cell marked non-editable. The upper cell is active and the text cursor sits inside it, five characters into its only line.
+    Reference steps: Request a cell split at that cursor through the notebook actions, then read how many cells the notebook holds afterwards and what each one contains.
+  horizon_class: mid
+  oracle_spec: specs/jupyterlab/lazarus/lz-jupyterlab-18579-read-only-cell-split.yaml
+  tags:
+  - c1
+  - lazarus
+  - jupyterlab
+  capabilities:
+  - structured-artifact-editing
+  - multi-step-planning
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/18579
+      issue: https://github.com/jupyterlab/jupyterlab/issues/11140
+    fix_commit: 35f4e09757cfcceec50ca0079058e70bdf129d72
+    revert_patch: benchmarks/p5/lazarus/defects/lz-jupyterlab-18579-read-only-cell-split/formal-v1/revert.patch
+    patch_sha256: 7619fcbe4b966a8d99f729ab80bdbc3f09ce0efc1816026605b92b09cabb93d9
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-jupyterlab-18579-read-only-cell-split/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-jupyterlab-18579-read-only-cell-split/formal-v1/gate.json
+- id: lz-jupyterlab-18662-inline-completer-reserved-lines
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'A JupyterLab editor is built from the candidate build with an inline completer active: the plain white surface holds three black monospaced document lines reading "alpha", "beta" and "gamma", and the completer''s italic grey ghost suggestion spans fewer lines than the reserved minimum it is configured with.'
+  reference_steps: Configure the reserved line count twice, once with a bounded maximum and once with the shipped unlimited maximum, then read the ghost suggestion together with how many lines the editor keeps reserved for it.
+  state_description: |-
+    Preconditions: A JupyterLab editor is built from the candidate build with an inline completer active: the plain white surface holds three black monospaced document lines reading "alpha", "beta" and "gamma", and the completer's italic grey ghost suggestion spans fewer lines than the reserved minimum it is configured with.
+    Reference steps: Configure the reserved line count twice, once with a bounded maximum and once with the shipped unlimited maximum, then read the ghost suggestion together with how many lines the editor keeps reserved for it.
+  horizon_class: mid
+  oracle_spec: specs/jupyterlab/lazarus/lz-jupyterlab-18662-inline-completer-reserved-lines.yaml
+  tags:
+  - c1
+  - lazarus
+  - jupyterlab
+  capabilities:
+  - gui-localization
+  - numeric-reasoning
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/18662
+      issue: https://github.com/jupyterlab/jupyterlab/issues/18660
+    fix_commit: 131029c354651aa064a30dc42a7fba824403f31c
+    revert_patch: benchmarks/p5/lazarus/defects/lz-jupyterlab-18662-inline-completer-reserved-lines/formal-v1/revert.patch
+    patch_sha256: 96f630fa50dcc5c708afe61be82fa68e24e7bf2eb1747fc195ae0cd2a50872d2
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-jupyterlab-18662-inline-completer-reserved-lines/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-jupyterlab-18662-inline-completer-reserved-lines/formal-v1/gate.json
+- id: lz-jupyterlab-12863-dialog-getvalue-error
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'A JupyterLab dialog is shown from the candidate build on a page headed "Rename dialog replay": the page behind it is dimmed grey, a centred white modal titled "Rename File" reads "Rename the notebook" above a "Cancel" button and a blue-outlined "Ok" button, and the modal body''s value accessor raises an error when it is read.'
+  reference_steps: Accept the modal by clicking "Ok" with real mouse input, then read whether the modal is still on screen and how the promise the dialog returned settles.
+  state_description: |-
+    Preconditions: A JupyterLab dialog is shown from the candidate build on a page headed "Rename dialog replay": the page behind it is dimmed grey, a centred white modal titled "Rename File" reads "Rename the notebook" above a "Cancel" button and a blue-outlined "Ok" button, and the modal body's value accessor raises an error when it is read.
+    Reference steps: Accept the modal by clicking "Ok" with real mouse input, then read whether the modal is still on screen and how the promise the dialog returned settles.
+  horizon_class: short
+  oracle_spec: specs/jupyterlab/lazarus/lz-jupyterlab-12863-dialog-getvalue-error.yaml
+  tags:
+  - c1
+  - lazarus
+  - jupyterlab
+  capabilities:
+  - gui-localization
+  - multi-step-planning
+  budget_ms: 2400000
+  defect:
+    upstream:
+      issue: https://github.com/jupyterlab/jupyterlab/issues/12863
+    fix_commit: 222e68b0a7543b93952e3dd47ecedf994b155b53
+    revert_patch: benchmarks/p5/lazarus/defects/lz-jupyterlab-12863-dialog-getvalue-error/formal-v1/revert.patch
+    patch_sha256: 3b8b0796c925c8e4e0ce8b4575e64520341dc0685b5173918b2dc34092c39b92
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-jupyterlab-12863-dialog-getvalue-error/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-jupyterlab-12863-dialog-getvalue-error/formal-v1/gate.json
+- id: lz-jupyterlab-18992-collapsed-heading-visibility
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: A JupyterLab notebook is built from the candidate build with the top-level heading "# Title" above two heading sections, "## First section" and "## Second section". The first section holds the two code cells "first = 1" and "second = 2", and its heading is collapsed, so a small grey pill reading "+ 2 cells hidden" stands in their place.
+  reference_steps: Move the collapsed "## First section" heading down past "## Second section", then read every cell's source together with whether each cell is rendered visible or stays hidden.
+  state_description: |-
+    Preconditions: A JupyterLab notebook is built from the candidate build with the top-level heading "# Title" above two heading sections, "## First section" and "## Second section". The first section holds the two code cells "first = 1" and "second = 2", and its heading is collapsed, so a small grey pill reading "+ 2 cells hidden" stands in their place.
+    Reference steps: Move the collapsed "## First section" heading down past "## Second section", then read every cell's source together with whether each cell is rendered visible or stays hidden.
+  horizon_class: mid
+  oracle_spec: specs/jupyterlab/lazarus/lz-jupyterlab-18992-collapsed-heading-visibility.yaml
+  tags:
+  - c1
+  - lazarus
+  - jupyterlab
+  capabilities:
+  - structured-artifact-editing
+  - spatial-reasoning
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/18992
+      issue: https://github.com/jupyterlab/jupyterlab/issues/18991
+    fix_commit: fae3f38683c37472bbf8e779c92306d7ee2f76af
+    revert_patch: benchmarks/p5/lazarus/defects/lz-jupyterlab-18992-collapsed-heading-visibility/formal-v1/revert.patch
+    patch_sha256: 7ae588b639fe6c2124420263593ef713e72c0bdcdf348c4b376df002fceac0ba
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-jupyterlab-18992-collapsed-heading-visibility/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-jupyterlab-18992-collapsed-heading-visibility/formal-v1/gate.json
+- id: lz-jupyterlab-19121-shortcut-settings-refresh
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'The JupyterLab shortcut settings interface is mounted from the candidate build with no keybindings registered: a dark search field sits beside "Show Selectors", "Reset All" and a blue plus button, the column headers "Category", "Command", "Shortcut" and "Source" are drawn under them, and the bordered list area below is empty.'
+  reference_steps: Save a user preference for one keybinding outside this interface and emit the plugin changed signal, then read the filtered shortcut list together with how many rows the interface renders.
+  state_description: |-
+    Preconditions: The JupyterLab shortcut settings interface is mounted from the candidate build with no keybindings registered: a dark search field sits beside "Show Selectors", "Reset All" and a blue plus button, the column headers "Category", "Command", "Shortcut" and "Source" are drawn under them, and the bordered list area below is empty.
+    Reference steps: Save a user preference for one keybinding outside this interface and emit the plugin changed signal, then read the filtered shortcut list together with how many rows the interface renders.
+  horizon_class: mid
+  oracle_spec: specs/jupyterlab/lazarus/lz-jupyterlab-19121-shortcut-settings-refresh.yaml
+  tags:
+  - c1
+  - lazarus
+  - jupyterlab
+  capabilities:
+  - state-persistence
+  - gui-localization
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/19121
+      issue: https://github.com/jupyterlab/jupyterlab/issues/19120
+    fix_commit: a9c79effa9c295494772906831ebe9a24fe5c748
+    revert_patch: benchmarks/p5/lazarus/defects/lz-jupyterlab-19121-shortcut-settings-refresh/formal-v1/revert.patch
+    patch_sha256: 9e0e5c4ff4a9c62f3b100dc4ae8e6d97a63acfe12663568e7c302f8997f27218
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-jupyterlab-19121-shortcut-settings-refresh/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-jupyterlab-19121-shortcut-settings-refresh/formal-v1/gate.json
+- id: lz-jupyterlab-19136-horizontal-activity-bar-restore
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: A JupyterLab shell is built from the candidate build with its activity bar in the horizontal position and one widget docked in the right area, so the frame shows a main dock area bounded on the right by a vertical border, and a side area beyond it carrying a grey "Property Inspector" tab at the bottom right. That layout is then saved.
+  reference_steps: Restore a second shell from that saved layout with an explicit not-collapsed flag, then measure whether the restored right area is visible and whether its width has become zero.
+  state_description: |-
+    Preconditions: A JupyterLab shell is built from the candidate build with its activity bar in the horizontal position and one widget docked in the right area, so the frame shows a main dock area bounded on the right by a vertical border, and a side area beyond it carrying a grey "Property Inspector" tab at the bottom right. That layout is then saved.
+    Reference steps: Restore a second shell from that saved layout with an explicit not-collapsed flag, then measure whether the restored right area is visible and whether its width has become zero.
+  horizon_class: mid
+  oracle_spec: specs/jupyterlab/lazarus/lz-jupyterlab-19136-horizontal-activity-bar-restore.yaml
+  tags:
+  - c1
+  - lazarus
+  - jupyterlab
+  capabilities:
+  - state-persistence
+  - spatial-reasoning
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/19136
+      issue: https://github.com/jupyterlab/jupyterlab/issues/19114
+    fix_commit: ff769d7dd7de4807bf12245ce0775e2881b71b17
+    revert_patch: benchmarks/p5/lazarus/defects/lz-jupyterlab-19136-horizontal-activity-bar-restore/formal-v1/revert.patch
+    patch_sha256: 082dcd5f0de9b08849ace4b4c136b2a50e65080cff1ee8bc661b75486a73cf25
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-jupyterlab-19136-horizontal-activity-bar-restore/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-jupyterlab-19136-horizontal-activity-bar-restore/formal-v1/gate.json
+- id: lz-jupyterlab-19227-reactive-toolbar-positions
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: A reactive JupyterLab toolbar is built from the candidate build with its permanent items in place, a "spacer" at the left and a "close" button followed by the overflow opener at the right, and two factory items named "f1" and "f2" inserted immediately before "close", so the strip reads spacer, f1, f2, close and then the overflow button from left to right.
+  reference_steps: Dispose both factory items, insert their replacements before the same "close" button, then read the item names in the order the toolbar renders them from left to right.
+  state_description: |-
+    Preconditions: A reactive JupyterLab toolbar is built from the candidate build with its permanent items in place, a "spacer" at the left and a "close" button followed by the overflow opener at the right, and two factory items named "f1" and "f2" inserted immediately before "close", so the strip reads spacer, f1, f2, close and then the overflow button from left to right.
+    Reference steps: Dispose both factory items, insert their replacements before the same "close" button, then read the item names in the order the toolbar renders them from left to right.
+  horizon_class: mid
+  oracle_spec: specs/jupyterlab/lazarus/lz-jupyterlab-19227-reactive-toolbar-positions.yaml
+  tags:
+  - c1
+  - lazarus
+  - jupyterlab
+  capabilities:
+  - gui-localization
+  - spatial-reasoning
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/19227
+      issue: https://github.com/jupyterlab/jupyterlab/issues/19226
+    fix_commit: 10495e8e976f073fc765ddd5ef517d5a51c594ab
+    revert_patch: benchmarks/p5/lazarus/defects/lz-jupyterlab-19227-reactive-toolbar-positions/formal-v1/revert.patch
+    patch_sha256: 0dcd19b9622c129edb03ae0d31e2514616e6a04afc9a9518e6c814879ab8de94
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-jupyterlab-19227-reactive-toolbar-positions/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-jupyterlab-19227-reactive-toolbar-positions/formal-v1/gate.json
+- id: lz-luanti-8704-minimal-craft-result
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lz-v1
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'A Luanti world is open on the registered start with the minimal game''s test mod loaded: a centred formspec panel titled "C1 LAZARUS #8704 CRAFT RESULT REPLAY" reports under "COMMON START" that one recipe combining coal and a stick is registered for a single output item, names the output item and count it expects, and waits for the registered craft query.'
+  reference_steps: Run the registered replay once so the server resolves that recipe, then read the item name and item count the panel reports as the craft result.
+  state_description: |-
+    Preconditions: A Luanti world is open on the registered start with the minimal game's test mod loaded: a centred formspec panel titled "C1 LAZARUS #8704 CRAFT RESULT REPLAY" reports under "COMMON START" that one recipe combining coal and a stick is registered for a single output item, names the output item and count it expects, and waits for the registered craft query.
+    Reference steps: Run the registered replay once so the server resolves that recipe, then read the item name and item count the panel reports as the craft result.
+  horizon_class: short
+  oracle_spec: specs/luanti/lazarus/lz-luanti-8704-minimal-craft-result.yaml
+  tags:
+  - c1
+  - lazarus
+  - luanti
+  capabilities:
+  - resource-management
+  - structured-artifact-editing
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/8704
+      issue: https://github.com/luanti-org/luanti/issues/8607
+    fix_commit: fe6c666da26e08b726bd21f34d25558cf456bd1f
+    revert_patch: benchmarks/p5/lazarus/defects/lz-luanti-8704-minimal-craft-result/formal-v1/revert.patch
+    patch_sha256: 5f89eaa916879cb25fe6f47f75d714b92bec67c298848bc3b6a3d08d355e8901
+    build_class: incremental_cpp
+    defect_locus: on_path
+    upstream_record: benchmarks/p5/lazarus/defects/lz-luanti-8704-minimal-craft-result/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-luanti-8704-minimal-craft-result/formal-v1/gate.json
+- id: lz-luanti-9572-vector-rotate
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lz-v1
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'A Luanti world is open on the registered start with a helper that rotates one direction around an axis: a centred formspec panel titled "C1 LAZARUS #9572 VECTOR ROTATE REPLAY" states under "COMMON START" that the replay rotates (1,0,0) around Z by pi/2, that the expected result is approximately (0,-1,0), and that vector addition stays the invariant.'
+  reference_steps: Run the registered replay once, then read the rotated direction the panel reports together with whether the rotation helper was callable at all.
+  state_description: |-
+    Preconditions: A Luanti world is open on the registered start with a helper that rotates one direction around an axis: a centred formspec panel titled "C1 LAZARUS #9572 VECTOR ROTATE REPLAY" states under "COMMON START" that the replay rotates (1,0,0) around Z by pi/2, that the expected result is approximately (0,-1,0), and that vector addition stays the invariant.
+    Reference steps: Run the registered replay once, then read the rotated direction the panel reports together with whether the rotation helper was callable at all.
+  horizon_class: short
+  oracle_spec: specs/luanti/lazarus/lz-luanti-9572-vector-rotate.yaml
+  tags:
+  - c1
+  - lazarus
+  - luanti
+  capabilities:
+  - spatial-reasoning
+  - numeric-reasoning
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/9572
+      issue: https://github.com/luanti-org/luanti/issues/9798
+    fix_commit: 7148834440d10bc211628aa2652e31166bdd58a0
+    revert_patch: benchmarks/p5/lazarus/defects/lz-luanti-9572-vector-rotate/formal-v1/revert.patch
+    patch_sha256: c97611c48e3c2deb5ba14d522c89d0e17b9b12ae3217ae7c6348f11da22703a8
+    build_class: none
+    defect_locus: on_path
+    upstream_record: benchmarks/p5/lazarus/defects/lz-luanti-9572-vector-rotate/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-luanti-9572-vector-rotate/formal-v1/gate.json
+- id: lz-luanti-9722-reversible-number-serialize
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lz-v1
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'A Luanti world is open on the registered start at night with two high-precision Lua numbers registered in one table: a centred formspec panel titled "C1 LAZARUS #9722 REVERSIBLE NUMBER REPLAY" lists them under "COMMON START" as 0.2695949158945771 and 269594915894577 and waits for the ordered replay.'
+  reference_steps: Run the registered replay once so that table is written out and read back, then read whether each of the two numbers still matches the value the panel listed.
+  state_description: |-
+    Preconditions: A Luanti world is open on the registered start at night with two high-precision Lua numbers registered in one table: a centred formspec panel titled "C1 LAZARUS #9722 REVERSIBLE NUMBER REPLAY" lists them under "COMMON START" as 0.2695949158945771 and 269594915894577 and waits for the ordered replay.
+    Reference steps: Run the registered replay once so that table is written out and read back, then read whether each of the two numbers still matches the value the panel listed.
+  horizon_class: short
+  oracle_spec: specs/luanti/lazarus/lz-luanti-9722-reversible-number-serialize.yaml
+  tags:
+  - c1
+  - lazarus
+  - luanti
+  capabilities:
+  - numeric-reasoning
+  - state-persistence
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/9722
+      issue: https://github.com/luanti-org/luanti/issues/7925
+    fix_commit: 5355cb1d87f60bc5548a8a9311e597b9c6046013
+    revert_patch: benchmarks/p5/lazarus/defects/lz-luanti-9722-reversible-number-serialize/formal-v1/revert.patch
+    patch_sha256: 1d4b49ccf340ebbcb692a088544f9e3331c04d5150a81e56cdc7bafb3888d2ca
+    build_class: none
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-luanti-9722-reversible-number-serialize/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-luanti-9722-reversible-number-serialize/formal-v1/gate.json
+- id: lz-luanti-11352-map-settings-hierarchy
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lz-v1
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'A Luanti Development Test main menu is open on the registered start: a grey panel headed "REGISTERED START" reports "Global water_level: 20" and "Mapgen water_level: 20", so one map value is present both in the global configuration and in the world''s own mapgen configuration, and a "Run registered replay" button waits below the panel.'
+  reference_steps: Press "Run registered replay" once so the world's own mapgen configuration is applied, then read both the global water_level and the mapgen water_level the panel reports afterwards.
+  state_description: |-
+    Preconditions: A Luanti Development Test main menu is open on the registered start: a grey panel headed "REGISTERED START" reports "Global water_level: 20" and "Mapgen water_level: 20", so one map value is present both in the global configuration and in the world's own mapgen configuration, and a "Run registered replay" button waits below the panel.
+    Reference steps: Press "Run registered replay" once so the world's own mapgen configuration is applied, then read both the global water_level and the mapgen water_level the panel reports afterwards.
+  horizon_class: mid
+  oracle_spec: specs/luanti/lazarus/lz-luanti-11352-map-settings-hierarchy.yaml
+  tags:
+  - c1
+  - lazarus
+  - luanti
+  capabilities:
+  - state-persistence
+  - multi-step-planning
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/11352
+      issue: https://github.com/luanti-org/luanti/issues/11351
+    fix_commit: c60a146e2291f7a55a3e5fd0447bd393b063ab1c
+    revert_patch: benchmarks/p5/lazarus/defects/lz-luanti-11352-map-settings-hierarchy/formal-v1/revert.patch
+    patch_sha256: 6b7a267db51383703069267a6ad5f3a26b753ac16bfe30ced3b61501b43e4b7c
+    build_class: incremental_cpp
+    defect_locus: on_path
+    upstream_record: benchmarks/p5/lazarus/defects/lz-luanti-11352-map-settings-hierarchy/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-luanti-11352-map-settings-hierarchy/formal-v1/gate.json
+- id: lz-luanti-11866-mapgen-boundary
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lz-v1
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'A Luanti world is open on the registered start with the map generation limit set close to the edge of the addressable map: a centred formspec panel titled "C1 LAZARUS #11866 MAPGEN BOUNDARY" states under "COMMON START" that the replay reads the engine default mapgen_limit, that MAP_BLOCKSIZE is 16, and that the limit is expected to leave remainder 15, the last node in a mapblock.'
+  reference_steps: Run the registered replay once, then read the mapgen_limit the panel reports together with the remainder that limit leaves against the block size.
+  state_description: |-
+    Preconditions: A Luanti world is open on the registered start with the map generation limit set close to the edge of the addressable map: a centred formspec panel titled "C1 LAZARUS #11866 MAPGEN BOUNDARY" states under "COMMON START" that the replay reads the engine default mapgen_limit, that MAP_BLOCKSIZE is 16, and that the limit is expected to leave remainder 15, the last node in a mapblock.
+    Reference steps: Run the registered replay once, then read the mapgen_limit the panel reports together with the remainder that limit leaves against the block size.
+  horizon_class: mid
+  oracle_spec: specs/luanti/lazarus/lz-luanti-11866-mapgen-boundary.yaml
+  tags:
+  - c1
+  - lazarus
+  - luanti
+  capabilities:
+  - spatial-reasoning
+  - numeric-reasoning
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/11866
+      issue: https://github.com/luanti-org/luanti/issues/11839
+    fix_commit: f69eead62e71e22d1810e0dedfa363cb9f210268
+    revert_patch: benchmarks/p5/lazarus/defects/lz-luanti-11866-mapgen-boundary/formal-v1/revert.patch
+    patch_sha256: 28f3de0fc342209cd078bfb9494d132508bf39c53314b940c7e9d47238b8b528
+    build_class: incremental_cpp
+    defect_locus: on_path
+    upstream_record: benchmarks/p5/lazarus/defects/lz-luanti-11866-mapgen-boundary/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-luanti-11866-mapgen-boundary/formal-v1/gate.json
+- id: lz-luanti-12602-media-override
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lz-v1
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'A Luanti devtest world is open on the registered start: the player stands at the registered spawn inside a closed room whose walls, floor and ceiling are one display node, looking straight ahead at the far wall, and the game loads two ordered mods, a base mod and a later override mod, that both ship a texture file under the same name. A centred dialog titled "C1 LAZARUS  #12602  MEDIA OVERRIDE REPLAY" states that the later override mod must win.'
+  reference_steps: Run the registered replay once from that start, then read the texture the room surfaces render and the media paths the server's mod manager reports for that shared texture name.
+  state_description: |-
+    Preconditions: A Luanti devtest world is open on the registered start: the player stands at the registered spawn inside a closed room whose walls, floor and ceiling are one display node, looking straight ahead at the far wall, and the game loads two ordered mods, a base mod and a later override mod, that both ship a texture file under the same name. A centred dialog titled "C1 LAZARUS  #12602  MEDIA OVERRIDE REPLAY" states that the later override mod must win.
+    Reference steps: Run the registered replay once from that start, then read the texture the room surfaces render and the media paths the server's mod manager reports for that shared texture name.
+  horizon_class: short
+  oracle_spec: specs/luanti/lazarus/lz-luanti-12602-media-override.yaml
+  tags:
+  - c1
+  - lazarus
+  - luanti
+  capabilities:
+  - resource-management
+  - state-persistence
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/12602
+      issue: https://github.com/luanti-org/luanti/issues/12557
+    fix_commit: 99c8295e71eb86333ae21b1083b6f55fb9479565
+    revert_patch: benchmarks/p5/lazarus/defects/lz-luanti-12602-media-override/formal-v1/revert.patch
+    patch_sha256: 57f4dbadbfd56230313132821afeb606e3500da9e0defb19140cbb64c209e53f
+    build_class: incremental_cpp
+    defect_locus: on_path
+    upstream_record: benchmarks/p5/lazarus/defects/lz-luanti-12602-media-override/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-luanti-12602-media-override/formal-v1/gate.json
+- id: lz-luanti-13132-empty-separator
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lz-v1
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'A Luanti world is open on the registered start with a string helper that splits text on a caller-supplied separator: the client camera is locked on a free-standing wall panel of grey cobblestone blocks standing on a flat grey stone plain under a blue sky, and the registered replay rewrites every panel block to the block that the split outcome selects.'
+  reference_steps: Run the registered replay once with an empty separator, then read the outcome the server reports together with the block the wall panel renders afterwards.
+  state_description: |-
+    Preconditions: A Luanti world is open on the registered start with a string helper that splits text on a caller-supplied separator: the client camera is locked on a free-standing wall panel of grey cobblestone blocks standing on a flat grey stone plain under a blue sky, and the registered replay rewrites every panel block to the block that the split outcome selects.
+    Reference steps: Run the registered replay once with an empty separator, then read the outcome the server reports together with the block the wall panel renders afterwards.
+  horizon_class: short
+  oracle_spec: specs/luanti/lazarus/lz-luanti-13132-empty-separator.yaml
+  tags:
+  - c1
+  - lazarus
+  - luanti
+  capabilities:
+  - structured-artifact-editing
+  - numeric-reasoning
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/13132
+      issue: https://github.com/luanti-org/luanti/issues/13128
+    fix_commit: ab1fe80150a8031fb702b9ff776db2db4dea89a4
+    revert_patch: benchmarks/p5/lazarus/defects/lz-luanti-13132-empty-separator/formal-v1/revert.patch
+    patch_sha256: 8b439e8738286a25b6e819892f7a7b65652085f08e834f50446773c76b8e524d
+    build_class: none
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-luanti-13132-empty-separator/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-luanti-13132-empty-separator/formal-v1/gate.json
+- id: lz-luanti-14072-oversized-stack
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lz-v1
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'A Luanti world is open on the registered start showing an overlay titled "C1 Lazarus #14072 - Oversized Stack Move": a SOURCE slot holds 209 items of one kind, a count above that item''s stack maximum, a DESTINATION slot already holds 90 of the same item, the status line reads "REGISTERED START" over "counts=209/90", and a "Run Move 209" button waits below.'
+  reference_steps: Press "Run Move 209" once to move the oversized stack into the occupied slot, then read the item counts both slots hold afterwards.
+  state_description: |-
+    Preconditions: A Luanti world is open on the registered start showing an overlay titled "C1 Lazarus #14072 - Oversized Stack Move": a SOURCE slot holds 209 items of one kind, a count above that item's stack maximum, a DESTINATION slot already holds 90 of the same item, the status line reads "REGISTERED START" over "counts=209/90", and a "Run Move 209" button waits below.
+    Reference steps: Press "Run Move 209" once to move the oversized stack into the occupied slot, then read the item counts both slots hold afterwards.
+  horizon_class: mid
+  oracle_spec: specs/luanti/lazarus/lz-luanti-14072-oversized-stack.yaml
+  tags:
+  - c1
+  - lazarus
+  - luanti
+  capabilities:
+  - resource-management
+  - numeric-reasoning
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/14072
+      issue: https://github.com/luanti-org/luanti/issues/13552
+    fix_commit: 94a54375e25b916a486bf8e2fe43aa8bbcb9ebdf
+    revert_patch: benchmarks/p5/lazarus/defects/lz-luanti-14072-oversized-stack/formal-v1/revert.patch
+    patch_sha256: ba5cbc3228f203a7878d58ed1cb7a374e07b7328a37ad000e737680f6cabfce0
+    build_class: incremental_cpp
+    defect_locus: on_path
+    upstream_record: benchmarks/p5/lazarus/defects/lz-luanti-14072-oversized-stack/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-luanti-14072-oversized-stack/formal-v1/gate.json
+- id: lz-luanti-14464-iconv-state-reset
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lz-v1
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'A Luanti world is open on the registered start in a fresh process with the 28-test utilities module registered: a centred formspec panel titled "C1 LAZARUS #14464 ICONV STATE REPLAY" states under "COMMON START" that the node metadata carries the byte C4 followed by an isolated 81, outside the ASCII range, and that the text converter must not carry state across invocations.'
+  reference_steps: Run the registered replay once so that metadata is stored and read back, then read how many of the 28 utility checks the panel reports as passing and which named checks do not pass.
+  state_description: |-
+    Preconditions: A Luanti world is open on the registered start in a fresh process with the 28-test utilities module registered: a centred formspec panel titled "C1 LAZARUS #14464 ICONV STATE REPLAY" states under "COMMON START" that the node metadata carries the byte C4 followed by an isolated 81, outside the ASCII range, and that the text converter must not carry state across invocations.
+    Reference steps: Run the registered replay once so that metadata is stored and read back, then read how many of the 28 utility checks the panel reports as passing and which named checks do not pass.
+  horizon_class: mid
+  oracle_spec: specs/luanti/lazarus/lz-luanti-14464-iconv-state-reset.yaml
+  tags:
+  - c1
+  - lazarus
+  - luanti
+  capabilities:
+  - state-persistence
+  - structured-artifact-editing
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/14464
+    fix_commit: 5df60d85f71215b091430a32c7834dd9c90bf79a
+    revert_patch: benchmarks/p5/lazarus/defects/lz-luanti-14464-iconv-state-reset/formal-v1/revert.patch
+    patch_sha256: 05ea761184e4c9c88fcf66f6de183b04e18c2ec0cf7d1e3a4b2c8f99ffaa6129
+    build_class: incremental_cpp
+    defect_locus: on_path
+    upstream_record: benchmarks/p5/lazarus/defects/lz-luanti-14464-iconv-state-reset/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-luanti-14464-iconv-state-reset/formal-v1/gate.json
+- id: lz-luanti-14555-negative-half-pointing
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lz-v1
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'A Luanti world is open on the registered start with the player pointing at a node whose coordinates lie on the negative side of the origin: a full-screen overlay titled "C1 Lazarus #14555 - Negative-half Pointing" reads "REGISTERED START" over a dark blue-grey background, with the pickaxe selected in the hotbar.'
+  reference_steps: Run the registered replay once to place a cobble node against the pointed face, then read whether that node landed at the negative-half target the replay aimed at.
+  state_description: |-
+    Preconditions: A Luanti world is open on the registered start with the player pointing at a node whose coordinates lie on the negative side of the origin: a full-screen overlay titled "C1 Lazarus #14555 - Negative-half Pointing" reads "REGISTERED START" over a dark blue-grey background, with the pickaxe selected in the hotbar.
+    Reference steps: Run the registered replay once to place a cobble node against the pointed face, then read whether that node landed at the negative-half target the replay aimed at.
+  horizon_class: mid
+  oracle_spec: specs/luanti/lazarus/lz-luanti-14555-negative-half-pointing.yaml
+  tags:
+  - c1
+  - lazarus
+  - luanti
+  capabilities:
+  - spatial-reasoning
+  - gui-localization
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/14555
+      issue: https://github.com/luanti-org/luanti/issues/14554
+    fix_commit: 5a07f5a652717b72a746d27d48e027600a6fce7c
+    revert_patch: benchmarks/p5/lazarus/defects/lz-luanti-14555-negative-half-pointing/formal-v1/revert.patch
+    patch_sha256: d94a134b545ef0a15cabe782a707587d3de8bddb70dbe784f32c0b2897e53813
+    build_class: incremental_cpp
+    defect_locus: on_path
+    upstream_record: benchmarks/p5/lazarus/defects/lz-luanti-14555-negative-half-pointing/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-luanti-14555-negative-half-pointing/formal-v1/gate.json
+- id: lz-luanti-14757-math-round
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lz-v1
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'A Luanti devtest world is open on the registered start as a headless server with the registered world mod loaded: the client camera sits at a locked first-person pose in a flat desert facing a free-standing wall panel of grey cobblestone blocks, and the world mod registers the chat command /c1_lazarus_round, which rounds one registered pair of numbers and then rewrites every panel block to the block that the rounded pair selects.'
+  reference_steps: Deliver /c1_lazarus_round once from the server side, then read the rounded pair the command reports together with the block the wall panel renders afterwards.
+  state_description: |-
+    Preconditions: A Luanti devtest world is open on the registered start as a headless server with the registered world mod loaded: the client camera sits at a locked first-person pose in a flat desert facing a free-standing wall panel of grey cobblestone blocks, and the world mod registers the chat command /c1_lazarus_round, which rounds one registered pair of numbers and then rewrites every panel block to the block that the rounded pair selects.
+    Reference steps: Deliver /c1_lazarus_round once from the server side, then read the rounded pair the command reports together with the block the wall panel renders afterwards.
+  horizon_class: short
+  oracle_spec: specs/luanti/lazarus/lz-luanti-14757-math-round.yaml
+  tags:
+  - c1
+  - lazarus
+  - luanti
+  capabilities:
+  - numeric-reasoning
+  - state-persistence
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/14757
+      issue: https://github.com/luanti-org/luanti/issues/14755
+    fix_commit: 28857841aa8e7f7865d1cbabdfbd46e9be23cb1c
+    revert_patch: benchmarks/p5/lazarus/defects/lz-luanti-14757-math-round/formal-v1/revert.patch
+    patch_sha256: 8fa137f5f9e886edcbc1da7b83c797dc6eb01dc766e1dcb99d743787ea8f02c5
+    build_class: none
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-luanti-14757-math-round/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-luanti-14757-math-round/formal-v1/gate.json
+- id: lz-luanti-15408-collision-acceleration
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lz-v1
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'A Luanti world is open on the registered start with a white-and-grey cube entity resting on a small stone platform that floats in a pale blue sky: a tall cobblestone pillar stands on the same platform, a small purple marker lies on the platform between them, and a horizontal acceleration is applied to the entity toward the pillar.'
+  reference_steps: Run the registered replay once, then read the entity's resulting speed and position and whether the pillar stopped it.
+  state_description: |-
+    Preconditions: A Luanti world is open on the registered start with a white-and-grey cube entity resting on a small stone platform that floats in a pale blue sky: a tall cobblestone pillar stands on the same platform, a small purple marker lies on the platform between them, and a horizontal acceleration is applied to the entity toward the pillar.
+    Reference steps: Run the registered replay once, then read the entity's resulting speed and position and whether the pillar stopped it.
+  horizon_class: mid
+  oracle_spec: specs/luanti/lazarus/lz-luanti-15408-collision-acceleration.yaml
+  tags:
+  - c1
+  - lazarus
+  - luanti
+  capabilities:
+  - spatial-reasoning
+  - numeric-reasoning
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/15408
+      issue: https://github.com/luanti-org/luanti/issues/15027
+    fix_commit: 567b9a997ac5a1481bf64538d4f94a0ab677ee87
+    revert_patch: benchmarks/p5/lazarus/defects/lz-luanti-15408-collision-acceleration/formal-v1/revert.patch
+    patch_sha256: 8f25449ca20695f7ccd1ba0b9239fba58ce24732a6dac83d635cc1e22dc49bfd
+    build_class: incremental_cpp
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-luanti-15408-collision-acceleration/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-luanti-15408-collision-acceleration/formal-v1/gate.json
+- id: lz-luanti-15519-russian-plural-form
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lz-v1
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'A Luanti world is open on the registered start with a translation catalogue whose plural rule text is supplied by the catalogue itself: the client shows a near-black screen carrying the single centred line "C1 COMMON BEFORE" and nothing else.'
+  reference_steps: Run the registered replay once to translate one plural message, then read the single line of text the client renders in place of that start line.
+  state_description: |-
+    Preconditions: A Luanti world is open on the registered start with a translation catalogue whose plural rule text is supplied by the catalogue itself: the client shows a near-black screen carrying the single centred line "C1 COMMON BEFORE" and nothing else.
+    Reference steps: Run the registered replay once to translate one plural message, then read the single line of text the client renders in place of that start line.
+  horizon_class: mid
+  oracle_spec: specs/luanti/lazarus/lz-luanti-15519-russian-plural-form.yaml
+  tags:
+  - c1
+  - lazarus
+  - luanti
+  capabilities:
+  - structured-artifact-editing
+  - numeric-reasoning
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/15519
+      issue: https://github.com/luanti-org/luanti/issues/15518
+    fix_commit: ac7406c8a1013ea8bfc94c48dbc5dc97532c0cbd
+    revert_patch: benchmarks/p5/lazarus/defects/lz-luanti-15519-russian-plural-form/formal-v1/revert.patch
+    patch_sha256: 1abc37a2eeec3ef311cecf9efef689ef82bba6ddcb80c9314b9a98d95e183674
+    build_class: incremental_cpp
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-luanti-15519-russian-plural-form/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-luanti-15519-russian-plural-form/formal-v1/gate.json
+- id: lz-jupyterlab-16943-markdown-regex-replace-all
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'A JupyterLab notebook is open on the registered start with two cells: a markdown cell carrying a heading above eight bullet items of the form name=number, and one code cell holding a single name=number line. The document search overlay is open with replace shown, its regular-expression option enabled, its find field holding the pattern that captures a run of digits, and its replace field holding the substitution that refers back to that capture.'
+  reference_steps: Apply the overlay's replace-all control once, then read the eight bullet items the markdown cell now shows, comparing each item's text after the equals sign with the substitution the replace field named.
+  state_description: |-
+    Preconditions: A JupyterLab notebook is open on the registered start with two cells: a markdown cell carrying a heading above eight bullet items of the form name=number, and one code cell holding a single name=number line. The document search overlay is open with replace shown, its regular-expression option enabled, its find field holding the pattern that captures a run of digits, and its replace field holding the substitution that refers back to that capture.
+    Reference steps: Apply the overlay's replace-all control once, then read the eight bullet items the markdown cell now shows, comparing each item's text after the equals sign with the substitution the replace field named.
+  horizon_class: short
+  oracle_spec: specs/jupyterlab/lazarus/lz-jupyterlab-16943-markdown-regex-replace-all.yaml
+  tags:
+  - c1
+  - lazarus
+  - jupyterlab
+  capabilities:
+  - structured-artifact-editing
+  - gui-localization
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/16943
+      issue: https://github.com/jupyterlab/jupyterlab/issues/16925
+    fix_commit: 141904e62406c407434f5fd56c95d657e366eb3f
+    revert_patch: benchmarks/p5/lazarus/defects/lz-jupyterlab-16943-markdown-regex-replace-all/formal-v1/revert.patch
+    patch_sha256: 9adcf9322b341d98116a8beca9704cc5be8a22c191a93b2cbec04acda7190e14
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-jupyterlab-16943-markdown-regex-replace-all/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-jupyterlab-16943-markdown-regex-replace-all/formal-v1/gate.json
+- id: lz-jupyterlab-17194-cell-metadata-removal
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: A JupyterLab notebook is open on the registered start with one code cell selected, and the Property Inspector's Advanced Tools section is expanded so its Cell metadata editor shows a three-line JSON object whose single entry is the trusted flag.
+  reference_steps: Delete the trusted entry's line from the Cell metadata editor, commit the edit with the editor's commit control, then collapse and reopen the Property Inspector and read how many lines the Cell metadata editor now shows and what they contain.
+  state_description: |-
+    Preconditions: A JupyterLab notebook is open on the registered start with one code cell selected, and the Property Inspector's Advanced Tools section is expanded so its Cell metadata editor shows a three-line JSON object whose single entry is the trusted flag.
+    Reference steps: Delete the trusted entry's line from the Cell metadata editor, commit the edit with the editor's commit control, then collapse and reopen the Property Inspector and read how many lines the Cell metadata editor now shows and what they contain.
+  horizon_class: short
+  oracle_spec: specs/jupyterlab/lazarus/lz-jupyterlab-17194-cell-metadata-removal.yaml
+  tags:
+  - c1
+  - lazarus
+  - jupyterlab
+  capabilities:
+  - structured-artifact-editing
+  - gui-localization
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/17194
+      issue: https://github.com/jupyterlab/jupyterlab/issues/17164
+    fix_commit: 7041277fe5d5a547f6d8795c61565e8424895819
+    revert_patch: benchmarks/p5/lazarus/defects/lz-jupyterlab-17194-cell-metadata-removal/formal-v1/revert.patch
+    patch_sha256: f0c6b7245b27a7f0c6873f6af4e93778e3f6bd86818675419586d02f0787b15d
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-jupyterlab-17194-cell-metadata-removal/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-jupyterlab-17194-cell-metadata-removal/formal-v1/gate.json
+- id: lz-jupyterlab-15634-markdown-focus-render
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'A JupyterLab notebook is open on the registered start with two cells: a markdown cell displaying the rendered heading "Lazarus rendered heading" and, below it, one code cell holding a single assignment line. The markdown cell is the selected cell and the notebook is in command mode, so no editor is open.'
+  reference_steps: Click into the code cell's editor so the notebook enters edit mode there, then read whether the markdown cell above still displays its heading as rendered text or now shows its own editor.
+  state_description: |-
+    Preconditions: A JupyterLab notebook is open on the registered start with two cells: a markdown cell displaying the rendered heading "Lazarus rendered heading" and, below it, one code cell holding a single assignment line. The markdown cell is the selected cell and the notebook is in command mode, so no editor is open.
+    Reference steps: Click into the code cell's editor so the notebook enters edit mode there, then read whether the markdown cell above still displays its heading as rendered text or now shows its own editor.
+  horizon_class: short
+  oracle_spec: specs/jupyterlab/lazarus/lz-jupyterlab-15634-markdown-focus-render.yaml
+  tags:
+  - c1
+  - lazarus
+  - jupyterlab
+  capabilities:
+  - structured-artifact-editing
+  - gui-localization
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/15634
+      issue: https://github.com/jupyterlab/jupyterlab/issues/15595
+    fix_commit: 83b2ae958f86b8a6925b9e0c36adb7b897bff62b
+    revert_patch: benchmarks/p5/lazarus/defects/lz-jupyterlab-15634-markdown-focus-render/formal-v1/revert.patch
+    patch_sha256: 3cb16852afd84c04ca36f86fd960f7a31f82adccc4cf5f26c946a8f00ed495e3
+    build_class: jlpm
+    defect_locus: on_path
+    upstream_record: benchmarks/p5/lazarus/defects/lz-jupyterlab-15634-markdown-focus-render/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-jupyterlab-15634-markdown-focus-render/formal-v1/gate.json
+- id: lz-jupyterlab-16343-shift-tab-tooltip
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: A JupyterLab notebook is open on the registered start with a single code cell whose editor holds the three characters of a built-in function name and nothing else, with a Python 3 kernel idle and the cell's editor focused.
+  reference_steps: Move the caret to the end of the line and press Shift and Tab together once, then read whether an inspector panel appears over the notebook and what it reports about the name under the caret.
+  state_description: |-
+    Preconditions: A JupyterLab notebook is open on the registered start with a single code cell whose editor holds the three characters of a built-in function name and nothing else, with a Python 3 kernel idle and the cell's editor focused.
+    Reference steps: Move the caret to the end of the line and press Shift and Tab together once, then read whether an inspector panel appears over the notebook and what it reports about the name under the caret.
+  horizon_class: short
+  oracle_spec: specs/jupyterlab/lazarus/lz-jupyterlab-16343-shift-tab-tooltip.yaml
+  tags:
+  - c1
+  - lazarus
+  - jupyterlab
+  capabilities:
+  - structured-artifact-editing
+  - gui-localization
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/16343
+      issue: https://github.com/jupyterlab/jupyterlab/issues/16319
+    fix_commit: 4e0cbc0fd6703aee740ad15f601a78499b6b3a01
+    revert_patch: benchmarks/p5/lazarus/defects/lz-jupyterlab-16343-shift-tab-tooltip/formal-v1/revert.patch
+    patch_sha256: 48f33d2887b7cf8326fe17b212dbefe355d379eb3d79adf6ab7935d16f9a5753
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-jupyterlab-16343-shift-tab-tooltip/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-jupyterlab-16343-shift-tab-tooltip/formal-v1/gate.json
+- id: lz-luanti-14396-metadata-set-string-nil
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lz-v1
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'A Luanti world is open on the registered start with the devtest game loaded: a sand block sits at the origin with a cobble marker block directly above it, and the player hovers six nodes away looking at that marker. The registered metadata query has not run yet.'
+  reference_steps: Run the registered replay once so the server stores a string field on a stack's metadata and then calls the same setter for that field with no value, then read which block the marker position now shows.
+  state_description: |-
+    Preconditions: A Luanti world is open on the registered start with the devtest game loaded: a sand block sits at the origin with a cobble marker block directly above it, and the player hovers six nodes away looking at that marker. The registered metadata query has not run yet.
+    Reference steps: Run the registered replay once so the server stores a string field on a stack's metadata and then calls the same setter for that field with no value, then read which block the marker position now shows.
+  horizon_class: short
+  oracle_spec: specs/luanti/lazarus/lz-luanti-14396-metadata-set-string-nil.yaml
+  tags:
+  - c1
+  - lazarus
+  - luanti
+  capabilities:
+  - resource-management
+  - structured-artifact-editing
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/14396
+      issue: https://github.com/luanti-org/luanti/issues/14391
+    fix_commit: fa1d80b53b12beedac2e8c1045ffe86e07b89423
+    revert_patch: benchmarks/p5/lazarus/defects/lz-luanti-14396-metadata-set-string-nil/formal-v1/revert.patch
+    patch_sha256: b3e40c75c32ac71af57b4c2308fa8edca5654894333c9bdb8e102339440f6d67
+    build_class: incremental_cpp
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/defects/lz-luanti-14396-metadata-set-string-nil/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-luanti-14396-metadata-set-string-nil/formal-v1/gate.json
+- id: lz-openra-21453-hotkey-ready-building
+  benchmark: openra
+  repo: games/OpenRA
+  prompt_revision: lz-v1
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: A live Red Alert skirmish is open on the registered start with the Allies construction yard placed and the sidebar's Buildings production palette visible. One structure has finished producing and its palette page is not the page the sidebar currently shows.
+  reference_steps: Right-click once to cancel the pending placement, then press the Buildings category hotkey once and read whether the sidebar returns to the completed structure's page with placement ready.
+  state_description: |-
+    Preconditions: A live Red Alert skirmish is open on the registered start with the Allies construction yard placed and the sidebar's Buildings production palette visible. One structure has finished producing and its palette page is not the page the sidebar currently shows.
+    Reference steps: Right-click once to cancel the pending placement, then press the Buildings category hotkey once and read whether the sidebar returns to the completed structure's page with placement ready.
+  horizon_class: short
+  oracle_spec: specs/openra/lazarus/lz-openra-21453-hotkey-ready-building.yaml
+  tags:
+  - c1
+  - lazarus
+  - openra
+  capabilities:
+  - resource-management
+  - gui-localization
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/OpenRA/OpenRA/pull/21453
+      issue: https://github.com/OpenRA/OpenRA/issues/21197
+    fix_commit: 387e594f4a7ceaaf17f5c00002bfa98829574031
+    revert_patch: benchmarks/p5/lazarus/defects/lz-openra-21453-hotkey-ready-building/formal-v1/revert.patch
+    patch_sha256: b4d205fb6d8f39d23ea8deb88ff2718039eef6b16828041883d8a8d396a06074
+    build_class: incremental_dotnet
+    defect_locus: on_path
+    upstream_record: benchmarks/p5/lazarus/defects/lz-openra-21453-hotkey-ready-building/formal-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/defects/lz-openra-21453-hotkey-ready-building/formal-v1/gate.json

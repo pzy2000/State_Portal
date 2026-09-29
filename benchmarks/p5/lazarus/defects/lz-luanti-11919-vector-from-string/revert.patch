@@ -1,0 +1,25 @@
+diff --git a/builtin/common/tests/vector_spec.lua b/builtin/common/tests/vector_spec.lua
+index 2a50e2889f9bf717ba77bc029412129ccff04370..2f72f33830981b96e48f2ef233d6d4fac4b782e9 100644
+--- a/builtin/common/tests/vector_spec.lua
++++ b/builtin/common/tests/vector_spec.lua
+@@ -300,6 +300,7 @@ describe("vector", function()
+ 
+ 	it("from_string()", function()
+ 		local v = vector.new(1, 2, 3.14)
++		assert.is_true(vector.check(vector.from_string("(1, 2, 3.14)")))
+ 		assert.same({v, 13}, {vector.from_string("(1, 2, 3.14)")})
+ 		assert.same({v, 12}, {vector.from_string("(1,2 ,3.14)")})
+ 		assert.same({v, 12}, {vector.from_string("(1,2,3.14,)")})
+diff --git a/builtin/common/vector.lua b/builtin/common/vector.lua
+index 02fc1bdee0cfbde2d4aaa94086db2d87047d061f..581d014e06b688dd5734a6855766824d4a7f5008 100644
+--- a/builtin/common/vector.lua
++++ b/builtin/common/vector.lua
+@@ -61,7 +61,7 @@ function vector.from_string(s, init)
+ 	if not (x and y and z) then
+ 		return nil
+ 	end
+-	return {x = x, y = y, z = z}, np
++	return fast_new(x, y, z), np
+ end
+ 
+ function vector.to_string(v)

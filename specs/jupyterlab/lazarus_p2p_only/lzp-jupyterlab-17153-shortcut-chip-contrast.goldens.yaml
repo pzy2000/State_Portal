@@ -1,0 +1,74 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lzp-jupyterlab-17153-shortcut-chip-contrast
+benchmark: jupyterlab
+track: c1_lazarus_p2p_only_v1
+candidate:
+  repository_key: jupyterlab
+  change_number: 17153
+  issue_number: 16801
+  defect_locus: at_goal
+authoritative_defect: In dark theme the "Add" button in keyboard shortcuts UI is not readable
+provenance:
+  captured_by: materialized_pair_chromium_fixture_capture
+  capture_backend: playwright_chromium_png
+  frame_sources:
+    fixed_before: frames/lzp-jupyterlab-17153-shortcut-chip-contrast/fixed/before.png
+    fixed_after: frames/lzp-jupyterlab-17153-shortcut-chip-contrast/fixed/after.png
+    buggy_before: frames/lzp-jupyterlab-17153-shortcut-chip-contrast/buggy/before.png
+    buggy_after: frames/lzp-jupyterlab-17153-shortcut-chip-contrast/buggy/after.png
+  goldens_metadata: visual_lzp-jupyterlab-17153-shortcut-chip-contrast/goldens.meta.json
+  defect_differential_source: rendered_frames
+evaluation:
+  visual_oracle:
+    golden_image: visual_lzp-jupyterlab-17153-shortcut-chip-contrast/before.golden.png
+    description: A browser frame rendered by the candidate build shows a dark row on a dark page, holding
+      the short monospaced label "Ctrl A" near its top left. The label reads "Ctrl A" in white directly
+      on the dark row, with no chip drawn behind it.
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a dark row on a dark page, holding the short
+        monospaced label "Ctrl A" near its top left.
+      - The label reads "Ctrl A" in white directly on the dark row, with no chip drawn behind it.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, and sub-pixel text shifts.
+  lazarus:
+    goldens:
+      before: visual_lzp-jupyterlab-17153-shortcut-chip-contrast/before.golden.png
+      buggy_before: visual_lzp-jupyterlab-17153-shortcut-chip-contrast/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-jupyterlab-17153-shortcut-chip-contrast/fixed.after.golden.png
+        after_description: A medium blue chip is drawn behind "Ctrl A". The chip is distinctly darker
+          than the white label on it, so the label's white strokes read cleanly against the chip.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a dark row on a dark page, holding the
+            short monospaced label "Ctrl A" near its top left.
+          - A medium blue chip is drawn behind "Ctrl A". The chip is distinctly darker than the white
+            label on it, so the label's white strokes read cleanly against the chip.
+          - 'Judge this frame by comparing the shade of the chip drawn behind "Ctrl A" with the white
+            of the label drawn on it: whether the chip is dark enough for the white strokes to read cleanly
+            against it, or so light that those strokes nearly merge into the chip.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.
+      buggy:
+        after: visual_lzp-jupyterlab-17153-shortcut-chip-contrast/buggy.after.golden.png
+        after_description: A very pale, near-white blue chip is drawn behind "Ctrl A". The chip is almost
+          as light as the white label on it, so the label's white strokes nearly merge into the chip.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a dark row on a dark page, holding the
+            short monospaced label "Ctrl A" near its top left.
+          - A very pale, near-white blue chip is drawn behind "Ctrl A". The chip is almost as light as
+            the white label on it, so the label's white strokes nearly merge into the chip.
+          - 'Judge this frame by comparing the shade of the chip drawn behind "Ctrl A" with the white
+            of the label drawn on it: whether the chip is dark enough for the white strokes to read cleanly
+            against it, or so light that those strokes nearly merge into the chip.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Font antialiasing, caret blink, and sub-pixel text shifts.

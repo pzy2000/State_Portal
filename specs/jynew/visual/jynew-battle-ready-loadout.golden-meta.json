@@ -1,0 +1,21 @@
+{
+  "actions": 7,
+  "after": "specs/jynew/visual/c1-battle-ready-loadout.after.golden.png",
+  "after_dimensions": [
+    1280,
+    720
+  ],
+  "after_sha256": "e8e84c05c708cf94404681646c48f3bcf92bc255af49751ce68f2c46d99ff66e",
+  "before": "specs/jynew/visual/c1-battle-ready-loadout.before.golden.png",
+  "before_dimensions": [
+    1280,
+    720
+  ],
+  "before_sha256": "b1cccd710daf479625c0ea4dcbd441e810238d3b8a7df9e3288442e66879476e",
+  "benchmark": "jynew",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/jynew/c1-battle-ready-loadout.yaml",
+  "spec_sha256": "f4d4bb731c07d81d336608d807dcd0149d6cea747e6fb5a93249aa784e3b8673",
+  "task_id": "jynew-battle-ready-loadout"
+}

@@ -1,0 +1,124 @@
+{
+  "benchmark": "jupyterlab",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": true,
+  "evidence": {
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.002223184342184837,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.20788806650539704
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.0,
+        "mean_absolute_difference": 0.0
+      },
+      "before_sha256": "dcf77f96e70870142ca5beec75fe35fdf685e64155e2aa118ceb2d4efb77b2aa",
+      "buggy_after_sha256": "6df5612dad734f88f8a9672d251a2539a356747fb6fbac638b7c447a4cc5c8aa",
+      "fixed_after_sha256": "7d2248a28e1350e7498a79f23d5f0c70c64e35eab126e1aaa07b3629e9149e48",
+      "metadata": "specs/jupyterlab/lazarus/visual_lz-jupyterlab-17369-stream-chunk-merge/goldens.meta.json",
+      "metadata_sha256": "7fbaa74a7956ce49ff8641311bfb65386e7658f7acd78ae84f493b3124e33a6c"
+    },
+    "probe_verification": {
+      "artifact": "c1_lazarus_jupyterlab_spec_verification/lazarus/v2-roster/current-v1",
+      "separates_goal_from_defect": true,
+      "versions_replayed": [
+        "fixed",
+        "buggy"
+      ]
+    },
+    "provenance_errors": [],
+    "source_artifacts": {
+      "gate10": "admission:gate10_hidden_oracle=passed",
+      "gate11": "admission:gate11_real_common_before_fixed_after_buggy_after=passed",
+      "gate12": "admission:gate12_before_equivalence_after_2x2=passed",
+      "gate13": "admission:gate13_same_lineage_construction=passed",
+      "gate8": "admission:gate8_full_runtime_pair=passed",
+      "gate9": "admission:gate9_registered_start_replay=passed",
+      "gate_1_7_source": null,
+      "gate_1_7_truth_table": {},
+      "strict_gate_1_7": true
+    },
+    "upstream": [
+      {
+        "command": [
+          "jlpm",
+          "test",
+          "--runTestsByPath",
+          "test/model.spec.ts",
+          "-t",
+          "should correctly merge lines if the first line does not end with new line"
+        ],
+        "cwd": "packages/outputarea",
+        "id": "should correctly merge lines if the first line does not end with new line",
+        "kind": "fail_to_pass"
+      },
+      {
+        "command": [
+          "jlpm",
+          "test",
+          "--runTestsByPath",
+          "test/model.spec.ts",
+          "-t",
+          "should consolidate consecutive stream outputs of the same kind"
+        ],
+        "cwd": "packages/outputarea",
+        "id": "should consolidate consecutive stream outputs of the same kind",
+        "kind": "pass_to_pass"
+      }
+    ],
+    "versions": {
+      "changed_files": [
+        "packages/outputarea/src/model.ts"
+      ],
+      "patch_sha256": "7fd62e2caa87bc19fe861519f15ecc0b3b7b0f0186c4b202d2015456f4e6f7fe",
+      "patch_source": "materialized_tree_difference",
+      "reverse_apply_reproduces_frozen_buggy_tree": true,
+      "tree_pair": "private/materialized/jupyterlab/17369/current-v1"
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "should correctly merge lines if the first line does not end with new line"
+  ],
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "pass_to_pass": [
+    "should consolidate consecutive stream outputs of the same kind"
+  ],
+  "passed": true,
+  "projection": {
+    "admission": "candidate_formal_freeze_admission/jupyterlab/17369/real-ui-v2",
+    "closure_size": 33,
+    "fresh_gate_run": false,
+    "generator": "warptest.c1_lazarus_selection.c1_lazarus_formal_catalog",
+    "selection_mode": "c1_freeze_sprint_v2"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-jupyterlab-17369-stream-chunk-merge",
+  "upstream_f2p": true
+}

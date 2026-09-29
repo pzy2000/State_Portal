@@ -1,0 +1,21 @@
+{
+  "actions": 7,
+  "after": "specs/openra/visual/c1-allied-medium-tank-tech-chain.after.golden.png",
+  "after_dimensions": [
+    3024,
+    1898
+  ],
+  "after_sha256": "40be0f83b9e54921feb0b1ee7a99e05aa368e6faeb1297cd3c57426307f1f728",
+  "before": "specs/openra/visual/c1-allied-medium-tank-tech-chain.before.golden.png",
+  "before_dimensions": [
+    3024,
+    1898
+  ],
+  "before_sha256": "03747b61b95f496245385fb5c8e9904b27ca2b9c54cbea882b3dceff28acbf97",
+  "benchmark": "openra",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/openra/c1-allied-medium-tank-tech-chain.yaml",
+  "spec_sha256": "46889923a4a5a53d93fb6824656c2b421a426a2eacc00499cea9695418a348d1",
+  "task_id": "openra-allied-medium-tank-tech-chain"
+}

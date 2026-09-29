@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/love/visual/love-work-gym-date-roundtrip.after.golden.png",
+  "after_dimensions": [
+    1280,
+    800
+  ],
+  "after_sha256": "183fd8760e8e595a9c25d34f7dc73f2323336cafd620ddb4a0e7b47a051f70b9",
+  "before": "specs/love/visual/love-work-gym-date-roundtrip.before.golden.png",
+  "before_dimensions": [
+    1280,
+    800
+  ],
+  "before_sha256": "46cde8b09a9cac9eeeba14b9ba18f78619c538b9fde76bfc9332f8444061addf",
+  "benchmark": "datingsim",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/love/c1-work-gym-date-roundtrip.yaml",
+  "spec_sha256": "8e75bef7d9448248a607a97d3e419fec527e68363af725384f4359cbf7ea8d6a",
+  "task_id": "love-work-gym-date-roundtrip"
+}

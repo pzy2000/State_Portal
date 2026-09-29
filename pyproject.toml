@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "warptest"
+version = "0.1.0"
+description = "StatePortal: agentic checkpoint synthesis for testing deep states in interactive software (DeepStateBench harness)."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+dependencies = [
+  "openai>=1.0",
+  "playwright>=1.40",
+  "Pillow>=10.0",
+  "PyYAML>=6.0",
+  "websocket-client>=1.8",
+  "lizard>=1.17",
+  "greenlet>=3.5.1; python_version >= '3.13'",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8.0"]
+dev = ["pytest>=8.0", "ruff>=0.6", "pyright>=1.1"]
+
+[project.scripts]
+warptest = "warptest.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["warptest*"]
+
+[tool.setuptools.package-data]
+warptest = [
+  "c1_canary_confirmation.swift",
+  "lazarus_p2p_only_components.js",
+  "node_preloads/*",
+  "instrumentation/jynew/*",
+  "instrumentation/pal3/*",
+  "instrumentation/luanti/warptest/*",
+  "instrumentation/luanti/engine/*",
+  "instrumentation/openra/lazarus/*/*",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

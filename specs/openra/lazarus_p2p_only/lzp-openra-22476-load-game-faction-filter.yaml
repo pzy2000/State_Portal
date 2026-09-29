@@ -1,0 +1,122 @@
+schema_version: 1
+benchmark: openra
+name: lzp-openra-22476-load-game-faction-filter
+target:
+  kind: openra_lazarus_candidate_session
+  change_number: 22476
+  variants:
+  - fixed
+  - buggy
+  capture_backend: openra_renderer_save_screenshot_sync_v1
+setup:
+  openra_lazarus_probe:
+    registered_replay:
+      fixture: warptest.c1_lazarus_selection.p2p_only_frames
+      build_packages: []
+      stylesheets: []
+      fixture_notes: After launch opens the Load Game dialog so the faction filter strings are painted.
+      capture_kind: openra_engine
+      engine_before_mode: openra-mainmenu
+      engine_after_mode: openra-loadgame-dropdown
+      engine_frame_size:
+      - 1280
+      - 720
+      hover_point: null
+      variant_state_key: faction_labels
+      fixed_state_value: Allies,Soviet
+      buggy_state_value: allies,soviet
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: openra_live_gameplay_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: openra_live_gameplay_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lzp-openra-22476-load-game-faction-filter/before.golden.png
+    description: An OpenRA client window shows the engine main menu. The main menu is showing. The Load
+      Game dialog is not open.
+    rubric:
+      must:
+      - An OpenRA client window shows the engine main menu.
+      - The main menu is showing. The Load Game dialog is not open.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Window chrome, font antialiasing, and cursor blink.
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - id: rendered_goal_frame
+      kind: visual_frame
+      frame: fixed_after
+      expected: The Load Game dialog is open. The faction filter dropdown paints each faction's display
+        name.
+    defect_signature:
+    - id: rendered_defect_frame
+      kind: visual_frame
+      frame: buggy_after
+      expected: The Load Game dialog is open. The faction filter dropdown paints each faction's internal
+        identifier rather than its display name.
+    invariant_checks:
+    - id: shared_start_frame
+      kind: visual_frame
+      frame: before
+      expected: The main menu is showing. The Load Game dialog is not open.
+    f2p_absence:
+      reason: The defect is that the Load Game faction filter paints each faction's internal identifier
+        instead of its display name. The saved games are the same set either way, so the shortfall exists
+        only in the strings the dropdown draws.
+      audited_paths: []
+    upstream_tests:
+      fail_to_pass: []
+      pass_to_pass:
+      - openra-pr22476-control-p2p
+      per_trial_p2p:
+      - openra-pr22476-control-p2p
+    goldens:
+      before: visual_lzp-openra-22476-load-game-faction-filter/before.golden.png
+      buggy_before: visual_lzp-openra-22476-load-game-faction-filter/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-openra-22476-load-game-faction-filter/fixed.after.golden.png
+        after_description: The Load Game dialog is open. The faction filter dropdown paints each faction's
+          display name.
+        after_rubric:
+          must:
+          - An OpenRA client window shows the engine main menu.
+          - The Load Game dialog is open. The faction filter dropdown paints each faction's display name.
+          - Judge this frame by whether each entry of the faction filter dropdown is the faction's display
+            name or its internal identifier.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Window chrome, font antialiasing, and cursor blink.
+      buggy:
+        after: visual_lzp-openra-22476-load-game-faction-filter/buggy.after.golden.png
+        after_description: The Load Game dialog is open. The faction filter dropdown paints each faction's
+          internal identifier rather than its display name.
+        after_rubric:
+          must:
+          - An OpenRA client window shows the engine main menu.
+          - The Load Game dialog is open. The faction filter dropdown paints each faction's internal identifier
+            rather than its display name.
+          - Judge this frame by whether each entry of the faction filter dropdown is the faction's display
+            name or its internal identifier.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Window chrome, font antialiasing, and cursor blink.

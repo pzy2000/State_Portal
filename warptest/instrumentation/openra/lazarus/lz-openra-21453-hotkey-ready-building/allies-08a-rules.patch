@@ -1,0 +1,176 @@
+diff --git a/mods/ra/maps/allies-08a/rules.yaml b/mods/ra/maps/allies-08a/rules.yaml
+--- a/mods/ra/maps/allies-08a/rules.yaml
++++ b/mods/ra/maps/allies-08a/rules.yaml
+@@ -1,7 +1,8 @@
+ Player:
+ 	PlayerResources:
+ 		DefaultCash: 15000
+ 
+ World:
++	WarptestReadyBuildingAudit:
+ 	LuaScript:
+ 		Scripts: campaign.lua, utils.lua, allies08a.lua, allies08a-AI.lua
+@@ -119,2 +120,163 @@ MSUB:
+ 	Buildable:
+ 		Prerequisites: ~disabled
++
++STEK:
++	RenderSprites:
++		Image: stek
++
++WARPDECOY01:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 201
++		Prerequisites: ~disabled
++WARPDECOY02:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 202
++		Prerequisites: ~disabled
++WARPDECOY03:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 203
++		Prerequisites: ~disabled
++WARPDECOY04:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 204
++		Prerequisites: ~disabled
++WARPDECOY05:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 205
++		Prerequisites: ~disabled
++WARPDECOY06:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 206
++		Prerequisites: ~disabled
++WARPDECOY07:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 207
++		Prerequisites: ~disabled
++WARPDECOY08:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 208
++		Prerequisites: ~disabled
++WARPDECOY09:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 209
++		Prerequisites: ~disabled
++WARPDECOY10:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 210
++		Prerequisites: ~disabled
++WARPDECOY11:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 211
++		Prerequisites: ~disabled
++WARPDECOY12:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 212
++		Prerequisites: ~disabled
++WARPDECOY13:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 213
++		Prerequisites: ~disabled
++WARPDECOY14:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 214
++		Prerequisites: ~disabled
++WARPDECOY15:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 215
++		Prerequisites: ~disabled
++WARPDECOY16:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 216
++		Prerequisites: ~disabled
++WARPDECOY17:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 217
++		Prerequisites: ~disabled
++WARPDECOY18:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 218
++		Prerequisites: ~disabled
++WARPDECOY19:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 219
++		Prerequisites: ~disabled
++WARPDECOY20:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 220
++		Prerequisites: ~disabled
++WARPDECOY21:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 221
++		Prerequisites: ~disabled
++WARPDECOY22:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 222
++		Prerequisites: ~disabled
++WARPDECOY23:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 223
++		Prerequisites: ~disabled
++WARPDECOY24:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 224
++		Prerequisites: ~disabled
++WARPDECOY25:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 225
++		Prerequisites: ~disabled
++WARPREADY:
++	Inherits: STEK
++	Buildable:
++		Queue: Building
++		BuildPaletteOrder: 900
++		Prerequisites: ~disabled

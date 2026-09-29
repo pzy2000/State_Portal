@@ -1,0 +1,152 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [
+    {
+      "body_normalized": "note that no problem occurs if the 2nd stack is dragged onto the first, if a stack is dragged onto another in a different inventory list, or if the size of the 2nd stack is less than its stack_max.",
+      "body_raw": "note that no problem occurs if the 2nd stack is dragged onto the first, if a stack is dragged onto another in a different inventory list, or if the size of the 2nd stack is less than its stack_max. ",
+      "body_sha256": "0f7082d206546848f830460a3a4324323cfda56575820692e3922aff0a7deffd",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/13552#issuecomment-1572634617"
+    },
+    {
+      "body_normalized": "I think the problem here is that `/giveme` is not splitting the stack in two",
+      "body_raw": "I think the problem here is that `/giveme` is not splitting the stack in two",
+      "body_sha256": "29aa962f7715958f5f4579b44aee94dd4f35ae3f1ee508ac1177481043e62c64",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/13552#issuecomment-1751710850"
+    },
+    {
+      "body_normalized": "> I think the problem here is that `/giveme` is not splitting the stack in two\n\n`/giveme` isn't the only possible source of such over-sized stacks. e.g. w/ the mesecons mod, you can smelt 1 mese block into 162 mesecons. items are lost when dragging one oversized stack onto another oversized stack. i suppose one solution would be to remove the ability to set the size of a stack to a value greater than stack_max, but i'm certain people would complain about that. there's other use cases, e.g. giving a non-creative player a large quantity of nodes for some building project.",
+      "body_raw": "> I think the problem here is that `/giveme` is not splitting the stack in two\r\n\r\n`/giveme` isn't the only possible source of such over-sized stacks. e.g. w/ the mesecons mod, you can smelt 1 mese block into 162 mesecons. items are lost when dragging one oversized stack onto another oversized stack. i suppose one solution would be to remove the ability to set the size of a stack to a value greater than stack_max, but i'm certain people would complain about that. there's other use cases, e.g. giving a non-creative player a large quantity of nodes for some building project. ",
+      "body_sha256": "78ac475601724ddd69b416b332ebc52a1892854c2bd37ee2196eb3b06564acab",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/13552#issuecomment-1813522754"
+    },
+    {
+      "body_normalized": "![ah shit here we go again](https://i.kym-cdn.com/entries/icons/original/000/029/223/cover2.jpg)\n\nWe already had this issue in 2017, reported in #6038 and fixed in #6039. It looks like the bug was unfixed again in the meantime.",
+      "body_raw": "![ah shit here we go again](https://i.kym-cdn.com/entries/icons/original/000/029/223/cover2.jpg)\r\n\r\nWe already had this issue in 2017, reported in #6038 and fixed in #6039. It looks like the bug was unfixed again in the meantime.",
+      "body_sha256": "d465588165c1e17ee662f5acb872a87e78785c129ad29dbc070f59f1eea79b71",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/13552#issuecomment-1841114114"
+    },
+    {
+      "body_normalized": "The inventory code (storage, gui, and input) needs to be completely unit tested with all of these different bugs covered",
+      "body_raw": "The inventory code (storage, gui, and input) needs to be completely unit tested with all of these different bugs covered",
+      "body_sha256": "9b117572cf7244fba51bf3926be4c3ea17df1ccde9ed53b5ac3ef40c6e5c8591",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/13552#issuecomment-1841172954"
+    }
+  ],
+  "fix_commit": "94a54375e25b916a486bf8e2fe43aa8bbcb9ebdf",
+  "issue": {
+    "body_normalized": "##### Minetest version\n```\n5.7.0\n```\n\n##### OS / Hardware\nOperating system: linux\n\n##### Summary\nwithin any same inventory list that's displayed via a formspec, if you drag an over-sized (stack size greater than stack_max) stack A onto another stack B, of the same item which size is >= stack_max, but which is smaller than the size of A, the size of A will shrink to the size of B, and items will be lost.\n\n##### Steps to reproduce\nusing devtest,\n\n* `/giveme basenodes:cobble 200`\n* `/giveme basenodes:cobble 100`\n\n  ![image](https://github.com/minetest/minetest/assets/25628292/c3713082-0de4-46f2-ad3e-c3c28e019cc9)\n\n* drag the stack of 200 onto the stack of 100\n* the first stack's size will now also be 100, and 100 nodes will have been lost.\n\n  ![image](https://github.com/minetest/minetest/assets/25628292/152eaf0b-e0fb-4b2f-9af8-685f90208d99)",
+    "body_raw": "##### Minetest version\r\n```\r\n5.7.0\r\n```\r\n\r\n##### OS / Hardware\r\nOperating system: linux\r\n\r\n##### Summary\r\nwithin any same inventory list that's displayed via a formspec, if you drag an over-sized (stack size greater than stack_max) stack A onto another stack B, of the same item which size is >= stack_max, but which is smaller than the size of A, the size of A will shrink to the size of B, and items will be lost.\r\n\r\n##### Steps to reproduce\r\nusing devtest,\r\n\r\n* `/giveme basenodes:cobble 200`\r\n* `/giveme basenodes:cobble 100`\r\n\r\n  ![image](https://github.com/minetest/minetest/assets/25628292/c3713082-0de4-46f2-ad3e-c3c28e019cc9)\r\n\r\n* drag the stack of 200 onto the stack of 100\r\n* the first stack's size will now also be 100, and 100 nodes will have been lost. \r\n\r\n  ![image](https://github.com/minetest/minetest/assets/25628292/152eaf0b-e0fb-4b2f-9af8-685f90208d99)\r\n",
+    "body_sha256": "447d40971451b64e73bcbcd8378e7cd3a5a3b3a06d65e686eda030ed79aed3e0",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 13552,
+    "state": "closed",
+    "title": "items are lost when dragging over-sized stacks onto full stacks",
+    "url": "https://github.com/luanti-org/luanti/issues/13552"
+  },
+  "patch_sha256": "ba5cbc3228f203a7878d58ed1cb7a374e07b7328a37ad000e737680f6cabfce0",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "body_normalized": "Fixes #13552 by indirectly handling the returned ItemStack from `addItem`.\n\n## To do\n\nThis PR is Ready for Review.\n\n## How to test\n\n1. Instructions from #13552\n2. For debugging, try [Script N°76](https://github.com/SmallJoker/minetest_lab/blob/master/init_76_inv_callbacks.lua) without line 59.",
+    "body_raw": "Fixes #13552 by indirectly handling the returned ItemStack from `addItem`.\r\n\r\n## To do\r\n\r\nThis PR is Ready for Review.\r\n\r\n## How to test\r\n\r\n1. Instructions from #13552\r\n2. For debugging, try [Script N°76](https://github.com/SmallJoker/minetest_lab/blob/master/init_76_inv_callbacks.lua) without line 59.",
+    "body_sha256": "4a85f3e7b9164dda5d8921e1e60d8879d85a9fbe6b4cb07ab08bf252e5f30fd7",
+    "kind": "pull",
+    "merged_at": "2023-12-15T09:24:05Z",
+    "number": 14072,
+    "state": "closed",
+    "title": "Inventory: prevent item loss when stacking oversized ItemStacks",
+    "url": "https://github.com/luanti-org/luanti/pull/14072"
+  },
+  "record_sha256": "3b87036e783da439eb7e59be7414da588b4d1a5858ae515718a6af585015ddb7",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-13T09:36:35.002140Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-14072-oversized-stack",
+  "tests": [
+    {
+      "command": [
+        "bin/luantiserver",
+        "--run-unittests",
+        "--test-module",
+        "TestMoveAction"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/cmake",
+        "--build",
+        "build-luanti-14072-v6",
+        "--target",
+        "minetestserver",
+        "--parallel",
+        "1"
+      ],
+      "id": "TestMoveAction.testMoveFillStack",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestMoveAction.testMoveFillStack",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/src/unittest/test_moveaction.cpp",
+      "upstream_test_path": "src/unittest/test_moveaction.cpp",
+      "upstream_test_sha256": "1157998e34aeb221b875cbb5fdfde4d7082d81f8e65289948148befbf5f2e1ed"
+    },
+    {
+      "command": [
+        "bin/luantiserver",
+        "--run-unittests",
+        "--test-module",
+        "TestMoveAction"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/cmake",
+        "--build",
+        "build-luanti-14072-v6",
+        "--target",
+        "minetestserver",
+        "--parallel",
+        "1"
+      ],
+      "id": "TestMoveAction.testMovePartial",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestMoveAction.testMovePartial",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/src/unittest/test_moveaction.cpp",
+      "upstream_test_path": "src/unittest/test_moveaction.cpp",
+      "upstream_test_sha256": "1157998e34aeb221b875cbb5fdfde4d7082d81f8e65289948148befbf5f2e1ed"
+    }
+  ],
+  "touched_files": [
+    "src/inventory.cpp",
+    "src/unittest/test_moveaction.cpp"
+  ],
+  "upstream_commits": []
+}

@@ -1,0 +1,180 @@
+{
+  "authority": "gitea",
+  "benchmark": "blender",
+  "comments": [
+    {
+      "author": "Alaska",
+      "body_normalized": "I can confirm this issue. I will create a PR to fix it.",
+      "body_raw": "I can confirm this issue. I will create a PR to fix it.",
+      "body_sha256": "466cd64577b32f4e91fe5a9717a5c4a215cc92cc704c74c23ffe5c7abc62bd73",
+      "created_at": "2026-06-02T03:13:40+02:00",
+      "id": 1945999,
+      "source": "issue_comment",
+      "updated_at": "2026-06-02T03:13:40+02:00",
+      "url": "https://projects.blender.org/blender/blender/issues/159429#issuecomment-1945999"
+    }
+  ],
+  "fix_commit": "a1228b3187ca2eb5e3a4a151951742b7580dcd02",
+  "issue": {
+    "author": "W_Cloud",
+    "body_normalized": "**System Information**\nOperating system: Windows-10-10.0.19045-SP0 64 Bits\nGraphics card: NVIDIA GeForce MX450/PCIe/SSE2 NVIDIA Corporation 4.6.0 NVIDIA 536.99 Opengl Backend\n\n**Blender Version**\nBroken: version: 5.2.0 Alpha, branch: main, commit date: 2026-05-28 22:54, hash: `4dd539286811`\nWorked: N/A as the affected node is new in 5.2\n\n**Short description of error**\nIn [NOD_geo_closure_to_list.hh](https://projects.blender.org/blender/blender/src/branch/main/source/blender/nodes/geometry/include/NOD_geo_closure_to_list.hh#L94), the output identifiers are currently prefixed with `Grid_`.\nLooks like a copy/paste mistake.\n\n**Exact steps for others to reproduce the error**\n1. Add geometry node\n2. Add Closure to List node\n3. Add output\n4. run `bpy.data.node_groups[\"Geometry Nodes\"].nodes[\"Closure to List\"].outputs[0].identifier` in console\n```Python\n>>> bpy.data.node_groups[\"Geometry Nodes\"].nodes[\"Closure to List\"].outputs[0].identifier\n'Grid_0'\n```",
+    "body_raw": "**System Information**\nOperating system: Windows-10-10.0.19045-SP0 64 Bits\nGraphics card: NVIDIA GeForce MX450/PCIe/SSE2 NVIDIA Corporation 4.6.0 NVIDIA 536.99 Opengl Backend\n\n**Blender Version**\nBroken: version: 5.2.0 Alpha, branch: main, commit date: 2026-05-28 22:54, hash: `4dd539286811`\nWorked: N/A as the affected node is new in 5.2\n\n**Short description of error**\nIn [NOD_geo_closure_to_list.hh](https://projects.blender.org/blender/blender/src/branch/main/source/blender/nodes/geometry/include/NOD_geo_closure_to_list.hh#L94), the output identifiers are currently prefixed with `Grid_`.\nLooks like a copy/paste mistake.\n\n**Exact steps for others to reproduce the error**\n1. Add geometry node\n2. Add Closure to List node\n3. Add output\n4. run `bpy.data.node_groups[\"Geometry Nodes\"].nodes[\"Closure to List\"].outputs[0].identifier` in console\n```Python\n>>> bpy.data.node_groups[\"Geometry Nodes\"].nodes[\"Closure to List\"].outputs[0].identifier\n'Grid_0'\n```\n\n\n",
+    "body_sha256": "97e3d95c796e9c02b1857789b1112237585dd5bac826ad1019ff0ef9333e7e68",
+    "closed_at": "2026-06-02T18:16:40+02:00",
+    "created_at": "2026-06-01T16:31:44+02:00",
+    "number": 159429,
+    "state": "closed",
+    "title": "`Closure to List` uses incorrect output socket identifiers",
+    "updated_at": "2026-06-06T05:54:13+02:00",
+    "url": "https://projects.blender.org/blender/blender/issues/159429"
+  },
+  "patch_sha256": "fbab8f99ce2bf7785412a8e99b9af18af2ca75167248a00fd2b308e9d3d73ebd",
+  "pinned_revision": "3d018bcabdaeea66cf4ef4a96ce8913164831f6e",
+  "pull_request": null,
+  "record_sha256": "a97ab0d44a97686647c5811713998f40532e7994d435b1670a95b067387339f2",
+  "repository": "blender/blender",
+  "retrieved_at": "2026-08-11T13:12:22Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-blender-159429-closure-socket-identifier",
+  "tests": [
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "build-lazarus",
+        "-R",
+        "^(geo_node_list_closure_to_list|geo_node_closure_closure_to_list_anonymous_attributes)$",
+        "--output-on-failure"
+      ],
+      "command": [
+        "ctest",
+        "--test-dir",
+        "build-lazarus",
+        "-R",
+        "^(geo_node_list_closure_to_list|geo_node_closure_closure_to_list_anonymous_attributes)$",
+        "--output-on-failure"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/files/modeling/geometry_nodes/list/closure_to_list.blend",
+          "sha256": "2f0b0b992e6c9cf770fd1b623a0741a514d1ff92be7205cf771f436d33958963",
+          "source_path": "upstream-tests/tests/files/modeling/geometry_nodes/list/closure_to_list.blend"
+        },
+        {
+          "destination_path": "tests/files/modeling/geometry_nodes/closure/closure_to_list_anonymous_attributes.blend",
+          "sha256": "da2631748d5d2ba5747585c5b9c8521e0ed7515355489fa9310b9d20799d370f",
+          "source_path": "upstream-tests/tests/files/modeling/geometry_nodes/closure/closure_to_list_anonymous_attributes.blend"
+        }
+      ],
+      "id": "blender-159429-closure-to-list-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_geometry_nodes_regression_suite",
+      "source_case": "geo_node_list_closure_to_list and anonymous_attributes",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/a1228b3187ca2eb5e3a4a151951742b7580dcd02/tests/files/modeling/geometry_nodes/list/closure_to_list.blend",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/files/modeling/geometry_nodes/list/closure_to_list.blend",
+          "sha256": "2f0b0b992e6c9cf770fd1b623a0741a514d1ff92be7205cf771f436d33958963",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/a1228b3187ca2eb5e3a4a151951742b7580dcd02/tests/files/modeling/geometry_nodes/list/closure_to_list.blend"
+        },
+        {
+          "path": "tests/files/modeling/geometry_nodes/closure/closure_to_list_anonymous_attributes.blend",
+          "sha256": "da2631748d5d2ba5747585c5b9c8521e0ed7515355489fa9310b9d20799d370f",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/a1228b3187ca2eb5e3a4a151951742b7580dcd02/tests/files/modeling/geometry_nodes/closure/closure_to_list_anonymous_attributes.blend"
+        }
+      ],
+      "upstream_test_path": "tests/files/modeling/geometry_nodes/list/closure_to_list.blend",
+      "upstream_test_sha256": "2f0b0b992e6c9cf770fd1b623a0741a514d1ff92be7205cf771f436d33958963"
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "build-lazarus",
+        "-R",
+        "^geo_node_list_basic_eval$",
+        "--output-on-failure"
+      ],
+      "command": [
+        "ctest",
+        "--test-dir",
+        "build-lazarus",
+        "-R",
+        "^geo_node_list_basic_eval$",
+        "--output-on-failure"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/files/modeling/geometry_nodes/list/basic_eval.blend",
+          "sha256": "884de1c1f407c69c5804b3d0d0c3dcd696763124e3601fb308b6a29c6f31e45f",
+          "source_path": "upstream-tests/tests/files/modeling/geometry_nodes/list/basic_eval.blend"
+        }
+      ],
+      "id": "blender-geometry-list-basic-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_geometry_nodes_test_suite",
+      "source_case": "geo_node_list_basic_eval",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/a1228b3187ca2eb5e3a4a151951742b7580dcd02/tests/files/modeling/geometry_nodes/list/basic_eval.blend",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/files/modeling/geometry_nodes/list/basic_eval.blend",
+          "sha256": "884de1c1f407c69c5804b3d0d0c3dcd696763124e3601fb308b6a29c6f31e45f",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/a1228b3187ca2eb5e3a4a151951742b7580dcd02/tests/files/modeling/geometry_nodes/list/basic_eval.blend"
+        }
+      ],
+      "upstream_test_path": "tests/files/modeling/geometry_nodes/list/basic_eval.blend",
+      "upstream_test_sha256": "884de1c1f407c69c5804b3d0d0c3dcd696763124e3601fb308b6a29c6f31e45f"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "cwd": ".",
+      "id": "blender-mathutils-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "repository_python_test_suite",
+      "source_case": "bl_pyapi_mathutils",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/bl_pyapi_mathutils.py",
+          "sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py"
+        }
+      ],
+      "upstream_test_path": "tests/python/bl_pyapi_mathutils.py",
+      "upstream_test_sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af"
+    }
+  ],
+  "touched_files": [
+    "source/blender/nodes/geometry/include/NOD_geo_closure_to_list.hh",
+    "tests/files/modeling/geometry_nodes/closure/closure_to_list_anonymous_attributes.blend",
+    "tests/files/modeling/geometry_nodes/list/closure_to_list.blend"
+  ],
+  "upstream_commits": []
+}

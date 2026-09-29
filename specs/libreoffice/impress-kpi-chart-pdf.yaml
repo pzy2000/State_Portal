@@ -1,0 +1,76 @@
+name: LibreOffice Impress KPI chart PDF deep state
+benchmark: LibreOffice
+repo: ../../games/LibreOffice
+target:
+  kind: impress_presentation
+  path: impress-kpi-chart-pdf.odp
+  slides:
+    - title: KPI Snapshot
+      bullets: [ARR 4.2M, NRR 111%, Gross margin 68%]
+    - title: Expansion Motion
+      bullets: [Pipeline 1.4M, Conversion 34%]
+checkpoint:
+  allowed_strategies: ["libreoffice_uno_document_validate"]
+  expected_validity: save-restorable
+actions:
+  - type: libreoffice_set_slide_bullets
+    slide: 1
+    bullets: [ARR 4.8M, NRR 116%, Gross margin 70%]
+  - type: libreoffice_add_shape
+    slide: 1
+    shape: kpi-callout
+    text: "NRR improved to 116% after enterprise renewals"
+  - type: libreoffice_add_shape
+    slide: 2
+    shape: kpi-callout
+    text: "Pipeline coverage is above 3x target"
+  - type: libreoffice_save
+  - type: libreoffice_reopen
+  - type: libreoffice_export_pdf
+    path: impress-kpi-chart-pdf.pdf
+assertions:
+  - type: libreoffice_slide_text_contains
+    slide: 1
+    text: NRR 116%
+  - type: libreoffice_shape_text_contains
+    slide: 2
+    text: Pipeline coverage
+  - type: libreoffice_pdf_exists
+    path: impress-kpi-chart-pdf.pdf
+  - type: no_libreoffice_errors
+visual_oracle:
+  golden_image: visual/impress-kpi-chart-pdf.after.golden.png
+  golden_before: visual/impress-kpi-chart-pdf.before.golden.png
+  golden_after: visual/impress-kpi-chart-pdf.after.golden.png
+  expected_label: correct
+  description: "A LibreOffice Impress KPI deck is visible with ARR, NRR, margin, and pipeline bullets before final callouts."
+  rubric:
+    must:
+      - "LibreOffice Impress shows a KPI or business metrics deck."
+      - "Slide content is visible and not blank."
+    must_not:
+      - "A crash dialog, blank window, or unrelated app is shown."
+    ignore:
+      - "Selected slide, zoom, thumbnails, and toolbar differences."
+  after_description: "After the workflow, the KPI deck shows updated NRR/ARR/margin bullets and callout shapes, and a PDF export exists."
+  after_rubric:
+    must:
+      - "LibreOffice Impress displays the KPI deck."
+      - "Updated KPI values or callout text are visible."
+      - "The presentation is rendered normally."
+    must_not:
+      - "Only the original KPI bullets are visible with no callouts or updates."
+      - "The screenshot shows Writer/Calc, a blank window, or a crash."
+    ignore:
+      - "Exact selected slide, zoom, and toolbar differences."
+  capture:
+    stage: post_smoke
+    active_slide: 1
+    wait_ms: 500
+    full_page: false
+tags:
+  - libreoffice
+  - impress
+  - deep-state
+  - pdf
+timeout_ms: 240000

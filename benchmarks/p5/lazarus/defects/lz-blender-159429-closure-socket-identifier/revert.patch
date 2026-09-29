@@ -1,0 +1,33 @@
+diff --git a/source/blender/nodes/geometry/include/NOD_geo_closure_to_list.hh b/source/blender/nodes/geometry/include/NOD_geo_closure_to_list.hh
+index 0cf078eda75226e8d98b776206283cb3988dd483..045c3948b3c83c809d1a2106f1074eb512642100 100644
+--- a/source/blender/nodes/geometry/include/NOD_geo_closure_to_list.hh
++++ b/source/blender/nodes/geometry/include/NOD_geo_closure_to_list.hh
+@@ -91,7 +91,7 @@ struct ClosureToListItemsAccessor : public socket_items::SocketItemsAccessorDefa
+   }
+   static std::string output_socket_identifier_for_item(const GeometryNodeClosureToListItem &item)
+   {
+-    return "Grid_" + std::to_string(item.identifier);
++    return "List_" + std::to_string(item.identifier);
+   }
+ };
+ 
+diff --git a/tests/files/modeling/geometry_nodes/closure/closure_to_list_anonymous_attributes.blend b/tests/files/modeling/geometry_nodes/closure/closure_to_list_anonymous_attributes.blend
+index 113a489083b8f6e751f58220b2f11a3b0370ba86..0173c1b114a87d9a199cf7afba64510ac0241286 100644
+--- a/tests/files/modeling/geometry_nodes/closure/closure_to_list_anonymous_attributes.blend
++++ b/tests/files/modeling/geometry_nodes/closure/closure_to_list_anonymous_attributes.blend
+@@ -1,3 +1,3 @@
+ version https://git-lfs.github.com/spec/v1
+-oid sha256:cbc54f41cadfce77533d17ce9d979ed475a3c11597448d2ad6426607225e0bcf
+-size 105185
++oid sha256:88c4e3cf65702f3535731cc561e61cc7ce072cd4c4a36404be5cdb489111fec3
++size 115640
+diff --git a/tests/files/modeling/geometry_nodes/list/closure_to_list.blend b/tests/files/modeling/geometry_nodes/list/closure_to_list.blend
+index a1b9115c56cc77312aeb47061de68835dd2d7cf6..a93f2075d25f0c38816942eff8e448812eca9567 100644
+--- a/tests/files/modeling/geometry_nodes/list/closure_to_list.blend
++++ b/tests/files/modeling/geometry_nodes/list/closure_to_list.blend
+@@ -1,3 +1,3 @@
+ version https://git-lfs.github.com/spec/v1
+-oid sha256:c51695806093c205308d71b62af2b39f08f5fc9d3d14ef2fab27d2d43e4570e5
+-size 105941
++oid sha256:6fb7a54958bebf7a75ef788e78bc25162966f56c412034343fd81a3d2979a328
++size 108604

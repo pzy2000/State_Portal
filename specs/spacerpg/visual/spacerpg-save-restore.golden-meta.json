@@ -1,0 +1,13 @@
+{
+  "actions": 4,
+  "after": "specs/spacerpg/visual/spacerpg-save-restore.after.golden.png",
+  "after_sha256": "15fdfb61906ccd536f6c9081626ea9b663d9af0b6beec2d9107bb1746f2f71a5",
+  "before": "specs/spacerpg/visual/spacerpg-save-restore.before.golden.png",
+  "before_sha256": "fc71c4e4ec895195b1ea4c6f0976d6428d7ae7d7c83e50c27ae04a4a2bd8fe94",
+  "benchmark": "spacerpg",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/spacerpg/save-restore.yaml",
+  "spec_sha256": "7adec4883432e22fcb61e13b35b539ff829d60c819810dcfb4184876307a7b4d",
+  "task_id": "spacerpg-save-restore"
+}

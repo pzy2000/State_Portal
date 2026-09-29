@@ -1,0 +1,41 @@
+name: 2048 win (merged.value === 2048 -> won) (execution-grounded)
+benchmark: '2048'
+target:
+  board:
+  - - 1024
+    - 1024
+    - 0
+    - 0
+  - - 4
+    - 8
+    - 16
+    - 32
+  - - 0
+    - 0
+    - 0
+    - 0
+  - - 0
+    - 0
+    - 0
+    - 0
+  score: 4096
+  bestScore: 4096
+  won: false
+  over: false
+  keepPlaying: false
+checkpoint:
+  allowed_strategies:
+  - localStorage_restore_reload
+  expected_validity: save-restorable
+actions:
+- type: move
+  direction: left
+assertions:
+- type: score_increased_by_at_least
+  amount: 2048
+- type: tile_value_present
+  value: 2048
+- type: state_equals
+  path: won
+  value: true
+- type: no_severe_console

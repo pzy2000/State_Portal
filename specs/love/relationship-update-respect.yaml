@@ -1,0 +1,78 @@
+name: DatingSim relationship respect update checkpoint
+benchmark: DatingSim
+tags:
+- love
+- relationship
+- variant
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  seed: 39
+  player_name: WarpTest
+  gender: male
+  patch:
+    player:
+      relationships:
+        char_1:
+          trust: 30
+          attraction: 20
+          comfort: 20
+          respect: 20
+          investment: 8
+          conflict: 1
+          status: acquaintance
+          history:
+          - Finished a careful conversation.
+          memories: []
+    world:
+      location: cafe
+  expect:
+    location: cafe
+    resources:
+      money: 1000
+      energy: 100
+    relationships:
+      char_1:
+        trust: 30
+        attraction: 20
+        status: acquaintance
+checkpoint:
+  allowed_strategies:
+  - test_hook_seeded_state
+  expected_validity: injection-only
+actions:
+- type: hook_call
+  method: applyRelationshipUpdates
+  args:
+  - char_1
+  - respect: 7
+    investment: 4
+  wait_ms: 300
+assertions:
+- type: state_equals
+  path: player.relationships.char_1.respect
+  value: 27
+- type: state_equals
+  path: player.relationships.char_1.investment
+  value: 12
+- type: no_real_openai
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/relationship-update.golden.png
+  expected_label: correct
+  description: The seeded Elena relationship can receive deterministic respect and
+    investment updates.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

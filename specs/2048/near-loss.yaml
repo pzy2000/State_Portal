@@ -1,0 +1,49 @@
+name: 2048 near loss restored board
+benchmark: "2048"
+tags: ["2048", "localStorage", "near-loss", "game-over"]
+target:
+  kind: board
+  board:
+    - [2, 4, 2, 4]
+    - [4, 2, 4, 2]
+    - [2, 4, 2, 4]
+    - [4, 2, 4, 2]
+  score: 512
+  bestScore: 512
+  over: true
+checkpoint:
+  allowed_strategies: ["localStorage_restore_reload"]
+  expected_validity: "save-restorable"
+actions:
+  - type: move
+    direction: left
+    wait_ms: 300
+assertions:
+  - type: state_equals
+    path: over
+    value: true
+  - type: no_severe_console
+visual_oracle:
+  golden_image: visual/near-loss.golden.png
+  golden_before: visual/2048-near-loss.before.golden.png
+  golden_after: visual/2048-near-loss.after.golden.png
+  expected_label: correct
+  description: "The 2048 board is fully occupied in a terminal near-loss/game-over state after restoring the checkpoint."
+  rubric:
+    must:
+      - "The 2048 game board is visible and filled with tiles."
+      - "The page shows a terminal game-over or no-moves state."
+      - "The page is rendered normally without a browser crash."
+    must_not:
+      - "The board is mostly empty or on a fresh-start state."
+      - "The page is blank or shows a different game."
+    ignore:
+      - "Minor score rendering differences."
+      - "Small overlay animation differences."
+  capture:
+    stage: post_smoke
+    # The 2048 ".game-message.game-over" overlay animates in with an 800ms fade on a
+    # 1200ms delay, so a short wait captures it while still transparent. Wait past the
+    # ~2000ms fade so the terminal "Game over!" overlay is actually visible.
+    wait_ms: 2300
+    full_page: false

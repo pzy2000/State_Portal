@@ -1,0 +1,11 @@
+{
+  "task_id": "lz-openra-21906-production-tabs",
+  "source_repo": "games/OpenRA",
+  "fixed_revision": "7e687f430ee5b194c0ffaa06caaba757dd9155fb",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-openra-21906-production-tabs/revert.patch",
+  "patch_sha256": "705064c3fec2d314830ad68370e6f2fce93dd81c79e6f3b30ec06375f49f393a",
+  "declared_files": [
+    "OpenRA.Mods.Common/Widgets/ProductionTabsWidget.cs"
+  ],
+  "build_class": "incremental_dotnet"
+}

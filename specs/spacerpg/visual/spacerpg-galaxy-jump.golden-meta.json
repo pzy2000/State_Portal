@@ -1,0 +1,13 @@
+{
+  "actions": 2,
+  "after": "specs/spacerpg/visual/spacerpg-galaxy-jump.after.golden.png",
+  "after_sha256": "4d2bab9aafb3499104e809229e07db12b7da3e291549e4a4d83fc468f203ff06",
+  "before": "specs/spacerpg/visual/spacerpg-galaxy-jump.before.golden.png",
+  "before_sha256": "4f66eeead82a90556b1b1b7fd6ca94bb14ac1d7e395f59221a0ee2effba9f091",
+  "benchmark": "spacerpg",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/spacerpg/galaxy-jump.yaml",
+  "spec_sha256": "27d1ea7aadd203730c2785297ee4dc3d98ffcd76d03763d8e37c75a7248630ab",
+  "task_id": "spacerpg-galaxy-jump"
+}

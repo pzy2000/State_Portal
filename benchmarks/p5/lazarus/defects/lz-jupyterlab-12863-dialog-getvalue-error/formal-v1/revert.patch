@@ -1,0 +1,19 @@
+diff --git a/packages/apputils/src/dialog.tsx b/packages/apputils/src/dialog.tsx
+index e2d9db2..62f6432 100644
+--- a/packages/apputils/src/dialog.tsx
++++ b/packages/apputils/src/dialog.tsx
+@@ -512,7 +512,13 @@ export class Dialog<T> extends Widget {
+       body instanceof Widget &&
+       typeof body.getValue === 'function'
+     ) {
+-      value = body.getValue();
++      try {
++        value = body.getValue();
++      } catch (err) {
++        this.dispose();
++        promise.reject(err);
++        return;
++      }
+     }
+     this.dispose();
+     promise.resolve({

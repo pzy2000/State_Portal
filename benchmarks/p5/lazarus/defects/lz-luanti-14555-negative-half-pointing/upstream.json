@@ -1,0 +1,242 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [
+    {
+      "author": "Desour",
+      "body_normalized": "Can reproduce.",
+      "body_raw": "Can reproduce.",
+      "body_sha256": "b82262eda73d15c096173767d861f461aa21c825c33eb38c7bd5565a693fb541",
+      "created_at": "2024-04-17T13:55:46Z",
+      "id": 2061325354,
+      "source": "issue_comment",
+      "updated_at": "2024-04-17T13:55:46Z",
+      "url": "https://github.com/luanti-org/luanti/issues/14554#issuecomment-2061325354"
+    },
+    {
+      "author": "Desour",
+      "body_normalized": "Done.\nIt's kinda amusing how this corner case was explicitly not tested:\n>// Do not test lines that start or end on the border of\n>// two voxels as rounding errors can make the test fail!",
+      "body_raw": "Done.\r\nIt's kinda amusing how this corner case was explicitly not tested:\r\n>// Do not test lines that start or end on the border of\r\n>// two voxels as rounding errors can make the test fail!",
+      "body_sha256": "8af60c8d4930ce0fac71e26108b6dce8ec3054dfe9e65c18e93b3ba9e92e9c2e",
+      "created_at": "2024-04-18T15:28:44Z",
+      "id": 2064239070,
+      "source": "pull_request_comment",
+      "updated_at": "2024-04-18T15:28:44Z",
+      "url": "https://github.com/luanti-org/luanti/pull/14555#issuecomment-2064239070"
+    },
+    {
+      "author": "sfan5",
+      "body_normalized": "btw\n```suggestion\n\tfor (f32 x = -3.0f; x < 3.1f; x += 0.5f)\n\tfor (f32 y = -3.0f; y < 3.1f; y += 0.5f)\n\tfor (f32 z = -3.0f; z < 3.1f; z += 0.5f) {\n\t\tlines.emplace_back(-x, -y, -z, x, y, z);\n\t}\n```",
+      "body_raw": "btw\r\n```suggestion\r\n\tfor (f32 x = -3.0f; x < 3.1f; x += 0.5f)\r\n\tfor (f32 y = -3.0f; y < 3.1f; y += 0.5f)\r\n\tfor (f32 z = -3.0f; z < 3.1f; z += 0.5f) {\r\n\t\tlines.emplace_back(-x, -y, -z, x, y, z);\r\n\t}\r\n```",
+      "body_sha256": "0485ce6a6c010cc1f247185cd4d14da49b91a0b997a8b8fe0e893889e26555c8",
+      "created_at": "2024-04-19T11:29:37Z",
+      "id": 1572233248,
+      "source": "pull_request_inline_comment",
+      "updated_at": "2024-04-19T11:29:37Z",
+      "url": "https://github.com/luanti-org/luanti/pull/14555#discussion_r1572233248"
+    }
+  ],
+  "fix_commit": "5a07f5a652717b72a746d27d48e027600a6fce7c",
+  "issue": {
+    "author": "Wuzzy2",
+    "body_normalized": "### Minetest version\n\n```true\n5.8.0\n```\n\n\n### Irrlicht device\n\nX11\n\n### Operating system and version\n\nParabola\n\n### CPU model\n\n_No response_\n\n### GPU model\n\n_No response_\n\n### Active renderer\n\nOpenGL 4.5\n\n### Summary\n\nIf you stand at a position where the fractional part of the X or Z coordinate is EXACTLY .5 AND the same coordinate is negative, you can't point nearby nodes. Example numbers: -10.5, -4.5, -0.5.\n\n\n**Significance**:\n\nNormally, this bug is unlikely to occur since the player has to match that bad coordinate EXACTLY. But a player can get at such a coordinate via `set_pos`. If the player is then unable to move, this bug is suddenly much more visible.\n\nI've discovered this by reworking the bed in Repixture, which puts the player at a .5 coordinate (in the middle of the bed). The workaround was to put the player at a slightly different coordinate.\n\n### Steps to reproduce\n\n1. Generate a flat world\n2. Do this command: `/teleport -10.5 ~ ~`\n3. Try to point the nodes near you (don't walk!)\n\nExpected result: You can point every node.\nActual result: You can't point the nodes close to you, but the ones further away can be pointed.\n\nNote: It doesn't have to be -10.5. It can be any number `X-0.5`, where X is a negative whole number. This also happens with the Z axis. You can also try to set both X and Z. I haven't tested Y.\n\nThe pointing failure stops as soon you move the tiniest bit.",
+    "body_raw": "### Minetest version\n\n```true\n5.8.0\n```\n\n\n### Irrlicht device\n\nX11\n\n### Operating system and version\n\nParabola\n\n### CPU model\n\n_No response_\n\n### GPU model\n\n_No response_\n\n### Active renderer\n\nOpenGL 4.5\n\n### Summary\n\nIf you stand at a position where the fractional part of the X or Z coordinate is EXACTLY .5 AND the same coordinate is negative, you can't point nearby nodes. Example numbers: -10.5, -4.5, -0.5.\r\n\r\n\r\n**Significance**:\r\n\r\nNormally, this bug is unlikely to occur since the player has to match that bad coordinate EXACTLY. But a player can get at such a coordinate via `set_pos`. If the player is then unable to move, this bug is suddenly much more visible.\r\n\r\nI've discovered this by reworking the bed in Repixture, which puts the player at a .5 coordinate (in the middle of the bed). The workaround was to put the player at a slightly different coordinate.\n\n### Steps to reproduce\n\n1. Generate a flat world\r\n2. Do this command: `/teleport -10.5 ~ ~`\r\n3. Try to point the nodes near you (don't walk!)\r\n\r\nExpected result: You can point every node.\r\nActual result: You can't point the nodes close to you, but the ones further away can be pointed.\r\n\r\nNote: It doesn't have to be -10.5. It can be any number `X-0.5`, where X is a negative whole number. This also happens with the Z axis. You can also try to set both X and Z. I haven't tested Y.\r\n\r\nThe pointing failure stops as soon you move the tiniest bit.",
+    "body_sha256": "97bbd57a42a34fafd665942a2a08fdabe3a882d50b7e7664b8048db8e7094fd9",
+    "closed_at": "2024-04-20T11:03:35Z",
+    "created_at": "2024-04-17T11:38:41Z",
+    "merged_at": null,
+    "number": 14554,
+    "state": "closed",
+    "title": "Pointing problems when you stand exactly at (-10.5, ?, ?)",
+    "updated_at": "2024-04-20T11:03:35Z",
+    "url": "https://github.com/luanti-org/luanti/issues/14554"
+  },
+  "patch_sha256": "d94a134b545ef0a15cabe782a707587d3de8bddb70dbe784f32c0b2897e53813",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "author": "Desour",
+    "body_normalized": "Fixes #14554.\n\n## To do\n\nThis PR is a Ready for Review.\n## How to test\n\n* See #14554.\n* `minetest --run-unittests --test-module TestVoxelAlgorithms`",
+    "body_raw": "Fixes #14554.\r\n\r\n## To do\r\n\r\nThis PR is a Ready for Review.\r\n## How to test\r\n\r\n* See #14554.\r\n* `minetest --run-unittests --test-module TestVoxelAlgorithms`\r\n",
+    "body_sha256": "5e5aef1cf9a36e896e340bf1026bcffd61fce7cd5590af34e8987d051783121b",
+    "closed_at": "2024-04-20T11:03:34Z",
+    "created_at": "2024-04-17T14:36:20Z",
+    "merged_at": "2024-04-20T11:03:34Z",
+    "number": 14555,
+    "state": "closed",
+    "title": "Fix inconsistent rounding in VoxelLineIterator::VoxelLineIterator",
+    "updated_at": "2024-04-20T14:11:41Z",
+    "url": "https://github.com/luanti-org/luanti/pull/14555"
+  },
+  "record_sha256": "b9af4a8b5e91a15d0907099535565f368c51a4344fc1689ed62ae4b8ff94fa51",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-11T13:12:19Z",
+  "reviews": [
+    {
+      "author": "sfan5",
+      "body_normalized": "Looks good, consider adding an unit test.",
+      "body_raw": "Looks good, consider adding an unit test.",
+      "body_sha256": "bbcfb32a6ab6ab3e9541624a5ec6a745de5ea2fc66a6240c52e0418dedc4c546",
+      "created_at": "2024-04-18T13:29:58Z",
+      "id": 2008914218,
+      "source": "pull_request_review",
+      "state": "APPROVED",
+      "url": "https://github.com/luanti-org/luanti/pull/14555#pullrequestreview-2008914218"
+    },
+    {
+      "author": "sfan5",
+      "body_normalized": "",
+      "body_raw": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "created_at": "2024-04-19T11:29:37Z",
+      "id": 2011190614,
+      "source": "pull_request_review",
+      "state": "COMMENTED",
+      "url": "https://github.com/luanti-org/luanti/pull/14555#pullrequestreview-2011190614"
+    }
+  ],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-14555-negative-half-pointing",
+  "tests": [
+    {
+      "argv": [
+        "./bin/luanti",
+        "--run-unittests",
+        "--test-module",
+        "TestVoxelAlgorithms"
+      ],
+      "command": [
+        "./bin/luanti",
+        "--run-unittests",
+        "--test-module",
+        "TestVoxelAlgorithms"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "src/unittest/test_voxelalgorithms.cpp",
+          "sha256": "487d853db8eceb066b54e661ae6a47b118b0dcd077a38c8b559addd3863ac888",
+          "source_path": "upstream-tests/src/unittest/test_voxelalgorithms.cpp"
+        }
+      ],
+      "id": "luanti-pr14555-voxel-line-iterator-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestVoxelAlgorithms.testVoxelLineIterator",
+      "source_url": "https://github.com/luanti-org/luanti/blob/5a07f5a652717b72a746d27d48e027600a6fce7c/src/unittest/test_voxelalgorithms.cpp",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "src/unittest/test_voxelalgorithms.cpp",
+          "sha256": "487d853db8eceb066b54e661ae6a47b118b0dcd077a38c8b559addd3863ac888",
+          "source_url": "https://github.com/luanti-org/luanti/blob/5a07f5a652717b72a746d27d48e027600a6fce7c/src/unittest/test_voxelalgorithms.cpp"
+        }
+      ],
+      "upstream_test_path": "src/unittest/test_voxelalgorithms.cpp",
+      "upstream_test_sha256": "487d853db8eceb066b54e661ae6a47b118b0dcd077a38c8b559addd3863ac888"
+    },
+    {
+      "argv": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "command": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed",
+          "source_path": "upstream-tests/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "id": "luanti-vector-zero-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "vector zero()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/5a07f5a652717b72a746d27d48e027600a6fce7c/builtin/common/tests/vector_spec.lua",
+      "timeout_s": 60,
+      "upstream_runner_root": ".warptest-cache/lazarus/tools/luanti-busted-luajit",
+      "upstream_runner_tree_sha256": "8e52972a9ade81d36ec6225831d24ec6ceeef306f1841db8a29fd22c21fb19b2",
+      "upstream_test_files": [
+        {
+          "path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed",
+          "source_url": "https://github.com/luanti-org/luanti/blob/5a07f5a652717b72a746d27d48e027600a6fce7c/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "upstream_test_path": "builtin/common/tests/vector_spec.lua",
+      "upstream_test_sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed"
+    },
+    {
+      "argv": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "command": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "cwd": ".",
+      "id": "luanti-vector-zero-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "vector zero()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/vector_spec.lua",
+      "timeout_s": 60,
+      "upstream_runner_root": ".warptest-cache/lazarus/tools/luanti-busted-luajit",
+      "upstream_runner_tree_sha256": "8e52972a9ade81d36ec6225831d24ec6ceeef306f1841db8a29fd22c21fb19b2",
+      "upstream_test_files": [
+        {
+          "path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "1a9934c6e46eba7ab58894285e676e65970b0dab419df3ea05be66cdc50139f0",
+          "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "upstream_test_path": "builtin/common/tests/vector_spec.lua",
+      "upstream_test_sha256": "1a9934c6e46eba7ab58894285e676e65970b0dab419df3ea05be66cdc50139f0"
+    }
+  ],
+  "touched_files": [
+    "src/unittest/test_voxelalgorithms.cpp",
+    "src/voxelalgorithms.cpp"
+  ],
+  "upstream_commits": [
+    {
+      "author": "Desour",
+      "authored_at": "2024-04-17T14:33:27Z",
+      "body_normalized": "Fix inconsistent rounding in VoxelLineIterator::VoxelLineIterator\n\nfloatToInt rounds 0.5 differently depending on sign.",
+      "body_raw": "Fix inconsistent rounding in VoxelLineIterator::VoxelLineIterator\n\nfloatToInt rounds 0.5 differently depending on sign.",
+      "body_sha256": "fab9f4875de75f67e621d372497de808094e26ae587f6d2176ffe6e83ed65e52",
+      "sha": "c10d2f545dc00640b94ab3e89721186da98ed0ca",
+      "url": "https://github.com/luanti-org/luanti/commit/c10d2f545dc00640b94ab3e89721186da98ed0ca"
+    },
+    {
+      "author": "Desour",
+      "authored_at": "2024-04-18T15:25:31Z",
+      "body_normalized": "update testVoxelLineIterator unit test",
+      "body_raw": "update testVoxelLineIterator unit test",
+      "body_sha256": "ca97e7b67d431f74f954040b4467fb02c9a9ff63dbc53ef7ddf81fcb0535ef24",
+      "sha": "89b80295f341e13cf2f8a768780fec0c94dc74f8",
+      "url": "https://github.com/luanti-org/luanti/commit/89b80295f341e13cf2f8a768780fec0c94dc74f8"
+    },
+    {
+      "author": "Desour",
+      "authored_at": "2024-04-19T17:24:52Z",
+      "body_normalized": "code style",
+      "body_raw": "code style",
+      "body_sha256": "d749bb0da4721e607c4a59afd72629c434fbeaeaffd571d2421ccb3ba975b20a",
+      "sha": "d6b19ac9a1ef6ffd9f754a0c6d38c11dbc052df7",
+      "url": "https://github.com/luanti-org/luanti/commit/d6b19ac9a1ef6ffd9f754a0c6d38c11dbc052df7"
+    }
+  ]
+}

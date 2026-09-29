@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "after": "specs/2048/visual/2048-double-merge-left.after.golden.png",
+  "after_sha256": "486c873efe4d10f81a30496d701958ba24db300f4189d9ca04ad2c164ce81557",
+  "before": "specs/2048/visual/2048-double-merge-left.before.golden.png",
+  "before_sha256": "78717be6158ff12d48ecf9337da9dc79df9ebcd4cbf9aa90e0fee1656b98abcb",
+  "benchmark": "2048",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/2048/double-merge-left.yaml",
+  "spec_sha256": "17f221a46f4d6c0cc279eb5e5133c7313eeafe8fe34a25685dd5c4712c2cc5d6",
+  "task_id": "2048-double-merge-left"
+}

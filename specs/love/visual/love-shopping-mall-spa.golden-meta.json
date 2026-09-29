@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "after": "specs/love/visual/love-shopping-mall-spa.after.golden.png",
+  "after_sha256": "f5ea31ab9cd74b027121fb8c46c2789714b88b4dc1c8c5565e56cc4135bd8fe4",
+  "before": "specs/love/visual/love-shopping-mall-spa.before.golden.png",
+  "before_sha256": "53cd60b69a5f4bc9becf93e833020c5f9a97236a1dd93db5047e299c87408304",
+  "benchmark": "DatingSim",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/love/shopping-mall-spa.yaml",
+  "spec_sha256": "84b4080afec91f2703ca9824eb79e04294d626ccfa89aadf7cf9b3a338bed56e",
+  "task_id": "love-shopping-mall-spa"
+}

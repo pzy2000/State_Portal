@@ -1,0 +1,124 @@
+{
+  "authority": "github",
+  "benchmark": "jupyterlab",
+  "comments": [],
+  "fix_commit": "149cfb63a45592a085adc352785ea6de9b34378e",
+  "issue": {
+    "body_normalized": "When using the Jupyter notebook workspaces in PrairieLearn, my students and I are frequently getting the error \"XSRF Cookies do not match Post Argument\", which (depending on when it occurs) prevents users from either launching kernels or saving files.\n\n\n<img width=\"1680\" alt=\"image\" src=\"https://github.com/jupyterlab/jupyterlab/assets/397476/c8bec87b-2f28-4fdb-871d-588756272b5b\">\n\nUnfortunately, at the moment I don't have many useful details to add.\n\n- It happens on all browsers (Chrome, Safari, Firefox)\n- I don't see any pattern to when it happens.  The problem usually happens when opening the notebook; but, sometimes it pops up after having been working in the notebook for awhile.\n- Refreshing the page and/or opening/closing the notebook doesn't usually fix the problem.\n- Sometimes opening the workbook in a new browser works, sometimes it doesn't.\n- Eventually the problem just goes away.  For example, it's not uncommon for the error to simply go away if I walk away for 5 minutes or so.\n\nThe PrairieLearn people have looked and, from what they can tell, the issue seems to be entirely in jupyter.\n\n## Reproduce\n\nThe bug is intermittent.  It appears seemingly at random when opening a workbook.\n\n## Expected behavior\n\nNo XSRF errors.\n\n## Context\n\n- Operating System and version: All.  (I use macOS 13.5)\n- Browser and version: All.  (I use Chrome 116.0.5845.110)\n- JupyterLab version: 2.2.9\n\nHere is one example of some workbooks that exhibited the error. I'm not sure how to get you all access; but, I can ask the PrairieLearn people when you get a chance to dig in:\n\nhttps://us.prairielearn.com/pl/workspace/1105215\nhttps://us.prairielearn.com/pl/workspace/1112412\nhttps://us.prairielearn.com/pl/workspace/1112414\nhttps://us.prairielearn.com/pl/workspace/1105701\n\nI'll try to add details as I think of what to capture. (The challenge is that this tends to happen during class, so I usually can't stop and dig into the developer console.)",
+    "body_raw": "When using the Jupyter notebook workspaces in PrairieLearn, my students and I are frequently getting the error \"XSRF Cookies do not match Post Argument\", which (depending on when it occurs) prevents users from either launching kernels or saving files.\r\n\r\n\r\n<img width=\"1680\" alt=\"image\" src=\"https://github.com/jupyterlab/jupyterlab/assets/397476/c8bec87b-2f28-4fdb-871d-588756272b5b\">\r\n\r\nUnfortunately, at the moment I don't have many useful details to add.\r\n\r\n- It happens on all browsers (Chrome, Safari, Firefox)\r\n- I don't see any pattern to when it happens.  The problem usually happens when opening the notebook; but, sometimes it pops up after having been working in the notebook for awhile.\r\n- Refreshing the page and/or opening/closing the notebook doesn't usually fix the problem.\r\n- Sometimes opening the workbook in a new browser works, sometimes it doesn't.\r\n- Eventually the problem just goes away.  For example, it's not uncommon for the error to simply go away if I walk away for 5 minutes or so.\r\n\r\nThe PrairieLearn people have looked and, from what they can tell, the issue seems to be entirely in jupyter.\r\n\r\n## Reproduce\r\n\r\nThe bug is intermittent.  It appears seemingly at random when opening a workbook.\r\n\r\n## Expected behavior\r\n\r\nNo XSRF errors.\r\n\r\n## Context\r\n\r\n- Operating System and version: All.  (I use macOS 13.5)\r\n- Browser and version: All.  (I use Chrome 116.0.5845.110)\r\n- JupyterLab version: 2.2.9\r\n\r\nHere is one example of some workbooks that exhibited the error. I'm not sure how to get you all access; but, I can ask the PrairieLearn people when you get a chance to dig in:  \r\n\r\nhttps://us.prairielearn.com/pl/workspace/1105215\r\nhttps://us.prairielearn.com/pl/workspace/1112412\r\nhttps://us.prairielearn.com/pl/workspace/1112414\r\nhttps://us.prairielearn.com/pl/workspace/1105701\r\n\r\nI'll try to add details as I think of what to capture. (The challenge is that this tends to happen during class, so I usually can't stop and dig into the developer console.)\r\n\r\n",
+    "body_sha256": "a5bc280bae1693d9938304f8be6763d553e66be7f0e3881ac5a2db105f3f0e45",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 15083,
+    "state": "closed",
+    "title": "Frequent \"XSRF Cookies do not match Post Argument\" errors",
+    "url": "https://github.com/jupyterlab/jupyterlab/issues/15083"
+  },
+  "patch_sha256": "73e17cad1d00d7e44ed68257dd580d6251c0af4851914cca7dfa2fc7eb2ba90b",
+  "pinned_revision": "149cfb63a45592a085adc352785ea6de9b34378e",
+  "pull_request": {
+    "body_normalized": "<!--\nThanks for contributing to JupyterLab!\nPlease fill out the following items to submit a pull request.\nSee the contributing guidelines for more information:\nhttps://github.com/jupyterlab/jupyterlab/blob/main/CONTRIBUTING.md\n-->\n\n## References\n\nCloses #15083\n<!-- Note issue numbers this pull request addresses (should be at least one, see contributing guidelines above). -->\n\n<!-- Note any other pull requests that address this issue and how this pull request is different. -->\n\n## Code changes\n\nThis changes the behavior of the cookie parser to return the last match, if there are multiple, instead of the first. The reasoning for this is explained in a comment in the source.\n<!-- Describe the code changes and how they address the issue. -->\n\n## User-facing changes\n\nNone\n\n<!-- Describe any visual or user interaction changes and how they address the issue. -->\n\n<!-- For visual changes, include before and after screenshots or GIF/mp4/other video demo here. -->\n\n## Backwards-incompatible changes\n\nNone\n<!-- Describe any backwards-incompatible changes to JupyterLab public APIs. -->\n\n## AI usage\n\n- YES: Some or all of the content of this PR was generated by AI.\n- YES: The human author has carefully reviewed this PR and run this code -- I have added a test case for the behavior change.\n- AI tools and models used: Claude 4.6 Opus",
+    "body_raw": "<!--\r\nThanks for contributing to JupyterLab!\r\nPlease fill out the following items to submit a pull request.\r\nSee the contributing guidelines for more information:\r\nhttps://github.com/jupyterlab/jupyterlab/blob/main/CONTRIBUTING.md\r\n-->\r\n\r\n## References\r\n\r\nCloses #15083 \r\n<!-- Note issue numbers this pull request addresses (should be at least one, see contributing guidelines above). -->\r\n\r\n<!-- Note any other pull requests that address this issue and how this pull request is different. -->\r\n\r\n## Code changes\r\n\r\nThis changes the behavior of the cookie parser to return the last match, if there are multiple, instead of the first. The reasoning for this is explained in a comment in the source.\r\n<!-- Describe the code changes and how they address the issue. -->\r\n\r\n## User-facing changes\r\n\r\nNone\r\n\r\n<!-- Describe any visual or user interaction changes and how they address the issue. -->\r\n\r\n<!-- For visual changes, include before and after screenshots or GIF/mp4/other video demo here. -->\r\n\r\n## Backwards-incompatible changes\r\n\r\nNone\r\n<!-- Describe any backwards-incompatible changes to JupyterLab public APIs. -->\r\n\r\n## AI usage\r\n\r\n- YES: Some or all of the content of this PR was generated by AI.\r\n- YES: The human author has carefully reviewed this PR and run this code -- I have added a test case for the behavior change.\r\n- AI tools and models used: Claude 4.6 Opus\r\n",
+    "body_sha256": "0b3f9f9a95500aecf7567a9dee655c442a806b57c8e3110bcbe641eea1dfb0b4",
+    "kind": "pull",
+    "merged_at": "2026-04-27T14:59:22Z",
+    "number": 18518,
+    "state": "closed",
+    "title": "Fix XSRF cookie selection to use last matching value for duplicate paths",
+    "url": "https://github.com/jupyterlab/jupyterlab/pull/18518"
+  },
+  "record_sha256": "970fc1728429bff2290a8e572c35cb9c4da304344e8ec3a6eb4ee552e322b68e",
+  "repository": "jupyterlab/jupyterlab",
+  "retrieved_at": "2026-08-15T03:27:30.895144Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-18518-xsrf-duplicate-cookie",
+  "tests": [
+    {
+      "command": [
+        "jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/serverconnection.spec.ts",
+        "-t",
+        "ServerConnection XSRF cookie handling should use the last matching cookie when duplicates exist"
+      ],
+      "cwd": "packages/services",
+      "frozen_attempt_command": [
+        "/opt/homebrew/Cellar/node@22/22.22.0_1/bin/node",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18518/current-v1/buggy/node_modules/jest/bin/jest.js",
+        "--config",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18518/current-v1/buggy/packages/services/jest.config.js",
+        "--runTestsByPath",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18518/current-v1/buggy/packages/services/test/serverconnection.spec.ts",
+        "--testNamePattern",
+        "^ServerConnection \\.makeRequest\\(\\) should make a request to the server$",
+        "--runInBand",
+        "--no-cache",
+        "--cacheDirectory",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runtime-home/jupyterlab-18518-gate57-v1/p2p/buggy/3/jest-cache",
+        "--json",
+        "--outputFile",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runtime-home/jupyterlab-18518-gate57-v1/p2p/buggy/3/jest-result.json"
+      ],
+      "id": "ServerConnection XSRF cookie handling should use the last matching cookie when duplicates exist",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_regression_test",
+      "source_case": "ServerConnection XSRF cookie handling should use the last matching cookie when duplicates exist",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/services/test/serverconnection.spec.ts",
+      "upstream_test_path": "packages/services/test/serverconnection.spec.ts",
+      "upstream_test_sha256": "d7dae9f49c7e41eceaea7c265bf84984990a89b32a7433ec3d6517b5ef1b6989"
+    },
+    {
+      "command": [
+        "jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/serverconnection.spec.ts",
+        "-t",
+        "ServerConnection .makeRequest() should make a request to the server"
+      ],
+      "cwd": "packages/services",
+      "frozen_attempt_command": [
+        "/opt/homebrew/Cellar/node@22/22.22.0_1/bin/node",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18518/current-v1/buggy/node_modules/jest/bin/jest.js",
+        "--config",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18518/current-v1/buggy/packages/services/jest.config.js",
+        "--runTestsByPath",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/materialized/jupyterlab/18518/current-v1/buggy/packages/services/test/serverconnection.spec.ts",
+        "--testNamePattern",
+        "^ServerConnection \\.makeRequest\\(\\) should make a request to the server$",
+        "--runInBand",
+        "--no-cache",
+        "--cacheDirectory",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runtime-home/jupyterlab-18518-gate57-v1/p2p/buggy/3/jest-cache",
+        "--json",
+        "--outputFile",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runtime-home/jupyterlab-18518-gate57-v1/p2p/buggy/3/jest-result.json"
+      ],
+      "id": "ServerConnection .makeRequest() should make a request to the server",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_regression_test",
+      "source_case": "ServerConnection .makeRequest() should make a request to the server",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/services/test/serverconnection.spec.ts",
+      "upstream_test_path": "packages/services/test/serverconnection.spec.ts",
+      "upstream_test_sha256": "d7dae9f49c7e41eceaea7c265bf84984990a89b32a7433ec3d6517b5ef1b6989"
+    }
+  ],
+  "touched_files": [
+    "packages/services/src/serverconnection.ts",
+    "packages/services/test/serverconnection.spec.ts"
+  ],
+  "upstream_commits": [
+    {
+      "body_normalized": "Fix XSRF cookie selection to use last matching value for duplicate paths (#18518)\n\n<!--\nThanks for contributing to JupyterLab!\nPlease fill out the following items to submit a pull request.\nSee the contributing guidelines for more information:\nhttps://github.com/jupyterlab/jupyterlab/blob/main/CONTRIBUTING.md\n-->\n\n## References\n\nCloses #15083\n<!-- Note issue numbers this pull request addresses (should be at least\none, see contributing guidelines above). -->\n\n<!-- Note any other pull requests that address this issue and how this\npull request is different. -->\n\n## Code changes\n\nThis changes the behavior of the cookie parser to return the last match,\nif there are multiple, instead of the first. The reasoning for this is\nexplained in a comment in the source.\n<!-- Describe the code changes and how they address the issue. -->\n\n## User-facing changes\n\nNone\n\n<!-- Describe any visual or user interaction changes and how they\naddress the issue. -->\n\n<!-- For visual changes, include before and after screenshots or\nGIF/mp4/other video demo here. -->\n\n## Backwards-incompatible changes\n\nNone\n<!-- Describe any backwards-incompatible changes to JupyterLab public\nAPIs. -->\n\n## AI usage\n\n- YES: Some or all of the content of this PR was generated by AI.\n- YES: The human author has carefully reviewed this PR and run this code\n-- I have added a test case for the behavior change.\n- AI tools and models used: Claude 4.6 Opus\n\n---------\n\nCo-authored-by: Claude Opus 4.6 <noreply@anthropic.com>\nCo-authored-by: Michał Krassowski <5832902+krassowski@users.noreply.github.com>",
+      "body_raw": "Fix XSRF cookie selection to use last matching value for duplicate paths (#18518)\n\n<!--\nThanks for contributing to JupyterLab!\nPlease fill out the following items to submit a pull request.\nSee the contributing guidelines for more information:\nhttps://github.com/jupyterlab/jupyterlab/blob/main/CONTRIBUTING.md\n-->\n\n## References\n\nCloses #15083 \n<!-- Note issue numbers this pull request addresses (should be at least\none, see contributing guidelines above). -->\n\n<!-- Note any other pull requests that address this issue and how this\npull request is different. -->\n\n## Code changes\n\nThis changes the behavior of the cookie parser to return the last match,\nif there are multiple, instead of the first. The reasoning for this is\nexplained in a comment in the source.\n<!-- Describe the code changes and how they address the issue. -->\n\n## User-facing changes\n\nNone\n\n<!-- Describe any visual or user interaction changes and how they\naddress the issue. -->\n\n<!-- For visual changes, include before and after screenshots or\nGIF/mp4/other video demo here. -->\n\n## Backwards-incompatible changes\n\nNone\n<!-- Describe any backwards-incompatible changes to JupyterLab public\nAPIs. -->\n\n## AI usage\n\n- YES: Some or all of the content of this PR was generated by AI.\n- YES: The human author has carefully reviewed this PR and run this code\n-- I have added a test case for the behavior change.\n- AI tools and models used: Claude 4.6 Opus\n\n---------\n\nCo-authored-by: Claude Opus 4.6 <noreply@anthropic.com>\nCo-authored-by: Michał Krassowski <5832902+krassowski@users.noreply.github.com>",
+      "body_sha256": "d6be759206ec2c0ac412295abd9341a2734966b1d6c714a851d148afa6c5a513",
+      "sha": "149cfb63a45592a085adc352785ea6de9b34378e",
+      "url": "https://github.com/jupyterlab/jupyterlab/commit/149cfb63a45592a085adc352785ea6de9b34378e"
+    }
+  ]
+}

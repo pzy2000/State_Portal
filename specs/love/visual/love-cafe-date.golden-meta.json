@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "after": "specs/love/visual/love-cafe-date.after.golden.png",
+  "after_sha256": "15d032f6ce785916e8232fbfcc11d2e01a16b8f014d3eb9bdce9a8b7c733922f",
+  "before": "specs/love/visual/love-cafe-date.before.golden.png",
+  "before_sha256": "e0c5d818451e1fae5b92704c23e8467d53538e9805f0c8cdca82c4fd156bd7da",
+  "benchmark": "datingsim",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/love/cafe-date.yaml",
+  "spec_sha256": "807327499ccc2bfc8173c0125b2a4c37ff4d1224736b3a22165288b95a1e4f9e",
+  "task_id": "love-cafe-date"
+}

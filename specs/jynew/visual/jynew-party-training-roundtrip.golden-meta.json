@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/jynew/visual/c1-party-training-roundtrip.after.golden.png",
+  "after_dimensions": [
+    1280,
+    720
+  ],
+  "after_sha256": "c8bb3ec015f04308d4a467a118a3301d4d347b6e1dc34dbd4547c8299d07728f",
+  "before": "specs/jynew/visual/c1-party-training-roundtrip.before.golden.png",
+  "before_dimensions": [
+    1280,
+    720
+  ],
+  "before_sha256": "286ffa073c4fe9e516bd2154dd6fbe11bd68a12c5356105a4a2a1f03fe17990e",
+  "benchmark": "jynew",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/jynew/c1-party-training-roundtrip.yaml",
+  "spec_sha256": "8e992bf3ff15684c6c757e37cd6ebe4825ab6ecc0386adffc78061131e9308f8",
+  "task_id": "jynew-party-training-roundtrip"
+}

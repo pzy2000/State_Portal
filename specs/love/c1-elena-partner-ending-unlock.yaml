@@ -1,0 +1,210 @@
+name: C1 DatingSim Elena partner ending unlock
+benchmark: datingsim
+tags: [love, c1, deep-chain, ending, no-openai]
+setup: {ai_mode: mocked}
+target:
+  kind: deterministic_state
+  player_name: WarpTest
+  gender: male
+  patch:
+    player:
+      resources: {money: 1000, energy: 100}
+      relationships:
+        char_1:
+          trust: 75
+          attraction: 85
+          comfort: 70
+          respect: 70
+          investment: 55
+          conflict: 0
+          status: dating
+          history: ["Completed Elena gallery arc."]
+          memories: ["Elena shared her plans after the gallery opening."]
+    world:
+      week: 8
+      day: 5
+      timeSlot: evening
+      location: restaurant
+      globalFlags: {elena_gallery_arc_complete: true, elena_partner_ending_ready: false}
+  expect:
+    location: restaurant
+    relationships:
+      char_1: {trust: 75, attraction: 85, status: dating}
+checkpoint:
+  allowed_strategies: [test_hook_seeded_state]
+  expected_validity: save-restorable
+actions:
+  - {type: click, selector: '[data-location-id="cafe"]'}
+  - {type: click, selector: '[data-action-id="date_coffee"]'}
+  - {type: settle_events, timeout_s: 12}
+  - {type: click, selector: '[data-location-id="restaurant"]'}
+  - {type: click, selector: '[data-action-id="commit_elena_partner"]'}
+  - {type: click, selector: '[data-ui-action="save"]'}
+  - {type: click, selector: '[data-ui-action="load"]'}
+  - {type: wait, ms: 500}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: state_equals, path: player.title, value: Committed Partner}
+      - {type: state_equals, path: player.relationships.char_1.status, value: partner}
+      - {type: state_equals, path: player.relationships.char_1.trust, value: 85}
+      - {type: state_equals, path: player.relationships.char_1.comfort, value: 80}
+      - {type: state_equals, path: player.relationships.char_1.attraction, value: 90}
+      - {type: state_equals, path: player.relationships.char_1.investment, value: 65}
+      - {type: state_equals, path: world.globalFlags.elena_partner_ending_ready, value: true}
+      - {type: state_equals, path: world.globalFlags.elena_gallery_arc_complete, value: true}
+      - {type: state_contains, path: player.relationships.char_1.history, value: "Committed to a long-term relationship."}
+      - {type: state_contains, path: player.relationships.char_1.memories, value: "Elena accepted the final relationship commitment."}
+      - {type: no_real_openai}
+      - {type: no_severe_console}
+    surfaces:
+      gui:
+        adapter: love_production_save_roundtrip_v1
+        start:
+          validate_target: true
+          checks:
+          - name: probe.semantic_observation_error
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: semantic_observation_error
+            expected:
+              value: null
+          - name: screen.gameplay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.screen
+            expected:
+              value: gameplay
+          - name: state.isSetupComplete
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.isSetupComplete
+            expected:
+              value: true
+          - name: state.player.name
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.name
+            expected:
+              value: WarpTest
+          - name: state.player.gender
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.gender
+            expected:
+              value: male
+          - name: dom.player_name
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.player_name
+            expected:
+              value: WarpTest
+          - name: dom.app_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.app_visible
+            expected:
+              value: true
+          - name: dom.dashboard_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.dashboard_visible
+            expected:
+              value: true
+          - name: dom.location_panel_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.location_panel_visible
+            expected:
+              value: true
+          - name: dom.action_grid_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.action_grid_visible
+            expected:
+              value: true
+          - name: state.world.location
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.world.location
+            expected:
+              value: restaurant
+          - name: dom.active_location_index
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.active_location_index
+            expected:
+              value: 4
+          - name: environment.ai_query_mode
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.ai_query_mode
+            expected:
+              value: mocked
+        goal:
+          use_assertions: true
+          checks:
+          - name: transition.target_action_count
+            metric: equals
+            actual:
+              probe: love.target_action_count
+              action_id: null
+            expected:
+              value: 1
+          - name: transition.new_log_entries
+            metric: equals
+            actual:
+              probe: love.new_log_entries
+            expected:
+              value: 1
+      state:
+        adapter: love_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual/love-elena-partner-ending-unlock.after.golden.png
+    golden_before: visual/love-elena-partner-ending-unlock.before.golden.png
+    golden_after: visual/love-elena-partner-ending-unlock.after.golden.png
+    expected_label: correct
+    description: "The late-week Elena relationship state is visible before the commitment threshold."
+    after_description: "The advanced Elena partner state and Committed Partner title are visible after save/reload."
+    rubric:
+      must: ["The DatingSim late-game relationship UI is visible.", "Elena or the contacts/status area is present."]
+      must_not: ["A setup page, real API error, or crash is visible."]
+      ignore: ["Exact relationship-bar rendering."]
+    after_rubric:
+      must: ["The DatingSim game UI is visible.", "The status area is consistent with a committed partner outcome."]
+      must_not: ["The original uncommitted state dominates the screen.", "A real API error or crash is visible."]
+      ignore: ["Exact localization of partner labels; semantic assertions are authoritative."]
+    capture: {stage: post_smoke, wait_ms: 300, full_page: false, hide_selectors: [".modal-overlay:has(.event-title)"]}

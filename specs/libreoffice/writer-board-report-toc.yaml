@@ -1,0 +1,89 @@
+name: LibreOffice Writer board report TOC deep state
+benchmark: LibreOffice
+repo: ../../games/LibreOffice
+target:
+  kind: writer_document
+  path: writer-board-report-toc.odt
+  paragraphs:
+    - text: Executive Operations Review
+      style: Heading 1
+    - text: Draft status packet for the board meeting.
+    - text: Pipeline Recovery
+      style: Heading 2
+    - text: Initial recovery narrative is pending owner detail.
+    - text: Risk Register
+      style: Heading 2
+    - text: Security and delivery risks need the consolidated decision log.
+    - text: Appendix
+      style: Heading 1
+  tables:
+    Milestones:
+      - [Milestone, Owner, Status]
+      - [Platform audit, Mira, Open]
+      - [Launch review, Dev, At risk]
+checkpoint:
+  allowed_strategies: ["libreoffice_uno_document_validate"]
+  expected_validity: save-restorable
+actions:
+  - type: libreoffice_open_document
+  - type: libreoffice_insert_toc
+    title: Board Contents
+    include_styles: ["Heading 1", "Heading 2"]
+  - type: libreoffice_append_paragraph
+    text: "Q3 recovery owner: Casey. Decision log is ready for board review."
+  - type: libreoffice_set_table_cell
+    table: Milestones
+    cell: C2
+    value: Complete
+  - type: libreoffice_update_indexes
+  - type: libreoffice_save
+  - type: libreoffice_reopen
+  - type: libreoffice_export_pdf
+    path: writer-board-report-toc.pdf
+assertions:
+  - type: libreoffice_toc_contains
+    text: Pipeline Recovery
+  - type: libreoffice_text_contains
+    text: "Q3 recovery owner: Casey."
+  - type: libreoffice_table_cell_equals
+    table: Milestones
+    cell: C2
+    expected: Complete
+  - type: libreoffice_pdf_exists
+    path: writer-board-report-toc.pdf
+  - type: no_libreoffice_errors
+visual_oracle:
+  golden_image: visual/writer-board-report-toc.after.golden.png
+  golden_before: visual/writer-board-report-toc.before.golden.png
+  golden_after: visual/writer-board-report-toc.after.golden.png
+  expected_label: correct
+  description: "A LibreOffice Writer board report draft is visible with headings and a milestones table before the final TOC/update workflow."
+  rubric:
+    must:
+      - "LibreOffice Writer is visible with the board report content."
+      - "The document is not blank and contains report headings or a table."
+    must_not:
+      - "A crash dialog, blank window, or unrelated app is shown."
+    ignore:
+      - "Cursor position, zoom, platform toolbar differences, and pagination."
+  after_description: "After the workflow, the Writer report visibly includes a board contents section, the Q3 recovery owner paragraph, and the updated milestone status."
+  after_rubric:
+    must:
+      - "LibreOffice Writer is visible with the report document."
+      - "A contents/TOC area or updated report structure is visible."
+      - "The document reflects a completed milestone or the Q3 recovery owner addition."
+    must_not:
+      - "The screenshot shows only the original draft with no added report content."
+      - "A crash dialog, blank window, or unrelated app is shown."
+    ignore:
+      - "Exact page break, zoom, font metric, or toolbar differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 500
+    full_page: false
+tags:
+  - libreoffice
+  - writer
+  - deep-state
+  - toc
+timeout_ms: 240000

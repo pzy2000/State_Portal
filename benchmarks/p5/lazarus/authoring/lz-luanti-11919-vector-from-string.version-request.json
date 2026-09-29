@@ -1,0 +1,12 @@
+{
+  "task_id": "lz-luanti-11919-vector-from-string",
+  "source_repo": "games/luanti",
+  "fixed_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-luanti-11919-vector-from-string/revert.patch",
+  "patch_sha256": "62bc2f178e95ec10491678e9262b759eaf040e39647195ec9195fb67a6edc0be",
+  "declared_files": [
+    "builtin/common/tests/vector_spec.lua",
+    "builtin/common/vector.lua"
+  ],
+  "build_class": "none"
+}

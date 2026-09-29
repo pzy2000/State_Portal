@@ -1,0 +1,298 @@
+{
+  "authority": "gitea",
+  "benchmark": "blender",
+  "comments": [
+    {
+      "author": "PratikPB2123",
+      "body_normalized": "Hi, seems fine here in current main/5.2 (`df938d69e20f`)\n```\n**System Information**\nOperating system: macOS-26.3.1-arm64-arm-64bit-Mach-O 64 Bits\nGraphics card: Metal API Apple M3 Pro 1.2\n```\n\n<img width=\"1840\" alt=\"Screenshot 2026-03-17 at 4.17.43 PM.png\" src=\"attachments/5e739a59-3195-463a-91a8-3123b651c4cb\">",
+      "body_raw": "Hi, seems fine here in current main/5.2 (`df938d69e20f`)\r\n```\r\n**System Information**\r\nOperating system: macOS-26.3.1-arm64-arm-64bit-Mach-O 64 Bits\r\nGraphics card: Metal API Apple M3 Pro 1.2\r\n```\r\n\r\n<img width=\"1840\" alt=\"Screenshot 2026-03-17 at 4.17.43 PM.png\" src=\"attachments/5e739a59-3195-463a-91a8-3123b651c4cb\">",
+      "body_sha256": "3707f533a1f77a66fd5769ee923ccd947089d27253f20a2702b9a29b7a6e7426",
+      "created_at": "2026-03-17T11:48:05+01:00",
+      "id": 1874730,
+      "source": "issue_comment",
+      "updated_at": "2026-03-17T11:48:05+01:00",
+      "url": "https://projects.blender.org/blender/blender/issues/155764#issuecomment-1874730"
+    },
+    {
+      "author": "lichtwerk",
+      "body_normalized": "Can confirm, will check",
+      "body_raw": "Can confirm, will check",
+      "body_sha256": "6568882a1bfbbd4990a9e7c0c684ba14c0946c85dcc03a4436e9176babc29f03",
+      "created_at": "2026-03-17T11:50:30+01:00",
+      "id": 1874737,
+      "source": "issue_comment",
+      "updated_at": "2026-03-17T11:50:30+01:00",
+      "url": "https://projects.blender.org/blender/blender/issues/155764#issuecomment-1874737"
+    },
+    {
+      "author": "lichtwerk",
+      "body_normalized": "@PratikPB2123 : you have to enable the modifier :)",
+      "body_raw": "@PratikPB2123 : you have to enable the modifier :)",
+      "body_sha256": "9617c03bafba8876772721bbc5d3401467f7e8bb73213757166632916fe7633d",
+      "created_at": "2026-03-17T11:51:05+01:00",
+      "id": 1874738,
+      "source": "issue_comment",
+      "updated_at": "2026-03-17T11:51:05+01:00",
+      "url": "https://projects.blender.org/blender/blender/issues/155764#issuecomment-1874738"
+    },
+    {
+      "author": "PratikPB2123",
+      "body_normalized": "oops, indeed :)",
+      "body_raw": "oops, indeed :)",
+      "body_sha256": "d898ea814c66e614a767c66355490974207ca2042f8b7b1420c4fd36b8fc4eb1",
+      "created_at": "2026-03-17T11:52:48+01:00",
+      "id": 1874745,
+      "source": "issue_comment",
+      "updated_at": "2026-03-17T11:52:48+01:00",
+      "url": "https://projects.blender.org/blender/blender/issues/155764#issuecomment-1874745"
+    },
+    {
+      "author": "SimonThommes",
+      "body_normalized": "Sorry, should have made the description more descriptive!",
+      "body_raw": "Sorry, should have made the description more descriptive!",
+      "body_sha256": "52aeceed49000159c5bfb9843b487440a20b885a87547aece9930bcd38d34f87",
+      "created_at": "2026-03-17T11:55:43+01:00",
+      "id": 1874750,
+      "source": "issue_comment",
+      "updated_at": "2026-03-17T11:55:43+01:00",
+      "url": "https://projects.blender.org/blender/blender/issues/155764#issuecomment-1874750"
+    },
+    {
+      "author": "SimonThommes",
+      "body_normalized": "Looks like I made a mistake with the working hash. Updated it now in the description.",
+      "body_raw": "Looks like I made a mistake with the working hash. Updated it now in the description.",
+      "body_sha256": "5490884d237da2157a637d0425fb8536978eb7e334ffc3b445a5af0848aadb0d",
+      "created_at": "2026-03-17T12:05:04+01:00",
+      "id": 1874769,
+      "source": "issue_comment",
+      "updated_at": "2026-03-17T12:05:04+01:00",
+      "url": "https://projects.blender.org/blender/blender/issues/155764#issuecomment-1874769"
+    },
+    {
+      "author": "lichtwerk",
+      "body_normalized": "Bisecting...",
+      "body_raw": "Bisecting...",
+      "body_sha256": "ef5aff012c332541fcb63decdae55f190cef6606e09526002a0c7b491bc78230",
+      "created_at": "2026-03-17T12:12:50+01:00",
+      "id": 1874773,
+      "source": "issue_comment",
+      "updated_at": "2026-03-17T12:12:50+01:00",
+      "url": "https://projects.blender.org/blender/blender/issues/155764#issuecomment-1874773"
+    },
+    {
+      "author": "SimonThommes",
+      "body_normalized": "This also seems to somehow be related to some user preferences...with one set of preferences I have this issue regardless of the visibility state of that modifier. With factory settings it's like in the report.\n\n*edit: this is related to the `GPU Subdivision` toggle",
+      "body_raw": "This also seems to somehow be related to some user preferences...with one set of preferences I have this issue regardless of the visibility state of that modifier. With factory settings it's like in the report.\n\n*edit: this is related to the `GPU Subdivision` toggle",
+      "body_sha256": "d5b384a8cdf7aa47421b298e7081550f644f2293f16d54bdc93c5c8810e13a77",
+      "created_at": "2026-03-17T12:15:14+01:00",
+      "id": 1874774,
+      "source": "issue_comment",
+      "updated_at": "2026-03-17T12:19:26+01:00",
+      "url": "https://projects.blender.org/blender/blender/issues/155764#issuecomment-1874774"
+    },
+    {
+      "author": "lichtwerk",
+      "body_normalized": "Does not have to be a Geometry Nodes modifier btw. (could be any modifier that is after the SubD modifier)",
+      "body_raw": "Does not have to be a Geometry Nodes modifier btw. (could be any modifier that is after the SubD modifier)",
+      "body_sha256": "bf9220fa6b622eee8b2fbc5d26a03984b778f5626845980dce64a38c96cd0583",
+      "created_at": "2026-03-17T12:34:22+01:00",
+      "id": 1874790,
+      "source": "issue_comment",
+      "updated_at": "2026-03-17T12:34:22+01:00",
+      "url": "https://projects.blender.org/blender/blender/issues/155764#issuecomment-1874790"
+    },
+    {
+      "author": "SimonThommes",
+      "body_normalized": "I suppose this means only CPU subdivision is broken, since even with GPU subd enabled, if the subd modifier is not the last in the stack it falls back to CPU subd.",
+      "body_raw": "I suppose this means only CPU subdivision is broken, since even with GPU subd enabled, if the subd modifier is not the last in the stack it falls back to CPU subd.",
+      "body_sha256": "4b19aaa1684390d24a1f95f482c67ea433ab3a55f47db9f2a2d832a1cc3896b8",
+      "created_at": "2026-03-17T12:57:38+01:00",
+      "id": 1874804,
+      "source": "issue_comment",
+      "updated_at": "2026-03-17T12:57:38+01:00",
+      "url": "https://projects.blender.org/blender/blender/issues/155764#issuecomment-1874804"
+    },
+    {
+      "author": "lichtwerk",
+      "body_normalized": "Caused by 0f7cf9ee98b1e5af980021a9afa077278e238b14",
+      "body_raw": "Caused by 0f7cf9ee98b1e5af980021a9afa077278e238b14",
+      "body_sha256": "b5ab074e3e278fff2e18b25fe5bb7ee3a0248c4c10443d7a196fc96aad474fdc",
+      "created_at": "2026-03-17T13:05:29+01:00",
+      "id": 1874819,
+      "source": "issue_comment",
+      "updated_at": "2026-03-17T13:05:29+01:00",
+      "url": "https://projects.blender.org/blender/blender/issues/155764#issuecomment-1874819"
+    },
+    {
+      "author": "Sean-Kim",
+      "body_normalized": "CC @HooglyBoogly ^",
+      "body_raw": "CC @HooglyBoogly ^",
+      "body_sha256": "97d44b8d59d095ac672f4aeff21904f0ff788f0315e292bc8adc3a91ebc49037",
+      "created_at": "2026-03-17T16:30:05+01:00",
+      "id": 1875036,
+      "source": "issue_comment",
+      "updated_at": "2026-03-17T16:30:05+01:00",
+      "url": "https://projects.blender.org/blender/blender/issues/155764#issuecomment-1875036"
+    }
+  ],
+  "fix_commit": "6f12abdf0b709c67b6792a38c4720dd593a5e480",
+  "issue": {
+    "author": "SimonThommes",
+    "body_normalized": "**System Information**\nOperating system: Linux-6.18.8-gentoo-dist-x86_64-AMD_Ryzen_9_9950X3D_16-Core_Processor-with-glibc2.41 64 Bits, WAYLAND UI\nGraphics card: NVIDIA RTX 6000 Ada Generation/PCIe/SSE2 NVIDIA Corporation 4.6.0 NVIDIA 580.126.09 Opengl Backend\n\n**Blender Version**\nBroken: version: 5.2.0 Alpha, branch: main, commit date: 2026-03-15 20:03, hash: `00c9a0fbe3aa`\nWorked: 2026-03-14, hash: `9ea44d2e7f63`\nWorked: 5.1\nWorked: 5.0.1\n\nCaused by 0f7cf9ee98b1e5af980021a9afa077278e238b14\n\n**Short description of error**\n|Good|Bad|\n|--|--|\n|<img width=\"1592\" alt=\"image.png\" src=\"attachments/a38aa301-e147-404c-8e07-26c808579a3a\">|<img width=\"1592\" alt=\"image.png\" src=\"attachments/f7fc44de-c532-44c6-b6dc-1f60d1a03326\">|\n\n**Exact steps for others to reproduce the error**\nFile:\n[color_attribute_mangled.blend](/attachments/debb6895-67ac-4d28-9d0c-8d8d64586821)\n\n- open the file and enable the modifier OR\n- disable `GPU Subdivision` in Preferences",
+    "body_raw": "**System Information**\nOperating system: Linux-6.18.8-gentoo-dist-x86_64-AMD_Ryzen_9_9950X3D_16-Core_Processor-with-glibc2.41 64 Bits, WAYLAND UI\nGraphics card: NVIDIA RTX 6000 Ada Generation/PCIe/SSE2 NVIDIA Corporation 4.6.0 NVIDIA 580.126.09 Opengl Backend\n\n**Blender Version**\nBroken: version: 5.2.0 Alpha, branch: main, commit date: 2026-03-15 20:03, hash: `00c9a0fbe3aa`\nWorked: 2026-03-14, hash: `9ea44d2e7f63`\nWorked: 5.1\nWorked: 5.0.1\n\nCaused by 0f7cf9ee98b1e5af980021a9afa077278e238b14\n\n**Short description of error**\n|Good|Bad|\n|--|--|\n|<img width=\"1592\" alt=\"image.png\" src=\"attachments/a38aa301-e147-404c-8e07-26c808579a3a\">|<img width=\"1592\" alt=\"image.png\" src=\"attachments/f7fc44de-c532-44c6-b6dc-1f60d1a03326\">|\n\n**Exact steps for others to reproduce the error**\nFile:\n[color_attribute_mangled.blend](/attachments/debb6895-67ac-4d28-9d0c-8d8d64586821)\n\n- open the file and enable the modifier OR\n- disable `GPU Subdivision` in Preferences\n\n",
+    "body_sha256": "24e6e221d4ad5fc3afe72662df796363a1b90033809f3c54efa9e01998657d43",
+    "closed_at": "2026-03-17T18:24:21+01:00",
+    "created_at": "2026-03-17T11:40:08+01:00",
+    "number": 155764,
+    "state": "closed",
+    "title": "Regression: CPU Subdivision Surface mangles color attributes",
+    "updated_at": "2026-03-17T18:25:14+01:00",
+    "url": "https://projects.blender.org/blender/blender/issues/155764"
+  },
+  "patch_sha256": "18ca07da41334ccf5667ebdfebb8b4d7c164778140577b6ff726b2ba678d5f1c",
+  "pinned_revision": "3d018bcabdaeea66cf4ef4a96ce8913164831f6e",
+  "pull_request": null,
+  "record_sha256": "235cfedf34f68e3038c9164d902c51c4a1fc8d612114b5cdbce69ac8fbf989cb",
+  "repository": "blender/blender",
+  "retrieved_at": "2026-08-11T13:12:42Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-blender-155764-subdivision-color-attribute",
+  "tests": [
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend",
+        "--python",
+        "tests/python/geo_node_test.py"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend",
+        "--python",
+        "tests/python/geo_node_test.py"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend",
+          "sha256": "c65fd755854f13927b862c338a1bc19581f6b3e356a92074c2652f3fdb09880c",
+          "source_path": "upstream-tests/tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend"
+        }
+      ],
+      "id": "blender-155764-color-attribute-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_geometry_nodes_regression_suite",
+      "source_case": "subdivision.color_attribute",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/6f12abdf0b709c67b6792a38c4720dd593a5e480/tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend",
+          "sha256": "c65fd755854f13927b862c338a1bc19581f6b3e356a92074c2652f3fdb09880c",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/6f12abdf0b709c67b6792a38c4720dd593a5e480/tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend"
+        }
+      ],
+      "upstream_test_path": "tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend",
+      "upstream_test_sha256": "c65fd755854f13927b862c338a1bc19581f6b3e356a92074c2652f3fdb09880c"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend",
+        "--python",
+        "tests/python/geo_node_test.py"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend",
+        "--python",
+        "tests/python/geo_node_test.py"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend",
+          "sha256": "75e8e24780fb51a7b24d68df6bf1e442998c0e070a1018e974fefcbec34e99c1",
+          "source_path": "upstream-tests/tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend"
+        }
+      ],
+      "id": "blender-subdivide-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_geometry_nodes_test_suite",
+      "source_case": "subdivision.subdivide",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/6f12abdf0b709c67b6792a38c4720dd593a5e480/tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend",
+          "sha256": "75e8e24780fb51a7b24d68df6bf1e442998c0e070a1018e974fefcbec34e99c1",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/6f12abdf0b709c67b6792a38c4720dd593a5e480/tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend"
+        }
+      ],
+      "upstream_test_path": "tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend",
+      "upstream_test_sha256": "75e8e24780fb51a7b24d68df6bf1e442998c0e070a1018e974fefcbec34e99c1"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "cwd": ".",
+      "id": "blender-mathutils-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "repository_python_test_suite",
+      "source_case": "bl_pyapi_mathutils",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/bl_pyapi_mathutils.py",
+          "sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py"
+        }
+      ],
+      "upstream_test_path": "tests/python/bl_pyapi_mathutils.py",
+      "upstream_test_sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af"
+    }
+  ],
+  "touched_files": [
+    "source/blender/blenkernel/BKE_attribute_math.hh",
+    "tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend"
+  ],
+  "upstream_commits": []
+}

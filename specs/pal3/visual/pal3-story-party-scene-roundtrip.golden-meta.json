@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/pal3/visual/c1-story-party-scene-roundtrip.after.golden.png",
+  "after_dimensions": [
+    1280,
+    720
+  ],
+  "after_sha256": "92338f663f55fc51909695252c8dac36faaac381b9a4ce5e26e979e4a513c4af",
+  "before": "specs/pal3/visual/c1-story-party-scene-roundtrip.before.golden.png",
+  "before_dimensions": [
+    1280,
+    720
+  ],
+  "before_sha256": "3b3139352c74468b16e6913f56b33861658e87e047eb6b7bd66dc08e86082a08",
+  "benchmark": "pal3",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/pal3/c1-story-party-scene-roundtrip.yaml",
+  "spec_sha256": "5ed06e7d496bb3f7d0a62be9e8bf393535dff0595b04393fd5ea658469ac5e42",
+  "task_id": "pal3-story-party-scene-roundtrip"
+}

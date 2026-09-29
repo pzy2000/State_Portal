@@ -1,0 +1,135 @@
+{
+  "schema": "c1-lazarus-authoring-tests-v1",
+  "schema_version": 1,
+  "tests": [
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend",
+        "--python",
+        "tests/python/geo_node_test.py"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend",
+        "--python",
+        "tests/python/geo_node_test.py"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend",
+          "sha256": "c65fd755854f13927b862c338a1bc19581f6b3e356a92074c2652f3fdb09880c",
+          "source_path": "upstream-tests/tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend"
+        }
+      ],
+      "id": "blender-155764-color-attribute-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_geometry_nodes_regression_suite",
+      "source_case": "subdivision.color_attribute",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/6f12abdf0b709c67b6792a38c4720dd593a5e480/tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend",
+          "sha256": "c65fd755854f13927b862c338a1bc19581f6b3e356a92074c2652f3fdb09880c",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/6f12abdf0b709c67b6792a38c4720dd593a5e480/tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend"
+        }
+      ],
+      "upstream_test_path": "tests/files/modeling/geometry_nodes/mesh/subdivision/color_attribute.blend",
+      "upstream_test_sha256": "c65fd755854f13927b862c338a1bc19581f6b3e356a92074c2652f3fdb09880c"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend",
+        "--python",
+        "tests/python/geo_node_test.py"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend",
+        "--python",
+        "tests/python/geo_node_test.py"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend",
+          "sha256": "75e8e24780fb51a7b24d68df6bf1e442998c0e070a1018e974fefcbec34e99c1",
+          "source_path": "upstream-tests/tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend"
+        }
+      ],
+      "id": "blender-subdivide-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_geometry_nodes_test_suite",
+      "source_case": "subdivision.subdivide",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/6f12abdf0b709c67b6792a38c4720dd593a5e480/tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend",
+          "sha256": "75e8e24780fb51a7b24d68df6bf1e442998c0e070a1018e974fefcbec34e99c1",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/6f12abdf0b709c67b6792a38c4720dd593a5e480/tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend"
+        }
+      ],
+      "upstream_test_path": "tests/files/modeling/geometry_nodes/mesh/subdivision/subdivide.blend",
+      "upstream_test_sha256": "75e8e24780fb51a7b24d68df6bf1e442998c0e070a1018e974fefcbec34e99c1"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "cwd": ".",
+      "id": "blender-mathutils-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "repository_python_test_suite",
+      "source_case": "bl_pyapi_mathutils",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/bl_pyapi_mathutils.py",
+          "sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py"
+        }
+      ],
+      "upstream_test_path": "tests/python/bl_pyapi_mathutils.py",
+      "upstream_test_sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af"
+    }
+  ]
+}

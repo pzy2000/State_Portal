@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/libreoffice/visual/c1-calc-forecast-ranking-chart.after.golden.png",
+  "after_dimensions": [
+    1440,
+    1000
+  ],
+  "after_sha256": "41c57ea41d0be3b091cc45210e9def64c27e1fdfd95979e83298bfeb59916837",
+  "before": "specs/libreoffice/visual/c1-calc-forecast-ranking-chart.before.golden.png",
+  "before_dimensions": [
+    1440,
+    1000
+  ],
+  "before_sha256": "862d76fbbee52332c2c9f53183043474221680f5d36ab0b8b02ba8e8c71fc7a1",
+  "benchmark": "libreoffice",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/libreoffice/c1-calc-forecast-ranking-chart.yaml",
+  "spec_sha256": "024c1798e11cefde018dd87f9aa35bbfc721fd7afcc80e4d28d1bebf29b5ddf8",
+  "task_id": "libreoffice-calc-forecast-ranking-chart"
+}

@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.0007990933641975308,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.10139081790123457
+  },
+  "before_buggy_sha256": "8aaa7697c2001ff86a0bcd222ce7c2cae833e34c626a59adb431edca27a1bb1f",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "8aaa7697c2001ff86a0bcd222ce7c2cae833e34c626a59adb431edca27a1bb1f",
+  "buggy_after_sha256": "dd906ad13d8e1bac749360d5090d5b1dad1c281b36482eb473a05801071a766e",
+  "fixed_after_sha256": "50643dd47f714c1bd87581ae2713474a404389f27fb1342fc049f0ffc023e8e6",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "dd906ad13d8e1bac749360d5090d5b1dad1c281b36482eb473a05801071a766e",
+      "quality": {
+        "image_size": [
+          1920,
+          1080
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 51149,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "833a53bdab04a87054b0d9061ad2c6340242b7956facfaea12adb8e2aeeb4078"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "8aaa7697c2001ff86a0bcd222ce7c2cae833e34c626a59adb431edca27a1bb1f",
+      "quality": {
+        "image_size": [
+          1920,
+          1080
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 43329,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "a15ef4993e63ba392d27e55b32fc4c51a8c260516ebd2a8e3bd7a2f21e0cdba0"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "50643dd47f714c1bd87581ae2713474a404389f27fb1342fc049f0ffc023e8e6",
+      "quality": {
+        "image_size": [
+          1920,
+          1080
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 55072,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "1c518cad22bd72b766f327f7b7dccae394479c43e43e2cb8763d899e6ed8207c"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "8aaa7697c2001ff86a0bcd222ce7c2cae833e34c626a59adb431edca27a1bb1f",
+      "quality": {
+        "image_size": [
+          1920,
+          1080
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 43329,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "c7f528b52280c47de1524540f5dda3d899badd286771bda93dea0d152f8952c6"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.0005,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.0
+  },
+  "published_unix_ns": 1787031866279470000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lzp-luanti-16799-world-mods"
+}

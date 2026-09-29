@@ -1,0 +1,110 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lz-luanti-13132-empty-separator
+benchmark: luanti
+candidate:
+  repository_key: luanti
+  change_number: 13132
+  issue_number: 13128
+  defect_locus: at_goal
+authoritative_defect: null
+provenance:
+  formal_freeze_admission: candidate_formal_freeze_admission/luanti/13132/current/v2
+  frame_sources:
+    fixed_before: candidate_gate11_13132_native_visual_observation/luanti/13132/v1
+    fixed_after: candidate_gate11_13132_native_visual_observation/luanti/13132/v1
+    buggy_before: candidate_gate11_13132_native_visual_observation/luanti/13132/v1
+    buggy_after: candidate_gate11_13132_native_visual_observation/luanti/13132/v1
+  goldens_metadata: visual_lz-luanti-13132-empty-separator/goldens.meta.json
+  before_equivalence:
+    changed_pixel_ratio: 0.0
+    ignored_top_fraction: 0.25
+    mean_absolute_difference: 0.0
+  after_differential:
+    changed_pixel_ratio: 0.20682725694444445
+    ignored_top_fraction: 0.25
+    mean_absolute_difference: 16.148451967592592
+  golden_policy:
+    after_min_changed_pixel_ratio: 0.001
+    before_max_changed_pixel_ratio: 0.01
+    ignore_top_fraction: 0.25
+  captured_by: materialized_fixed_buggy_runtime_capture
+evaluation:
+  visual_oracle:
+    golden_image: visual_lz-luanti-13132-empty-separator/fixed.after.golden.png
+    expected_label: correct
+    description: Every block of the wall panel is grey cobblestone.
+    rubric:
+      must:
+      - A Luanti client frame rendered by the candidate build shows a flat grey stone
+        plain under a blue sky, with a free-standing wall panel of blocks centred
+        in view and a hotbar of tools along the bottom.
+      - Every block of the wall panel is grey cobblestone.
+      must_not:
+      - A blank frame, a crash dialog, or an unrelated application screen is shown.
+      ignore:
+      - The hotbar row, the crosshair, the node selection outline, the wielded item
+        at the lower right, and the server and chat text lines along the top.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    runtime_status: frozen_evidence_available
+    probe:
+      adapter: luanti_lazarus_frozen_evidence_v1
+      spec: lz-luanti-13132-empty-separator.yaml
+      registered_replay:
+      - restore_registered_candidate_start
+      - run_registered_candidate_replay
+      - read_admitted_gate10_semantic_observation
+      versions_replayed:
+      - fixed
+      - buggy
+      re_executed_offline: false
+      provider_calls_required: false
+    upstream_tests:
+      fail_to_pass:
+      - string split() rejects empty separator
+      pass_to_pass:
+      - string split() removes empty
+    goldens:
+      before: visual_lz-luanti-13132-empty-separator/before.golden.png
+      buggy_before: visual_lz-luanti-13132-empty-separator/buggy.before.golden.png
+      fixed:
+        after: visual_lz-luanti-13132-empty-separator/fixed.after.golden.png
+        after_description: Every block of the wall panel is dirt with a grass top,
+          so the panel reads as brown blocks banded with green grass edges and no
+          pale pink-tan sand block remains in it.
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a flat grey
+            stone plain under a blue sky, with a free-standing wall panel of blocks
+            centred in view and a hotbar of tools along the bottom.
+          - Every block of the wall panel is dirt with a grass top, so the panel reads
+            as brown blocks banded with green grass edges and no pale pink-tan sand
+            block remains in it.
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the crosshair, the node selection outline, the wielded
+            item at the lower right, and the server and chat text lines along the
+            top.
+      buggy:
+        after: visual_lz-luanti-13132-empty-separator/buggy.after.golden.png
+        after_description: Every block of the wall panel is pale pink-tan desert sand,
+          and no green grass edge remains in it.
+        after_rubric:
+          must:
+          - A Luanti client frame rendered by the candidate build shows a flat grey
+            stone plain under a blue sky, with a free-standing wall panel of blocks
+            centred in view and a hotbar of tools along the bottom.
+          - Every block of the wall panel is pale pink-tan desert sand, and no green
+            grass edge remains in it.
+          must_not:
+          - A blank frame, a crash dialog, or an unrelated application screen is shown.
+          ignore:
+          - The hotbar row, the crosshair, the node selection outline, the wielded
+            item at the lower right, and the server and chat text lines along the
+            top.

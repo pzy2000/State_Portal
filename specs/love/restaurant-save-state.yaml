@@ -1,0 +1,55 @@
+name: DatingSim restaurant save state checkpoint
+benchmark: DatingSim
+tags:
+- love
+- save
+- restaurant
+- variant
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  seed: 43
+  player_name: WarpTest
+  gender: male
+  patch:
+    world:
+      location: restaurant
+  save: true
+  expect:
+    location: restaurant
+    resources:
+      money: 1000
+      energy: 100
+checkpoint:
+  allowed_strategies:
+  - test_hook_seeded_state
+  expected_validity: save-restorable
+actions:
+- type: hook_call
+  method: save
+  args: []
+  wait_ms: 300
+assertions:
+- type: state_equals
+  path: world.location
+  value: restaurant
+- type: no_real_openai
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/resource-action.golden.png
+  expected_label: correct
+  description: The DatingSim restaurant state remains visible and saveable.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

@@ -1,0 +1,68 @@
+{
+  "schema": "c1-lazarus-authoring-tests-v1",
+  "schema_version": 1,
+  "tests": [
+    {
+      "id": "openra-pr21906-production-tabs-f2p",
+      "kind": "fail_to_pass",
+      "provenance": "issue_derived_gui_differential",
+      "source_url": "https://github.com/OpenRA/OpenRA/pull/21906",
+      "source_case": "create a second disabled production actor, enable both queues, then withdraw the prerequisite",
+      "origin": "issue_derived_gui_differential",
+      "cwd": ".",
+      "timeout_s": 240,
+      "argv": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "openra",
+        "--case",
+        "production-tabs",
+        "--repo",
+        "."
+      ],
+      "command": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "--benchmark",
+        "openra",
+        "--case",
+        "production-tabs",
+        "--repo",
+        "."
+      ]
+    },
+    {
+      "id": "openra-action-queue-p2p",
+      "kind": "pass_to_pass",
+      "provenance": "OpenRA.Test upstream regression suite",
+      "source_url": "https://github.com/OpenRA/OpenRA/tree/bleed/OpenRA.Test",
+      "source_case": "ActionQueue performs actions in order of time, then insertion order",
+      "origin": "upstream",
+      "cwd": ".",
+      "timeout_s": 120,
+      "argv": [
+        "dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "command": [
+        "dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ]
+    }
+  ]
+}

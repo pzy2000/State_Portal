@@ -1,0 +1,46 @@
+name: SpaceRPG afterburner inventory checkpoint
+benchmark: SpaceRPG
+tags:
+- spacerpg
+- equipment
+- inventory
+- variant
+setup:
+  disable_economy_backend: true
+target:
+  kind: equipment_loadout
+  screen: station
+  system_id: helion-reach
+  station_id: helion-prime
+  station_tab: Hangar
+  equipment_inventory:
+    afterburner: 1
+checkpoint:
+  allowed_strategies:
+  - test_hook_jump_and_validate
+  expected_validity: injection-only
+actions:
+- type: wait
+  ms: 250
+assertions:
+- type: state_equals
+  path: player.equipmentInventory.afterburner
+  value: 1
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/equipment-loadout.golden.png
+  expected_label: correct
+  description: The SpaceRPG hangar inventory state exposes an afterburner item.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

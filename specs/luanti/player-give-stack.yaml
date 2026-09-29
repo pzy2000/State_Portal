@@ -1,0 +1,40 @@
+name: luanti give the player a stack of cobble
+benchmark: "luanti"
+timeout_ms: 300000
+tags: ["luanti", "player", "inventory", "stack"]
+target:
+  kind: synthesized_world
+  player:
+    inventory:
+      - { item: "basenodes:cobble", count: 20 }
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_give_item
+    item: "basenodes:cobble"
+    count: 44
+assertions:
+  - type: luanti_inventory_contains
+    item: "basenodes:cobble"
+    count: 64
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/player-give-stack.golden.png
+  expected_label: correct
+  description: "The Luanti devtest world is rendered from the player's view with a full stack of cobble in the hotbar."
+  rubric:
+    must:
+      - "The 3D voxel world is rendered and visible from the player's view."
+      - "The HUD hotbar is visible and includes the granted cobble stack or a visibly matching cobble item stack."
+      - "No crash dialog, error overlay, or fully blank screen is shown."
+    must_not:
+      - "The hotbar is missing or the expected cobble stack is replaced by a clearly different item."
+      - "The screen is blank, black, or only shows the main menu."
+      - "An error dialog or exception stack trace is visible."
+    ignore:
+      - "Camera angle, lighting differences, and non-target hotbar slots."
+  capture:
+    stage: post_smoke
+    wait_ms: 800
+    full_page: false

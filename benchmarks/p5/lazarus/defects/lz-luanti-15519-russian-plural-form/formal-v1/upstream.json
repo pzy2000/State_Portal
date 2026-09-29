@@ -1,0 +1,99 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [],
+  "fix_commit": "ac7406c8a1013ea8bfc94c48dbc5dc97532c0cbd",
+  "issue": {
+    "body_normalized": "### Luanti version\n\n```true\n5.10.0\n```\n\n\n### Irrlicht device\n\nX11\n\n### Operating system and version\n\nGNU/Linux\n\n### CPU model\n\n_No response_\n\n### GPU model\n\n_No response_\n\n### Active renderer\n\n_No response_\n\n### Summary\n\nIf you start the game in Russian and play a game that includes a Russian PO file in any mod, Luanti reports the following error message:\n\n> Invalid Plural-Forms line: [...]\n\n(abridged, the \"[...]\" represents the Plural-Forms line it complains about)\n\nThis error message is from `translation.cpp`.\n\nThe Plural-Forms line in question is:\n\n```\n\"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && \"\n\"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\\n\"\n```\n\nYes, these are 2 lines but changing it to:\n\n```\n\"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\\n\"\n```\n\ndoes not fix it either. I am pretty certain this is valid syntax because basically the same line is used for the Luanti engine PO file for Russian, the only difference is that the `plurals` expression is enclosed in 2 additional brackets. Adding those to my game did not make the error go away either but really it shouldn't make a difference.\nThis expression looks valid to me, it's also literally in the gettext manual. According to the gettext manual (<https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html>), the `plurals` expression is C code with some restrictions. And to be extra sure, I wrote a tiny C program with this expression to see if it compiles. It compiles.\n\nI therefore suspect there is an error in Luanti's expression parser.\n\n### Steps to reproduce\n\n1. Create a game or mod with a Russian PO file. Use the aforementioned Plural-Forms line. Alternatively, use Repixture 3.17.2\n2. Set language to Russian\n3. Restart Luanti\n4. Start the game or mod\n\n* Expected: No error message\n* Actual result: Error messages",
+    "body_raw": "### Luanti version\n\n```true\n5.10.0\n```\n\n\n### Irrlicht device\n\nX11\n\n### Operating system and version\n\nGNU/Linux\n\n### CPU model\n\n_No response_\n\n### GPU model\n\n_No response_\n\n### Active renderer\n\n_No response_\n\n### Summary\n\nIf you start the game in Russian and play a game that includes a Russian PO file in any mod, Luanti reports the following error message:\r\n\r\n> Invalid Plural-Forms line: [...]\r\n\r\n(abridged, the \"[...]\" represents the Plural-Forms line it complains about)\r\n\r\nThis error message is from `translation.cpp`.\r\n\r\nThe Plural-Forms line in question is:\r\n\r\n```\r\n\"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && \"\r\n\"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\\n\"\r\n```\r\n\r\nYes, these are 2 lines but changing it to:\r\n\r\n```\r\n\"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\\n\"\r\n```\r\n\r\ndoes not fix it either. I am pretty certain this is valid syntax because basically the same line is used for the Luanti engine PO file for Russian, the only difference is that the `plurals` expression is enclosed in 2 additional brackets. Adding those to my game did not make the error go away either but really it shouldn't make a difference.\r\nThis expression looks valid to me, it's also literally in the gettext manual. According to the gettext manual (<https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html>), the `plurals` expression is C code with some restrictions. And to be extra sure, I wrote a tiny C program with this expression to see if it compiles. It compiles.\r\n\r\nI therefore suspect there is an error in Luanti's expression parser.\n\n### Steps to reproduce\n\n1. Create a game or mod with a Russian PO file. Use the aforementioned Plural-Forms line. Alternatively, use Repixture 3.17.2\r\n2. Set language to Russian\r\n3. Restart Luanti\r\n4. Start the game or mod\r\n\r\n* Expected: No error message\r\n* Actual result: Error messages",
+    "body_sha256": "54762bed473f18fcae25c50486e1c4c303c30126c0a9cff1ce963cc6f54b9ec7",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 15518,
+    "state": "closed",
+    "title": "Error message \"Invalid Plural-Forms line\" in Russian PO file",
+    "url": "https://github.com/luanti-org/luanti/issues/15518"
+  },
+  "patch_sha256": "1abc37a2eeec3ef311cecf9efef689ef82bba6ddcb80c9314b9a98d95e183674",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "body_normalized": "Followup for #14726.\n\n- Goal of the PR\n  Fix issues from the PR that were overlooked.\n- Does it resolve any reported issue?\n  Fixes #15518.\n- Does this relate to a goal in [the roadmap](https://github.com/minetest/minetest/blob/master/doc/direction.md)?\n  No.\n\n## To do\n\n- [x] #15518\n- [x] Look for other sensible testcases from the examples in [the Gettext documentation](https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html)\n- [x] `const std::wstring_view&` -> `std::wstring_view`\n\n## How to test\n\nThe fixes should be covered by the relevant testcases.",
+    "body_raw": "Followup for #14726.\r\n\r\n- Goal of the PR\r\n  Fix issues from the PR that were overlooked.\r\n- Does it resolve any reported issue?\r\n  Fixes #15518.\r\n- Does this relate to a goal in [the roadmap](https://github.com/minetest/minetest/blob/master/doc/direction.md)?\r\n  No.\r\n\r\n## To do\r\n\r\n- [x] #15518\r\n- [x] Look for other sensible testcases from the examples in [the Gettext documentation](https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html)\r\n- [x] `const std::wstring_view&` -> `std::wstring_view`\r\n\r\n## How to test\r\n\r\nThe fixes should be covered by the relevant testcases.",
+    "body_sha256": "02ca182ef6a4d0fe22f5d3535feca5819b55acf8853304767840c0a5126112f6",
+    "kind": "pull",
+    "merged_at": "2024-12-12T14:33:34Z",
+    "number": 15519,
+    "state": "closed",
+    "title": "Fixup parsing for `Plural-Forms`",
+    "url": "https://github.com/luanti-org/luanti/pull/15519"
+  },
+  "record_sha256": "6b42dcfd2c2ecf0b4599d76b5b79169efafeec0af3ae1166987a4924532c3e2e",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-13T10:00:33.318760Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-15519-russian-plural-form",
+  "tests": [
+    {
+      "command": [
+        "bin/luantiserver",
+        "--run-unittests",
+        "--test-module",
+        "TestTranslations"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runs/luanti/15519/f12-png/deterministic-v4/2026-08-14t15-57-49-721099z/buggy/tree/bin/luanti",
+        "--go",
+        "--gameid",
+        "c1_plural",
+        "--world",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runs/luanti/15519/f12-png/deterministic-v4/2026-08-14t15-57-49-721099z/buggy/runtime/world",
+        "--config",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runs/luanti/15519/f12-png/deterministic-v4/2026-08-14t15-57-49-721099z/buggy/runtime/minetest.conf",
+        "--logfile",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runs/luanti/15519/f12-png/deterministic-v4/2026-08-14t15-57-49-721099z/buggy/runtime/luanti.log"
+      ],
+      "id": "test translations",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "test translations",
+      "upstream_test_path": "src/unittest/test_translations.cpp"
+    },
+    {
+      "command": [
+        "bin/luantiserver",
+        "--run-unittests",
+        "--test-module",
+        "TestSettings"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runs/luanti/15519/f12-png/deterministic-v4/2026-08-14t15-57-49-721099z/buggy/tree/bin/luanti",
+        "--go",
+        "--gameid",
+        "c1_plural",
+        "--world",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runs/luanti/15519/f12-png/deterministic-v4/2026-08-14t15-57-49-721099z/buggy/runtime/world",
+        "--config",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runs/luanti/15519/f12-png/deterministic-v4/2026-08-14t15-57-49-721099z/buggy/runtime/minetest.conf",
+        "--logfile",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/runs/luanti/15519/f12-png/deterministic-v4/2026-08-14t15-57-49-721099z/buggy/runtime/luanti.log"
+      ],
+      "id": "TestSettings",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestSettings",
+      "upstream_test_path": "src/unittest/test_translations.cpp"
+    }
+  ],
+  "touched_files": [
+    "src/gettext_plural_form.cpp",
+    "src/gettext_plural_form.h",
+    "src/unittest/test_translations.cpp"
+  ],
+  "upstream_commits": []
+}

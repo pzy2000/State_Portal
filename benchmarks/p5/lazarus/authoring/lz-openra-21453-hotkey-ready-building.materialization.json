@@ -1,0 +1,13 @@
+{
+  "benchmark": "openra",
+  "candidates_considered": 1,
+  "fixed_revision": "7e687f430ee5b194c0ffaa06caaba757dd9155fb",
+  "patch_sha256": "b4d205fb6d8f39d23ea8deb88ff2718039eef6b16828041883d8a8d396a06074",
+  "pinned_host_revision": "7e687f430ee5b194c0ffaa06caaba757dd9155fb",
+  "repo": "games/OpenRA",
+  "schema": "c1-lazarus-materialization-base-v1",
+  "schema_version": 1,
+  "source": "pinned_host_revision",
+  "task_id": "lz-openra-21453-hotkey-ready-building",
+  "verification": "reverse_apply_check_in_detached_worktree"
+}

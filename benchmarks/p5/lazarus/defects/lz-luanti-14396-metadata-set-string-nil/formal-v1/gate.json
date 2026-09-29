@@ -1,0 +1,138 @@
+{
+  "benchmark": "luanti",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": false,
+  "evidence": {
+    "captures": {
+      "buggy": {
+        "after": {
+          "audit": {
+            "expected": "basenodes:desert_sand",
+            "field": "marker_node",
+            "observed": "basenodes:desert_sand"
+          },
+          "invariants": {
+            "check": "no_luanti_mod_errors",
+            "ok": true
+          },
+          "live_source": "luanti_client_screenshot_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-luanti-14396-metadata-set-string-nil/capture/buggy-after.json"
+        },
+        "before": {
+          "audit": {
+            "expected": "start_validated",
+            "field": "world_start_state",
+            "observed": "start_validated"
+          },
+          "invariants": {
+            "check": "no_luanti_mod_errors",
+            "ok": true
+          },
+          "live_source": "luanti_client_screenshot_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-luanti-14396-metadata-set-string-nil/capture/buggy-before.json"
+        }
+      },
+      "fixed": {
+        "after": {
+          "audit": {
+            "expected": "basenodes:dirt_with_grass",
+            "field": "marker_node",
+            "observed": "basenodes:dirt_with_grass"
+          },
+          "invariants": {
+            "check": "no_luanti_mod_errors",
+            "ok": true
+          },
+          "live_source": "luanti_client_screenshot_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-luanti-14396-metadata-set-string-nil/capture/fixed-after.json"
+        },
+        "before": {
+          "audit": {
+            "expected": "start_validated",
+            "field": "world_start_state",
+            "observed": "start_validated"
+          },
+          "invariants": {
+            "check": "no_luanti_mod_errors",
+            "ok": true
+          },
+          "live_source": "luanti_client_screenshot_capture",
+          "report": "benchmarks/p5/lazarus/defects/lz-luanti-14396-metadata-set-string-nil/capture/fixed-before.json"
+        }
+      }
+    },
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.004590567129629629,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 0.22080536265432096
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 0.0
+      },
+      "before_sha256": "16c905d592858304f996f0ccd5dc9177d74e4dc568d9d7a78c84f9da5c6587d5",
+      "buggy_after_sha256": "9f4ff2712b332b6a2268ae3737e63ba2d6ee76eba4b23417760e77f7d114b17e",
+      "buggy_before_visual": true,
+      "fixed_after_sha256": "898d27db147026afaf790c537f57c09c23277ce3651ae90c5263676ffa6ee909",
+      "fixed_before_visual": true,
+      "metadata": "specs/luanti/lazarus/visual_lz-luanti-14396-metadata-set-string-nil/goldens.meta.json",
+      "metadata_sha256": "7141b79f291150f9f79aadec7e2856f6292dc78d833c7a7d7cff633ee4c5d9a2"
+    },
+    "kind": "live_construction_run_v1",
+    "patch": {
+      "production_paths": [
+        "src/script/lua_api/l_metadata.cpp"
+      ],
+      "sha256": "b3e40c75c32ac71af57b4c2308fa8edca5654894333c9bdb8e102339440f6d67",
+      "source": "materialized_tree_difference"
+    },
+    "upstream": {
+      "buggy_tests": {
+        "luanti-pr14396-metadata-compat-f2p": false,
+        "luanti-vector-zero-construction-p2p": true
+      },
+      "fixed_tests": {
+        "luanti-pr14396-metadata-compat-f2p": true,
+        "luanti-vector-zero-construction-p2p": true
+      },
+      "kind": "formal_construction_test_matrix",
+      "receipt": "benchmarks/p5/lazarus/defects/lz-luanti-14396-metadata-set-string-nil/construction-tests.json",
+      "record_sha256": "4f1787631703ee279877b71cdb14909d88b93093cca5f48df2693bed5796a4ef"
+    }
+  },
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "projection": {
+    "admission": null,
+    "closure_size": 0,
+    "fresh_gate_run": true,
+    "generator": "warptest.lazarus_expansion_gate",
+    "selection_mode": "c1_roster_expansion_v1"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-luanti-14396-metadata-set-string-nil"
+}

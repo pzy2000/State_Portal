@@ -1,0 +1,102 @@
+name: pal3 current scene survives save and restore
+benchmark: pal3
+timeout_ms: 900000
+tags: ["pal3", "scene", "save", "restore"]
+target:
+  kind: synthesized_state
+  scene_city: "q02"
+  scene_name: "q02"
+  money: 300
+checkpoint:
+  allowed_strategies: ["pal3_console_save_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: pal3_save
+    save_index: 2
+  - type: pal3_load_save
+    save_index: 2
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: pal3_scene_is
+        city: "q02"
+        scene: "q02"
+      - type: no_pal3_utility_errors
+
+    surfaces:
+      gui:
+        adapter: pal3_unity_live_v1
+        start:
+          validate_target: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - c1.transition.armed
+          - any_of:
+            - c1.target.scene
+          - any_of:
+            - c1.target.money
+        goal:
+          use_assertions: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - assertion[pal3_scene_is]
+          - any_of:
+            - assertion[no_pal3_utility_errors]
+          - any_of:
+            - c1.transition.expectation
+          - any_of:
+            - c1.transition.save
+          - any_of:
+            - c1.transition.load
+          requirements:
+          - name: c1.public_save_load_witness
+            kind: save_then_load
+            slot: 2
+            ordered_events:
+            - save
+            - reset
+            - scene_load
+            - load
+      state:
+        adapter: pal3_unity_live_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/pal3-scene-restore.after.golden.png
+    golden_before: visual/pal3-scene-restore.before.golden.png
+    golden_after: visual/pal3-scene-restore.after.golden.png
+    expected_label: correct
+    scene_key: pal3_q02_q02
+    description: "A headed PAL3 session is inside the unlit q02/q02 interior before save/load, with the on-screen movement control and copyright overlay drawn over the dark room."
+    after_description: "After saving to manual slot 2 and loading it again the session is still inside the same unlit q02/q02 interior; PAL3 draws no HUD for the slot contents, so the roundtrip leaves the picture almost unchanged and only the semantic probes prove the save."
+    rubric:
+      must:
+        - "A PAL3 in-game camera view is rendered with the on-screen movement control and copyright overlay visible."
+        - "No crash dialog, exception overlay, or Unity editor UI is shown."
+      must_not:
+        - "The screenshot shows only the Unity splash screen, editor UI, or a loading-only frame."
+        - "An error dialog or exception stack trace is visible."
+      ignore:
+        - "How much of the dark q02 interior geometry is discernible."
+        - "Exact camera angle, lighting, animation frame, or HUD layout differences."
+        - "Internal state changes such as inventory, money, favor, script variables, or save-slot contents that are validated semantically."
+    after_rubric:
+      must:
+        - "The same unlit q02 interior is still rendered with the on-screen movement control and copyright overlay visible."
+      must_not:
+        - "A load screen, main menu, splash screen, or unrelated lit scene has taken over the frame."
+        - "An error dialog or exception stack trace is visible."
+      ignore:
+        - "That the frame is nearly identical to the before frame; the save roundtrip has no on-screen indicator in PAL3."
+        - "Exact camera angle, lighting, or animation frame."
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false

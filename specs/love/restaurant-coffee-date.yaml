@@ -1,0 +1,60 @@
+name: DatingSim restaurant coffee date checkpoint
+benchmark: DatingSim
+tags:
+- love
+- date
+- restaurant
+- variant
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  seed: 27
+  player_name: WarpTest
+  gender: male
+  patch:
+    world:
+      location: restaurant
+  expect:
+    location: restaurant
+    resources:
+      money: 1000
+      energy: 100
+checkpoint:
+  allowed_strategies:
+  - test_hook_seeded_state
+  expected_validity: injection-only
+actions:
+- type: hook_action
+  action_id: date_coffee
+  wait_ms: 1000
+assertions:
+- type: state_equals
+  path: player.resources.money
+  value: 920
+- type: state_equals
+  path: player.resources.energy
+  value: 90
+- type: state_equals
+  path: player.stats.communication
+  value: 11
+- type: no_real_openai
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/cafe-date.golden.png
+  expected_label: correct
+  description: The DatingSim gameplay UI remains visible after a restaurant coffee
+    date.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

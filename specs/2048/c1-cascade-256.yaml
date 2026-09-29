@@ -1,0 +1,66 @@
+name: C1 2048 six-move cascade to 256
+benchmark: "2048"
+tags: ["2048", c1, deep-chain, cascade]
+target:
+  kind: board
+  board:
+    - [128, 128, 64, 64]
+    - [32, 32, 16, 16]
+    - [8, 8, 4, 4]
+    - [2, 2, 0, 0]
+  score: 4096
+  bestScore: 4096
+  won: false
+  over: false
+  keepPlaying: false
+checkpoint:
+  allowed_strategies: [localStorage_restore_reload]
+  expected_validity: save-restorable
+actions:
+  - {type: move, direction: left, wait_ms: 300}
+  - {type: move, direction: down, wait_ms: 300}
+  - {type: move, direction: up, wait_ms: 300}
+  - {type: move, direction: left, wait_ms: 300}
+  - {type: move, direction: left, wait_ms: 300}
+  - {type: move, direction: left, wait_ms: 450}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: board_cell_equals, row: 0, column: 0, value: 256}
+      - {type: largest_tile_equals, value: 256}
+      - {type: state_equals, path: over, value: false}
+      - {type: no_severe_console}
+    surfaces:
+      gui:
+        adapter: 2048_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: 2048_state_profile_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/2048-cascade-256.after.golden.png
+    golden_before: visual/2048-cascade-256.before.golden.png
+    golden_after: visual/2048-cascade-256.after.golden.png
+    expected_label: correct
+    description: "The layered deterministic board is visible before the six-move cascade."
+    after_description: "The completed board visibly contains a 256 tile in the upper-left corner."
+    rubric:
+      must: ["The 2048 board is visible with multiple high-value paired layers.", "The page is rendered normally."]
+      must_not: ["A crash, blank page, or unrelated app is visible."]
+      ignore: ["Minor animation and score text differences."]
+    after_rubric:
+      must: ["The 2048 board is visible.", "A 256 tile is visible in the upper-left corner.", "The game remains rendered and playable."]
+      must_not: ["No 256 tile is visible.", "A crash, blank page, or unrelated app is visible."]
+      ignore: ["Low-value spawned tiles outside the upper-left target."]
+    capture: {stage: post_smoke, wait_ms: 300, full_page: false}

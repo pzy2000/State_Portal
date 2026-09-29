@@ -1,0 +1,21 @@
+{
+  "actions": 7,
+  "after": "specs/libreoffice/visual/c1-impress-executive-restructure.after.golden.png",
+  "after_dimensions": [
+    1440,
+    1000
+  ],
+  "after_sha256": "5dd50968cd897e33876e9b23240184a4b89d8dab4aed3b896ffa2665108f35e4",
+  "before": "specs/libreoffice/visual/c1-impress-executive-restructure.before.golden.png",
+  "before_dimensions": [
+    1440,
+    1000
+  ],
+  "before_sha256": "0f0a01efa1f11a40e6a54e73c9693789fbb380e15fc8750fb01349224f590fd2",
+  "benchmark": "libreoffice",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/libreoffice/c1-impress-executive-restructure.yaml",
+  "spec_sha256": "2c3b635c7ba2f09c25c99f4cf03406c076c9614ebb2d0406c2faefbba82b4129",
+  "task_id": "libreoffice-impress-executive-restructure"
+}

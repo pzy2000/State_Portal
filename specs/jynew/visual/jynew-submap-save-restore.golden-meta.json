@@ -1,0 +1,13 @@
+{
+  "actions": 2,
+  "after": "specs/jynew/visual/jynew-submap-save-restore.after.golden.png",
+  "after_sha256": "0714125f2550af42efa37b24443098e93f5990efb8c4c7d66ba9aac5eec7d832",
+  "before": "specs/jynew/visual/jynew-submap-save-restore.before.golden.png",
+  "before_sha256": "a22d739877bb8cdb8addbc33bd18fa44f2a2de17ec6aa8f29bec6391e8dcc7b8",
+  "benchmark": "jynew",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/jynew/submap-enter.yaml",
+  "spec_sha256": "55fa6aa6192641004873ae85371e1f498d3b5ccd278c5fc3d155e1f48f1c4e21",
+  "task_id": "jynew-submap-save-restore"
+}

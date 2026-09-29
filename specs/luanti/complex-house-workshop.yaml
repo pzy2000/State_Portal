@@ -1,0 +1,104 @@
+name: luanti restore a furnished multi-room house workshop
+benchmark: "luanti"
+timeout_ms: 360000
+tags: ["luanti", "production", "structure", "house", "workshop"]
+target:
+  kind: synthesized_world
+  fill:
+    - from: { x: -2, y: 0, z: -1 }
+      to: { x: 8, y: 0, z: 9 }
+      node: "basenodes:dirt_with_grass"
+    - from: { x: 0, y: 1, z: 1 }
+      to: { x: 6, y: 1, z: 7 }
+      node: "basenodes:cobble"
+    - from: { x: 0, y: 2, z: 1 }
+      to: { x: 0, y: 4, z: 7 }
+      node: "basenodes:tree"
+    - from: { x: 6, y: 2, z: 1 }
+      to: { x: 6, y: 4, z: 7 }
+      node: "basenodes:tree"
+    - from: { x: 0, y: 2, z: 7 }
+      to: { x: 6, y: 4, z: 7 }
+      node: "basenodes:cobble"
+    - from: { x: 0, y: 2, z: 1 }
+      to: { x: 2, y: 4, z: 1 }
+      node: "basenodes:cobble"
+    - from: { x: 4, y: 2, z: 1 }
+      to: { x: 6, y: 4, z: 1 }
+      node: "basenodes:cobble"
+    - from: { x: -1, y: 5, z: 0 }
+      to: { x: 7, y: 5, z: 8 }
+      node: "stairs:slab_cobble"
+      param2: 0
+  meta_inventory:
+    - pos: { x: 2, y: 2, z: 5 }
+      node: "chest:chest"
+      list: "main"
+      items:
+        - { item: "basenodes:cobble", count: 64 }
+        - { item: "basenodes:tree", count: 32 }
+        - { item: "basetools:pick_steel", count: 1 }
+  validations:
+    - path: "node.0,2,1"
+      expected: "basenodes:cobble"
+    - path: "node.2,2,5"
+      expected: "chest:chest"
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_node
+    pos: { x: 3, y: 2, z: 1 }
+    node: "air"
+  - type: luanti_set_node
+    pos: { x: 3, y: 3, z: 1 }
+    node: "air"
+  - type: luanti_set_node
+    pos: { x: 3, y: 1, z: 0 }
+    node: "stairs:stair_cobble"
+    param2: 2
+  - type: luanti_set_node
+    pos: { x: 7, y: 6, z: 6 }
+    node: "basenodes:cobble"
+assertions:
+  - type: luanti_node_count
+    from: { x: -1, y: 5, z: 0 }
+    to: { x: 7, y: 5, z: 8 }
+    node: "stairs:slab_cobble"
+    min_count: 81
+  - type: luanti_node_count
+    from: { x: 0, y: 2, z: 1 }
+    to: { x: 6, y: 4, z: 7 }
+    node: "basenodes:tree"
+    min_count: 30
+  - type: luanti_node_is
+    pos: { x: 3, y: 2, z: 1 }
+    expected: "air"
+  - type: luanti_node_is
+    pos: { x: 7, y: 6, z: 6 }
+    expected: "basenodes:cobble"
+  - type: luanti_meta_inventory_contains
+    pos: { x: 2, y: 2, z: 5 }
+    item: "basetools:pick_steel"
+    count: 1
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/complex-house-workshop.golden.png
+  golden_before: visual/luanti-complex-house-workshop.before.golden.png
+  golden_after: visual/luanti-complex-house-workshop.after.golden.png
+  expected_label: correct
+  description: "A furnished cobble-and-wood house workshop with roof, doorway, chimney, and supply chest is visible in the Luanti devtest world."
+  rubric:
+    must:
+      - "A composite building or workshop structure is visible, with multiple wall/roof surfaces or recognizable architectural mass."
+      - "The scene contains more than a single block or flat platform."
+      - "No crash dialog, error overlay, main menu, or fully blank screen is shown."
+    must_not:
+      - "Only an empty flat world or a one-block smoke-test scene is visible."
+      - "The screen is black, blank, or blocked by an error dialog."
+    ignore:
+      - "Exact camera angle, lighting, HUD, or whether the chest inventory UI is open."
+  capture:
+    stage: post_smoke
+    wait_ms: 1000
+    full_page: false

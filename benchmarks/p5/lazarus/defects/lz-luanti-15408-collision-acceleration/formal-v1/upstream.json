@@ -1,0 +1,218 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [
+    {
+      "body_normalized": "Here comes THE SCREWDRIVER\n\nhttps://github.com/user-attachments/assets/959834ed-063b-41b9-8ab0-c43953c8f242\n\n(I've used this command to make it lag\n```lua\n//lua local t0 = os.time() while os.time() < t0+2 do end\n```",
+      "body_raw": "Here comes THE SCREWDRIVER\r\n\r\nhttps://github.com/user-attachments/assets/959834ed-063b-41b9-8ab0-c43953c8f242\r\n\r\n(I've used this command to make it lag \r\n```lua\r\n//lua local t0 = os.time() while os.time() < t0+2 do end\r\n```",
+      "body_sha256": "aeb38d6bdf0d339706989497741d62a1d0b02341052dc8f42372114449abacda",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/15027#issuecomment-2299898047"
+    },
+    {
+      "body_normalized": "Is #13140 the same thing?",
+      "body_raw": "Is #13140 the same thing?",
+      "body_sha256": "ff7d1edddc193b2a53ca552328d76e9f382f7bfb3fa54cfefd84f5650c57c9b3",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/15027#issuecomment-2299904338"
+    },
+    {
+      "body_normalized": "I do not think #13140 is the same, because there are no collisions involved in the description.\n\nI have also prepared a draft fix in 1519875b00ae722eedcdcf7f5a67ae0d338b72b4 but still waiting for the build to finish. Nevertheless, this may help understanding what I believe is missing from the velocity computations.",
+      "body_raw": "I do not think #13140 is the same, because there are no collisions involved in the description.\r\n\r\nI have also prepared a draft fix in 1519875b00ae722eedcdcf7f5a67ae0d338b72b4 but still waiting for the build to finish. Nevertheless, this may help understanding what I believe is missing from the velocity computations.",
+      "body_sha256": "7f45a1a992dee25ec1c90d405d3eb11ec0cf6ce86b2a5105bb2cfc7461c13aa5",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/15027#issuecomment-2299934755"
+    },
+    {
+      "body_normalized": "As for testing, it should also be possible to\n- run something that provokes lag, such as your screwdriver\n- ~jump on a bouncy node~\n- have some entity/mob fall on a bouncy node",
+      "body_raw": "As for testing, it should also be possible to\r\n- run something that provokes lag, such as your screwdriver\r\n- ~jump on a bouncy node~\r\n- have some entity/mob fall on a bouncy node",
+      "body_sha256": "b01a8535a3bc63d10495fb76d3b1bffd05f8994c6bf01add78b5e2f464207f0b",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/15027#issuecomment-2299941826"
+    },
+    {
+      "body_normalized": "> As for testing, it should also be possible to\n> * run something that provokes lag, such as your screwdriver\n> * jump on a bouncy node\n\nThis does not seem to work (tested in devtest and mineclonia). IIRC local player physics run at a different, fixed small stepsize (which can be afforded because each client does their own and there is only a single local player per client).\n\nIt also can't be reproduced with items, since those zero the velocity on collision (:\n\nSo this unfortunately isn't nice to reproduce in devtest. But in Mineclonia I can reproduce it, and the engine code shows that it's indeed an engine issue.",
+      "body_raw": "> As for testing, it should also be possible to\r\n> * run something that provokes lag, such as your screwdriver\r\n> * jump on a bouncy node\r\n\r\nThis does not seem to work (tested in devtest and mineclonia). IIRC local player physics run at a different, fixed small stepsize (which can be afforded because each client does their own and there is only a single local player per client).\r\n\r\nIt also can't be reproduced with items, since those zero the velocity on collision (:\r\n\r\nSo this unfortunately isn't nice to reproduce in devtest. But in Mineclonia I can reproduce it, and the engine code shows that it's indeed an engine issue.",
+      "body_sha256": "b29bdc7299ec20e4590c0adcb53edd684cd260d3cdb130ac5468171dbc4b7562",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/15027#issuecomment-2432946493"
+    },
+    {
+      "body_normalized": "\"This does not seem to work\" -> \"This test does not work\"\n(otherwise it sounds as if the patch does not work - but if I understand you correctly, it is just the proposed test that does not work?)",
+      "body_raw": "\"This does not seem to work\" -> \"This test does not work\"\r\n(otherwise it sounds as if the patch does not work - but if I understand you correctly, it is just the proposed test that does not work?)",
+      "body_sha256": "41fe824910442f57e81add5d6071e13100ea5952b947ecd587057e84781c9f57",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/15027#issuecomment-2433247302"
+    },
+    {
+      "body_normalized": "> \"This does not seem to work\" -> \"This test does not work\" (otherwise it sounds as if the patch does not work - but if I understand you correctly, it is just the proposed test that does not work?)\n\nNo no, the patch works, that's why I was commenting on the issue. I just had a bit of trouble trying to reproduce the issue in devtest in the first place due to the aforementioned reasons :)",
+      "body_raw": "> \"This does not seem to work\" -> \"This test does not work\" (otherwise it sounds as if the patch does not work - but if I understand you correctly, it is just the proposed test that does not work?)\r\n\r\nNo no, the patch works, that's why I was commenting on the issue. I just had a bit of trouble trying to reproduce the issue in devtest in the first place due to the aforementioned reasons :)",
+      "body_sha256": "5945947aa7a1b115933c28848caf2ad078edd16695fa06f234e63d733b0e073c",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/15027#issuecomment-2433301096"
+    },
+    {
+      "body_normalized": "Can we try to get the second iteration of this #15408 into 5.11.0?\n(And maybe some full parabolic collision in another revision)",
+      "body_raw": "Can we try to get the second iteration of this #15408 into 5.11.0?\n(And maybe some full parabolic collision in another revision)",
+      "body_sha256": "a72ef9dbde2cd12503328721382c986184b32dbf9a719eeb68ccb055dde38029",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/15027#issuecomment-2629077017"
+    },
+    {
+      "body_normalized": "That's too risky to review and merge during a feature freeze unfortunately. We have to postpone it to 5.12 :c",
+      "body_raw": "That's too risky to review and merge during a feature freeze unfortunately. We have to postpone it to 5.12 :c ",
+      "body_sha256": "1bc27d62f805a1d89eee572db7b4c2d608f1e8a7e51b869360456ec253e0473e",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/15027#issuecomment-2629111254"
+    },
+    {
+      "body_normalized": "PR is now merged, so does this issue still exist? @kno10",
+      "body_raw": "PR is now merged, so does this issue still exist? @kno10 ",
+      "body_sha256": "766bdb770ac95fb127d2e40e123853525ed044386f25fad0839643879db54934",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/15027#issuecomment-2866965785"
+    },
+    {
+      "body_normalized": "@sfan5 I do not remember all the details. I believe we trimmed down #15048 to the most important parts only, but it does not completely eliminate bobbing issues:\n\n- movement is linear during a time step, but if acceleration is not zero (e.g., gravity) this is not true; but getting the parabolic equations to work without glitches in some corner cases was pretty ugly\n- only one collision per time step and axis is considered\n- long dtime steps harm when transitioning between physics, e.g., air and water. This still causes entities to trampoline on water: while in water they receive upward acceleration, but in air they receive gravity; limiting the maximum dtime #15219 would help for that.",
+      "body_raw": "@sfan5 I do not remember all the details. I believe we trimmed down #15048 to the most important parts only, but it does not completely eliminate bobbing issues:\n\n- movement is linear during a time step, but if acceleration is not zero (e.g., gravity) this is not true; but getting the parabolic equations to work without glitches in some corner cases was pretty ugly\n- only one collision per time step and axis is considered\n- long dtime steps harm when transitioning between physics, e.g., air and water. This still causes entities to trampoline on water: while in water they receive upward acceleration, but in air they receive gravity; limiting the maximum dtime #15219 would help for that.",
+      "body_sha256": "d094f1424c827120af8c82fde5e115efedf3ae719b9077617322dbe3a3638b66",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/15027#issuecomment-2868963230"
+    }
+  ],
+  "fix_commit": "567b9a997ac5a1481bf64538d4f94a0ab677ee87",
+  "issue": {
+    "body_normalized": "### Minetest version\n\n```true\nMinetest 5.9.0 (Linux)\nUsing LuaJIT 2.1.1719379426 (OpenResty)\nBuilt by GCC 14.2\nRunning on Linux/6.8.12 x86_64\nBUILD_TYPE=Release\nRUN_IN_PLACE=0\nUSE_CURL=1\nUSE_GETTEXT=1\nUSE_SOUND=1\nSTATIC_SHAREDIR=\"/usr/share/minetest\"\nSTATIC_LOCALEDIR=\"/usr/share/locale\"\n```\n\n\n### Irrlicht device\n\nX11\n\n### Operating system and version\n\nDebian sid\n\n### CPU model\n\n_No response_\n\n### GPU model\n\nIntel\n\n### Active renderer\n\n_No response_\n\n### Summary\n\nWhen there is lag in the server (generating map chunks, spawning structures, mobs...) and it misses some dtime steps, entities can bounce badly on beds. Seen for example in Voxelibre and Mineclonia.\n\nThe reason is an incomplete interpolation in collision.cpp.\n\nFirst the acceleration is applied over the entire dtime:\nhttps://github.com/minetest/minetest/blob/dc21924f31ff52174553c4441ce8c861f842c6f9/src/collision.cpp#L365-L367\n\nthen a collision is searched with the updated speed (this is probably okay as an approximation).\nThen when a collision was found, it is assumed it was at the updated speed:\nhttps://github.com/minetest/minetest/blob/dc21924f31ff52174553c4441ce8c861f842c6f9/src/collision.cpp#L505\n\nWhen not bouncing that likely does not matter as much, because the collision sets the speed to 0, but not when on bouncy material (such as beds in Voxelibre and Mineclonia):\nhttps://github.com/minetest/minetest/blob/dc21924f31ff52174553c4441ce8c861f842c6f9/src/collision.cpp#L538\n\nA perfect simulation would of course mean checking some parabola, which is expensive. I think checking a linear movement from the start to the destination is okay as an approximation, but the error in the collision speed causes larger issues with bouncyness.\n\n### Steps to reproduce\n\n1. Mineclonia + World Edit\n2. Place a bed\n3. Place a villager onto it\n4. run `//lua local t0 = os.time() while os.time() < t0+2 do end`\n5. [Result](https://github.com/minetest/minetest/issues/15027#issuecomment-2299898047)",
+    "body_raw": "### Minetest version\r\n\r\n```true\r\nMinetest 5.9.0 (Linux)\r\nUsing LuaJIT 2.1.1719379426 (OpenResty)\r\nBuilt by GCC 14.2\r\nRunning on Linux/6.8.12 x86_64\r\nBUILD_TYPE=Release\r\nRUN_IN_PLACE=0\r\nUSE_CURL=1\r\nUSE_GETTEXT=1\r\nUSE_SOUND=1\r\nSTATIC_SHAREDIR=\"/usr/share/minetest\"\r\nSTATIC_LOCALEDIR=\"/usr/share/locale\"\r\n```\r\n\r\n\r\n### Irrlicht device\r\n\r\nX11\r\n\r\n### Operating system and version\r\n\r\nDebian sid\r\n\r\n### CPU model\r\n\r\n_No response_\r\n\r\n### GPU model\r\n\r\nIntel\r\n\r\n### Active renderer\r\n\r\n_No response_\r\n\r\n### Summary\r\n\r\nWhen there is lag in the server (generating map chunks, spawning structures, mobs...) and it misses some dtime steps, entities can bounce badly on beds. Seen for example in Voxelibre and Mineclonia.\r\n\r\nThe reason is an incomplete interpolation in collision.cpp.\r\n\r\nFirst the acceleration is applied over the entire dtime:\r\nhttps://github.com/minetest/minetest/blob/dc21924f31ff52174553c4441ce8c861f842c6f9/src/collision.cpp#L365-L367\r\n\r\nthen a collision is searched with the updated speed (this is probably okay as an approximation).\r\nThen when a collision was found, it is assumed it was at the updated speed:\r\nhttps://github.com/minetest/minetest/blob/dc21924f31ff52174553c4441ce8c861f842c6f9/src/collision.cpp#L505\r\n\r\nWhen not bouncing that likely does not matter as much, because the collision sets the speed to 0, but not when on bouncy material (such as beds in Voxelibre and Mineclonia):\r\nhttps://github.com/minetest/minetest/blob/dc21924f31ff52174553c4441ce8c861f842c6f9/src/collision.cpp#L538\r\n\r\nA perfect simulation would of course mean checking some parabola, which is expensive. I think checking a linear movement from the start to the destination is okay as an approximation, but the error in the collision speed causes larger issues with bouncyness.\r\n\r\n### Steps to reproduce\r\n\r\n1. Mineclonia + World Edit\r\n2. Place a bed\r\n3. Place a villager onto it\r\n4. run `//lua local t0 = os.time() while os.time() < t0+2 do end`\r\n5. [Result](https://github.com/minetest/minetest/issues/15027#issuecomment-2299898047)",
+    "body_sha256": "42f48b2d0cc0fccdc7c34103648edc1536c4053341a0d90a819f2a4a9c88cb20",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 15027,
+    "state": "open",
+    "title": "Bounciness issues with large dtime steps",
+    "url": "https://github.com/luanti-org/luanti/issues/15027"
+  },
+  "patch_sha256": "8f25449ca20695f7ccd1ba0b9239fba58ce24732a6dac83d635cc1e22dc49bfd",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "body_normalized": "Refreshed version of #15029 (reverted for 5.10.0 by #15400, includes #15378)\n\nThis fixes inaccuracies in the old collision code which in essence assumed a linear movement, and in case of a collision still used the final speed.\n\nThis version:\n- ~~uses a parabolic computation with acceleration~~ (postponed for now, did not get it to work perfectly)\n- more accurately computes the time of collision\n- ~~sorts node boxes to (hopefully) find collisions faster~~ (dropped, did not improve enough)\n- adds several additional unit tests (not all are perfectly passed by the previous nor the current code yet)\n\nIt is still an approximation to not need to iterate too much - consider a ball bouncing on a surface, and we have a long time step: the ball might do multiple bounces; this code will still only allow one per timestep: to avoid issues when standing on a floor, any collision will zero the axis velocity (unless bouncy) and zero the acceleration (always) for now.\nThe ultimate solution would be to make everything so fast that we can do much smaller dtime steps and all of this does not matter anymore.\n\nThe following cases should be tested:\n- [x] bouncy nodes are bouncy\n- [x] slippery nodes are slippery #15375\n- [x] falling nodes turn back solid #15381\n- [x] walking up stairs works\n- [x] not glitching into the floor after stairs\n- [x] not stuck when placing nodes right below oneself",
+    "body_raw": "Refreshed version of #15029 (reverted for 5.10.0 by #15400, includes #15378)\r\n\r\nThis fixes inaccuracies in the old collision code which in essence assumed a linear movement, and in case of a collision still used the final speed.\r\n\r\nThis version:\r\n- ~~uses a parabolic computation with acceleration~~ (postponed for now, did not get it to work perfectly)\r\n- more accurately computes the time of collision\r\n- ~~sorts node boxes to (hopefully) find collisions faster~~ (dropped, did not improve enough)\r\n- adds several additional unit tests (not all are perfectly passed by the previous nor the current code yet)\r\n\r\nIt is still an approximation to not need to iterate too much - consider a ball bouncing on a surface, and we have a long time step: the ball might do multiple bounces; this code will still only allow one per timestep: to avoid issues when standing on a floor, any collision will zero the axis velocity (unless bouncy) and zero the acceleration (always) for now.\r\nThe ultimate solution would be to make everything so fast that we can do much smaller dtime steps and all of this does not matter anymore.\r\n\r\nThe following cases should be tested:\r\n- [x] bouncy nodes are bouncy\r\n- [x] slippery nodes are slippery #15375\r\n- [x] falling nodes turn back solid #15381\r\n- [x] walking up stairs works\r\n- [x] not glitching into the floor after stairs\r\n- [x] not stuck when placing nodes right below oneself\r\n",
+    "body_sha256": "15aa72c5cf5ceded3df4d638e5b4973cb7c7253626072600c5f32b8adcbfbde9",
+    "kind": "pull",
+    "merged_at": "2025-02-15T11:17:44Z",
+    "number": 15408,
+    "state": "closed",
+    "title": "Collision: more accurate computation with acceleration and long dtime",
+    "url": "https://github.com/luanti-org/luanti/pull/15408"
+  },
+  "record_sha256": "7c1401d79e4acef6432b569688dad07bf86c4b4b550a2c24219b67c125319f67",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-13T09:59:15.233577Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-15408-collision-acceleration",
+  "tests": [
+    {
+      "command": [
+        "bin/luantiserver",
+        "--run-unittests",
+        "--test-module",
+        "TestCollision"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/cmake",
+        "--build",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/15408/capsule-owned-irrlicht-recovery-v3/buggy",
+        "--target",
+        "luantiserver",
+        "--parallel",
+        "1"
+      ],
+      "id": "TestCollision",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestCollision",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/src/unittest/test_collision.cpp",
+      "upstream_test_path": "src/unittest/test_collision.cpp",
+      "upstream_test_sha256": "a4887c340761ff0a9ee54af010f367559b2fa05bb34771d344a95b3287ffebf8"
+    },
+    {
+      "command": [
+        "bin/luantiserver",
+        "--run-unittests",
+        "--test-module",
+        "TestSettings"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/dependencies/luanti-native/3.0/bin/cmake",
+        "--build",
+        "$REPO_ROOT/.warptest-cache/c1_lazarus_selection_v1/private/bounded-builds/luanti/15408/capsule-owned-irrlicht-recovery-v3/buggy",
+        "--target",
+        "luantiserver",
+        "--parallel",
+        "1"
+      ],
+      "id": "TestSettings",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestSettings",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/src/unittest/test_collision.cpp",
+      "upstream_test_path": "src/unittest/test_collision.cpp",
+      "upstream_test_sha256": "a4887c340761ff0a9ee54af010f367559b2fa05bb34771d344a95b3287ffebf8"
+    }
+  ],
+  "touched_files": [
+    "src/collision.cpp",
+    "src/unittest/test_collision.cpp"
+  ],
+  "upstream_commits": []
+}

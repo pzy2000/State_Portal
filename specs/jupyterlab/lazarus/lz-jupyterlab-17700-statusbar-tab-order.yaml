@@ -1,0 +1,155 @@
+name: C1-Lazarus JupyterLab 17700-statusbar-tab-order
+benchmark: jupyterlab
+timeout_ms: 900000
+tags:
+- c1
+- lazarus
+- jupyterlab
+- production
+setup:
+  jupyterlab_lazarus_probe:
+    task_id: lz-jupyterlab-17700-statusbar-tab-order
+    change_number: 17700
+    issue_number: 17680
+    adapter: jupyterlab_lazarus_edge_probe_v1
+    registered_replay:
+    - load_candidate_local_bundle
+    - register_three_right_aligned_items_by_ascending_rank
+    - press_real_tab_three_times
+    - read_candidate_ordered_focus_targets
+    probe_executable: true
+target:
+  kind: jupyterlab_lazarus_candidate_bundle
+  change_number: 17700
+  variants:
+  - fixed
+  - buggy
+  bundler: candidate_local_rspack
+  browser: microsoft_edge_via_playwright
+checkpoint:
+  allowed_strategies:
+  - jupyterlab_lazarus_edge_replay_validate
+  expected_validity: replay-reachable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-17700-statusbar-tab-order/fixed.after.golden.png
+    expected_label: correct
+    description: No status bar item carries a keyboard-focus outline.
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a blank white page above
+        a grey JupyterLab status bar, whose right end holds three items reading "Ln
+        1, Col 1", "Kernel Idle" and "Bell" from left to right.
+      - No status bar item carries a keyboard-focus outline.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, sub-pixel shifts in the status bar background, and the
+        empty white area above the status bar.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: jupyterlab_lazarus_dom_audit
+      field: first_tab_stop
+      expected: line-column
+    - type: jupyterlab_lazarus_dom_audit
+      field: rendered_order
+      expected:
+      - line-column
+      - kernel-status
+      - notifications
+    - type: jupyterlab_lazarus_dom_audit
+      field: tab_sequence
+      expected:
+      - line-column
+      - kernel-status
+      - notifications
+    defect_signature:
+    - type: jupyterlab_lazarus_dom_audit
+      field: first_tab_stop
+      expected: notifications
+    - type: jupyterlab_lazarus_dom_audit
+      field: rendered_order
+      expected:
+      - line-column
+      - kernel-status
+      - notifications
+    - type: jupyterlab_lazarus_dom_audit
+      field: tab_sequence
+      expected:
+      - notifications
+      - kernel-status
+      - line-column
+    invariant_checks:
+    - type: no_jupyterlab_probe_errors
+    upstream_tests:
+      fail_to_pass:
+      - should put higher rank right items closer to the middle
+      pass_to_pass: &id001
+      - should put higher rank left items closer to the middle
+      per_trial_p2p: *id001
+    goldens:
+      before: visual_lz-jupyterlab-17700-statusbar-tab-order/before.golden.png
+      buggy_before: visual_lz-jupyterlab-17700-statusbar-tab-order/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-17700-statusbar-tab-order/fixed.after.golden.png
+        after_description: A black focus rectangle surrounds "Ln 1, Col 1", the leftmost
+          and innermost of the three right-hand items, while "Kernel Idle" and "Bell"
+          carry no outline.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a blank white page
+            above a grey JupyterLab status bar, whose right end holds three items
+            reading "Ln 1, Col 1", "Kernel Idle" and "Bell" from left to right.
+          - A black focus rectangle surrounds "Ln 1, Col 1", the leftmost and innermost
+            of the three right-hand items, while "Kernel Idle" and "Bell" carry no
+            outline.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, sub-pixel shifts in the status bar background, and
+            the empty white area above the status bar.
+      buggy:
+        after: visual_lz-jupyterlab-17700-statusbar-tab-order/buggy.after.golden.png
+        after_description: A black focus rectangle surrounds "Bell", the rightmost
+          item at the screen edge, while "Ln 1, Col 1" and "Kernel Idle" carry no
+          outline.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a blank white page
+            above a grey JupyterLab status bar, whose right end holds three items
+            reading "Ln 1, Col 1", "Kernel Idle" and "Bell" from left to right.
+          - A black focus rectangle surrounds "Bell", the rightmost item at the screen
+            edge, while "Ln 1, Col 1" and "Kernel Idle" carry no outline.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, sub-pixel shifts in the status bar background, and
+            the empty white area above the status bar.

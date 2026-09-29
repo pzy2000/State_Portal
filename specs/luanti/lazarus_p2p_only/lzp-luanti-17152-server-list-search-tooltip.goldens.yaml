@@ -1,0 +1,68 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lzp-luanti-17152-server-list-search-tooltip
+benchmark: luanti
+track: c1_lazarus_p2p_only_v1
+candidate:
+  repository_key: luanti
+  change_number: 17152
+  issue_number: 17150
+  defect_locus: at_goal
+authoritative_defect: Cryptic server list sort filter tooltip
+provenance:
+  captured_by: materialized_pair_engine_screenshot_capture
+  capture_backend: luanti_irrlicht_create_screenshot_v1
+  frame_sources:
+    fixed_before: frames/lzp-luanti-17152-server-list-search-tooltip/fixed/before.png
+    fixed_after: frames/lzp-luanti-17152-server-list-search-tooltip/fixed/after.png
+    buggy_before: frames/lzp-luanti-17152-server-list-search-tooltip/buggy/before.png
+    buggy_after: frames/lzp-luanti-17152-server-list-search-tooltip/buggy/after.png
+  goldens_metadata: visual_lzp-luanti-17152-server-list-search-tooltip/goldens.meta.json
+  defect_differential_source: rendered_frames
+evaluation:
+  visual_oracle:
+    golden_image: visual_lzp-luanti-17152-server-list-search-tooltip/before.golden.png
+    description: A Luanti client window shows the engine main menu. The local-game tab is showing. The
+      online tab is not selected.
+    rubric:
+      must:
+      - A Luanti client window shows the engine main menu.
+      - The local-game tab is showing. The online tab is not selected.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Window chrome, font antialiasing, and cursor blink.
+  lazarus:
+    goldens:
+      before: visual_lzp-luanti-17152-server-list-search-tooltip/before.golden.png
+      buggy_before: visual_lzp-luanti-17152-server-list-search-tooltip/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-luanti-17152-server-list-search-tooltip/fixed.after.golden.png
+        after_description: The online tab is showing. The search field's tooltip lists the filter examples
+          as complete separate lines.
+        after_rubric:
+          must:
+          - A Luanti client window shows the engine main menu.
+          - The online tab is showing. The search field's tooltip lists the filter examples as complete
+            separate lines.
+          - 'Judge this frame by the tooltip painted for the server list search field: whether the listed
+            filter examples are drawn as complete lines.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Window chrome, font antialiasing, and cursor blink.
+      buggy:
+        after: visual_lzp-luanti-17152-server-list-search-tooltip/buggy.after.golden.png
+        after_description: The online tab is showing. The search field's tooltip is truncated or misparsed,
+          so the filter examples are not drawn as complete separate lines.
+        after_rubric:
+          must:
+          - A Luanti client window shows the engine main menu.
+          - The online tab is showing. The search field's tooltip is truncated or misparsed, so the filter
+            examples are not drawn as complete separate lines.
+          - 'Judge this frame by the tooltip painted for the server list search field: whether the listed
+            filter examples are drawn as complete lines.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Window chrome, font antialiasing, and cursor blink.

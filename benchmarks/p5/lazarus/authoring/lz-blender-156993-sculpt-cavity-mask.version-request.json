@@ -1,0 +1,12 @@
+{
+  "build_class": "incremental_cpp",
+  "declared_files": [
+    "source/blender/editors/sculpt_paint/mesh/sculpt_ops.cc",
+    "tests/python/sculpt_paint/mask_test.py"
+  ],
+  "fixed_revision": "3d018bcabdaeea66cf4ef4a96ce8913164831f6e",
+  "patch_sha256": "32841eb0fe6b62411f0090c87a26967202f6725308c31bba0e1395febf5be3a1",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-blender-156993-sculpt-cavity-mask/revert.patch",
+  "source_repo": "games/blender",
+  "task_id": "lz-blender-156993-sculpt-cavity-mask"
+}

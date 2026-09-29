@@ -1,0 +1,101 @@
+name: C1 OpenRA Allied combined arms rally
+benchmark: openra
+repo: ../../games/OpenRA
+timeout_ms: 900000
+tags: [c1, long, openra, allied, rally]
+setup:
+  openra_gameplay_probe:
+    cash: 50000
+    fast_build: true
+    build_anywhere: false
+    delay_ticks: 100
+    remove_player_actor_types:
+      Greece: [fact, powr, proc, tent, weap, 2tnk, e1, e3]
+target:
+  kind: openra_map
+  mod: ra
+  requires_mod: ra
+  map: allies-08a
+  players:
+    - {id: Greece, playable: true, required: true, faction: allies}
+  actors:
+    - {id: mcv, type: mcv, owner: Greece}
+checkpoint:
+  allowed_strategies: [openra_gameplay_production_validate]
+  expected_validity: replay-reachable
+replay_from_start:
+  actions:
+    - {type: openra_launch_map, mod: ra, map: allies-08a}
+actions:
+  - {type: openra_wait_ticks, ticks: 100}
+  - {type: openra_deploy_actor, player: Greece, actor_id: mcv, wait_until_actor: fact, timeout_ticks: 900}
+  - {type: openra_build_actor, player: Greece, actor: powr, queue: Building, place_near: {anchor: "26,64", radius: 18}, timeout_ticks: 900}
+  - {type: openra_build_actor, player: Greece, actor: proc, queue: Building, place_near: {anchor: "26,64", radius: 18}, timeout_ticks: 900}
+  - {type: openra_build_actor, player: Greece, actor: tent, queue: Building, place_near: {anchor: "26,64", radius: 18}, timeout_ticks: 900}
+  - {type: openra_build_actor, player: Greece, actor: weap, queue: Building, place_near: {anchor: "26,64", radius: 18}, timeout_ticks: 900}
+  - type: openra_build_group
+    player: Greece
+    units: [{actor: e1, queue: Infantry, count: 2}, {actor: e3, queue: Infantry, count: 1}, {actor: 2tnk, queue: Vehicle, count: 1}]
+    timeout_ticks: 1400
+  - type: openra_rally_group
+    player: Greece
+    actors: [{actor: e1, count: 2}, {actor: e3, count: 1}, {actor: 2tnk, count: 1}]
+    center: "30,64"
+    radius: 6
+    timeout_ticks: 1200
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: openra_actor_built, player: Greece, actor: tent, min_delta: 1}
+      - {type: openra_actor_built, player: Greece, actor: weap, min_delta: 1}
+      - {type: openra_actor_built, player: Greece, actor: e1, min_delta: 2}
+      - {type: openra_actor_built, player: Greece, actor: e3, min_delta: 1}
+      - {type: openra_actor_built, player: Greece, actor: 2tnk, min_delta: 1}
+      - type: openra_actor_group_in_region
+        player: Greece
+        actors: [{actor: e1, count: 2}, {actor: e3, count: 1}, {actor: 2tnk, count: 1}]
+        center: "30,64"
+        radius: 6
+      - {type: no_openra_gameplay_probe_errors}
+    surfaces:
+      gui:
+        adapter: openra_live_gameplay_probe_v1
+        start:
+          validate_target: true
+          checks: []
+          expected_checks:
+          - name: assertions.0.actor_exists
+        goal:
+          use_assertions: true
+          checks: []
+          expected_checks:
+          - name: assertions.0.actor_built
+          - name: assertions.1.actor_built
+          - name: assertions.2.actor_built
+          - name: assertions.3.actor_built
+          - name: assertions.4.actor_built
+          - name: assertions.5.actor_group_in_region
+          - name: assertions.6.no_probe_errors
+      state:
+        adapter: openra_live_gameplay_probe_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/c1-allied-combined-arms-rally.after.golden.png
+    golden_before: visual/c1-allied-combined-arms-rally.before.golden.png
+    golden_after: visual/c1-allied-combined-arms-rally.after.golden.png
+    expected_label: correct
+    description: The Allied MCV start is visible before construction and unit production.
+    after_description: Two rifle infantry, one rocket infantry, and one medium tank occupy the declared rally region with the base visible.
+    rubric:
+      must: [A live OpenRA gameplay frame and starting MCV are visible]
+      must_not: [A menu or blank frame is shown]
+    after_rubric:
+      must: [Four Allied units are visibly grouped in one rally area, The completed base remains visible]
+      must_not: [The units remain scattered at production buildings, A menu or crash frame is shown]
+    capture: {stage: post_smoke, wait_ms: 0, full_page: false}

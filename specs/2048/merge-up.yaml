@@ -1,0 +1,101 @@
+name: 2048 merge up from restored board
+benchmark: "2048"
+tags:
+- '2048'
+- localStorage
+- merge
+- variant
+target:
+  kind: board
+  board:
+  - - 2
+    - 0
+    - 0
+    - 0
+  - - 2
+    - 0
+    - 0
+    - 0
+  - - 0
+    - 0
+    - 0
+    - 0
+  - - 0
+    - 0
+    - 0
+    - 0
+  score: 0
+  bestScore: 0
+checkpoint:
+  allowed_strategies:
+  - localStorage_restore_reload
+  expected_validity: save-restorable
+actions:
+- type: move
+  direction: up
+  wait_ms: 450
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+    - type: score_increased_by_at_least
+      amount: 4
+    - type: tile_value_present
+      value: 4
+    - type: no_severe_console
+    surfaces:
+      gui:
+        adapter: 2048_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: 2048_state_profile_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/2048-merge-up.after.golden.png
+    golden_before: visual/2048-merge-up.before.golden.png
+    golden_after: visual/2048-merge-up.after.golden.png
+    expected_label: correct
+    description: The restored 2048 board shows two separate 2 tiles stacked in the two
+      topmost cells of the left column with score 0.
+    after_description: After one up move the two starting tiles are merged into a single
+      4 tile in the top-left corner and the score reads 4; the original game may also
+      spawn one new low-value 2 or 4 tile elsewhere.
+    rubric:
+      must:
+      - The 2048 game board is visible.
+      - Two separate 2 tiles are visible stacked in the left column.
+      - The score area reads 0.
+      must_not:
+      - A merged 4 or higher tile is already visible.
+      - A browser error, crash overlay, or blank page is visible.
+      - The screenshot shows an unrelated app or setup screen.
+      ignore:
+      - Minor animation, text wrapping, or dynamic UI differences.
+    after_rubric:
+      must:
+      - The 2048 game board is visible.
+      - A 4 tile is visible in the top row of the left column.
+      - The score area reads 4.
+      - Any additional low-value 2 or 4 tile is acceptable as the normal post-move random
+        spawn.
+      must_not:
+      - The left column still shows two separate stacked 2 tiles.
+      - The screenshot lacks the merged 4 tile.
+      - A browser error, crash overlay, or blank page is visible.
+      ignore:
+      - Minor animation position differences.
+      - The position and value of the newly spawned low-value tile after the move.
+    capture:
+      stage: post_smoke
+      wait_ms: 300
+      full_page: false

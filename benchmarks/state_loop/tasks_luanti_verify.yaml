@@ -1,0 +1,33 @@
+# Temporary 3-task subset for verifying the luanti harness fix (build-column /
+# water-source / replace-node). Safe to delete after the verification run.
+tasks:
+- id: luanti-build-column
+  benchmark: luanti
+  repo: games/luanti
+  state_description: luanti build a tree-trunk column A vertical column of tree-trunk blocks is rendered near spawn in the Luanti devtest world.
+  oracle_spec: specs/luanti/build-column.yaml
+  tags:
+  - state-loop
+  - luanti
+  - fuzz
+  budget_ms: 120000
+- id: luanti-replace-node
+  benchmark: luanti
+  repo: games/luanti
+  state_description: luanti replace a stone node with cobble A Luanti devtest world is rendered near spawn after a stone block was replaced with cobble.
+  oracle_spec: specs/luanti/replace-node.yaml
+  tags:
+  - state-loop
+  - luanti
+  - fuzz
+  budget_ms: 120000
+- id: luanti-water-source
+  benchmark: luanti
+  repo: games/luanti
+  state_description: luanti place a water source node A stone basin with a water source block is rendered near spawn in the Luanti devtest world.
+  oracle_spec: specs/luanti/water-source.yaml
+  tags:
+  - state-loop
+  - luanti
+  - fuzz
+  budget_ms: 120000

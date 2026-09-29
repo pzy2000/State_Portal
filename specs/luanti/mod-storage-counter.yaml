@@ -1,0 +1,24 @@
+name: luanti overwrite a mod-storage counter value
+benchmark: "luanti"
+timeout_ms: 300000
+tags: ["luanti", "mod-storage", "counter"]
+target:
+  kind: synthesized_world
+  mod_storage:
+    - { key: "warptest_visits", value: "1" }
+    - { key: "warptest_zone", value: "spawn" }
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_mod_storage
+    key: "warptest_visits"
+    value: "7"
+assertions:
+  - type: luanti_mod_storage_equals
+    key: "warptest_visits"
+    value: "7"
+  - type: luanti_mod_storage_equals
+    key: "warptest_zone"
+    value: "spawn"
+  - type: no_luanti_mod_errors

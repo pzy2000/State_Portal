@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "benchmark": "luanti",
+  "generated_at_utc": "2026-07-15T10:34:14.086923+00:00",
+  "source_cards": [
+    {
+      "pr_number": 12595,
+      "source_url": "https://github.com/luanti-org/luanti/pull/12595",
+      "post_fix_sha": "61a57336920e0f64361a4c48215b12969c3a1eff",
+      "title": "[NO SQUASH] Inventory: Fix order of callbacks when swapping items"
+    },
+    {
+      "pr_number": 17101,
+      "source_url": "https://github.com/luanti-org/luanti/pull/17101",
+      "post_fix_sha": "3b80a28198eaf7fdb6690197c67afeec03876582",
+      "title": "Add `overlay_tiles` as targets for texturepacks"
+    },
+    {
+      "pr_number": 16831,
+      "source_url": "https://github.com/luanti-org/luanti/pull/16831",
+      "post_fix_sha": "6a3333355ba458442abc976f09e91475d63f1bf3",
+      "title": "Fix unit test use after return"
+    },
+    {
+      "pr_number": 17043,
+      "source_url": "https://github.com/luanti-org/luanti/pull/17043",
+      "post_fix_sha": "e6f0377ea2cb60c0c267b9ea570c1b4cc059d5b7",
+      "title": "Add bounds check for from_i in IDropAction::apply()"
+    },
+    {
+      "pr_number": 17024,
+      "source_url": "https://github.com/luanti-org/luanti/pull/17024",
+      "post_fix_sha": "10344f69f9dea4a0e0218fcef0211eb6d34466c8",
+      "title": "[no sq] Revert broken on_drop semantics & tests"
+    },
+    {
+      "pr_number": 17016,
+      "source_url": "https://github.com/luanti-org/luanti/pull/17016",
+      "post_fix_sha": "5932c174022a0cd1c4a1f8c657694fea2fce5161",
+      "title": "[no squash] Some fixes"
+    }
+  ],
+  "recipes": [
+    {
+      "id": "luanti-item-count",
+      "target_path": "meta_inventory[].items[].count",
+      "op": "field_value",
+      "values": [
+        -1,
+        0,
+        65536,
+        2147483647
+      ],
+      "rationale": "item stack count boundaries (0 / negative / > stack max)",
+      "source_prs": [
+        12595,
+        17043,
+        17024,
+        17016
+      ],
+      "source_pr": 12595
+    },
+    {
+      "id": "luanti-mod-storage",
+      "target_path": "mod_storage[].value",
+      "op": "field_value",
+      "values": [
+        "",
+        "\u0000",
+        "9999999999999999999999999999999999999999"
+      ],
+      "rationale": "mod-storage values: empty / NUL / oversized strings",
+      "source_prs": [
+        12595,
+        17024,
+        17016
+      ],
+      "source_pr": 12595
+    },
+    {
+      "id": "luanti-node-name",
+      "target_path": "nodes[].node",
+      "op": "type_flip",
+      "values": [
+        "",
+        ":",
+        "unknown:node",
+        "ignore",
+        "air "
+      ],
+      "rationale": "unknown / empty / malformed node names hit content resolution",
+      "source_prs": [
+        17101,
+        16831,
+        17024,
+        17016
+      ],
+      "source_pr": 17101
+    },
+    {
+      "id": "luanti-item-name",
+      "target_path": "meta_inventory[].items[].item",
+      "op": "type_flip",
+      "values": [
+        "",
+        "unknown:item",
+        "default:stone 999999"
+      ],
+      "rationale": "malformed / unknown item strings reach ItemStack parsing",
+      "source_prs": [
+        17024,
+        17016
+      ],
+      "source_pr": 17024
+    }
+  ]
+}

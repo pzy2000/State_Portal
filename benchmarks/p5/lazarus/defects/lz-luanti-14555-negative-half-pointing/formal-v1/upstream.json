@@ -1,0 +1,133 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [
+    {
+      "body_normalized": "Can reproduce.",
+      "body_raw": "Can reproduce.",
+      "body_sha256": "b82262eda73d15c096173767d861f461aa21c825c33eb38c7bd5565a693fb541",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/14554#issuecomment-2061325354"
+    }
+  ],
+  "fix_commit": "5a07f5a652717b72a746d27d48e027600a6fce7c",
+  "issue": {
+    "body_normalized": "### Minetest version\n\n```true\n5.8.0\n```\n\n\n### Irrlicht device\n\nX11\n\n### Operating system and version\n\nParabola\n\n### CPU model\n\n_No response_\n\n### GPU model\n\n_No response_\n\n### Active renderer\n\nOpenGL 4.5\n\n### Summary\n\nIf you stand at a position where the fractional part of the X or Z coordinate is EXACTLY .5 AND the same coordinate is negative, you can't point nearby nodes. Example numbers: -10.5, -4.5, -0.5.\n\n\n**Significance**:\n\nNormally, this bug is unlikely to occur since the player has to match that bad coordinate EXACTLY. But a player can get at such a coordinate via `set_pos`. If the player is then unable to move, this bug is suddenly much more visible.\n\nI've discovered this by reworking the bed in Repixture, which puts the player at a .5 coordinate (in the middle of the bed). The workaround was to put the player at a slightly different coordinate.\n\n### Steps to reproduce\n\n1. Generate a flat world\n2. Do this command: `/teleport -10.5 ~ ~`\n3. Try to point the nodes near you (don't walk!)\n\nExpected result: You can point every node.\nActual result: You can't point the nodes close to you, but the ones further away can be pointed.\n\nNote: It doesn't have to be -10.5. It can be any number `X-0.5`, where X is a negative whole number. This also happens with the Z axis. You can also try to set both X and Z. I haven't tested Y.\n\nThe pointing failure stops as soon you move the tiniest bit.",
+    "body_raw": "### Minetest version\n\n```true\n5.8.0\n```\n\n\n### Irrlicht device\n\nX11\n\n### Operating system and version\n\nParabola\n\n### CPU model\n\n_No response_\n\n### GPU model\n\n_No response_\n\n### Active renderer\n\nOpenGL 4.5\n\n### Summary\n\nIf you stand at a position where the fractional part of the X or Z coordinate is EXACTLY .5 AND the same coordinate is negative, you can't point nearby nodes. Example numbers: -10.5, -4.5, -0.5.\r\n\r\n\r\n**Significance**:\r\n\r\nNormally, this bug is unlikely to occur since the player has to match that bad coordinate EXACTLY. But a player can get at such a coordinate via `set_pos`. If the player is then unable to move, this bug is suddenly much more visible.\r\n\r\nI've discovered this by reworking the bed in Repixture, which puts the player at a .5 coordinate (in the middle of the bed). The workaround was to put the player at a slightly different coordinate.\n\n### Steps to reproduce\n\n1. Generate a flat world\r\n2. Do this command: `/teleport -10.5 ~ ~`\r\n3. Try to point the nodes near you (don't walk!)\r\n\r\nExpected result: You can point every node.\r\nActual result: You can't point the nodes close to you, but the ones further away can be pointed.\r\n\r\nNote: It doesn't have to be -10.5. It can be any number `X-0.5`, where X is a negative whole number. This also happens with the Z axis. You can also try to set both X and Z. I haven't tested Y.\r\n\r\nThe pointing failure stops as soon you move the tiniest bit.",
+    "body_sha256": "97bbd57a42a34fafd665942a2a08fdabe3a882d50b7e7664b8048db8e7094fd9",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 14554,
+    "state": "closed",
+    "title": "Pointing problems when you stand exactly at (-10.5, ?, ?)",
+    "url": "https://github.com/luanti-org/luanti/issues/14554"
+  },
+  "patch_sha256": "d94a134b545ef0a15cabe782a707587d3de8bddb70dbe784f32c0b2897e53813",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "body_normalized": "Fixes #14554.\n\n## To do\n\nThis PR is a Ready for Review.\n## How to test\n\n* See #14554.\n* `minetest --run-unittests --test-module TestVoxelAlgorithms`",
+    "body_raw": "Fixes #14554.\r\n\r\n## To do\r\n\r\nThis PR is a Ready for Review.\r\n## How to test\r\n\r\n* See #14554.\r\n* `minetest --run-unittests --test-module TestVoxelAlgorithms`\r\n",
+    "body_sha256": "5e5aef1cf9a36e896e340bf1026bcffd61fce7cd5590af34e8987d051783121b",
+    "kind": "pull",
+    "merged_at": "2024-04-20T11:03:34Z",
+    "number": 14555,
+    "state": "closed",
+    "title": "Fix inconsistent rounding in VoxelLineIterator::VoxelLineIterator",
+    "url": "https://github.com/luanti-org/luanti/pull/14555"
+  },
+  "record_sha256": "9763146de83c3f71b7787bfee004d4161c182c626ae2be4dad286ec55074eb3d",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-13T09:46:24.469045Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-14555-negative-half-pointing",
+  "tests": [
+    {
+      "argv": [
+        "./bin/luanti",
+        "--run-unittests",
+        "--test-module",
+        "TestVoxelAlgorithms"
+      ],
+      "command": [
+        "./bin/luanti",
+        "--run-unittests",
+        "--test-module",
+        "TestVoxelAlgorithms"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "src/unittest/test_voxelalgorithms.cpp",
+          "sha256": "487d853db8eceb066b54e661ae6a47b118b0dcd077a38c8b559addd3863ac888",
+          "source_path": "upstream-tests/src/unittest/test_voxelalgorithms.cpp"
+        }
+      ],
+      "id": "luanti-pr14555-voxel-line-iterator-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestVoxelAlgorithms.testVoxelLineIterator",
+      "source_url": "https://github.com/luanti-org/luanti/blob/5a07f5a652717b72a746d27d48e027600a6fce7c/src/unittest/test_voxelalgorithms.cpp",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "src/unittest/test_voxelalgorithms.cpp",
+          "sha256": "487d853db8eceb066b54e661ae6a47b118b0dcd077a38c8b559addd3863ac888",
+          "source_url": "https://github.com/luanti-org/luanti/blob/5a07f5a652717b72a746d27d48e027600a6fce7c/src/unittest/test_voxelalgorithms.cpp"
+        }
+      ],
+      "upstream_test_path": "src/unittest/test_voxelalgorithms.cpp",
+      "upstream_test_sha256": "487d853db8eceb066b54e661ae6a47b118b0dcd077a38c8b559addd3863ac888"
+    },
+    {
+      "argv": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "command": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed",
+          "source_path": "upstream-tests/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "id": "luanti-vector-zero-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "vector zero()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/5a07f5a652717b72a746d27d48e027600a6fce7c/builtin/common/tests/vector_spec.lua",
+      "timeout_s": 60,
+      "upstream_runner_root": ".warptest-cache/lazarus/tools/luanti-busted-luajit",
+      "upstream_runner_tree_sha256": "8e52972a9ade81d36ec6225831d24ec6ceeef306f1841db8a29fd22c21fb19b2",
+      "upstream_test_files": [
+        {
+          "path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed",
+          "source_url": "https://github.com/luanti-org/luanti/blob/5a07f5a652717b72a746d27d48e027600a6fce7c/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "upstream_test_path": "builtin/common/tests/vector_spec.lua",
+      "upstream_test_sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed"
+    }
+  ],
+  "touched_files": [
+    "src/unittest/test_voxelalgorithms.cpp",
+    "src/voxelalgorithms.cpp",
+    "src/unittest/test_settings.cpp"
+  ],
+  "upstream_commits": []
+}

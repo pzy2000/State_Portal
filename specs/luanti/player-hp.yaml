@@ -1,0 +1,42 @@
+name: luanti set the player's health and verify it
+benchmark: "luanti"
+timeout_ms: 300000
+tags: ["luanti", "player", "hp"]
+target:
+  kind: synthesized_world
+  player:
+    hp: 20
+  validations:
+    - path: "player.hp"
+      expected: "20"
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_player_hp
+    hp: 12
+assertions:
+  - type: luanti_player_hp_gte
+    int_value: 12
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/player-hp.golden.png
+  golden_before: visual/luanti-player-hp.before.golden.png
+  golden_after: visual/luanti-player-hp.after.golden.png
+  expected_label: correct
+  description: "The Luanti devtest world is rendered from the player's view with the HUD health bar visible."
+  rubric:
+    must:
+      - "The 3D voxel world is rendered and visible from the player's view."
+      - "The health HUD is visible with a high-heart state matching the golden oracle at a coarse level."
+      - "No crash dialog, error overlay, or fully blank screen is shown."
+    must_not:
+      - "The health HUD is missing or visibly shows a low/damaged state instead of the expected high health."
+      - "The screen is blank, black, or only shows the main menu."
+      - "An error dialog or exception stack trace is visible."
+    ignore:
+      - "Camera angle, lighting differences, and tiny heart-pixel animation differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 800
+    full_page: false

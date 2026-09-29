@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/spacerpg/visual/spacerpg-trade-refit-mining-sortie.after.golden.png",
+  "after_dimensions": [
+    1280,
+    800
+  ],
+  "after_sha256": "02d91659efa072386aea00a2aa4578171fc34587fc2cea7627978f21a7251d36",
+  "before": "specs/spacerpg/visual/spacerpg-trade-refit-mining-sortie.before.golden.png",
+  "before_dimensions": [
+    1280,
+    800
+  ],
+  "before_sha256": "eecb1aec78ff8bac6a3219f205ee7bfc202b0dcc1e7645ac9b21678cdda07210",
+  "benchmark": "spacerpg",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/spacerpg/c1-trade-refit-mining-sortie.yaml",
+  "spec_sha256": "4498ab3e36e97e99f758764999d8f341a4248541f397c6fbcdcaf3b67b35cf71",
+  "task_id": "spacerpg-trade-refit-mining-sortie"
+}

@@ -1,0 +1,114 @@
+schema: c1-lazarus-task-goldens-v1
+schema_version: 1
+task_id: lz-jupyterlab-12863-dialog-getvalue-error
+benchmark: jupyterlab
+candidate:
+  repository_key: jupyterlab
+  change_number: 18938
+  issue_number: 12863
+  defect_locus: at_goal
+authoritative_defect: a dialog whose body getValue() throws is never disposed and
+  its promise never settles, so the dialog hangs until the page reloads
+provenance:
+  formal_freeze_admission: candidate_formal_freeze_admission/jupyterlab/18938/real-dialog-v3
+  frame_sources:
+    fixed_before: candidate_gate11_edge_observation/jupyterlab/18938/fixed/real-dialog-v3
+    fixed_after: candidate_gate11_edge_observation/jupyterlab/18938/fixed/real-dialog-v3
+    buggy_before: candidate_gate11_edge_observation/jupyterlab/18938/buggy/real-dialog-v3
+    buggy_after: candidate_gate11_edge_observation/jupyterlab/18938/buggy/real-dialog-v3
+  goldens_metadata: visual_lz-jupyterlab-12863-dialog-getvalue-error/goldens.meta.json
+  before_equivalence:
+    changed_pixel_ratio: 0.0
+    ignored_top_fraction: 0.0
+    mean_absolute_difference: 0.0
+  after_differential:
+    changed_pixel_ratio: 0.9183888888888889
+    ignored_top_fraction: 0.0
+    mean_absolute_difference: 61.44063395061729
+  golden_policy:
+    after_min_changed_pixel_ratio: 0.001
+    before_max_changed_pixel_ratio: 0.01
+    ignore_top_fraction: 0.0
+  captured_by: materialized_fixed_buggy_runtime_capture
+evaluation:
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-12863-dialog-getvalue-error/fixed.after.golden.png
+    expected_label: correct
+    description: The page below the heading is dimmed grey and a white modal titled
+      "Rename File" is centred on it, reading "Rename the notebook" above a "Cancel"
+      button and a blue-outlined "Ok" button.
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a page headed "Rename
+        dialog replay" above the grey line "A dialog body whose getValue() throws
+        is accepted with Ok.".
+      - The page below the heading is dimmed grey and a white modal titled "Rename
+        File" is centred on it, reading "Rename the notebook" above a "Cancel" button
+        and a blue-outlined "Ok" button.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    runtime_status: probe_runtime_available
+    probe:
+      adapter: jupyterlab_lazarus_edge_probe_v1
+      spec: lz-jupyterlab-12863-dialog-getvalue-error.yaml
+      registered_replay:
+      - load_candidate_local_bundle
+      - show_dialog_with_a_throwing_body
+      - click_ok_with_real_mouse_input
+      - read_dialog_presence_and_promise_settlement
+      versions_replayed:
+      - fixed
+      - buggy
+      re_executed_offline: true
+      provider_calls_required: false
+    upstream_tests:
+      fail_to_pass:
+      - '@jupyterlab/apputils showDialog() should reject the promise when getValue()
+        throws'
+      pass_to_pass:
+      - '@jupyterlab/apputils showDialog() should give the value from the widget'
+    goldens:
+      before: visual_lz-jupyterlab-12863-dialog-getvalue-error/before.golden.png
+      buggy_before: visual_lz-jupyterlab-12863-dialog-getvalue-error/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-12863-dialog-getvalue-error/fixed.after.golden.png
+        after_description: No modal is on screen and the page below the two heading
+          lines is undimmed white.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a page headed "Rename
+            dialog replay" above the grey line "A dialog body whose getValue() throws
+            is accepted with Ok.".
+          - No modal is on screen and the page below the two heading lines is undimmed
+            white.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+      buggy:
+        after: visual_lz-jupyterlab-12863-dialog-getvalue-error/buggy.after.golden.png
+        after_description: The page below the heading is dimmed grey and a white modal
+          titled "Rename File" is centred on it, reading "Rename the notebook" above
+          a "Cancel" button and a blue-outlined "Ok" button.
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a page headed "Rename
+            dialog replay" above the grey line "A dialog body whose getValue() throws
+            is accepted with Ok.".
+          - The page below the heading is dimmed grey and a white modal titled "Rename
+            File" is centred on it, reading "Rename the notebook" above a "Cancel"
+            button and a blue-outlined "Ok" button.
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.

@@ -1,0 +1,449 @@
+schema_version: 1
+task_schema: c1_lazarus_v1
+p2p_only_population: true
+population_notes: Rows in this catalog carry no fail-to-pass test. Their defect differential comes from
+  the published frames, not from a test, and they must not be aggregated with the lz- population.
+generated_at: '2026-08-18T05:44:35Z'
+benchmark_hosts:
+  luanti:
+    display_name: Luanti
+    repo: games/luanti
+    gitmodules_url: https://github.com/anonymous/luanti.git
+    revision: ba414e29fddf52337b16d673e17f87165bab3eff
+  jupyterlab:
+    display_name: JupyterLab
+    repo: games/jupyterlab
+    gitmodules_url: https://github.com/anonymous/jupyterlab.git
+    revision: 4a19f8fff4049a9536e21fa2980fe7e5ee592d01
+  openra:
+    display_name: OpenRA
+    repo: games/OpenRA
+    gitmodules_url: https://github.com/anonymous/OpenRA.git
+    revision: 7e687f430ee5b194c0ffaa06caaba757dd9155fb
+tasks:
+- id: lzp-jupyterlab-17153-shortcut-chip-contrast
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lzp-v1
+  raw_initial: A real candidate JupyterLab process has cold-started at the Launcher, and the benchmark
+    task workspace is not open.
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'A JupyterLab themed container is restored from the registered start on the candidate
+    build''s replay page under the dark palette: it shows one dark row holding the label "Ctrl A" in white,
+    and that label is not yet drawn as a chip.'
+  reference_steps: Draw that label as a selected chip.
+  state_description: |-
+    Preconditions: A JupyterLab themed container is restored from the registered start on the candidate build's replay page under the dark palette: it shows one dark row holding the label "Ctrl A" in white, and that label is not yet drawn as a chip.
+    Reference steps: Draw that label as a selected chip.
+  horizon_class: short
+  oracle_spec: specs/jupyterlab/lazarus_p2p_only/lzp-jupyterlab-17153-shortcut-chip-contrast.yaml
+  tags:
+  - c1
+  - lazarus
+  - p2p-only
+  - jupyterlab
+  capabilities:
+  - gui-localization
+  - structured-artifact-editing
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/17153
+      issue: https://github.com/jupyterlab/jupyterlab/issues/16801
+    fix_commit: f9ba3d176b0029511a32316cddd57009c0c84f1b
+    revert_patch: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-17153-shortcut-chip-contrast/p2p-only-v1/revert.patch
+    patch_sha256: 28b191e3c800333d81dad03c3018cb14211e3490e9875eb76cbc934b1a1378ef
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-17153-shortcut-chip-contrast/p2p-only-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-17153-shortcut-chip-contrast/p2p-only-v1/gate.json
+- id: lzp-jupyterlab-17222-toolbar-button-pressed-toggle
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lzp-v1
+  raw_initial: A real candidate JupyterLab process has cold-started at the Launcher, and the benchmark
+    task workspace is not open.
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'A JupyterLab control strip is restored from the registered start on the candidate build''s
+    replay page: it holds one two-state button, the button reports itself as not currently engaged, and
+    it paints a filled circle glyph.'
+  reference_steps: Activate that button once with a left pointer press.
+  state_description: |-
+    Preconditions: A JupyterLab control strip is restored from the registered start on the candidate build's replay page: it holds one two-state button, the button reports itself as not currently engaged, and it paints a filled circle glyph.
+    Reference steps: Activate that button once with a left pointer press.
+  horizon_class: short
+  oracle_spec: specs/jupyterlab/lazarus_p2p_only/lzp-jupyterlab-17222-toolbar-button-pressed-toggle.yaml
+  tags:
+  - c1
+  - lazarus
+  - p2p-only
+  - jupyterlab
+  capabilities:
+  - gui-localization
+  - structured-artifact-editing
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/17222
+      issue: https://github.com/jupyterlab/jupyterlab/issues/14464
+    fix_commit: 2a285417e79db4bac7b4a7bf9ca9e88b75a61ecc
+    revert_patch: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-17222-toolbar-button-pressed-toggle/p2p-only-v1/revert.patch
+    patch_sha256: f36db48c069fec0366acf38fb42a7093a04eeb09245bc96b8d8f54142cd1ebfb
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-17222-toolbar-button-pressed-toggle/p2p-only-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-17222-toolbar-button-pressed-toggle/p2p-only-v1/gate.json
+- id: lzp-jupyterlab-17618-high-contrast-selection-layer
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lzp-v1
+  raw_initial: A real candidate JupyterLab process has cold-started at the Launcher, and the benchmark
+    task workspace is not open.
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'A JupyterLab themed container is restored from the registered start on the candidate
+    build''s replay page under the high-contrast dark palette: it shows one near-black panel holding the
+    single line "select me" in white, and no region of that line is marked.'
+  reference_steps: Mark the whole of that line as the current region.
+  state_description: |-
+    Preconditions: A JupyterLab themed container is restored from the registered start on the candidate build's replay page under the high-contrast dark palette: it shows one near-black panel holding the single line "select me" in white, and no region of that line is marked.
+    Reference steps: Mark the whole of that line as the current region.
+  horizon_class: short
+  oracle_spec: specs/jupyterlab/lazarus_p2p_only/lzp-jupyterlab-17618-high-contrast-selection-layer.yaml
+  tags:
+  - c1
+  - lazarus
+  - p2p-only
+  - jupyterlab
+  capabilities:
+  - gui-localization
+  - structured-artifact-editing
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/17618
+      issue: https://github.com/jupyterlab/jupyterlab/issues/17447
+    fix_commit: 1f18828225e5e16c569dcb810eb4c6137cd33d9b
+    revert_patch: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-17618-high-contrast-selection-layer/p2p-only-v1/revert.patch
+    patch_sha256: 0a9faedd694ed81223dc743e1c1aa6e40722cffad2003f23e4ffe7d56b157597
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-17618-high-contrast-selection-layer/p2p-only-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-17618-high-contrast-selection-layer/p2p-only-v1/gate.json
+- id: lzp-jupyterlab-18464-debugger-zero-variable-detail
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lzp-v1
+  raw_initial: A real candidate JupyterLab process has cold-started at the Launcher, and the benchmark
+    task workspace is not open.
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'A JupyterLab inspector tree is restored from the registered start on the candidate build''s
+    replay page: it lists a single scope row named "Locals" holding one entry named "total", and that
+    entry''s row shows its name followed by its integer readout.'
+  reference_steps: Load the scope's second entry, named "count", whose integer readout is the additive
+    identity.
+  state_description: |-
+    Preconditions: A JupyterLab inspector tree is restored from the registered start on the candidate build's replay page: it lists a single scope row named "Locals" holding one entry named "total", and that entry's row shows its name followed by its integer readout.
+    Reference steps: Load the scope's second entry, named "count", whose integer readout is the additive identity.
+  horizon_class: short
+  oracle_spec: specs/jupyterlab/lazarus_p2p_only/lzp-jupyterlab-18464-debugger-zero-variable-detail.yaml
+  tags:
+  - c1
+  - lazarus
+  - p2p-only
+  - jupyterlab
+  capabilities:
+  - gui-localization
+  - structured-artifact-editing
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/18464
+      issue: https://github.com/jupyterlab/jupyterlab/issues/18463
+    fix_commit: 7d5a498b50c43f4156e3f078f49ed8329b43c93c
+    revert_patch: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-18464-debugger-zero-variable-detail/p2p-only-v1/revert.patch
+    patch_sha256: 178d0e8a92538426aade73dd57e552ebdf2bc25708af757945b13ddfdef289d9
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-18464-debugger-zero-variable-detail/p2p-only-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-18464-debugger-zero-variable-detail/p2p-only-v1/gate.json
+- id: lzp-jupyterlab-18996-htmlselect-caret-offset
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lzp-v1
+  raw_initial: A real candidate JupyterLab process has cold-started at the Launcher, and the benchmark
+    task workspace is not open.
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'A JupyterLab control strip is restored from the registered start on the candidate build''s
+    replay page: the strip is a single row holding one labelled trigger at its right-hand end reading
+    "More", and no overflow panel is open below it.'
+  reference_steps: Open the overflow panel from that trigger.
+  state_description: |-
+    Preconditions: A JupyterLab control strip is restored from the registered start on the candidate build's replay page: the strip is a single row holding one labelled trigger at its right-hand end reading "More", and no overflow panel is open below it.
+    Reference steps: Open the overflow panel from that trigger.
+  horizon_class: short
+  oracle_spec: specs/jupyterlab/lazarus_p2p_only/lzp-jupyterlab-18996-htmlselect-caret-offset.yaml
+  tags:
+  - c1
+  - lazarus
+  - p2p-only
+  - jupyterlab
+  capabilities:
+  - gui-localization
+  - structured-artifact-editing
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/18996
+      issue: https://github.com/jupyterlab/jupyterlab/issues/18956
+    fix_commit: c7ea21da9ba6ef473796a438ec5f3c0a141c3f14
+    revert_patch: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-18996-htmlselect-caret-offset/p2p-only-v1/revert.patch
+    patch_sha256: c7b7e865ad336c45d06a26f7db6f92af928832b12d98021484c414241a5a835e
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-18996-htmlselect-caret-offset/p2p-only-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-18996-htmlselect-caret-offset/p2p-only-v1/gate.json
+- id: lzp-jupyterlab-19091-themed-button-glyph-font
+  benchmark: jupyterlab
+  repo: games/jupyterlab
+  prompt_revision: lzp-v1
+  raw_initial: A real candidate JupyterLab process has cold-started at the Launcher, and the benchmark
+    task workspace is not open.
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'A JupyterLab themed container is restored from the registered start on the candidate
+    build''s replay page: it holds one plain button reading "Plain" drawn in the interface typeface, and
+    the glyph button beside it has not been placed yet.'
+  reference_steps: Place the second button, which carries a typeface class of its own and the label "WWWiii",
+    into the same container.
+  state_description: |-
+    Preconditions: A JupyterLab themed container is restored from the registered start on the candidate build's replay page: it holds one plain button reading "Plain" drawn in the interface typeface, and the glyph button beside it has not been placed yet.
+    Reference steps: Place the second button, which carries a typeface class of its own and the label "WWWiii", into the same container.
+  horizon_class: short
+  oracle_spec: specs/jupyterlab/lazarus_p2p_only/lzp-jupyterlab-19091-themed-button-glyph-font.yaml
+  tags:
+  - c1
+  - lazarus
+  - p2p-only
+  - jupyterlab
+  capabilities:
+  - gui-localization
+  - structured-artifact-editing
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/jupyterlab/jupyterlab/pull/19091
+      issue: https://github.com/jupyterlab/jupyterlab/issues/19089
+    fix_commit: 4731e0b325aa8a21249af6e1cb244316504f74ee
+    revert_patch: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-19091-themed-button-glyph-font/p2p-only-v1/revert.patch
+    patch_sha256: d7e47a10bd017eb711bff59036bf2e60f8e448b21083b4938f394f1ac82f6021
+    build_class: jlpm
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-19091-themed-button-glyph-font/p2p-only-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/p2p_only_defects/lzp-jupyterlab-19091-themed-button-glyph-font/p2p-only-v1/gate.json
+- id: lzp-luanti-16679-unavailable-settings
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lzp-v1
+  raw_initial: Luanti has cold-started at the neutral About tab; the local-game tab is not selected and
+    no dialog is open.
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'The Luanti main menu is restored from the registered start on the candidate build: the
+    local-game tab is showing, and no settings dialog is open.'
+  reference_steps: Open the settings dialog and go to a page whose requirements are not currently met.
+  state_description: |-
+    Preconditions: The Luanti main menu is restored from the registered start on the candidate build: the local-game tab is showing, and no settings dialog is open.
+    Reference steps: Open the settings dialog and go to a page whose requirements are not currently met.
+  horizon_class: short
+  oracle_spec: specs/luanti/lazarus_p2p_only/lzp-luanti-16679-unavailable-settings.yaml
+  tags:
+  - c1
+  - lazarus
+  - p2p-only
+  - luanti
+  capabilities:
+  - gui-localization
+  - structured-artifact-editing
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/16679
+      issue: https://github.com/luanti-org/luanti/issues/14171
+    fix_commit: 7e53e6554946e33863e023df1d9581eacd092896
+    revert_patch: benchmarks/p5/lazarus/p2p_only_defects/lzp-luanti-16679-unavailable-settings/p2p-only-v1/revert.patch
+    patch_sha256: df144ab754505a6755032aa2b5100650f05a0c55af6788049585c620b69f0c8c
+    build_class: none
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/p2p_only_defects/lzp-luanti-16679-unavailable-settings/p2p-only-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/p2p_only_defects/lzp-luanti-16679-unavailable-settings/p2p-only-v1/gate.json
+- id: lzp-luanti-16799-world-mods
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lzp-v1
+  raw_initial: Luanti has cold-started at the neutral About tab; the local-game tab is not selected and
+    no dialog is open.
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'The Luanti main menu is restored from the registered start on the candidate build: the
+    local-game tab is showing a world that has mods in its worldmods directory, and the configure-world
+    dialog is not open.'
+  reference_steps: Open that world's configure-world dialog.
+  state_description: |-
+    Preconditions: The Luanti main menu is restored from the registered start on the candidate build: the local-game tab is showing a world that has mods in its worldmods directory, and the configure-world dialog is not open.
+    Reference steps: Open that world's configure-world dialog.
+  horizon_class: short
+  oracle_spec: specs/luanti/lazarus_p2p_only/lzp-luanti-16799-world-mods.yaml
+  tags:
+  - c1
+  - lazarus
+  - p2p-only
+  - luanti
+  capabilities:
+  - gui-localization
+  - structured-artifact-editing
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/16799
+      issue: https://github.com/luanti-org/luanti/issues/12291
+    fix_commit: 14427725ae8869d5e4b2d8942f7ecf230a87b752
+    revert_patch: benchmarks/p5/lazarus/p2p_only_defects/lzp-luanti-16799-world-mods/p2p-only-v1/revert.patch
+    patch_sha256: 40885e65c9f3a5a0f9138d102156aa637788d665e153f7ea8d61732d94c8c7db
+    build_class: none
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/p2p_only_defects/lzp-luanti-16799-world-mods/p2p-only-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/p2p_only_defects/lzp-luanti-16799-world-mods/p2p-only-v1/gate.json
+- id: lzp-luanti-17152-server-list-search-tooltip
+  benchmark: luanti
+  repo: games/luanti
+  prompt_revision: lzp-v1
+  raw_initial: Luanti has cold-started at the neutral About tab; the local-game tab is not selected and
+    no dialog is open.
+  random_control:
+    mode: experiment_seed
+    seeds:
+    - 0
+    - 1
+    - 2
+    algorithm: luanti_fixed_map_seed
+  preconditions: 'The Luanti main menu is restored from the registered start on the candidate build: the
+    local-game tab is showing, and the online tab is not selected.'
+  reference_steps: Open the online tab and hover the server list search field.
+  state_description: |-
+    Preconditions: The Luanti main menu is restored from the registered start on the candidate build: the local-game tab is showing, and the online tab is not selected.
+    Reference steps: Open the online tab and hover the server list search field.
+  horizon_class: short
+  oracle_spec: specs/luanti/lazarus_p2p_only/lzp-luanti-17152-server-list-search-tooltip.yaml
+  tags:
+  - c1
+  - lazarus
+  - p2p-only
+  - luanti
+  capabilities:
+  - gui-localization
+  - structured-artifact-editing
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/luanti-org/luanti/pull/17152
+      issue: https://github.com/luanti-org/luanti/issues/17150
+    fix_commit: f03874c5252d9a181de2a5eabd31667a64c8d7cb
+    revert_patch: benchmarks/p5/lazarus/p2p_only_defects/lzp-luanti-17152-server-list-search-tooltip/p2p-only-v1/revert.patch
+    patch_sha256: d75381cda76f28a169b2f4fcda9c04d8de49a8ab7b1e2c321a9d9a8152f7d43c
+    build_class: none
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/p2p_only_defects/lzp-luanti-17152-server-list-search-tooltip/p2p-only-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/p2p_only_defects/lzp-luanti-17152-server-list-search-tooltip/p2p-only-v1/gate.json
+- id: lzp-openra-22283-tileset-template-order
+  benchmark: openra
+  repo: games/OpenRA
+  prompt_revision: lzp-v1
+  raw_initial: OpenRA has cold-started at the post-boot main menu; the map editor is not open.
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'The OpenRA map editor is restored from the registered start on the candidate build:
+    the tile template selector is closed or empty of the listing under study.'
+  reference_steps: Open the tile template selector.
+  state_description: |-
+    Preconditions: The OpenRA map editor is restored from the registered start on the candidate build: the tile template selector is closed or empty of the listing under study.
+    Reference steps: Open the tile template selector.
+  horizon_class: short
+  oracle_spec: specs/openra/lazarus_p2p_only/lzp-openra-22283-tileset-template-order.yaml
+  tags:
+  - c1
+  - lazarus
+  - p2p-only
+  - openra
+  capabilities:
+  - gui-localization
+  - structured-artifact-editing
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/OpenRA/OpenRA/pull/22283
+      issue: https://github.com/OpenRA/OpenRA/issues/22280
+    fix_commit: c47ebfbb52d70312c127c3c7bd3f5736b1fab164
+    revert_patch: benchmarks/p5/lazarus/p2p_only_defects/lzp-openra-22283-tileset-template-order/p2p-only-v1/revert.patch
+    patch_sha256: b86ddd08bc6b3352fa72ea208b43de6d348528f23da86c4624d74ae7c7d7706f
+    build_class: incremental_dotnet
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/p2p_only_defects/lzp-openra-22283-tileset-template-order/p2p-only-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/p2p_only_defects/lzp-openra-22283-tileset-template-order/p2p-only-v1/gate.json
+- id: lzp-openra-22476-load-game-faction-filter
+  benchmark: openra
+  repo: games/OpenRA
+  prompt_revision: lzp-v1
+  raw_initial: OpenRA has cold-started at the post-boot main menu and no Load Game dialog is open.
+  random_control:
+    mode: not_applicable
+    seed_role: trial_pairing_only
+  preconditions: 'The OpenRA main menu is restored from the registered start on the candidate build: no
+    Load Game dialog is open.'
+  reference_steps: Open the Load Game dialog.
+  state_description: |-
+    Preconditions: The OpenRA main menu is restored from the registered start on the candidate build: no Load Game dialog is open.
+    Reference steps: Open the Load Game dialog.
+  horizon_class: short
+  oracle_spec: specs/openra/lazarus_p2p_only/lzp-openra-22476-load-game-faction-filter.yaml
+  tags:
+  - c1
+  - lazarus
+  - p2p-only
+  - openra
+  capabilities:
+  - gui-localization
+  - structured-artifact-editing
+  budget_ms: 2400000
+  defect:
+    upstream:
+      pr: https://github.com/OpenRA/OpenRA/pull/22476
+      issue: https://github.com/OpenRA/OpenRA/issues/22472
+    fix_commit: 8a1f0ad7ca88b348e80d4123046a6940a58dfceb
+    revert_patch: benchmarks/p5/lazarus/p2p_only_defects/lzp-openra-22476-load-game-faction-filter/p2p-only-v1/revert.patch
+    patch_sha256: 5fbb1d1f6ac0f47eedc6ada960ba602c12aed793e736a05ac4b3ab0ece02984b
+    build_class: incremental_dotnet
+    defect_locus: at_goal
+    upstream_record: benchmarks/p5/lazarus/p2p_only_defects/lzp-openra-22476-load-game-faction-filter/p2p-only-v1/upstream.json
+    gate_report: benchmarks/p5/lazarus/p2p_only_defects/lzp-openra-22476-load-game-faction-filter/p2p-only-v1/gate.json

@@ -1,0 +1,78 @@
+name: LibreOffice Writer policy cross reference deep state
+benchmark: LibreOffice
+repo: ../../games/LibreOffice
+target:
+  kind: writer_document
+  path: writer-policy-cross-reference.odt
+  paragraphs:
+    - text: Incident Response Policy
+      style: Heading 1
+    - text: Purpose
+      style: Heading 2
+    - text: This policy coordinates response ownership across teams.
+    - text: Escalation Matrix
+      style: Heading 2
+    - text: Severity one events require executive notification.
+    - text: Evidence Handling
+      style: Heading 2
+    - text: Evidence records must remain auditable after handoff.
+checkpoint:
+  allowed_strategies: ["libreoffice_uno_document_validate"]
+  expected_validity: save-restorable
+actions:
+  - type: libreoffice_open_document
+  - type: libreoffice_insert_bookmark
+    name: escalation_matrix
+    text: Escalation Matrix
+  - type: libreoffice_insert_reference_field
+    bookmark: escalation_matrix
+    prefix: "See section: "
+  - type: libreoffice_apply_paragraph_style
+    text: Evidence Handling
+    style: Heading 1
+  - type: libreoffice_update_indexes
+  - type: libreoffice_save
+  - type: libreoffice_reopen
+assertions:
+  - type: libreoffice_bookmark_exists
+    name: escalation_matrix
+  - type: libreoffice_reference_text_contains
+    text: "See section: Escalation Matrix"
+  - type: libreoffice_paragraph_style_is
+    text: Evidence Handling
+    style: Heading 1
+  - type: no_libreoffice_errors
+visual_oracle:
+  golden_image: visual/writer-policy-cross-reference.after.golden.png
+  golden_before: visual/writer-policy-cross-reference.before.golden.png
+  golden_after: visual/writer-policy-cross-reference.after.golden.png
+  expected_label: correct
+  description: "A LibreOffice Writer policy draft is visible with multiple policy sections."
+  rubric:
+    must:
+      - "LibreOffice Writer displays a policy document."
+      - "Multiple section headings or policy paragraphs are visible."
+    must_not:
+      - "A blank document, crash dialog, or unrelated app is visible."
+    ignore:
+      - "Caret, toolbar, platform, and zoom differences."
+  after_description: "After the workflow, the policy includes a visible cross-reference to the escalation matrix and the updated evidence handling heading."
+  after_rubric:
+    must:
+      - "The policy document is visible in Writer."
+      - "A reference to Escalation Matrix or updated section structure is visible."
+      - "The document is not blank or crashed."
+    must_not:
+      - "The screenshot shows the unmodified policy with no cross-reference."
+    ignore:
+      - "Exact field shading, cursor position, page break, and toolbar differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 500
+    full_page: false
+tags:
+  - libreoffice
+  - writer
+  - deep-state
+  - reference
+timeout_ms: 240000

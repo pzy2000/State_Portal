@@ -1,0 +1,45 @@
+name: SpaceRPG station idle semantic checkpoint
+benchmark: SpaceRPG
+tags:
+- spacerpg
+- station
+- variant
+setup:
+  disable_economy_backend: true
+target:
+  kind: station
+  screen: station
+  system_id: helion-reach
+  station_id: helion-prime
+checkpoint:
+  allowed_strategies:
+  - test_hook_jump_and_validate
+  expected_validity: replay-reachable
+actions:
+- type: wait
+  ms: 300
+assertions:
+- type: state_equals
+  path: screen
+  value: station
+- type: state_equals
+  path: currentStationId
+  value: helion-prime
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/station-save.golden.png
+  expected_label: correct
+  description: The Helion Prime station screen remains stable during an idle wait.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

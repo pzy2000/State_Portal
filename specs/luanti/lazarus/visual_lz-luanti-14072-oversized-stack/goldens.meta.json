@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.0022786458333333335,
+    "ignored_top_fraction": 0.25,
+    "mean_absolute_difference": 0.20552806712962965
+  },
+  "before_buggy_sha256": "3b1aa898d8d7cd9a474775eb062e63d73c4b20e7308c4fb22b23f998543da7f5",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.25,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "3b1aa898d8d7cd9a474775eb062e63d73c4b20e7308c4fb22b23f998543da7f5",
+  "buggy_after_sha256": "637fc08fe4b49be6f298e0178f4766e297be3956fb660005b9271ae4267539b3",
+  "fixed_after_sha256": "e1d3846bf1e5b983e7faa94da96b062828ed980dd2f92420ae7020b4ae641958",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "637fc08fe4b49be6f298e0178f4766e297be3956fb660005b9271ae4267539b3",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 28596,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "9f3c41fa07e94f2ea169758d08a1b416c0d0fbfc9e8e5c3be2adab680fa20aaf"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "3b1aa898d8d7cd9a474775eb062e63d73c4b20e7308c4fb22b23f998543da7f5",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 27569,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "c57461c3b7961d95f2121fd427872b96abfe098f31dbcaaba29e81b7c7c38610"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "e1d3846bf1e5b983e7faa94da96b062828ed980dd2f92420ae7020b4ae641958",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 28782,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "a01601a15370892b17a9685510d743e55864df4ed87e1a8e37267ae9e22320c7"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "3b1aa898d8d7cd9a474775eb062e63d73c4b20e7308c4fb22b23f998543da7f5",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 27569,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "5b8bbf3386085d21409525a26020d39813d64d16e5904c3a3f994d6e74005623"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.25
+  },
+  "published_unix_ns": 1786768710926180000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lz-luanti-14072-oversized-stack"
+}

@@ -1,0 +1,226 @@
+{
+  "authority": "github",
+  "benchmark": "openra",
+  "comments": [
+    {
+      "author": "Porenutak",
+      "body_normalized": "tested on D2k missions and custom bots with AutoTargeting. Work as expected",
+      "body_raw": "tested on D2k missions and custom bots with AutoTargeting. Work as expected",
+      "body_sha256": "3d15e922eca2de7dddf96a70d77cbcbcf3ca4f8fcfc379994d75f9ab764c2bba",
+      "created_at": "2026-05-04T11:52:01Z",
+      "id": 4370790283,
+      "source": "pull_request_comment",
+      "updated_at": "2026-05-04T11:52:01Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/22471#issuecomment-4370790283"
+    },
+    {
+      "author": "PunkPun",
+      "body_normalized": "https://github.com/OpenRA/OpenRA/wiki/Changelog/_compare/1711e82f0d6cd9e54b6562d7f7762c40a18f1f6d...832e260066266c0d96762980519b7004aa406d74",
+      "body_raw": "https://github.com/OpenRA/OpenRA/wiki/Changelog/_compare/1711e82f0d6cd9e54b6562d7f7762c40a18f1f6d...832e260066266c0d96762980519b7004aa406d74",
+      "body_sha256": "a362e076a6bb7945cc485be78374f95113dc6f0b9080659e9e9d7fdbeb4aa67f",
+      "created_at": "2026-05-24T14:16:52Z",
+      "id": 4528986456,
+      "source": "pull_request_comment",
+      "updated_at": "2026-05-24T14:16:52Z",
+      "url": "https://github.com/OpenRA/OpenRA/pull/22471#issuecomment-4528986456"
+    }
+  ],
+  "fix_commit": "ef8077b589bbdfcfa0cf1bad34a62d97ff4b11e9",
+  "issue": {
+    "author": "JovialFeline",
+    "body_normalized": "<!-- This is a guideline that shall help you to include information we need to understand and fix the issue you experienced. Please follow the instructions and replace any placeholders that are written in capital letters. Instructions like this comment will not be visible in your report. -->\n\n<!-- Important: Help us to avoid duplicates and use the search function to find existing reports for your issue. Please do not submit duplicate reports! Try to help others to find your report by using a precise title. -->\n\nTested on https://github.com/OpenRA/OpenRA/commit/0938a27ae937957c63e3275f00bf730aecdc04bb\n\n## Issue Summary\n<!-- Please provide a a clear and concise description of what the issue is below. -->\n\nIt seems units may autotarget things they should ignore, such as enemy walls which have NoAutoTarget, or unarmed enemy structures if the units are using Defend stance.\n\nI've noticed this most often as part of an attack-move but I have seen turrets doing this as well.\n\n## Reproduction\n<!-- Please provide information about how the issue can be reproduced below. -->\n\nI'm not 100% on how to reproduce this, though I have included a test map and replay below. It _seems_ to happen more often with units that have long range (artillery or D2k missile turrets), or after a nearby enemy has died.\n\n## Expected behavior\n<!-- Please explain what you expected to happen below. -->\n\nI expected autotargeting to ignore NoAutoTarget actors and respect unit stances.\n\n## Screenshots / Screen recordings / Replays\n<!-- If applicable, attach screenshots, screen recordings or replays to help explain your problem. -->\n\nhttps://github.com/user-attachments/assets/5f6db35d-e194-45eb-a2fa-6b09449ff4a9\n\nThis was easiest to produce with artillery and enemy-owned walls, so I have an RA test map here: [lab-autotarget-oddness.zip](https://github.com/user-attachments/files/26057668/lab-autotarget-oddness.zip)\n\nA replay of that map is here: [ra-2026-03-17T142957Z.zip](https://github.com/user-attachments/files/26057724/ra-2026-03-17T142957Z.zip)",
+    "body_raw": "<!-- This is a guideline that shall help you to include information we need to understand and fix the issue you experienced. Please follow the instructions and replace any placeholders that are written in capital letters. Instructions like this comment will not be visible in your report. -->\n\n<!-- Important: Help us to avoid duplicates and use the search function to find existing reports for your issue. Please do not submit duplicate reports! Try to help others to find your report by using a precise title. -->\n\nTested on https://github.com/OpenRA/OpenRA/commit/0938a27ae937957c63e3275f00bf730aecdc04bb\n\n## Issue Summary\n<!-- Please provide a a clear and concise description of what the issue is below. -->\n\nIt seems units may autotarget things they should ignore, such as enemy walls which have NoAutoTarget, or unarmed enemy structures if the units are using Defend stance.\n\nI've noticed this most often as part of an attack-move but I have seen turrets doing this as well.\n\n## Reproduction\n<!-- Please provide information about how the issue can be reproduced below. -->\n\nI'm not 100% on how to reproduce this, though I have included a test map and replay below. It _seems_ to happen more often with units that have long range (artillery or D2k missile turrets), or after a nearby enemy has died.\n\n## Expected behavior\n<!-- Please explain what you expected to happen below. -->\n\nI expected autotargeting to ignore NoAutoTarget actors and respect unit stances.\n\n## Screenshots / Screen recordings / Replays\n<!-- If applicable, attach screenshots, screen recordings or replays to help explain your problem. -->\n\nhttps://github.com/user-attachments/assets/5f6db35d-e194-45eb-a2fa-6b09449ff4a9\n\nThis was easiest to produce with artillery and enemy-owned walls, so I have an RA test map here: [lab-autotarget-oddness.zip](https://github.com/user-attachments/files/26057668/lab-autotarget-oddness.zip)\n\nA replay of that map is here: [ra-2026-03-17T142957Z.zip](https://github.com/user-attachments/files/26057724/ra-2026-03-17T142957Z.zip)",
+    "body_sha256": "93b4c22d24be1c3f62ca46d65b0bbf0d28f8fba6c5775797eafb32a5b2f4d722",
+    "closed_at": "2026-05-24T14:14:52Z",
+    "created_at": "2026-03-17T15:10:03Z",
+    "merged_at": null,
+    "number": 22406,
+    "state": "closed",
+    "title": "AutoTarget can ignore NoAutoTarget or stance",
+    "updated_at": "2026-05-24T14:14:52Z",
+    "url": "https://github.com/OpenRA/OpenRA/issues/22406"
+  },
+  "patch_sha256": "2bcca65b30419304a90da32b3b7da1f77171cd182fab834aea15983909c1e5af",
+  "pinned_revision": "7e687f430ee5b194c0ffaa06caaba757dd9155fb",
+  "pull_request": {
+    "author": "PunkPun",
+    "body_normalized": "Closes #22406\nPossibly closes #22456",
+    "body_raw": "Closes #22406\r\nPossibly closes #22456",
+    "body_sha256": "776f8648a68e9e09a506f97b54ebd770f5d78d5defba6736bf87bc5e1c6ce1a2",
+    "closed_at": "2026-05-24T14:14:51Z",
+    "created_at": "2026-05-01T17:05:34Z",
+    "merged_at": "2026-05-24T14:14:51Z",
+    "number": 22471,
+    "state": "closed",
+    "title": "Fix autotarget ignoring target validity",
+    "updated_at": "2026-05-24T14:16:52Z",
+    "url": "https://github.com/OpenRA/OpenRA/pull/22471"
+  },
+  "record_sha256": "0977ca2ea1ddfcb7b79fad14d27ac5d7ab83116bd36be5b6c9a2f2c022d59ad8",
+  "repository": "OpenRA/OpenRA",
+  "retrieved_at": "2026-08-11T13:14:12Z",
+  "reviews": [
+    {
+      "author": "Porenutak",
+      "body_normalized": "",
+      "body_raw": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "created_at": "2026-05-04T11:52:25Z",
+      "id": 4219762219,
+      "source": "pull_request_review",
+      "state": "APPROVED",
+      "url": "https://github.com/OpenRA/OpenRA/pull/22471#pullrequestreview-4219762219"
+    },
+    {
+      "author": "RoosterDragon",
+      "body_normalized": "",
+      "body_raw": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "created_at": "2026-05-14T21:08:51Z",
+      "id": 4293450257,
+      "source": "pull_request_review",
+      "state": "APPROVED",
+      "url": "https://github.com/OpenRA/OpenRA/pull/22471#pullrequestreview-4293450257"
+    }
+  ],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-openra-22471-autotarget-validity",
+  "tests": [
+    {
+      "argv": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "openra-autotarget-validity"
+      ],
+      "command": [
+        "{python}",
+        "{harness_root}/scripts/run_lazarus_probe.py",
+        "openra-autotarget-validity"
+      ],
+      "cwd": ".",
+      "id": "openra-22471-autotarget-validity-f2p",
+      "kind": "fail_to_pass",
+      "origin": "issue_derived_gui_differential",
+      "provenance": "issue_and_pull_request_gui_differential",
+      "timeout_s": 300
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "command": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+          "sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e",
+          "source_path": "upstream-tests/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs"
+        }
+      ],
+      "id": "openra-action-queue-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "OpenRA.Test_repository_test_suite",
+      "source_case": "OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder",
+      "source_url": "https://github.com/OpenRA/OpenRA/blob/ef8077b589bbdfcfa0cf1bad34a62d97ff4b11e9/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "8a689f0098e892e824754da2e3ce905d9f71304ab7aadc59487f03e34c015a0f",
+      "upstream_runner_version_argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "82d951c581cf3fc23d9cb0a2ce1a127d107aa4720c1cab9c69a2d10e55fa1ce9",
+      "upstream_test_files": [
+        {
+          "path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+          "sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e",
+          "source_url": "https://github.com/OpenRA/OpenRA/blob/ef8077b589bbdfcfa0cf1bad34a62d97ff4b11e9/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs"
+        }
+      ],
+      "upstream_test_path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "upstream_test_sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e"
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "command": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "test",
+        "OpenRA.Test/OpenRA.Test.csproj",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName=OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder"
+      ],
+      "cwd": ".",
+      "id": "openra-action-queue-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "OpenRA.Test_repository_test_suite",
+      "source_case": "OpenRA.Test.ActionQueueTest.ActionsArePerformedOrderedByTimeThenByInsertionOrder",
+      "source_url": "https://github.com/OpenRA/OpenRA/blob/7e687f430ee5b194c0ffaa06caaba757dd9155fb/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "8a689f0098e892e824754da2e3ce905d9f71304ab7aadc59487f03e34c015a0f",
+      "upstream_runner_version_argv": [
+        "/opt/homebrew/opt/dotnet@8/bin/dotnet",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "82d951c581cf3fc23d9cb0a2ce1a127d107aa4720c1cab9c69a2d10e55fa1ce9",
+      "upstream_test_files": [
+        {
+          "path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+          "sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e",
+          "source_url": "https://github.com/OpenRA/OpenRA/blob/7e687f430ee5b194c0ffaa06caaba757dd9155fb/OpenRA.Test/OpenRA.Game/ActionQueueTest.cs"
+        }
+      ],
+      "upstream_test_path": "OpenRA.Test/OpenRA.Game/ActionQueueTest.cs",
+      "upstream_test_sha256": "379c2fca25371e28b6936300545db9f937f00211311f9d3aa7c3764158fe8e7e"
+    }
+  ],
+  "touched_files": [
+    "OpenRA.Mods.Common/Traits/AutoTarget.cs"
+  ],
+  "upstream_commits": [
+    {
+      "author": "Gustas",
+      "authored_at": "2026-05-01T17:04:10Z",
+      "body_normalized": "Fix autotarget ignoring target validity",
+      "body_raw": "Fix autotarget ignoring target validity",
+      "body_sha256": "92e29456beca56d2b893d0bdf2cd08ad665f6f5f49a0db4f3c5c3e9d5a755093",
+      "sha": "5bb46a4bf2d196a095c1cccc314c806e06ef3367",
+      "url": "https://github.com/OpenRA/OpenRA/commit/5bb46a4bf2d196a095c1cccc314c806e06ef3367"
+    }
+  ]
+}

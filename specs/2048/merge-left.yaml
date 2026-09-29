@@ -1,0 +1,75 @@
+name: 2048 merge left from restored board
+benchmark: "2048"
+tags: ["2048", "localStorage", "merge", "sanity"]
+target:
+  kind: board
+  board:
+    - [2, 2, 0, 0]
+    - [0, 0, 0, 0]
+    - [0, 0, 0, 0]
+    - [0, 0, 0, 0]
+  score: 0
+  bestScore: 0
+checkpoint:
+  allowed_strategies: ["localStorage_restore_reload"]
+  expected_validity: "save-restorable"
+replay_from_start:
+  # Reachability-replay fixture only. Formal trial RNG is controlled exclusively
+  # by c1_tasks.yaml random_control and the experiment seed.
+  random_values: [0.0, 0.0, 0.0, 0.2]
+  actions: []
+actions:
+  - type: move
+    direction: left
+    wait_ms: 450
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: score_increased_by_at_least
+        amount: 4
+      - type: tile_value_present
+        value: 4
+      - type: no_severe_console
+    surfaces:
+      gui:
+        adapter: 2048_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: 2048_state_profile_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/merge-left.golden.png
+    golden_before: visual/2048-merge-left.before.golden.png
+    golden_after: visual/2048-merge-left.after.golden.png
+    expected_label: correct
+    description: "After one left move, the 2048 board shows the merged 4 tile in the top-left area; the original game may also spawn one new low-value 2 or 4 tile elsewhere."
+    rubric:
+      must:
+        - "The 2048 game board is visible."
+        - "A 4 tile is visible after merging the two starting 2 tiles."
+        - "Any additional low-value 2 or 4 tile is acceptable as the normal post-move random spawn."
+        - "The score area is visible and the page is not blank."
+      must_not:
+        - "The board still shows two separate 2 tiles in the top row."
+        - "The screenshot lacks the merged 4 tile."
+        - "A game crash, browser error, or blank page is visible."
+        - "The screenshot shows a different game or wrong screen."
+      ignore:
+        - "Minor animation position differences."
+        - "Small score animation text."
+        - "The position and value of the newly spawned low-value tile after the move."
+    capture:
+      stage: post_smoke
+      wait_ms: 300
+      full_page: false

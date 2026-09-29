@@ -1,0 +1,98 @@
+name: jynew enter sub map scene
+benchmark: jynew
+tags: ["jynew", "submap", "scene"]
+target:
+  kind: synthesized_state
+  mod_id: JYX2
+  player_level: 5
+  map_id: 1
+checkpoint:
+  allowed_strategies: ["jynew_utility_save_validate"]
+  expected_validity: "injection-only"
+actions:
+  - type: jynew_save
+    save_index: 2
+  - type: jynew_load_save
+    save_index: 2
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: jynew_map_id
+        int_value: 1
+      - type: jynew_role_attr
+        role_id: 0
+        attr: Level
+        expected: "5"
+        comparator: equals
+      - type: no_jynew_utility_errors
+    surfaces:
+      gui:
+        adapter: jynew_unity_live_v1
+        start:
+          validate_target: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - c1.transition.armed
+          - any_of:
+            - c1.target.player_level
+          - any_of:
+            - c1.target.map_id
+        goal:
+          use_assertions: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - assertion[jynew_map_id]
+          - any_of:
+            - assertion[jynew_role_attr].Level
+            - assertion[jynew_role_attr]
+          - any_of:
+            - assertion[no_jynew_utility_errors]
+          - any_of:
+            - c1.transition.expectation
+          - any_of:
+            - c1.transition.save
+          - any_of:
+            - c1.transition.load
+          requirements:
+          - name: c1.public_save_load_witness
+            kind: save_then_load
+            slot: 2
+            ordered_events:
+            - save
+            - load
+      state:
+        adapter: jynew_unity_live_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/jynew-submap-save-restore.after.golden.png
+    golden_before: visual/jynew-submap-save-restore.before.golden.png
+    golden_after: visual/jynew-submap-save-restore.after.golden.png
+    expected_label: correct
+    scene_key: jynew_submap
+    description: "A headed jynew play session is in sub-map 1 before the save/load roundtrip."
+    after_description: "After saving sub-map 1 to slot 2 and loading it again, the sub-map scene remains rendered as an interior/town location."
+    rubric:
+      must:
+        - "A sub-map scene (not the world map) is rendered and visible."
+        - "The player character is present in the sub-map environment."
+        - "The scene shows an interior, town, or location-specific area."
+      must_not:
+        - "The world map overworld is still showing (wrong map)."
+        - "The screen is blank or stuck loading."
+        - "An error or crash state is displayed."
+      ignore:
+        - "Exact sub-map layout details or decorations."
+        - "NPC positions within the sub-map."
+        - "Lighting or shadow angle differences."
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false

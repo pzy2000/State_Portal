@@ -1,0 +1,60 @@
+name: 2048 near win merge right checkpoint
+benchmark: '2048'
+tags:
+- '2048'
+- localStorage
+- near-win
+- variant
+target:
+  kind: board
+  board:
+  - - 0
+    - 0
+    - 1024
+    - 1024
+  - - 4
+    - 8
+    - 16
+    - 32
+  - - 0
+    - 0
+    - 0
+    - 0
+  - - 0
+    - 0
+    - 0
+    - 0
+  score: 4096
+  bestScore: 4096
+checkpoint:
+  allowed_strategies:
+  - localStorage_restore_reload
+  expected_validity: save-restorable
+actions:
+- type: move
+  direction: right
+  wait_ms: 450
+assertions:
+- type: score_increased_by_at_least
+  amount: 2048
+- type: tile_value_present
+  value: 2048
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/near-win.golden.png
+  expected_label: correct
+  description: A restored near-win 2048 board remains visible after a right merge
+    into 2048.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

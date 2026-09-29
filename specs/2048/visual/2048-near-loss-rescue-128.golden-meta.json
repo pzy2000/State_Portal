@@ -1,0 +1,21 @@
+{
+  "actions": 6,
+  "after": "specs/2048/visual/2048-near-loss-rescue-128.after.golden.png",
+  "after_dimensions": [
+    1280,
+    800
+  ],
+  "after_sha256": "9524c032f4cf8abb18df9fca8afc1845455a920b006952d0c0616e94f3003200",
+  "before": "specs/2048/visual/2048-near-loss-rescue-128.before.golden.png",
+  "before_dimensions": [
+    1280,
+    800
+  ],
+  "before_sha256": "dd1d2ef86fcf3d9843188204dc39bce4ac41b8a1d971ed9beb6b6b8f70426db7",
+  "benchmark": "2048",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/2048/c1-near-loss-rescue-128.yaml",
+  "spec_sha256": "c023a0c5f026dc2fe3c78cc0e3c06fab0b273a8a77530d0c34754a6cb9f99429",
+  "task_id": "2048-near-loss-rescue-128"
+}

@@ -1,0 +1,130 @@
+name: C1-Lazarus JupyterLab 18518-xsrf-duplicate-cookie
+benchmark: jupyterlab
+timeout_ms: 900000
+tags:
+- c1
+- lazarus
+- jupyterlab
+- production
+setup:
+  jupyterlab_lazarus_probe:
+    task_id: lz-jupyterlab-18518-xsrf-duplicate-cookie
+    change_number: 18518
+    issue_number: 15083
+    adapter: jupyterlab_lazarus_edge_probe_v1
+    registered_replay:
+    - load_candidate_local_bundle_from_the_routed_origin
+    - seed_duplicate_xsrf_cookies_at_two_paths_in_the_real_cookie_jar
+    - let_the_candidate_build_one_authenticated_post_request
+    - report_the_xsrf_header_the_endpoint_received
+    - render_and_read_the_reported_token
+    probe_executable: true
+target:
+  kind: jupyterlab_lazarus_candidate_bundle
+  change_number: 18518
+  variants:
+  - fixed
+  - buggy
+  bundler: candidate_local_rspack
+  browser: microsoft_edge_via_playwright
+checkpoint:
+  allowed_strategies:
+  - jupyterlab_lazarus_edge_replay_validate
+  expected_validity: replay-reachable
+actions: []
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: jupyterlab_lazarus_edge_probe_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lz-jupyterlab-18518-xsrf-duplicate-cookie/fixed.after.golden.png
+    expected_label: correct
+    description: 'Nothing is printed under the heading: the rest of the page is blank
+      white.'
+    rubric:
+      must:
+      - A browser frame rendered by the candidate build shows a white page whose only
+        heading is the small grey line "XSRF token received by the server" near the
+        top left.
+      - 'Nothing is printed under the heading: the rest of the page is blank white.'
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - type: jupyterlab_lazarus_dom_audit
+      field: displayed_token
+      expected: server-truth-token
+    - type: jupyterlab_lazarus_dom_audit
+      field: sent_xsrf_token
+      expected: server-truth-token
+    defect_signature:
+    - type: jupyterlab_lazarus_dom_audit
+      field: displayed_token
+      expected: stale-path-token
+    - type: jupyterlab_lazarus_dom_audit
+      field: sent_xsrf_token
+      expected: stale-path-token
+    invariant_checks:
+    - type: no_jupyterlab_probe_errors
+    upstream_tests:
+      fail_to_pass:
+      - ServerConnection XSRF cookie handling should use the last matching cookie
+        when duplicates exist
+      pass_to_pass: &id001
+      - ServerConnection .makeRequest() should make a request to the server
+      per_trial_p2p: *id001
+    goldens:
+      before: visual_lz-jupyterlab-18518-xsrf-duplicate-cookie/before.golden.png
+      buggy_before: visual_lz-jupyterlab-18518-xsrf-duplicate-cookie/buggy.before.golden.png
+      fixed:
+        after: visual_lz-jupyterlab-18518-xsrf-duplicate-cookie/fixed.after.golden.png
+        after_description: One large monospaced line under the heading reads "server-truth-token".
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white page whose
+            only heading is the small grey line "XSRF token received by the server"
+            near the top left.
+          - One large monospaced line under the heading reads "server-truth-token".
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.
+      buggy:
+        after: visual_lz-jupyterlab-18518-xsrf-duplicate-cookie/buggy.after.golden.png
+        after_description: One large monospaced line under the heading reads "stale-path-token".
+        after_rubric:
+          must:
+          - A browser frame rendered by the candidate build shows a white page whose
+            only heading is the small grey line "XSRF token received by the server"
+            near the top left.
+          - One large monospaced line under the heading reads "stale-path-token".
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is
+            shown.
+          ignore:
+          - Font antialiasing, caret blink, scrollbar rendering, and window chrome.

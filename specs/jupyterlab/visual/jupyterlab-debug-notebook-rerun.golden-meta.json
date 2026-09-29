@@ -1,0 +1,21 @@
+{
+  "actions": 7,
+  "after": "specs/jupyterlab/visual/c1-debug-notebook-rerun.after.golden.png",
+  "after_dimensions": [
+    1280,
+    800
+  ],
+  "after_sha256": "0b135ccc46a62bbfa37631bf8dadceae2c983edb934ffefcd7825a067e644adc",
+  "before": "specs/jupyterlab/visual/c1-debug-notebook-rerun.before.golden.png",
+  "before_dimensions": [
+    1280,
+    800
+  ],
+  "before_sha256": "9d0bde0770740059fb576a50429a286d2b8065f6c435459e60465517948718f1",
+  "benchmark": "jupyterlab",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/jupyterlab/c1-debug-notebook-rerun.yaml",
+  "spec_sha256": "9dca27b22c1dcbd32ed99b173bd59fdb1b9ce56140e947e053bf784404d1d595",
+  "task_id": "jupyterlab-debug-notebook-rerun"
+}

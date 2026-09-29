@@ -1,0 +1,13 @@
+{
+  "benchmark": "luanti",
+  "candidates_considered": 6,
+  "fixed_revision": "c60a146e2291f7a55a3e5fd0447bd393b063ab1c",
+  "patch_sha256": "6b7a267db51383703069267a6ad5f3a26b753ac16bfe30ced3b61501b43e4b7c",
+  "pinned_host_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "repo": "games/luanti",
+  "schema": "c1-lazarus-materialization-base-v1",
+  "schema_version": 1,
+  "source": "patch_post_image_blob",
+  "task_id": "lz-luanti-11352-map-settings-hierarchy",
+  "verification": "reverse_apply_check_in_detached_worktree"
+}

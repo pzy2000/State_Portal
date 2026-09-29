@@ -1,0 +1,12 @@
+{
+  "build_class": "jlpm",
+  "declared_files": [
+    "packages/notebook/src/widget.ts",
+    "packages/notebook/test/widget.spec.ts"
+  ],
+  "fixed_revision": "4a19f8fff4049a9536e21fa2980fe7e5ee592d01",
+  "patch_sha256": "d83d29818a0badd5edf52fcc8b7df17fb7e892a18fc73a3db4770e4273ca0186",
+  "revert_patch": "benchmarks/p5/lazarus/defects/lz-jupyterlab-15634-markdown-focus-render/revert.patch",
+  "source_repo": "games/jupyterlab",
+  "task_id": "lz-jupyterlab-15634-markdown-focus-render"
+}

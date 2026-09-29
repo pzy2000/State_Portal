@@ -1,0 +1,60 @@
+diff --git a/galata/test/jupyterlab/cells.test.ts b/galata/test/jupyterlab/cells.test.ts
+index afb305b9363215068f4431ebcf8adbed8f21171e..de554e537aeb009578d29e71fb1050cf1faadd7e 100644
+--- a/galata/test/jupyterlab/cells.test.ts
++++ b/galata/test/jupyterlab/cells.test.ts
+@@ -33,7 +33,7 @@ test.describe('Cells', () => {
+   });
+ });
+ 
+-test.describe('Run Cells With Keyboard', () => {
++test.describe('Run Cells', () => {
+   test.beforeEach(async ({ page }) => {
+     await page.notebook.createNew();
+   });
+@@ -53,4 +53,25 @@ test.describe('Run Cells With Keyboard', () => {
+     const text = await page.notebook.getCellTextInput(0);
+     expect(text).toBe('2**32');
+   });
++
++  test('Should update the cell execution counter', async ({ page }) => {
++    await page.notebook.setCell(0, 'code', '2**32');
++    const inputPrompt = (await page.notebook.getCellLocator(0))!.locator(
++      '.jp-InputPrompt'
++    );
++
++    // Input prompt should be updated when the cell is executed.
++    await page.notebook.runCell(0);
++    await expect(inputPrompt).toHaveText('[1]:');
++    await page.notebook.runCell(0);
++    await expect(inputPrompt).toHaveText('[2]:');
++
++    // Input prompt should be reset when an empty cell is executed.
++    const cell = await page.notebook.getCellLocator(0);
++    await cell?.getByRole('textbox').press('Control+A');
++    await cell?.getByRole('textbox').press('Delete');
++
++    await page.notebook.runCell(0);
++    await expect(inputPrompt).toHaveText('[ ]:');
++  });
+ });
+diff --git a/packages/cells/src/widget.ts b/packages/cells/src/widget.ts
+index c7a21f77513e4311339f0a002e3b8fc14fb0066d..85cb30c0942b6904716d01053f393989c21e0b6c 100644
+--- a/packages/cells/src/widget.ts
++++ b/packages/cells/src/widget.ts
+@@ -1756,13 +1756,9 @@ export namespace CodeCell {
+     const model = cell.model;
+     const code = model.sharedModel.getSource();
+     if (!code.trim() || !sessionContext.session?.kernel) {
+-      model.sharedModel.transact(
+-        () => {
+-          model.clearExecution();
+-        },
+-        false,
+-        'silent-change'
+-      );
++      model.sharedModel.transact(() => {
++        model.clearExecution();
++      }, false);
+       return;
+     }
+     const cellId = { cellId: model.sharedModel.getId() };

@@ -1,0 +1,148 @@
+{
+  "buggy_tests": {
+    "jupyterlab-13657-replace-selection-f2p": false,
+    "jupyterlab-primary-selection-construction-p2p": false
+  },
+  "complete": false,
+  "executions": [
+    {
+      "complete": false,
+      "duration_ms": 16571.75487501081,
+      "failures": [
+        "construction command jupyterlab-test-build-codemirror exited 1"
+      ],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "packages/codemirror/test/editor.spec.ts",
+          "sha256": "de15155e81be3048eaab4a5a85157ac92fb93a38f466cbc38583672a69259277",
+          "source_path": "upstream-tests/packages/codemirror/test/editor.spec.ts"
+        }
+      ],
+      "passed": false,
+      "prepare_results": [
+        {
+          "duration_ms": 3761.533499986399,
+          "exit_code": 0,
+          "id": "jupyterlab-scoped-build-codemirror",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "lerna notice cli v7.1.4\nlerna info versioning independent\nlerna notice filter including \"@jupyterlab/codemirror\"\nlerna info filter [ '@jupyterlab/codemirror' ]\n(node:69276) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.\n(Use `node --trace-deprecation ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/codemirror:build\n\n\n \n\n >  Lerna (powered by Nx)   Successfully ran target build for project @jupyterlab/codemirror\n\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "b6d80916b9e1cae513a8e0ea8148f486f126b400295b6eba54d63cebe9ac2dd3",
+          "stdout_sha256": "4d69b020e36f4fb7ec7fd344e1412789c4c7ffaa13cc4dee9a46773ad11c2cce",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 2333.2794589805417,
+          "exit_code": 1,
+          "id": "jupyterlab-test-build-codemirror",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "Wrote test/foo.js and test/foo.terms.js\ntest/editor.spec.ts(86,21): error TS2339: Property 'selectionStyle' does not exist on type 'LogFileEditor'.\ntest/editor.spec.ts(86,56): error TS2339: Property 'defaultSelectionStyle' does not exist on type 'typeof CodeEditor'.\ntest/editor.spec.ts(95,14): error TS2339: Property 'selectionStyle' does not exist on type 'LogFileEditor'.\ntest/editor.spec.ts(96,21): error TS2339: Property 'selectionStyle' does not exist on type 'LogFileEditor'.\ntest/editor.spec.ts(297,33): error TS2339: Property 'addKeydownHandler' does not exist on type 'LogFileEditor'.\n",
+            "stdout_truncated": false
+          },
+          "passed": false,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "d985fe601f323e652a60db65f4e655cd2759817dd5b357a967a20a8b779b061f",
+          "timed_out": false
+        }
+      ],
+      "results": [],
+      "terminal_failure_class": "version_incompatible",
+      "test_ids": [
+        "jupyterlab-13657-replace-selection-f2p",
+        "jupyterlab-primary-selection-construction-p2p"
+      ],
+      "version": "fixed"
+    },
+    {
+      "complete": false,
+      "duration_ms": 15123.589583992725,
+      "failures": [
+        "construction command jupyterlab-test-build-codemirror exited 1"
+      ],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "packages/codemirror/test/editor.spec.ts",
+          "sha256": "de15155e81be3048eaab4a5a85157ac92fb93a38f466cbc38583672a69259277",
+          "source_path": "upstream-tests/packages/codemirror/test/editor.spec.ts"
+        }
+      ],
+      "passed": false,
+      "prepare_results": [
+        {
+          "duration_ms": 3032.386458973633,
+          "exit_code": 0,
+          "id": "jupyterlab-scoped-build-codemirror",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "lerna notice cli v7.1.4\nlerna info versioning independent\nlerna notice filter including \"@jupyterlab/codemirror\"\nlerna info filter [ '@jupyterlab/codemirror' ]\n(node:69494) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.\n(Use `node --trace-deprecation ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/codemirror:build\n\n\n \n\n >  Lerna (powered by Nx)   Successfully ran target build for project @jupyterlab/codemirror\n\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "0ccf104fb1ac65d83085132201b8e844c745f153d10eab0dcfa94cc204bb2f1c",
+          "stdout_sha256": "4d69b020e36f4fb7ec7fd344e1412789c4c7ffaa13cc4dee9a46773ad11c2cce",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 2501.7858750070445,
+          "exit_code": 1,
+          "id": "jupyterlab-test-build-codemirror",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "Wrote test/foo.js and test/foo.terms.js\ntest/editor.spec.ts(86,21): error TS2339: Property 'selectionStyle' does not exist on type 'LogFileEditor'.\ntest/editor.spec.ts(86,56): error TS2339: Property 'defaultSelectionStyle' does not exist on type 'typeof CodeEditor'.\ntest/editor.spec.ts(95,14): error TS2339: Property 'selectionStyle' does not exist on type 'LogFileEditor'.\ntest/editor.spec.ts(96,21): error TS2339: Property 'selectionStyle' does not exist on type 'LogFileEditor'.\ntest/editor.spec.ts(297,33): error TS2339: Property 'addKeydownHandler' does not exist on type 'LogFileEditor'.\n",
+            "stdout_truncated": false
+          },
+          "passed": false,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "d985fe601f323e652a60db65f4e655cd2759817dd5b357a967a20a8b779b061f",
+          "timed_out": false
+        }
+      ],
+      "results": [],
+      "terminal_failure_class": "version_incompatible",
+      "test_ids": [
+        "jupyterlab-13657-replace-selection-f2p",
+        "jupyterlab-primary-selection-construction-p2p"
+      ],
+      "version": "buggy"
+    }
+  ],
+  "failures": [
+    "fixed fail_to_pass did not pass",
+    "fixed pass_to_pass did not pass",
+    "buggy pass_to_pass did not pass",
+    "registered construction terminal: version_incompatible"
+  ],
+  "fixed_tests": {
+    "jupyterlab-13657-replace-selection-f2p": false,
+    "jupyterlab-primary-selection-construction-p2p": false
+  },
+  "patch_sha256": "76f6b809dc6b1b8c27bb1bef7d5e7657b4256ea6ef46dc49b22bb63435b78ad4",
+  "qualified": false,
+  "record_sha256": "59a339fab3144f2c98786d713c17f02c7c8c268dc4d8b77edb8fdf9c53d2bde9",
+  "schema": "c1-lazarus-formal-construction-tests-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-13657-replace-selection-command",
+  "terminal_failure_class": "version_incompatible"
+}

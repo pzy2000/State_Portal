@@ -1,0 +1,38 @@
+name: 2048 merge (next.value === tile.value) (execution-grounded)
+benchmark: '2048'
+target:
+  board:
+  - - 2
+    - 2
+    - 0
+    - 0
+  - - 0
+    - 0
+    - 0
+    - 0
+  - - 0
+    - 0
+    - 0
+    - 0
+  - - 0
+    - 0
+    - 0
+    - 0
+  score: 0
+  bestScore: 0
+  won: false
+  over: false
+  keepPlaying: false
+checkpoint:
+  allowed_strategies:
+  - localStorage_restore_reload
+  expected_validity: save-restorable
+actions:
+- type: move
+  direction: left
+assertions:
+- type: score_increased_by_at_least
+  amount: 4
+- type: tile_value_present
+  value: 4
+- type: no_severe_console

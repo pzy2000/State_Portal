@@ -1,0 +1,46 @@
+name: jynew player level up checkpoint
+benchmark: "jynew"
+tags: ["jynew", "level-up", "player"]
+target:
+  kind: synthesized_state
+  mod_id: JYX2
+  player_level: 3
+checkpoint:
+  allowed_strategies: ["jynew_utility_save_validate"]
+  expected_validity: "injection-only"
+actions:
+  - type: jynew_level_up
+assertions:
+  - type: jynew_role_attr
+    role_id: 0
+    attr: Level
+    expected: "4"
+    comparator: equals
+  - type: jynew_role_attr
+    role_id: 0
+    attr: Tili
+    expected: "30"
+    comparator: gte
+  - type: no_jynew_utility_errors
+visual_oracle:
+  golden_image: visual/level-up.golden.png
+  expected_label: correct
+  scene_key: jynew_default_world
+  description: "After leveling up the player from level 3 to 4, the game world is rendered showing the player character. Stats reflect the level increase."
+  rubric:
+    must:
+      - "The jynew 3D game world is rendered and visible."
+      - "The player character model is present in the scene."
+      - "No crash or error state is shown."
+    must_not:
+      - "The screen is blank or shows only a splash screen."
+      - "An error message or exception overlay is visible."
+      - "The game is stuck on a loading screen."
+    ignore:
+      - "Exact stat numbers displayed in HUD (verified by assertions)."
+      - "Camera angle or position differences."
+      - "Animation state of the character."
+  capture:
+    stage: post_smoke
+    wait_ms: 1000
+    full_page: false

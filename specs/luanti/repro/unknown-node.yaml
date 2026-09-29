@@ -1,0 +1,23 @@
+name: luanti restore with an unregistered node name hard-crashes checkpoint restore
+benchmark: "luanti"
+timeout_ms: 300000
+tags: ["luanti", "repro", "robustness", "unknown-node"]
+# Minimal, self-contained reproduction of a C3 state-fuzz engine defect: a restored
+# world that references a node name the running game does not have registered (e.g.
+# a world saved with a mod that is no longer installed, or hand-edited world data)
+# makes the checkpoint restore path crash ("Unknown node: <name>") instead of
+# skipping/clamping the unknown node. One unregistered node is enough to trigger it.
+target:
+  kind: synthesized_world
+  nodes:
+    - pos: { x: 2, y: 2, z: 2 }
+      node: "warptest:__no_such_node__"
+  validations:
+    - path: "node.2,2,2"
+      expected: "warptest:__no_such_node__"
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions: []
+assertions:
+  - type: no_luanti_mod_errors

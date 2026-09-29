@@ -1,0 +1,48 @@
+name: jynew event flag key value update
+benchmark: "jynew"
+tags: ["jynew", "event", "flag", "keyvalue"]
+target:
+  kind: synthesized_state
+  mod_id: JYX2
+  player_level: 3
+  map_id: 1
+  key_values:
+    - key: "quest_shaolin_started"
+      value: "1"
+checkpoint:
+  allowed_strategies: ["jynew_utility_save_validate"]
+  expected_validity: "injection-only"
+actions:
+  - type: jynew_set_key_value
+    key: "quest_shaolin_completed"
+    value: "1"
+assertions:
+  - type: jynew_key_value_equals
+    key: "quest_shaolin_started"
+    str_value: "1"
+  - type: jynew_key_value_equals
+    key: "quest_shaolin_completed"
+    str_value: "1"
+  - type: no_jynew_utility_errors
+visual_oracle:
+  golden_image: visual/event-flag.golden.png
+  expected_label: correct
+  scene_key: jynew_submap
+  description: "After setting quest event flags from a sub-map state, the sub-map scene remains rendered. The quest state has been updated internally without changing the visible location."
+  rubric:
+    must:
+      - "A jynew sub-map or interior/town scene matching the oracle location class is rendered and visible."
+      - "The player character is in the sub-map scene."
+      - "The live image remains in the same visible location class as the golden oracle."
+    must_not:
+      - "The screen is blank or shows an error overlay."
+      - "A crash or unhandled exception is visible."
+      - "The snowy default courtyard, world map, battle screen, or menu is shown instead of the oracle sub-map."
+    ignore:
+      - "Exact quest UI indicators (flags are internal state)."
+      - "NPC positions within the same sub-map."
+      - "Small lighting or camera differences within the same location."
+  capture:
+    stage: post_smoke
+    wait_ms: 1000
+    full_page: false

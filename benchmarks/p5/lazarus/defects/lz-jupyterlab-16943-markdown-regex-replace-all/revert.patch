@@ -1,0 +1,48 @@
+diff --git a/packages/cells/src/searchprovider.ts b/packages/cells/src/searchprovider.ts
+index e307c5c79a48f1175920baf4c47c64a08b811ab3..e0913ae3a2a6bbc46490f4a77a5361d281b44c5b 100644
+--- a/packages/cells/src/searchprovider.ts
++++ b/packages/cells/src/searchprovider.ts
+@@ -429,11 +429,14 @@ class MarkdownCellSearchProvider extends CellSearchProvider {
+    * @param newText The replacement text.
+    * @returns Whether a replace occurred.
+    */
+-  async replaceAllMatches(newText: string): Promise<boolean> {
++  async replaceAllMatches(
++    newText: string,
++    options?: IReplaceOptions
++  ): Promise<boolean> {
+     if (this.model.getMetadata('editable') === false)
+       return Promise.resolve(false);
+ 
+-    const result = await super.replaceAllMatches(newText);
++    const result = await super.replaceAllMatches(newText, options);
+     // if the cell is rendered force update
+     if ((this.cell as MarkdownCell).rendered) {
+       this.cell.update();
+diff --git a/packages/cells/src/widget.ts b/packages/cells/src/widget.ts
+index 44e86cec10df28f61e31a3b33da2b2b49b174af2..6fca28ee6777f2f18dae9a19e851065771c6cdbf 100644
+--- a/packages/cells/src/widget.ts
++++ b/packages/cells/src/widget.ts
+@@ -1954,7 +1954,8 @@ export abstract class AttachmentsCell<
+    * Handle the `paste` event for the widget
+    */
+   private _evtPaste(event: ClipboardEvent): void {
+-    if (event.clipboardData) {
++    const isEditable = this.model.getMetadata('editable') ?? true;
++    if (event.clipboardData && isEditable) {
+       const items = event.clipboardData.items;
+       for (let i = 0; i < items.length; i++) {
+         if (items[i].type === 'text/plain') {
+diff --git a/packages/notebook/test/searchprovider.spec.ts b/packages/notebook/test/searchprovider.spec.ts
+index a3d7788f580b1b72845aa33b47535a7ea6d0937f..77033ac38bfc23941f0a0384f4fde39ecceaa3f1 100644
+--- a/packages/notebook/test/searchprovider.spec.ts
++++ b/packages/notebook/test/searchprovider.spec.ts
+@@ -419,7 +419,7 @@ describe('@jupyterlab/notebook', () => {
+       it('should replace all matches using regex', async () => {
+         panel.model!.sharedModel.insertCells(0, [
+           {
+-            cell_type: 'code',
++            cell_type: 'markdown',
+             source: 'a=123',
+             metadata: { editable: true }
+           },

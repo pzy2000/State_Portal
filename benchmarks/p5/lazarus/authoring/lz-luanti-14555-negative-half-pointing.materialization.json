@@ -1,0 +1,13 @@
+{
+  "benchmark": "luanti",
+  "candidates_considered": 1,
+  "fixed_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "patch_sha256": "d94a134b545ef0a15cabe782a707587d3de8bddb70dbe784f32c0b2897e53813",
+  "pinned_host_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "repo": "games/luanti",
+  "schema": "c1-lazarus-materialization-base-v1",
+  "schema_version": 1,
+  "source": "pinned_host_revision",
+  "task_id": "lz-luanti-14555-negative-half-pointing",
+  "verification": "reverse_apply_check_in_detached_worktree"
+}

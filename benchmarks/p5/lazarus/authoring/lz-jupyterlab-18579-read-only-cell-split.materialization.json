@@ -1,0 +1,13 @@
+{
+  "benchmark": "jupyterlab",
+  "candidates_considered": 3,
+  "fixed_revision": "960e77776bcbaaae0a16f3e52c92c21c29bc962d",
+  "patch_sha256": "7619fcbe4b966a8d99f729ab80bdbc3f09ce0efc1816026605b92b09cabb93d9",
+  "pinned_host_revision": "4a19f8fff4049a9536e21fa2980fe7e5ee592d01",
+  "repo": "games/jupyterlab",
+  "schema": "c1-lazarus-materialization-base-v1",
+  "schema_version": 1,
+  "source": "patch_post_image_blob",
+  "task_id": "lz-jupyterlab-18579-read-only-cell-split",
+  "verification": "reverse_apply_check_in_detached_worktree"
+}

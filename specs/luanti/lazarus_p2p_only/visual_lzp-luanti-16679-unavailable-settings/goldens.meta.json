@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.023350694444444445,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 1.930052445023148
+  },
+  "before_buggy_sha256": "477fafc267e0684ebb8f0336fc40d1fe037a8dc28f7b331a403e0d61c6192fb4",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "477fafc267e0684ebb8f0336fc40d1fe037a8dc28f7b331a403e0d61c6192fb4",
+  "buggy_after_sha256": "9cd66746d0f2cf3058dc933ef09bc47593fbeee7426b4d04a80647ce4ff39f2e",
+  "fixed_after_sha256": "fc0622e0d37d09786002889899f8fdc91ded0445c5b2cb4b0b01d54265260750",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "9cd66746d0f2cf3058dc933ef09bc47593fbeee7426b4d04a80647ce4ff39f2e",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 85304,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "21d088177d372f4822fa39fa2d45ec4a3afa4973960238098f255776744d73ad"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "477fafc267e0684ebb8f0336fc40d1fe037a8dc28f7b331a403e0d61c6192fb4",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 33477,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "a695d78c3c84c5ff0fb079597472bb9c15a19686e8f6af8742e9318c6e7014a7"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "fc0622e0d37d09786002889899f8fdc91ded0445c5b2cb4b0b01d54265260750",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 129390,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "84d93078b0773673527c8265c62171ff2248a3302fecc2d38328e5a2bbd5bc73"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "477fafc267e0684ebb8f0336fc40d1fe037a8dc28f7b331a403e0d61c6192fb4",
+      "quality": {
+        "image_size": [
+          1280,
+          720
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 33477,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "c2f832f7c0cd5da46dbde4cf5ad1eaeb5797e9fd92751bdebca528d2ced649b9"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.0
+  },
+  "published_unix_ns": 1787028356078680000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lzp-luanti-16679-unavailable-settings"
+}

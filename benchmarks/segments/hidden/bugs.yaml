@@ -1,0 +1,29 @@
+bugs:
+  - id: 2048-win-overlay-regression
+    segment_id: 2048-near-win-board
+    oracle: "A winning 2048 tile should remain visible after the segment probe."
+    public_signature: "tile_value_present:2048"
+  - id: spacerpg-market-cargo-invariant
+    segment_id: spacerpg-station-market
+    oracle: "Station-market cargo and credit updates should stay internally consistent after a trade probe."
+    public_signature: "state_equals:player.cargo.basic-food"
+  - id: spacerpg-story-target-invariant
+    segment_id: spacerpg-story-flight
+    oracle: "Story mission target and completed mission markers should remain stable after flight input."
+    public_signature: "state_equals:targetId"
+  - id: love-dialogue-real-api-leak
+    segment_id: love-dialogue
+    oracle: "Dialogue probing must not trigger real OpenAI calls."
+    public_signature: "no_real_openai"
+  - id: love-ending-flag-regression
+    segment_id: love-ending-precondition
+    oracle: "Partner-ending flags and relationship status should remain stable after save/progression probing."
+    public_signature: "state_equals:world.globalFlags.elena_partner_ending_ready"
+  - id: openra-cnc-beachhead-map-load-regression
+    segment_id: openra-cnc-beachhead-map
+    oracle: "The C&C beachhead gameplay capture and utility validation should remain tied to cnc/gdi01."
+    public_signature: "openra_map_loaded:cnc:gdi01"
+  - id: openra-ra-drop-zone-spawn-regression
+    segment_id: openra-ra-drop-zone-map
+    oracle: "The Red Alert Drop Zone lobby should preserve its Neutral multiplayer spawn setup."
+    public_signature: "openra_actor_count:mpspawn"

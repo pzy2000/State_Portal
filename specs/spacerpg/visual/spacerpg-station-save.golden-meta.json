@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "after": "specs/spacerpg/visual/spacerpg-station-save.after.golden.png",
+  "after_sha256": "3a9b1b0842bc0490c606327f74fc629505d8b8feeb283bfdea0c2a5d872c75e3",
+  "before": "specs/spacerpg/visual/spacerpg-station-save.before.golden.png",
+  "before_sha256": "cf2afcc960637a765eece23645dded620e80ee754c986d7a9d5b132a28c1b0b8",
+  "benchmark": "spacerpg",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/spacerpg/station-save.yaml",
+  "spec_sha256": "ec19088e0479410dc7e1dd390b96513bde4a1ff44e7d77812d58a24648d73b38",
+  "task_id": "spacerpg-station-save"
+}

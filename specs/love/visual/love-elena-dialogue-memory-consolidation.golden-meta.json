@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/love/visual/love-elena-dialogue-memory-consolidation.after.golden.png",
+  "after_dimensions": [
+    1280,
+    800
+  ],
+  "after_sha256": "59bf987fd587dd41aead55a45b2b91677d35f62936a61f74fd0aa208b5fbdc88",
+  "before": "specs/love/visual/love-elena-dialogue-memory-consolidation.before.golden.png",
+  "before_dimensions": [
+    1280,
+    800
+  ],
+  "before_sha256": "c227fda2d8967ce063fc79528c091dc1f94324e754bae338a6ab4f08e7845abd",
+  "benchmark": "datingsim",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/love/c1-elena-dialogue-memory-consolidation.yaml",
+  "spec_sha256": "b50db83bb95bdf6db5b4c04955c68abfd165755532d210b46fa608f2e1cd5431",
+  "task_id": "love-elena-dialogue-memory-consolidation"
+}

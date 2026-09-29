@@ -1,0 +1,1475 @@
+{
+  "image_count": 60,
+  "pair_count": 30,
+  "schema_version": 2,
+  "source": "deterministic_reference_replay",
+  "tasks": [
+    {
+      "actions": 6,
+      "after": "specs/2048/visual/2048-cascade-256.after.golden.png",
+      "after_description": "The completed board visibly contains a 256 tile in the upper-left corner.",
+      "after_dimensions": [
+        1280,
+        800
+      ],
+      "after_rubric": {
+        "ignore": [
+          "Low-value spawned tiles outside the upper-left target."
+        ],
+        "must": [
+          "The 2048 board is visible.",
+          "A 256 tile is visible in the upper-left corner.",
+          "The game remains rendered and playable."
+        ],
+        "must_not": [
+          "No 256 tile is visible.",
+          "A crash, blank page, or unrelated app is visible."
+        ]
+      },
+      "after_sha256": "77788438798075d047ef91d03839648067b25cb7641d21bb254a93103361cac2",
+      "before": "specs/2048/visual/2048-cascade-256.before.golden.png",
+      "before_description": "The layered deterministic board is visible before the six-move cascade.",
+      "before_dimensions": [
+        1280,
+        800
+      ],
+      "before_rubric": {
+        "ignore": [
+          "Minor animation and score text differences."
+        ],
+        "must": [
+          "The 2048 board is visible with multiple high-value paired layers.",
+          "The page is rendered normally."
+        ],
+        "must_not": [
+          "A crash, blank page, or unrelated app is visible."
+        ]
+      },
+      "before_sha256": "ac3ec3a8cc99b0381d0b4e1115d923b3b6d0b6126912eec9f0ca1ec144067261",
+      "benchmark": "2048",
+      "metadata": "specs/2048/visual/2048-cascade-256.golden-meta.json",
+      "preconditions": "A 4 by 4 board is [[128,128,64,64],[32,32,16,16],[8,8,4,4],[2,2,0,0]], score and best score are 4096, won and game-over are false, and keep-playing is disabled.",
+      "reference_steps": "Make six moves in this exact order: left, down, up, left, left, left.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/2048/c1-cascade-256.yaml",
+      "spec_sha256": "8f11008f695e5daed903d203fd272db418c6e1ff3be27dc609f38e38de465ae2",
+      "state_description": "Preconditions: A 4 by 4 board is [[128,128,64,64],[32,32,16,16],[8,8,4,4],[2,2,0,0]], score and best score are 4096, won and game-over are false, and keep-playing is disabled.\nReference steps: Make six moves in this exact order: left, down, up, left, left, left.",
+      "task_id": "2048-cascade-256"
+    },
+    {
+      "actions": 6,
+      "after": "specs/2048/visual/2048-near-loss-rescue-128.after.golden.png",
+      "after_description": "The rescued board visibly contains two 128 tiles and is no longer completely full.",
+      "after_dimensions": [
+        1280,
+        800
+      ],
+      "after_rubric": {
+        "ignore": [
+          "Exact low-value spawned tile placement."
+        ],
+        "must": [
+          "Two 128 tiles are visible.",
+          "At least one cell is empty.",
+          "The board is not game over."
+        ],
+        "must_not": [
+          "The board remains completely full.",
+          "A tile larger than 128 is visible.",
+          "A crash or blank page is visible."
+        ]
+      },
+      "after_sha256": "9524c032f4cf8abb18df9fca8afc1845455a920b006952d0c0616e94f3003200",
+      "before": "specs/2048/visual/2048-near-loss-rescue-128.before.golden.png",
+      "before_description": "A nearly full 2048 board with a narrow rescue route is visible.",
+      "before_dimensions": [
+        1280,
+        800
+      ],
+      "before_rubric": {
+        "ignore": [
+          "Minor score or animation differences."
+        ],
+        "must": [
+          "A nearly full 2048 board is visible.",
+          "The page is rendered normally."
+        ],
+        "must_not": [
+          "A game-over overlay, crash, or blank page is visible."
+        ]
+      },
+      "before_sha256": "dd1d2ef86fcf3d9843188204dc39bce4ac41b8a1d971ed9beb6b6b8f70426db7",
+      "benchmark": "2048",
+      "metadata": "specs/2048/visual/2048-near-loss-rescue-128.golden-meta.json",
+      "preconditions": "A 4 by 4 board is [[2,32,2,4],[8,4,4,64],[0,64,64,64],[2,32,64,2]], score is 2048, best score is 4096, won and game-over are false, and keep-playing is disabled.",
+      "reference_steps": "Make six moves in this exact order: left, left, left, left, left, up.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/2048/c1-near-loss-rescue-128.yaml",
+      "spec_sha256": "c023a0c5f026dc2fe3c78cc0e3c06fab0b273a8a77530d0c34754a6cb9f99429",
+      "state_description": "Preconditions: A 4 by 4 board is [[2,32,2,4],[8,4,4,64],[0,64,64,64],[2,32,64,2]], score is 2048, best score is 4096, won and game-over are false, and keep-playing is disabled.\nReference steps: Make six moves in this exact order: left, left, left, left, left, up.",
+      "task_id": "2048-near-loss-rescue-128"
+    },
+    {
+      "actions": 6,
+      "after": "specs/2048/visual/2048-multistage-win-2048.after.golden.png",
+      "after_description": "A 2048 tile and the playable win state are visibly present.",
+      "after_dimensions": [
+        1280,
+        800
+      ],
+      "after_rubric": {
+        "ignore": [
+          "Low-value spawned tile positions and win-overlay animation timing."
+        ],
+        "must": [
+          "A 2048 tile is visible.",
+          "The game remains rendered after the win."
+        ],
+        "must_not": [
+          "Two unmerged 1024 tiles remain with no 2048.",
+          "A crash or blank page is visible."
+        ]
+      },
+      "after_sha256": "1583c45e306008a62e7d83ad3c8874c1ff7aca66d57249f9a15a0e6a58b1b499",
+      "before": "specs/2048/visual/2048-multistage-win-2048.before.golden.png",
+      "before_description": "Four separated 512 tiles and their supporting merge chains are visible.",
+      "before_dimensions": [
+        1280,
+        800
+      ],
+      "before_rubric": {
+        "ignore": [
+          "Score text and minor animation differences."
+        ],
+        "must": [
+          "The board visibly contains four 512 tiles.",
+          "The 2048 page is rendered normally."
+        ],
+        "must_not": [
+          "A crash, blank page, or unrelated app is visible."
+        ]
+      },
+      "before_sha256": "cf5e78fac6b3b0df69cd251d001c61f4f39cb2ccc3259004592069d365fe765a",
+      "benchmark": "2048",
+      "metadata": "specs/2048/visual/2048-multistage-win-2048.golden-meta.json",
+      "preconditions": "A 4 by 4 board is [[512,512,0,0],[512,512,0,0],[64,64,32,32],[16,16,8,8]], score and best score are 8192, won and game-over are false, and keep-playing is enabled.",
+      "reference_steps": "Make six moves in this exact order: left, down, right, up, left, down.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/2048/c1-multistage-win-2048.yaml",
+      "spec_sha256": "e467073fdb0142d2174a63e38c91babba5dc83e59b649bdadb8d261563311fbf",
+      "state_description": "Preconditions: A 4 by 4 board is [[512,512,0,0],[512,512,0,0],[64,64,32,32],[16,16,8,8]], score and best score are 8192, won and game-over are false, and keep-playing is enabled.\nReference steps: Make six moves in this exact order: left, down, right, up, left, down.",
+      "task_id": "2048-multistage-win-2048"
+    },
+    {
+      "actions": 8,
+      "after": "specs/love/visual/love-work-gym-date-roundtrip.after.golden.png",
+      "after_description": "The cafe screen and updated player resources and attributes are visible after save/reload.",
+      "after_dimensions": [
+        1280,
+        800
+      ],
+      "after_rubric": {
+        "ignore": [
+          "Exact random-event text; semantic assertions verify resources and stats."
+        ],
+        "must": [
+          "The DatingSim game UI remains usable.",
+          "The cafe or date context and updated status panel are visible."
+        ],
+        "must_not": [
+          "A real AI/API error, setup page, or crash is visible."
+        ]
+      },
+      "after_sha256": "183fd8760e8e595a9c25d34f7dc73f2323336cafd620ddb4a0e7b47a051f70b9",
+      "before": "specs/love/visual/love-work-gym-date-roundtrip.before.golden.png",
+      "before_description": "DatingSim is visible at home before the registered daily loop.",
+      "before_dimensions": [
+        1280,
+        800
+      ],
+      "before_rubric": {
+        "ignore": [
+          "Minor event-modal and animation differences."
+        ],
+        "must": [
+          "The DatingSim game UI and WarpTest identity are visible.",
+          "The home or daily-action UI is rendered."
+        ],
+        "must_not": [
+          "The setup page, a real API error, or a blank page is visible."
+        ]
+      },
+      "before_sha256": "46cde8b09a9cac9eeeba14b9ba18f78619c538b9fde76bfc9332f8444061addf",
+      "benchmark": "datingsim",
+      "metadata": "specs/love/visual/love-work-gym-date-roundtrip.golden-meta.json",
+      "preconditions": "male player WarpTest is at home on week 1, day 0, morning with money 1000, energy 100, intelligence 10, strength 10, charm 10, communication 10, creativity 10, luck 10, and mocked AI enabled.",
+      "reference_steps": "In order, perform coding work once; move to the gym and work out once; visit the spa once; reach the cafe in the afternoon and complete one coffee date; save; then reload that save.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/love/c1-work-gym-date-roundtrip.yaml",
+      "spec_sha256": "8e75bef7d9448248a607a97d3e419fec527e68363af725384f4359cbf7ea8d6a",
+      "state_description": "Preconditions: male player WarpTest is at home on week 1, day 0, morning with money 1000, energy 100, intelligence 10, strength 10, charm 10, communication 10, creativity 10, luck 10, and mocked AI enabled.\nReference steps: In order, perform coding work once; move to the gym and work out once; visit the spa once; reach the cafe in the afternoon and complete one coffee date; save; then reload that save.",
+      "task_id": "love-work-gym-date-roundtrip"
+    },
+    {
+      "actions": 8,
+      "after": "specs/love/visual/love-elena-dialogue-memory-consolidation.after.golden.png",
+      "after_description": "The closed conversation returns to the restaurant relationship UI after memory consolidation, the follow-up coffee date, and save/load.",
+      "after_dimensions": [
+        1280,
+        800
+      ],
+      "after_rubric": {
+        "ignore": [
+          "Exact memory text rendering, which is checked semantically by fixed summary, bounded length, and mocked-call provenance."
+        ],
+        "must": [
+          "The DatingSim restaurant or Elena relationship UI is visible.",
+          "The dialogue no longer blocks the main game UI."
+        ],
+        "must_not": [
+          "A real AI/API error or crash is visible."
+        ]
+      },
+      "after_sha256": "59bf987fd587dd41aead55a45b2b91677d35f62936a61f74fd0aa208b5fbdc88",
+      "before": "specs/love/visual/love-elena-dialogue-memory-consolidation.before.golden.png",
+      "before_description": "An open Elena cafe conversation is visible before consolidation.",
+      "before_dimensions": [
+        1280,
+        800
+      ],
+      "before_rubric": {
+        "ignore": [
+          "Exact text wrapping and response timing."
+        ],
+        "must": [
+          "The Elena dialogue is visible in DatingSim.",
+          "The page is rendered normally."
+        ],
+        "must_not": [
+          "A real API error, setup page, or blank page is visible."
+        ]
+      },
+      "before_sha256": "c227fda2d8967ce063fc79528c091dc1f94324e754bae338a6ab4f08e7845abd",
+      "benchmark": "datingsim",
+      "metadata": "specs/love/visual/love-elena-dialogue-memory-consolidation.golden-meta.json",
+      "preconditions": "male player WarpTest is at the cafe on week 5, day 2, afternoon after daily chat was used. Elena (char_1) is a friend with trust 60, attraction 45, comfort 55, respect 40, investment 25, conflict 0, history \"Met Elena at the gallery.\", five memories \"Quiet cafes\", \"Gallery opening\", \"Busy week\", \"Coffee joke\", and \"Weekend plans\", and an open mocked dialogue containing the four ordered messages \"How was the gallery?\", \"Busy, but the opening went well.\", \"I remembered your favorite quiet cafe.\", and \"That means a lot to me.\" with no reply options.",
+      "reference_steps": "Close the open dialogue and wait for memory consolidation; move to the restaurant; click Coffee Date and resolve every generated event; save; then load that save.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/love/c1-elena-dialogue-memory-consolidation.yaml",
+      "spec_sha256": "b50db83bb95bdf6db5b4c04955c68abfd165755532d210b46fa608f2e1cd5431",
+      "state_description": "Preconditions: male player WarpTest is at the cafe on week 5, day 2, afternoon after daily chat was used. Elena (char_1) is a friend with trust 60, attraction 45, comfort 55, respect 40, investment 25, conflict 0, history \"Met Elena at the gallery.\", five memories \"Quiet cafes\", \"Gallery opening\", \"Busy week\", \"Coffee joke\", and \"Weekend plans\", and an open mocked dialogue containing the four ordered messages \"How was the gallery?\", \"Busy, but the opening went well.\", \"I remembered your favorite quiet cafe.\", and \"That means a lot to me.\" with no reply options.\nReference steps: Close the open dialogue and wait for memory consolidation; move to the restaurant; click Coffee Date and resolve every generated event; save; then load that save.",
+      "task_id": "love-elena-dialogue-memory-consolidation"
+    },
+    {
+      "actions": 8,
+      "after": "specs/love/visual/love-elena-partner-ending-unlock.after.golden.png",
+      "after_description": "The advanced Elena partner state and Committed Partner title are visible after save/reload.",
+      "after_dimensions": [
+        1280,
+        800
+      ],
+      "after_rubric": {
+        "ignore": [
+          "Exact localization of partner labels; semantic assertions are authoritative."
+        ],
+        "must": [
+          "The DatingSim game UI is visible.",
+          "The status area is consistent with a committed partner outcome."
+        ],
+        "must_not": [
+          "The original uncommitted state dominates the screen.",
+          "A real API error or crash is visible."
+        ]
+      },
+      "after_sha256": "54cfe45d71703d290bfa97dcc472e3f700a9398265373c2a61d14dd7de4ba943",
+      "before": "specs/love/visual/love-elena-partner-ending-unlock.before.golden.png",
+      "before_description": "The late-week Elena relationship state is visible before the commitment threshold.",
+      "before_dimensions": [
+        1280,
+        800
+      ],
+      "before_rubric": {
+        "ignore": [
+          "Exact relationship-bar rendering."
+        ],
+        "must": [
+          "The DatingSim late-game relationship UI is visible.",
+          "Elena or the contacts/status area is present."
+        ],
+        "must_not": [
+          "A setup page, real API error, or crash is visible."
+        ]
+      },
+      "before_sha256": "10cab83e224e6687b68d866a6c3cbe2db6c8322f2171a82dc63d1e708a7428d7",
+      "benchmark": "datingsim",
+      "metadata": "specs/love/visual/love-elena-partner-ending-unlock.golden-meta.json",
+      "preconditions": "male player WarpTest is at the restaurant on week 8, day 5, evening with money 1000 and energy 100. Elena (char_1) is dating WarpTest with trust 75, attraction 85, comfort 70, respect 70, investment 55, conflict 0, history \"Completed Elena gallery arc.\", memory \"Elena shared her plans after the gallery opening.\", gallery flag true, partner-ending flag false, and mocked AI enabled.",
+      "reference_steps": "Move to the cafe; click Coffee Date and resolve every generated event; return to the restaurant; click Commit to Elena to unlock the partner ending; save; then load that save.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/love/c1-elena-partner-ending-unlock.yaml",
+      "spec_sha256": "21434c75100760327e596c32f314fd3410d0b385a6ae0471807630e7d0cb3dd6",
+      "state_description": "Preconditions: male player WarpTest is at the restaurant on week 8, day 5, evening with money 1000 and energy 100. Elena (char_1) is dating WarpTest with trust 75, attraction 85, comfort 70, respect 70, investment 55, conflict 0, history \"Completed Elena gallery arc.\", memory \"Elena shared her plans after the gallery opening.\", gallery flag true, partner-ending flag false, and mocked AI enabled.\nReference steps: Move to the cafe; click Coffee Date and resolve every generated event; return to the restaurant; click Commit to Elena to unlock the partner ending; save; then load that save.",
+      "task_id": "love-elena-partner-ending-unlock"
+    },
+    {
+      "actions": 8,
+      "after": "specs/spacerpg/visual/spacerpg-trade-refit-mining-sortie.after.golden.png",
+      "after_description": "A rendered Kuro Belt flight/mining scene is visible after the industrial refit and completed ore cycle.",
+      "after_dimensions": [
+        1280,
+        800
+      ],
+      "after_rubric": {
+        "ignore": [
+          "Exact asteroid position and HUD animation."
+        ],
+        "must": [
+          "A rendered SpaceRPG flight HUD and space scene are visible.",
+          "The frame is consistent with a mining sortie rather than a station menu."
+        ],
+        "must_not": [
+          "A blank canvas, crash, or unrelated app is visible."
+        ]
+      },
+      "after_sha256": "02d91659efa072386aea00a2aa4578171fc34587fc2cea7627978f21a7251d36",
+      "before": "specs/spacerpg/visual/spacerpg-trade-refit-mining-sortie.before.golden.png",
+      "before_description": "The Helion Prime hangar and refit context are visible before the mining build.",
+      "before_dimensions": [
+        1280,
+        800
+      ],
+      "before_rubric": {
+        "ignore": [
+          "Minor station-tab and notification differences."
+        ],
+        "must": [
+          "A SpaceRPG station hangar or equipment interface is visible.",
+          "The screen is rendered normally."
+        ],
+        "must_not": [
+          "The main menu, blank canvas, or crash is visible."
+        ]
+      },
+      "before_sha256": "eecb1aec78ff8bac6a3219f205ee7bfc202b0dcc1e7645ac9b21678cdda07210",
+      "benchmark": "spacerpg",
+      "metadata": "specs/spacerpg/visual/spacerpg-trade-refit-mining-sortie.golden-meta.json",
+      "preconditions": "SpaceRPG is in the Helion Prime hangar in Helion Reach with 10000 credits, a pulse laser installed, no stored equipment, cargo Basic Food 3, Mechanical Parts 2, Plastics 2, Titanium 2, Iron 4, Energy Cells 2, and blueprints for Pulse Laser, Homing Missile, Shield Booster, Armor Plating, Mining Beam, Scanner, and Cargo Expansion.",
+      "reference_steps": "In order, sell one Basic Food; unlock Industrial Mining Beam; craft and install Cargo Expansion; dock at Meridian Dock; craft and install Industrial Mining Beam; undock and travel to Kuro Belt; mine exactly 2 Iron; finish in flight.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/spacerpg/c1-trade-refit-mining-sortie.yaml",
+      "spec_sha256": "4498ab3e36e97e99f758764999d8f341a4248541f397c6fbcdcaf3b67b35cf71",
+      "state_description": "Preconditions: SpaceRPG is in the Helion Prime hangar in Helion Reach with 10000 credits, a pulse laser installed, no stored equipment, cargo Basic Food 3, Mechanical Parts 2, Plastics 2, Titanium 2, Iron 4, Energy Cells 2, and blueprints for Pulse Laser, Homing Missile, Shield Booster, Armor Plating, Mining Beam, Scanner, and Cargo Expansion.\nReference steps: In order, sell one Basic Food; unlock Industrial Mining Beam; craft and install Cargo Expansion; dock at Meridian Dock; craft and install Industrial Mining Beam; undock and travel to Kuro Belt; mine exactly 2 Iron; finish in flight.",
+      "task_id": "spacerpg-trade-refit-mining-sortie"
+    },
+    {
+      "actions": 7,
+      "after": "specs/spacerpg/visual/spacerpg-multistation-cargo-contract.after.golden.png",
+      "after_description": "The Ashen Freeport station UI is visible after cargo delivery and reward.",
+      "after_dimensions": [
+        1280,
+        800
+      ],
+      "after_rubric": {
+        "ignore": [
+          "Exact reward notification placement."
+        ],
+        "must": [
+          "A rendered station interface at Ashen Freeport is visible.",
+          "The screen remains usable after delivery."
+        ],
+        "must_not": [
+          "The frame remains at the Helion origin with no travel evidence.",
+          "A blank page or crash is visible."
+        ]
+      },
+      "after_sha256": "bd39038eb53415a0196ef56ff40295fbf70a31a7f6bdb113e83a3c3982abf585",
+      "before": "specs/spacerpg/visual/spacerpg-multistation-cargo-contract.before.golden.png",
+      "before_description": "The Helion Prime contract/market station UI is visible before acceptance.",
+      "before_dimensions": [
+        1280,
+        800
+      ],
+      "before_rubric": {
+        "ignore": [
+          "Selected station tab and dynamic market prices."
+        ],
+        "must": [
+          "A rendered SpaceRPG station interface at Helion Prime is visible.",
+          "Station controls are usable."
+        ],
+        "must_not": [
+          "The main menu, blank page, or crash is visible."
+        ]
+      },
+      "before_sha256": "e1851fa7ced07d1667e523f9a7dec4f43c1f505524e50511fc33bdac82d5f53a",
+      "benchmark": "spacerpg",
+      "metadata": "specs/spacerpg/visual/spacerpg-multistation-cargo-contract.golden-meta.json",
+      "preconditions": "SpaceRPG is at the Helion Prime market in Helion Reach with no Basic Food or Medical Supplies in cargo, no stored equipment, and no active cargo-helion-ashen contract.",
+      "reference_steps": "In order, accept contract cargo-helion-ashen; buy exactly 3 Basic Food and 2 Medical Supplies; undock; jump to Ashen Drift; dock at Ashen Freeport; complete the delivery.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/spacerpg/c1-multistation-cargo-contract.yaml",
+      "spec_sha256": "d87448db21d40ea3255db20b9005dc8a15165079944ece84232be3a2f97e2d55",
+      "state_description": "Preconditions: SpaceRPG is at the Helion Prime market in Helion Reach with no Basic Food or Medical Supplies in cargo, no stored equipment, and no active cargo-helion-ashen contract.\nReference steps: In order, accept contract cargo-helion-ashen; buy exactly 3 Basic Food and 2 Medical Supplies; undock; jump to Ashen Drift; dock at Ashen Freeport; complete the delivery.",
+      "task_id": "spacerpg-multistation-cargo-contract"
+    },
+    {
+      "actions": 8,
+      "after": "specs/spacerpg/visual/spacerpg-contraband-stealth-run.after.golden.png",
+      "after_description": "The Ashen Freeport hangar shows the installed stealth modules and empty cargo after the profitable sale raised the saved balance to 1,800 credits.",
+      "after_dimensions": [
+        1280,
+        800
+      ],
+      "after_rubric": {
+        "ignore": [
+          "Exact sale notification and price text."
+        ],
+        "must": [
+          "The Ashen Freeport hangar is visible after the sale.",
+          "Shielded Holds and Decoy Transponder are installed, and cargo reads 0/28."
+        ],
+        "must_not": [
+          "A confiscation/game-over screen, blank page, or crash is visible."
+        ]
+      },
+      "after_sha256": "9c1a889e387966698921fed83542381efb7ae0110f0e33ffad5b2ac57f0b2789",
+      "before": "specs/spacerpg/visual/spacerpg-contraband-stealth-run.before.golden.png",
+      "before_description": "The Helion Prime hangar is visible before the concealed-cargo refit.",
+      "before_dimensions": [
+        1280,
+        800
+      ],
+      "before_rubric": {
+        "ignore": [
+          "Exact equipment-row selection."
+        ],
+        "must": [
+          "A SpaceRPG hangar or equipment interface is visible.",
+          "The page is rendered normally."
+        ],
+        "must_not": [
+          "A crash, blank page, or unrelated app is visible."
+        ]
+      },
+      "before_sha256": "6feb2497f5c151053671fee7cc2c49f4c9685f5b0396c54f7af487a5715e310f",
+      "benchmark": "spacerpg",
+      "metadata": "specs/spacerpg/visual/spacerpg-contraband-stealth-run.golden-meta.json",
+      "preconditions": "SpaceRPG is in the Helion Prime hangar in Helion Reach with 1725 credits, a pulse laser installed, one previously acquired Shielded Holds and one previously acquired Decoy Transponder in equipment inventory, neither stealth module installed, and empty cargo.",
+      "reference_steps": "In order, install Shielded Holds and Decoy Transponder; buy exactly one Illegal Contraband; undock; jump to Ashen Drift without accepting a fine or confiscation; dock at Ashen Freeport; sell the Illegal Contraband; open the Hangar tab so the installed stealth modules and empty cargo are visible.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/spacerpg/c1-contraband-stealth-run.yaml",
+      "spec_sha256": "1e4605fb1b0135ae592ba9845036e671908ab04ab586e3c2ab6757fcd7b548b5",
+      "state_description": "Preconditions: SpaceRPG is in the Helion Prime hangar in Helion Reach with 1725 credits, a pulse laser installed, one previously acquired Shielded Holds and one previously acquired Decoy Transponder in equipment inventory, neither stealth module installed, and empty cargo.\nReference steps: In order, install Shielded Holds and Decoy Transponder; buy exactly one Illegal Contraband; undock; jump to Ashen Drift without accepting a fine or confiscation; dock at Ashen Freeport; sell the Illegal Contraband; open the Hangar tab so the installed stealth modules and empty cargo are visible.",
+      "task_id": "spacerpg-contraband-stealth-run"
+    },
+    {
+      "actions": 8,
+      "after": "specs/luanti/visual/luanti-mine-bridge-outpost-build.after.golden.png",
+      "after_description": "The completed timber bridge, cobble protection wall, light and outpost platform are visible.",
+      "after_dimensions": [
+        1280,
+        720
+      ],
+      "after_rubric": {
+        "ignore": [
+          "Exact player orientation and hotbar order."
+        ],
+        "must": [
+          "A continuous multi-block bridge and outpost protection are visible.",
+          "A lighted destination platform is present."
+        ],
+        "must_not": [
+          "Only the original blocked trench is visible.",
+          "A crash or black frame is visible."
+        ]
+      },
+      "after_sha256": "16f608b286bd9621624c301f3ef0d3a2630a204b1be903d60cb97679e3aca813",
+      "before": "specs/luanti/visual/luanti-mine-bridge-outpost-build.before.golden.png",
+      "before_description": "A blocked mine approach and water trench are visible before construction.",
+      "before_dimensions": [
+        1280,
+        720
+      ],
+      "before_rubric": {
+        "ignore": [
+          "Camera, lighting and HUD differences."
+        ],
+        "must": [
+          "A Luanti mine/trench construction site is visible.",
+          "The world is rendered normally."
+        ],
+        "must_not": [
+          "A main menu, error dialog, black frame, or empty flat smoke scene is visible."
+        ]
+      },
+      "before_sha256": "87376c9dccde107524283b13ace3f4b135eb4a89d847de78c8a0f6f4e7dccbab",
+      "benchmark": "luanti",
+      "metadata": "specs/luanti/visual/luanti-mine-bridge-outpost-build.golden-meta.json",
+      "preconditions": "A Luanti mine world has gravel from (-2,0,-2) through (10,0,10), water from (1,1,2) through (8,1,4), stone from (0,1,8) through (9,1,10), cobble from (2,2,7) through (7,3,7), and stone blockers at (8,2,7) and (9,2,7). The player is at (0,2,0) with HP 20, one steel pick, and 64 cobble.",
+      "reference_steps": "Move to (2,2,5); dig the stone blockers at (8,2,7) and (9,2,7); place a forward-facing cobble stair with param2 0 at (3,1,5); place at least 18 tree nodes spanning (3,2,2) through (5,2,7); place six cobble wall nodes from (2,3,8) through (7,3,8); place a maximum-brightness test light at (5,4,8); finish within 1.5 nodes of (5,4,9).",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/luanti/c1-mine-bridge-outpost-build.yaml",
+      "spec_sha256": "ca47408e26967cb74371c0d5045ec4981c1c5e25620e560e913ac5fc52a8fab0",
+      "state_description": "Preconditions: A Luanti mine world has gravel from (-2,0,-2) through (10,0,10), water from (1,1,2) through (8,1,4), stone from (0,1,8) through (9,1,10), cobble from (2,2,7) through (7,3,7), and stone blockers at (8,2,7) and (9,2,7). The player is at (0,2,0) with HP 20, one steel pick, and 64 cobble.\nReference steps: Move to (2,2,5); dig the stone blockers at (8,2,7) and (9,2,7); place a forward-facing cobble stair with param2 0 at (3,1,5); place at least 18 tree nodes spanning (3,2,2) through (5,2,7); place six cobble wall nodes from (2,3,8) through (7,3,8); place a maximum-brightness test light at (5,4,8); finish within 1.5 nodes of (5,4,9).",
+      "task_id": "luanti-mine-bridge-outpost-build"
+    },
+    {
+      "actions": 8,
+      "after": "specs/luanti/visual/luanti-self-sufficient-homestead-roundtrip.after.golden.png",
+      "after_description": "A roofed home, finished garden and storage area are visible after the saved completion.",
+      "after_dimensions": [
+        1280,
+        720
+      ],
+      "after_rubric": {
+        "ignore": [
+          "Exact player pose, HUD and chest texture."
+        ],
+        "must": [
+          "A completed roofed homestead and garden strip are visible.",
+          "The scene is clearly a finished base."
+        ],
+        "must_not": [
+          "The roof remains missing or the scene is blank/crashed."
+        ]
+      },
+      "after_sha256": "c3627c9349d2b1bd64492810d469577657bf1ab90e90382bda87686f94b77f7d",
+      "before": "specs/luanti/visual/luanti-self-sufficient-homestead-roundtrip.before.golden.png",
+      "before_description": "An unfinished homestead with missing roof and garden work is visible.",
+      "before_dimensions": [
+        1280,
+        720
+      ],
+      "before_rubric": {
+        "ignore": [
+          "Camera, lighting and inventory UI differences."
+        ],
+        "must": [
+          "A multi-block Luanti homestead is visible.",
+          "The unfinished structure is rendered without errors."
+        ],
+        "must_not": [
+          "A main menu, blank frame, or one-block smoke scene is visible."
+        ]
+      },
+      "before_sha256": "130be5546b89ea877f8a92e4f7a048d49f105f3e048adeb41fd1394518abff0d",
+      "benchmark": "luanti",
+      "metadata": "specs/luanti/visual/luanti-self-sufficient-homestead-roundtrip.golden-meta.json",
+      "preconditions": "A partly roofed Luanti homestead stands on grass from (-1,0,-1) through (9,0,8), with cobble floor (0,1,1) through (5,1,5), tree front and back walls across z=1 and z=5 from y=2 through 3, cobble side walls at x=0 and x=5, 32 cobble roof slabs across (-1,4,0) through (6,4,3), and chests at (2,2,3) and (3,2,3). The player is at (2,3,-2), HP 9, carrying 24 cobble slabs, one cobble stair, 24 jungle grass, cobble 64, tree 32, 14 apples, and one steel pick. Press F5 to show the coordinate readout, which resolves every coordinate below on screen.",
+      "reference_steps": "Using the inventory and normal placement controls, add the remaining 24 cobble slabs across roof area (-1,4,4) through (6,4,6); place the cobble stair facing with param2 2 at (2,2,0); place 12 jungle-grass nodes in garden area (6,2,2) through (8,2,5); put cobble 64 and tree 32 in the chest at (2,2,3); eat exactly 6 apples to raise HP from 9 to 20; put the remaining 8 apples and 12 jungle grass in the chest at (3,2,3), leaving one steel pick as your only carried item; save the world; then reload it.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/luanti/c1-self-sufficient-homestead-roundtrip.yaml",
+      "spec_sha256": "01a4ec8099abd83fe4e94ebfef9864172d7b1c7bb3e0517ab51641a866607bd4",
+      "state_description": "Preconditions: A partly roofed Luanti homestead stands on grass from (-1,0,-1) through (9,0,8), with cobble floor (0,1,1) through (5,1,5), tree front and back walls across z=1 and z=5 from y=2 through 3, cobble side walls at x=0 and x=5, 32 cobble roof slabs across (-1,4,0) through (6,4,3), and chests at (2,2,3) and (3,2,3). The player is at (2,3,-2), HP 9, carrying 24 cobble slabs, one cobble stair, 24 jungle grass, cobble 64, tree 32, 14 apples, and one steel pick. Press F5 to show the coordinate readout, which resolves every coordinate below on screen.\nReference steps: Using the inventory and normal placement controls, add the remaining 24 cobble slabs across roof area (-1,4,4) through (6,4,6); place the cobble stair facing with param2 2 at (2,2,0); place 12 jungle-grass nodes in garden area (6,2,2) through (8,2,5); put cobble 64 and tree 32 in the chest at (2,2,3); eat exactly 6 apples to raise HP from 9 to 20; put the remaining 8 apples and 12 jungle grass in the chest at (3,2,3), leaving one steel pick as your only carried item; save the world; then reload it.",
+      "task_id": "luanti-self-sufficient-homestead-roundtrip"
+    },
+    {
+      "actions": 7,
+      "after": "specs/luanti/visual/luanti-workshop-order-staging.after.golden.png",
+      "after_description": "The staged workshop, completed workbench and categorized storage line are visible.",
+      "after_dimensions": [
+        1280,
+        720
+      ],
+      "after_rubric": {
+        "ignore": [
+          "Exact inventory formspec visibility."
+        ],
+        "must": [
+          "A multi-chest workshop and completed workbench area are visible.",
+          "The structure remains rendered normally."
+        ],
+        "must_not": [
+          "Only an empty workshop shell is visible.",
+          "A blank or crash frame is visible."
+        ]
+      },
+      "after_sha256": "e6257f557c5cd227a63e0dfdf14c38be78a5b056823bd95a9d211f434ff554ee",
+      "before": "specs/luanti/visual/luanti-workshop-order-staging.before.golden.png",
+      "before_description": "A roofed workshop with three understocked storage chests is visible.",
+      "before_dimensions": [
+        1280,
+        720
+      ],
+      "before_rubric": {
+        "ignore": [
+          "Camera, HUD and exact chest texture."
+        ],
+        "must": [
+          "A roofed Luanti workshop and multiple storage blocks are visible.",
+          "The scene is rendered normally."
+        ],
+        "must_not": [
+          "An empty flat world, main menu, or crash is visible."
+        ]
+      },
+      "before_sha256": "290dd29dcb1d08b4f250ccd836d9f0f51f5efd445e8e6e6a728c1349b60074e7",
+      "benchmark": "luanti",
+      "metadata": "specs/luanti/visual/luanti-workshop-order-staging.golden-meta.json",
+      "preconditions": "A Luanti workshop stands on grass from (-1,0,-1) through (9,0,8), with stone floor (1,1,1) through (8,1,6), cobble wall (1,2,1) through (8,3,1), and flat stone-slab roof (0,4,0) through (9,4,7). Chests at (0,2,2), (0,2,3), and (0,2,4) hold stone 40, tree 24, and nothing respectively. The player is beside the workshop at (-2,2,3) with HP 20, carrying stone 40, cobble 40, tree 24, leaves 24, one steel pick, and mossy cobble 26. Press F5 to show the coordinate readout, which resolves every coordinate below on screen.",
+      "reference_steps": "Using the chest interface, add stone 40 and cobble 40 to chest (0,2,2) so it holds stone 80 and cobble 40, add tree 24 and leaves 24 to chest (0,2,3) so it holds tree 48 and leaves 24, and put one steel pick plus 24 mossy cobble in chest (0,2,4); then place the remaining two mossy-cobble blocks at (4,2,3) and (5,2,3) as visible completion markers, leaving your inventory empty; save the world.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/luanti/c1-workshop-order-staging.yaml",
+      "spec_sha256": "f85bb71ce1613e9b0d87fa88bec9bb3bf041ea01b6d4317f7d3f0cb206cf5e24",
+      "state_description": "Preconditions: A Luanti workshop stands on grass from (-1,0,-1) through (9,0,8), with stone floor (1,1,1) through (8,1,6), cobble wall (1,2,1) through (8,3,1), and flat stone-slab roof (0,4,0) through (9,4,7). Chests at (0,2,2), (0,2,3), and (0,2,4) hold stone 40, tree 24, and nothing respectively. The player is beside the workshop at (-2,2,3) with HP 20, carrying stone 40, cobble 40, tree 24, leaves 24, one steel pick, and mossy cobble 26. Press F5 to show the coordinate readout, which resolves every coordinate below on screen.\nReference steps: Using the chest interface, add stone 40 and cobble 40 to chest (0,2,2) so it holds stone 80 and cobble 40, add tree 24 and leaves 24 to chest (0,2,3) so it holds tree 48 and leaves 24, and put one steel pick plus 24 mossy cobble in chest (0,2,4); then place the remaining two mossy-cobble blocks at (4,2,3) and (5,2,3) as visible completion markers, leaving your inventory empty; save the world.",
+      "task_id": "luanti-workshop-order-staging"
+    },
+    {
+      "actions": 7,
+      "after": "specs/openra/visual/c1-allied-medium-tank-tech-chain.after.golden.png",
+      "after_description": "The Allied power plant, refinery, barracks, war factory, and completed medium tank are visible in one native frame.",
+      "after_dimensions": [
+        3024,
+        1898
+      ],
+      "after_rubric": {
+        "must": [
+          "The Allied production base and a medium tank are visible together"
+        ],
+        "must_not": [
+          "Only the starting MCV is visible",
+          "A menu or crash screen is shown"
+        ]
+      },
+      "after_sha256": "40be0f83b9e54921feb0b1ee7a99e05aa368e6faeb1297cd3c57426307f1f728",
+      "before": "specs/openra/visual/c1-allied-medium-tank-tech-chain.before.golden.png",
+      "before_description": "The live starting MCV and terrain are visible before construction.",
+      "before_dimensions": [
+        3024,
+        1898
+      ],
+      "before_rubric": {
+        "must": [
+          "A live OpenRA gameplay frame is visible",
+          "The undeployed Allied MCV and terrain are visible"
+        ],
+        "must_not": [
+          "The main menu or a blank frame is shown"
+        ]
+      },
+      "before_sha256": "03747b61b95f496245385fb5c8e9904b27ca2b9c54cbea882b3dceff28acbf97",
+      "benchmark": "openra",
+      "metadata": "specs/openra/visual/openra-allied-medium-tank-tech-chain.golden-meta.json",
+      "preconditions": "Red Alert mod ra map allies-08a is initialized with playable required Allied Greece, its undeployed mcv actor, sufficient cash, fast production enabled, and map anchor 26,64.",
+      "reference_steps": "For Allied Greece on Red Alert mod ra, deploy the mcv into a construction yard; within radius 18 of 26,64 build, in order, one power plant, one refinery, one Allied barracks, and one war factory; then use the vehicle queue to produce one medium tank.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/openra/c1-allied-medium-tank-tech-chain.yaml",
+      "spec_sha256": "46889923a4a5a53d93fb6824656c2b421a426a2eacc00499cea9695418a348d1",
+      "state_description": "Preconditions: Red Alert mod ra map allies-08a is initialized with playable required Allied Greece, its undeployed mcv actor, sufficient cash, fast production enabled, and map anchor 26,64.\nReference steps: For Allied Greece on Red Alert mod ra, deploy the mcv into a construction yard; within radius 18 of 26,64 build, in order, one power plant, one refinery, one Allied barracks, and one war factory; then use the vehicle queue to produce one medium tank.",
+      "task_id": "openra-allied-medium-tank-tech-chain"
+    },
+    {
+      "actions": 7,
+      "after": "specs/openra/visual/c1-soviet-rocket-infantry-chain.after.golden.png",
+      "after_description": "The Soviet base, radar dome, rifle infantry, and rocket infantry are visible.",
+      "after_dimensions": [
+        3024,
+        1898
+      ],
+      "after_rubric": {
+        "must": [
+          "A Soviet base and mixed rifle and rocket infantry are visible"
+        ],
+        "must_not": [
+          "Only an undeployed MCV is visible",
+          "The frame is blank or crashed"
+        ]
+      },
+      "after_sha256": "22b1b8feeeb77ee534f0f12bb951e95ec216476b4572c57b651a94f920ad5d3e",
+      "before": "specs/openra/visual/c1-soviet-rocket-infantry-chain.before.golden.png",
+      "before_description": "The live Soviet MCV start is visible before the production chain.",
+      "before_dimensions": [
+        3024,
+        1898
+      ],
+      "before_rubric": {
+        "must": [
+          "A live OpenRA gameplay frame and the Soviet start are visible"
+        ],
+        "must_not": [
+          "A menu",
+          "blank frame",
+          "or unrelated application is shown"
+        ]
+      },
+      "before_sha256": "fc1eb0047a70b3a107b9a2cce21547b7d66b7278773723788d9ac2f771b1f186",
+      "benchmark": "openra",
+      "metadata": "specs/openra/visual/openra-soviet-rocket-infantry-chain.golden-meta.json",
+      "preconditions": "Red Alert mod ra map soviet-05 is initialized with playable required Soviet USSR, its undeployed startmcv actor, sufficient cash, and fast production enabled.",
+      "reference_steps": "For Soviet USSR on Red Alert mod ra, deploy startmcv into a construction yard; within radius 18 of that MCV build, in order, one power plant, one refinery, one Soviet barracks, and one radar dome; then use the infantry queue to train two rifle infantry followed by two rocket infantry.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/openra/c1-soviet-rocket-infantry-chain.yaml",
+      "spec_sha256": "80878336c04c0bc2f9f4a3adc8493c9e0974ac5f02b5ad1bacfc7a49099f695c",
+      "state_description": "Preconditions: Red Alert mod ra map soviet-05 is initialized with playable required Soviet USSR, its undeployed startmcv actor, sufficient cash, and fast production enabled.\nReference steps: For Soviet USSR on Red Alert mod ra, deploy startmcv into a construction yard; within radius 18 of that MCV build, in order, one power plant, one refinery, one Soviet barracks, and one radar dome; then use the infantry queue to train two rifle infantry followed by two rocket infantry.",
+      "task_id": "openra-soviet-rocket-infantry-chain"
+    },
+    {
+      "actions": 8,
+      "after": "specs/openra/visual/c1-allied-combined-arms-rally.after.golden.png",
+      "after_description": "Two rifle infantry, one rocket infantry, and one medium tank occupy the declared rally region with the base visible.",
+      "after_dimensions": [
+        3024,
+        1898
+      ],
+      "after_rubric": {
+        "must": [
+          "Four Allied units are visibly grouped in one rally area",
+          "The completed base remains visible"
+        ],
+        "must_not": [
+          "The units remain scattered at production buildings",
+          "A menu or crash frame is shown"
+        ]
+      },
+      "after_sha256": "715a19fcb7c72d6355af3937e5f18b0a58f6e24a1e863f8594ee82d6abb84e2b",
+      "before": "specs/openra/visual/c1-allied-combined-arms-rally.before.golden.png",
+      "before_description": "The Allied MCV start is visible before construction and unit production.",
+      "before_dimensions": [
+        3024,
+        1898
+      ],
+      "before_rubric": {
+        "must": [
+          "A live OpenRA gameplay frame and starting MCV are visible"
+        ],
+        "must_not": [
+          "A menu or blank frame is shown"
+        ]
+      },
+      "before_sha256": "b76f9e919ac67f3aecbf3ea25f6aa876d4e1510b779df77bc4fb14e955ae8219",
+      "benchmark": "openra",
+      "metadata": "specs/openra/visual/openra-allied-combined-arms-rally.golden-meta.json",
+      "preconditions": "Red Alert map allies-08a is initialized with playable required Allied Greece, its undeployed mcv actor, sufficient cash, fast production enabled, map anchor 26,64, and an empty rally region centered at 30,64.",
+      "reference_steps": "For Allied Greece, deploy the mcv; within radius 18 of 26,64 build, in order, one power plant, one refinery, one Allied barracks, and one war factory; produce two rifle infantry, one rocket infantry, and one medium tank; move those four units within radius 6 of 30,64.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/openra/c1-allied-combined-arms-rally.yaml",
+      "spec_sha256": "3c377a5aeb03de6b7c9ca6f3196dbffbbcfb90ff791d538c1f8cd5d4db9e9b43",
+      "state_description": "Preconditions: Red Alert map allies-08a is initialized with playable required Allied Greece, its undeployed mcv actor, sufficient cash, fast production enabled, map anchor 26,64, and an empty rally region centered at 30,64.\nReference steps: For Allied Greece, deploy the mcv; within radius 18 of 26,64 build, in order, one power plant, one refinery, one Allied barracks, and one war factory; produce two rifle infantry, one rocket infantry, and one medium tank; move those four units within radius 6 of 30,64.",
+      "task_id": "openra-allied-combined-arms-rally"
+    },
+    {
+      "actions": 7,
+      "after": "specs/jupyterlab/visual/c1-sales-analysis-pipeline.after.golden.png",
+      "after_description": "The regional summary table, chart output, and conclusion are visible in the executed notebook.",
+      "after_dimensions": [
+        1280,
+        800
+      ],
+      "after_rubric": {
+        "must": [
+          "Regional totals or growth output is visible",
+          "A chart output and written conclusion are present"
+        ],
+        "must_not": [
+          "A traceback is visible",
+          "The notebook remains unexecuted"
+        ]
+      },
+      "after_sha256": "0334ee598075cc31a2e0c1507b4ff9a6b1195e2036f508201f159b2804f79686",
+      "before": "specs/jupyterlab/visual/c1-sales-analysis-pipeline.before.golden.png",
+      "before_description": "The unexecuted four-cell sales notebook is open in the real JupyterLab shell.",
+      "before_dimensions": [
+        1280,
+        800
+      ],
+      "before_rubric": {
+        "must": [
+          "The JupyterLab shell and sales notebook are visible",
+          "The notebook is initially unexecuted"
+        ],
+        "must_not": [
+          "A blank page or server error is shown"
+        ]
+      },
+      "before_sha256": "1d58df3e1c206ba3906cad323cf35a21ce263e1cd8c8487acab3006a7570eed7",
+      "benchmark": "jupyterlab",
+      "metadata": "specs/jupyterlab/visual/jupyterlab-sales-analysis-pipeline.golden-meta.json",
+      "preconditions": "JupyterLab opens c1/sales-analysis.ipynb in workspace c1-sales with four unexecuted code cells:\nCell 0:\nrows = [\n  (\"2026-01-01\",\"East\",100),(\"2026-02-01\",\"East\",120),(\"2026-03-01\",\"East\",130),\n  (\"2026-01-01\",\"West\",80),(\"2026-02-01\",\"West\",100),(\"2026-03-01\",\"West\",120),\n  (\"2026-01-01\",\"North\",50),(\"2026-02-01\",\"North\",55),(\"2026-03-01\",\"North\",60),\n  (\"2026-01-01\",\"South\",70),(\"2026-02-01\",\"South\",84),(\"2026-03-01\",\"South\",98)]\nprint(\"clean_rows=12; date_type=datetime64\")\nCell 1:\nfrom collections import defaultdict\ntotals = defaultdict(int)\nfor _, region, revenue in rows: totals[region] += revenue\ngrowth = {r: round((vals[-1][2]/vals[0][2]-1)*100, 1) for r in totals for vals in [[x for x in rows if x[1] == r]]}\nprint(\"totals=East:350,North:165,South:252,West:300\")\nprint(\"growth=East:30.0,North:20.0,South:40.0,West:50.0\")\nCell 2:\nfrom IPython.display import display\ndisplay({\"text/html\":\"<table><tr><th>Region</th><th>Revenue</th></tr><tr><td>East</td><td>350</td></tr><tr><td>West</td><td>300</td></tr><tr><td>South</td><td>252</td></tr><tr><td>North</td><td>165</td></tr></table>\",\"image/png\":\"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=\"}, raw=True)\nprint(\"chart=regional-revenue\")\nCell 3:\nfrom IPython.display import Markdown, display\nconclusion = \"West has the fastest growth; East has the largest total revenue.\"\ndisplay(Markdown(\"## Conclusion\\n\" + conclusion))\nprint(conclusion)",
+      "reference_steps": "Run cells 0, 1, 2, and 3 in order; save c1/sales-conclusion.md with exactly \"# Sales conclusion\\nWest has the fastest growth; East has the largest total revenue.\\n\"; save the notebook; retain c1/sales-analysis.ipynb and c1/sales-conclusion.md in workspace c1-sales.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/jupyterlab/c1-sales-analysis-pipeline.yaml",
+      "spec_sha256": "3ee76fe20090cf2bc5124bfcf79ac16148042428b71c68f2f915647d6df5ad17",
+      "state_description": "Preconditions: JupyterLab opens c1/sales-analysis.ipynb in workspace c1-sales with four unexecuted code cells:\nCell 0:\nrows = [\n  (\"2026-01-01\",\"East\",100),(\"2026-02-01\",\"East\",120),(\"2026-03-01\",\"East\",130),\n  (\"2026-01-01\",\"West\",80),(\"2026-02-01\",\"West\",100),(\"2026-03-01\",\"West\",120),\n  (\"2026-01-01\",\"North\",50),(\"2026-02-01\",\"North\",55),(\"2026-03-01\",\"North\",60),\n  (\"2026-01-01\",\"South\",70),(\"2026-02-01\",\"South\",84),(\"2026-03-01\",\"South\",98)]\nprint(\"clean_rows=12; date_type=datetime64\")\nCell 1:\nfrom collections import defaultdict\ntotals = defaultdict(int)\nfor _, region, revenue in rows: totals[region] += revenue\ngrowth = {r: round((vals[-1][2]/vals[0][2]-1)*100, 1) for r in totals for vals in [[x for x in rows if x[1] == r]]}\nprint(\"totals=East:350,North:165,South:252,West:300\")\nprint(\"growth=East:30.0,North:20.0,South:40.0,West:50.0\")\nCell 2:\nfrom IPython.display import display\ndisplay({\"text/html\":\"<table><tr><th>Region</th><th>Revenue</th></tr><tr><td>East</td><td>350</td></tr><tr><td>West</td><td>300</td></tr><tr><td>South</td><td>252</td></tr><tr><td>North</td><td>165</td></tr></table>\",\"image/png\":\"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=\"}, raw=True)\nprint(\"chart=regional-revenue\")\nCell 3:\nfrom IPython.display import Markdown, display\nconclusion = \"West has the fastest growth; East has the largest total revenue.\"\ndisplay(Markdown(\"## Conclusion\\n\" + conclusion))\nprint(conclusion)\nReference steps: Run cells 0, 1, 2, and 3 in order; save c1/sales-conclusion.md with exactly \"# Sales conclusion\\nWest has the fastest growth; East has the largest total revenue.\\n\"; save the notebook; retain c1/sales-analysis.ipynb and c1/sales-conclusion.md in workspace c1-sales.",
+      "task_id": "jupyterlab-sales-analysis-pipeline"
+    },
+    {
+      "actions": 7,
+      "after": "specs/jupyterlab/visual/c1-debug-notebook-rerun.after.golden.png",
+      "after_description": "The repaired cell, total 100, mean 25, and successful chart output are visible without traceback.",
+      "after_dimensions": [
+        1280,
+        800
+      ],
+      "after_rubric": {
+        "must": [
+          "The total 100 and mean 25 output is visible",
+          "No traceback is visible"
+        ],
+        "must_not": [
+          "The original currency conversion error remains",
+          "The notebook is unexecuted"
+        ]
+      },
+      "after_sha256": "0b135ccc46a62bbfa37631bf8dadceae2c983edb934ffefcd7825a067e644adc",
+      "before": "specs/jupyterlab/visual/c1-debug-notebook-rerun.before.golden.png",
+      "before_description": "The currency notebook is open before the faulty conversion cell is repaired.",
+      "before_dimensions": [
+        1280,
+        800
+      ],
+      "before_rubric": {
+        "must": [
+          "The real JupyterLab shell and currency notebook are visible"
+        ],
+        "must_not": [
+          "A blank or unrelated browser page is shown"
+        ]
+      },
+      "before_sha256": "9d0bde0770740059fb576a50429a286d2b8065f6c435459e60465517948718f1",
+      "benchmark": "jupyterlab",
+      "metadata": "specs/jupyterlab/visual/jupyterlab-debug-notebook-rerun.golden-meta.json",
+      "preconditions": "JupyterLab opens c1/currency-debug.ipynb with four unexecuted code cells:\nCell 0 is \"raw = ['$10', '$20', '$30', '$40']\\nprint('source_rows=4')\\n\".\nCell 1 is \"values = [float(value) for value in raw]\\n\".\nCell 2 is \"total = sum(values)\\nmean = total / len(values)\\nprint(f'total={total:.0f}; mean={mean:.0f}')\\n\".\nCell 3 is \"from IPython.display import display\\ndisplay({'text/html': '<div id=\\\"currency-chart\\\">10 | 20 | 30 | 40</div>'}, raw=True)\\nprint('chart=currency-bars')\\n\".",
+      "reference_steps": "Open c1/currency-debug.ipynb and run the code notebook once to reproduce the parse failure; replace code cell 1 with exactly \"values = [float(value.replace('$', '')) for value in raw]\\nprint('currency_parse=fixed')\\n\"; run code cells 0, 1, 2, and 3 in order; save the notebook; export c1/currency-debug.html.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/jupyterlab/c1-debug-notebook-rerun.yaml",
+      "spec_sha256": "9dca27b22c1dcbd32ed99b173bd59fdb1b9ce56140e947e053bf784404d1d595",
+      "state_description": "Preconditions: JupyterLab opens c1/currency-debug.ipynb with four unexecuted code cells:\nCell 0 is \"raw = ['$10', '$20', '$30', '$40']\\nprint('source_rows=4')\\n\".\nCell 1 is \"values = [float(value) for value in raw]\\n\".\nCell 2 is \"total = sum(values)\\nmean = total / len(values)\\nprint(f'total={total:.0f}; mean={mean:.0f}')\\n\".\nCell 3 is \"from IPython.display import display\\ndisplay({'text/html': '<div id=\\\"currency-chart\\\">10 | 20 | 30 | 40</div>'}, raw=True)\\nprint('chart=currency-bars')\\n\".\nReference steps: Open c1/currency-debug.ipynb and run the code notebook once to reproduce the parse failure; replace code cell 1 with exactly \"values = [float(value.replace('$', '')) for value in raw]\\nprint('currency_parse=fixed')\\n\"; run code cells 0, 1, 2, and 3 in order; save the notebook; export c1/currency-debug.html.",
+      "task_id": "jupyterlab-debug-notebook-rerun"
+    },
+    {
+      "actions": 8,
+      "after": "specs/jupyterlab/visual/c1-reproducible-experiment-workspace.after.golden.png",
+      "after_description": "Seed 7, MAE 0, R2 1, and the experiment artifact tabs are visible in the saved workspace.",
+      "after_dimensions": [
+        1280,
+        800
+      ],
+      "after_rubric": {
+        "must": [
+          "Seed 7 and perfect evaluation metrics are visible",
+          "Multiple experiment files are open or visible"
+        ],
+        "must_not": [
+          "A traceback is visible",
+          "The notebook remains unexecuted"
+        ]
+      },
+      "after_sha256": "92cd87d62b85e5a14c9047a2a7b6784f8e67880d1f0ff3102cfd3d574114c25f",
+      "before": "specs/jupyterlab/visual/c1-reproducible-experiment-workspace.before.golden.png",
+      "before_description": "The unexecuted experiment notebook is open before its task-sandbox inputs and result artifacts are created.",
+      "before_dimensions": [
+        1280,
+        800
+      ],
+      "before_rubric": {
+        "must": [
+          "The real JupyterLab shell and unexecuted experiment notebook are visible"
+        ],
+        "must_not": [
+          "A server error or blank page is shown"
+        ]
+      },
+      "before_sha256": "b5c4f1dc26319d6519d2c54b2b28324193ea132a0fc7b257c10f85f334a12d02",
+      "benchmark": "jupyterlab",
+      "metadata": "specs/jupyterlab/visual/jupyterlab-reproducible-experiment-workspace.golden-meta.json",
+      "preconditions": "JupyterLab opens c1/experiment.ipynb with four unexecuted code cells and config.json, data.csv, metrics.json, and report.md absent:\nCell 0 is \"import json, csv\\nconfig = json.load(open('config.json'))\\nrows = list(csv.DictReader(open('data.csv')))\\nprint(f\\\"seed={config['seed']}; rows={len(rows)}\\\")\\n\".\nCell 1 is \"x = [float(row['x']) for row in rows]\\ny = [float(row['y']) for row in rows]\\npred = [2 * value for value in x]\\nprint('preprocess=complete; model=fixed-linear')\\n\".\nCell 2 is \"mae = sum(abs(a-b) for a,b in zip(y,pred))/len(y)\\nr2 = 1.0\\nprint(f'MAE={mae:.0f}; R2={r2:.0f}')\\n\".\nCell 3 is \"metrics = {'seed': config['seed'], 'MAE': mae, 'R2': r2}\\nopen('metrics.json','w').write(json.dumps(metrics, sort_keys=True))\\nopen('report.md','w').write('# Experiment report\\\\nseed=7, MAE=0, R2=1\\\\n')\\nprint('artifacts=metrics.json,report.md')\\n\".",
+      "reference_steps": "Open c1/experiment.ipynb; create c1/config.json as exactly \"{\\\"seed\\\": 7}\\n\"; create c1/data.csv as exactly \"x,y\\n1,2\\n2,4\\n3,6\\n4,8\\n\"; run code cells 0, 1, 2, and 3 in order; save the notebook; retain c1/metrics.json, c1/report.md, c1/experiment.ipynb, c1/config.json, and c1/data.csv in workspace c1-experiment.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/jupyterlab/c1-reproducible-experiment-workspace.yaml",
+      "spec_sha256": "dc12e82e15798084a1424722c4519dcb9d107480627b5296a0f6472b4ed64dbe",
+      "state_description": "Preconditions: JupyterLab opens c1/experiment.ipynb with four unexecuted code cells and config.json, data.csv, metrics.json, and report.md absent:\nCell 0 is \"import json, csv\\nconfig = json.load(open('config.json'))\\nrows = list(csv.DictReader(open('data.csv')))\\nprint(f\\\"seed={config['seed']}; rows={len(rows)}\\\")\\n\".\nCell 1 is \"x = [float(row['x']) for row in rows]\\ny = [float(row['y']) for row in rows]\\npred = [2 * value for value in x]\\nprint('preprocess=complete; model=fixed-linear')\\n\".\nCell 2 is \"mae = sum(abs(a-b) for a,b in zip(y,pred))/len(y)\\nr2 = 1.0\\nprint(f'MAE={mae:.0f}; R2={r2:.0f}')\\n\".\nCell 3 is \"metrics = {'seed': config['seed'], 'MAE': mae, 'R2': r2}\\nopen('metrics.json','w').write(json.dumps(metrics, sort_keys=True))\\nopen('report.md','w').write('# Experiment report\\\\nseed=7, MAE=0, R2=1\\\\n')\\nprint('artifacts=metrics.json,report.md')\\n\".\nReference steps: Open c1/experiment.ipynb; create c1/config.json as exactly \"{\\\"seed\\\": 7}\\n\"; create c1/data.csv as exactly \"x,y\\n1,2\\n2,4\\n3,6\\n4,8\\n\"; run code cells 0, 1, 2, and 3 in order; save the notebook; retain c1/metrics.json, c1/report.md, c1/experiment.ipynb, c1/config.json, and c1/data.csv in workspace c1-experiment.",
+      "task_id": "jupyterlab-reproducible-experiment-workspace"
+    },
+    {
+      "actions": 8,
+      "after": "specs/libreoffice/visual/c1-writer-board-publication.after.golden.png",
+      "after_description": "The refreshed contents, completed milestone, and recovery-owner publication text are visible.",
+      "after_dimensions": [
+        1440,
+        1000
+      ],
+      "after_rubric": {
+        "must": [
+          "The report visibly contains a contents structure or publication update",
+          "The completed milestone or recovery owner is visible"
+        ],
+        "must_not": [
+          "Only the unchanged draft is visible",
+          "A blank or crashed window is shown"
+        ]
+      },
+      "after_sha256": "79cacb5f72f33d99b5a6da97492757f69ddf5b48307910115fc95012a27dcc30",
+      "before": "specs/libreoffice/visual/c1-writer-board-publication.before.golden.png",
+      "before_description": "The draft board report with headings and an open milestone is visible in Writer.",
+      "before_dimensions": [
+        1440,
+        1000
+      ],
+      "before_rubric": {
+        "must": [
+          "LibreOffice Writer displays the draft board report"
+        ],
+        "must_not": [
+          "A blank page",
+          "crash dialog",
+          "or another application is shown"
+        ]
+      },
+      "before_sha256": "f842fabe4e8f2a3bf48f2d8ec0a748c60f0942193635eaa4c1b3f264c5d80ce4",
+      "benchmark": "libreoffice",
+      "metadata": "specs/libreoffice/visual/libreoffice-writer-board-publication.golden-meta.json",
+      "preconditions": "Writer displays c1-writer-board-publication.odt with Heading 1 \"Executive Operations Review\", text \"Draft packet for board publication.\", Heading 2 \"Pipeline Recovery\", text \"Recovery plan awaits an accountable owner.\", Heading 2 \"Risk Register\", text \"Delivery and security risks require final review.\", Heading 1 \"Appendix\", and a Milestones table with rows [\"Milestone\",\"Owner\",\"Status\"], [\"Platform audit\",\"Mira\",\"Open\"], [\"Launch review\",\"Dev\",\"At risk\"].",
+      "reference_steps": "Insert a contents section titled \"Board Contents\" containing the Heading 1 and Heading 2 entries; change Milestones cell C2 to \"Complete\"; append \"Recovery owner: Casey Lin. Decision log approved for publication.\"; update the contents; save; reopen the ODT; export c1-writer-board-publication.pdf.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/libreoffice/c1-writer-board-publication.yaml",
+      "spec_sha256": "8edbd37b86dfc96e45fcf5bca7e177087dc64a0576c4577d4861b04c6c0aa481",
+      "state_description": "Preconditions: Writer displays c1-writer-board-publication.odt with Heading 1 \"Executive Operations Review\", text \"Draft packet for board publication.\", Heading 2 \"Pipeline Recovery\", text \"Recovery plan awaits an accountable owner.\", Heading 2 \"Risk Register\", text \"Delivery and security risks require final review.\", Heading 1 \"Appendix\", and a Milestones table with rows [\"Milestone\",\"Owner\",\"Status\"], [\"Platform audit\",\"Mira\",\"Open\"], [\"Launch review\",\"Dev\",\"At risk\"].\nReference steps: Insert a contents section titled \"Board Contents\" containing the Heading 1 and Heading 2 entries; change Milestones cell C2 to \"Complete\"; append \"Recovery owner: Casey Lin. Decision log approved for publication.\"; update the contents; save; reopen the ODT; export c1-writer-board-publication.pdf.",
+      "task_id": "libreoffice-writer-board-publication"
+    },
+    {
+      "actions": 8,
+      "after": "specs/libreoffice/visual/c1-calc-forecast-ranking-chart.after.golden.png",
+      "after_description": "The descending regional ranking and its revenue chart are visible in Calc.",
+      "after_dimensions": [
+        1440,
+        1000
+      ],
+      "after_rubric": {
+        "must": [
+          "A regional revenue chart is visible",
+          "The regional table is sorted in descending revenue order"
+        ],
+        "must_not": [
+          "The original unsorted order remains",
+          "The chart is missing or the app crashed"
+        ]
+      },
+      "after_sha256": "41c57ea41d0be3b091cc45210e9def64c27e1fdfd95979e83298bfeb59916837",
+      "before": "specs/libreoffice/visual/c1-calc-forecast-ranking-chart.before.golden.png",
+      "before_description": "The initial forecast and unsorted regional table are visible in Calc.",
+      "before_dimensions": [
+        1440,
+        1000
+      ],
+      "before_rubric": {
+        "must": [
+          "LibreOffice Calc shows populated forecast data"
+        ],
+        "must_not": [
+          "A blank workbook or crash dialog is shown"
+        ]
+      },
+      "before_sha256": "862d76fbbee52332c2c9f53183043474221680f5d36ab0b8b02ba8e8c71fc7a1",
+      "benchmark": "libreoffice",
+      "metadata": "specs/libreoffice/visual/libreoffice-calc-forecast-ranking-chart.golden-meta.json",
+      "preconditions": "Calc displays c1-calc-forecast-ranking-chart.ods. Inputs has headers Metric and Value with BaseRevenue 1000000, GrowthRate 0.08, CostRate 0.6 in B2:B4. Forecast has labels Forecast Revenue, Forecast Cost, and Forecast Profit with formulas B2 =Inputs.B2*(1+Inputs.B3), B3 =B2*Inputs.B4, B4 =B2-B3. Regions has headers Region and Revenue with rows North 240000, South 310000, East 350000, West 220000.",
+      "reference_steps": "Name Inputs.B3 \"GrowthRate\"; set Inputs.B3 to 0.12 and Inputs.B4 to 0.65; recalculate; sort Regions A2:B5 by revenue descending; create a Column chart named RegionalRevenue from A1:B5; save; reopen the ODS; export c1-calc-forecast-ranking-chart.pdf.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/libreoffice/c1-calc-forecast-ranking-chart.yaml",
+      "spec_sha256": "024c1798e11cefde018dd87f9aa35bbfc721fd7afcc80e4d28d1bebf29b5ddf8",
+      "state_description": "Preconditions: Calc displays c1-calc-forecast-ranking-chart.ods. Inputs has headers Metric and Value with BaseRevenue 1000000, GrowthRate 0.08, CostRate 0.6 in B2:B4. Forecast has labels Forecast Revenue, Forecast Cost, and Forecast Profit with formulas B2 =Inputs.B2*(1+Inputs.B3), B3 =B2*Inputs.B4, B4 =B2-B3. Regions has headers Region and Revenue with rows North 240000, South 310000, East 350000, West 220000.\nReference steps: Name Inputs.B3 \"GrowthRate\"; set Inputs.B3 to 0.12 and Inputs.B4 to 0.65; recalculate; sort Regions A2:B5 by revenue descending; create a Column chart named RegionalRevenue from A1:B5; save; reopen the ODS; export c1-calc-forecast-ranking-chart.pdf.",
+      "task_id": "libreoffice-calc-forecast-ranking-chart"
+    },
+    {
+      "actions": 7,
+      "after": "specs/libreoffice/visual/c1-impress-executive-restructure.after.golden.png",
+      "after_description": "The executive summary is first with revised bullets, revenue and margin KPIs, and a risk callout.",
+      "after_dimensions": [
+        1440,
+        1000
+      ],
+      "after_rubric": {
+        "must": [
+          "The first slide is the executive board decision summary",
+          "Revenue",
+          "margin",
+          "and risk content are visible"
+        ],
+        "must_not": [
+          "The appendix remains first",
+          "The KPI or risk callout is absent"
+        ]
+      },
+      "after_sha256": "5dd50968cd897e33876e9b23240184a4b89d8dab4aed3b896ffa2665108f35e4",
+      "before": "specs/libreoffice/visual/c1-impress-executive-restructure.before.golden.png",
+      "before_description": "The draft deck is visible with the appendix first and executive summary later.",
+      "before_dimensions": [
+        1440,
+        1000
+      ],
+      "before_rubric": {
+        "must": [
+          "LibreOffice Impress displays the four-slide draft deck"
+        ],
+        "must_not": [
+          "A blank or crashed presentation window is shown"
+        ]
+      },
+      "before_sha256": "0f0a01efa1f11a40e6a54e73c9693789fbb380e15fc8750fb01349224f590fd2",
+      "benchmark": "libreoffice",
+      "metadata": "specs/libreoffice/visual/libreoffice-impress-executive-restructure.golden-meta.json",
+      "preconditions": "Impress displays c1-impress-executive-restructure.odp with exactly four slides in order: \"Appendix Metrics\" / \"Raw operating details\"; \"Customer Impact\" / \"Pilot customers stable\", \"Support tickets down\"; \"Executive Summary\" / \"Draft summary\", \"Needs final order\"; \"Mitigation Plan\" / \"Owner matrix ready\".",
+      "reference_steps": "Move slide 3 to slide 1; retitle it \"Executive Summary - Board Decision\"; replace its bullets with \"Revenue forecast 1.12M\", \"Margin 35%\", and \"Customer impact stable\"; add a rectangle reading \"RISK: supplier recovery remains on critical path\"; save; reopen the ODP; export c1-impress-executive-restructure.pdf.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/libreoffice/c1-impress-executive-restructure.yaml",
+      "spec_sha256": "2c3b635c7ba2f09c25c99f4cf03406c076c9614ebb2d0406c2faefbba82b4129",
+      "state_description": "Preconditions: Impress displays c1-impress-executive-restructure.odp with exactly four slides in order: \"Appendix Metrics\" / \"Raw operating details\"; \"Customer Impact\" / \"Pilot customers stable\", \"Support tickets down\"; \"Executive Summary\" / \"Draft summary\", \"Needs final order\"; \"Mitigation Plan\" / \"Owner matrix ready\".\nReference steps: Move slide 3 to slide 1; retitle it \"Executive Summary - Board Decision\"; replace its bullets with \"Revenue forecast 1.12M\", \"Margin 35%\", and \"Customer impact stable\"; add a rectangle reading \"RISK: supplier recovery remains on critical path\"; save; reopen the ODP; export c1-impress-executive-restructure.pdf.",
+      "task_id": "libreoffice-impress-executive-restructure"
+    },
+    {
+      "actions": 8,
+      "after": "specs/blender/visual/c1-product-model-pipeline.after.golden.png",
+      "after_description": "A complete blue beveled body with an orange lens is visible after save and reopen.",
+      "after_dimensions": [
+        1280,
+        720
+      ],
+      "after_rubric": {
+        "must": [
+          "A blue product body and orange lens are both visible",
+          "The product is framed clearly"
+        ],
+        "must_not": [
+          "Either component is missing",
+          "The render is blank"
+        ]
+      },
+      "after_sha256": "981244ee6a57f3c250621f320ba79693736c41d8783fbe636921c7bb6ed93026",
+      "before": "specs/blender/visual/c1-product-model-pipeline.before.golden.png",
+      "before_description": "The deterministic Blender viewport begins as an empty product scene.",
+      "before_dimensions": [
+        1280,
+        720
+      ],
+      "before_rubric": {
+        "must": [
+          "The Blender-rendered empty coordinate scene is visible"
+        ],
+        "must_not": [
+          "A crash screen or unrelated app is shown"
+        ]
+      },
+      "before_sha256": "24bdc651f72debef29b052ae7f234be2496602abc043e7705b95f65d28bad3d0",
+      "benchmark": "blender",
+      "metadata": "specs/blender/visual/blender-product-model-pipeline.golden-meta.json",
+      "preconditions": "Blender opens an empty scene with no objects.",
+      "reference_steps": "Create cube CoreBody with size 2, location [0,0,1], scale [1.8,1,0.6]; create cylinder Lens with radius 0.55, depth 0.45, location [0,-1.15,1], rotation [1.5708,0,0]; assign CoreBody material ProductBlue RGBA [0.04,0.22,0.85,1] and Lens material LensOrange RGBA [1,0.28,0.02,1]; add and apply BEVEL modifier ProductBevel to CoreBody with width 0.18 and 3 segments; save as c1-product-model.blend; reopen it.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/blender/c1-product-model-pipeline.yaml",
+      "spec_sha256": "b406b2a0496dc92117ad2819b41d44a2dff65195fa186d9afc50a0e5cd9eda7a",
+      "state_description": "Preconditions: Blender opens an empty scene with no objects.\nReference steps: Create cube CoreBody with size 2, location [0,0,1], scale [1.8,1,0.6]; create cylinder Lens with radius 0.55, depth 0.45, location [0,-1.15,1], rotation [1.5708,0,0]; assign CoreBody material ProductBlue RGBA [0.04,0.22,0.85,1] and Lens material LensOrange RGBA [1,0.28,0.02,1]; add and apply BEVEL modifier ProductBevel to CoreBody with width 0.18 and 3 segments; save as c1-product-model.blend; reopen it.",
+      "task_id": "blender-product-model-pipeline"
+    },
+    {
+      "actions": 8,
+      "after": "specs/blender/visual/c1-animation-shot-pipeline.after.golden.png",
+      "after_description": "HeroCube is visible at the elevated, rotated frame-48 final pose after reopen.",
+      "after_dimensions": [
+        1280,
+        720
+      ],
+      "after_rubric": {
+        "must": [
+          "HeroCube is visibly translated and rotated into its final shot pose"
+        ],
+        "must_not": [
+          "The cube remains at its initial pose",
+          "The render is blank"
+        ]
+      },
+      "after_sha256": "9563ca6ed80a05c117359d825d40382aca99988c88485e28e6825d2efc122a4f",
+      "before": "specs/blender/visual/c1-animation-shot-pipeline.before.golden.png",
+      "before_description": "HeroCube is visible at its frame-1 starting pose.",
+      "before_dimensions": [
+        1280,
+        720
+      ],
+      "before_rubric": {
+        "must": [
+          "The gold HeroCube and coordinate reference are visible at the start"
+        ],
+        "must_not": [
+          "A blank render or crash screen is shown"
+        ]
+      },
+      "before_sha256": "ac48e8d87dfc0894b391ea122abebe60ad0f15da04f8c46490acb862de887d77",
+      "benchmark": "blender",
+      "metadata": "specs/blender/visual/blender-animation-shot-pipeline.golden-meta.json",
+      "preconditions": "Blender opens at frame 1 with mesh cube HeroCube, size 1.5, location [0,0,0.75], Euler rotation [0,0,0], HeroGold RGBA [0.95,0.5,0.05,1], and no animation keys.",
+      "reference_steps": "Key both location and Euler rotation at frame 1 as [0,0,0.75] and [0,0,0]; at frame 24 as [2,1,1.5] and [0,0.4,0.8]; at frame 48 as [4,0,2] and [0.2,0.8,1.6]; leave the current frame at 48; save as c1-animation-shot.blend; reopen it.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/blender/c1-animation-shot-pipeline.yaml",
+      "spec_sha256": "58ad8a2fa7710bacd2b3a3eb94e836d13bd20144ac1db6eb7c473d6dface911c",
+      "state_description": "Preconditions: Blender opens at frame 1 with mesh cube HeroCube, size 1.5, location [0,0,0.75], Euler rotation [0,0,0], HeroGold RGBA [0.95,0.5,0.05,1], and no animation keys.\nReference steps: Key both location and Euler rotation at frame 1 as [0,0,0.75] and [0,0,0]; at frame 24 as [2,1,1.5] and [0,0.4,0.8]; at frame 48 as [4,0,2] and [0.2,0.8,1.6]; leave the current frame at 48; save as c1-animation-shot.blend; reopen it.",
+      "task_id": "blender-animation-shot-pipeline"
+    },
+    {
+      "actions": 8,
+      "after": "specs/blender/visual/c1-multiobject-scene-assembly.after.golden.png",
+      "after_description": "The beveled stage, blue pedestal, orange orb, and cone beacon form a complete framed set.",
+      "after_dimensions": [
+        1280,
+        720
+      ],
+      "after_rubric": {
+        "must": [
+          "All four scene objects are visible together",
+          "Blue",
+          "orange",
+          "and gray materials are distinguishable"
+        ],
+        "must_not": [
+          "The scene is incomplete or blank"
+        ]
+      },
+      "after_sha256": "5dd227a7b418c83fc0c0b5d099f6fafee6330c93e2c096ca6facb62fdd6e076e",
+      "before": "specs/blender/visual/c1-multiobject-scene-assembly.before.golden.png",
+      "before_description": "The deterministic Blender scene begins empty before assembly.",
+      "before_dimensions": [
+        1280,
+        720
+      ],
+      "before_rubric": {
+        "must": [
+          "The empty Blender coordinate scene is visible"
+        ],
+        "must_not": [
+          "A crash or unrelated application is shown"
+        ]
+      },
+      "before_sha256": "ddbeba9976fa6c4d5d424417c6610eddd09e98ece26859a07696a31420358464",
+      "benchmark": "blender",
+      "metadata": "specs/blender/visual/blender-multiobject-scene-assembly.golden-meta.json",
+      "preconditions": "Blender opens an empty scene with no objects.",
+      "reference_steps": "Create mesh cube Stage size 2 at [0,0,0.2], scale [3,3,0.2], material StageGray [0.18,0.2,0.24,1]; mesh cylinder Pedestal radius 1.1 depth 0.8 at [0,0,0.8], material MetalBlue [0.05,0.3,0.85,1]; mesh UV sphere Orb size 1 at [-1.2,0,2], scale [0.8,0.8,0.8], material SignalOrange [1,0.3,0.02,1]; mesh cone Beacon radius 0.7 depth 2.2 at [1.3,0,1.5] with SignalOrange; add and apply StageBevel width 0.12 with 2 segments to Stage; save as c1-multiobject-assembly.blend; reopen it.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/blender/c1-multiobject-scene-assembly.yaml",
+      "spec_sha256": "0a14d5969d33d034b7fdd846fa1d697e07cedb0f2df79a994e695d405d105a20",
+      "state_description": "Preconditions: Blender opens an empty scene with no objects.\nReference steps: Create mesh cube Stage size 2 at [0,0,0.2], scale [3,3,0.2], material StageGray [0.18,0.2,0.24,1]; mesh cylinder Pedestal radius 1.1 depth 0.8 at [0,0,0.8], material MetalBlue [0.05,0.3,0.85,1]; mesh UV sphere Orb size 1 at [-1.2,0,2], scale [0.8,0.8,0.8], material SignalOrange [1,0.3,0.02,1]; mesh cone Beacon radius 0.7 depth 2.2 at [1.3,0,1.5] with SignalOrange; add and apply StageBevel width 0.12 with 2 segments to Stage; save as c1-multiobject-assembly.blend; reopen it.",
+      "task_id": "blender-multiobject-scene-assembly"
+    },
+    {
+      "actions": 8,
+      "after": "specs/jynew/visual/c1-party-training-roundtrip.after.golden.png",
+      "after_description": "The restored three-person trained party is visible in a normal playable state.",
+      "after_dimensions": [
+        1280,
+        720
+      ],
+      "after_rubric": {
+        "must": [
+          "The game is visibly restored to a normal party exploration state"
+        ],
+        "must_not": [
+          "A load screen",
+          "crash",
+          "or main menu remains"
+        ]
+      },
+      "after_sha256": "c8bb3ec015f04308d4a467a118a3301d4d347b6e1dc34dbd4547c8299d07728f",
+      "before": "specs/jynew/visual/c1-party-training-roundtrip.before.golden.png",
+      "before_description": "The level-5 solo player begins in the live jynew world before recruitment and training.",
+      "before_dimensions": [
+        1280,
+        720
+      ],
+      "before_rubric": {
+        "must": [
+          "The jynew 3D world and player are visible"
+        ],
+        "must_not": [
+          "A blank screen",
+          "menu",
+          "or exception is shown"
+        ]
+      },
+      "before_sha256": "286ffa073c4fe9e516bd2154dd6fbe11bd68a12c5356105a4a2a1f03fe17990e",
+      "benchmark": "jynew",
+      "metadata": "specs/jynew/visual/jynew-party-training-roundtrip.golden-meta.json",
+      "preconditions": "A headed jynew JYX2 session has player role 0 alone at level 5, money 1000, and exactly two units of item 2. The in-game console is enabled (open with the ` key; Simple difficulty).",
+      "reference_steps": "Open the console with `. Run these commands one by one and press the console confirm button after each: Join(1); Join(2); RoleUseItem(0, 2); LearnMagic2(0, 1, 1); AddLevelreturnUper(0, 1); Rest(). Then use the normal save/load UI to save slot 0 and reload slot 0.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/jynew/c1-party-training-roundtrip.yaml",
+      "spec_sha256": "8e992bf3ff15684c6c757e37cd6ebe4825ab6ecc0386adffc78061131e9308f8",
+      "state_description": "Preconditions: A headed jynew JYX2 session has player role 0 alone at level 5, money 1000, and exactly two units of item 2. The in-game console is enabled (open with the ` key; Simple difficulty).\nReference steps: Open the console with `. Run these commands one by one and press the console confirm button after each: Join(1); Join(2); RoleUseItem(0, 2); LearnMagic2(0, 1, 1); AddLevelreturnUper(0, 1); Rest(). Then use the normal save/load UI to save slot 0 and reload slot 0.",
+      "task_id": "jynew-party-training-roundtrip"
+    },
+    {
+      "actions": 7,
+      "after": "specs/jynew/visual/c1-sidequest-trade-submap.after.golden.png",
+      "after_description": "The snowy Yunhe Cliff submap is rendered after trade completion, role 2 recruitment, save, and reload.",
+      "after_dimensions": [
+        1280,
+        720
+      ],
+      "after_rubric": {
+        "must": [
+          "The snowy Yunhe Cliff scene and its location label are visible",
+          "A live destination submap is rendered after the roundtrip"
+        ],
+        "must_not": [
+          "The green Heluo Inn start scene or a loading screen remains"
+        ]
+      },
+      "after_sha256": "5cd2653611f5d244bf1870cdf5c39e52d578498eae0a9be872eeddc1da0a499e",
+      "before": "specs/jynew/visual/c1-sidequest-trade-submap.before.golden.png",
+      "before_description": "The green Heluo Inn submap is rendered before the registered trade quest is completed.",
+      "before_dimensions": [
+        1280,
+        720
+      ],
+      "before_rubric": {
+        "must": [
+          "The green Heluo Inn scene and its location label are visible",
+          "A live jynew submap is rendered"
+        ],
+        "must_not": [
+          "The snowy Yunhe Cliff destination",
+          "a world map",
+          "blank frame",
+          "or crash is shown"
+        ]
+      },
+      "before_sha256": "f3ec0030338848147b73937c842bb26c586a5b2e2f2527024cdbb002f6009d54",
+      "benchmark": "jynew",
+      "metadata": "specs/jynew/visual/jynew-sidequest-trade-submap.golden-meta.json",
+      "preconditions": "A headed jynew JYX2 session is on map 1 with player role 0 alone at level 5, money 1000, item 2 count 0, and raw KeyValues key c1_trade_quest_started equal to \"1\". The in-game console is enabled (open with the ` key; Simple difficulty).",
+      "reference_steps": "Open the console with `. Run these commands one by one and press the console confirm button after each: item 2 1; item 174 -150; CS.Jyx2.GameRuntimeData.Instance:SetKeyValues(\"c1_trade_quest_completed\", \"1\"); map 2; Join(2). Do not use SetFlag for c1_* keys (it writes CustomerFlag_ prefixes and will miss the required raw keys). Keep c1_trade_quest_started equal to \"1\". Then use the normal save/load UI to save slot 1 and reload slot 1.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/jynew/c1-sidequest-trade-submap.yaml",
+      "spec_sha256": "9ef43b0ba538cce8df08d67ff7390fb14f9aac00d757e2f9652b5b7784359f71",
+      "state_description": "Preconditions: A headed jynew JYX2 session is on map 1 with player role 0 alone at level 5, money 1000, item 2 count 0, and raw KeyValues key c1_trade_quest_started equal to \"1\". The in-game console is enabled (open with the ` key; Simple difficulty).\nReference steps: Open the console with `. Run these commands one by one and press the console confirm button after each: item 2 1; item 174 -150; CS.Jyx2.GameRuntimeData.Instance:SetKeyValues(\"c1_trade_quest_completed\", \"1\"); map 2; Join(2). Do not use SetFlag for c1_* keys (it writes CustomerFlag_ prefixes and will miss the required raw keys). Keep c1_trade_quest_started equal to \"1\". Then use the normal save/load UI to save slot 1 and reload slot 1.",
+      "task_id": "jynew-sidequest-trade-submap"
+    },
+    {
+      "actions": 7,
+      "after": "specs/jynew/visual/c1-battle-ready-loadout.after.golden.png",
+      "after_description": "The restored three-person level-10 party is in a normal full-rest battle-ready state.",
+      "after_dimensions": [
+        1280,
+        720
+      ],
+      "after_rubric": {
+        "must": [
+          "The restored game is visibly playable with the prepared party"
+        ],
+        "must_not": [
+          "A loading screen",
+          "crash",
+          "or unrelated battle is shown"
+        ]
+      },
+      "after_sha256": "e8e84c05c708cf94404681646c48f3bcf92bc255af49751ce68f2c46d99ff66e",
+      "before": "specs/jynew/visual/c1-battle-ready-loadout.before.golden.png",
+      "before_description": "The two-person level-9 party begins in exploration before final preparation.",
+      "before_dimensions": [
+        1280,
+        720
+      ],
+      "before_rubric": {
+        "must": [
+          "The live jynew world and starting party state are visible"
+        ],
+        "must_not": [
+          "A blank",
+          "menu-only",
+          "or error screen is shown"
+        ]
+      },
+      "before_sha256": "b1cccd710daf479625c0ea4dcbd441e810238d3b8a7df9e3288442e66879476e",
+      "benchmark": "jynew",
+      "metadata": "specs/jynew/visual/jynew-battle-ready-loadout.golden-meta.json",
+      "preconditions": "A headed jynew JYX2 session has roles 0 and 1 in the team, role 0 at level 9, money 1200, no role 2, and no item 101. The in-game console is enabled (open with the ` key; Simple difficulty).",
+      "reference_steps": "Open the console with `. Run these commands one by one and press the console confirm button after each: Join(2); item 101 3; LearnMagic2(0, 1, 1); AddLevelreturnUper(0, 1); Rest(). Then use the normal save/load UI to save slot 2 and reload slot 2.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/jynew/c1-battle-ready-loadout.yaml",
+      "spec_sha256": "f4d4bb731c07d81d336608d807dcd0149d6cea747e6fb5a93249aa784e3b8673",
+      "state_description": "Preconditions: A headed jynew JYX2 session has roles 0 and 1 in the team, role 0 at level 9, money 1200, no role 2, and no item 101. The in-game console is enabled (open with the ` key; Simple difficulty).\nReference steps: Open the console with `. Run these commands one by one and press the console confirm button after each: Join(2); item 101 3; LearnMagic2(0, 1, 1); AddLevelreturnUper(0, 1); Rest(). Then use the normal save/load UI to save slot 2 and reload slot 2.",
+      "task_id": "jynew-battle-ready-loadout"
+    },
+    {
+      "actions": 8,
+      "after": "specs/pal3/visual/c1-story-party-scene-roundtrip.after.golden.png",
+      "after_description": "The reloaded session is in the unlit q02/q02 interior. The golden was captured with the party formation displayed and the world map open, the two surfaces on which this task's recruited actor and unlocked travel region are drawn; three party characters stand beside the map panel.",
+      "after_dimensions": [
+        1280,
+        720
+      ],
+      "after_rubric": {
+        "ignore": [
+          "Whether the world map overlay is open and how many party members stand in the room; the golden displays both to make the unlocked region and the recruited actor visible, which a live run need not do",
+          "Exact camera angle and lighting of the dim q02 interior"
+        ],
+        "must": [
+          "The bright outdoor q01 scene is gone",
+          "The dim q02 interior is rendered"
+        ],
+        "must_not": [
+          "The original q01 scene remains",
+          "A crash or exception overlay is shown"
+        ]
+      },
+      "after_sha256": "92338f663f55fc51909695252c8dac36faaac381b9a4ce5e26e979e4a513c4af",
+      "before": "specs/pal3/visual/c1-story-party-scene-roundtrip.before.golden.png",
+      "before_description": "The q01/b story checkpoint is rendered before party and region progression.",
+      "before_dimensions": [
+        1280,
+        720
+      ],
+      "before_rubric": {
+        "must": [
+          "A live PAL3 q01 game scene is visible"
+        ],
+        "must_not": [
+          "A splash screen",
+          "blank frame",
+          "or exception is shown"
+        ]
+      },
+      "before_sha256": "3b3139352c74468b16e6913f56b33861658e87e047eb6b7bd66dc08e86082a08",
+      "benchmark": "pal3",
+      "metadata": "specs/pal3/visual/pal3-story-party-scene-roundtrip.golden-meta.json",
+      "preconditions": "A headed PAL3 session is in scene q01/b with money 500, actors 0 and 1, item 6001 count 0, story variable 32768 equal to 10401, and region 1 not enabled with flag 2.",
+      "reference_steps": "In the visible IngameDebugConsole, run `ScriptVarSetValue 32768 20200`, `TeamAddOrRemoveActor 2 1`, `InventoryAddItem 6001 1`, `InventoryAddMoney 500`, `WorldMapEnableRegion 1 2`, and `SceneLoad q02 q02` in that order. Then use the normal save/load UI to save slot 3 and reload slot 3.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/pal3/c1-story-party-scene-roundtrip.yaml",
+      "spec_sha256": "5ed06e7d496bb3f7d0a62be9e8bf393535dff0595b04393fd5ea658469ac5e42",
+      "state_description": "Preconditions: A headed PAL3 session is in scene q01/b with money 500, actors 0 and 1, item 6001 count 0, story variable 32768 equal to 10401, and region 1 not enabled with flag 2.\nReference steps: In the visible IngameDebugConsole, run `ScriptVarSetValue 32768 20200`, `TeamAddOrRemoveActor 2 1`, `InventoryAddItem 6001 1`, `InventoryAddMoney 500`, `WorldMapEnableRegion 1 2`, and `SceneLoad q02 q02` in that order. Then use the normal save/load UI to save slot 3 and reload slot 3.",
+      "task_id": "pal3-story-party-scene-roundtrip"
+    },
+    {
+      "actions": 8,
+      "after": "specs/pal3/visual/c1-world-region-travel-roundtrip.after.golden.png",
+      "after_description": "After two region unlocks, companion progression, save, and reload the session is in the unlit q02 interior. The golden was captured with the party formation displayed and the world map open, the two surfaces on which this task's unlocked travel regions and recruited actor are drawn; two party characters stand beside the map panel.",
+      "after_dimensions": [
+        1280,
+        720
+      ],
+      "after_rubric": {
+        "ignore": [
+          "Whether the world map overlay is open and how many party members stand in the room; the golden displays both to make the unlocked regions and the recruited actor visible, which a live run need not do",
+          "Exact camera angle and lighting of the dim q02 interior"
+        ],
+        "must": [
+          "The bright outdoor starting scene is gone",
+          "The dim q02 interior is rendered"
+        ],
+        "must_not": [
+          "The original starting scene remains",
+          "A crash or exception overlay is shown"
+        ]
+      },
+      "after_sha256": "9347805a6138eaf800698ed389a9cc91daa926457867817b959887f7024f86dd",
+      "before": "specs/pal3/visual/c1-world-region-travel-roundtrip.before.golden.png",
+      "before_description": "The q01 starting scene is visible before unlocking travel regions.",
+      "before_dimensions": [
+        1280,
+        720
+      ],
+      "before_rubric": {
+        "must": [
+          "A live PAL3 starting scene is visible"
+        ],
+        "must_not": [
+          "A blank frame",
+          "splash",
+          "or crash is shown"
+        ]
+      },
+      "before_sha256": "ebc7b3e52dff005ba37bc3bdd69d71b879da2f6e24c4027f207b8699aed7fb98",
+      "benchmark": "pal3",
+      "metadata": "specs/pal3/visual/pal3-world-region-travel-roundtrip.golden-meta.json",
+      "preconditions": "A headed PAL3 session is in scene q01/b with money 800, actor 0 alone, actor 1 absent, actor 1 favor 20, story variable 32768 equal to 10401, and regions 1 and 2 not enabled.",
+      "reference_steps": "In the visible IngameDebugConsole, run `WorldMapEnableRegion 1 2`, `WorldMapEnableRegion 2 1`, `ScriptVarSetValue 32768 20200`, `TeamAddOrRemoveActor 1 1`, `FavorAdd 1 50`, and `SceneLoad q02 q02` in that order. Then use the normal save/load UI to save slot 4 and reload slot 4.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/pal3/c1-world-region-travel-roundtrip.yaml",
+      "spec_sha256": "b77cb3fe3c4131a39d2c0d4b3afa99df28b34b61f69c3e6139a1a3d6227f84f5",
+      "state_description": "Preconditions: A headed PAL3 session is in scene q01/b with money 800, actor 0 alone, actor 1 absent, actor 1 favor 20, story variable 32768 equal to 10401, and regions 1 and 2 not enabled.\nReference steps: In the visible IngameDebugConsole, run `WorldMapEnableRegion 1 2`, `WorldMapEnableRegion 2 1`, `ScriptVarSetValue 32768 20200`, `TeamAddOrRemoveActor 1 1`, `FavorAdd 1 50`, and `SceneLoad q02 q02` in that order. Then use the normal save/load UI to save slot 4 and reload slot 4.",
+      "task_id": "pal3-world-region-travel-roundtrip"
+    },
+    {
+      "actions": 7,
+      "after": "specs/pal3/visual/c1-companion-ending-preparation.after.golden.png",
+      "after_description": "After the commitment steps, save, and reload the session is still inside the same unlit q02 interior. The golden was captured with the party formation displayed, so the recruited companion Xue Jian stands beside the player where the before frame shows the player alone; money and items have no HUD and stay provable only by the semantic probes.",
+      "after_dimensions": [
+        1280,
+        720
+      ],
+      "after_rubric": {
+        "ignore": [
+          "How many party members stand beside the player; the golden displays the formation to make the recruited companion visible, which a live run need not do",
+          "Money and item totals, which PAL3 never draws on screen"
+        ],
+        "must": [
+          "The same unlit q02 interior is still rendered with its on-screen overlays",
+          "At least one playable character stands in the room"
+        ],
+        "must_not": [
+          "A load screen",
+          "crash",
+          "or unrelated lit scene is shown"
+        ]
+      },
+      "after_sha256": "60ce506e02fa19e313981883585f213c3ac91bd24e39c09b3d25af410a044587",
+      "before": "specs/pal3/visual/c1-companion-ending-preparation.before.golden.png",
+      "before_description": "The late-game checkpoint is inside the unlit q02 interior, with the on-screen movement control and copyright overlay drawn over the dark room.",
+      "before_dimensions": [
+        1280,
+        720
+      ],
+      "before_rubric": {
+        "ignore": [
+          "How much of the dark q02 interior geometry is discernible"
+        ],
+        "must": [
+          "A live PAL3 camera view with the on-screen movement control is visible"
+        ],
+        "must_not": [
+          "A splash screen",
+          "main menu",
+          "or error overlay is shown"
+        ]
+      },
+      "before_sha256": "91a075c3c5a045b8dd48b72169d4b7a2d80dcb70f0875821d1bd918ff5ffd1a8",
+      "benchmark": "pal3",
+      "metadata": "specs/pal3/visual/pal3-companion-ending-preparation.golden-meta.json",
+      "preconditions": "A headed PAL3 session is in q02/q02 with money 1000, actor 0 alone, actor 1 absent with favor 20, item 6001 count 0, and story variable 32768 equal to 30000.",
+      "reference_steps": "In the visible IngameDebugConsole, run `ScriptVarSetValue 32768 40000`, `TeamAddOrRemoveActor 1 1`, `FavorAdd 1 50`, `InventoryAddItem 6001 3`, and `InventoryAddMoney 1000` in that order. Then use the normal save/load UI to save slot 5 and reload slot 5.",
+      "schema_version": 1,
+      "source": "deterministic_reference_replay",
+      "spec": "specs/pal3/c1-companion-ending-preparation.yaml",
+      "spec_sha256": "dab5eaede0bab141bb0ad0806fc75f6168efb4bd142f3258ef1b75b0fe743ab2",
+      "state_description": "Preconditions: A headed PAL3 session is in q02/q02 with money 1000, actor 0 alone, actor 1 absent with favor 20, item 6001 count 0, and story variable 32768 equal to 30000.\nReference steps: In the visible IngameDebugConsole, run `ScriptVarSetValue 32768 40000`, `TeamAddOrRemoveActor 1 1`, `FavorAdd 1 50`, `InventoryAddItem 6001 3`, and `InventoryAddMoney 1000` in that order. Then use the normal save/load UI to save slot 5 and reload slot 5.",
+      "task_id": "pal3-companion-ending-preparation"
+    }
+  ]
+}

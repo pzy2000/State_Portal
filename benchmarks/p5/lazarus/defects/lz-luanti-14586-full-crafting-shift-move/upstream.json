@@ -1,0 +1,234 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [
+    {
+      "author": "Bastrabun",
+      "body_normalized": "https://github.com/minetest/minetest/assets/59294479/5ed79491-1101-4608-950e-dec8439d11a4",
+      "body_raw": "\r\nhttps://github.com/minetest/minetest/assets/59294479/5ed79491-1101-4608-950e-dec8439d11a4\r\n\r\n",
+      "body_sha256": "a751ff4cc7d4e38ddcbd928ef3aa9746b55419a6d153b5c00136e06e7aa3efae",
+      "created_at": "2024-04-21T23:33:01Z",
+      "id": 2068264063,
+      "source": "issue_comment",
+      "updated_at": "2024-04-21T23:33:01Z",
+      "url": "https://github.com/luanti-org/luanti/issues/14572#issuecomment-2068264063"
+    },
+    {
+      "author": "NathanSalapat",
+      "body_normalized": "Can reproduce with de1d8ec07",
+      "body_raw": "Can reproduce with de1d8ec07",
+      "body_sha256": "88304451c83cfc12828fe3188a868834e28b02023fa04b102f8a5b4f0e207ef6",
+      "created_at": "2024-04-21T23:40:54Z",
+      "id": 2068266678,
+      "source": "issue_comment",
+      "updated_at": "2024-04-21T23:40:54Z",
+      "url": "https://github.com/luanti-org/luanti/issues/14572#issuecomment-2068266678"
+    },
+    {
+      "author": "blaboing",
+      "body_normalized": "Did some quick tests and happens since https://github.com/minetest/minetest/commit/61a57336920e0f64361a4c48215b12969c3a1eff",
+      "body_raw": "Did some quick tests and happens since https://github.com/minetest/minetest/commit/61a57336920e0f64361a4c48215b12969c3a1eff \r\n",
+      "body_sha256": "12dc2f12dc3512589dcf565353552d6371786a61a2666de2d06d0a939c6e4f04",
+      "created_at": "2024-04-22T07:58:03Z",
+      "id": 2068737410,
+      "source": "issue_comment",
+      "updated_at": "2024-04-22T07:58:03Z",
+      "url": "https://github.com/luanti-org/luanti/issues/14572#issuecomment-2068737410"
+    },
+    {
+      "author": "blaboing",
+      "body_normalized": "tested & fixed 😉",
+      "body_raw": "tested & fixed 😉 ",
+      "body_sha256": "d8e1a87f44dc78323fc4e14017f04479af652af140d3902b770222cf2d46bb12",
+      "created_at": "2024-04-25T08:00:40Z",
+      "id": 2076600299,
+      "source": "pull_request_comment",
+      "updated_at": "2024-04-25T08:00:40Z",
+      "url": "https://github.com/luanti-org/luanti/pull/14586#issuecomment-2076600299"
+    }
+  ],
+  "fix_commit": "c044a3c1cabda2f5f61fee9e746dba5caa427085",
+  "issue": {
+    "author": "Bastrabun",
+    "body_normalized": "### Minetest version\n\n```true\nMinetest 5.9.0-dev-eb432d3da (Linux)\nUsing LuaJIT 2.1.1713517273\nBuilt by GCC 13.2\nRunning on Linux/6.6.15-amd64 x86_64\nBUILD_TYPE=Release\nRUN_IN_PLACE=1\nUSE_CURL=1\nUSE_GETTEXT=1\nUSE_SOUND=1\nSTATIC_SHAREDIR=\".\"\nSTATIC_LOCALEDIR=\"locale\"\n```\n\n\n### Irrlicht device\n\nedit: SDL (previous: Wayland. I thought that's the DM you want here)\n\n### Operating system and version\n\nDebian GNU/Linux trixie\n\n### CPU model\n\nIntel i7-6700 CPU @ 3.40GHz\n\n### GPU model\n\nIntel Corporation HD Graphics 530 (rev 06)\n\n### Active renderer\n\nOpen GL 4.6.0\n\n### Summary\n\nWhen I have a full inventory grid and then try to shiftclick items into the full grid, I expect nothing happens, since I can't add the items to the grid anymore. Instead, the clicked items now show an unknown texture and the mouseover a \"[]\". When I drag such a wrong item or any non-wrong item to another inventory slot, the inv refreshes and shows the wrong items right again.\n\nThis works on Unified inventory and the MTG stock inventory, on my server and on MTG default with no mods. The CPU and GPU I mentioned are only one example, I can reproduce with all my machines here.\n\nFor my reference 6699\n\n### Steps to reproduce\n\n> client version 5.9.0-dev e12db0c18 or d767ab089 or eb432d3da\n1. Place items in all 9 slots of the crafting grid\n2. Place one or more items in the normal inv\n3. shift-click the normal item in the inv\n-> WRONG: item turns to unknown texture, cursor turns to []\n-> EXPECTED: Nothing happens\n4. switch an item to a different slot in that same inv\n-> items return to their normal textures",
+    "body_raw": "### Minetest version\r\n\r\n```true\r\nMinetest 5.9.0-dev-eb432d3da (Linux)\r\nUsing LuaJIT 2.1.1713517273\r\nBuilt by GCC 13.2\r\nRunning on Linux/6.6.15-amd64 x86_64\r\nBUILD_TYPE=Release\r\nRUN_IN_PLACE=1\r\nUSE_CURL=1\r\nUSE_GETTEXT=1\r\nUSE_SOUND=1\r\nSTATIC_SHAREDIR=\".\"\r\nSTATIC_LOCALEDIR=\"locale\"\r\n```\r\n\r\n\r\n### Irrlicht device\r\n\r\nedit: SDL (previous: Wayland. I thought that's the DM you want here)\r\n\r\n### Operating system and version\r\n\r\nDebian GNU/Linux trixie\r\n\r\n### CPU model\r\n\r\nIntel i7-6700 CPU @ 3.40GHz\r\n\r\n### GPU model\r\n\r\nIntel Corporation HD Graphics 530 (rev 06)\r\n\r\n### Active renderer\r\n\r\nOpen GL 4.6.0\r\n\r\n### Summary\r\n\r\nWhen I have a full inventory grid and then try to shiftclick items into the full grid, I expect nothing happens, since I can't add the items to the grid anymore. Instead, the clicked items now show an unknown texture and the mouseover a \"[]\". When I drag such a wrong item or any non-wrong item to another inventory slot, the inv refreshes and shows the wrong items right again.\r\n\r\nThis works on Unified inventory and the MTG stock inventory, on my server and on MTG default with no mods. The CPU and GPU I mentioned are only one example, I can reproduce with all my machines here.\r\n\r\nFor my reference 6699\r\n\r\n### Steps to reproduce\r\n\r\n> client version 5.9.0-dev e12db0c18 or d767ab089 or eb432d3da\r\n1. Place items in all 9 slots of the crafting grid\r\n2. Place one or more items in the normal inv\r\n3. shift-click the normal item in the inv\r\n-> WRONG: item turns to unknown texture, cursor turns to []\r\n-> EXPECTED: Nothing happens\r\n4. switch an item to a different slot in that same inv\r\n-> items return to their normal textures",
+    "body_sha256": "0a1f661e6b836c30a6dafc939dda3418565542526838ade9fab98dadcbc0b60c",
+    "closed_at": "2024-04-28T17:45:10Z",
+    "created_at": "2024-04-21T23:05:15Z",
+    "merged_at": null,
+    "number": 14572,
+    "state": "closed",
+    "title": "Unknown texture when shiftclicking item into full crafting grid",
+    "updated_at": "2024-04-28T17:45:11Z",
+    "url": "https://github.com/luanti-org/luanti/issues/14572"
+  },
+  "patch_sha256": "5264b3a5d1ab61b4e5c982de296a28193717335d5923e4e4dc01eceb381015cb",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "author": "SmallJoker",
+    "body_normalized": "Fixes a regression caused by 4245a760\n'moveItemSomewhere' attempted to add a leftover stack to an empty stack, resulting in an empty name with non-0 ItemStack count.\n\nFixes #14572\n\n## To do\n\nThis PR is Ready for Review.\n\n## How to test\n\n1. Have a full crafting grid\n2. Try to shift-move an ItemStack into it\n3. No strange texture",
+    "body_raw": "Fixes a regression caused by 4245a760\r\n'moveItemSomewhere' attempted to add a leftover stack to an empty stack, resulting in an empty name with non-0 ItemStack count.\r\n\r\nFixes #14572\r\n\r\n## To do\r\n\r\nThis PR is Ready for Review.\r\n\r\n## How to test\r\n\r\n1. Have a full crafting grid\r\n2. Try to shift-move an ItemStack into it\r\n3. No strange texture\r\n",
+    "body_sha256": "d6c87073bfc38f1b44a1d8ed34f57a81a5257ce8d90959367cb6106408f44ca3",
+    "closed_at": "2024-04-28T17:45:09Z",
+    "created_at": "2024-04-24T18:46:28Z",
+    "merged_at": "2024-04-28T17:45:09Z",
+    "number": 14586,
+    "state": "closed",
+    "title": "Client: fix unknown texture upon shift-move to full inventory list",
+    "updated_at": "2024-04-28T17:45:09Z",
+    "url": "https://github.com/luanti-org/luanti/pull/14586"
+  },
+  "record_sha256": "9078405c50aa257a50361736bf51ad68e85ac01008dfa316b02dbb3540dbf2b2",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-11T13:12:04Z",
+  "reviews": [
+    {
+      "author": "sfan5",
+      "body_normalized": "seems good from a quick look",
+      "body_raw": "seems good from a quick look",
+      "body_sha256": "aaab5668d2ae73d1e74f66a16e61dd0a4f2cbbb6be179a220b85313f2e6cf6c4",
+      "created_at": "2024-04-27T10:06:14Z",
+      "id": 2026624127,
+      "source": "pull_request_review",
+      "state": "APPROVED",
+      "url": "https://github.com/luanti-org/luanti/pull/14586#pullrequestreview-2026624127"
+    }
+  ],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-14586-full-crafting-shift-move",
+  "tests": [
+    {
+      "argv": [
+        "./bin/luanti",
+        "--run-unittests",
+        "--test-module",
+        "TestMoveAction"
+      ],
+      "command": [
+        "./bin/luanti",
+        "--run-unittests",
+        "--test-module",
+        "TestMoveAction"
+      ],
+      "cwd": ".",
+      "frozen_test_compatibility_shim": {
+        "base_fix_commit": "c044a3c1cabda2f5f61fee9e746dba5caa427085",
+        "base_source_path": "src/unittest/test_moveaction.cpp",
+        "base_source_sha256": "9376cd2586e3bee5be52e89e0abc99706d5bc4fb4e3588e98acffe29c7073a3f",
+        "frozen_source_sha256": "62d6485af1fcd534a5346505d89e4ade720f6bb996feb59fa548ca5c702885e6",
+        "inserted_line": "#include \"servermap.h\"",
+        "insertion_after": "#include \"mock_serveractiveobject.h\"",
+        "schema": "c1-lazarus-luanti-include-only-shim-v1",
+        "target_pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb"
+      },
+      "frozen_test_sources": [
+        {
+          "destination_path": "src/unittest/test_moveaction.cpp",
+          "sha256": "62d6485af1fcd534a5346505d89e4ade720f6bb996feb59fa548ca5c702885e6",
+          "source_path": "upstream-tests/src/unittest/test_moveaction.cpp"
+        }
+      ],
+      "id": "luanti-pr14586-move-somewhere-partial-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_cpp_unit_regression_test",
+      "source_case": "TestMoveAction.testMoveSomewherePartial",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c044a3c1cabda2f5f61fee9e746dba5caa427085/src/unittest/test_moveaction.cpp",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "src/unittest/test_moveaction.cpp",
+          "sha256": "62d6485af1fcd534a5346505d89e4ade720f6bb996feb59fa548ca5c702885e6",
+          "source_url": "https://github.com/luanti-org/luanti/blob/c044a3c1cabda2f5f61fee9e746dba5caa427085/src/unittest/test_moveaction.cpp"
+        }
+      ],
+      "upstream_test_path": "src/unittest/test_moveaction.cpp",
+      "upstream_test_sha256": "62d6485af1fcd534a5346505d89e4ade720f6bb996feb59fa548ca5c702885e6"
+    },
+    {
+      "argv": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "command": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed",
+          "source_path": "upstream-tests/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "id": "luanti-vector-zero-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "vector zero()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c044a3c1cabda2f5f61fee9e746dba5caa427085/builtin/common/tests/vector_spec.lua",
+      "timeout_s": 60,
+      "upstream_runner_root": ".warptest-cache/lazarus/tools/luanti-busted-luajit",
+      "upstream_runner_tree_sha256": "8e52972a9ade81d36ec6225831d24ec6ceeef306f1841db8a29fd22c21fb19b2",
+      "upstream_test_files": [
+        {
+          "path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed",
+          "source_url": "https://github.com/luanti-org/luanti/blob/c044a3c1cabda2f5f61fee9e746dba5caa427085/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "upstream_test_path": "builtin/common/tests/vector_spec.lua",
+      "upstream_test_sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed"
+    },
+    {
+      "argv": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "command": [
+        "{harness_root}/.warptest-cache/lazarus/tools/luanti-busted-luajit/bin/busted",
+        "--filter=zero",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "cwd": ".",
+      "id": "luanti-vector-zero-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "vector zero()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/vector_spec.lua",
+      "timeout_s": 60,
+      "upstream_runner_root": ".warptest-cache/lazarus/tools/luanti-busted-luajit",
+      "upstream_runner_tree_sha256": "8e52972a9ade81d36ec6225831d24ec6ceeef306f1841db8a29fd22c21fb19b2",
+      "upstream_test_files": [
+        {
+          "path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "1a9934c6e46eba7ab58894285e676e65970b0dab419df3ea05be66cdc50139f0",
+          "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/vector_spec.lua"
+        }
+      ],
+      "upstream_test_path": "builtin/common/tests/vector_spec.lua",
+      "upstream_test_sha256": "1a9934c6e46eba7ab58894285e676e65970b0dab419df3ea05be66cdc50139f0"
+    }
+  ],
+  "touched_files": [
+    "src/inventory.cpp",
+    "src/unittest/test_moveaction.cpp"
+  ],
+  "upstream_commits": [
+    {
+      "author": "SmallJoker",
+      "authored_at": "2024-04-24T18:44:45Z",
+      "body_normalized": "Client: fix unknown texture upon shift-move to full inventory list\n\nFixes a regression caused by 4245a760\n'moveItemSomewhere' attempted to add a leftover stack to an empty stack, resulting\nin an empty name with non-0 ItemStack count.",
+      "body_raw": "Client: fix unknown texture upon shift-move to full inventory list\n\nFixes a regression caused by 4245a760\n'moveItemSomewhere' attempted to add a leftover stack to an empty stack, resulting\nin an empty name with non-0 ItemStack count.",
+      "body_sha256": "85b430a2b600e9bd6037329f5c5b12264972b1c7543b50aa74912f9e4c6ff325",
+      "sha": "3a9503c3409e2628560949d8448fb26575d987a1",
+      "url": "https://github.com/luanti-org/luanti/commit/3a9503c3409e2628560949d8448fb26575d987a1"
+    }
+  ]
+}

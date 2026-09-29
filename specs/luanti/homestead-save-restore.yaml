@@ -1,0 +1,113 @@
+name: luanti save and restore a complete homestead base
+benchmark: "luanti"
+timeout_ms: 420000
+tags: ["luanti", "production", "homestead", "save", "restore", "player"]
+target:
+  kind: save_restore
+  fill:
+    - from: { x: -1, y: 0, z: -1 }
+      to: { x: 8, y: 0, z: 8 }
+      node: "basenodes:dirt_with_grass"
+    - from: { x: 0, y: 1, z: 1 }
+      to: { x: 5, y: 1, z: 5 }
+      node: "basenodes:cobble"
+    - from: { x: 0, y: 2, z: 1 }
+      to: { x: 5, y: 3, z: 1 }
+      node: "basenodes:tree"
+    - from: { x: 0, y: 2, z: 5 }
+      to: { x: 5, y: 3, z: 5 }
+      node: "basenodes:tree"
+    - from: { x: 0, y: 2, z: 1 }
+      to: { x: 0, y: 3, z: 5 }
+      node: "basenodes:cobble"
+    - from: { x: 5, y: 2, z: 1 }
+      to: { x: 5, y: 3, z: 5 }
+      node: "basenodes:cobble"
+    - from: { x: -1, y: 4, z: 0 }
+      to: { x: 6, y: 4, z: 6 }
+      node: "stairs:slab_cobble"
+      param2: 0
+    - from: { x: 6, y: 1, z: 2 }
+      to: { x: 7, y: 1, z: 5 }
+      node: "basenodes:dirt"
+  nodes:
+    - pos: { x: 6, y: 2, z: 2 }
+      node: "basenodes:junglegrass"
+    - pos: { x: 7, y: 2, z: 4 }
+      node: "basenodes:junglegrass"
+    - pos: { x: 2, y: 2, z: 0 }
+      node: "stairs:stair_cobble"
+      param2: 2
+  meta_inventory:
+    - pos: { x: 2, y: 2, z: 3 }
+      node: "chest:chest"
+      list: "main"
+      items:
+        - { item: "basenodes:cobble", count: 64 }
+        - { item: "basenodes:tree", count: 32 }
+        - { item: "basenodes:apple", count: 6 }
+  player:
+    pos: { x: 2, y: 3, z: -2 }
+    hp: 18
+    inventory:
+      - { item: "basetools:pick_steel", count: 1 }
+      - { item: "basenodes:cobble", count: 16 }
+  mod_storage:
+    - { key: "warptest_homestead_stage", value: "winter-ready" }
+    - { key: "warptest_homestead_chests", value: "stocked" }
+  validations:
+    - path: "node.2,2,3"
+      expected: "chest:chest"
+    - path: "mod_storage.warptest_homestead_stage"
+      expected: "winter-ready"
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions: []
+assertions:
+  - type: luanti_node_count
+    from: { x: -1, y: 4, z: 0 }
+    to: { x: 6, y: 4, z: 6 }
+    node: "stairs:slab_cobble"
+    min_count: 49
+  - type: luanti_node_count
+    from: { x: 6, y: 2, z: 2 }
+    to: { x: 7, y: 2, z: 4 }
+    node: "basenodes:junglegrass"
+    min_count: 2
+  - type: luanti_node_is
+    pos: { x: 2, y: 2, z: 3 }
+    expected: "chest:chest"
+  - type: luanti_meta_inventory_contains
+    pos: { x: 2, y: 2, z: 3 }
+    item: "basenodes:apple"
+    count: 6
+  - type: luanti_player_hp_gte
+    int_value: 18
+  - type: luanti_inventory_contains
+    item: "basetools:pick_steel"
+    count: 1
+  - type: luanti_mod_storage_equals
+    key: "warptest_homestead_chests"
+    value: "stocked"
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/homestead-save-restore.golden.png
+  golden_before: visual/luanti-homestead-save-restore.before.golden.png
+  golden_after: visual/luanti-homestead-save-restore.after.golden.png
+  expected_label: correct
+  description: "After save/restore, a complete homestead base with roofed house, garden strip, chest supplies, player kit, and progress flags remains available."
+  rubric:
+    must:
+      - "A multi-block homestead or small base is visible, with roof/floor/wall mass or garden blocks."
+      - "The scene is clearly more complex than a single-node smoke test."
+      - "No crash dialog, error overlay, main menu, or fully blank screen is shown."
+    must_not:
+      - "Only an empty flat world or a one-block smoke-test scene is visible."
+      - "The screen is black, blank, or blocked by an error dialog."
+    ignore:
+      - "Exact player orientation, camera angle, lighting, HUD, or hotbar order."
+  capture:
+    stage: post_smoke
+    wait_ms: 1000
+    full_page: false

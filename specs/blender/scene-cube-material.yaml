@@ -1,0 +1,82 @@
+name: Blender scene cube material
+benchmark: blender
+target:
+  kind: scene
+  objects:
+    - name: WarpCube
+      type: MESH
+      primitive: cube
+      size: 2.0
+      location: [0.0, 0.0, 0.0]
+      material:
+        name: WarpRed
+        color: [1.0, 0.05, 0.02, 1.0]
+checkpoint:
+  allowed_strategies: [blender_python_scene_validate]
+  expected_validity: save-restorable
+actions:
+  - type: blender_set_object_location
+    object: WarpCube
+    location: [1.0, 2.0, 3.0]
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: blender_object_exists
+        object: WarpCube
+        object_type: MESH
+      - type: blender_material_color
+        object: WarpCube
+        material: WarpRed
+        color: [1.0, 0.05, 0.02, 1.0]
+      - type: blender_object_location
+        object: WarpCube
+        location: [1.0, 2.0, 3.0]
+      - type: no_blender_python_errors
+    surfaces:
+      gui:
+        adapter: blender_native_state_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: blender_native_state_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/scene-cube-material.golden.png
+    golden_before: visual/blender-scene-cube-material.before.golden.png
+    golden_after: visual/blender-scene-cube-material.after.golden.png
+    expected_label: correct
+    description: "A deterministic Blender render shows the red WarpCube after the material scene checkpoint action, with XYZ axes, an XY grid, and object coordinate labels showing the cube moved from the restored origin position to the asserted after-action location."
+    rubric:
+      must:
+        - "The Blender-rendered red cube is visible against the gray render background."
+        - "The coordinate reference layer is visible: red X axis, green Y axis, blue Z axis, an XY grid, an origin label, and an object coordinate label."
+        - "The after screenshot shows the cube shifted from its restored before position."
+        - "The after screenshot labels WarpCube at [1,2,3]."
+        - "The cube material remains red after the action."
+      must_not:
+        - "The render is blank, transparent, or a crash/error screen."
+        - "The coordinate axes, grid, or WarpCube coordinate label are missing from the render."
+        - "The after screenshot still shows the cube at the restored before position."
+        - "The cube has the wrong material color."
+      ignore:
+        - "Minor lighting or antialiasing differences from Blender renderer versions."
+        - "Small edge-highlight differences on cube faces."
+        - "Small text antialiasing differences on coordinate labels."
+    capture:
+      stage: post_smoke
+      wait_ms: 0
+      full_page: false
+tags:
+  - blender
+  - scene
+  - material

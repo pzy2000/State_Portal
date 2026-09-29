@@ -1,0 +1,37 @@
+# Gold replay: an empty node name in world state raises an "Unknown node" error.
+#
+# A node whose name is the empty string is not a registered content id; the synth
+# path raises "Unknown node: " (contained here by pcall; on the unprotected async
+# world-load path this is a server-fatal error). Distinct fixture from the
+# unknown-node crash spec (empty vs. a bogus namespaced name).
+name: "luanti replay: empty node name raises Unknown node"
+benchmark: luanti
+
+source:
+  upstream_repo: luanti-org/luanti
+  pr_number: null
+  pre_fix_sha: null
+  post_fix_sha: null
+  source_url: null
+  provenance: >-
+    Control-validated reproduction of the unknown/empty node-name class (see
+    BUGS/luanti/issue-01). Author real pre/post SHA to promote to a gold pair.
+
+fixture:
+  target:
+    kind: synthesized_world
+    nodes:
+      - pos: { x: 1, y: 1, z: 1 }
+        node: ""
+
+defect_oracle:
+  abnormal_exit: true
+  timeout: false
+  log_signatures:
+    - "AsyncErr"
+    - "ServerError"
+  semantic_assertions:
+    - path: detail
+      contains: "Unknown node"
+
+timeout_s: 45

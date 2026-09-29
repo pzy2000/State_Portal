@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/luanti/visual/luanti-self-sufficient-homestead-roundtrip.after.golden.png",
+  "after_dimensions": [
+    1280,
+    720
+  ],
+  "after_sha256": "c3627c9349d2b1bd64492810d469577657bf1ab90e90382bda87686f94b77f7d",
+  "before": "specs/luanti/visual/luanti-self-sufficient-homestead-roundtrip.before.golden.png",
+  "before_dimensions": [
+    1280,
+    720
+  ],
+  "before_sha256": "130be5546b89ea877f8a92e4f7a048d49f105f3e048adeb41fd1394518abff0d",
+  "benchmark": "luanti",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/luanti/c1-self-sufficient-homestead-roundtrip.yaml",
+  "spec_sha256": "01a4ec8099abd83fe4e94ebfef9864172d7b1c7bb3e0517ab51641a866607bd4",
+  "task_id": "luanti-self-sufficient-homestead-roundtrip"
+}

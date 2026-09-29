@@ -1,0 +1,21 @@
+{
+  "actions": 7,
+  "after": "specs/pal3/visual/c1-companion-ending-preparation.after.golden.png",
+  "after_dimensions": [
+    1280,
+    720
+  ],
+  "after_sha256": "60ce506e02fa19e313981883585f213c3ac91bd24e39c09b3d25af410a044587",
+  "before": "specs/pal3/visual/c1-companion-ending-preparation.before.golden.png",
+  "before_dimensions": [
+    1280,
+    720
+  ],
+  "before_sha256": "91a075c3c5a045b8dd48b72169d4b7a2d80dcb70f0875821d1bd918ff5ffd1a8",
+  "benchmark": "pal3",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/pal3/c1-companion-ending-preparation.yaml",
+  "spec_sha256": "dab5eaede0bab141bb0ad0806fc75f6168efb4bd142f3258ef1b75b0fe743ab2",
+  "task_id": "pal3-companion-ending-preparation"
+}

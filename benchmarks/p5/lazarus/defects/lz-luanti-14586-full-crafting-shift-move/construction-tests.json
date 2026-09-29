@@ -1,0 +1,301 @@
+{
+  "buggy_tests": {
+    "luanti-pr14586-move-somewhere-partial-f2p": false,
+    "luanti-vector-zero-construction-p2p": true
+  },
+  "complete": true,
+  "executions": [
+    {
+      "complete": false,
+      "duration_ms": 119088.62845800468,
+      "failures": [
+        "upstream test luanti-pr14586-move-somewhere-partial-f2p exited -6"
+      ],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed",
+          "source_path": "upstream-tests/builtin/common/tests/vector_spec.lua"
+        },
+        {
+          "destination_path": "src/unittest/test_moveaction.cpp",
+          "sha256": "62d6485af1fcd534a5346505d89e4ade720f6bb996feb59fa548ca5c702885e6",
+          "source_path": "upstream-tests/src/unittest/test_moveaction.cpp"
+        }
+      ],
+      "passed": false,
+      "prepare_results": [
+        {
+          "duration_ms": 119.67887499486096,
+          "exit_code": 0,
+          "id": "luanti-unit-test-remove-stale-cache",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 10.342791996663436,
+          "exit_code": 0,
+          "id": "luanti-unit-test-remove-stale-cmake-files",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 3277.9060829780065,
+          "exit_code": 0,
+          "id": "luanti-unit-test-reconfigure",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "CMake Warning at src/CMakeLists.txt:86 (message):\n  cURL is required to use the server list, content browser or update checker\n\n\n",
+            "stderr_truncated": false,
+            "stdout": "-- The C compiler identification is AppleClang 21.0.0.21000101\n-- The CXX compiler identification is AppleClang 21.0.0.21000101\n-- Detecting C compiler ABI info\n-- Detecting C compiler ABI info - done\n-- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc - skipped\n-- Detecting C compile features\n-- Detecting C compile features - done\n-- Detecting CXX compiler ABI info\n-- Detecting CXX compiler ABI info - done\n-- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ - skipped\n-- Detecting CXX compile features\n-- Detecting CXX compile features - done\n-- *** Will build version 5.17.0-dev ***\n-- BUILD_CLIENT: TRUE\n-- BUILD_SERVER: FALSE\n-- BUILD_UNITTESTS: TRUE\n-- BUILD_BENCHMARKS: FALSE\n-- BUILD_DOCUMENTATION: FALSE\n-- RUN_IN_PLACE: TRUE\n-- Performing Test SUPPORTS_W_MISMATCHED_TAGS\n-- Performing Test SUPPORTS_W_MISMATCHED_TAGS - Success\n-- OpenGL (legacy): ON\n-- OpenGL 3: ON\n-- OpenGL ES 2: FALSE\n-- Found ZLIB: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk/usr/lib/libz.tbd (found version \"1.2.12\")\n-- Found JPEG: /opt/homebrew/lib/libjpeg.dylib (found version \"80\")\n-- Found PNG: /opt/homebrew/lib/libpng.dylib (found version \"1.6.58\")\n-- Found OpenGL: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk/System/Library/Frameworks/OpenGL.framework\n-- Found SDL2: SDL2::SDL2\n-- Performing Test CHECK_SDL_VERSION\n-- Performing Test CHECK_SDL_VERSION - Success\n-- LTO/IPO is not enabled\n-- Using GMP provided by system.\n-- Found GMP: /opt/homebrew/lib/libgmp.dylib\n-- Using JsonCpp provided by system.\n-- Found Json: /opt/homebrew/lib/libjsoncpp.dylib (Required is at least version \"1.0.0\")\n-- Found LuaJIT: /opt/homebrew/lib/libluajit-5.1.dylib\n-- Using LuaJIT\n-- Looking for include file endian.h\n-- Looking for include file endian.h - not found\n-- Check size of int\n-- Check size of int - done\n-- Looking for C++ include sys/types.h\n-- Looking for C++ include sys/types.h - found\n-- Looking for C++ include stdint.h\n-- Looking for C++ include stdint.h - found\n-- Looking for C++ include stddef.h\n-- Looking for C++ include stddef.h - found\n-- Check size of size_t\n-- Check size of size_t - done\n-- GetText disabled.\n-- Found Freetype: /opt/homebrew/lib/libfreetype.dylib (found version \"2.14.3\")\n-- Found SQLite3: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk/usr/lib/libsqlite3.tbd\n-- Prometheus client disabled.\n-- SpatialIndex not found!\n-- Found OpenSSL: /opt/homebrew/Cellar/openssl@3/3.6.2/lib/libcrypto.dylib (found suitable version \"3.6.2\", minimum required is \"3.0\")\n-- OpenSSL's libcrypto SHA enabled.\n-- Looking for ZSTD_initCStream\n-- Looking for ZSTD_initCStream - found\n-- Found Zstd: /opt/homebrew/lib/libzstd.dylib\n-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n-- Found Threads: TRUE\n-- Performing Test HAVE_LINK_ATOMIC\n-- Performing Test HAVE_LINK_ATOMIC - Failed\n-- Looking for strlcpy\n-- Looking for strlcpy - found\n-- Looking for malloc_trim\n-- Looking for malloc_trim - not found\n-- Looking for luaopen_string_buffer\n-- Looking for luaopen_string_buffer - found\n-- Configuring done (3.2s)\n-- Generating done (0.1s)\n-- Build files have been written to: $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-pe6a17so/prepared/build-lazarus-unittests\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "4dd8d12d4e8d475bac8474616b1710b77c98f64d867b9abbce3aae8b976dc67d",
+          "stdout_sha256": "c422ee256faab9f92b05b9b4ce886f626574a77013a4a311d65ed74170b5dacd",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 113343.91966700787,
+          "exit_code": 0,
+          "id": "luanti-unit-test-rebuild",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "[... output truncated; retained tail follows ...]\nti.dir/mapgen/mapgen_fractal.cpp.o\n[244/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mapgen_singlenode.cpp.o\n[245/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mapgen_v5.cpp.o\n[246/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mapgen_v6.cpp.o\n[247/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mapgen_v7.cpp.o\n[248/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mapgen_valleys.cpp.o\n[249/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mg_biome.cpp.o\n[250/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mg_decoration.cpp.o\n[251/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mg_ore.cpp.o\n[252/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mg_schematic.cpp.o\n[253/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/treegen.cpp.o\n[254/433] Building CXX object src/CMakeFiles/luanti.dir/network/clientopcodes.cpp.o\n[255/433] Building CXX object src/CMakeFiles/luanti.dir/network/serveropcodes.cpp.o\n[256/433] Building CXX object src/CMakeFiles/luanti.dir/network/clientpackethandler.cpp.o\n[257/433] Building CXX object src/CMakeFiles/luanti.dir/network/serverpackethandler.cpp.o\n[258/433] Building CXX object src/CMakeFiles/luanti.dir/script/common/c_converter.cpp.o\n[259/433] Building CXX object src/CMakeFiles/luanti.dir/script/common/c_content.cpp.o\n[260/433] Building CXX object src/CMakeFiles/luanti.dir/script/common/c_internal.cpp.o\n[261/433] Building CXX object src/CMakeFiles/luanti.dir/script/common/c_packer.cpp.o\n[262/433] Building CXX object src/CMakeFiles/luanti.dir/script/common/helper.cpp.o\n[263/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_async.cpp.o\n[264/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_base.cpp.o\n[265/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_client.cpp.o\n[266/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_client_common.cpp.o\n[267/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_entity.cpp.o\n[268/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_env.cpp.o\n[269/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_inventory.cpp.o\n[270/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_mainmenu.cpp.o\n[271/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_item.cpp.o\n[272/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_mapgen.cpp.o\n[273/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_modchannels.cpp.o\n[274/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_node.cpp.o\n[275/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_nodemeta.cpp.o\n[276/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_pause_menu.cpp.o\n[277/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_player.cpp.o\n[278/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_server.cpp.o\n[279/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_security.cpp.o\n[280/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_sscsm.cpp.o\n[281/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_areastore.cpp.o\n[282/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_async.cpp.o\n[283/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_auth.cpp.o\n[284/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_base.cpp.o\n[285/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_camera.cpp.o\n[286/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_client.cpp.o\n[287/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_client_common.cpp.o\n[288/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_client_sound.cpp.o\n[289/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_craft.cpp.o\n[290/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_http.cpp.o\n$REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-pe6a17so/prepared/src/script/lua_api/l_http.cpp:19:25: warning: unused variable 'es_HttpMethod' [-Wunused-const-variable]\n   19 | const static EnumString es_HttpMethod[] = {\n      |                         ^~~~~~~~~~~~~\n1 warning generated.\n[291/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_env.cpp.o\n[292/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_inventory.cpp.o\n[293/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_ipc.cpp.o\n[294/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_item.cpp.o\n[295/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_itemstackmeta.cpp.o\n[296/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_localplayer.cpp.o\n[297/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_mainmenu_sound.cpp.o\n[298/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_mainmenu.cpp.o\n[299/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_menu_common.cpp.o\n[300/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_metadata.cpp.o\n[301/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_mapgen.cpp.o\n[302/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_minimap.cpp.o\n[303/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_modchannels.cpp.o\n[304/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_nodetimer.cpp.o\n[305/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_nodemeta.cpp.o\n[306/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_noise.cpp.o\n[307/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_particles.cpp.o\n[308/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_object.cpp.o\n[309/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_pause_menu.cpp.o\n[310/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_particles_local.cpp.o\n[311/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_rollback.cpp.o\n[312/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_playermeta.cpp.o\n[313/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_settings.cpp.o\n[314/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_server.cpp.o\n[315/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_sscsm.cpp.o\n[316/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_storage.cpp.o\n[317/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_util.cpp.o\n[318/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_vmanip.cpp.o\n[319/433] Building CXX object src/CMakeFiles/luanti.dir/script/scripting_client.cpp.o\n[320/433] Building CXX object src/CMakeFiles/luanti.dir/script/scripting_emerge.cpp.o\n[321/433] Building CXX object src/CMakeFiles/luanti.dir/script/scripting_mainmenu.cpp.o\n[322/433] Building CXX object src/CMakeFiles/luanti.dir/script/scripting_pause_menu.cpp.o\n[323/433] Building CXX object src/CMakeFiles/luanti.dir/script/scripting_server.cpp.o\n[324/433] Building CXX object src/CMakeFiles/luanti.dir/script/scripting_sscsm.cpp.o\n[325/433] Building CXX object src/CMakeFiles/luanti.dir/script/sscsm/sscsm_controller.cpp.o\n[326/433] Building CXX object src/CMakeFiles/luanti.dir/script/sscsm/sscsm_environment.cpp.o\n[327/433] Building CXX object src/CMakeFiles/luanti.dir/server/ban.cpp.o\n[328/433] Building CXX object src/CMakeFiles/luanti.dir/server/activeobjectmgr.cpp.o\n[329/433] Building CXX object src/CMakeFiles/luanti.dir/server/blockmodifier.cpp.o\n[330/433] Building CXX object src/CMakeFiles/luanti.dir/server/clientiface.cpp.o\n[331/433] Building CXX object src/CMakeFiles/luanti.dir/server/mods.cpp.o\n[332/433] Building CXX object src/CMakeFiles/luanti.dir/server/luaentity_sao.cpp.o\n[333/433] Building CXX object src/CMakeFiles/luanti.dir/server/player_sao.cpp.o\n[334/433] Building CXX object src/CMakeFiles/luanti.dir/server/rollback.cpp.o\n[335/433] Building CXX object src/CMakeFiles/luanti.dir/server/serveractiveobject.cpp.o\n[336/433] Building CXX object src/CMakeFiles/luanti.dir/server/serverinventorymgr.cpp.o\n[337/433] Building CXX object src/CMakeFiles/luanti.dir/server/serverlist.cpp.o\n[338/433] Building CXX object src/CMakeFiles/luanti.dir/server/unit_sao.cpp.o\n[339/433] Building CXX object src/CMakeFiles/luanti.dir/test/client/test_irr_gltf_mesh_loader.cpp.o\n[340/433] Building CXX object src/CMakeFiles/luanti.dir/test/client/test_irr_x_mesh_loader.cpp.o\n[341/433] Building CXX object src/CMakeFiles/luanti.dir/test/test.cpp.o\n[342/433] Building CXX object src/CMakeFiles/luanti.dir/test/test_irr_matrix4.cpp.o\n[343/433] Building CXX object src/CMakeFiles/luanti.dir/test/test_irr_rotation.cpp.o\n[344/433] Building CXX object src/CMakeFiles/luanti.dir/test/test_nodedef.cpp.o\n[345/433] Building CXX object src/CMakeFiles/luanti.dir/test/test_k_d_tree.cpp.o\n[346/433] Building CXX object src/CMakeFiles/luanti.dir/test/test_translations.cpp.o\n[347/433] Building CXX object src/CMakeFiles/luanti.dir/test/test_serveractiveobjectmgr.cpp.o\n[348/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/mesh_compare.cpp.o\n[349/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_activeobject.cpp.o\n[350/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test.cpp.o\n[351/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_address.cpp.o\n[352/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_areastore.cpp.o\n[353/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_authdatabase.cpp.o\n[354/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_ban.cpp.o\n[355/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_clientactiveobjectmgr.cpp.o\n[356/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_collision.cpp.o\n[357/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_compression.cpp.o\n[358/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_connection.cpp.o\n[359/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_content_mapblock.cpp.o\n[360/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_craft.cpp.o\n[361/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_eventmanager.cpp.o\n[362/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_datastructures.cpp.o\n[363/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_gameui.cpp.o\n[364/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_gettext.cpp.o\n[365/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_filesys.cpp.o\n[366/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_irrptr.cpp.o\n[367/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_inventory.cpp.o\n[368/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_keycode.cpp.o\n[369/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_lbmmanager.cpp.o\n[370/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_logging.cpp.o\n[371/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_lua.cpp.o\n[372/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_map.cpp.o\n[373/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_map_settings_manager.cpp.o\n[374/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_mapdatabase.cpp.o\n[375/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_mapblock.cpp.o\n[376/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_mapnode.cpp.o\n[377/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_mapgen.cpp.o\n[378/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_mesh_compare.cpp.o\n[379/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_modchannels.cpp.o\n[380/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_modstoragedatabase.cpp.o\n[381/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_noderesolver.cpp.o\n[382/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_moveaction.cpp.o\n[383/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_noise.cpp.o\n[384/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_objdef.cpp.o\n[385/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_profiler.cpp.o\n[386/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_random.cpp.o\n[387/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_schematic.cpp.o\n[388/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_sao.cpp.o\n[389/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_scriptapi.cpp.o\n[390/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_serialization.cpp.o\n[391/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_server_shutdown_state.cpp.o\n[392/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_servermodmanager.cpp.o\n[393/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_socket.cpp.o\n[394/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_settings.cpp.o\n[395/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_threading.cpp.o\n[396/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_utilities.cpp.o\n[397/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_voxelalgorithms.cpp.o\n[398/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_voxelarea.cpp.o\n[399/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_voxelmanipulator.cpp.o\n[400/433] Building CXX object src/CMakeFiles/luanti.dir/catch.cpp.o\n[401/433] Building CXX object src/CMakeFiles/luanti.dir/clientdynamicinfo.cpp.o\n[402/433] Building CXX object src/CMakeFiles/luanti.dir/collision.cpp.o\n[403/433] Building CXX object src/CMakeFiles/luanti.dir/content_mapnode.cpp.o\n[404/433] Building CXX object src/CMakeFiles/luanti.dir/defaultsettings.cpp.o\n[405/433] Building CXX object src/CMakeFiles/luanti.dir/emerge.cpp.o\n[406/433] Building CXX object src/CMakeFiles/luanti.dir/environment.cpp.o\n[407/433] Building CXX object src/CMakeFiles/luanti.dir/filesys.cpp.o\n[408/433] Building CXX object src/CMakeFiles/luanti.dir/gettext.cpp.o\n[409/433] Building CXX object src/CMakeFiles/luanti.dir/itemdef.cpp.o\n[410/433] Building CXX object src/CMakeFiles/luanti.dir/inventorymanager.cpp.o\n[411/433] Building CXX object src/CMakeFiles/luanti.dir/light.cpp.o\n[412/433] Building CXX object src/CMakeFiles/luanti.dir/map.cpp.o\n[413/433] Building CXX object src/CMakeFiles/luanti.dir/main.cpp.o\n[414/433] Building CXX object src/CMakeFiles/luanti.dir/map_settings_manager.cpp.o\n[415/433] Building CXX object src/CMakeFiles/luanti.dir/mapnode.cpp.o\n[416/433] Building CXX object src/CMakeFiles/luanti.dir/mapblock.cpp.o\n[417/433] Building CXX object src/CMakeFiles/luanti.dir/mapsector.cpp.o\n[418/433] Building CXX object src/CMakeFiles/luanti.dir/pathfinder.cpp.o\n[419/433] Building CXX object src/CMakeFiles/luanti.dir/nodedef.cpp.o\n[420/433] Building CXX object src/CMakeFiles/luanti.dir/porting.cpp.o\n[421/433] Building CXX object src/CMakeFiles/luanti.dir/player.cpp.o\n[422/433] Building CXX object src/CMakeFiles/luanti.dir/raycast.cpp.o\n[423/433] Building CXX object src/CMakeFiles/luanti.dir/reflowscan.cpp.o\n[424/433] Building CXX object src/CMakeFiles/luanti.dir/remoteplayer.cpp.o\n[425/433] Building CXX object src/CMakeFiles/luanti.dir/rollback_interface.cpp.o\n[426/433] Building CXX object src/CMakeFiles/luanti.dir/serverenvironment.cpp.o\n[427/433] Building CXX object src/CMakeFiles/luanti.dir/server.cpp.o\n[428/433] Building CXX object src/CMakeFiles/luanti.dir/servermap.cpp.o\n[429/433] Building CXX object src/CMakeFiles/luanti.dir/version.cpp.o\n[430/433] Building CXX object src/CMakeFiles/luanti.dir/translation.cpp.o\n[431/433] Building CXX object src/CMakeFiles/luanti.dir/voxel.cpp.o\n[432/433] Building CXX object src/CMakeFiles/luanti.dir/voxelalgorithms.cpp.o\n[433/433] Linking CXX executable $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-pe6a17so/prepared/bin/luanti\n",
+            "stdout_truncated": true
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "533341eb545c7874bd7c3a2363e78ce24354c7d2cf4ec0c48ef4b23a61f7ef4c",
+          "timed_out": false
+        }
+      ],
+      "results": [
+        {
+          "duration_ms": 1183.4964999870863,
+          "exit_code": -6,
+          "id": "luanti-pr14586-move-somewhere-partial-f2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "======== Testing module TestMoveAction\n2026-08-16 16:38:00: WARNING[Main]: No SHA256 known for builtin file \"$REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-pe6a17so/lazarus-p2p-lti3a53e/repo/bin/../builtin/game/tests/test_moveaction.lua\"\n2026-08-16 16:38:00: ERROR[Main]: In thread 0x1feedec40:\n2026-08-16 16:38:00: ERROR[Main]: $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-pe6a17so/prepared/src/script/cpp_api/s_base.cpp:509: void ScriptApiBase::objectrefGetOrCreate(lua_State *, ServerActiveObject *): A fatal error occurred: ScriptApiBase::ob\n2026-08-16 16:38:00: ERROR[Main]: jectrefGetOrCreate(): Pushing orphan ObjectRef. Please open a bug report for this.\n",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": false,
+          "stderr_sha256": "e2f63dff80587d76544c0886aa4e105e28002c2871c44690956de8b18b97f33f",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 38.95320897572674,
+          "exit_code": 0,
+          "id": "luanti-vector-zero-construction-p2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "+\n1 success / 0 failures / 0 errors / 0 pending : 0.0012 seconds\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "75eff3d3a7609175154ac5896087fd611808591cebf9ff95b2986c8a2f0181af",
+          "timed_out": false
+        }
+      ],
+      "terminal_failure_class": null,
+      "test_ids": [
+        "luanti-pr14586-move-somewhere-partial-f2p",
+        "luanti-vector-zero-construction-p2p"
+      ],
+      "version": "fixed"
+    },
+    {
+      "complete": false,
+      "duration_ms": 119530.25799998431,
+      "failures": [
+        "upstream test luanti-pr14586-move-somewhere-partial-f2p exited -6"
+      ],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "builtin/common/tests/vector_spec.lua",
+          "sha256": "69b5186f321232761b2c874856452d4b0c5634e93cd7276f2d56437aacd787ed",
+          "source_path": "upstream-tests/builtin/common/tests/vector_spec.lua"
+        },
+        {
+          "destination_path": "src/unittest/test_moveaction.cpp",
+          "sha256": "62d6485af1fcd534a5346505d89e4ade720f6bb996feb59fa548ca5c702885e6",
+          "source_path": "upstream-tests/src/unittest/test_moveaction.cpp"
+        }
+      ],
+      "passed": false,
+      "prepare_results": [
+        {
+          "duration_ms": 9.517833997961134,
+          "exit_code": 0,
+          "id": "luanti-unit-test-remove-stale-cache",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 10.63795798108913,
+          "exit_code": 0,
+          "id": "luanti-unit-test-remove-stale-cmake-files",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 3020.3587090072688,
+          "exit_code": 0,
+          "id": "luanti-unit-test-reconfigure",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "CMake Warning at src/CMakeLists.txt:86 (message):\n  cURL is required to use the server list, content browser or update checker\n\n\n",
+            "stderr_truncated": false,
+            "stdout": "-- The C compiler identification is AppleClang 21.0.0.21000101\n-- The CXX compiler identification is AppleClang 21.0.0.21000101\n-- Detecting C compiler ABI info\n-- Detecting C compiler ABI info - done\n-- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc - skipped\n-- Detecting C compile features\n-- Detecting C compile features - done\n-- Detecting CXX compiler ABI info\n-- Detecting CXX compiler ABI info - done\n-- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ - skipped\n-- Detecting CXX compile features\n-- Detecting CXX compile features - done\n-- *** Will build version 5.17.0-dev ***\n-- BUILD_CLIENT: TRUE\n-- BUILD_SERVER: FALSE\n-- BUILD_UNITTESTS: TRUE\n-- BUILD_BENCHMARKS: FALSE\n-- BUILD_DOCUMENTATION: FALSE\n-- RUN_IN_PLACE: TRUE\n-- Performing Test SUPPORTS_W_MISMATCHED_TAGS\n-- Performing Test SUPPORTS_W_MISMATCHED_TAGS - Success\n-- OpenGL (legacy): ON\n-- OpenGL 3: ON\n-- OpenGL ES 2: FALSE\n-- Found ZLIB: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk/usr/lib/libz.tbd (found version \"1.2.12\")\n-- Found JPEG: /opt/homebrew/lib/libjpeg.dylib (found version \"80\")\n-- Found PNG: /opt/homebrew/lib/libpng.dylib (found version \"1.6.58\")\n-- Found OpenGL: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk/System/Library/Frameworks/OpenGL.framework\n-- Found SDL2: SDL2::SDL2\n-- Performing Test CHECK_SDL_VERSION\n-- Performing Test CHECK_SDL_VERSION - Success\n-- LTO/IPO is not enabled\n-- Using GMP provided by system.\n-- Found GMP: /opt/homebrew/lib/libgmp.dylib\n-- Using JsonCpp provided by system.\n-- Found Json: /opt/homebrew/lib/libjsoncpp.dylib (Required is at least version \"1.0.0\")\n-- Found LuaJIT: /opt/homebrew/lib/libluajit-5.1.dylib\n-- Using LuaJIT\n-- Looking for include file endian.h\n-- Looking for include file endian.h - not found\n-- Check size of int\n-- Check size of int - done\n-- Looking for C++ include sys/types.h\n-- Looking for C++ include sys/types.h - found\n-- Looking for C++ include stdint.h\n-- Looking for C++ include stdint.h - found\n-- Looking for C++ include stddef.h\n-- Looking for C++ include stddef.h - found\n-- Check size of size_t\n-- Check size of size_t - done\n-- GetText disabled.\n-- Found Freetype: /opt/homebrew/lib/libfreetype.dylib (found version \"2.14.3\")\n-- Found SQLite3: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk/usr/lib/libsqlite3.tbd\n-- Prometheus client disabled.\n-- SpatialIndex not found!\n-- Found OpenSSL: /opt/homebrew/Cellar/openssl@3/3.6.2/lib/libcrypto.dylib (found suitable version \"3.6.2\", minimum required is \"3.0\")\n-- OpenSSL's libcrypto SHA enabled.\n-- Looking for ZSTD_initCStream\n-- Looking for ZSTD_initCStream - found\n-- Found Zstd: /opt/homebrew/lib/libzstd.dylib\n-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n-- Found Threads: TRUE\n-- Performing Test HAVE_LINK_ATOMIC\n-- Performing Test HAVE_LINK_ATOMIC - Failed\n-- Looking for strlcpy\n-- Looking for strlcpy - found\n-- Looking for malloc_trim\n-- Looking for malloc_trim - not found\n-- Looking for luaopen_string_buffer\n-- Looking for luaopen_string_buffer - found\n-- Configuring done (2.9s)\n-- Generating done (0.1s)\n-- Build files have been written to: $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-pcvsfqq1/prepared/build-lazarus-unittests\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "4dd8d12d4e8d475bac8474616b1710b77c98f64d867b9abbce3aae8b976dc67d",
+          "stdout_sha256": "4867337133a50c37dd38ed629f342fcd777d6ff4eb2e3112e57027a69adcaf8b",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 114521.6307080118,
+          "exit_code": 0,
+          "id": "luanti-unit-test-rebuild",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "[... output truncated; retained tail follows ...]\nti.dir/mapgen/mapgen_fractal.cpp.o\n[244/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mapgen_singlenode.cpp.o\n[245/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mapgen_v5.cpp.o\n[246/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mapgen_v6.cpp.o\n[247/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mapgen_v7.cpp.o\n[248/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mapgen_valleys.cpp.o\n[249/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mg_biome.cpp.o\n[250/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mg_decoration.cpp.o\n[251/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mg_ore.cpp.o\n[252/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/mg_schematic.cpp.o\n[253/433] Building CXX object src/CMakeFiles/luanti.dir/mapgen/treegen.cpp.o\n[254/433] Building CXX object src/CMakeFiles/luanti.dir/network/clientopcodes.cpp.o\n[255/433] Building CXX object src/CMakeFiles/luanti.dir/network/serveropcodes.cpp.o\n[256/433] Building CXX object src/CMakeFiles/luanti.dir/network/clientpackethandler.cpp.o\n[257/433] Building CXX object src/CMakeFiles/luanti.dir/network/serverpackethandler.cpp.o\n[258/433] Building CXX object src/CMakeFiles/luanti.dir/script/common/c_converter.cpp.o\n[259/433] Building CXX object src/CMakeFiles/luanti.dir/script/common/c_content.cpp.o\n[260/433] Building CXX object src/CMakeFiles/luanti.dir/script/common/c_internal.cpp.o\n[261/433] Building CXX object src/CMakeFiles/luanti.dir/script/common/c_packer.cpp.o\n[262/433] Building CXX object src/CMakeFiles/luanti.dir/script/common/helper.cpp.o\n[263/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_async.cpp.o\n[264/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_base.cpp.o\n[265/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_client.cpp.o\n[266/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_client_common.cpp.o\n[267/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_entity.cpp.o\n[268/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_env.cpp.o\n[269/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_inventory.cpp.o\n[270/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_mainmenu.cpp.o\n[271/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_item.cpp.o\n[272/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_mapgen.cpp.o\n[273/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_modchannels.cpp.o\n[274/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_node.cpp.o\n[275/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_nodemeta.cpp.o\n[276/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_pause_menu.cpp.o\n[277/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_player.cpp.o\n[278/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_server.cpp.o\n[279/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_security.cpp.o\n[280/433] Building CXX object src/CMakeFiles/luanti.dir/script/cpp_api/s_sscsm.cpp.o\n[281/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_areastore.cpp.o\n[282/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_async.cpp.o\n[283/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_auth.cpp.o\n[284/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_base.cpp.o\n[285/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_camera.cpp.o\n[286/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_client.cpp.o\n[287/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_client_common.cpp.o\n[288/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_client_sound.cpp.o\n[289/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_craft.cpp.o\n[290/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_http.cpp.o\n$REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-pcvsfqq1/prepared/src/script/lua_api/l_http.cpp:19:25: warning: unused variable 'es_HttpMethod' [-Wunused-const-variable]\n   19 | const static EnumString es_HttpMethod[] = {\n      |                         ^~~~~~~~~~~~~\n1 warning generated.\n[291/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_env.cpp.o\n[292/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_inventory.cpp.o\n[293/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_ipc.cpp.o\n[294/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_item.cpp.o\n[295/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_itemstackmeta.cpp.o\n[296/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_localplayer.cpp.o\n[297/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_mainmenu_sound.cpp.o\n[298/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_mainmenu.cpp.o\n[299/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_menu_common.cpp.o\n[300/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_metadata.cpp.o\n[301/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_mapgen.cpp.o\n[302/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_minimap.cpp.o\n[303/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_modchannels.cpp.o\n[304/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_nodetimer.cpp.o\n[305/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_nodemeta.cpp.o\n[306/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_noise.cpp.o\n[307/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_particles.cpp.o\n[308/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_object.cpp.o\n[309/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_particles_local.cpp.o\n[310/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_pause_menu.cpp.o\n[311/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_rollback.cpp.o\n[312/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_playermeta.cpp.o\n[313/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_settings.cpp.o\n[314/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_server.cpp.o\n[315/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_sscsm.cpp.o\n[316/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_storage.cpp.o\n[317/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_util.cpp.o\n[318/433] Building CXX object src/CMakeFiles/luanti.dir/script/lua_api/l_vmanip.cpp.o\n[319/433] Building CXX object src/CMakeFiles/luanti.dir/script/scripting_client.cpp.o\n[320/433] Building CXX object src/CMakeFiles/luanti.dir/script/scripting_emerge.cpp.o\n[321/433] Building CXX object src/CMakeFiles/luanti.dir/script/scripting_mainmenu.cpp.o\n[322/433] Building CXX object src/CMakeFiles/luanti.dir/script/scripting_pause_menu.cpp.o\n[323/433] Building CXX object src/CMakeFiles/luanti.dir/script/scripting_server.cpp.o\n[324/433] Building CXX object src/CMakeFiles/luanti.dir/script/scripting_sscsm.cpp.o\n[325/433] Building CXX object src/CMakeFiles/luanti.dir/script/sscsm/sscsm_controller.cpp.o\n[326/433] Building CXX object src/CMakeFiles/luanti.dir/script/sscsm/sscsm_environment.cpp.o\n[327/433] Building CXX object src/CMakeFiles/luanti.dir/server/ban.cpp.o\n[328/433] Building CXX object src/CMakeFiles/luanti.dir/server/activeobjectmgr.cpp.o\n[329/433] Building CXX object src/CMakeFiles/luanti.dir/server/blockmodifier.cpp.o\n[330/433] Building CXX object src/CMakeFiles/luanti.dir/server/clientiface.cpp.o\n[331/433] Building CXX object src/CMakeFiles/luanti.dir/server/mods.cpp.o\n[332/433] Building CXX object src/CMakeFiles/luanti.dir/server/luaentity_sao.cpp.o\n[333/433] Building CXX object src/CMakeFiles/luanti.dir/server/player_sao.cpp.o\n[334/433] Building CXX object src/CMakeFiles/luanti.dir/server/rollback.cpp.o\n[335/433] Building CXX object src/CMakeFiles/luanti.dir/server/serveractiveobject.cpp.o\n[336/433] Building CXX object src/CMakeFiles/luanti.dir/server/serverinventorymgr.cpp.o\n[337/433] Building CXX object src/CMakeFiles/luanti.dir/server/serverlist.cpp.o\n[338/433] Building CXX object src/CMakeFiles/luanti.dir/server/unit_sao.cpp.o\n[339/433] Building CXX object src/CMakeFiles/luanti.dir/test/client/test_irr_gltf_mesh_loader.cpp.o\n[340/433] Building CXX object src/CMakeFiles/luanti.dir/test/client/test_irr_x_mesh_loader.cpp.o\n[341/433] Building CXX object src/CMakeFiles/luanti.dir/test/test.cpp.o\n[342/433] Building CXX object src/CMakeFiles/luanti.dir/test/test_irr_matrix4.cpp.o\n[343/433] Building CXX object src/CMakeFiles/luanti.dir/test/test_irr_rotation.cpp.o\n[344/433] Building CXX object src/CMakeFiles/luanti.dir/test/test_nodedef.cpp.o\n[345/433] Building CXX object src/CMakeFiles/luanti.dir/test/test_k_d_tree.cpp.o\n[346/433] Building CXX object src/CMakeFiles/luanti.dir/test/test_translations.cpp.o\n[347/433] Building CXX object src/CMakeFiles/luanti.dir/test/test_serveractiveobjectmgr.cpp.o\n[348/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/mesh_compare.cpp.o\n[349/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_activeobject.cpp.o\n[350/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test.cpp.o\n[351/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_address.cpp.o\n[352/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_areastore.cpp.o\n[353/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_authdatabase.cpp.o\n[354/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_ban.cpp.o\n[355/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_clientactiveobjectmgr.cpp.o\n[356/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_collision.cpp.o\n[357/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_compression.cpp.o\n[358/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_connection.cpp.o\n[359/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_content_mapblock.cpp.o\n[360/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_craft.cpp.o\n[361/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_eventmanager.cpp.o\n[362/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_datastructures.cpp.o\n[363/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_gameui.cpp.o\n[364/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_gettext.cpp.o\n[365/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_filesys.cpp.o\n[366/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_irrptr.cpp.o\n[367/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_inventory.cpp.o\n[368/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_keycode.cpp.o\n[369/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_lbmmanager.cpp.o\n[370/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_logging.cpp.o\n[371/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_lua.cpp.o\n[372/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_map.cpp.o\n[373/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_map_settings_manager.cpp.o\n[374/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_mapdatabase.cpp.o\n[375/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_mapblock.cpp.o\n[376/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_mapnode.cpp.o\n[377/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_mapgen.cpp.o\n[378/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_mesh_compare.cpp.o\n[379/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_modchannels.cpp.o\n[380/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_modstoragedatabase.cpp.o\n[381/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_noderesolver.cpp.o\n[382/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_moveaction.cpp.o\n[383/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_noise.cpp.o\n[384/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_objdef.cpp.o\n[385/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_profiler.cpp.o\n[386/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_random.cpp.o\n[387/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_schematic.cpp.o\n[388/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_sao.cpp.o\n[389/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_scriptapi.cpp.o\n[390/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_serialization.cpp.o\n[391/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_server_shutdown_state.cpp.o\n[392/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_servermodmanager.cpp.o\n[393/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_socket.cpp.o\n[394/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_settings.cpp.o\n[395/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_threading.cpp.o\n[396/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_utilities.cpp.o\n[397/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_voxelalgorithms.cpp.o\n[398/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_voxelarea.cpp.o\n[399/433] Building CXX object src/CMakeFiles/luanti.dir/unittest/test_voxelmanipulator.cpp.o\n[400/433] Building CXX object src/CMakeFiles/luanti.dir/catch.cpp.o\n[401/433] Building CXX object src/CMakeFiles/luanti.dir/clientdynamicinfo.cpp.o\n[402/433] Building CXX object src/CMakeFiles/luanti.dir/collision.cpp.o\n[403/433] Building CXX object src/CMakeFiles/luanti.dir/content_mapnode.cpp.o\n[404/433] Building CXX object src/CMakeFiles/luanti.dir/defaultsettings.cpp.o\n[405/433] Building CXX object src/CMakeFiles/luanti.dir/emerge.cpp.o\n[406/433] Building CXX object src/CMakeFiles/luanti.dir/environment.cpp.o\n[407/433] Building CXX object src/CMakeFiles/luanti.dir/filesys.cpp.o\n[408/433] Building CXX object src/CMakeFiles/luanti.dir/gettext.cpp.o\n[409/433] Building CXX object src/CMakeFiles/luanti.dir/itemdef.cpp.o\n[410/433] Building CXX object src/CMakeFiles/luanti.dir/inventorymanager.cpp.o\n[411/433] Building CXX object src/CMakeFiles/luanti.dir/light.cpp.o\n[412/433] Building CXX object src/CMakeFiles/luanti.dir/map.cpp.o\n[413/433] Building CXX object src/CMakeFiles/luanti.dir/main.cpp.o\n[414/433] Building CXX object src/CMakeFiles/luanti.dir/map_settings_manager.cpp.o\n[415/433] Building CXX object src/CMakeFiles/luanti.dir/mapblock.cpp.o\n[416/433] Building CXX object src/CMakeFiles/luanti.dir/mapnode.cpp.o\n[417/433] Building CXX object src/CMakeFiles/luanti.dir/mapsector.cpp.o\n[418/433] Building CXX object src/CMakeFiles/luanti.dir/pathfinder.cpp.o\n[419/433] Building CXX object src/CMakeFiles/luanti.dir/nodedef.cpp.o\n[420/433] Building CXX object src/CMakeFiles/luanti.dir/porting.cpp.o\n[421/433] Building CXX object src/CMakeFiles/luanti.dir/player.cpp.o\n[422/433] Building CXX object src/CMakeFiles/luanti.dir/raycast.cpp.o\n[423/433] Building CXX object src/CMakeFiles/luanti.dir/reflowscan.cpp.o\n[424/433] Building CXX object src/CMakeFiles/luanti.dir/remoteplayer.cpp.o\n[425/433] Building CXX object src/CMakeFiles/luanti.dir/rollback_interface.cpp.o\n[426/433] Building CXX object src/CMakeFiles/luanti.dir/serverenvironment.cpp.o\n[427/433] Building CXX object src/CMakeFiles/luanti.dir/server.cpp.o\n[428/433] Building CXX object src/CMakeFiles/luanti.dir/servermap.cpp.o\n[429/433] Building CXX object src/CMakeFiles/luanti.dir/version.cpp.o\n[430/433] Building CXX object src/CMakeFiles/luanti.dir/translation.cpp.o\n[431/433] Building CXX object src/CMakeFiles/luanti.dir/voxel.cpp.o\n[432/433] Building CXX object src/CMakeFiles/luanti.dir/voxelalgorithms.cpp.o\n[433/433] Linking CXX executable $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-pcvsfqq1/prepared/bin/luanti\n",
+            "stdout_truncated": true
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "fd036a7df8a17f860b43815150810406f7fb7d3c3e4aa8259a1e439412fd214d",
+          "timed_out": false
+        }
+      ],
+      "results": [
+        {
+          "duration_ms": 869.7148330102209,
+          "exit_code": -6,
+          "id": "luanti-pr14586-move-somewhere-partial-f2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "======== Testing module TestMoveAction\n2026-08-16 16:40:00: WARNING[Main]: No SHA256 known for builtin file \"$REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-pcvsfqq1/lazarus-p2p-a9tv9e3f/repo/bin/../builtin/game/tests/test_moveaction.lua\"\n2026-08-16 16:40:00: ERROR[Main]: In thread 0x1feedec40:\n2026-08-16 16:40:00: ERROR[Main]: $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-pcvsfqq1/prepared/src/script/cpp_api/s_base.cpp:509: void ScriptApiBase::objectrefGetOrCreate(lua_State *, ServerActiveObject *): A fatal error occurred: ScriptApiBase::ob\n2026-08-16 16:40:00: ERROR[Main]: jectrefGetOrCreate(): Pushing orphan ObjectRef. Please open a bug report for this.\n",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": false,
+          "stderr_sha256": "3ca8f64e2d798c09616660f3e5bbb9d20ed5e3a43e98cbcd155413234c4d78b6",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 38.117915973998606,
+          "exit_code": 0,
+          "id": "luanti-vector-zero-construction-p2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "+\n1 success / 0 failures / 0 errors / 0 pending : 0.000954 seconds\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "7c817ec97dbe44659593358671e521ce798acd792c07cfea85da0c4c9d7358c8",
+          "timed_out": false
+        }
+      ],
+      "terminal_failure_class": null,
+      "test_ids": [
+        "luanti-pr14586-move-somewhere-partial-f2p",
+        "luanti-vector-zero-construction-p2p"
+      ],
+      "version": "buggy"
+    }
+  ],
+  "failures": [
+    "fixed fail_to_pass did not pass"
+  ],
+  "fixed_tests": {
+    "luanti-pr14586-move-somewhere-partial-f2p": false,
+    "luanti-vector-zero-construction-p2p": true
+  },
+  "patch_sha256": "5264b3a5d1ab61b4e5c982de296a28193717335d5923e4e4dc01eceb381015cb",
+  "qualified": false,
+  "record_sha256": "9078405c50aa257a50361736bf51ad68e85ac01008dfa316b02dbb3540dbf2b2",
+  "schema": "c1-lazarus-formal-construction-tests-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-14586-full-crafting-shift-move",
+  "terminal_failure_class": null
+}

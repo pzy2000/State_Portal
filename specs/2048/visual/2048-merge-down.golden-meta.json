@@ -1,0 +1,13 @@
+{
+  "actions": 1,
+  "after": "specs/2048/visual/2048-merge-down.after.golden.png",
+  "after_sha256": "a868d669adf4a19e1ac864cbe798bb5a1380e50739c9f919b02039ceeb8c5695",
+  "before": "specs/2048/visual/2048-merge-down.before.golden.png",
+  "before_sha256": "67a5f8fd1e2a1da7b77b5e78838ee983447500c4498d6c216f7459fa8e2dba50",
+  "benchmark": "2048",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/2048/merge-down.yaml",
+  "spec_sha256": "ee5bca58a3b9a0d630df6799d045727960994965f5916de1e6ae80980bf76366",
+  "task_id": "2048-merge-down"
+}

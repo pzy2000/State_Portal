@@ -1,0 +1,211 @@
+name: C1 DatingSim Elena dialogue memory consolidation
+benchmark: datingsim
+tags: [love, c1, deep-chain, dialogue, memory, no-openai]
+setup: {ai_mode: mocked}
+target:
+  kind: deterministic_state
+  player_name: WarpTest
+  gender: male
+  patch:
+    player:
+      dailyChatUsed: true
+      relationships:
+        char_1:
+          trust: 60
+          attraction: 45
+          comfort: 55
+          respect: 40
+          investment: 25
+          conflict: 0
+          status: friend
+          history: ["Met Elena at the gallery."]
+          memories: ["Quiet cafes", "Gallery opening", "Busy week", "Coffee joke", "Weekend plans"]
+    world: {location: cafe, week: 5, day: 2, timeSlot: afternoon}
+    activeDialogue:
+      characterId: char_1
+      isOpen: true
+      replyOptions: []
+      messages:
+        - {role: user, content: "How was the gallery?"}
+        - {role: assistant, content: "Busy, but the opening went well."}
+        - {role: user, content: "I remembered your favorite quiet cafe."}
+        - {role: assistant, content: "That means a lot to me."}
+  expect:
+    location: cafe
+    relationships:
+      char_1: {trust: 60, attraction: 45, status: friend}
+checkpoint:
+  allowed_strategies: [test_hook_seeded_state]
+  expected_validity: save-restorable
+actions:
+  - {type: click, selector: '[data-ui-action="close-dialogue"]'}
+  - {type: wait, ms: 1200}
+  - {type: click, selector: '[data-location-id="restaurant"]'}
+  - {type: click, selector: '[data-action-id="date_coffee"]'}
+  - {type: settle_events, timeout_s: 12}
+  - {type: click, selector: '[data-ui-action="save"]'}
+  - {type: click, selector: '[data-ui-action="load"]'}
+  - {type: wait, ms: 500}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: state_equals, path: player.relationships.char_1.trust, value: 60}
+      - {type: state_equals, path: player.relationships.char_1.comfort, value: 55}
+      - {type: state_contains, path: player.relationships.char_1.memories, value: "Elena and WarpTest reflected on the gallery opening and their shared quiet-cafe memory."}
+      - {type: state_equals, path: player.relationships.char_1.memories.length, value: 5}
+      - {type: state_equals, path: player.dailyChatUsed, value: true}
+      - {type: state_equals, path: world.location, value: restaurant}
+      - {type: state_equals, path: activeDialogue, value: null}
+      - {type: no_real_openai}
+      - {type: no_severe_console}
+    surfaces:
+      gui:
+        adapter: love_production_save_roundtrip_v1
+        start:
+          validate_target: true
+          checks:
+          - name: probe.semantic_observation_error
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: semantic_observation_error
+            expected:
+              value: null
+          - name: screen.gameplay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.screen
+            expected:
+              value: gameplay
+          - name: state.isSetupComplete
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.isSetupComplete
+            expected:
+              value: true
+          - name: state.player.name
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.name
+            expected:
+              value: WarpTest
+          - name: state.player.gender
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.gender
+            expected:
+              value: male
+          - name: dom.player_name
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.player_name
+            expected:
+              value: WarpTest
+          - name: dom.app_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.app_visible
+            expected:
+              value: true
+          - name: dom.dashboard_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.dashboard_visible
+            expected:
+              value: true
+          - name: dom.location_panel_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.location_panel_visible
+            expected:
+              value: true
+          - name: dom.action_grid_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.action_grid_visible
+            expected:
+              value: true
+          - name: state.world.location
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.world.location
+            expected:
+              value: cafe
+          - name: dom.active_location_index
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.active_location_index
+            expected:
+              value: 3
+          - name: environment.ai_query_mode
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.ai_query_mode
+            expected:
+              value: mocked
+        goal:
+          use_assertions: true
+          checks:
+          - name: transition.target_action_count
+            metric: equals
+            actual:
+              probe: love.target_action_count
+              action_id: null
+            expected:
+              value: 1
+          - name: transition.new_log_entries
+            metric: equals
+            actual:
+              probe: love.new_log_entries
+            expected:
+              value: 1
+      state:
+        adapter: love_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual/love-elena-dialogue-memory-consolidation.after.golden.png
+    golden_before: visual/love-elena-dialogue-memory-consolidation.before.golden.png
+    golden_after: visual/love-elena-dialogue-memory-consolidation.after.golden.png
+    expected_label: correct
+    description: "An open Elena cafe conversation is visible before consolidation."
+    after_description: "The closed conversation returns to the restaurant relationship UI after memory consolidation, the follow-up coffee date, and save/load."
+    rubric:
+      must: ["The Elena dialogue is visible in DatingSim.", "The page is rendered normally."]
+      must_not: ["A real API error, setup page, or blank page is visible."]
+      ignore: ["Exact text wrapping and response timing."]
+    after_rubric:
+      must: ["The DatingSim restaurant or Elena relationship UI is visible.", "The dialogue no longer blocks the main game UI."]
+      must_not: ["A real AI/API error or crash is visible."]
+      ignore: ["Exact memory text rendering, which is checked semantically by fixed summary, bounded length, and mocked-call provenance."]
+    capture: {stage: post_smoke, wait_ms: 1400, full_page: false, hide_selectors: [".modal-overlay:has(.event-title)"]}

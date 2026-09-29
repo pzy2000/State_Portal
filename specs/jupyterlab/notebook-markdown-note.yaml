@@ -1,0 +1,43 @@
+name: JupyterLab notebook markdown note checkpoint
+benchmark: JupyterLab
+repo: ../../games/jupyterlab
+tags: [jupyterlab, smoke, notebook, markdown]
+target:
+  kind: notebook
+  path: notebooks/markdown-note.ipynb
+  cells:
+    - cell_type: markdown
+      source: "## WarpTest note\n\nSaved through the Contents API.\n"
+checkpoint:
+  allowed_strategies: [jupyterlab_workspace_api_validate]
+  expected_validity: save-restorable
+actions:
+  - type: jupyterlab_open_file
+    path: notebooks/markdown-note.ipynb
+assertions:
+  - type: jupyterlab_file_exists
+    path: notebooks/markdown-note.ipynb
+  - type: no_jupyterlab_server_errors
+visual_oracle:
+  golden_image: visual/jupyterlab-notebook-markdown-note.after.golden.png
+  golden_before: visual/jupyterlab-notebook-markdown-note.before.golden.png
+  golden_after: visual/jupyterlab-notebook-markdown-note.after.golden.png
+  expected_label: correct
+  description: "The JupyterLab notebook editor is visible with notebooks/markdown-note.ipynb opened and the markdown note rendered in the notebook body."
+  rubric:
+    must:
+      - "A real JupyterLab UI is visible, including the top menu, left file browser, and central notebook area."
+      - "The notebook tab for markdown-note.ipynb is open."
+      - "The notebook body shows the markdown heading `WarpTest note`."
+      - "The notebook body shows the markdown text `Saved through the Contents API.`"
+    must_not:
+      - "The page is blank, loading-only, or a browser/server error page."
+      - "The JupyterLab shell is missing or replaced by a crash dialog."
+      - "The notebook content is absent or replaced by an unrelated document."
+    ignore:
+      - "Kernel status, focus ring, cursor, or selected-file styling differences."
+      - "Small font rendering or antialiasing differences across JupyterLab builds."
+  capture:
+    stage: post_smoke
+    wait_ms: 500
+    full_page: false

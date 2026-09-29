@@ -1,0 +1,220 @@
+{
+  "authority": "gitea",
+  "benchmark": "blender",
+  "comments": [
+    {
+      "author": "iss",
+      "body_normalized": "Can confirm.",
+      "body_raw": "Can confirm.",
+      "body_sha256": "ed558e00cdd7346e1dc4b73f3d34b17b941db35a2dffdb17518bb4740ae2283f",
+      "created_at": "2026-04-07T19:05:16+02:00",
+      "id": 1897331,
+      "source": "issue_comment",
+      "updated_at": "2026-04-07T19:05:16+02:00",
+      "url": "https://projects.blender.org/blender/blender/issues/156993#issuecomment-1897331"
+    },
+    {
+      "author": "Sean-Kim",
+      "body_normalized": "This appears to have been broken since at least 3.6",
+      "body_raw": "This appears to have been broken since at least 3.6",
+      "body_sha256": "d8dc9c3498f0ef8310baaa5b66dc2feb9983cfa46eec0fd40cc8ddf37bfa209d",
+      "created_at": "2026-04-07T20:58:24+02:00",
+      "id": 1897951,
+      "source": "issue_comment",
+      "updated_at": "2026-04-07T20:58:24+02:00",
+      "url": "https://projects.blender.org/blender/blender/issues/156993#issuecomment-1897951"
+    }
+  ],
+  "fix_commit": "be36644bfee11645e83b97f706a8852f6f12b57b",
+  "issue": {
+    "author": "JulienKaspar",
+    "body_normalized": "**System Information**\nOperating system: Linux-6.18.20-gentoo-dist-x86_64-AMD_Ryzen_Threadripper_1950X_16-Core_Processor-with-glibc2.42 64 Bits, WAYLAND UI\nGraphics card: AMD Radeon RX 7900 XT (RADV NAVI31) Advanced Micro Devices radv Mesa 26.0.4 Vulkan Backend\n\n**Blender Version**\nBroken: version: 5.2.0 Alpha, branch: main, commit date: 2026-04-06 22:56, hash: `0118924432e5`\nBroken: 3.6\n\n**Short description of error**\nI noticed that when I had cavity auto-masking enabled and then decided to create a mask from it with the \"Create Mask\" button, it would actually create an inverted mask. Any vertices that the auto-masking would leave alone to be sculpted on, will be the masked vertices. This seems backwards\n\n**Exact steps for others to reproduce the error**\n- Add a monkey objects, subdivide it a bunch and apply the modifiers\n- Go to sculpt mode\n- Enable Cavity auto-masking in the header and try sculpting with the grab brush\n- Press the \"Create Mask\" button in the auto-masking panel and disable the auto-masking\n- Now try painting on the mesh again -> It's the opposite result.",
+    "body_raw": "**System Information**\nOperating system: Linux-6.18.20-gentoo-dist-x86_64-AMD_Ryzen_Threadripper_1950X_16-Core_Processor-with-glibc2.42 64 Bits, WAYLAND UI\nGraphics card: AMD Radeon RX 7900 XT (RADV NAVI31) Advanced Micro Devices radv Mesa 26.0.4 Vulkan Backend\n\n**Blender Version**\nBroken: version: 5.2.0 Alpha, branch: main, commit date: 2026-04-06 22:56, hash: `0118924432e5`\nBroken: 3.6\n\n**Short description of error**\nI noticed that when I had cavity auto-masking enabled and then decided to create a mask from it with the \"Create Mask\" button, it would actually create an inverted mask. Any vertices that the auto-masking would leave alone to be sculpted on, will be the masked vertices. This seems backwards \n\n**Exact steps for others to reproduce the error**\n- Add a monkey objects, subdivide it a bunch and apply the modifiers\n- Go to sculpt mode\n- Enable Cavity auto-masking in the header and try sculpting with the grab brush\n- Press the \"Create Mask\" button in the auto-masking panel and disable the auto-masking\n- Now try painting on the mesh again -> It's the opposite result.\n\n\n",
+    "body_sha256": "ef602356907000247447efd2b6e147bfac506cbcb5b52f93bded63dec9b49ade",
+    "closed_at": "2026-04-07T22:09:56+02:00",
+    "created_at": "2026-04-07T15:41:36+02:00",
+    "number": 156993,
+    "state": "closed",
+    "title": "Sculpt Mode: Create Mask button in Auto-Masking panel is creating an inverse mask",
+    "updated_at": "2026-07-02T07:29:41+02:00",
+    "url": "https://projects.blender.org/blender/blender/issues/156993"
+  },
+  "patch_sha256": "32841eb0fe6b62411f0090c87a26967202f6725308c31bba0e1395febf5be3a1",
+  "pinned_revision": "3d018bcabdaeea66cf4ef4a96ce8913164831f6e",
+  "pull_request": null,
+  "record_sha256": "88293eafeca194e843e14cab84378dd9acfc3a0969350812cc94465c7b17e635",
+  "repository": "blender/blender",
+  "retrieved_at": "2026-08-11T13:12:36Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-blender-156993-sculpt-cavity-mask",
+  "tests": [
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/sculpt_paint/mask_test.py",
+        "--",
+        "--testdir",
+        "tests/files/sculpting",
+        "MaskFromCavityTest.test_operator_masks_low_vertices"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/sculpt_paint/mask_test.py",
+        "--",
+        "--testdir",
+        "tests/files/sculpting",
+        "MaskFromCavityTest.test_operator_masks_low_vertices"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/python/sculpt_paint/mask_test.py",
+          "sha256": "f171e8d53276a48d7fc8e7c3a3ed9749f24dfb113a808d74a6b6c43b967c4b73",
+          "source_path": "upstream-tests/tests/python/sculpt_paint/mask_test.py"
+        },
+        {
+          "destination_path": "tests/files/sculpting/plane_with_valley.blend",
+          "sha256": "cb8a42b2a050dfb6a7c0ad85dcdc42bf58263257d2379936317a84dd018c178a",
+          "source_path": "upstream-tests/tests/files/sculpting/plane_with_valley.blend"
+        }
+      ],
+      "id": "blender-156993-cavity-mask-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_sculpt_python_regression_suite",
+      "source_case": "MaskFromCavityTest.test_operator_masks_low_vertices",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/be36644bfee11645e83b97f706a8852f6f12b57b/tests/python/sculpt_paint/mask_test.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/sculpt_paint/mask_test.py",
+          "sha256": "f171e8d53276a48d7fc8e7c3a3ed9749f24dfb113a808d74a6b6c43b967c4b73",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/be36644bfee11645e83b97f706a8852f6f12b57b/tests/python/sculpt_paint/mask_test.py"
+        },
+        {
+          "path": "tests/files/sculpting/plane_with_valley.blend",
+          "sha256": "cb8a42b2a050dfb6a7c0ad85dcdc42bf58263257d2379936317a84dd018c178a",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/be36644bfee11645e83b97f706a8852f6f12b57b/tests/files/sculpting/plane_with_valley.blend"
+        }
+      ],
+      "upstream_test_path": "tests/python/sculpt_paint/mask_test.py",
+      "upstream_test_sha256": "f171e8d53276a48d7fc8e7c3a3ed9749f24dfb113a808d74a6b6c43b967c4b73"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/sculpt_paint/mask_test.py",
+        "--",
+        "--testdir",
+        "tests/files/sculpting",
+        "ClearMaskTest.test_value_removes_attribute"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/sculpt_paint/mask_test.py",
+        "--",
+        "--testdir",
+        "tests/files/sculpting",
+        "ClearMaskTest.test_value_removes_attribute"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/python/sculpt_paint/mask_test.py",
+          "sha256": "f171e8d53276a48d7fc8e7c3a3ed9749f24dfb113a808d74a6b6c43b967c4b73",
+          "source_path": "upstream-tests/tests/python/sculpt_paint/mask_test.py"
+        },
+        {
+          "destination_path": "tests/files/sculpting/plane_with_valley.blend",
+          "sha256": "cb8a42b2a050dfb6a7c0ad85dcdc42bf58263257d2379936317a84dd018c178a",
+          "source_path": "upstream-tests/tests/files/sculpting/plane_with_valley.blend"
+        }
+      ],
+      "id": "blender-clear-mask-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_sculpt_python_test_suite",
+      "source_case": "ClearMaskTest.test_value_removes_attribute",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/be36644bfee11645e83b97f706a8852f6f12b57b/tests/python/sculpt_paint/mask_test.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/sculpt_paint/mask_test.py",
+          "sha256": "f171e8d53276a48d7fc8e7c3a3ed9749f24dfb113a808d74a6b6c43b967c4b73",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/be36644bfee11645e83b97f706a8852f6f12b57b/tests/python/sculpt_paint/mask_test.py"
+        },
+        {
+          "path": "tests/files/sculpting/plane_with_valley.blend",
+          "sha256": "cb8a42b2a050dfb6a7c0ad85dcdc42bf58263257d2379936317a84dd018c178a",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/be36644bfee11645e83b97f706a8852f6f12b57b/tests/files/sculpting/plane_with_valley.blend"
+        }
+      ],
+      "upstream_test_path": "tests/python/sculpt_paint/mask_test.py",
+      "upstream_test_sha256": "f171e8d53276a48d7fc8e7c3a3ed9749f24dfb113a808d74a6b6c43b967c4b73"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "cwd": ".",
+      "id": "blender-mathutils-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "repository_python_test_suite",
+      "source_case": "bl_pyapi_mathutils",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/bl_pyapi_mathutils.py",
+          "sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py"
+        }
+      ],
+      "upstream_test_path": "tests/python/bl_pyapi_mathutils.py",
+      "upstream_test_sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af"
+    }
+  ],
+  "touched_files": [
+    "source/blender/editors/sculpt_paint/mesh/sculpt_ops.cc",
+    "tests/python/sculpt_paint/mask_test.py"
+  ],
+  "upstream_commits": []
+}

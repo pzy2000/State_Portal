@@ -1,0 +1,89 @@
+name: luanti place a water source node
+benchmark: luanti
+timeout_ms: 300000
+tags: ["luanti", "voxel", "liquid"]
+target:
+  kind: synthesized_world
+  fill:
+    - from: { x: 6, y: 1, z: 0 }
+      to: { x: 8, y: 1, z: 2 }
+      node: "basenodes:stone"
+  meta_inventory:
+    - pos: { x: 10, y: 1, z: 1 }
+      node: "chest:chest"
+      list: "main"
+      items:
+        - { item: "basenodes:water_source", count: 1 }
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_node
+    pos: { x: 7, y: 2, z: 1 }
+    node: "basenodes:water_source"
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: luanti_node_is
+        pos: { x: 7, y: 2, z: 1 }
+        expected: "basenodes:water_source"
+      - type: luanti_node_count
+        from: { x: 6, y: 1, z: 0 }
+        to: { x: 8, y: 1, z: 2 }
+        node: "basenodes:stone"
+        min_count: 9
+      - type: no_luanti_mod_errors
+    surfaces:
+      gui:
+        adapter: luanti_live_world_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: luanti_live_world_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/luanti-water-source.after.golden.png
+    golden_before: visual/luanti-water-source.before.golden.png
+    golden_after: visual/luanti-water-source.after.golden.png
+    expected_label: correct
+    description: "The rendered Luanti devtest world shows the bare 3 by 3 stone basin near spawn with nothing placed on it."
+    after_description: "The same stone basin is now covered by a placed water source that has spread across it, so blue flowing water is visible where the bare stone platform used to be."
+    rubric:
+      must:
+        - "The 3D voxel world is rendered and visible."
+        - "A bare stone basin/platform is visible near spawn."
+        - "No crash dialog, error overlay, or fully blank screen is shown."
+      must_not:
+        - "Water, lava, or any other liquid is already visible on the stone basin."
+        - "The screen is blank, black, or only shows the main menu."
+        - "An error dialog or exception stack trace is visible."
+      ignore:
+        - "Exact camera angle or lighting differences."
+        - "Chat and server status lines at the top of the screen."
+    after_rubric:
+      must:
+        - "The 3D voxel world is rendered and visible."
+        - "Blue water is visible on and around the stone basin where the bare platform used to be."
+        - "No crash dialog, error overlay, or fully blank screen is shown."
+      must_not:
+        - "The basin is still bare stone with no liquid on it."
+        - "The liquid is lava, snow, or another non-water node."
+        - "The screen is blank, black, or only shows the main menu."
+      ignore:
+        - "Exact camera angle, water animation frame, or lighting differences."
+        - "How far the water has spread beyond the basin."
+        - "Chat and server status lines at the top of the screen."
+    capture:
+      stage: post_smoke
+      wait_ms: 800
+      full_page: false

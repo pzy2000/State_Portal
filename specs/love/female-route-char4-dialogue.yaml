@@ -1,0 +1,83 @@
+name: DatingSim female route char_4 dialogue checkpoint
+benchmark: DatingSim
+tags:
+- love
+- dialogue
+- female-route
+- variant
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  seed: 48
+  player_name: WarpTest
+  gender: female
+  patch:
+    player:
+      relationships:
+        char_4:
+          trust: 45
+          attraction: 35
+          comfort: 40
+          respect: 30
+          investment: 15
+          conflict: 0
+          status: friend
+          history:
+          - Met Lucas at the local bar.
+          memories: []
+    world:
+      location: cafe
+  expect:
+    location: cafe
+    resources:
+      money: 1000
+      energy: 100
+    relationships:
+      char_4:
+        trust: 45
+        attraction: 35
+        status: friend
+checkpoint:
+  allowed_strategies:
+  - test_hook_seeded_state
+  expected_validity: injection-only
+actions:
+- type: hook_call
+  method: startDialogue
+  args:
+  - char_4
+  wait_ms: 300
+assertions:
+- type: state_equals
+  path: activeDialogue.isOpen
+  value: true
+- type: state_equals
+  path: activeDialogue.characterId
+  value: char_4
+- type: state_equals
+  path: player.dailyChatUsed
+  value: true
+- type: no_real_openai
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/dialogue-open.golden.png
+  expected_label: correct
+  description: The female-route Lucas relationship (char_4, never exercised by the
+    male-route-only spec suite) can open a dialogue from a seeded state.
+  rubric:
+    must:
+    - A DatingSim dialogue or chat modal is visible.
+    - The underlying game UI remains rendered normally.
+    must_not:
+    - The setup screen is still visible.
+    - A real AI/API error dominates the UI.
+    - The page is blank or crashed.
+    ignore:
+    - Minor typewriter animation differences.
+    - Exact greeting option text.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false
+    hide_selectors: [".modal-overlay:has(.event-title)"]

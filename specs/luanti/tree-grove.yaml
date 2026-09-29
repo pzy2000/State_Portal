@@ -1,0 +1,47 @@
+name: luanti plant a small tree grove
+benchmark: "luanti"
+timeout_ms: 300000
+tags: ["luanti", "voxel", "grove"]
+target:
+  kind: synthesized_world
+  nodes:
+    - pos: { x: -4, y: 1, z: -4 }
+      node: "basenodes:tree"
+    - pos: { x: -4, y: 1, z: -2 }
+      node: "basenodes:tree"
+    - pos: { x: -2, y: 1, z: -4 }
+      node: "basenodes:tree"
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_set_node
+    pos: { x: -2, y: 1, z: -2 }
+    node: "basenodes:tree"
+assertions:
+  - type: luanti_node_count
+    from: { x: -4, y: 1, z: -4 }
+    to: { x: -2, y: 1, z: -2 }
+    node: "basenodes:tree"
+    min_count: 4
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/tree-grove.golden.png
+  expected_label: correct
+  description: "Several tree-trunk blocks forming a small grove are rendered near spawn in the Luanti devtest world."
+  rubric:
+    must:
+      - "The 3D voxel world is rendered and visible."
+      - "Several tree-trunk blocks form a small grove or cluster near spawn."
+      - "The visible cluster matches the golden oracle at a coarse count/layout level."
+      - "No crash dialog, error overlay, or fully blank screen is shown."
+    must_not:
+      - "Only one block is visible, or the grove is replaced by a clearly different material cluster."
+      - "The screen is blank, black, or only shows the main menu."
+      - "An error dialog or exception stack trace is visible."
+    ignore:
+      - "Exact camera angle, lighting, or player position differences."
+  capture:
+    stage: post_smoke
+    wait_ms: 800
+    full_page: false

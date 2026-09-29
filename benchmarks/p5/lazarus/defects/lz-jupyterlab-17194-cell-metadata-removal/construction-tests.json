@@ -1,0 +1,337 @@
+{
+  "buggy_tests": {
+    "jupyterlab-17194-remove-cell-metadata-f2p": false,
+    "jupyterlab-coreutils-path-trial-p2p": true,
+    "jupyterlab-metadata-empty-removal-construction-p2p": true
+  },
+  "complete": true,
+  "executions": [
+    {
+      "complete": true,
+      "duration_ms": 43517.28308299789,
+      "failures": [],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "galata/test/jupyterlab/metadataform.test.ts",
+          "sha256": "7a2b022539e61d9cc9e99e53c543dc39c46dcf3acddb13a572e74aac4e4c6769",
+          "source_path": "upstream-tests/galata/test/jupyterlab/metadataform.test.ts"
+        },
+        {
+          "destination_path": "packages/coreutils/test/path.spec.ts",
+          "sha256": "6faeb6443b54150d600511e7ee1569c337d19f72c9d2d6e1e686fa5e532a6897",
+          "source_path": "upstream-tests/packages/coreutils/test/path.spec.ts"
+        }
+      ],
+      "passed": true,
+      "prepare_results": [
+        {
+          "duration_ms": 2889.357917010784,
+          "exit_code": 0,
+          "id": "jupyterlab-scoped-build-notebook-extension",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "lerna notice cli v7.1.4\nlerna info versioning independent\nlerna notice filter including \"@jupyterlab/notebook-extension\"\nlerna info filter [ '@jupyterlab/notebook-extension' ]\n(node:34892) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.\n(Use `node --trace-deprecation ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/notebook-extension:build\n\n\n \n\n >  Lerna (powered by Nx)   Successfully ran target build for project @jupyterlab/notebook-extension\n\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "1a87404d1f47bc0587f963ee8e0e8b5f08d6e876fd5afb540a09dd1262fcd950",
+          "stdout_sha256": "b98c2cbe24682306667ce039067c9b7a659b787d9ffc7516742022e4cf2f8f5d",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 3518.3769169962034,
+          "exit_code": 0,
+          "id": "jupyterlab-dev-mode-bundle",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/application-top@4.7.0-alpha.0 clean\n> rimraf build\n\nWARNING in ⚠ color\n  │   Multiple versions of color found:\n  │     3.2.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/react-base16-styling/~/color\n  │     5.0.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/color\n  │\n\nWARNING in ⚠ color-convert\n  │   Multiple versions of color-convert found:\n  │     1.9.3 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/color-convert\n  │     3.1.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/color/~/color-convert\n  │\n\nWARNING in ⚠ color-name\n  │   Multiple versions of color-name found:\n  │     1.1.3 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/color-convert/~/color-name\n  │     1.1.4 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/color-name\n  │     2.0.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/color/~/color-name\n  │\n\nWARNING in ⚠ color-string\n  │   Multiple versions of color-string found:\n  │     1.9.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/color-string\n  │     2.0.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/color/~/color-string\n  │\n\nWARNING in ⚠ cose-base\n  │   Multiple versions of cose-base found:\n  │     1.0.3 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/cose-base\n  │     2.2.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/cytoscape-fcose/~/cose-base\n  │\n\nWARNING in ⚠ d3-array\n  │   Multiple versions of d3-array found:\n  │     2.12.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/d3-sankey/~/d3-array\n  │     3.2.4 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/d3-array\n  │\n\nWARNING in ⚠ d3-path\n  │   Multiple versions of d3-path found:\n  │     1.0.9 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/d3-sankey/~/d3-path\n  │     3.1.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/d3-path\n  │\n\nWARNING in ⚠ d3-shape\n  │   Multiple versions of d3-shape found:\n  │     1.3.7 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/d3-sankey/~/d3-shape\n  │     3.2.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/d3-shape\n  │\n\nWARNING in ⚠ layout-base\n  │   Multiple versions of layout-base found:\n  │     1.0.2 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/layout-base\n  │     2.0.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/cytoscape-fcose/~/layout-base\n  │\n\nWARNING in ⚠ tslib\n  │   Multiple versions of tslib found:\n  │     1.14.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/@microsoft/fast-foundation/~/tslib\n  │     2.5.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/tslib\n  │\n\nWARNING in ⚠ vega-expression\n  │   Multiple versions of vega-expression found:\n  │     5.0.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/vega-lite/~/vega-expression\n  │     5.2.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/~/vega-expression\n  │ \n  │ Check how you can resolve duplicate packages:\n  │ https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin#resolving-duplicate-packages-in-your-bundle\n  │\n\nWARNING in ../node_modules/mathjax-full/js/components/loader.js\n  ⚠ Module parse warning:\n  ╰─▶   ⚠ \"__dirname\" is used and has been mocked. Remove it from your code, or set `node.__dirname` to disable this warning.\n\nRspack compiled with 12 warnings in 948 ms\n\nRspack compiled successfully in 388 ms\n\nRspack compiled successfully in 387 ms\n\nRspack compiled successfully in 397 ms\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "25aa7585a50cce87423683e20eff42f30433e92d4382861a7ede07898b8d2153",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 2235.6119999894872,
+          "exit_code": 0,
+          "id": "jupyterlab-test-build-galata",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "\nCompilation starting…\n\n\nCompilation finished\n\n",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/galata@5.7.0-alpha.0 build:extension\n> cd extension && npm run build && cd ..\n\n\n> @jupyterlab/galata-extension@5.7.0-alpha.0 build\n> npm run build:lib && npm run build:labextension\n\n\n> @jupyterlab/galata-extension@5.7.0-alpha.0 build:lib\n> tsc\n\n\n> @jupyterlab/galata-extension@5.7.0-alpha.0 build:labextension\n> node ../../node_modules/@jupyter/builder/lib/build-labextension.js --development --core-package-file ../../dev_mode/package.json .\n\nWARNING in ../lib/extension/fonts.js\n  ⚠ No required version specified and unable to automatically determine one. Unable to find required version for \"@fontsource/dejavu-mono\" in description file/s\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/galata/package.json\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/package.json\n  │ It need to be in dependencies, devDependencies or peerDependencies. file: shared module @fontsource/dejavu-mono\n @ ../lib/extension/index.js\n @ container entry\n\nWARNING in ../lib/extension/fonts.js\n  ⚠ No required version specified and unable to automatically determine one. Unable to find required version for \"@fontsource/dejavu-sans\" in description file/s\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/galata/package.json\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/package.json\n  │ It need to be in dependencies, devDependencies or peerDependencies. file: shared module @fontsource/dejavu-sans\n @ ../lib/extension/index.js\n @ container entry\n\nWARNING in ../lib/extension/fonts.js\n  ⚠ No required version specified and unable to automatically determine one. Unable to find required version for \"@fontsource-variable/noto-sans-sc\" in description file/s\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/galata/package.json\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-tdh93sc0/prepared/package.json\n  │ It need to be in dependencies, devDependencies or peerDependencies. file: shared module @fontsource-variable/noto-sans-sc\n @ ../lib/extension/index.js\n @ container entry\n\nRspack 2.0.2 compiled with 3 warnings in 131 ms\n\n> @jupyterlab/galata@5.7.0-alpha.0 build:galata\n> tsc -b\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "5dd3605b3acd3ecf12efe7b08b728cc053887bc7b4745c25d7c8323eddab04e6",
+          "stdout_sha256": "ef9603de0b953a50ae679c1bcad3279e04f1edf159161e56140e2471290fc99b",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1269.9384159932379,
+          "exit_code": 0,
+          "id": "jupyterlab-test-build-coreutils",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        }
+      ],
+      "results": [
+        {
+          "duration_ms": 5410.440041014226,
+          "exit_code": 0,
+          "id": "jupyterlab-17194-remove-cell-metadata-f2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "(node:35600) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:35600) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\nRunning 1 test using 1 worker\n\n  ✓  1 [jupyterlab] › test/jupyterlab/metadataform.test.ts:723:7 › Advanced tools › should remove a field from cellMedata and verify it is updated (2.5s)\n\n  1 passed (4.6s)\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "18f683d59e49475ca0983c84c101096ea169ca336d1dad8e2a08ef8d76a49057",
+          "stdout_sha256": "281ee87340614f94cbcb30f98d4a9ae4063adde2592dc1f6f5e8108af1f54a86",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 4380.861833022209,
+          "exit_code": 0,
+          "id": "jupyterlab-metadata-empty-removal-construction-p2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "(node:35720) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:35720) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\nRunning 1 test using 1 worker\n\n  ✓  1 [jupyterlab] › test/jupyterlab/metadataform.test.ts:283:7 › Nested metadata › should remove only the empty metadata (2.4s)\n\n  1 passed (3.7s)\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "d65e1b69de6b3cf0681ba320e41f9e8d3cffc752e7f3bb5444ef0cefbc90f74a",
+          "stdout_sha256": "55085a82e54c87193280c3d935d59da0be1c7a765c99814bfe612f64988f6fea",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1655.6993330013938,
+          "exit_code": 0,
+          "id": "jupyterlab-coreutils-path-trial-p2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "PASS test/path.spec.ts\n  @jupyterlab/coreutils\n    PathExt\n      .join()\n        ○ skipped should join the arguments and normalize the path\n        ○ skipped should not return \".\" for an empty path\n      .basename()\n        ✓ should return the last portion of a path\n      .dirname()\n        ○ skipped should get the directory name of a path\n        ○ skipped should not return \".\" for an empty path\n        ○ skipped should not return \".\" for a path in the root directory\n      .extname()\n        ○ skipped should get the file extension of the path\n        ○ skipped should only take the last occurrence of a dot\n      .normalize()\n        ○ skipped should normalize a string path\n        ○ skipped should not return \".\" for an empty path\n      .resolve()\n        ○ skipped should resolve a sequence of paths to an absolute path on the server\n      .relative()\n        ○ skipped should solve the relative path\n      .normalizeExtension()\n        ○ skipped should normalize a file extension to be of type `.foo`\n\nTest Suites: 1 passed, 1 total\nTests:       12 skipped, 1 passed, 13 total\nSnapshots:   0 total\nTime:        0.916 s\nRan all test suites within paths \"test/path.spec.ts\".\n",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "7c34870cc477a05bae9b39ddc8058f8ae6ce558862109efe3afe0e3792e85757",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        }
+      ],
+      "terminal_failure_class": null,
+      "test_ids": [
+        "jupyterlab-17194-remove-cell-metadata-f2p",
+        "jupyterlab-metadata-empty-removal-construction-p2p",
+        "jupyterlab-coreutils-path-trial-p2p"
+      ],
+      "version": "fixed"
+    },
+    {
+      "complete": false,
+      "duration_ms": 46676.13374997745,
+      "failures": [
+        "upstream test jupyterlab-17194-remove-cell-metadata-f2p exited 1"
+      ],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "galata/test/jupyterlab/metadataform.test.ts",
+          "sha256": "7a2b022539e61d9cc9e99e53c543dc39c46dcf3acddb13a572e74aac4e4c6769",
+          "source_path": "upstream-tests/galata/test/jupyterlab/metadataform.test.ts"
+        },
+        {
+          "destination_path": "packages/coreutils/test/path.spec.ts",
+          "sha256": "6faeb6443b54150d600511e7ee1569c337d19f72c9d2d6e1e686fa5e532a6897",
+          "source_path": "upstream-tests/packages/coreutils/test/path.spec.ts"
+        }
+      ],
+      "passed": false,
+      "prepare_results": [
+        {
+          "duration_ms": 2341.844165988732,
+          "exit_code": 0,
+          "id": "jupyterlab-scoped-build-notebook-extension",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "lerna notice cli v7.1.4\nlerna info versioning independent\nlerna notice filter including \"@jupyterlab/notebook-extension\"\nlerna info filter [ '@jupyterlab/notebook-extension' ]\n(node:36517) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.\n(Use `node --trace-deprecation ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/notebook-extension:build\n\n\n \n\n >  Lerna (powered by Nx)   Successfully ran target build for project @jupyterlab/notebook-extension\n\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "17db79238cd7c03403cc45325284eb7483ed66f4f25b971fca8e5ad27a5b3141",
+          "stdout_sha256": "b98c2cbe24682306667ce039067c9b7a659b787d9ffc7516742022e4cf2f8f5d",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 3481.410375010455,
+          "exit_code": 0,
+          "id": "jupyterlab-dev-mode-bundle",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/application-top@4.7.0-alpha.0 clean\n> rimraf build\n\nWARNING in ⚠ color\n  │   Multiple versions of color found:\n  │     3.2.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/react-base16-styling/~/color\n  │     5.0.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/color\n  │\n\nWARNING in ⚠ color-convert\n  │   Multiple versions of color-convert found:\n  │     1.9.3 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/color-convert\n  │     3.1.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/color/~/color-convert\n  │\n\nWARNING in ⚠ color-name\n  │   Multiple versions of color-name found:\n  │     1.1.3 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/color-convert/~/color-name\n  │     1.1.4 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/color-name\n  │     2.0.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/color/~/color-name\n  │\n\nWARNING in ⚠ color-string\n  │   Multiple versions of color-string found:\n  │     1.9.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/color-string\n  │     2.0.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/color/~/color-string\n  │\n\nWARNING in ⚠ cose-base\n  │   Multiple versions of cose-base found:\n  │     1.0.3 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/cose-base\n  │     2.2.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/cytoscape-fcose/~/cose-base\n  │\n\nWARNING in ⚠ d3-array\n  │   Multiple versions of d3-array found:\n  │     2.12.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/d3-sankey/~/d3-array\n  │     3.2.4 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/d3-array\n  │\n\nWARNING in ⚠ d3-path\n  │   Multiple versions of d3-path found:\n  │     1.0.9 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/d3-sankey/~/d3-path\n  │     3.1.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/d3-path\n  │\n\nWARNING in ⚠ d3-shape\n  │   Multiple versions of d3-shape found:\n  │     1.3.7 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/d3-sankey/~/d3-shape\n  │     3.2.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/d3-shape\n  │\n\nWARNING in ⚠ layout-base\n  │   Multiple versions of layout-base found:\n  │     1.0.2 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/layout-base\n  │     2.0.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/cytoscape-fcose/~/layout-base\n  │\n\nWARNING in ⚠ tslib\n  │   Multiple versions of tslib found:\n  │     1.14.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/@microsoft/fast-foundation/~/tslib\n  │     2.5.0 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/tslib\n  │\n\nWARNING in ⚠ vega-expression\n  │   Multiple versions of vega-expression found:\n  │     5.0.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/vega-lite/~/vega-expression\n  │     5.2.1 $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/~/vega-expression\n  │ \n  │ Check how you can resolve duplicate packages:\n  │ https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin#resolving-duplicate-packages-in-your-bundle\n  │\n\nWARNING in ../node_modules/mathjax-full/js/components/loader.js\n  ⚠ Module parse warning:\n  ╰─▶   ⚠ \"__dirname\" is used and has been mocked. Remove it from your code, or set `node.__dirname` to disable this warning.\n\nRspack compiled with 12 warnings in 957 ms\n\nRspack compiled successfully in 375 ms\n\nRspack compiled successfully in 374 ms\n\nRspack compiled successfully in 374 ms\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "3ef21854df06172178300f297c2a1644a580c44bef424b7b5ea8f0cfdc1725d9",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 2344.7493750136346,
+          "exit_code": 0,
+          "id": "jupyterlab-test-build-galata",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "\nCompilation starting…\n\n\nCompilation finished\n\n",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/galata@5.7.0-alpha.0 build:extension\n> cd extension && npm run build && cd ..\n\n\n> @jupyterlab/galata-extension@5.7.0-alpha.0 build\n> npm run build:lib && npm run build:labextension\n\n\n> @jupyterlab/galata-extension@5.7.0-alpha.0 build:lib\n> tsc\n\n\n> @jupyterlab/galata-extension@5.7.0-alpha.0 build:labextension\n> node ../../node_modules/@jupyter/builder/lib/build-labextension.js --development --core-package-file ../../dev_mode/package.json .\n\nWARNING in ../lib/extension/fonts.js\n  ⚠ No required version specified and unable to automatically determine one. Unable to find required version for \"@fontsource/dejavu-sans\" in description file/s\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/galata/package.json\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/package.json\n  │ It need to be in dependencies, devDependencies or peerDependencies. file: shared module @fontsource/dejavu-sans\n @ ../lib/extension/index.js\n @ container entry\n\nWARNING in ../lib/extension/fonts.js\n  ⚠ No required version specified and unable to automatically determine one. Unable to find required version for \"@fontsource-variable/noto-sans-sc\" in description file/s\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/galata/package.json\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/package.json\n  │ It need to be in dependencies, devDependencies or peerDependencies. file: shared module @fontsource-variable/noto-sans-sc\n @ ../lib/extension/index.js\n @ container entry\n\nWARNING in ../lib/extension/fonts.js\n  ⚠ No required version specified and unable to automatically determine one. Unable to find required version for \"@fontsource/dejavu-mono\" in description file/s\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/galata/package.json\n  │ $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/prepared/package.json\n  │ It need to be in dependencies, devDependencies or peerDependencies. file: shared module @fontsource/dejavu-mono\n @ ../lib/extension/index.js\n @ container entry\n\nRspack 2.0.2 compiled with 3 warnings in 178 ms\n\n> @jupyterlab/galata@5.7.0-alpha.0 build:galata\n> tsc -b\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "5dd3605b3acd3ecf12efe7b08b728cc053887bc7b4745c25d7c8323eddab04e6",
+          "stdout_sha256": "d257aaec682c0ef4fc44ba23bfe750b2931b55dde12e5d5b368145eb4f9de31b",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1241.8792500102427,
+          "exit_code": 0,
+          "id": "jupyterlab-test-build-coreutils",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        }
+      ],
+      "results": [
+        {
+          "duration_ms": 10737.793292006245,
+          "exit_code": 1,
+          "id": "jupyterlab-17194-remove-cell-metadata-f2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "(node:37275) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:37275) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\nRunning 1 test using 1 worker\n\n  ✘  1 [jupyterlab] › test/jupyterlab/metadataform.test.ts:723:7 › Advanced tools › should remove a field from cellMedata and verify it is updated (7.8s)\n\n\n  1) [jupyterlab] › test/jupyterlab/metadataform.test.ts:723:7 › Advanced tools › should remove a field from cellMedata and verify it is updated \n\n    Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\n    Locator:  locator('.jp-CellMetadataEditor .cm-content').locator('.cm-line')\n    Expected: \u001b[32m1\u001b[39m\n    Received: \u001b[31m3\u001b[39m\n    Timeout:  5000ms\n\n    Call log:\n    \u001b[2m  - Expect \"toHaveCount\" with timeout 5000ms\u001b[22m\n    \u001b[2m  - waiting for locator('.jp-CellMetadataEditor .cm-content').locator('.cm-line')\u001b[22m\n    \u001b[2m    14 × locator resolved to 3 elements\u001b[22m\n    \u001b[2m       - unexpected value \"3\"\u001b[22m\n\n\n      762 |     // Verify the updaetd cellMetadata\n      763 |     const cmLinesAfter = cellMetadataEditor.locator('.cm-line');\n    > 764 |     await expect(cmLinesAfter).toHaveCount(1);\n          |                                ^\n      765 |     await expect(cellMetadataEditor).toContainText('{}');\n      766 |   });\n      767 | });\n        at $REPO_ROOT/.warptest-cache/lazarus/construction/lazarus-construction-qyq9lmdp/lazarus-p2p-q5iytlq0/repo/galata/test/jupyterlab/metadataform.test.ts:764:32\n\n    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────\n    test-results/test-jupyterlab-metadatafo-eb3d4-ta-and-verify-it-is-updated-jupyterlab/video.webm\n    ────────────────────────────────────────────────────────────────────────────────────────────────\n\n    Error Context: test-results/test-jupyterlab-metadatafo-eb3d4-ta-and-verify-it-is-updated-jupyterlab/error-context.md\n\n    Error Context: test-results/test-jupyterlab-metadatafo-eb3d4-ta-and-verify-it-is-updated-jupyterlab/error-context.md\n\n  1 failed\n    [jupyterlab] › test/jupyterlab/metadataform.test.ts:723:7 › Advanced tools › should remove a field from cellMedata and verify it is updated \n",
+            "stdout_truncated": false
+          },
+          "passed": false,
+          "stderr_sha256": "f580c063faa96679095ff29b28a24f2e7ce8b5ba1aa8d04ca592b72f55f3722a",
+          "stdout_sha256": "8be0978d21d128c383bc26546f899cff79b2a11eb40680cc7414b8a13817f30b",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 4280.178124987287,
+          "exit_code": 0,
+          "id": "jupyterlab-metadata-empty-removal-construction-p2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "(node:37550) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:37550) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\nRunning 1 test using 1 worker\n\n  ✓  1 [jupyterlab] › test/jupyterlab/metadataform.test.ts:283:7 › Nested metadata › should remove only the empty metadata (2.2s)\n\n  1 passed (3.6s)\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "c3dc55809ab5276134589882c747929a9ed573a95c8ba14124046e46a06f37df",
+          "stdout_sha256": "2db1c070e3017443882bad2747e9cc3da0281c43e5e3afab97b4c6f2af3a6d6d",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1710.1422080013435,
+          "exit_code": 0,
+          "id": "jupyterlab-coreutils-path-trial-p2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "PASS test/path.spec.ts\n  @jupyterlab/coreutils\n    PathExt\n      .join()\n        ○ skipped should join the arguments and normalize the path\n        ○ skipped should not return \".\" for an empty path\n      .basename()\n        ✓ should return the last portion of a path (1 ms)\n      .dirname()\n        ○ skipped should get the directory name of a path\n        ○ skipped should not return \".\" for an empty path\n        ○ skipped should not return \".\" for a path in the root directory\n      .extname()\n        ○ skipped should get the file extension of the path\n        ○ skipped should only take the last occurrence of a dot\n      .normalize()\n        ○ skipped should normalize a string path\n        ○ skipped should not return \".\" for an empty path\n      .resolve()\n        ○ skipped should resolve a sequence of paths to an absolute path on the server\n      .relative()\n        ○ skipped should solve the relative path\n      .normalizeExtension()\n        ○ skipped should normalize a file extension to be of type `.foo`\n\nTest Suites: 1 passed, 1 total\nTests:       12 skipped, 1 passed, 13 total\nSnapshots:   0 total\nTime:        0.942 s\nRan all test suites within paths \"test/path.spec.ts\".\n",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "4528b1ad78273f1fa24c44f569a131c9febea31259fb13579170fd11f307c07c",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        }
+      ],
+      "terminal_failure_class": null,
+      "test_ids": [
+        "jupyterlab-17194-remove-cell-metadata-f2p",
+        "jupyterlab-metadata-empty-removal-construction-p2p",
+        "jupyterlab-coreutils-path-trial-p2p"
+      ],
+      "version": "buggy"
+    }
+  ],
+  "failures": [],
+  "fixed_tests": {
+    "jupyterlab-17194-remove-cell-metadata-f2p": true,
+    "jupyterlab-coreutils-path-trial-p2p": true,
+    "jupyterlab-metadata-empty-removal-construction-p2p": true
+  },
+  "patch_sha256": "072d21da0a7638fec26fc10f4a1ae0c6ce8ff87189b9d4f97f61a615a2654440",
+  "qualified": true,
+  "record_sha256": "18633ac1bd923d1ca42206cf8aabcf92b1439036efa78718775085280a8ca0bb",
+  "schema": "c1-lazarus-formal-construction-tests-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-17194-cell-metadata-removal",
+  "terminal_failure_class": null
+}

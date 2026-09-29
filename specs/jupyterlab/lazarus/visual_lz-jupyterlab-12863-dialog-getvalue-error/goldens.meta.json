@@ -1,0 +1,88 @@
+{
+  "after_differential": {
+    "changed_pixel_ratio": 0.9183888888888889,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 61.44063395061729
+  },
+  "before_buggy_sha256": "809989997fe22b1dbb8a1de38565c6f616381d996702135b2836050ffb1ab8c0",
+  "before_equivalence": {
+    "changed_pixel_ratio": 0.0,
+    "ignored_top_fraction": 0.0,
+    "mean_absolute_difference": 0.0
+  },
+  "before_sha256": "809989997fe22b1dbb8a1de38565c6f616381d996702135b2836050ffb1ab8c0",
+  "buggy_after_sha256": "809989997fe22b1dbb8a1de38565c6f616381d996702135b2836050ffb1ab8c0",
+  "fixed_after_sha256": "1dbe0fdc653f523c349a61818090cb963a19367a2cffef09fa53edafd3d06c1c",
+  "frames": {
+    "buggy_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "809989997fe22b1dbb8a1de38565c6f616381d996702135b2836050ffb1ab8c0",
+      "quality": {
+        "image_size": [
+          900,
+          600
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 24364,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "d67bac811a5a697baa3f8c6d6308e67b860bfed71381921dd72838e86a78cdb6"
+    },
+    "buggy_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "809989997fe22b1dbb8a1de38565c6f616381d996702135b2836050ffb1ab8c0",
+      "quality": {
+        "image_size": [
+          900,
+          600
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 24364,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "5f1f6b2ab986bca363a6126edcec9e76df7454b231e9722b326b9bcd0752e601"
+    },
+    "fixed_after": {
+      "expected_semantics_ok": true,
+      "image_sha256": "1dbe0fdc653f523c349a61818090cb963a19367a2cffef09fa53edafd3d06c1c",
+      "quality": {
+        "image_size": [
+          900,
+          600
+        ],
+        "informative": true,
+        "pixel_range": 223,
+        "size_bytes": 14174,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "488438226340f6abb82b61e4ad2512e1b08b30cd849297419c966bc178129f27"
+    },
+    "fixed_before": {
+      "expected_semantics_ok": true,
+      "image_sha256": "809989997fe22b1dbb8a1de38565c6f616381d996702135b2836050ffb1ab8c0",
+      "quality": {
+        "image_size": [
+          900,
+          600
+        ],
+        "informative": true,
+        "pixel_range": 255,
+        "size_bytes": 24364,
+        "unique_byte_values": 256
+      },
+      "report_sha256": "92bc9857547ea2c1da9237eae8c12049cfd15909de2fdf14b46d0d24f20211db"
+    }
+  },
+  "policy": {
+    "after_min_changed_pixel_ratio": 0.001,
+    "before_max_changed_pixel_ratio": 0.01,
+    "ignore_top_fraction": 0.0
+  },
+  "published_unix_ns": 1786768710366868000,
+  "schema": "c1-lazarus-goldens-v1",
+  "schema_version": 1,
+  "source": "materialized_fixed_buggy_runtime_capture",
+  "task_id": "lz-jupyterlab-12863-dialog-getvalue-error"
+}

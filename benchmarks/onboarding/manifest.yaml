@@ -1,0 +1,511 @@
+schema_version: 1
+pilot_id: pilot-v1
+model: gpt-5.6-sol
+reasoning_effort: medium
+prompt: prompt.md
+
+apps:
+  - id: "2048"
+    family: browser_localstorage
+    remote: https://github.com/gabrielecirulli/2048.git
+    clean_commit: 478b6ec346e3787f589e4af751378d06ded4cbbc
+    capability_brief: >-
+      Restore and read a 4x4 2048 board plus score and bestScore through the
+      application's real persistence and startup path. A save_reload request
+      must reload the page and report the board rendered by the game.
+    runtime_notes: A static local HTTP server and Playwright are available.
+    prepare: []
+    checks:
+      build:
+        argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_build.py", "--app", "2048", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+        timeout_s: 120
+    driver_env: {}
+    development_smoke:
+      id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 120
+      target: &board_dev
+        board: [[2, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+        score: 0
+        bestScore: 0
+      expected: *board_dev
+    held_out:
+      - id: heldout-a
+        roundtrip: save_reload
+        timeout_s: 120
+        target: &board_a
+          board: [[2, 2, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+          score: 0
+          bestScore: 0
+        expected: *board_a
+      - id: heldout-b
+        roundtrip: save_reload
+        timeout_s: 120
+        target: &board_b
+          board: [[1024, 1024, 0, 0], [4, 8, 16, 32], [0, 0, 0, 0], [0, 0, 0, 0]]
+          score: 4096
+          bestScore: 4096
+        expected: *board_b
+    reference:
+      argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_reference.py", "--manifest", "{harness_root}/benchmarks/onboarding/manifest.yaml", "--app", "2048", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+      timeout_s: 600
+
+  - id: spacerpg
+    family: browser_zustand
+    remote: https://github.com/anonymous/SpaceRPG.git
+    clean_commit: withheld
+    capability_brief: >-
+      Restore and read selected SpaceRPG store fields including the normalized
+      post-load screen,
+      currentSystemId, currentStationId, player credits, and cargo. Persist the
+      state through the game's own save path and reload it without enabling an
+      external economy backend.
+    runtime_notes: Node, npm, Vite, and Playwright are available; keep network-backed economy disabled.
+    prepare:
+      - argv: [npm, ci]
+        timeout_s: 900
+    checks:
+      build:
+        argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_build.py", "--app", "spacerpg", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+        timeout_s: 900
+    driver_env:
+      WARPTEST_ONBOARDING_DISABLE_ECONOMY: "1"
+    development_smoke:
+      id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 180
+      target: &gof_dev
+        screen: flight
+        currentSystemId: helion-reach
+        currentStationId: helion-prime
+        player: {credits: 1000, cargo: {basic-food: 1}}
+      expected: *gof_dev
+    held_out:
+      - id: heldout-a
+        roundtrip: save_reload
+        timeout_s: 180
+        target: &gof_a
+          screen: flight
+          currentSystemId: helion-reach
+          currentStationId: helion-prime
+          player: {credits: 1730}
+        expected: *gof_a
+      - id: heldout-b
+        roundtrip: save_reload
+        timeout_s: 180
+        target: &gof_b
+          screen: flight
+          currentSystemId: helion-reach
+          currentStationId: helion-prime
+          player: {credits: 1800, cargo: {basic-food: 3}}
+        expected: *gof_b
+    reference:
+      argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_reference.py", "--manifest", "{harness_root}/benchmarks/onboarding/manifest.yaml", "--app", "spacerpg", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+      timeout_s: 1200
+
+  - id: datingsim
+    family: browser_zustand
+    remote: https://github.com/anonymous/DatingSim.git
+    clean_commit: withheld
+    capability_brief: >-
+      Initialize the game and restore/read player identity, nested resources,
+      and world location/date through the real Zustand store and persistence
+      manager. No real LLM or external network call may occur.
+    runtime_notes: Node, npm, Vite, and Playwright are available; all AI behavior must remain disabled or mocked.
+    prepare:
+      - argv: [npm, ci]
+        timeout_s: 900
+    checks:
+      build:
+        argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_build.py", "--app", "datingsim", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+        timeout_s: 900
+    driver_env:
+      WARPTEST_ONBOARDING_DISABLE_AI: "1"
+    development_smoke:
+      id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 180
+      target: &love_dev
+        player_name: Dev
+        gender: male
+        player: {resources: {money: 1000, energy: 100}}
+        world: {location: home, week: 1, day: 0, timeSlot: morning}
+      expected: *love_dev
+    held_out:
+      - id: heldout-a
+        roundtrip: save_reload
+        timeout_s: 180
+        target: &love_a
+          player_name: Ada
+          gender: female
+          player: {resources: {money: 1234, energy: 77}}
+          world: {location: gym, week: 1, day: 1, timeSlot: afternoon}
+        expected: *love_a
+      - id: heldout-b
+        roundtrip: save_reload
+        timeout_s: 180
+        target: &love_b
+          player_name: Lin
+          gender: male
+          player: {resources: {money: 888, energy: 65}}
+          world: {location: home, week: 2, day: 3, timeSlot: evening}
+        expected: *love_b
+    reference:
+      argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_reference.py", "--manifest", "{harness_root}/benchmarks/onboarding/manifest.yaml", "--app", "datingsim", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+      timeout_s: 1200
+
+  - id: openra
+    family: native_public_settings
+    remote: https://github.com/OpenRA/OpenRA.git
+    clean_commit: f31a0b06a0c5587dc7a085a10b01d859ff6e4c36
+    capability_brief: >-
+      Write and read a bounded subset of OpenRA's real user settings, including
+      Game.ViewportEdgeScroll and Game.TargetLines, using an isolated support
+      directory. A save_reload request must re-read the persisted MiniYaml state.
+    runtime_notes: .NET 10 and the repository build scripts are available; do not use online news, Discord, or multiplayer services.
+    prepare:
+      - argv: [dotnet, restore, OpenRA.sln]
+        timeout_s: 1200
+    checks:
+      build:
+        argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_build.py", "--app", "openra", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+        timeout_s: 1500
+    driver_env: {}
+    development_smoke:
+      id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 180
+      target: &openra_dev
+        kind: openra_settings
+        settings: {Game: {StatusBars: Standard}}
+      expected: *openra_dev
+    held_out:
+      - id: heldout-a
+        roundtrip: save_reload
+        timeout_s: 180
+        target: &openra_a
+          kind: openra_settings
+          settings: {Game: {ViewportEdgeScroll: false}}
+        expected: *openra_a
+      - id: heldout-b
+        roundtrip: save_reload
+        timeout_s: 180
+        target: &openra_b
+          kind: openra_settings
+          settings: {Game: {TargetLines: Automatic}}
+        expected: *openra_b
+    reference:
+      argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_reference.py", "--manifest", "{harness_root}/benchmarks/onboarding/manifest.yaml", "--app", "openra", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+      timeout_s: 1800
+
+  - id: jupyterlab
+    family: public_server_api
+    remote: https://github.com/jupyterlab/jupyterlab.git
+    clean_commit: 4a19f8fff4049a9536e21fa2980fe7e5ee592d01
+    capability_brief: >-
+      Use Jupyter Server's Contents API to create and read text files and
+      notebooks in an isolated root. A save_reload request must reconnect or
+      perform a fresh Contents read after saving.
+    runtime_notes: Python, Jupyter Server, JupyterLab, websocket-client, and Playwright are available.
+    prepare: []
+    checks:
+      build:
+        argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_build.py", "--app", "jupyterlab", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+        timeout_s: 180
+    driver_env: {}
+    development_smoke:
+      id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 240
+      target: &jlab_dev
+        kind: text_file
+        path: notes/development.txt
+        content: development-smoke
+      expected: *jlab_dev
+    held_out:
+      - id: heldout-a
+        roundtrip: save_reload
+        timeout_s: 240
+        target: &jlab_a
+          kind: text_file
+          path: notes/onboarding-a.txt
+          content: "hook-onboarding: heldout-a\nsecond line"
+        expected: *jlab_a
+      - id: heldout-b
+        roundtrip: save_reload
+        timeout_s: 300
+        target: &jlab_b
+          kind: notebook
+          path: notebooks/onboarding-b.ipynb
+          cells:
+            - {cell_type: markdown, source: ["# Held-out notebook"]}
+            - {cell_type: code, source: ["value = 42\n", "print(value)"]}
+        expected: *jlab_b
+    reference:
+      argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_reference.py", "--manifest", "{harness_root}/benchmarks/onboarding/manifest.yaml", "--app", "jupyterlab", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+      timeout_s: 1200
+
+  - id: libreoffice
+    family: public_uno_api
+    remote: https://github.com/LibreOffice/core.git
+    clean_commit: 5f60ba8b3103825bd055c1fb5ce04b95d8de2492
+    capability_brief: >-
+      Use the public UNO API to construct Writer and Calc documents, save them
+      to native ODF files, close them, reopen them, and read back the requested
+      paragraphs or cells.
+    runtime_notes: >-
+      A matching LibreOfficeDev build and its Resources/java/libreoffice.jar
+      UNO runtime are available under the harness workspace. The host Python
+      3.13 pyuno ABI is incompatible; use the public Java UNO bridge with an
+      isolated user profile and no GUI automation.
+    prepare: []
+    checks:
+      build:
+        argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_build.py", "--app", "libreoffice", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+        timeout_s: 180
+    driver_env:
+      WARPTEST_ONBOARDING_SOFFICE: "{harness_root}/games/LibreOffice/instdir/LibreOfficeDev.app/Contents/MacOS/soffice"
+    development_smoke:
+      id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 240
+      target: &lo_dev
+        kind: writer_document
+        path: development.odt
+        paragraphs: [{text: Development Smoke, style: Heading 1}, {text: roundtrip}]
+      expected: *lo_dev
+    held_out:
+      - id: heldout-a
+        roundtrip: save_reload
+        timeout_s: 240
+        target: &lo_a
+          kind: calc_spreadsheet
+          path: onboarding-a.ods
+          sheets: {Sheet1: {cells: {A1: Revenue, B1: 42}}}
+        expected: *lo_a
+      - id: heldout-b
+        roundtrip: save_reload
+        timeout_s: 240
+        target: &lo_b
+          kind: writer_document
+          path: onboarding-b.odt
+          paragraphs: [{text: Hook Onboarding, style: Heading 1}, {text: roundtrip-ok}]
+        expected: *lo_b
+    reference:
+      argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_reference.py", "--manifest", "{harness_root}/benchmarks/onboarding/manifest.yaml", "--app", "libreoffice", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+      timeout_s: 1200
+
+  - id: blender
+    family: public_bpy_api
+    remote: https://github.com/blender/blender.git
+    clean_commit: 3d018bcabdaeea66cf4ef4a96ce8913164831f6e
+    lfs_skip_smudge: true
+    capability_brief: >-
+      Use bpy to construct objects and materials, save a native .blend file,
+      reopen it, and read back object type, location, and material color.
+    runtime_notes: A matching local Blender executable is available at the path provided in the environment.
+    prepare: []
+    checks:
+      build:
+        argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_build.py", "--app", "blender", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+        timeout_s: 180
+    driver_env:
+      WARPTEST_ONBOARDING_BLENDER: "{harness_root}/games/build_darwin_lite/bin/Blender.app/Contents/MacOS/Blender"
+    development_smoke:
+      id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 240
+      target: &blender_dev
+        kind: scene
+        save_as: development.blend
+        objects:
+          - {name: DevelopmentCube, type: MESH, primitive: cube, location: [0.0, 0.0, 0.0]}
+      expected: *blender_dev
+    held_out:
+      - id: heldout-a
+        roundtrip: save_reload
+        timeout_s: 240
+        target: &blender_a
+          kind: scene
+          save_as: onboarding-a.blend
+          objects:
+            - name: HookCubeA
+              type: MESH
+              primitive: cube
+              location: [1.0, 2.0, 3.0]
+              material: {name: HookRed, color: [1.0, 0.05, 0.02, 1.0]}
+        expected: *blender_a
+      - id: heldout-b
+        roundtrip: save_reload
+        timeout_s: 240
+        target: &blender_b
+          kind: scene
+          save_as: onboarding-b.blend
+          objects:
+            - name: HookSphereB
+              type: MESH
+              primitive: uv_sphere
+              location: [-1.0, 0.0, 2.0]
+              material: {name: HookBlue, color: [0.05, 0.1, 1.0, 1.0]}
+        expected: *blender_b
+    reference:
+      argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_reference.py", "--manifest", "{harness_root}/benchmarks/onboarding/manifest.yaml", "--app", "blender", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+      timeout_s: 1200
+
+  - id: jynew
+    family: unity_editor_extension
+    remote: https://github.com/jynew/jynew.git
+    clean_commit: 773f3e76492f4af277e8c93ced2c8d18ba516f6c
+    capability_brief: >-
+      Add a Unity Editor/batch-mode test extension that writes and reads jynew
+      runtime/archive fields for money, inventory items, player level, map id,
+      and key/value quest flags, including a save and fresh load roundtrip.
+    runtime_notes: Unity 2020.3.32f1c1 is available; the project root is jyx2/.
+    prepare:
+      - argv: ["{python}", "{harness_root}/scripts/prepare_hook_onboarding_unity_packages.py", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+        timeout_s: 300
+      - argv: ["{python}", "{harness_root}/scripts/prepare_hook_onboarding_unity_project.py", "--app", "jynew", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+        timeout_s: 1800
+        env: &jynew_git_packages
+          GIT_ALLOW_PROTOCOL: file:https
+          GIT_CONFIG_COUNT: "3"
+          GIT_CONFIG_KEY_0: "url.file://{report_dir}/unity-package-mirrors/assetbundlebrowser/.insteadOf"
+          GIT_CONFIG_VALUE_0: https://gitee.com/ookk47oo/AssetBundles-Browser.git
+          GIT_CONFIG_KEY_1: "url.file://{report_dir}/unity-package-mirrors/sharp-zip-lib/.insteadOf"
+          GIT_CONFIG_VALUE_1: https://gitee.com/ookk47oo/com.unity.sharp-zip-lib.git
+          GIT_CONFIG_KEY_2: "url.file://{report_dir}/unity-package-mirrors/simplefilebrowser/.insteadOf"
+          GIT_CONFIG_VALUE_2: https://gitee.com/ookk47oo/UnitySimpleFileBrowser.git
+    checks:
+      build:
+        argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_build.py", "--app", "jynew", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+        timeout_s: 2100
+        env: *jynew_git_packages
+    driver_env:
+      WARPTEST_ONBOARDING_UNITY: /Applications/Unity/Unity.app/Contents/MacOS/Unity
+      GIT_ALLOW_PROTOCOL: file:https
+      GIT_CONFIG_COUNT: "3"
+      GIT_CONFIG_KEY_0: "url.file://{report_dir}/unity-package-mirrors/assetbundlebrowser/.insteadOf"
+      GIT_CONFIG_VALUE_0: https://gitee.com/ookk47oo/AssetBundles-Browser.git
+      GIT_CONFIG_KEY_1: "url.file://{report_dir}/unity-package-mirrors/sharp-zip-lib/.insteadOf"
+      GIT_CONFIG_VALUE_1: https://gitee.com/ookk47oo/com.unity.sharp-zip-lib.git
+      GIT_CONFIG_KEY_2: "url.file://{report_dir}/unity-package-mirrors/simplefilebrowser/.insteadOf"
+      GIT_CONFIG_VALUE_2: https://gitee.com/ookk47oo/UnitySimpleFileBrowser.git
+    development_smoke:
+      id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 900
+      target: &jynew_dev
+        mod_id: JYX2
+        money: 100
+      expected: *jynew_dev
+    held_out:
+      - id: heldout-a
+        roundtrip: save_reload
+        timeout_s: 900
+        target: &jynew_a
+          mod_id: JYX2
+          money: 2000
+          items: [{id: 1, count: 5}]
+        expected: *jynew_a
+      - id: heldout-b
+        roundtrip: save_reload
+        timeout_s: 900
+        target: &jynew_b
+          mod_id: JYX2
+          player_level: 3
+          map_id: 1
+          key_values: [{key: quest_shaolin_started, value: "1"}]
+        expected: *jynew_b
+    reference:
+      argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_reference.py", "--manifest", "{harness_root}/benchmarks/onboarding/manifest.yaml", "--app", "jynew", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+      timeout_s: 3600
+      env: *jynew_git_packages
+
+  - id: pal3
+    family: unity_editor_extension
+    remote: https://github.com/0x7c13/Pal3.Unity.git
+    clean_commit: 78c3dcfe8d01c3ab8ce8b8e9db4d64bd36e09f44
+    capability_brief: >-
+      Add a Unity Editor/batch-mode test extension that writes and reads PAL3
+      money and story variables through the game's command/save mechanisms,
+      including a save and fresh load roundtrip.
+    runtime_notes: Unity 6000.1.10f1 is available; the Unity project is the repository root.
+    prepare:
+      - argv: ["{python}", "{harness_root}/scripts/prepare_hook_onboarding_unity_project.py", "--app", "pal3", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+        timeout_s: 1800
+    checks:
+      build:
+        argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_build.py", "--app", "pal3", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+        timeout_s: 2100
+    driver_env:
+      WARPTEST_ONBOARDING_UNITY: /Applications/Unity/Unity-6000.1.10f1/Unity.app/Contents/MacOS/Unity
+    development_smoke:
+      id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 900
+      target: &pal3_dev
+        scene_city: q01
+        scene_name: b
+        money: 100
+      expected: *pal3_dev
+    held_out:
+      - id: heldout-a
+        roundtrip: save_reload
+        timeout_s: 900
+        target: &pal3_a
+          scene_city: q01
+          scene_name: b
+          money: 500
+        expected: *pal3_a
+      - id: heldout-b
+        roundtrip: save_reload
+        timeout_s: 900
+        target: &pal3_b
+          scene_city: q01
+          scene_name: b
+          story_vars: [{key: 100, value: 5}]
+        expected: *pal3_b
+    reference:
+      argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_reference.py", "--manifest", "{harness_root}/benchmarks/onboarding/manifest.yaml", "--app", "pal3", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+      timeout_s: 3600
+
+  - id: luanti
+    family: lua_worldmod_extension
+    remote: https://github.com/luanti-org/luanti.git
+    clean_commit: ce65f0dc5a82ee4a62d6b64c83da3196908f98ea
+    capability_brief: >-
+      Add a test-only worldmod that writes and reads registered voxel nodes and
+      mod storage in an isolated world. A save_reload request must stop and
+      restart the server or client and observe the persisted values again.
+    runtime_notes: CMake, Lua tooling, and Luanti server/client build dependencies are available.
+    prepare: []
+    checks:
+      build:
+        argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_build.py", "--app", "luanti", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+        timeout_s: 2100
+        env:
+          WARPTEST_ONBOARDING_BUILD_DIR: "{report_dir}/luanti-build"
+    driver_env: {}
+    development_smoke:
+      id: development-smoke
+      roundtrip: save_reload
+      timeout_s: 600
+      target: &luanti_dev
+        nodes: [{pos: {x: 1, y: 1, z: 1}, node: basenodes:dirt}]
+      expected: *luanti_dev
+    held_out:
+      - id: heldout-a
+        roundtrip: save_reload
+        timeout_s: 600
+        target: &luanti_a
+          nodes: [{pos: {x: 2, y: 1, z: 2}, node: basenodes:dirt}]
+        expected: *luanti_a
+      - id: heldout-b
+        roundtrip: save_reload
+        timeout_s: 600
+        target: &luanti_b
+          mod_storage: [{key: warptest_progress, value: chapter-2}]
+        expected: *luanti_b
+    reference:
+      argv: ["{python}", "{harness_root}/scripts/run_hook_onboarding_reference.py", "--manifest", "{harness_root}/benchmarks/onboarding/manifest.yaml", "--app", "luanti", "--repo", "{repo}", "--report-dir", "{report_dir}"]
+      timeout_s: 3600

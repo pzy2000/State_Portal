@@ -1,0 +1,260 @@
+name: DatingSim office coding work checkpoint
+benchmark: datingsim
+tags:
+- love
+- work
+- resources
+- variant
+setup:
+  ai_mode: mocked
+target:
+  kind: deterministic_state
+  player_name: WarpTest
+  gender: male
+  patch:
+    world:
+      location: office
+  expect:
+    location: office
+    resources:
+      money: 1000
+      energy: 100
+checkpoint:
+  allowed_strategies:
+  - test_hook_seeded_state
+  expected_validity: injection-only
+replay_from_start:
+  actions:
+  - type: click
+    selector: ".location-list .loc-btn:nth-child(2)"
+  - type: wait
+    ms: 250
+actions:
+- type: hook_action
+  action_id: work_coding
+  wait_ms: 500
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+    - type: state_equals
+      path: player.resources.money
+      value: 1100
+    - type: state_equals
+      path: player.resources.energy
+      value: 80
+    - type: state_equals
+      path: player.stats.intelligence
+      value: 11
+    - type: no_real_openai
+    - type: no_severe_console
+    surfaces:
+      gui:
+        adapter: love_production_save_roundtrip_v1
+        start:
+          validate_target: true
+          checks:
+          - name: probe.semantic_observation_error
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: semantic_observation_error
+            expected:
+              value: null
+          - name: screen.gameplay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.screen
+            expected:
+              value: gameplay
+          - name: state.isSetupComplete
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.isSetupComplete
+            expected:
+              value: true
+          - name: state.player.name
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.name
+            expected:
+              value: WarpTest
+          - name: state.player.gender
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.gender
+            expected:
+              value: male
+          - name: dom.player_name
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.player_name
+            expected:
+              value: WarpTest
+          - name: dom.app_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.app_visible
+            expected:
+              value: true
+          - name: dom.dashboard_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.dashboard_visible
+            expected:
+              value: true
+          - name: dom.location_panel_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.location_panel_visible
+            expected:
+              value: true
+          - name: dom.action_grid_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.action_grid_visible
+            expected:
+              value: true
+          - name: state.player.resources.money
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.resources.money
+            expected:
+              value: 1000
+          - name: state.player.resources.energy
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.player.resources.energy
+            expected:
+              value: 100
+          - name: state.world.location
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: state.world.location
+            expected:
+              value: office
+          - name: dom.active_location_index
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.active_location_index
+            expected:
+              value: 1
+          - name: dom.target_action_present
+            metric: equals
+            actual:
+              probe: love.target_action_present
+              path: dom.action_buttons.0
+            expected:
+              value: true
+          - name: dom.target_action_enabled
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.action_buttons.0.disabled
+            expected:
+              value: false
+          - name: dom.target_action_visible
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.action_buttons.0.visible
+            expected:
+              value: true
+          - name: environment.ai_query_mode
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.ai_query_mode
+            expected:
+              value: mocked
+        goal:
+          use_assertions: true
+          checks:
+          - name: transition.target_action_count
+            metric: equals
+            actual:
+              probe: love.target_action_count
+              action_id: work_coding
+            expected:
+              value: 1
+          - name: transition.new_log_entries
+            metric: equals
+            actual:
+              probe: love.new_log_entries
+            expected:
+              value: 1
+      state:
+        adapter: love_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual/love-office-work-coding.after.golden.png
+    golden_before: visual/love-office-work-coding.before.golden.png
+    golden_after: visual/love-office-work-coding.after.golden.png
+    expected_label: correct
+    description: The DatingSim gameplay screen is at the office with the money readout
+      at 1000 and the energy readout at 100.
+    after_description: After one coding work action the same gameplay screen shows the
+      money readout raised to 1100 and the energy readout at 80, with the office still
+      the current location.
+    rubric:
+      must:
+      - The DatingSim gameplay screen with its resource bars, location list, and action
+        cards is visible.
+      - The current location is the office.
+      - The money readout is 1000 and the energy readout is 100.
+      must_not:
+      - A browser error, crash overlay, or blank page is visible.
+      - The screenshot shows an unrelated app or setup screen.
+      ignore:
+      - Minor animation, text wrapping, or dynamic UI differences.
+    after_rubric:
+      must:
+      - The DatingSim gameplay screen with its resource bars, location list, and action
+        cards is visible.
+      - The money readout is 1100 and the energy readout is 80.
+      - The current location is still the office.
+      must_not:
+      - The money readout is still 1000 or the energy readout is still 100.
+      - A browser error, crash overlay, or blank page is visible.
+      ignore:
+      - Minor animation, text wrapping, or dynamic UI differences.
+      - The time-of-day label and any highlighted action card.
+    capture:
+      stage: post_smoke
+      wait_ms: 300
+      full_page: false

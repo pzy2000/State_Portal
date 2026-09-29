@@ -1,0 +1,109 @@
+name: LibreOffice Impress status deck build deep state
+benchmark: libreoffice
+repo: ../../games/LibreOffice
+target:
+  kind: impress_presentation
+  path: impress-status-deck-build.odp
+  slides:
+    - title: Q3 Delivery Review
+      subtitle: Draft deck
+    - title: Agenda
+      bullets: [Delivery health, Budget movement, Risks]
+    - title: Delivery Health
+      bullets: [Green builds, Manual QA pending]
+    - title: Risk Register
+      bullets: [Security review open, Vendor date at risk]
+checkpoint:
+  allowed_strategies: ["libreoffice_uno_document_validate"]
+  expected_validity: save-restorable
+actions:
+  - type: libreoffice_set_slide_title
+    slide: 1
+    title: Q3 Delivery Review - Executive Update
+  - type: libreoffice_set_slide_bullets
+    slide: 3
+    bullets: [Green builds, Manual QA complete, Release candidate signed]
+  - type: libreoffice_add_shape
+    slide: 4
+    shape: callout
+    text: "Decision needed: approve vendor backup plan"
+  - type: libreoffice_save
+  - type: libreoffice_reopen
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: libreoffice_slide_count_equals
+        expected: 4
+      - type: libreoffice_slide_text_contains
+        slide: 1
+        text: Executive Update
+      - type: libreoffice_shape_text_contains
+        slide: 4
+        text: vendor backup plan
+      - type: no_libreoffice_errors
+    surfaces:
+      gui:
+        adapter: libreoffice_uno_persistence_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+          native_checks:
+          - transition.session_same
+          - transition.saved_url
+          - transition.persisted_file
+          - transition.not_modified
+          - transition.document_reopened
+      state:
+        adapter: libreoffice_uno_persistence_v1
+        goal:
+          checks: []
+          use_assertions: true
+          native_checks:
+          - transition.session_same
+          - transition.saved_url
+          - transition.persisted_file
+          - transition.not_modified
+          - transition.document_reopened
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/impress-status-deck-build.after.golden.png
+    golden_before: visual/impress-status-deck-build.before.golden.png
+    golden_after: visual/impress-status-deck-build.after.golden.png
+    expected_label: correct
+    description: "A LibreOffice Impress project status deck is visible with several draft slides."
+    rubric:
+      must:
+        - "LibreOffice Impress is visible with a presentation deck."
+        - "A slide canvas or slide thumbnails are visible."
+      must_not:
+        - "A blank window, crash dialog, or unrelated app is shown."
+      ignore:
+        - "Selected slide, zoom, thumbnails, and platform toolbar differences."
+    after_description: "After the workflow, the Impress deck shows the executive update title, completed QA bullet, or vendor backup callout."
+    after_rubric:
+      must:
+        - "LibreOffice Impress displays the status deck."
+        - "The slide content reflects an executive update or vendor backup decision callout."
+        - "The deck is not blank or crashed."
+      must_not:
+        - "Only the untouched draft deck is visible."
+        - "The screenshot shows Writer/Calc instead of Impress."
+      ignore:
+        - "Exact selected slide, zoom, slide thumbnail size, and toolbar differences."
+    capture:
+      stage: post_smoke
+      active_slide: 1
+      wait_ms: 500
+      full_page: false
+tags:
+  - libreoffice
+  - impress
+  - deep-state
+  - deck
+timeout_ms: 240000

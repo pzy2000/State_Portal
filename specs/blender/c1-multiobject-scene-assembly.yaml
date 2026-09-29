@@ -1,0 +1,65 @@
+name: C1 Blender multi-object scene assembly
+benchmark: blender
+repo: ../../games/blender
+timeout_ms: 900000
+tags: [c1, long, blender, assembly]
+target:
+  kind: scene
+  objects: []
+checkpoint:
+  allowed_strategies: [blender_python_scene_validate]
+  expected_validity: save-restorable
+actions:
+  - {type: blender_add_primitive, primitive: cube, name: Stage, size: 2.0, location: [0.0, 0.0, 0.2], scale: [3.0, 3.0, 0.2], material: {name: StageGray, color: [0.18, 0.2, 0.24, 1.0]}}
+  - {type: blender_add_primitive, primitive: cylinder, name: Pedestal, radius: 1.1, depth: 0.8, location: [0.0, 0.0, 0.8], material: {name: MetalBlue, color: [0.05, 0.3, 0.85, 1.0]}}
+  - {type: blender_add_primitive, primitive: uv_sphere, name: Orb, size: 1.0, location: [-1.2, 0.0, 2.0], scale: [0.8, 0.8, 0.8], material: {name: SignalOrange, color: [1.0, 0.3, 0.02, 1.0]}}
+  - {type: blender_add_primitive, primitive: cone, name: Beacon, radius1: 0.7, depth: 2.2, location: [1.3, 0.0, 1.5], material: {name: SignalOrange, color: [1.0, 0.3, 0.02, 1.0]}}
+  - {type: blender_add_modifier, object: Stage, name: StageBevel, modifier_type: BEVEL, width: 0.12, segments: 2}
+  - {type: blender_apply_modifier, object: Stage, modifier: StageBevel}
+  - {type: blender_save_as, path: c1-multiobject-assembly.blend}
+  - {type: blender_reopen, path: c1-multiobject-assembly.blend}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: blender_object_exists, object: Stage, object_type: MESH}
+      - {type: blender_object_exists, object: Pedestal, object_type: MESH}
+      - {type: blender_object_exists, object: Orb, object_type: MESH}
+      - {type: blender_object_exists, object: Beacon, object_type: MESH}
+      - {type: blender_object_location, object: Orb, location: [-1.2, 0.0, 2.0]}
+      - {type: blender_object_scale, object: Stage, scale: [3.0, 3.0, 0.2]}
+      - {type: blender_material_color, object: Pedestal, material: MetalBlue, color: [0.05, 0.3, 0.85, 1.0]}
+      - {type: blender_modifier_applied, object: Stage, modifier: StageBevel, vertex_count_min: 8}
+      - {type: blender_file_exists, path: c1-multiobject-assembly.blend}
+      - {type: no_blender_python_errors}
+    surfaces:
+      gui:
+        adapter: blender_native_state_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: blender_native_state_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/c1-multiobject-scene-assembly.after.golden.png
+    golden_before: visual/c1-multiobject-scene-assembly.before.golden.png
+    golden_after: visual/c1-multiobject-scene-assembly.after.golden.png
+    expected_label: correct
+    description: The deterministic Blender scene begins empty before assembly.
+    after_description: The beveled stage, blue pedestal, orange orb, and cone beacon form a complete framed set.
+    rubric:
+      must: [The empty Blender coordinate scene is visible]
+      must_not: [A crash or unrelated application is shown]
+    after_rubric:
+      must: [All four scene objects are visible together, Blue, orange, and gray materials are distinguishable]
+      must_not: [The scene is incomplete or blank]
+    capture: {stage: post_smoke, wait_ms: 0, full_page: false}

@@ -1,0 +1,337 @@
+{
+  "buggy_tests": {
+    "jupyterlab-16943-regex-replace-all-f2p": false,
+    "jupyterlab-coreutils-path-trial-p2p": true,
+    "jupyterlab-notebook-replace-all-construction-p2p": true
+  },
+  "complete": true,
+  "executions": [
+    {
+      "complete": true,
+      "duration_ms": 37008.808374986984,
+      "failures": [],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "packages/coreutils/test/path.spec.ts",
+          "sha256": "6faeb6443b54150d600511e7ee1569c337d19f72c9d2d6e1e686fa5e532a6897",
+          "source_path": "upstream-tests/packages/coreutils/test/path.spec.ts"
+        },
+        {
+          "destination_path": "packages/notebook/test/searchprovider.spec.ts",
+          "sha256": "3925f405ec62135de73ab84f415f9ce100d89b894ae9d2e8dde4643103e73b49",
+          "source_path": "upstream-tests/packages/notebook/test/searchprovider.spec.ts"
+        }
+      ],
+      "passed": true,
+      "prepare_results": [
+        {
+          "duration_ms": 2494.735792017309,
+          "exit_code": 0,
+          "id": "jupyterlab-scoped-build-cells",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "lerna notice cli v7.1.4\nlerna info versioning independent\nlerna notice filter including \"@jupyterlab/cells\"\nlerna info filter [ '@jupyterlab/cells' ]\n(node:29362) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.\n(Use `node --trace-deprecation ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/cells:build\n\n\n \n\n >  Lerna (powered by Nx)   Successfully ran target build for project @jupyterlab/cells\n\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "de9fb820949a029c520d086ac97a555177c7953942afa0a2d22161b9e8a2191d",
+          "stdout_sha256": "03c8350219eab847a24e1e9fe8f04db4ca42242bcbcb2a32a658b659cd85284e",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1814.676582987886,
+          "exit_code": 0,
+          "id": "jupyterlab-scoped-build-notebook",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "lerna notice cli v7.1.4\nlerna info versioning independent\nlerna notice filter including \"@jupyterlab/notebook\"\nlerna info filter [ '@jupyterlab/notebook' ]\n(node:29459) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.\n(Use `node --trace-deprecation ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/notebook:build\n\n\n \n\n >  Lerna (powered by Nx)   Successfully ran target build for project @jupyterlab/notebook\n\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "12b0cac55a29ebbf76945a777d274bac54993c5546a84226228fde9d07f23ae9",
+          "stdout_sha256": "097ac568e1f0578bb171c7e13b97c6e53f9de994075b174711c2c7f993da4f81",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 2383.794291992672,
+          "exit_code": 0,
+          "id": "jupyterlab-test-build-notebook",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1230.8504579996224,
+          "exit_code": 0,
+          "id": "jupyterlab-test-build-coreutils",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        }
+      ],
+      "results": [
+        {
+          "duration_ms": 6135.866666998481,
+          "exit_code": 0,
+          "id": "jupyterlab-16943-regex-replace-all-f2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "PASS test/searchprovider.spec.ts\n  @jupyterlab/notebook\n    NotebookSearchProvider\n      #matchesCount\n        ○ skipped should return number of matches\n        ○ skipped should return number of matches in selected lines\n      #highlightNext()\n        ○ skipped should highlight next match\n        ○ skipped should loop back to first match\n        ○ skipped should loop back to first match when limited to single cell\n        ○ skipped should loop back to first match in selected lines\n        ○ skipped should do nothing if there are no cells\n      #highlightPrevious()\n        ○ skipped should highlight previous match\n        ○ skipped should loop back to last match\n        ○ skipped should go to previous cell if there is no current match in active cell\n      #replaceCurrentMatch()\n        ○ skipped should replace with a shorter text and highlight next\n        ○ skipped should start in the middle of a code cell, replace, and highlight next\n        ○ skipped should substitute groups in regular expressions\n        ○ skipped should not substitute if regular expression toggle is off\n        ○ skipped should replace with a longer text and highlight next\n        ○ skipped should not replace the current match in a read-only cell\n      #replaceAllMatches()\n        ✓ should replace all matches using regex (124 ms)\n        ○ skipped should replace all occurrences across cells\n        ○ skipped should only replace within first cell\n        ○ skipped should only replace within second cell\n        ○ skipped should only replace within selected lines\n        ○ skipped should not replace all matches in read-only cells\n      #getSelectionState()\n        ○ skipped should reflect cell selection state in command mode\n        ○ skipped should reflect line selection state in edit mode\n\nTest Suites: 1 passed, 1 total\nTests:       23 skipped, 1 passed, 24 total\nSnapshots:   0 total\nTime:        5.327 s\nRan all test suites within paths \"test/searchprovider.spec.ts\".\n",
+            "stderr_truncated": false,
+            "stdout": "  console.warn\n    Clipboard API not available\n\n      186 |       const { systemClipboard } = this;\n      187 |       if (!systemClipboard) {\n    > 188 |         console.warn('Clipboard API not available');\n          |                 ^\n      189 |       }\n      190 |     }\n      191 |\n\n      at new warn (../apputils/src/clipboard.ts:188:17)\n      at ../apputils/src/clipboard.ts:317:31\n      at Object.<anonymous> (../apputils/src/clipboard.ts:318:2)\n      at Object.require (../apputils/src/index.ts:37:1)\n      at Object.require (src/actions.tsx:9:1)\n      at Object.require (src/index.ts:8:1)\n      at Object.<anonymous> (test/searchprovider.spec.ts:4:1)\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "2db528d5f0768a793e19e27119375e79144fcd0721df9ba1209bd4bdee86fcfb",
+          "stdout_sha256": "8dfb3dfe8e02587122a979e7fb29696e8287265bd8a13fee99e350c75efe5806",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 2246.423082979163,
+          "exit_code": 0,
+          "id": "jupyterlab-notebook-replace-all-construction-p2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "PASS test/searchprovider.spec.ts\n  @jupyterlab/notebook\n    NotebookSearchProvider\n      #matchesCount\n        ○ skipped should return number of matches\n        ○ skipped should return number of matches in selected lines\n      #highlightNext()\n        ○ skipped should highlight next match\n        ○ skipped should loop back to first match\n        ○ skipped should loop back to first match when limited to single cell\n        ○ skipped should loop back to first match in selected lines\n        ○ skipped should do nothing if there are no cells\n      #highlightPrevious()\n        ○ skipped should highlight previous match\n        ○ skipped should loop back to last match\n        ○ skipped should go to previous cell if there is no current match in active cell\n      #replaceCurrentMatch()\n        ○ skipped should replace with a shorter text and highlight next\n        ○ skipped should start in the middle of a code cell, replace, and highlight next\n        ○ skipped should substitute groups in regular expressions\n        ○ skipped should not substitute if regular expression toggle is off\n        ○ skipped should replace with a longer text and highlight next\n        ○ skipped should not replace the current match in a read-only cell\n      #replaceAllMatches()\n        ✓ should replace all occurrences across cells (48 ms)\n        ○ skipped should only replace within first cell\n        ○ skipped should only replace within second cell\n        ○ skipped should only replace within selected lines\n        ○ skipped should not replace all matches in read-only cells\n        ○ skipped should replace all matches using regex\n      #getSelectionState()\n        ○ skipped should reflect cell selection state in command mode\n        ○ skipped should reflect line selection state in edit mode\n\nTest Suites: 1 passed, 1 total\nTests:       23 skipped, 1 passed, 24 total\nSnapshots:   0 total\nTime:        1.626 s, estimated 5 s\nRan all test suites within paths \"test/searchprovider.spec.ts\".\n",
+            "stderr_truncated": false,
+            "stdout": "  console.warn\n    Clipboard API not available\n\n      186 |       const { systemClipboard } = this;\n      187 |       if (!systemClipboard) {\n    > 188 |         console.warn('Clipboard API not available');\n          |                 ^\n      189 |       }\n      190 |     }\n      191 |\n\n      at new warn (../apputils/src/clipboard.ts:188:17)\n      at ../apputils/src/clipboard.ts:317:31\n      at Object.<anonymous> (../apputils/src/clipboard.ts:318:2)\n      at Object.require (../apputils/src/index.ts:37:1)\n      at Object.require (src/actions.tsx:9:1)\n      at Object.require (src/index.ts:8:1)\n      at Object.<anonymous> (test/searchprovider.spec.ts:4:1)\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "914cad599e9954ce2a38ef8f8f86a82a93103044d78dcefd1bb37055769a9206",
+          "stdout_sha256": "8dfb3dfe8e02587122a979e7fb29696e8287265bd8a13fee99e350c75efe5806",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1387.7470830047969,
+          "exit_code": 0,
+          "id": "jupyterlab-coreutils-path-trial-p2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "PASS test/path.spec.ts\n  @jupyterlab/coreutils\n    PathExt\n      .join()\n        ○ skipped should join the arguments and normalize the path\n        ○ skipped should not return \".\" for an empty path\n      .basename()\n        ✓ should return the last portion of a path\n      .dirname()\n        ○ skipped should get the directory name of a path\n        ○ skipped should not return \".\" for an empty path\n        ○ skipped should not return \".\" for a path in the root directory\n      .extname()\n        ○ skipped should get the file extension of the path\n        ○ skipped should only take the last occurrence of a dot\n      .normalize()\n        ○ skipped should normalize a string path\n        ○ skipped should not return \".\" for an empty path\n      .resolve()\n        ○ skipped should resolve a sequence of paths to an absolute path on the server\n      .relative()\n        ○ skipped should solve the relative path\n      .normalizeExtension()\n        ○ skipped should normalize a file extension to be of type `.foo`\n\nTest Suites: 1 passed, 1 total\nTests:       12 skipped, 1 passed, 13 total\nSnapshots:   0 total\nTime:        0.749 s\nRan all test suites within paths \"test/path.spec.ts\".\n",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e497be14dc5534efa1103a3bbc6f0601056673b03d5d089a0a40af44f7a2390a",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        }
+      ],
+      "terminal_failure_class": null,
+      "test_ids": [
+        "jupyterlab-16943-regex-replace-all-f2p",
+        "jupyterlab-notebook-replace-all-construction-p2p",
+        "jupyterlab-coreutils-path-trial-p2p"
+      ],
+      "version": "fixed"
+    },
+    {
+      "complete": false,
+      "duration_ms": 36359.87729098997,
+      "failures": [
+        "upstream test jupyterlab-16943-regex-replace-all-f2p exited 1"
+      ],
+      "isolation": "apfs_cow_clone",
+      "overlays": [
+        {
+          "destination_path": "packages/coreutils/test/path.spec.ts",
+          "sha256": "6faeb6443b54150d600511e7ee1569c337d19f72c9d2d6e1e686fa5e532a6897",
+          "source_path": "upstream-tests/packages/coreutils/test/path.spec.ts"
+        },
+        {
+          "destination_path": "packages/notebook/test/searchprovider.spec.ts",
+          "sha256": "3925f405ec62135de73ab84f415f9ce100d89b894ae9d2e8dde4643103e73b49",
+          "source_path": "upstream-tests/packages/notebook/test/searchprovider.spec.ts"
+        }
+      ],
+      "passed": false,
+      "prepare_results": [
+        {
+          "duration_ms": 2351.9434579939116,
+          "exit_code": 0,
+          "id": "jupyterlab-scoped-build-cells",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "lerna notice cli v7.1.4\nlerna info versioning independent\nlerna notice filter including \"@jupyterlab/cells\"\nlerna info filter [ '@jupyterlab/cells' ]\n(node:30571) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.\n(Use `node --trace-deprecation ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/cells:build\n\n\n \n\n >  Lerna (powered by Nx)   Successfully ran target build for project @jupyterlab/cells\n\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "892e8f7a8a490e77143a5727f08cdf993411300d3f552739350f52f63a0b28ac",
+          "stdout_sha256": "03c8350219eab847a24e1e9fe8f04db4ca42242bcbcb2a32a658b659cd85284e",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1824.8075839946978,
+          "exit_code": 0,
+          "id": "jupyterlab-scoped-build-notebook",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "lerna notice cli v7.1.4\nlerna info versioning independent\nlerna notice filter including \"@jupyterlab/notebook\"\nlerna info filter [ '@jupyterlab/notebook' ]\n(node:30632) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.\n(Use `node --trace-deprecation ...` to show where the warning was created)\n",
+            "stderr_truncated": false,
+            "stdout": "\n> @jupyterlab/notebook:build\n\n\n \n\n >  Lerna (powered by Nx)   Successfully ran target build for project @jupyterlab/notebook\n\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "db56b2a442eae887f75e9c2fe17b6b612224383705db4d76d26bd5e37bab2237",
+          "stdout_sha256": "097ac568e1f0578bb171c7e13b97c6e53f9de994075b174711c2c7f993da4f81",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 2294.2245829908643,
+          "exit_code": 0,
+          "id": "jupyterlab-test-build-notebook",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1235.7096250052564,
+          "exit_code": 0,
+          "id": "jupyterlab-test-build-coreutils",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        }
+      ],
+      "results": [
+        {
+          "duration_ms": 6249.596292007482,
+          "exit_code": 1,
+          "id": "jupyterlab-16943-regex-replace-all-f2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "FAIL test/searchprovider.spec.ts (5.067 s)\n  @jupyterlab/notebook\n    NotebookSearchProvider\n      #matchesCount\n        ○ skipped should return number of matches\n        ○ skipped should return number of matches in selected lines\n      #highlightNext()\n        ○ skipped should highlight next match\n        ○ skipped should loop back to first match\n        ○ skipped should loop back to first match when limited to single cell\n        ○ skipped should loop back to first match in selected lines\n        ○ skipped should do nothing if there are no cells\n      #highlightPrevious()\n        ○ skipped should highlight previous match\n        ○ skipped should loop back to last match\n        ○ skipped should go to previous cell if there is no current match in active cell\n      #replaceCurrentMatch()\n        ○ skipped should replace with a shorter text and highlight next\n        ○ skipped should start in the middle of a code cell, replace, and highlight next\n        ○ skipped should substitute groups in regular expressions\n        ○ skipped should not substitute if regular expression toggle is off\n        ○ skipped should replace with a longer text and highlight next\n        ○ skipped should not replace the current match in a read-only cell\n      #replaceAllMatches()\n        ✕ should replace all matches using regex (127 ms)\n        ○ skipped should replace all occurrences across cells\n        ○ skipped should only replace within first cell\n        ○ skipped should only replace within second cell\n        ○ skipped should only replace within selected lines\n        ○ skipped should not replace all matches in read-only cells\n      #getSelectionState()\n        ○ skipped should reflect cell selection state in command mode\n        ○ skipped should reflect line selection state in edit mode\n\n  ● @jupyterlab/notebook › NotebookSearchProvider › #replaceAllMatches() › should replace all matches using regex\n\n    expect(received).toBe(expected) // Object.is equality\n\n    Expected: \"a=123+1\"\n    Received: \"a=$1+1\"\n\n      441 |         expect(replaced).toBe(true);\n      442 |         let source = panel.model!.cells.get(0).sharedModel.getSource();\n    > 443 |         expect(source).toBe('a=123+1');\n          |                        ^\n      444 |         source = panel.model!.cells.get(1).sharedModel.getSource();\n      445 |         expect(source).toBe('a=123+1\\nb=234+1');\n      446 |         expect(provider.currentMatchIndex).toBe(null);\n\n      at Object.<anonymous> (test/searchprovider.spec.ts:443:24)\n\nTest Suites: 1 failed, 1 total\nTests:       1 failed, 23 skipped, 24 total\nSnapshots:   0 total\nTime:        5.441 s\nRan all test suites within paths \"test/searchprovider.spec.ts\".\n",
+            "stderr_truncated": false,
+            "stdout": "  console.warn\n    Clipboard API not available\n\n      186 |       const { systemClipboard } = this;\n      187 |       if (!systemClipboard) {\n    > 188 |         console.warn('Clipboard API not available');\n          |                 ^\n      189 |       }\n      190 |     }\n      191 |\n\n      at new warn (../apputils/src/clipboard.ts:188:17)\n      at ../apputils/src/clipboard.ts:317:31\n      at Object.<anonymous> (../apputils/src/clipboard.ts:318:2)\n      at Object.require (../apputils/src/index.ts:37:1)\n      at Object.require (src/actions.tsx:9:1)\n      at Object.require (src/index.ts:8:1)\n      at Object.<anonymous> (test/searchprovider.spec.ts:4:1)\n\n",
+            "stdout_truncated": false
+          },
+          "passed": false,
+          "stderr_sha256": "15826785a5ca0e75cc1e2537879a40c5d16a5976915522e428c26da6f66ce88c",
+          "stdout_sha256": "8dfb3dfe8e02587122a979e7fb29696e8287265bd8a13fee99e350c75efe5806",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 2303.6511249956675,
+          "exit_code": 0,
+          "id": "jupyterlab-notebook-replace-all-construction-p2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "PASS test/searchprovider.spec.ts\n  @jupyterlab/notebook\n    NotebookSearchProvider\n      #matchesCount\n        ○ skipped should return number of matches\n        ○ skipped should return number of matches in selected lines\n      #highlightNext()\n        ○ skipped should highlight next match\n        ○ skipped should loop back to first match\n        ○ skipped should loop back to first match when limited to single cell\n        ○ skipped should loop back to first match in selected lines\n        ○ skipped should do nothing if there are no cells\n      #highlightPrevious()\n        ○ skipped should highlight previous match\n        ○ skipped should loop back to last match\n        ○ skipped should go to previous cell if there is no current match in active cell\n      #replaceCurrentMatch()\n        ○ skipped should replace with a shorter text and highlight next\n        ○ skipped should start in the middle of a code cell, replace, and highlight next\n        ○ skipped should substitute groups in regular expressions\n        ○ skipped should not substitute if regular expression toggle is off\n        ○ skipped should replace with a longer text and highlight next\n        ○ skipped should not replace the current match in a read-only cell\n      #replaceAllMatches()\n        ✓ should replace all occurrences across cells (49 ms)\n        ○ skipped should only replace within first cell\n        ○ skipped should only replace within second cell\n        ○ skipped should only replace within selected lines\n        ○ skipped should not replace all matches in read-only cells\n        ○ skipped should replace all matches using regex\n      #getSelectionState()\n        ○ skipped should reflect cell selection state in command mode\n        ○ skipped should reflect line selection state in edit mode\n\nTest Suites: 1 passed, 1 total\nTests:       23 skipped, 1 passed, 24 total\nSnapshots:   0 total\nTime:        1.685 s, estimated 6 s\nRan all test suites within paths \"test/searchprovider.spec.ts\".\n",
+            "stderr_truncated": false,
+            "stdout": "  console.warn\n    Clipboard API not available\n\n      186 |       const { systemClipboard } = this;\n      187 |       if (!systemClipboard) {\n    > 188 |         console.warn('Clipboard API not available');\n          |                 ^\n      189 |       }\n      190 |     }\n      191 |\n\n      at new warn (../apputils/src/clipboard.ts:188:17)\n      at ../apputils/src/clipboard.ts:317:31\n      at Object.<anonymous> (../apputils/src/clipboard.ts:318:2)\n      at Object.require (../apputils/src/index.ts:37:1)\n      at Object.require (src/actions.tsx:9:1)\n      at Object.require (src/index.ts:8:1)\n      at Object.<anonymous> (test/searchprovider.spec.ts:4:1)\n\n",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "94bd8ae62b5efc67fcac3ea827c654e40f7de792a06e19ce2a4074c37e52e20c",
+          "stdout_sha256": "8dfb3dfe8e02587122a979e7fb29696e8287265bd8a13fee99e350c75efe5806",
+          "timed_out": false
+        },
+        {
+          "duration_ms": 1360.9987079980783,
+          "exit_code": 0,
+          "id": "jupyterlab-coreutils-path-trial-p2p",
+          "output_capture": {
+            "redaction": "environment_and_credential_markers_v1",
+            "schema": "c1-lazarus-subprocess-output-v1",
+            "schema_version": 1,
+            "stderr": "PASS test/path.spec.ts\n  @jupyterlab/coreutils\n    PathExt\n      .join()\n        ○ skipped should join the arguments and normalize the path\n        ○ skipped should not return \".\" for an empty path\n      .basename()\n        ✓ should return the last portion of a path\n      .dirname()\n        ○ skipped should get the directory name of a path\n        ○ skipped should not return \".\" for an empty path\n        ○ skipped should not return \".\" for a path in the root directory\n      .extname()\n        ○ skipped should get the file extension of the path\n        ○ skipped should only take the last occurrence of a dot\n      .normalize()\n        ○ skipped should normalize a string path\n        ○ skipped should not return \".\" for an empty path\n      .resolve()\n        ○ skipped should resolve a sequence of paths to an absolute path on the server\n      .relative()\n        ○ skipped should solve the relative path\n      .normalizeExtension()\n        ○ skipped should normalize a file extension to be of type `.foo`\n\nTest Suites: 1 passed, 1 total\nTests:       12 skipped, 1 passed, 13 total\nSnapshots:   0 total\nTime:        0.729 s\nRan all test suites within paths \"test/path.spec.ts\".\n",
+            "stderr_truncated": false,
+            "stdout": "",
+            "stdout_truncated": false
+          },
+          "passed": true,
+          "stderr_sha256": "38a14de6568a0579796eeb89bf2a5d0c29e4081fc317cab45d94936579eab93f",
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "timed_out": false
+        }
+      ],
+      "terminal_failure_class": null,
+      "test_ids": [
+        "jupyterlab-16943-regex-replace-all-f2p",
+        "jupyterlab-notebook-replace-all-construction-p2p",
+        "jupyterlab-coreutils-path-trial-p2p"
+      ],
+      "version": "buggy"
+    }
+  ],
+  "failures": [],
+  "fixed_tests": {
+    "jupyterlab-16943-regex-replace-all-f2p": true,
+    "jupyterlab-coreutils-path-trial-p2p": true,
+    "jupyterlab-notebook-replace-all-construction-p2p": true
+  },
+  "patch_sha256": "8b3d6d5f7787b351beacad468ef655afd0afb246398b16df4e37d7cf2cc7bd1e",
+  "qualified": true,
+  "record_sha256": "5571a213709a61375097dab55f68bf8a02a8bf5753af65a6de3105bc56a41131",
+  "schema": "c1-lazarus-formal-construction-tests-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-16943-markdown-regex-replace-all",
+  "terminal_failure_class": null
+}

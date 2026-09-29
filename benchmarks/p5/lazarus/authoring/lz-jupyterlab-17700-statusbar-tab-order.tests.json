@@ -1,0 +1,146 @@
+{
+  "schema": "c1-lazarus-authoring-tests-v1",
+  "schema_version": 1,
+  "tests": [
+    {
+      "argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/statusbar.spec.ts",
+        "-t",
+        "should put higher rank right items closer to the middle"
+      ],
+      "command": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/statusbar.spec.ts",
+        "-t",
+        "should put higher rank right items closer to the middle"
+      ],
+      "cwd": "packages/statusbar",
+      "frozen_test_sources": [
+        {
+          "destination_path": "packages/statusbar/test/statusbar.spec.ts",
+          "sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1",
+          "source_path": "upstream-tests/packages/statusbar/test/statusbar.spec.ts"
+        }
+      ],
+      "id": "jupyterlab-17700-right-rank-order-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_regression_test",
+      "source_case": "higher rank right items closer to the middle",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/31d45658d408fc4170ef91cce67c9c89645b1038/packages/statusbar/test/statusbar.spec.ts",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "956b29fd080c4ec5e8920c998d49af5cab701d845f7ad2c220032f3f8bd9eb23",
+      "upstream_runner_version_argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "76120c1f2c4311c2154c22a6b58e00e411e0ebe76afae0daf608d9196c61f114",
+      "upstream_test_files": [
+        {
+          "path": "packages/statusbar/test/statusbar.spec.ts",
+          "sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1",
+          "source_url": "https://github.com/jupyterlab/jupyterlab/blob/31d45658d408fc4170ef91cce67c9c89645b1038/packages/statusbar/test/statusbar.spec.ts"
+        }
+      ],
+      "upstream_test_path": "packages/statusbar/test/statusbar.spec.ts",
+      "upstream_test_sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1"
+    },
+    {
+      "argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/statusbar.spec.ts",
+        "-t",
+        "should put higher rank left items closer to the middle"
+      ],
+      "command": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/statusbar.spec.ts",
+        "-t",
+        "should put higher rank left items closer to the middle"
+      ],
+      "cwd": "packages/statusbar",
+      "frozen_test_sources": [
+        {
+          "destination_path": "packages/statusbar/test/statusbar.spec.ts",
+          "sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1",
+          "source_path": "upstream-tests/packages/statusbar/test/statusbar.spec.ts"
+        }
+      ],
+      "id": "jupyterlab-statusbar-left-order-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_test_suite",
+      "source_case": "higher rank left items closer to the middle",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/31d45658d408fc4170ef91cce67c9c89645b1038/packages/statusbar/test/statusbar.spec.ts",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "956b29fd080c4ec5e8920c998d49af5cab701d845f7ad2c220032f3f8bd9eb23",
+      "upstream_runner_version_argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "76120c1f2c4311c2154c22a6b58e00e411e0ebe76afae0daf608d9196c61f114",
+      "upstream_test_files": [
+        {
+          "path": "packages/statusbar/test/statusbar.spec.ts",
+          "sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1",
+          "source_url": "https://github.com/jupyterlab/jupyterlab/blob/31d45658d408fc4170ef91cce67c9c89645b1038/packages/statusbar/test/statusbar.spec.ts"
+        }
+      ],
+      "upstream_test_path": "packages/statusbar/test/statusbar.spec.ts",
+      "upstream_test_sha256": "b1a2216b82915869778b5b12e1744daf4b36e8f2eff20f778b60653ac4eabef1"
+    },
+    {
+      "argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/path.spec.ts",
+        "-t",
+        "should return the last portion of a path"
+      ],
+      "command": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/path.spec.ts",
+        "-t",
+        "should return the last portion of a path"
+      ],
+      "cwd": "packages/coreutils",
+      "id": "jupyterlab-coreutils-path-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "repository_jest_test_suite",
+      "source_case": "PathExt.basename returns the last path portion",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/coreutils/test/path.spec.ts",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "956b29fd080c4ec5e8920c998d49af5cab701d845f7ad2c220032f3f8bd9eb23",
+      "upstream_runner_version_argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "76120c1f2c4311c2154c22a6b58e00e411e0ebe76afae0daf608d9196c61f114",
+      "upstream_test_files": [
+        {
+          "path": "packages/coreutils/test/path.spec.ts",
+          "sha256": "6faeb6443b54150d600511e7ee1569c337d19f72c9d2d6e1e686fa5e532a6897",
+          "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/coreutils/test/path.spec.ts"
+        }
+      ],
+      "upstream_test_path": "packages/coreutils/test/path.spec.ts",
+      "upstream_test_sha256": "6faeb6443b54150d600511e7ee1569c337d19f72c9d2d6e1e686fa5e532a6897"
+    }
+  ]
+}

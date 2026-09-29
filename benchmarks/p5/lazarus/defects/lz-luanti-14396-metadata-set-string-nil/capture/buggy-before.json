@@ -1,0 +1,31 @@
+{
+  "checks": [
+    {
+      "detail": "Synthesized world state: 2 node(s), player",
+      "name": "target.state_synthesized",
+      "status": "success"
+    },
+    {
+      "detail": "node.0,0,0 = basenodes:sand",
+      "name": "target.validate.node.0,0,0",
+      "status": "success"
+    },
+    {
+      "detail": "node.0,1,0 = basenodes:cobble",
+      "name": "target.validate.node.0,1,0",
+      "status": "success"
+    },
+    {
+      "detail": "distance 0.000 (radius 0.100), look angle 0.000 (max 1.000)",
+      "name": "assertion[luanti_player_view_matches]@1",
+      "status": "success"
+    },
+    {
+      "detail": "no mod errors recorded",
+      "name": "assertion[no_luanti_mod_errors]@2",
+      "status": "success"
+    }
+  ],
+  "detail": "All checks passed.",
+  "status": "success"
+}

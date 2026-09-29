@@ -1,0 +1,46 @@
+name: SpaceRPG station auto save persistence checkpoint
+benchmark: SpaceRPG
+tags:
+- spacerpg
+- station
+- save
+- variant
+setup:
+  disable_economy_backend: true
+target:
+  kind: station
+  screen: station
+  system_id: helion-reach
+  station_id: helion-prime
+checkpoint:
+  allowed_strategies:
+  - test_hook_jump_and_validate
+  expected_validity: save-restorable
+actions:
+- type: wait
+  ms: 250
+assertions:
+- type: state_equals
+  path: activeSaveSlotId
+  value: auto
+- type: localStorage_key_exists
+  key: spacerpg-save-slot:auto
+- type: no_severe_console
+visual_oracle:
+  golden_image: visual/station-save.golden.png
+  expected_label: correct
+  description: Docking at Helion Prime produces an auto save while the station UI
+    remains visible.
+  rubric:
+    must:
+    - The relevant game UI is visible.
+    - The page is not blank or crashed.
+    must_not:
+    - A browser error, crash overlay, or blank page is visible.
+    - The screenshot shows an unrelated app or setup screen.
+    ignore:
+    - Minor animation, text wrapping, or dynamic UI differences.
+  capture:
+    stage: post_smoke
+    wait_ms: 300
+    full_page: false

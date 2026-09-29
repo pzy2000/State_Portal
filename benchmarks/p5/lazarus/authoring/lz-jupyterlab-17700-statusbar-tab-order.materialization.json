@@ -1,0 +1,13 @@
+{
+  "benchmark": "jupyterlab",
+  "candidates_considered": 1,
+  "fixed_revision": "4a19f8fff4049a9536e21fa2980fe7e5ee592d01",
+  "patch_sha256": "0270db16a23a9f6b117204af4b2c2e9567e17840c24dec6ae3750ea87aae646e",
+  "pinned_host_revision": "4a19f8fff4049a9536e21fa2980fe7e5ee592d01",
+  "repo": "games/jupyterlab",
+  "schema": "c1-lazarus-materialization-base-v1",
+  "schema_version": 1,
+  "source": "pinned_host_revision",
+  "task_id": "lz-jupyterlab-17700-statusbar-tab-order",
+  "verification": "reverse_apply_check_in_detached_worktree"
+}

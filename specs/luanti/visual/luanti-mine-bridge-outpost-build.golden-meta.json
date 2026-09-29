@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/luanti/visual/luanti-mine-bridge-outpost-build.after.golden.png",
+  "after_dimensions": [
+    1280,
+    720
+  ],
+  "after_sha256": "16f608b286bd9621624c301f3ef0d3a2630a204b1be903d60cb97679e3aca813",
+  "before": "specs/luanti/visual/luanti-mine-bridge-outpost-build.before.golden.png",
+  "before_dimensions": [
+    1280,
+    720
+  ],
+  "before_sha256": "87376c9dccde107524283b13ace3f4b135eb4a89d847de78c8a0f6f4e7dccbab",
+  "benchmark": "luanti",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/luanti/c1-mine-bridge-outpost-build.yaml",
+  "spec_sha256": "ca47408e26967cb74371c0d5045ec4981c1c5e25620e560e913ac5fc52a8fab0",
+  "task_id": "luanti-mine-bridge-outpost-build"
+}

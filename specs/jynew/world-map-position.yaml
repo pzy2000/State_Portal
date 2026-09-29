@@ -1,0 +1,43 @@
+name: jynew world map position restore
+benchmark: "jynew"
+tags: ["jynew", "world-map", "position"]
+target:
+  kind: synthesized_state
+  mod_id: JYX2
+  player_level: 3
+  map_id: 0
+  validations:
+    - path: submap.id
+      expected: "0"
+checkpoint:
+  allowed_strategies: ["jynew_utility_save_validate"]
+  expected_validity: "injection-only"
+actions:
+  - type: jynew_save
+    save_index: 1
+assertions:
+  - type: jynew_map_id
+    int_value: 0
+  - type: no_jynew_utility_errors
+visual_oracle:
+  golden_image: visual/world-map-position.golden.png
+  expected_label: correct
+  scene_key: jynew_world_map
+  description: "The world map (map_id 0) is displayed with the player character positioned on the overworld. The terrain and map features of the main world map are visible."
+  rubric:
+    must:
+      - "The jynew world map terrain is rendered and visible."
+      - "The player character or indicator is on the world map."
+      - "The scene represents the overworld (map_id 0), not a sub-map."
+    must_not:
+      - "The screen is blank or shows an interior sub-map scene."
+      - "An error or crash state is displayed."
+      - "A battle scene or menu screen is shown instead."
+    ignore:
+      - "Exact player position on the world map."
+      - "Weather or time-of-day lighting variations."
+      - "NPC positions on the world map."
+  capture:
+    stage: post_smoke
+    wait_ms: 1000
+    full_page: false

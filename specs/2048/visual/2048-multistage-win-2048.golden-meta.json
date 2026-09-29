@@ -1,0 +1,21 @@
+{
+  "actions": 6,
+  "after": "specs/2048/visual/2048-multistage-win-2048.after.golden.png",
+  "after_dimensions": [
+    1280,
+    800
+  ],
+  "after_sha256": "1583c45e306008a62e7d83ad3c8874c1ff7aca66d57249f9a15a0e6a58b1b499",
+  "before": "specs/2048/visual/2048-multistage-win-2048.before.golden.png",
+  "before_dimensions": [
+    1280,
+    800
+  ],
+  "before_sha256": "cf5e78fac6b3b0df69cd251d001c61f4f39cb2ccc3259004592069d365fe765a",
+  "benchmark": "2048",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/2048/c1-multistage-win-2048.yaml",
+  "spec_sha256": "e467073fdb0142d2174a63e38c91babba5dc83e59b649bdadb8d261563311fbf",
+  "task_id": "2048-multistage-win-2048"
+}

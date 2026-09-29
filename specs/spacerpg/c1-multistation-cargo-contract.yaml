@@ -1,0 +1,151 @@
+name: C1 SpaceRPG multistation cargo contract
+benchmark: spacerpg
+tags: [spacerpg, c1, deep-chain, contract, trading]
+setup: {disable_economy_backend: true}
+target:
+  kind: equipment_loadout
+  screen: station
+  system_id: helion-reach
+  station_id: helion-prime
+  station_tab: Market
+  cargo: {basic-food: 0, medical-supplies: 0}
+  equipment_inventory: {}
+checkpoint:
+  allowed_strategies: [test_hook_jump_and_validate]
+  expected_validity: replay-reachable
+actions:
+  - {type: hook_call, method: acceptMission, args: [cargo-helion-ashen]}
+  - {type: hook_call, method: buy, args: [basic-food, 3]}
+  - {type: hook_call, method: buy, args: [medical-supplies, 2]}
+  - {type: hook_call, method: undock, args: []}
+  - {type: hook_call, method: jumpToSystem, args: [ashen-drift]}
+  - {type: hook_call, method: dockAt, args: [ashen-freeport]}
+  - {type: hook_call, method: completeMission, args: [cargo-helion-ashen]}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: state_contains, path: completedMissionIds, value: cargo-helion-ashen}
+      - {type: state_equals, path: currentSystemId, value: ashen-drift}
+      - {type: state_equals, path: currentStationId, value: ashen-freeport}
+      - {type: state_equals, path: screen, value: station}
+      - {type: state_absent, path: player.cargo.basic-food}
+      - {type: state_absent, path: player.cargo.medical-supplies}
+      - {type: state_gte, path: player.credits, value: 2500}
+      - {type: no_severe_console}
+    surfaces:
+      gui:
+        adapter: spacerpg_production_dom_save_v1
+        start:
+          validate_target: true
+          checks:
+          - name: dom.screen
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.screen
+            expected:
+              value: station
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: dom.current_system
+            metric: equals
+            actual:
+              probe: spacerpg.current_system
+              phase: current
+            expected:
+              value: helion-reach
+          - name: dom.station
+            metric: equals
+            actual:
+              probe: spacerpg.station_id
+              phase: current
+            expected:
+              value: helion-prime
+        goal:
+          use_assertions: true
+          checks:
+          - name: dom.fatal_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.fatal_overlay
+            expected:
+              value: false
+          - name: dom.blocking_overlay
+            metric: equals
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.blocking_overlay
+            expected:
+              value: false
+          - name: dom.actionable_buttons
+            metric: greater_or_equal
+            actual:
+              probe: common.path
+              phase: current
+              path: dom.actionable_buttons
+            expected:
+              value: 1
+          - name: transition.screen_trace_start
+            metric: equals
+            actual:
+              probe: spacerpg.screen_trace_start
+            expected:
+              value: galaxyMap
+          - name: transition.screen_trace_end
+            metric: equals
+            actual:
+              probe: spacerpg.screen_trace_end
+            expected:
+              value: flight
+      state:
+        adapter: spacerpg_state_profile_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+
+  visual_oracle:
+    golden_image: visual/spacerpg-multistation-cargo-contract.after.golden.png
+    golden_before: visual/spacerpg-multistation-cargo-contract.before.golden.png
+    golden_after: visual/spacerpg-multistation-cargo-contract.after.golden.png
+    expected_label: correct
+    description: "The Helion Prime contract/market station UI is visible before acceptance."
+    after_description: "The Ashen Freeport station UI is visible after cargo delivery and reward."
+    rubric:
+      must: ["A rendered SpaceRPG station interface at Helion Prime is visible.", "Station controls are usable."]
+      must_not: ["The main menu, blank page, or crash is visible."]
+      ignore: ["Selected station tab and dynamic market prices."]
+    after_rubric:
+      must: ["A rendered station interface at Ashen Freeport is visible.", "The screen remains usable after delivery."]
+      must_not: ["The frame remains at the Helion origin with no travel evidence.", "A blank page or crash is visible."]
+      ignore: ["Exact reward notification placement."]
+    capture: {stage: post_smoke, wait_ms: 300, full_page: false, hide_selectors: [".dialogue-backdrop", ".modal-overlay"]}

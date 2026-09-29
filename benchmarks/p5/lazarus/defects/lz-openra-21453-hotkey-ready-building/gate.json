@@ -1,0 +1,414 @@
+{
+  "benchmark": "openra",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_before_visual": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_before_visual": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "provenance_verified": true
+  },
+  "complete": true,
+  "evidence": {
+    "goldens": {
+      "before_equivalent": true,
+      "buggy_after_visual": true,
+      "buggy_before_visual": true,
+      "complete": true,
+      "failures": [],
+      "fixed_after_visual": true,
+      "fixed_before_visual": true,
+      "metadata_sha256": "d565e556aa8dcd227e2776c03d1ac71ab279c8859bfaea3ec9106375f2929c13",
+      "task_id": "lz-openra-21453-hotkey-ready-building"
+    },
+    "provenance_errors": [],
+    "semantic": {
+      "buggy_signature": {
+        "checks": [
+          "before.ready:true",
+          "after.goal_checks:false",
+          "after.defect_signature:true",
+          "after.invariants:true"
+        ],
+        "invariants_ok": true,
+        "primary_ok": true,
+        "report_sha256": "377e744edfe52afa6a54ec35e00bf01bcef1e8a42fe24fef8b14ab16d2c5b152",
+        "start_ok": true,
+        "status": "goal_not_reached"
+      },
+      "buggy_start": {
+        "checks": [
+          "before.ready:true",
+          "after.goal_checks:false",
+          "after.defect_signature:true",
+          "after.invariants:true"
+        ],
+        "invariants_ok": true,
+        "primary_ok": true,
+        "report_sha256": "377e744edfe52afa6a54ec35e00bf01bcef1e8a42fe24fef8b14ab16d2c5b152",
+        "start_ok": true,
+        "status": "goal_not_reached"
+      },
+      "fixed_goal": {
+        "checks": [
+          "before.ready:true",
+          "after.goal_checks:true",
+          "after.defect_signature:false",
+          "after.invariants:true"
+        ],
+        "invariants_ok": true,
+        "primary_ok": true,
+        "report_sha256": "1034abc2c558003f1fa63dee5a08c04aac9a2afd0601a2e1202233c80fbecd3f",
+        "start_ok": true,
+        "status": "success"
+      },
+      "fixed_signature": {
+        "checks": [
+          "before.ready:true",
+          "after.goal_checks:true",
+          "after.defect_signature:false",
+          "after.invariants:true"
+        ],
+        "invariants_ok": true,
+        "primary_ok": false,
+        "report_sha256": "1034abc2c558003f1fa63dee5a08c04aac9a2afd0601a2e1202233c80fbecd3f",
+        "start_ok": true,
+        "status": "success"
+      },
+      "fixed_start": {
+        "checks": [
+          "before.ready:true",
+          "after.goal_checks:true",
+          "after.defect_signature:false",
+          "after.invariants:true"
+        ],
+        "invariants_ok": true,
+        "primary_ok": true,
+        "report_sha256": "1034abc2c558003f1fa63dee5a08c04aac9a2afd0601a2e1202233c80fbecd3f",
+        "start_ok": true,
+        "status": "success"
+      }
+    },
+    "upstream": {
+      "buggy": {
+        "complete": true,
+        "duration_ms": 7070.848582981853,
+        "failures": [
+          "upstream test openra-pr21453-hidden-ready-building-f2p exited 1"
+        ],
+        "isolation": "apfs_cow_clone",
+        "passed": false,
+        "results": [
+          {
+            "duration_ms": 5716.75391701865,
+            "exit_code": 1,
+            "id": "openra-pr21453-hidden-ready-building-f2p",
+            "output_capture": {
+              "redaction": "environment_and_credential_markers_v1",
+              "schema": "c1-lazarus-subprocess-output-v1",
+              "schema_version": 1,
+              "stderr": "",
+              "stderr_truncated": false,
+              "stdout": "{\"after\": {\"audit\": {\"complete\": true, \"defect_signature_ok\": true, \"failures\": [], \"goal_checks_ok\": false, \"invariants_ok\": true}, \"defect_signature_ok\": true, \"executed\": true, \"goal_checks_ok\": false, \"invariants_ok\": true, \"placement_cancel_observed\": false}, \"after_path\": \"/private/tmp/warptest-lazarus-gates/lazarus-p2p-5bur5mad/repo/.warptest-lazarus-probes/lazarus-openra-hidden-ready-building-dn4fj9iq/openra-pr21453-hotkey-after.png\", \"audit_path\": \"/private/tmp/warptest-lazarus-gates/lazarus-p2p-5bur5mad/repo/.warptest-lazarus-probes/lazarus-openra-hidden-ready-building-dn4fj9iq/openra-hotkey-ready-building-audit.json\", \"before\": {\"audit\": {\"complete\": true, \"defect_signature_ok\": true, \"failures\": [], \"goal_checks_ok\": false, \"invariants_ok\": true}, \"executed\": true, \"ready\": true}, \"before_path\": \"/private/tmp/warptest-lazarus-gates/lazarus-p2p-5bur5mad/repo/.warptest-lazarus-probes/lazarus-openra-hidden-ready-building-dn4fj9iq/openra-pr21453-hotkey-before.png\", \"benchmark\": \"openra\", \"case\": \"hidden-ready-building\", \"input\": {\"accepted\": true, \"batch_id\": \"a68925bbf6ed4baa9030b4842908c530:1:lazarus-openra-pr21453-e\", \"error\": \"\", \"event_count\": 2, \"resulting_frame_id\": 2}, \"kind\": \"issue_derived_gui_differential\", \"passed\": false, \"schema\": \"c1-lazarus-probe-result-v1\", \"schema_version\": 1, \"status\": \"goal_not_reached\"}\n",
+              "stdout_truncated": false
+            },
+            "passed": false,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "1f60b110c95ad2db941da62bc9bc97902372a463f62f344a6d48ae0b7e4a84a6",
+            "timed_out": false
+          },
+          {
+            "duration_ms": 1106.9236249895766,
+            "exit_code": 0,
+            "id": "openra-action-queue-p2p",
+            "output_capture": {
+              "redaction": "environment_and_credential_markers_v1",
+              "schema": "c1-lazarus-subprocess-output-v1",
+              "schema_version": 1,
+              "stderr": "",
+              "stderr_truncated": false,
+              "stdout": "Test run for /private/tmp/warptest-lazarus-gates/lazarus-p2p-5bur5mad/repo/bin/OpenRA.Test.dll (.NETCoreApp,Version=v8.0)\nMicrosoft (R) 测试执行命令行工具版本 17.8.0 (arm64)\n版权所有 (C) Microsoft Corporation。保留所有权利。\n\n正在启动测试执行，请稍候...\n总共 1 个测试文件与指定模式相匹配。\n\n已通过! - 失败:     0，通过:     1，已跳过:     0，总计:     1，持续时间: 1 ms - OpenRA.Test.dll (net8.0)\n",
+              "stdout_truncated": false
+            },
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "ffb5a28ca1be9799d70ab6fe827c9c8832095a99f1cc49d893561e35794afc24",
+            "timed_out": false
+          }
+        ],
+        "test_ids": [
+          "openra-pr21453-hidden-ready-building-f2p",
+          "openra-action-queue-p2p"
+        ]
+      },
+      "fixed": {
+        "complete": true,
+        "duration_ms": 7617.018167016795,
+        "failures": [],
+        "isolation": "apfs_cow_clone",
+        "passed": true,
+        "results": [
+          {
+            "duration_ms": 6112.787000020035,
+            "exit_code": 0,
+            "id": "openra-pr21453-hidden-ready-building-f2p",
+            "output_capture": {
+              "redaction": "environment_and_credential_markers_v1",
+              "schema": "c1-lazarus-subprocess-output-v1",
+              "schema_version": 1,
+              "stderr": "",
+              "stderr_truncated": false,
+              "stdout": "{\"after\": {\"audit\": {\"complete\": true, \"defect_signature_ok\": false, \"failures\": [], \"goal_checks_ok\": true, \"invariants_ok\": true}, \"defect_signature_ok\": false, \"executed\": true, \"goal_checks_ok\": true, \"invariants_ok\": true, \"placement_cancel_observed\": false}, \"after_path\": \"/private/tmp/warptest-lazarus-gates/lazarus-p2p-bcr64764/repo/.warptest-lazarus-probes/lazarus-openra-hidden-ready-building-umaiimtj/openra-pr21453-hotkey-after.png\", \"audit_path\": \"/private/tmp/warptest-lazarus-gates/lazarus-p2p-bcr64764/repo/.warptest-lazarus-probes/lazarus-openra-hidden-ready-building-umaiimtj/openra-hotkey-ready-building-audit.json\", \"before\": {\"audit\": {\"complete\": true, \"defect_signature_ok\": true, \"failures\": [], \"goal_checks_ok\": false, \"invariants_ok\": true}, \"executed\": true, \"ready\": true}, \"before_path\": \"/private/tmp/warptest-lazarus-gates/lazarus-p2p-bcr64764/repo/.warptest-lazarus-probes/lazarus-openra-hidden-ready-building-umaiimtj/openra-pr21453-hotkey-before.png\", \"benchmark\": \"openra\", \"case\": \"hidden-ready-building\", \"input\": {\"accepted\": true, \"batch_id\": \"42fbdbfa76384b809d17dfb6d00cb60d:1:lazarus-openra-pr21453-e\", \"error\": \"\", \"event_count\": 2, \"resulting_frame_id\": 2}, \"kind\": \"issue_derived_gui_differential\", \"passed\": true, \"schema\": \"c1-lazarus-probe-result-v1\", \"schema_version\": 1, \"status\": \"success\"}\n",
+              "stdout_truncated": false
+            },
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "f9ebe6dc8cabab8988974dbd116b8749e0dfb3c364c4c4fb9e4a51b2b689831b",
+            "timed_out": false
+          },
+          {
+            "duration_ms": 1243.663999979617,
+            "exit_code": 0,
+            "id": "openra-action-queue-p2p",
+            "output_capture": {
+              "redaction": "environment_and_credential_markers_v1",
+              "schema": "c1-lazarus-subprocess-output-v1",
+              "schema_version": 1,
+              "stderr": "",
+              "stderr_truncated": false,
+              "stdout": "Test run for /private/tmp/warptest-lazarus-gates/lazarus-p2p-bcr64764/repo/bin/OpenRA.Test.dll (.NETCoreApp,Version=v8.0)\nMicrosoft (R) 测试执行命令行工具版本 17.8.0 (arm64)\n版权所有 (C) Microsoft Corporation。保留所有权利。\n\n正在启动测试执行，请稍候...\n总共 1 个测试文件与指定模式相匹配。\n\n已通过! - 失败:     0，通过:     1，已跳过:     0，总计:     1，持续时间: 1 ms - OpenRA.Test.dll (net8.0)\n",
+              "stdout_truncated": false
+            },
+            "passed": true,
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "0f6781a3e3dc6c4671a7ac123f2ad69c56c877ac8390f4ecdf752954963218e2",
+            "timed_out": false
+          }
+        ],
+        "test_ids": [
+          "openra-pr21453-hidden-ready-building-f2p",
+          "openra-action-queue-p2p"
+        ]
+      }
+    },
+    "versions": {
+      "buggy": {
+        "build_identity": {
+          "build_class": "incremental_dotnet",
+          "compile": {
+            "artifacts": {
+              "OpenRA.Mods.Common/Traits/World/WarptestReadyBuildingAudit.cs": {
+                "kind": "file",
+                "sha256": "aacfbc1c503b517d1072426b9283af9e61fed304e323b865e57c702997f83031",
+                "size": 8414
+              },
+              "bin/OpenRA.Game.dll": {
+                "kind": "file",
+                "sha256": "eb549ee395e0aae5c36891e04b0449f30969b414a783775b056e1a5d37a67acc",
+                "size": 931840
+              },
+              "bin/OpenRA.Mods.Common.dll": {
+                "kind": "file",
+                "sha256": "19f0859a84738c8c33a7cd02958458e05191c4a6b5611a2eda2258c2eb5c6ba1",
+                "size": 3785216
+              },
+              "bin/OpenRA.Test.dll": {
+                "kind": "file",
+                "sha256": "e5aabc16e20a9e4786cebbd2a123e101b241252a7577acf0c51dc1e0c9056f46",
+                "size": 163840
+              },
+              "mods/ra/maps/allies-08a/map.yaml": {
+                "kind": "file",
+                "sha256": "e7960254a4ff1934b4769fa4cb443879c22797ec20ad17ed5b7a1ead0b22dfe4",
+                "size": 16542
+              },
+              "mods/ra/maps/allies-08a/rules.yaml": {
+                "kind": "file",
+                "sha256": "d7f41516b3803c2dd45f97d9cad29ed1ef414674f9ac4ef59c711a9b4c5ce478",
+                "size": 4802
+              }
+            },
+            "command": [
+              "dotnet",
+              "build",
+              "OpenRA.Test/OpenRA.Test.csproj",
+              "-c",
+              "Release",
+              "--no-restore"
+            ],
+            "elapsed_ms": 3174.0499590086984,
+            "post_commands": [],
+            "postbuild_steps": [],
+            "pre_commands": [
+              [
+                "dotnet",
+                "clean",
+                "OpenRA.Test/OpenRA.Test.csproj",
+                "-c",
+                "Release",
+                "--nologo"
+              ]
+            ],
+            "prebuild_steps": [
+              {
+                "command": [
+                  "dotnet",
+                  "clean",
+                  "OpenRA.Test/OpenRA.Test.csproj",
+                  "-c",
+                  "Release",
+                  "--nologo"
+                ],
+                "elapsed_ms": 580.2345409902046,
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "bd360b777b624f497e20a204c2f75dc4050bf8465e62f6f3ae23d17cd9c4cc05"
+              }
+            ],
+            "status": "passed",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "dae4fc78d8ed9ec60649fb59443b682dfa5fafeacd8bf72729fc6712e638c547",
+            "timeout_s": 300.0,
+            "version": "buggy"
+          },
+          "overlay": {
+            "audit_source_sha256": "aacfbc1c503b517d1072426b9283af9e61fed304e323b865e57c702997f83031",
+            "audit_target_sha256": "aacfbc1c503b517d1072426b9283af9e61fed304e323b865e57c702997f83031",
+            "map_patch_sha256": "e2860260b5460386f4e82ab43e67cdc6d2624ac3cbe7b860c1bcea2ca22279c6",
+            "map_target_sha256": "e7960254a4ff1934b4769fa4cb443879c22797ec20ad17ed5b7a1ead0b22dfe4",
+            "overlay_sha256": "8b775f7eccb2421a338f264b5dd3ac28c8258f4dba85e37d9c92a191761db31e",
+            "rules_patch_sha256": "8ec2d44733dc28c78c63d5d120acd67139c4b8458eca4d946c9bda11981fe8bf",
+            "rules_target_sha256": "d7f41516b3803c2dd45f97d9cad29ed1ef414674f9ac4ef59c711a9b4c5ce478",
+            "schema": "c1-lazarus-openra-overlay-v1",
+            "task_id": "lz-openra-21453-hotkey-ready-building"
+          }
+        },
+        "changed_files": [
+          "OpenRA.Mods.Common/Widgets/ProductionPaletteWidget.cs"
+        ],
+        "patch_sha256": "492563431bc818e51eba1dfd1bf5164865b14915a20d7faa01b2cffbd0277c1d",
+        "source_revision": "7e687f430ee5b194c0ffaa06caaba757dd9155fb",
+        "tree_sha256": "a4a1fe515acb3dac8b82902ebf44743fe179d9eb7747cb5c2b796ef8732a8016"
+      },
+      "fixed": {
+        "build_identity": {
+          "build_class": "incremental_dotnet",
+          "compile": {
+            "artifacts": {
+              "OpenRA.Mods.Common/Traits/World/WarptestReadyBuildingAudit.cs": {
+                "kind": "file",
+                "sha256": "aacfbc1c503b517d1072426b9283af9e61fed304e323b865e57c702997f83031",
+                "size": 8414
+              },
+              "bin/OpenRA.Game.dll": {
+                "kind": "file",
+                "sha256": "e08aa73f7ed65e6ce30314c6e039f14a81e981324b705123389cb10ca2a93bec",
+                "size": 931840
+              },
+              "bin/OpenRA.Mods.Common.dll": {
+                "kind": "file",
+                "sha256": "8a9312e8ba1a43ce801d3a5f9fb228268b0d396ba2636748c35abfffe008bd44",
+                "size": 3785216
+              },
+              "bin/OpenRA.Test.dll": {
+                "kind": "file",
+                "sha256": "b03f8ef1863722ff3af63d3eb30470882108d706ff658c0b4022b4e21ca45080",
+                "size": 163840
+              },
+              "mods/ra/maps/allies-08a/map.yaml": {
+                "kind": "file",
+                "sha256": "e7960254a4ff1934b4769fa4cb443879c22797ec20ad17ed5b7a1ead0b22dfe4",
+                "size": 16542
+              },
+              "mods/ra/maps/allies-08a/rules.yaml": {
+                "kind": "file",
+                "sha256": "d7f41516b3803c2dd45f97d9cad29ed1ef414674f9ac4ef59c711a9b4c5ce478",
+                "size": 4802
+              }
+            },
+            "command": [
+              "dotnet",
+              "build",
+              "OpenRA.Test/OpenRA.Test.csproj",
+              "-c",
+              "Release",
+              "--no-restore"
+            ],
+            "elapsed_ms": 4993.220167001709,
+            "post_commands": [],
+            "postbuild_steps": [],
+            "pre_commands": [
+              [
+                "dotnet",
+                "clean",
+                "OpenRA.Test/OpenRA.Test.csproj",
+                "-c",
+                "Release",
+                "--nologo"
+              ]
+            ],
+            "prebuild_steps": [
+              {
+                "command": [
+                  "dotnet",
+                  "clean",
+                  "OpenRA.Test/OpenRA.Test.csproj",
+                  "-c",
+                  "Release",
+                  "--nologo"
+                ],
+                "elapsed_ms": 1223.1474169966532,
+                "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "stdout_sha256": "49f6bb2c00352ca7b0c881ce840915140134f84a011793b1436a5f83fc881ba0"
+              }
+            ],
+            "status": "passed",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "2044ddd5b8c12969872a01e29b3523233e8addc496506fb0b48b28c0eb939956",
+            "timeout_s": 300.0,
+            "version": "fixed"
+          },
+          "overlay": {
+            "audit_source_sha256": "aacfbc1c503b517d1072426b9283af9e61fed304e323b865e57c702997f83031",
+            "audit_target_sha256": "aacfbc1c503b517d1072426b9283af9e61fed304e323b865e57c702997f83031",
+            "map_patch_sha256": "e2860260b5460386f4e82ab43e67cdc6d2624ac3cbe7b860c1bcea2ca22279c6",
+            "map_target_sha256": "e7960254a4ff1934b4769fa4cb443879c22797ec20ad17ed5b7a1ead0b22dfe4",
+            "overlay_sha256": "8b775f7eccb2421a338f264b5dd3ac28c8258f4dba85e37d9c92a191761db31e",
+            "rules_patch_sha256": "8ec2d44733dc28c78c63d5d120acd67139c4b8458eca4d946c9bda11981fe8bf",
+            "rules_target_sha256": "d7f41516b3803c2dd45f97d9cad29ed1ef414674f9ac4ef59c711a9b4c5ce478",
+            "schema": "c1-lazarus-openra-overlay-v1",
+            "task_id": "lz-openra-21453-hotkey-ready-building"
+          }
+        },
+        "changed_files": [],
+        "patch_sha256": "492563431bc818e51eba1dfd1bf5164865b14915a20d7faa01b2cffbd0277c1d",
+        "source_revision": "7e687f430ee5b194c0ffaa06caaba757dd9155fb",
+        "tree_sha256": "f93a1b9ca56e845ee5aa96ab62a347c22ca9fbed75c5ac5797487d5b45a01adc"
+      }
+    }
+  },
+  "f2p_claim": "issue_derived_gui_differential_not_upstream",
+  "f2p_origin": "issue_derived_gui_differential",
+  "fail_to_pass": [
+    "openra-pr21453-hidden-ready-building-f2p"
+  ],
+  "failures": [],
+  "pass_to_pass": [
+    "openra-action-queue-p2p"
+  ],
+  "passed": true,
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-openra-21453-hotkey-ready-building",
+  "upstream_f2p": false
+}

@@ -1,0 +1,45 @@
+# Gold replay: an unregistered node in loaded world state crashes/aborts the server.
+#
+# Reconstructed from a control-validated, headless-server reproducible defect: a
+# world state referencing an unknown node name is synthesized on a dedicated
+# server. On the pcall-guarded synth path it surfaces as a captured
+# "Unknown node" synthesis error; on the unprotected async world-load path the
+# same error is a server-fatal `ServerError: AsyncErr`.
+#
+# The defect oracle is EXPLICIT (Contract 3): it never treats a plain
+# status=="failure" as reproduced -- it fires only on an abnormal process exit,
+# a matched fatal log signature, or the specific "Unknown node" detail.
+name: "luanti replay: unknown node in world state aborts server"
+benchmark: luanti
+
+source:
+  upstream_repo: luanti-org/luanti
+  pr_number: null            # fill when tied to a specific upstream fix PR
+  pre_fix_sha: null          # Contract 2: mergeCommit.parents[0].oid
+  post_fix_sha: null         # Contract 2: mergeCommit.oid
+  source_url: null
+  provenance: >-
+    Control-validated headless reproduction of the unknown-node / invalid-item
+    world-load crash class (see BUGS/luanti/issue-01). Author real pre/post SHA to
+    promote this to a two-commit gold pair.
+
+fixture:
+  target:
+    kind: synthesized_world
+    nodes:
+      - pos: { x: 2147483647, y: 2147483647, z: 2147483647 }
+        node: "basenodes:tree"
+      - pos: { x: -2147483648, y: -2147483648, z: -2147483648 }
+        node: ""
+
+defect_oracle:
+  abnormal_exit: true
+  timeout: false
+  log_signatures:
+    - "AsyncErr"
+    - "ServerError"
+  semantic_assertions:
+    - path: detail
+      contains: "Unknown node"
+
+timeout_s: 45

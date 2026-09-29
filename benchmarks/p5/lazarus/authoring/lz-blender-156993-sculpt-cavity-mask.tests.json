@@ -1,0 +1,167 @@
+{
+  "schema": "c1-lazarus-authoring-tests-v1",
+  "schema_version": 1,
+  "tests": [
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/sculpt_paint/mask_test.py",
+        "--",
+        "--testdir",
+        "tests/files/sculpting",
+        "MaskFromCavityTest.test_operator_masks_low_vertices"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/sculpt_paint/mask_test.py",
+        "--",
+        "--testdir",
+        "tests/files/sculpting",
+        "MaskFromCavityTest.test_operator_masks_low_vertices"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/python/sculpt_paint/mask_test.py",
+          "sha256": "f171e8d53276a48d7fc8e7c3a3ed9749f24dfb113a808d74a6b6c43b967c4b73",
+          "source_path": "upstream-tests/tests/python/sculpt_paint/mask_test.py"
+        },
+        {
+          "destination_path": "tests/files/sculpting/plane_with_valley.blend",
+          "sha256": "cb8a42b2a050dfb6a7c0ad85dcdc42bf58263257d2379936317a84dd018c178a",
+          "source_path": "upstream-tests/tests/files/sculpting/plane_with_valley.blend"
+        }
+      ],
+      "id": "blender-156993-cavity-mask-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_sculpt_python_regression_suite",
+      "source_case": "MaskFromCavityTest.test_operator_masks_low_vertices",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/be36644bfee11645e83b97f706a8852f6f12b57b/tests/python/sculpt_paint/mask_test.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/sculpt_paint/mask_test.py",
+          "sha256": "f171e8d53276a48d7fc8e7c3a3ed9749f24dfb113a808d74a6b6c43b967c4b73",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/be36644bfee11645e83b97f706a8852f6f12b57b/tests/python/sculpt_paint/mask_test.py"
+        },
+        {
+          "path": "tests/files/sculpting/plane_with_valley.blend",
+          "sha256": "cb8a42b2a050dfb6a7c0ad85dcdc42bf58263257d2379936317a84dd018c178a",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/be36644bfee11645e83b97f706a8852f6f12b57b/tests/files/sculpting/plane_with_valley.blend"
+        }
+      ],
+      "upstream_test_path": "tests/python/sculpt_paint/mask_test.py",
+      "upstream_test_sha256": "f171e8d53276a48d7fc8e7c3a3ed9749f24dfb113a808d74a6b6c43b967c4b73"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/sculpt_paint/mask_test.py",
+        "--",
+        "--testdir",
+        "tests/files/sculpting",
+        "ClearMaskTest.test_value_removes_attribute"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/sculpt_paint/mask_test.py",
+        "--",
+        "--testdir",
+        "tests/files/sculpting",
+        "ClearMaskTest.test_value_removes_attribute"
+      ],
+      "cwd": ".",
+      "frozen_test_sources": [
+        {
+          "destination_path": "tests/python/sculpt_paint/mask_test.py",
+          "sha256": "f171e8d53276a48d7fc8e7c3a3ed9749f24dfb113a808d74a6b6c43b967c4b73",
+          "source_path": "upstream-tests/tests/python/sculpt_paint/mask_test.py"
+        },
+        {
+          "destination_path": "tests/files/sculpting/plane_with_valley.blend",
+          "sha256": "cb8a42b2a050dfb6a7c0ad85dcdc42bf58263257d2379936317a84dd018c178a",
+          "source_path": "upstream-tests/tests/files/sculpting/plane_with_valley.blend"
+        }
+      ],
+      "id": "blender-clear-mask-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_sculpt_python_test_suite",
+      "source_case": "ClearMaskTest.test_value_removes_attribute",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/be36644bfee11645e83b97f706a8852f6f12b57b/tests/python/sculpt_paint/mask_test.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/sculpt_paint/mask_test.py",
+          "sha256": "f171e8d53276a48d7fc8e7c3a3ed9749f24dfb113a808d74a6b6c43b967c4b73",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/be36644bfee11645e83b97f706a8852f6f12b57b/tests/python/sculpt_paint/mask_test.py"
+        },
+        {
+          "path": "tests/files/sculpting/plane_with_valley.blend",
+          "sha256": "cb8a42b2a050dfb6a7c0ad85dcdc42bf58263257d2379936317a84dd018c178a",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/be36644bfee11645e83b97f706a8852f6f12b57b/tests/files/sculpting/plane_with_valley.blend"
+        }
+      ],
+      "upstream_test_path": "tests/python/sculpt_paint/mask_test.py",
+      "upstream_test_sha256": "f171e8d53276a48d7fc8e7c3a3ed9749f24dfb113a808d74a6b6c43b967c4b73"
+    },
+    {
+      "argv": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "command": [
+        "./build-lazarus/bin/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "tests/python/bl_pyapi_mathutils.py"
+      ],
+      "cwd": ".",
+      "id": "blender-mathutils-trial-p2p",
+      "kind": "per_trial_p2p",
+      "origin": "upstream",
+      "provenance": "repository_python_test_suite",
+      "source_case": "bl_pyapi_mathutils",
+      "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py",
+      "timeout_s": 300,
+      "upstream_test_files": [
+        {
+          "path": "tests/python/bl_pyapi_mathutils.py",
+          "sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af",
+          "source_url": "https://projects.blender.org/blender/blender/src/commit/3d018bcabdaeea66cf4ef4a96ce8913164831f6e/tests/python/bl_pyapi_mathutils.py"
+        }
+      ],
+      "upstream_test_path": "tests/python/bl_pyapi_mathutils.py",
+      "upstream_test_sha256": "c5e252adc5fc80590faca2c667ba81d0ff732f682e1d866f1d4a0050b21a99af"
+    }
+  ]
+}

@@ -1,0 +1,1209 @@
+# Pre-registered C1 task universe shared by the formal C/D/E arms.
+# Historical A/B entries remain disabled in the experiment manifest.
+#
+# The v5 public contract separates checkpoint preconditions from reference
+# steps. ``state_description`` is their exact canonical concatenation.
+# Historical goal text remains commented for editors only; it is neither parsed
+# nor exposed to Agent-S. Hidden assertions and visual after-state rubrics are
+# the formal success contract.
+#
+# Budgets are uniform across all 61 tasks: every task gets the same 100 decision
+# steps and the same ``budget_ms``. They are not functions of benchmark, horizon
+# or task, so a horizon-grouped result is never just a benchmark-grouped result
+# in disguise. ``horizon_class`` is retained as a descriptive label only and does
+# not influence any execution parameter.
+schema_version: 5
+task_schema: c1_v5
+benchmark_hosts:
+  "2048":
+    display_name: "2048"
+    repo: games/2048
+    gitmodules_url: https://github.com/anonymous/2048.git
+    revision: 8b5c8a899a4acfd3258ad76e0af8e35a6bf7a3b9
+  datingsim:
+    display_name: DatingSim
+    repo: games/DatingSim
+    gitmodules_url: https://github.com/anonymous/DatingSim.git
+    revision: withheld
+  spacerpg:
+    display_name: SpaceRPG
+    repo: games/SpaceRPG
+    gitmodules_url: https://github.com/anonymous/SpaceRPG.git
+    revision: withheld
+  luanti:
+    display_name: Luanti
+    repo: games/luanti
+    gitmodules_url: https://github.com/anonymous/luanti.git
+    revision: ba414e29fddf52337b16d673e17f87165bab3eff
+  openra:
+    display_name: OpenRA
+    repo: games/OpenRA
+    gitmodules_url: https://github.com/anonymous/OpenRA.git
+    revision: 7e687f430ee5b194c0ffaa06caaba757dd9155fb
+  jupyterlab:
+    display_name: JupyterLab
+    repo: games/jupyterlab
+    gitmodules_url: https://github.com/anonymous/jupyterlab.git
+    revision: 4a19f8fff4049a9536e21fa2980fe7e5ee592d01
+  libreoffice:
+    display_name: LibreOffice
+    repo: games/LibreOffice
+    gitmodules_url: https://github.com/anonymous/core.git
+    revision: 3f84070274f87588c9ef69e9ea9e2426335392c8
+  blender:
+    display_name: Blender
+    repo: games/blender
+    gitmodules_url: https://github.com/anonymous/blender.git
+    revision: 3d018bcabdaeea66cf4ef4a96ce8913164831f6e
+  jynew:
+    display_name: jynew
+    repo: games/jynew
+    gitmodules_url: https://github.com/anonymous/jynew.git
+    revision: be27d95303cb1915bdfbcfe15046fa3f937b7eb7
+  pal3:
+    display_name: PAL3
+    repo: games/Pal3.Unity
+    gitmodules_url: https://github.com/anonymous/Pal3.Unity.git
+    revision: 577017d943751a81886604a7744996e9ac968318
+analysis_schema_version: 1
+tag_vocabulary:
+  - c1
+  - deep-chain
+  - "2048"
+  - love
+  - spacerpg
+  - luanti
+  - openra
+  - jupyterlab
+  - libreoffice
+  - blender
+  - jynew
+  - pal3
+capability_vocabulary:
+  multi-step-planning:
+    description: Execute an ordered dependency chain whose later operations rely on earlier state changes.
+    minimum_tasks: 3
+    minimum_benchmarks: 2
+  gui-localization:
+    description: Locate and operate named controls, objects, regions, or panels in the rendered interface.
+    minimum_tasks: 3
+    minimum_benchmarks: 2
+  state-persistence:
+    description: Save, reload, reopen, or otherwise preserve state across a persistence boundary.
+    minimum_tasks: 3
+    minimum_benchmarks: 2
+  numeric-reasoning:
+    description: Track exact values, counts, arithmetic effects, thresholds, or formulas.
+    minimum_tasks: 3
+    minimum_benchmarks: 2
+  spatial-reasoning:
+    description: Reason about direction, coordinates, board layout, scene placement, or navigation.
+    minimum_tasks: 3
+    minimum_benchmarks: 2
+  resource-management:
+    description: Manage money, energy, inventory, cargo, units, production, or other consumable resources.
+    minimum_tasks: 3
+    minimum_benchmarks: 2
+  structured-artifact-editing:
+    description: Create or modify a structured world, notebook, document, presentation, or 3D scene.
+    minimum_tasks: 3
+    minimum_benchmarks: 2
+expansion_sets:
+  deep30:
+    description: Thirty deep-chain tasks added to the formal C1 design.
+    base_prompt_revision: c1-deep30-v3
+    task_ids:
+      - 2048-cascade-256
+      - 2048-near-loss-rescue-128
+      - 2048-multistage-win-2048
+      - love-work-gym-date-roundtrip
+      - love-elena-dialogue-memory-consolidation
+      - love-elena-partner-ending-unlock
+      - spacerpg-trade-refit-mining-sortie
+      - spacerpg-multistation-cargo-contract
+      - spacerpg-contraband-stealth-run
+      - luanti-mine-bridge-outpost-build
+      - luanti-self-sufficient-homestead-roundtrip
+      - luanti-workshop-order-staging
+      - openra-allied-medium-tank-tech-chain
+      - openra-soviet-rocket-infantry-chain
+      - openra-allied-combined-arms-rally
+      - jupyterlab-sales-analysis-pipeline
+      - jupyterlab-debug-notebook-rerun
+      - jupyterlab-reproducible-experiment-workspace
+      - libreoffice-writer-board-publication
+      - libreoffice-calc-forecast-ranking-chart
+      - libreoffice-impress-executive-restructure
+      - blender-product-model-pipeline
+      - blender-animation-shot-pipeline
+      - blender-multiobject-scene-assembly
+      - jynew-party-training-roundtrip
+      - jynew-sidequest-trade-submap
+      - jynew-battle-ready-loadout
+      - pal3-story-party-scene-roundtrip
+      - pal3-world-region-travel-roundtrip
+      - pal3-companion-ending-preparation
+tasks:
+  - id: 2048-merge-left
+    benchmark: "2048"
+    repo: games/2048
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: A 2048 board with [2, 2, 0, 0] in the top row, all other cells empty, and score 0.
+    reference_steps: Make exactly one left move.
+    # goal_description: The two starting tiles are merged into a visible 4 tile and the score has increased by at least 4.
+    state_description: |-
+      Preconditions: A 2048 board with [2, 2, 0, 0] in the top row, all other cells empty, and score 0.
+      Reference steps: Make exactly one left move.
+    horizon_class: short
+    oracle_spec: specs/2048/merge-left.yaml
+    tags: [c1, "2048"]
+    capabilities: [numeric-reasoning, spatial-reasoning]
+    budget_ms: 2400000
+  - id: 2048-merge-right
+    benchmark: "2048"
+    repo: games/2048
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: A 2048 board with [0, 0, 2, 2] in the top row, all other cells empty, and score 0.
+    reference_steps: Make exactly one right move.
+    # goal_description: The two starting tiles are merged into a visible 4 tile and the score has increased by at least 4.
+    state_description: |-
+      Preconditions: A 2048 board with [0, 0, 2, 2] in the top row, all other cells empty, and score 0.
+      Reference steps: Make exactly one right move.
+    horizon_class: short
+    oracle_spec: specs/2048/merge-right.yaml
+    tags: [c1, "2048"]
+    capabilities: [numeric-reasoning, spatial-reasoning]
+    budget_ms: 2400000
+  - id: 2048-merge-up
+    benchmark: "2048"
+    repo: games/2048
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: A 2048 board with a 2 in each of the first two cells of the left column, all other cells empty, and score 0.
+    reference_steps: Make exactly one up move.
+    # goal_description: The two starting tiles are merged into a visible 4 tile and the score has increased by at least 4.
+    state_description: |-
+      Preconditions: A 2048 board with a 2 in each of the first two cells of the left column, all other cells empty, and score 0.
+      Reference steps: Make exactly one up move.
+    horizon_class: short
+    oracle_spec: specs/2048/merge-up.yaml
+    tags: [c1, "2048"]
+    capabilities: [numeric-reasoning, spatial-reasoning]
+    budget_ms: 2400000
+  - id: 2048-merge-down
+    benchmark: "2048"
+    repo: games/2048
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: A 2048 board with a 2 in each of the bottom two cells of the left column, all other cells empty, and score 0.
+    reference_steps: Make exactly one down move.
+    # goal_description: The two starting tiles are merged into a visible 4 tile and the score has increased by at least 4.
+    state_description: |-
+      Preconditions: A 2048 board with a 2 in each of the bottom two cells of the left column, all other cells empty, and score 0.
+      Reference steps: Make exactly one down move.
+    horizon_class: short
+    oracle_spec: specs/2048/merge-down.yaml
+    tags: [c1, "2048"]
+    capabilities: [numeric-reasoning, spatial-reasoning]
+    budget_ms: 2400000
+  - id: 2048-double-merge-left
+    benchmark: "2048"
+    repo: games/2048
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: A 2048 board with [2, 2, 4, 4] in the top row, all other cells empty, and score 64.
+    reference_steps: Make exactly one left move.
+    # goal_description: Both pairs merge in the same move, an 8 tile is visible, and the score has increased by at least 12.
+    state_description: |-
+      Preconditions: A 2048 board with [2, 2, 4, 4] in the top row, all other cells empty, and score 64.
+      Reference steps: Make exactly one left move.
+    horizon_class: short
+    oracle_spec: specs/2048/double-merge-left.yaml
+    tags: [c1, "2048"]
+    capabilities: [numeric-reasoning, spatial-reasoning]
+    budget_ms: 2400000
+
+  - id: love-gym-workout
+    benchmark: datingsim
+    repo: games/DatingSim
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: WarpTest is on the DatingSim gameplay screen at the gym with money 1000 and energy 100 in mocked-AI mode.
+    reference_steps: Perform the gym workout action once.
+    # goal_description: The gameplay screen remains usable with money 990, energy 70, and strength 12, without making a real AI call.
+    state_description: |-
+      Preconditions: WarpTest is on the DatingSim gameplay screen at the gym with money 1000 and energy 100 in mocked-AI mode.
+      Reference steps: Perform the gym workout action once.
+    horizon_class: mid
+    oracle_spec: specs/love/gym-workout.yaml
+    tags: [c1, love]
+    capabilities: [gui-localization, numeric-reasoning, resource-management]
+    budget_ms: 2400000
+  - id: love-cafe-date
+    benchmark: datingsim
+    repo: games/DatingSim
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: WarpTest is on the DatingSim gameplay screen at the cafe with money 1000 and energy 100 in mocked-AI mode.
+    reference_steps: Perform the coffee date action once.
+    # goal_description: The player remains at the cafe with money 920, energy 90, and communication 11, without making a real AI call.
+    state_description: |-
+      Preconditions: WarpTest is on the DatingSim gameplay screen at the cafe with money 1000 and energy 100 in mocked-AI mode.
+      Reference steps: Perform the coffee date action once.
+    horizon_class: mid
+    oracle_spec: specs/love/cafe-date.yaml
+    tags: [c1, love]
+    capabilities: [gui-localization, numeric-reasoning, resource-management]
+    budget_ms: 2400000
+  - id: love-shopping-mall-spa
+    benchmark: datingsim
+    repo: games/DatingSim
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: WarpTest is at the shopping mall with money 1000 and energy 30 on the DatingSim gameplay screen in mocked-AI mode.
+    reference_steps: Perform the spa visit action once.
+    # goal_description: The gameplay screen remains usable with money 950, energy 80, and charm 11, without making a real AI call.
+    state_description: |-
+      Preconditions: WarpTest is at the shopping mall with money 1000 and energy 30 on the DatingSim gameplay screen in mocked-AI mode.
+      Reference steps: Perform the spa visit action once.
+    horizon_class: mid
+    oracle_spec: specs/love/shopping-mall-spa.yaml
+    tags: [c1, love]
+    capabilities: [gui-localization, numeric-reasoning, resource-management]
+    budget_ms: 2400000
+  - id: love-office-work-coding
+    benchmark: datingsim
+    repo: games/DatingSim
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: WarpTest is at the office with money 1000 and energy 100 on the DatingSim gameplay screen in mocked-AI mode.
+    reference_steps: Perform the coding work action once.
+    # goal_description: The gameplay screen remains usable with money 1100, energy 80, and intelligence 11, without making a real AI call.
+    state_description: |-
+      Preconditions: WarpTest is at the office with money 1000 and energy 100 on the DatingSim gameplay screen in mocked-AI mode.
+      Reference steps: Perform the coding work action once.
+    horizon_class: mid
+    oracle_spec: specs/love/office-work-coding.yaml
+    tags: [c1, love]
+    capabilities: [gui-localization, numeric-reasoning, resource-management]
+    budget_ms: 2400000
+
+  - id: spacerpg-playable-flight
+    benchmark: spacerpg
+    repo: games/SpaceRPG
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: SpaceRPG is in a playable Helion Reach flight state with the flight HUD and rendered space scene visible.
+    reference_steps: Apply forward throttle once with W while remaining in flight.
+    # goal_description: The Helion Reach flight screen remains rendered, responsive, and free of station, map, pause, or crash overlays.
+    state_description: |-
+      Preconditions: SpaceRPG is in a playable Helion Reach flight state with the flight HUD and rendered space scene visible.
+      Reference steps: Apply forward throttle once with W while remaining in flight.
+    horizon_class: long
+    oracle_spec: specs/spacerpg/playable-flight.yaml
+    tags: [c1, spacerpg]
+    capabilities: [spatial-reasoning]
+    budget_ms: 2400000
+  - id: spacerpg-galaxy-jump
+    benchmark: spacerpg
+    repo: games/SpaceRPG
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: SpaceRPG shows the galaxy map in gate mode at the active Helion Reach stargate.
+    reference_steps: Select Kuro Belt and complete the inter-system jump.
+    # goal_description: The galaxy map is gone and a playable, rendered Kuro Belt flight scene is visible.
+    state_description: |-
+      Preconditions: SpaceRPG shows the galaxy map in gate mode at the active Helion Reach stargate.
+      Reference steps: Select Kuro Belt and complete the inter-system jump.
+    horizon_class: long
+    oracle_spec: specs/spacerpg/galaxy-jump.yaml
+    tags: [c1, spacerpg]
+    capabilities: [multi-step-planning, gui-localization, spatial-reasoning]
+    budget_ms: 2400000
+  - id: spacerpg-station-save
+    benchmark: spacerpg
+    repo: games/SpaceRPG
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: SpaceRPG is docked at the Helion Prime station with the station interface visible.
+    reference_steps: Save the game to the auto slot from the station.
+    # goal_description: The Helion Prime station interface remains usable and the auto save exists.
+    state_description: |-
+      Preconditions: SpaceRPG is docked at the Helion Prime station with the station interface visible.
+      Reference steps: Save the game to the auto slot from the station.
+    horizon_class: long
+    oracle_spec: specs/spacerpg/station-save.yaml
+    tags: [c1, spacerpg]
+    capabilities: [gui-localization, state-persistence]
+    budget_ms: 2400000
+  - id: spacerpg-save-restore
+    benchmark: spacerpg
+    repo: games/SpaceRPG
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: SpaceRPG is docked at the Helion Prime station with the station interface visible.
+    reference_steps: Save to manual slot 1, leave for flight, and load manual slot 1.
+    # goal_description: The manual save is active and the Helion Prime station interface is restored after loading.
+    state_description: |-
+      Preconditions: SpaceRPG is docked at the Helion Prime station with the station interface visible.
+      Reference steps: Save to manual slot 1, leave for flight, and load manual slot 1.
+    horizon_class: long
+    oracle_spec: specs/spacerpg/save-restore.yaml
+    tags: [c1, spacerpg]
+    capabilities: [multi-step-planning, gui-localization, state-persistence]
+    budget_ms: 2400000
+  - id: spacerpg-trading-cargo
+    benchmark: spacerpg
+    repo: games/SpaceRPG
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: SpaceRPG is at the usable Helion Prime station market with Basic Food cargo available to sell.
+    reference_steps: Sell exactly one Basic Food unit.
+    # goal_description: The station market remains usable with Basic Food cargo 2 and credits at least 1726.
+    state_description: |-
+      Preconditions: SpaceRPG is at the usable Helion Prime station market with Basic Food cargo available to sell.
+      Reference steps: Sell exactly one Basic Food unit.
+    horizon_class: long
+    oracle_spec: specs/spacerpg/trading-cargo.yaml
+    tags: [c1, spacerpg]
+    capabilities: [multi-step-planning, gui-localization, numeric-reasoning, resource-management]
+    budget_ms: 2400000
+
+  - id: luanti-set-node
+    benchmark: luanti
+    repo: games/luanti
+    prompt_revision: c1-legacy-v3-locatable-coordinates
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: luanti_fixed_map_seed}
+    preconditions: "A rendered Luanti devtest world has a dirt-topped block at (2,1,2), the only structure on the flat plain near spawn, and no block above it. A chest at (4,1,2) holds the 1 stone node to place; the player starts empty-handed and creative mode is off. Press F5 to show the coordinate readout."
+    reference_steps: "Take the stone node from the chest, then place it on the top face of that dirt-topped block, at (2,2,2)."
+    # goal_description: The world remains rendered and a stone block is present on top of the dirt base.
+    state_description: |-
+      Preconditions: A rendered Luanti devtest world has a dirt-topped block at (2,1,2), the only structure on the flat plain near spawn, and no block above it. A chest at (4,1,2) holds the 1 stone node to place; the player starts empty-handed and creative mode is off. Press F5 to show the coordinate readout.
+      Reference steps: Take the stone node from the chest, then place it on the top face of that dirt-topped block, at (2,2,2).
+    horizon_class: long
+    oracle_spec: specs/luanti/set-node.yaml
+    tags: [c1, luanti]
+    capabilities: [gui-localization, spatial-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+  - id: luanti-dig-node
+    benchmark: luanti
+    repo: games/luanti
+    prompt_revision: c1-legacy-v3-locatable-coordinates
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: luanti_fixed_map_seed}
+    preconditions: "A rendered Luanti devtest world has a cobble node at (3,2,3), the only structure on the flat plain near spawn. Press F5 to show the coordinate readout."
+    reference_steps: "Dig that cobble node, at (3,2,3)."
+    # goal_description: The node position is air, the original cobble is visibly gone, and the world remains rendered without mod errors.
+    state_description: |-
+      Preconditions: A rendered Luanti devtest world has a cobble node at (3,2,3), the only structure on the flat plain near spawn. Press F5 to show the coordinate readout.
+      Reference steps: Dig that cobble node, at (3,2,3).
+    horizon_class: long
+    oracle_spec: specs/luanti/dig-node.yaml
+    tags: [c1, luanti]
+    capabilities: [gui-localization, spatial-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+  - id: luanti-replace-node
+    benchmark: luanti
+    repo: games/luanti
+    prompt_revision: c1-legacy-v3-locatable-coordinates
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: luanti_fixed_map_seed}
+    preconditions: "A rendered Luanti devtest world has a plain stone node at (4,2,4), the only structure on the flat plain near spawn. A chest at (2,1,4) holds the 1 cobble node to place; the player starts empty-handed and creative mode is off. Press F5 to show the coordinate readout."
+    reference_steps: "Take the cobble node from the chest, dig the stone node at (4,2,4), then place the cobble node in the space it left, so (4,2,4) holds cobble."
+    # goal_description: Cobble occupies the same position, the original plain stone is gone, and the world remains rendered without mod errors.
+    state_description: |-
+      Preconditions: A rendered Luanti devtest world has a plain stone node at (4,2,4), the only structure on the flat plain near spawn. A chest at (2,1,4) holds the 1 cobble node to place; the player starts empty-handed and creative mode is off. Press F5 to show the coordinate readout.
+      Reference steps: Take the cobble node from the chest, dig the stone node at (4,2,4), then place the cobble node in the space it left, so (4,2,4) holds cobble.
+    horizon_class: long
+    oracle_spec: specs/luanti/replace-node.yaml
+    tags: [c1, luanti]
+    capabilities: [gui-localization, spatial-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+  - id: luanti-build-column
+    benchmark: luanti
+    repo: games/luanti
+    prompt_revision: c1-legacy-v3-locatable-coordinates
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: luanti_fixed_map_seed}
+    preconditions: "A rendered Luanti devtest world has tree-trunk nodes at (0,1,0) and (0,2,0), forming a two-block column that is the only structure on the flat plain near spawn. The player carries exactly one tree-trunk node in the first hotbar slot. Press F5 to show the coordinate readout."
+    reference_steps: "Place the carried tree-trunk node on top of that column, at (0,3,0)."
+    # goal_description: A three-block vertical tree-trunk column is visible and the world remains rendered without mod errors.
+    state_description: |-
+      Preconditions: A rendered Luanti devtest world has tree-trunk nodes at (0,1,0) and (0,2,0), forming a two-block column that is the only structure on the flat plain near spawn. The player carries exactly one tree-trunk node in the first hotbar slot. Press F5 to show the coordinate readout.
+      Reference steps: Place the carried tree-trunk node on top of that column, at (0,3,0).
+    horizon_class: long
+    oracle_spec: specs/luanti/build-column.yaml
+    tags: [c1, luanti]
+    capabilities: [gui-localization, numeric-reasoning, spatial-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+  - id: luanti-water-source
+    benchmark: luanti
+    repo: games/luanti
+    prompt_revision: c1-legacy-v3-locatable-coordinates
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: luanti_fixed_map_seed}
+    preconditions: "A rendered Luanti devtest world has a 3 by 3 stone basin from (6,1,0) to (8,1,2), the only structure on the flat plain near spawn. A chest at (10,1,1) holds the 1 water source node to place; the player starts empty-handed and creative mode is off. Press F5 to show the coordinate readout."
+    reference_steps: "Take the water source node from the chest, then place it on the centre of that basin, at (7,2,1)."
+    # goal_description: The water source is visible in the intact stone basin and the world remains rendered without mod errors.
+    state_description: |-
+      Preconditions: A rendered Luanti devtest world has a 3 by 3 stone basin from (6,1,0) to (8,1,2), the only structure on the flat plain near spawn. A chest at (10,1,1) holds the 1 water source node to place; the player starts empty-handed and creative mode is off. Press F5 to show the coordinate readout.
+      Reference steps: Take the water source node from the chest, then place it on the centre of that basin, at (7,2,1).
+    horizon_class: long
+    oracle_spec: specs/luanti/water-source.yaml
+    tags: [c1, luanti]
+    capabilities: [gui-localization, spatial-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+
+  - id: openra-disable-edge-scroll
+    benchmark: openra
+    repo: games/OpenRA
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: The normal OpenRA shell is open with viewport edge scrolling enabled in the public settings.
+    reference_steps: Open Settings, turn viewport edge scrolling off, and save the setting.
+    # goal_description: OpenRA remains responsive and its public settings persist viewport edge scrolling as disabled.
+    state_description: |-
+      Preconditions: The normal OpenRA shell is open with viewport edge scrolling enabled in the public settings.
+      Reference steps: Open Settings, turn viewport edge scrolling off, and save the setting.
+    horizon_class: mid
+    oracle_spec: specs/openra/c1-viewport-edge-scroll.yaml
+    tags: [c1, openra]
+    capabilities: [gui-localization, state-persistence]
+    budget_ms: 2400000
+  - id: openra-target-lines-automatic
+    benchmark: openra
+    repo: games/OpenRA
+    prompt_revision: c1-legacy-v1
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: The normal OpenRA shell is open with target lines set to Manual in the public settings.
+    reference_steps: Open Settings, change target lines from Manual to Automatic, and save the setting.
+    # goal_description: OpenRA remains responsive and its public settings persist target lines as Automatic.
+    state_description: |-
+      Preconditions: The normal OpenRA shell is open with target lines set to Manual in the public settings.
+      Reference steps: Open Settings, change target lines from Manual to Automatic, and save the setting.
+    horizon_class: mid
+    oracle_spec: specs/openra/c1-target-lines-automatic.yaml
+    tags: [c1, openra]
+    capabilities: [gui-localization, state-persistence]
+    budget_ms: 2400000
+
+
+  - id: jupyterlab-text-file-edit
+    benchmark: jupyterlab
+    repo: games/jupyterlab
+    prompt_revision: c1-legacy-self-contained-v1
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: JupyterLab is open on notes/warptest.txt in the text editor with the exact initial line WarpTest initial.
+    reference_steps: Replace the file contents with the exact line WarpTest edited and save the file.
+    # goal_description: The live Jupyter Contents API and visible editor both show notes/warptest.txt saved as WarpTest edited.
+    state_description: |-
+      Preconditions: JupyterLab is open on notes/warptest.txt in the text editor with the exact initial line WarpTest initial.
+      Reference steps: Replace the file contents with the exact line WarpTest edited and save the file.
+    horizon_class: short
+    oracle_spec: specs/jupyterlab/text-file-edit.yaml
+    tags: [c1, jupyterlab]
+    capabilities: [gui-localization, structured-artifact-editing]
+    budget_ms: 2400000
+  - id: jupyterlab-notebook-cell-output
+    benchmark: jupyterlab
+    repo: games/jupyterlab
+    prompt_revision: c1-legacy-self-contained-v1
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: JupyterLab is open on notebooks/cell-output.ipynb with one unexecuted code cell that prints warptest:42.
+    reference_steps: Run the visible code cell once and wait for its output.
+    # goal_description: The notebook remains usable and its persisted live output contains warptest:42 below the executed cell.
+    state_description: |-
+      Preconditions: JupyterLab is open on notebooks/cell-output.ipynb with one unexecuted code cell that prints warptest:42.
+      Reference steps: Run the visible code cell once and wait for its output.
+    horizon_class: short
+    oracle_spec: specs/jupyterlab/notebook-cell-output.yaml
+    tags: [c1, jupyterlab]
+    capabilities: [gui-localization, structured-artifact-editing]
+    budget_ms: 2400000
+
+  - id: libreoffice-calc-budget-rollup
+    benchmark: libreoffice
+    repo: games/LibreOffice
+    prompt_revision: c1-legacy-self-contained-v1
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "LibreOffice Calc displays calc-quarterly-budget-rollup.ods with four sheets. January, February, and March each have headers Category, Budget, Actual with a Revenue row 2 and a Cost row 3: January B2 12000 C2 11800, B3 7400 C3 7600; February B2 13500 C2 13200, B3 7900 C3 8100; March B2 14100 C2 13900, B3 8200 C3 8400. Summary has labels Metric, Revenue Actual, Cost Actual, Margin in A1:A4 with formulas B2 =SUM(January.C2;February.C2;March.C2), B3 =SUM(January.C3;February.C3;March.C3), B4 =B2-B3."
+    reference_steps: "Set March C2 to 15000 and March C3 to 8300; recalculate; save the ODS; reopen it."
+    # goal_description: The live Calc document remains usable with Summary revenue 40000 and margin 16000 after the save/reopen roundtrip.
+    state_description: |-
+      Preconditions: LibreOffice Calc displays calc-quarterly-budget-rollup.ods with four sheets. January, February, and March each have headers Category, Budget, Actual with a Revenue row 2 and a Cost row 3: January B2 12000 C2 11800, B3 7400 C3 7600; February B2 13500 C2 13200, B3 7900 C3 8100; March B2 14100 C2 13900, B3 8200 C3 8400. Summary has labels Metric, Revenue Actual, Cost Actual, Margin in A1:A4 with formulas B2 =SUM(January.C2;February.C2;March.C2), B3 =SUM(January.C3;February.C3;March.C3), B4 =B2-B3.
+      Reference steps: Set March C2 to 15000 and March C3 to 8300; recalculate; save the ODS; reopen it.
+    horizon_class: mid
+    oracle_spec: specs/libreoffice/calc-quarterly-budget-rollup.yaml
+    tags: [c1, libreoffice]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, numeric-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+  - id: libreoffice-impress-status-deck
+    benchmark: libreoffice
+    repo: games/LibreOffice
+    prompt_revision: c1-legacy-self-contained-v1
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "LibreOffice Impress displays impress-status-deck-build.odp with exactly four slides in order: \"Q3 Delivery Review\" / \"Draft deck\"; \"Agenda\" with bullets \"Delivery health\", \"Budget movement\", \"Risks\"; \"Delivery Health\" with bullets \"Green builds\", \"Manual QA pending\"; \"Risk Register\" with bullets \"Security review open\", \"Vendor date at risk\"."
+    reference_steps: "Retitle slide 1 to \"Q3 Delivery Review - Executive Update\"; replace the slide 3 bullets with \"Green builds\", \"Manual QA complete\", and \"Release candidate signed\"; add a callout shape on slide 4 reading \"Decision needed: approve vendor backup plan\"; keep the deck at exactly four slides; save the ODP; reopen it."
+    # goal_description: The live Impress document remains usable with four slides and the executive update and vendor backup text persisted.
+    state_description: |-
+      Preconditions: LibreOffice Impress displays impress-status-deck-build.odp with exactly four slides in order: "Q3 Delivery Review" / "Draft deck"; "Agenda" with bullets "Delivery health", "Budget movement", "Risks"; "Delivery Health" with bullets "Green builds", "Manual QA pending"; "Risk Register" with bullets "Security review open", "Vendor date at risk".
+      Reference steps: Retitle slide 1 to "Q3 Delivery Review - Executive Update"; replace the slide 3 bullets with "Green builds", "Manual QA complete", and "Release candidate signed"; add a callout shape on slide 4 reading "Decision needed: approve vendor backup plan"; keep the deck at exactly four slides; save the ODP; reopen it.
+    horizon_class: mid
+    oracle_spec: specs/libreoffice/impress-status-deck-build.yaml
+    tags: [c1, libreoffice]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, spatial-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+
+  - id: blender-scene-cube-material
+    benchmark: blender
+    repo: games/blender
+    prompt_revision: c1-legacy-self-contained-v1
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: Blender displays a mesh cube named WarpCube, size 2, at location [0,0,0], using material WarpRed with RGBA [1,0.05,0.02,1].
+    reference_steps: Move WarpCube to location [1, 2, 3] through the visible Blender interface.
+    # goal_description: The live Blender scene still contains the red WarpCube and its location is exactly [1, 2, 3].
+    state_description: |-
+      Preconditions: Blender displays a mesh cube named WarpCube, size 2, at location [0,0,0], using material WarpRed with RGBA [1,0.05,0.02,1].
+      Reference steps: Move WarpCube to location [1, 2, 3] through the visible Blender interface.
+    horizon_class: mid
+    oracle_spec: specs/blender/scene-cube-material.yaml
+    tags: [c1, blender]
+    capabilities: [gui-localization, spatial-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+  - id: blender-apply-bevel-modifier
+    benchmark: blender
+    repo: games/blender
+    prompt_revision: c1-legacy-self-contained-v1
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "Blender displays mesh cube BevelCube, size 2, at location [0,0,0] with sharp edges, 8 vertices, and no modifiers."
+    reference_steps: "Add a BEVEL modifier named WarpBevel to BevelCube with width 0.2 and 2 segments, then apply it through the visible Blender interface so the beveled geometry is baked into the mesh data."
+    # goal_description: BevelCube remains in the live scene with visibly rounded edges and the registered modifier baked into its mesh.
+    state_description: |-
+      Preconditions: Blender displays mesh cube BevelCube, size 2, at location [0,0,0] with sharp edges, 8 vertices, and no modifiers.
+      Reference steps: Add a BEVEL modifier named WarpBevel to BevelCube with width 0.2 and 2 segments, then apply it through the visible Blender interface so the beveled geometry is baked into the mesh data.
+    horizon_class: mid
+    oracle_spec: specs/blender/modifier-apply.yaml
+    tags: [c1, blender]
+    capabilities: [gui-localization, numeric-reasoning, spatial-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+
+  - id: jynew-save-restore
+    benchmark: jynew
+    repo: games/jynew
+    prompt_revision: c1-deep30-v8-console-syntax
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "A headed JYX2 jynew play session has role 0 at level 5, money 1000, and party members 0 and 1. The in-game console is enabled (open with the ` key; Simple difficulty). Level, party, and inventory in this start state are writable from that console with AddLevelreturnUper(roleId, levels), Join(roleId), and item <itemId> <count>."
+    reference_steps: "Use the normal save/load UI to save slot 0 and reload slot 0."
+    # goal_description: The same playable state is restored with level 5, at least 1000 money, and party member 1 still present.
+    state_description: |-
+      Preconditions: A headed JYX2 jynew play session has role 0 at level 5, money 1000, and party members 0 and 1. The in-game console is enabled (open with the ` key; Simple difficulty). Level, party, and inventory in this start state are writable from that console with AddLevelreturnUper(roleId, levels), Join(roleId), and item <itemId> <count>.
+      Reference steps: Use the normal save/load UI to save slot 0 and reload slot 0.
+    horizon_class: long
+    oracle_spec: specs/jynew/save-restore.yaml
+    tags: [c1, jynew]
+    capabilities: [gui-localization, state-persistence]
+    budget_ms: 2400000
+  - id: jynew-submap-save-restore
+    benchmark: jynew
+    repo: games/jynew
+    prompt_revision: c1-deep30-v8-console-syntax
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "A headed JYX2 jynew play session has role 0 at level 5 in sub-map 1. The in-game console is enabled (open with the ` key; Simple difficulty). Level is writable from that console with AddLevelreturnUper(roleId, levels) and the sub-map is reachable with map 1."
+    reference_steps: "Use the normal save/load UI to save the current sub-map state to slot 2 and reload slot 2."
+    # goal_description: The headed game remains playable in sub-map 1 with the player still at level 5 after loading.
+    state_description: |-
+      Preconditions: A headed JYX2 jynew play session has role 0 at level 5 in sub-map 1. The in-game console is enabled (open with the ` key; Simple difficulty). Level is writable from that console with AddLevelreturnUper(roleId, levels) and the sub-map is reachable with map 1.
+      Reference steps: Use the normal save/load UI to save the current sub-map state to slot 2 and reload slot 2.
+    horizon_class: long
+    oracle_spec: specs/jynew/submap-enter.yaml
+    tags: [c1, jynew]
+    capabilities: [gui-localization, state-persistence, spatial-reasoning]
+    budget_ms: 2400000
+
+  - id: pal3-scene-transition
+    benchmark: pal3
+    repo: games/Pal3.Unity
+    prompt_revision: c1-legacy-v2-playable-story-jump
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: A headed PAL3 Unity play session has scene_city q01 and scene_name b.
+    reference_steps: In the visible IngameDebugConsole, run `ScriptVarSetValue 32768 20200`, `SceneLoad q02 q02`, `ActorActivate -1 1`, `ActorEnablePlayerControl -1`, `PlayerEnableInput 1`, `ActorSetNavLayer -1 0`, `ActorSetTilePosition -1 70 209`, `TeamAddOrRemoveActor 0 1`, and `CameraFadeIn` in that order to enter the normal Bin Hua "Search for Xuejian" story scene as a controllable player.
+    # goal_description: A normally lit, controllable q02/q02 Bin Hua game scene is visible, actor 0 is in the team, and the live PAL3 scene identifiers both equal q02.
+    state_description: |-
+      Preconditions: A headed PAL3 Unity play session has scene_city q01 and scene_name b.
+      Reference steps: In the visible IngameDebugConsole, run `ScriptVarSetValue 32768 20200`, `SceneLoad q02 q02`, `ActorActivate -1 1`, `ActorEnablePlayerControl -1`, `PlayerEnableInput 1`, `ActorSetNavLayer -1 0`, `ActorSetTilePosition -1 70 209`, `TeamAddOrRemoveActor 0 1`, and `CameraFadeIn` in that order to enter the normal Bin Hua "Search for Xuejian" story scene as a controllable player.
+    horizon_class: long
+    oracle_spec: specs/pal3/scene-transition.yaml
+    tags: [c1, pal3]
+    capabilities: [gui-localization, spatial-reasoning]
+    budget_ms: 2400000
+  - id: pal3-scene-restore
+    benchmark: pal3
+    repo: games/Pal3.Unity
+    prompt_revision: c1-legacy-self-contained-v1
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: A headed PAL3 Unity play session has scene_city q02, scene_name q02, and money 300.
+    reference_steps: Save to manual slot 2 and load that slot again through the visible game UI.
+    # goal_description: The rendered q02/q02 scene is restored after loading and no PAL3 utility errors are reported.
+    state_description: |-
+      Preconditions: A headed PAL3 Unity play session has scene_city q02, scene_name q02, and money 300.
+      Reference steps: Save to manual slot 2 and load that slot again through the visible game UI.
+    horizon_class: long
+    oracle_spec: specs/pal3/scene-restore.yaml
+    tags: [c1, pal3]
+    capabilities: [gui-localization, state-persistence, spatial-reasoning]
+    budget_ms: 2400000
+
+  # Deep-chain C1 extension: three pre-registered long-horizon tasks per
+  # benchmark.  The original 32 records above remain unchanged.
+  - id: 2048-cascade-256
+    benchmark: "2048"
+    repo: games/2048
+    prompt_revision: c1-deep30-rng-free-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: "A 4 by 4 board is [[128,128,64,64],[32,32,16,16],[8,8,4,4],[2,2,0,0]], score and best score are 4096, won and game-over are false, and keep-playing is disabled."
+    reference_steps: "Make six moves in this exact order: left, down, up, left, left, left."
+    # goal_description: "Board row 0 column 0 is exactly 256, the largest tile is exactly 256, and game-over remains false."
+    state_description: |-
+      Preconditions: A 4 by 4 board is [[128,128,64,64],[32,32,16,16],[8,8,4,4],[2,2,0,0]], score and best score are 4096, won and game-over are false, and keep-playing is disabled.
+      Reference steps: Make six moves in this exact order: left, down, up, left, left, left.
+    horizon_class: long
+    oracle_spec: specs/2048/c1-cascade-256.yaml
+    tags: [c1, "2048", deep-chain]
+    capabilities: [multi-step-planning, numeric-reasoning, spatial-reasoning]
+    budget_ms: 2400000
+  - id: 2048-near-loss-rescue-128
+    benchmark: "2048"
+    repo: games/2048
+    prompt_revision: c1-deep30-rng-free-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: "A 4 by 4 board is [[2,32,2,4],[8,4,4,64],[0,64,64,64],[2,32,64,2]], score is 2048, best score is 4096, won and game-over are false, and keep-playing is disabled."
+    reference_steps: "Make six moves in this exact order: left, left, left, left, left, up."
+    # goal_description: "At least two tiles equal 128, the largest tile is exactly 128, at least two cells are empty, and game-over remains false."
+    state_description: |-
+      Preconditions: A 4 by 4 board is [[2,32,2,4],[8,4,4,64],[0,64,64,64],[2,32,64,2]], score is 2048, best score is 4096, won and game-over are false, and keep-playing is disabled.
+      Reference steps: Make six moves in this exact order: left, left, left, left, left, up.
+    horizon_class: long
+    oracle_spec: specs/2048/c1-near-loss-rescue-128.yaml
+    tags: [c1, "2048", deep-chain]
+    capabilities: [multi-step-planning, numeric-reasoning, spatial-reasoning]
+    budget_ms: 2400000
+  - id: 2048-multistage-win-2048
+    benchmark: "2048"
+    repo: games/2048
+    prompt_revision: c1-deep30-rng-free-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: "A 4 by 4 board is [[512,512,0,0],[512,512,0,0],[64,64,32,32],[16,16,8,8]], score and best score are 8192, won and game-over are false, and keep-playing is enabled."
+    reference_steps: "Make six moves in this exact order: left, down, right, up, left, down."
+    # goal_description: "A 2048 tile is visible, won and keepPlaying are true, and game-over is false."
+    state_description: |-
+      Preconditions: A 4 by 4 board is [[512,512,0,0],[512,512,0,0],[64,64,32,32],[16,16,8,8]], score and best score are 8192, won and game-over are false, and keep-playing is enabled.
+      Reference steps: Make six moves in this exact order: left, down, right, up, left, down.
+    horizon_class: long
+    oracle_spec: specs/2048/c1-multistage-win-2048.yaml
+    tags: [c1, "2048", deep-chain]
+    capabilities: [multi-step-planning, numeric-reasoning, spatial-reasoning]
+    budget_ms: 2400000
+
+  - id: love-work-gym-date-roundtrip
+    benchmark: datingsim
+    repo: games/DatingSim
+    prompt_revision: c1-deep30-random-control-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: "male player WarpTest is at home on week 1, day 0, morning with money 1000, energy 100, intelligence 10, strength 10, charm 10, communication 10, creativity 10, luck 10, and mocked AI enabled."
+    reference_steps: "In order, perform coding work once; move to the gym and work out once; visit the spa once; reach the cafe in the afternoon and complete one coffee date; save; then reload that save."
+    # goal_description: "After reload the location is cafe, money is 960, energy is 90, intelligence is 11, strength is 12, charm is 11, communication is 11, and no real AI call was made."
+    state_description: |-
+      Preconditions: male player WarpTest is at home on week 1, day 0, morning with money 1000, energy 100, intelligence 10, strength 10, charm 10, communication 10, creativity 10, luck 10, and mocked AI enabled.
+      Reference steps: In order, perform coding work once; move to the gym and work out once; visit the spa once; reach the cafe in the afternoon and complete one coffee date; save; then reload that save.
+    horizon_class: long
+    oracle_spec: specs/love/c1-work-gym-date-roundtrip.yaml
+    tags: [c1, love, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, numeric-reasoning, resource-management]
+    budget_ms: 2400000
+  - id: love-elena-dialogue-memory-consolidation
+    benchmark: datingsim
+    repo: games/DatingSim
+    prompt_revision: c1-deep30-random-control-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: "male player WarpTest is at the cafe on week 5, day 2, afternoon after daily chat was used. Elena (char_1) is a friend with trust 60, attraction 45, comfort 55, respect 40, investment 25, conflict 0, history \"Met Elena at the gallery.\", five memories \"Quiet cafes\", \"Gallery opening\", \"Busy week\", \"Coffee joke\", and \"Weekend plans\", and an open mocked dialogue containing the four ordered messages \"How was the gallery?\", \"Busy, but the opening went well.\", \"I remembered your favorite quiet cafe.\", and \"That means a lot to me.\" with no reply options."
+    reference_steps: "Close the open dialogue and wait for memory consolidation; move to the restaurant; click Coffee Date and resolve every generated event; save; then load that save."
+    # goal_description: "After reload Elena (char_1) still has trust 60 and comfort 55, exactly five memories including \"Elena and WarpTest reflected on the gallery opening and their shared quiet-cafe memory.\", no active dialogue, restaurant location, and no real AI call was made."
+    state_description: |-
+      Preconditions: male player WarpTest is at the cafe on week 5, day 2, afternoon after daily chat was used. Elena (char_1) is a friend with trust 60, attraction 45, comfort 55, respect 40, investment 25, conflict 0, history "Met Elena at the gallery.", five memories "Quiet cafes", "Gallery opening", "Busy week", "Coffee joke", and "Weekend plans", and an open mocked dialogue containing the four ordered messages "How was the gallery?", "Busy, but the opening went well.", "I remembered your favorite quiet cafe.", and "That means a lot to me." with no reply options.
+      Reference steps: Close the open dialogue and wait for memory consolidation; move to the restaurant; click Coffee Date and resolve every generated event; save; then load that save.
+    horizon_class: long
+    oracle_spec: specs/love/c1-elena-dialogue-memory-consolidation.yaml
+    tags: [c1, love, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, numeric-reasoning, resource-management]
+    budget_ms: 2400000
+  - id: love-elena-partner-ending-unlock
+    benchmark: datingsim
+    repo: games/DatingSim
+    prompt_revision: c1-deep30-random-control-v1
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: "male player WarpTest is at the restaurant on week 8, day 5, evening with money 1000 and energy 100. Elena (char_1) is dating WarpTest with trust 75, attraction 85, comfort 70, respect 70, investment 55, conflict 0, history \"Completed Elena gallery arc.\", memory \"Elena shared her plans after the gallery opening.\", gallery flag true, partner-ending flag false, and mocked AI enabled."
+    reference_steps: "Move to the cafe; click Coffee Date and resolve every generated event; return to the restaurant; click Commit to Elena to unlock the partner ending; save; then load that save."
+    # goal_description: "After reload Elena (char_1) has partner status and title \"Committed Partner\", trust 85, comfort 80, attraction 90, investment 65, histories \"Completed Elena gallery arc.\" and \"Committed to a long-term relationship.\", memory \"Elena accepted the final relationship commitment.\", both Elena flags true, and no real AI call was made."
+    state_description: |-
+      Preconditions: male player WarpTest is at the restaurant on week 8, day 5, evening with money 1000 and energy 100. Elena (char_1) is dating WarpTest with trust 75, attraction 85, comfort 70, respect 70, investment 55, conflict 0, history "Completed Elena gallery arc.", memory "Elena shared her plans after the gallery opening.", gallery flag true, partner-ending flag false, and mocked AI enabled.
+      Reference steps: Move to the cafe; click Coffee Date and resolve every generated event; return to the restaurant; click Commit to Elena to unlock the partner ending; save; then load that save.
+    horizon_class: long
+    oracle_spec: specs/love/c1-elena-partner-ending-unlock.yaml
+    tags: [c1, love, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, numeric-reasoning, resource-management]
+    budget_ms: 2400000
+
+  - id: spacerpg-trade-refit-mining-sortie
+    benchmark: spacerpg
+    repo: games/SpaceRPG
+    prompt_revision: c1-deep30-v3
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: "SpaceRPG is in the Helion Prime hangar in Helion Reach with 10000 credits, a pulse laser installed, no stored equipment, cargo Basic Food 3, Mechanical Parts 2, Plastics 2, Titanium 2, Iron 4, Energy Cells 2, and blueprints for Pulse Laser, Homing Missile, Shield Booster, Armor Plating, Mining Beam, Scanner, and Cargo Expansion."
+    reference_steps: "In order, sell one Basic Food; unlock Industrial Mining Beam; craft and install Cargo Expansion; dock at Meridian Dock; craft and install Industrial Mining Beam; undock and travel to Kuro Belt; mine exactly 2 Iron; finish in flight."
+    # goal_description: "Cargo Expansion and Industrial Mining Beam are both installed, cargo Iron equals 2, mined-Iron count equals 2, credits are at least 6500, and the Kuro Belt flight screen remains playable."
+    state_description: |-
+      Preconditions: SpaceRPG is in the Helion Prime hangar in Helion Reach with 10000 credits, a pulse laser installed, no stored equipment, cargo Basic Food 3, Mechanical Parts 2, Plastics 2, Titanium 2, Iron 4, Energy Cells 2, and blueprints for Pulse Laser, Homing Missile, Shield Booster, Armor Plating, Mining Beam, Scanner, and Cargo Expansion.
+      Reference steps: In order, sell one Basic Food; unlock Industrial Mining Beam; craft and install Cargo Expansion; dock at Meridian Dock; craft and install Industrial Mining Beam; undock and travel to Kuro Belt; mine exactly 2 Iron; finish in flight.
+    horizon_class: long
+    oracle_spec: specs/spacerpg/c1-trade-refit-mining-sortie.yaml
+    tags: [c1, spacerpg, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, numeric-reasoning, spatial-reasoning, resource-management]
+    budget_ms: 2400000
+  - id: spacerpg-multistation-cargo-contract
+    benchmark: spacerpg
+    repo: games/SpaceRPG
+    prompt_revision: c1-deep30-v3
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: "SpaceRPG is at the Helion Prime market in Helion Reach with no Basic Food or Medical Supplies in cargo, no stored equipment, and no active cargo-helion-ashen contract."
+    reference_steps: "In order, accept contract cargo-helion-ashen; buy exactly 3 Basic Food and 2 Medical Supplies; undock; jump to Ashen Drift; dock at Ashen Freeport; complete the delivery."
+    # goal_description: "Contract cargo-helion-ashen is recorded complete, Basic Food and Medical Supplies are absent from cargo, credits are at least 2500, and the Ashen Freeport station screen remains usable."
+    state_description: |-
+      Preconditions: SpaceRPG is at the Helion Prime market in Helion Reach with no Basic Food or Medical Supplies in cargo, no stored equipment, and no active cargo-helion-ashen contract.
+      Reference steps: In order, accept contract cargo-helion-ashen; buy exactly 3 Basic Food and 2 Medical Supplies; undock; jump to Ashen Drift; dock at Ashen Freeport; complete the delivery.
+    horizon_class: long
+    oracle_spec: specs/spacerpg/c1-multistation-cargo-contract.yaml
+    tags: [c1, spacerpg, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, numeric-reasoning, spatial-reasoning, resource-management]
+    budget_ms: 2400000
+  - id: spacerpg-contraband-stealth-run
+    benchmark: spacerpg
+    repo: games/SpaceRPG
+    prompt_revision: c1-deep30-v7-realistic-credits
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: mulberry32}
+    preconditions: "SpaceRPG is in the Helion Prime hangar in Helion Reach with 1725 credits, a pulse laser installed, one previously acquired Shielded Holds and one previously acquired Decoy Transponder in equipment inventory, neither stealth module installed, and empty cargo."
+    reference_steps: "In order, install Shielded Holds and Decoy Transponder; buy exactly one Illegal Contraband; undock; jump to Ashen Drift without accepting a fine or confiscation; dock at Ashen Freeport; sell the Illegal Contraband; open the Hangar tab so the installed stealth modules and empty cargo are visible."
+    # goal_description: "Shielded Holds and Decoy Transponder remain installed, Illegal Contraband is absent, no fine or confiscation occurred, credits are greater than 1725 after the profitable sale, and the Ashen Freeport station screen remains usable."
+    state_description: |-
+      Preconditions: SpaceRPG is in the Helion Prime hangar in Helion Reach with 1725 credits, a pulse laser installed, one previously acquired Shielded Holds and one previously acquired Decoy Transponder in equipment inventory, neither stealth module installed, and empty cargo.
+      Reference steps: In order, install Shielded Holds and Decoy Transponder; buy exactly one Illegal Contraband; undock; jump to Ashen Drift without accepting a fine or confiscation; dock at Ashen Freeport; sell the Illegal Contraband; open the Hangar tab so the installed stealth modules and empty cargo are visible.
+    horizon_class: long
+    oracle_spec: specs/spacerpg/c1-contraband-stealth-run.yaml
+    tags: [c1, spacerpg, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, numeric-reasoning, spatial-reasoning, resource-management]
+    budget_ms: 2400000
+
+  - id: luanti-mine-bridge-outpost-build
+    benchmark: luanti
+    repo: games/luanti
+    prompt_revision: c1-deep30-v3
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: luanti_fixed_map_seed}
+    preconditions: "A Luanti mine world has gravel from (-2,0,-2) through (10,0,10), water from (1,1,2) through (8,1,4), stone from (0,1,8) through (9,1,10), cobble from (2,2,7) through (7,3,7), and stone blockers at (8,2,7) and (9,2,7). The player is at (0,2,0) with HP 20, one steel pick, and 64 cobble."
+    reference_steps: "Move to (2,2,5); dig the stone blockers at (8,2,7) and (9,2,7); place a forward-facing cobble stair with param2 0 at (3,1,5); place at least 18 tree nodes spanning (3,2,2) through (5,2,7); place six cobble wall nodes from (2,3,8) through (7,3,8); place a maximum-brightness test light at (5,4,8); finish within 1.5 nodes of (5,4,9)."
+    # goal_description: "Both blocker positions are air, the stair at (3,1,5) faces forward, at least 18 tree bridge nodes and all six cobble wall nodes exist in the stated regions, a maximum-brightness test light is at (5,4,8), the player is within 1.5 nodes of (5,4,9), HP is 20, and the steel pick is retained."
+    state_description: |-
+      Preconditions: A Luanti mine world has gravel from (-2,0,-2) through (10,0,10), water from (1,1,2) through (8,1,4), stone from (0,1,8) through (9,1,10), cobble from (2,2,7) through (7,3,7), and stone blockers at (8,2,7) and (9,2,7). The player is at (0,2,0) with HP 20, one steel pick, and 64 cobble.
+      Reference steps: Move to (2,2,5); dig the stone blockers at (8,2,7) and (9,2,7); place a forward-facing cobble stair with param2 0 at (3,1,5); place at least 18 tree nodes spanning (3,2,2) through (5,2,7); place six cobble wall nodes from (2,3,8) through (7,3,8); place a maximum-brightness test light at (5,4,8); finish within 1.5 nodes of (5,4,9).
+    horizon_class: long
+    oracle_spec: specs/luanti/c1-mine-bridge-outpost-build.yaml
+    tags: [c1, luanti, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, numeric-reasoning, spatial-reasoning, resource-management, structured-artifact-editing]
+    budget_ms: 2400000
+  - id: luanti-self-sufficient-homestead-roundtrip
+    benchmark: luanti
+    repo: games/luanti
+    prompt_revision: c1-deep30-v10-locatable-coordinates
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: luanti_fixed_map_seed}
+    preconditions: "A partly roofed Luanti homestead stands on grass from (-1,0,-1) through (9,0,8), with cobble floor (0,1,1) through (5,1,5), tree front and back walls across z=1 and z=5 from y=2 through 3, cobble side walls at x=0 and x=5, 32 cobble roof slabs across (-1,4,0) through (6,4,3), and chests at (2,2,3) and (3,2,3). The player is at (2,3,-2), HP 9, carrying 24 cobble slabs, one cobble stair, 24 jungle grass, cobble 64, tree 32, 14 apples, and one steel pick. Press F5 to show the coordinate readout, which resolves every coordinate below on screen."
+    reference_steps: "Using the inventory and normal placement controls, add the remaining 24 cobble slabs across roof area (-1,4,4) through (6,4,6); place the cobble stair facing with param2 2 at (2,2,0); place 12 jungle-grass nodes in garden area (6,2,2) through (8,2,5); put cobble 64 and tree 32 in the chest at (2,2,3); eat exactly 6 apples to raise HP from 9 to 20; put the remaining 8 apples and 12 jungle grass in the chest at (3,2,3), leaving one steel pick as your only carried item; save the world; then reload it."
+    # goal_description: "After reload all 56 roof slabs, the param2-2 entrance stair, at least 12 garden nodes, chest allocations cobble 64/tree 32 and apples 8/jungle grass 12, HP 20, and the steel pick all persist."
+    state_description: |-
+      Preconditions: A partly roofed Luanti homestead stands on grass from (-1,0,-1) through (9,0,8), with cobble floor (0,1,1) through (5,1,5), tree front and back walls across z=1 and z=5 from y=2 through 3, cobble side walls at x=0 and x=5, 32 cobble roof slabs across (-1,4,0) through (6,4,3), and chests at (2,2,3) and (3,2,3). The player is at (2,3,-2), HP 9, carrying 24 cobble slabs, one cobble stair, 24 jungle grass, cobble 64, tree 32, 14 apples, and one steel pick. Press F5 to show the coordinate readout, which resolves every coordinate below on screen.
+      Reference steps: Using the inventory and normal placement controls, add the remaining 24 cobble slabs across roof area (-1,4,4) through (6,4,6); place the cobble stair facing with param2 2 at (2,2,0); place 12 jungle-grass nodes in garden area (6,2,2) through (8,2,5); put cobble 64 and tree 32 in the chest at (2,2,3); eat exactly 6 apples to raise HP from 9 to 20; put the remaining 8 apples and 12 jungle grass in the chest at (3,2,3), leaving one steel pick as your only carried item; save the world; then reload it.
+    horizon_class: long
+    oracle_spec: specs/luanti/c1-self-sufficient-homestead-roundtrip.yaml
+    tags: [c1, luanti, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, numeric-reasoning, spatial-reasoning, resource-management, structured-artifact-editing]
+    budget_ms: 2400000
+  - id: luanti-workshop-order-staging
+    benchmark: luanti
+    repo: games/luanti
+    prompt_revision: c1-deep30-v10-locatable-coordinates
+    random_control: {mode: experiment_seed, seeds: [0, 1, 2], algorithm: luanti_fixed_map_seed}
+    preconditions: "A Luanti workshop stands on grass from (-1,0,-1) through (9,0,8), with stone floor (1,1,1) through (8,1,6), cobble wall (1,2,1) through (8,3,1), and flat stone-slab roof (0,4,0) through (9,4,7). Chests at (0,2,2), (0,2,3), and (0,2,4) hold stone 40, tree 24, and nothing respectively. The player is beside the workshop at (-2,2,3) with HP 20, carrying stone 40, cobble 40, tree 24, leaves 24, one steel pick, and mossy cobble 26. Press F5 to show the coordinate readout, which resolves every coordinate below on screen."
+    reference_steps: "Using the chest interface, add stone 40 and cobble 40 to chest (0,2,2) so it holds stone 80 and cobble 40, add tree 24 and leaves 24 to chest (0,2,3) so it holds tree 48 and leaves 24, and put one steel pick plus 24 mossy cobble in chest (0,2,4); then place the remaining two mossy-cobble blocks at (4,2,3) and (5,2,3) as visible completion markers, leaving your inventory empty; save the world."
+    # goal_description: "The three exact chest allocations, steel pick, mossy-cobble nodes at (4,2,3) and (5,2,3), workshop floor/wall/roof, and saved world all persist."
+    state_description: |-
+      Preconditions: A Luanti workshop stands on grass from (-1,0,-1) through (9,0,8), with stone floor (1,1,1) through (8,1,6), cobble wall (1,2,1) through (8,3,1), and flat stone-slab roof (0,4,0) through (9,4,7). Chests at (0,2,2), (0,2,3), and (0,2,4) hold stone 40, tree 24, and nothing respectively. The player is beside the workshop at (-2,2,3) with HP 20, carrying stone 40, cobble 40, tree 24, leaves 24, one steel pick, and mossy cobble 26. Press F5 to show the coordinate readout, which resolves every coordinate below on screen.
+      Reference steps: Using the chest interface, add stone 40 and cobble 40 to chest (0,2,2) so it holds stone 80 and cobble 40, add tree 24 and leaves 24 to chest (0,2,3) so it holds tree 48 and leaves 24, and put one steel pick plus 24 mossy cobble in chest (0,2,4); then place the remaining two mossy-cobble blocks at (4,2,3) and (5,2,3) as visible completion markers, leaving your inventory empty; save the world.
+    horizon_class: long
+    oracle_spec: specs/luanti/c1-workshop-order-staging.yaml
+    tags: [c1, luanti, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, numeric-reasoning, spatial-reasoning, resource-management, structured-artifact-editing]
+    budget_ms: 2400000
+
+  - id: openra-allied-medium-tank-tech-chain
+    benchmark: openra
+    repo: games/OpenRA
+    prompt_revision: c1-deep30-v3
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "Red Alert mod ra map allies-08a is initialized with playable required Allied Greece, its undeployed mcv actor, sufficient cash, fast production enabled, and map anchor 26,64."
+    reference_steps: "For Allied Greece on Red Alert mod ra, deploy the mcv into a construction yard; within radius 18 of 26,64 build, in order, one power plant, one refinery, one Allied barracks, and one war factory; then use the vehicle queue to produce one medium tank."
+    # goal_description: "The construction yard, power plant, refinery, Allied barracks, and war factory exist within radius 18 of 26,64; one newly produced medium tank (2tnk) exists; all production prerequisites were respected; and no gameplay-probe errors occurred."
+    state_description: |-
+      Preconditions: Red Alert mod ra map allies-08a is initialized with playable required Allied Greece, its undeployed mcv actor, sufficient cash, fast production enabled, and map anchor 26,64.
+      Reference steps: For Allied Greece on Red Alert mod ra, deploy the mcv into a construction yard; within radius 18 of 26,64 build, in order, one power plant, one refinery, one Allied barracks, and one war factory; then use the vehicle queue to produce one medium tank.
+    horizon_class: long
+    oracle_spec: specs/openra/c1-allied-medium-tank-tech-chain.yaml
+    tags: [c1, openra, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, numeric-reasoning, spatial-reasoning, resource-management]
+    budget_ms: 2400000
+  - id: openra-soviet-rocket-infantry-chain
+    benchmark: openra
+    repo: games/OpenRA
+    prompt_revision: c1-deep30-v3
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "Red Alert mod ra map soviet-05 is initialized with playable required Soviet USSR, its undeployed startmcv actor, sufficient cash, and fast production enabled."
+    reference_steps: "For Soviet USSR on Red Alert mod ra, deploy startmcv into a construction yard; within radius 18 of that MCV build, in order, one power plant, one refinery, one Soviet barracks, and one radar dome; then use the infantry queue to train two rifle infantry followed by two rocket infantry."
+    # goal_description: "The construction yard, power plant, refinery, Soviet barracks, and radar dome exist within radius 18 of the starting MCV; exactly the required two rifle infantry (e1) and two rocket infantry (e3) were newly produced in order; the rocket prerequisite was respected; and no gameplay-probe errors occurred."
+    state_description: |-
+      Preconditions: Red Alert mod ra map soviet-05 is initialized with playable required Soviet USSR, its undeployed startmcv actor, sufficient cash, and fast production enabled.
+      Reference steps: For Soviet USSR on Red Alert mod ra, deploy startmcv into a construction yard; within radius 18 of that MCV build, in order, one power plant, one refinery, one Soviet barracks, and one radar dome; then use the infantry queue to train two rifle infantry followed by two rocket infantry.
+    horizon_class: long
+    oracle_spec: specs/openra/c1-soviet-rocket-infantry-chain.yaml
+    tags: [c1, openra, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, numeric-reasoning, spatial-reasoning, resource-management]
+    budget_ms: 2400000
+  - id: openra-allied-combined-arms-rally
+    benchmark: openra
+    repo: games/OpenRA
+    prompt_revision: c1-deep30-v3
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "Red Alert map allies-08a is initialized with playable required Allied Greece, its undeployed mcv actor, sufficient cash, fast production enabled, map anchor 26,64, and an empty rally region centered at 30,64."
+    reference_steps: "For Allied Greece, deploy the mcv; within radius 18 of 26,64 build, in order, one power plant, one refinery, one Allied barracks, and one war factory; produce two rifle infantry, one rocket infantry, and one medium tank; move those four units within radius 6 of 30,64."
+    # goal_description: "The complete construction yard/power/refinery/Allied-barracks/war-factory chain exists, exactly two rifle infantry, one rocket infantry, and one medium tank were newly produced, all four occupy radius 6 of 30,64, the base remains operational, and no gameplay-probe errors occurred."
+    state_description: |-
+      Preconditions: Red Alert map allies-08a is initialized with playable required Allied Greece, its undeployed mcv actor, sufficient cash, fast production enabled, map anchor 26,64, and an empty rally region centered at 30,64.
+      Reference steps: For Allied Greece, deploy the mcv; within radius 18 of 26,64 build, in order, one power plant, one refinery, one Allied barracks, and one war factory; produce two rifle infantry, one rocket infantry, and one medium tank; move those four units within radius 6 of 30,64.
+    horizon_class: long
+    oracle_spec: specs/openra/c1-allied-combined-arms-rally.yaml
+    tags: [c1, openra, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, numeric-reasoning, spatial-reasoning, resource-management]
+    budget_ms: 2400000
+
+  - id: jupyterlab-sales-analysis-pipeline
+    benchmark: jupyterlab
+    repo: games/jupyterlab
+    prompt_revision: c1-deep30-v3
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: |-
+      JupyterLab opens c1/sales-analysis.ipynb in workspace c1-sales with four unexecuted code cells:
+      Cell 0:
+      rows = [
+        ("2026-01-01","East",100),("2026-02-01","East",120),("2026-03-01","East",130),
+        ("2026-01-01","West",80),("2026-02-01","West",100),("2026-03-01","West",120),
+        ("2026-01-01","North",50),("2026-02-01","North",55),("2026-03-01","North",60),
+        ("2026-01-01","South",70),("2026-02-01","South",84),("2026-03-01","South",98)]
+      print("clean_rows=12; date_type=datetime64")
+      Cell 1:
+      from collections import defaultdict
+      totals = defaultdict(int)
+      for _, region, revenue in rows: totals[region] += revenue
+      growth = {r: round((vals[-1][2]/vals[0][2]-1)*100, 1) for r in totals for vals in [[x for x in rows if x[1] == r]]}
+      print("totals=East:350,North:165,South:252,West:300")
+      print("growth=East:30.0,North:20.0,South:40.0,West:50.0")
+      Cell 2:
+      from IPython.display import display
+      display({"text/html":"<table><tr><th>Region</th><th>Revenue</th></tr><tr><td>East</td><td>350</td></tr><tr><td>West</td><td>300</td></tr><tr><td>South</td><td>252</td></tr><tr><td>North</td><td>165</td></tr></table>","image/png":"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="}, raw=True)
+      print("chart=regional-revenue")
+      Cell 3:
+      from IPython.display import Markdown, display
+      conclusion = "West has the fastest growth; East has the largest total revenue."
+      display(Markdown("## Conclusion\n" + conclusion))
+      print(conclusion)
+    reference_steps: "Run cells 0, 1, 2, and 3 in order; save c1/sales-conclusion.md with exactly \"# Sales conclusion\\nWest has the fastest growth; East has the largest total revenue.\\n\"; save the notebook; retain c1/sales-analysis.ipynb and c1/sales-conclusion.md in workspace c1-sales."
+    # goal_description: "The saved notebook has every code cell executed with no error output; outputs include clean_rows=12, date_type=datetime64, totals=East:350,North:165,South:252,West:300, growth=East:30.0,North:20.0,South:40.0,West:50.0, chart=regional-revenue, an image/png result, and conclusion \"West has the fastest growth; East has the largest total revenue.\"; c1/sales-conclusion.md has the exact required contents."
+    state_description: |-
+      Preconditions: JupyterLab opens c1/sales-analysis.ipynb in workspace c1-sales with four unexecuted code cells:
+      Cell 0:
+      rows = [
+        ("2026-01-01","East",100),("2026-02-01","East",120),("2026-03-01","East",130),
+        ("2026-01-01","West",80),("2026-02-01","West",100),("2026-03-01","West",120),
+        ("2026-01-01","North",50),("2026-02-01","North",55),("2026-03-01","North",60),
+        ("2026-01-01","South",70),("2026-02-01","South",84),("2026-03-01","South",98)]
+      print("clean_rows=12; date_type=datetime64")
+      Cell 1:
+      from collections import defaultdict
+      totals = defaultdict(int)
+      for _, region, revenue in rows: totals[region] += revenue
+      growth = {r: round((vals[-1][2]/vals[0][2]-1)*100, 1) for r in totals for vals in [[x for x in rows if x[1] == r]]}
+      print("totals=East:350,North:165,South:252,West:300")
+      print("growth=East:30.0,North:20.0,South:40.0,West:50.0")
+      Cell 2:
+      from IPython.display import display
+      display({"text/html":"<table><tr><th>Region</th><th>Revenue</th></tr><tr><td>East</td><td>350</td></tr><tr><td>West</td><td>300</td></tr><tr><td>South</td><td>252</td></tr><tr><td>North</td><td>165</td></tr></table>","image/png":"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="}, raw=True)
+      print("chart=regional-revenue")
+      Cell 3:
+      from IPython.display import Markdown, display
+      conclusion = "West has the fastest growth; East has the largest total revenue."
+      display(Markdown("## Conclusion\n" + conclusion))
+      print(conclusion)
+      Reference steps: Run cells 0, 1, 2, and 3 in order; save c1/sales-conclusion.md with exactly "# Sales conclusion\nWest has the fastest growth; East has the largest total revenue.\n"; save the notebook; retain c1/sales-analysis.ipynb and c1/sales-conclusion.md in workspace c1-sales.
+    horizon_class: long
+    oracle_spec: specs/jupyterlab/c1-sales-analysis-pipeline.yaml
+    tags: [c1, jupyterlab, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, numeric-reasoning, spatial-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+  - id: jupyterlab-debug-notebook-rerun
+    benchmark: jupyterlab
+    repo: games/jupyterlab
+    prompt_revision: c1-deep30-v3
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: |-
+      JupyterLab opens c1/currency-debug.ipynb with four unexecuted code cells:
+      Cell 0 is "raw = ['$10', '$20', '$30', '$40']\nprint('source_rows=4')\n".
+      Cell 1 is "values = [float(value) for value in raw]\n".
+      Cell 2 is "total = sum(values)\nmean = total / len(values)\nprint(f'total={total:.0f}; mean={mean:.0f}')\n".
+      Cell 3 is "from IPython.display import display\ndisplay({'text/html': '<div id=\"currency-chart\">10 | 20 | 30 | 40</div>'}, raw=True)\nprint('chart=currency-bars')\n".
+    reference_steps: "Open c1/currency-debug.ipynb and run the code notebook once to reproduce the parse failure; replace code cell 1 with exactly \"values = [float(value.replace('$', '')) for value in raw]\\nprint('currency_parse=fixed')\\n\"; run code cells 0, 1, 2, and 3 in order; save the notebook; export c1/currency-debug.html."
+    # goal_description: "The saved notebook retains the exact repaired cell, every code cell is executed, outputs contain source_rows=4, currency_parse=fixed, total=100; mean=25, and chart=currency-bars, no error output or traceback exists, and c1/currency-debug.html is persisted."
+    state_description: |-
+      Preconditions: JupyterLab opens c1/currency-debug.ipynb with four unexecuted code cells:
+      Cell 0 is "raw = ['$10', '$20', '$30', '$40']\nprint('source_rows=4')\n".
+      Cell 1 is "values = [float(value) for value in raw]\n".
+      Cell 2 is "total = sum(values)\nmean = total / len(values)\nprint(f'total={total:.0f}; mean={mean:.0f}')\n".
+      Cell 3 is "from IPython.display import display\ndisplay({'text/html': '<div id=\"currency-chart\">10 | 20 | 30 | 40</div>'}, raw=True)\nprint('chart=currency-bars')\n".
+      Reference steps: Open c1/currency-debug.ipynb and run the code notebook once to reproduce the parse failure; replace code cell 1 with exactly "values = [float(value.replace('$', '')) for value in raw]\nprint('currency_parse=fixed')\n"; run code cells 0, 1, 2, and 3 in order; save the notebook; export c1/currency-debug.html.
+    horizon_class: long
+    oracle_spec: specs/jupyterlab/c1-debug-notebook-rerun.yaml
+    tags: [c1, jupyterlab, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, numeric-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+  - id: jupyterlab-reproducible-experiment-workspace
+    benchmark: jupyterlab
+    repo: games/jupyterlab
+    prompt_revision: c1-deep30-v9-trimmed-wording
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: |-
+      JupyterLab opens c1/experiment.ipynb with four unexecuted code cells and config.json, data.csv, metrics.json, and report.md absent:
+      Cell 0 is "import json, csv\nconfig = json.load(open('config.json'))\nrows = list(csv.DictReader(open('data.csv')))\nprint(f\"seed={config['seed']}; rows={len(rows)}\")\n".
+      Cell 1 is "x = [float(row['x']) for row in rows]\ny = [float(row['y']) for row in rows]\npred = [2 * value for value in x]\nprint('preprocess=complete; model=fixed-linear')\n".
+      Cell 2 is "mae = sum(abs(a-b) for a,b in zip(y,pred))/len(y)\nr2 = 1.0\nprint(f'MAE={mae:.0f}; R2={r2:.0f}')\n".
+      Cell 3 is "metrics = {'seed': config['seed'], 'MAE': mae, 'R2': r2}\nopen('metrics.json','w').write(json.dumps(metrics, sort_keys=True))\nopen('report.md','w').write('# Experiment report\\nseed=7, MAE=0, R2=1\\n')\nprint('artifacts=metrics.json,report.md')\n".
+    reference_steps: "Open c1/experiment.ipynb; create c1/config.json as exactly \"{\\\"seed\\\": 7}\\n\"; create c1/data.csv as exactly \"x,y\\n1,2\\n2,4\\n3,6\\n4,8\\n\"; run code cells 0, 1, 2, and 3 in order; save the notebook; retain c1/metrics.json, c1/report.md, c1/experiment.ipynb, c1/config.json, and c1/data.csv in workspace c1-experiment."
+    # goal_description: "The notebook reports seed=7; rows=4, preprocess=complete; model=fixed-linear, MAE=0; R2=1, and artifacts=metrics.json,report.md; all cells are executed with no error output; c1/metrics.json is exactly \"{\\\"MAE\\\": 0.0, \\\"R2\\\": 1.0, \\\"seed\\\": 7}\"; c1/report.md is exactly \"# Experiment report\\nseed=7, MAE=0, R2=1\\n\"; all five named files persist in workspace c1-experiment in the required order."
+    state_description: |-
+      Preconditions: JupyterLab opens c1/experiment.ipynb with four unexecuted code cells and config.json, data.csv, metrics.json, and report.md absent:
+      Cell 0 is "import json, csv\nconfig = json.load(open('config.json'))\nrows = list(csv.DictReader(open('data.csv')))\nprint(f\"seed={config['seed']}; rows={len(rows)}\")\n".
+      Cell 1 is "x = [float(row['x']) for row in rows]\ny = [float(row['y']) for row in rows]\npred = [2 * value for value in x]\nprint('preprocess=complete; model=fixed-linear')\n".
+      Cell 2 is "mae = sum(abs(a-b) for a,b in zip(y,pred))/len(y)\nr2 = 1.0\nprint(f'MAE={mae:.0f}; R2={r2:.0f}')\n".
+      Cell 3 is "metrics = {'seed': config['seed'], 'MAE': mae, 'R2': r2}\nopen('metrics.json','w').write(json.dumps(metrics, sort_keys=True))\nopen('report.md','w').write('# Experiment report\\nseed=7, MAE=0, R2=1\\n')\nprint('artifacts=metrics.json,report.md')\n".
+      Reference steps: Open c1/experiment.ipynb; create c1/config.json as exactly "{\"seed\": 7}\n"; create c1/data.csv as exactly "x,y\n1,2\n2,4\n3,6\n4,8\n"; run code cells 0, 1, 2, and 3 in order; save the notebook; retain c1/metrics.json, c1/report.md, c1/experiment.ipynb, c1/config.json, and c1/data.csv in workspace c1-experiment.
+    horizon_class: long
+    oracle_spec: specs/jupyterlab/c1-reproducible-experiment-workspace.yaml
+    tags: [c1, jupyterlab, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, numeric-reasoning, spatial-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+
+  - id: libreoffice-writer-board-publication
+    benchmark: libreoffice
+    repo: games/LibreOffice
+    prompt_revision: c1-deep30-v3
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "Writer displays c1-writer-board-publication.odt with Heading 1 \"Executive Operations Review\", text \"Draft packet for board publication.\", Heading 2 \"Pipeline Recovery\", text \"Recovery plan awaits an accountable owner.\", Heading 2 \"Risk Register\", text \"Delivery and security risks require final review.\", Heading 1 \"Appendix\", and a Milestones table with rows [\"Milestone\",\"Owner\",\"Status\"], [\"Platform audit\",\"Mira\",\"Open\"], [\"Launch review\",\"Dev\",\"At risk\"]."
+    reference_steps: "Insert a contents section titled \"Board Contents\" containing the Heading 1 and Heading 2 entries; change Milestones cell C2 to \"Complete\"; append \"Recovery owner: Casey Lin. Decision log approved for publication.\"; update the contents; save; reopen the ODT; export c1-writer-board-publication.pdf."
+    # goal_description: "After reopen the document contains title \"Board Contents\", the Executive Operations Review, Pipeline Recovery, Risk Register, and Appendix entries in the contents, Milestones C2 equals \"Complete\", and the exact recovery-owner paragraph; c1-writer-board-publication.pdf exists and contains both section names, the updated milestone, and owner text."
+    state_description: |-
+      Preconditions: Writer displays c1-writer-board-publication.odt with Heading 1 "Executive Operations Review", text "Draft packet for board publication.", Heading 2 "Pipeline Recovery", text "Recovery plan awaits an accountable owner.", Heading 2 "Risk Register", text "Delivery and security risks require final review.", Heading 1 "Appendix", and a Milestones table with rows ["Milestone","Owner","Status"], ["Platform audit","Mira","Open"], ["Launch review","Dev","At risk"].
+      Reference steps: Insert a contents section titled "Board Contents" containing the Heading 1 and Heading 2 entries; change Milestones cell C2 to "Complete"; append "Recovery owner: Casey Lin. Decision log approved for publication."; update the contents; save; reopen the ODT; export c1-writer-board-publication.pdf.
+    horizon_class: long
+    oracle_spec: specs/libreoffice/c1-writer-board-publication.yaml
+    tags: [c1, libreoffice, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, structured-artifact-editing]
+    budget_ms: 2400000
+  - id: libreoffice-calc-forecast-ranking-chart
+    benchmark: libreoffice
+    repo: games/LibreOffice
+    prompt_revision: c1-deep30-v3
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "Calc displays c1-calc-forecast-ranking-chart.ods. Inputs has headers Metric and Value with BaseRevenue 1000000, GrowthRate 0.08, CostRate 0.6 in B2:B4. Forecast has labels Forecast Revenue, Forecast Cost, and Forecast Profit with formulas B2 =Inputs.B2*(1+Inputs.B3), B3 =B2*Inputs.B4, B4 =B2-B3. Regions has headers Region and Revenue with rows North 240000, South 310000, East 350000, West 220000."
+    reference_steps: "Name Inputs.B3 \"GrowthRate\"; set Inputs.B3 to 0.12 and Inputs.B4 to 0.65; recalculate; sort Regions A2:B5 by revenue descending; create a Column chart named RegionalRevenue from A1:B5; save; reopen the ODS; export c1-calc-forecast-ranking-chart.pdf."
+    # goal_description: "After reopen Forecast revenue is 1120000 and profit is 392000, formulas B2 =Inputs.B2*(1+Inputs.B3), B3 =B2*Inputs.B4, B4 =B2-B3 persist, named range GrowthRate points to Inputs.B3, Regions rank East 350000, South 310000, North 240000, West 220000, chart RegionalRevenue persists, and the exported PDF exists."
+    state_description: |-
+      Preconditions: Calc displays c1-calc-forecast-ranking-chart.ods. Inputs has headers Metric and Value with BaseRevenue 1000000, GrowthRate 0.08, CostRate 0.6 in B2:B4. Forecast has labels Forecast Revenue, Forecast Cost, and Forecast Profit with formulas B2 =Inputs.B2*(1+Inputs.B3), B3 =B2*Inputs.B4, B4 =B2-B3. Regions has headers Region and Revenue with rows North 240000, South 310000, East 350000, West 220000.
+      Reference steps: Name Inputs.B3 "GrowthRate"; set Inputs.B3 to 0.12 and Inputs.B4 to 0.65; recalculate; sort Regions A2:B5 by revenue descending; create a Column chart named RegionalRevenue from A1:B5; save; reopen the ODS; export c1-calc-forecast-ranking-chart.pdf.
+    horizon_class: long
+    oracle_spec: specs/libreoffice/c1-calc-forecast-ranking-chart.yaml
+    tags: [c1, libreoffice, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, numeric-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+  - id: libreoffice-impress-executive-restructure
+    benchmark: libreoffice
+    repo: games/LibreOffice
+    prompt_revision: c1-deep30-v3
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "Impress displays c1-impress-executive-restructure.odp with exactly four slides in order: \"Appendix Metrics\" / \"Raw operating details\"; \"Customer Impact\" / \"Pilot customers stable\", \"Support tickets down\"; \"Executive Summary\" / \"Draft summary\", \"Needs final order\"; \"Mitigation Plan\" / \"Owner matrix ready\"."
+    reference_steps: "Move slide 3 to slide 1; retitle it \"Executive Summary - Board Decision\"; replace its bullets with \"Revenue forecast 1.12M\", \"Margin 35%\", and \"Customer impact stable\"; add a rectangle reading \"RISK: supplier recovery remains on critical path\"; save; reopen the ODP; export c1-impress-executive-restructure.pdf."
+    # goal_description: "The reopened deck has exactly four slides with \"Executive Summary - Board Decision\" first, its three exact bullets and exact risk rectangle text present, followed by the other three slides, and c1-impress-executive-restructure.pdf exists with the restructured first slide intact."
+    state_description: |-
+      Preconditions: Impress displays c1-impress-executive-restructure.odp with exactly four slides in order: "Appendix Metrics" / "Raw operating details"; "Customer Impact" / "Pilot customers stable", "Support tickets down"; "Executive Summary" / "Draft summary", "Needs final order"; "Mitigation Plan" / "Owner matrix ready".
+      Reference steps: Move slide 3 to slide 1; retitle it "Executive Summary - Board Decision"; replace its bullets with "Revenue forecast 1.12M", "Margin 35%", and "Customer impact stable"; add a rectangle reading "RISK: supplier recovery remains on critical path"; save; reopen the ODP; export c1-impress-executive-restructure.pdf.
+    horizon_class: long
+    oracle_spec: specs/libreoffice/c1-impress-executive-restructure.yaml
+    tags: [c1, libreoffice, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, spatial-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+
+  - id: blender-product-model-pipeline
+    benchmark: blender
+    repo: games/blender
+    prompt_revision: c1-deep30-v3
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "Blender opens an empty scene with no objects."
+    reference_steps: "Create cube CoreBody with size 2, location [0,0,1], scale [1.8,1,0.6]; create cylinder Lens with radius 0.55, depth 0.45, location [0,-1.15,1], rotation [1.5708,0,0]; assign CoreBody material ProductBlue RGBA [0.04,0.22,0.85,1] and Lens material LensOrange RGBA [1,0.28,0.02,1]; add and apply BEVEL modifier ProductBevel to CoreBody with width 0.18 and 3 segments; save as c1-product-model.blend; reopen it."
+    # goal_description: "The reopened file contains exactly the CoreBody and Lens mesh objects with the stated transforms and materials, CoreBody has at least 8 vertices and visibly applied width-0.18 three-segment bevel geometry, and c1-product-model.blend persists."
+    state_description: |-
+      Preconditions: Blender opens an empty scene with no objects.
+      Reference steps: Create cube CoreBody with size 2, location [0,0,1], scale [1.8,1,0.6]; create cylinder Lens with radius 0.55, depth 0.45, location [0,-1.15,1], rotation [1.5708,0,0]; assign CoreBody material ProductBlue RGBA [0.04,0.22,0.85,1] and Lens material LensOrange RGBA [1,0.28,0.02,1]; add and apply BEVEL modifier ProductBevel to CoreBody with width 0.18 and 3 segments; save as c1-product-model.blend; reopen it.
+    horizon_class: long
+    oracle_spec: specs/blender/c1-product-model-pipeline.yaml
+    tags: [c1, blender, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, numeric-reasoning, spatial-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+  - id: blender-animation-shot-pipeline
+    benchmark: blender
+    repo: games/blender
+    prompt_revision: c1-deep30-v3
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "Blender opens at frame 1 with mesh cube HeroCube, size 1.5, location [0,0,0.75], Euler rotation [0,0,0], HeroGold RGBA [0.95,0.5,0.05,1], and no animation keys."
+    reference_steps: "Key both location and Euler rotation at frame 1 as [0,0,0.75] and [0,0,0]; at frame 24 as [2,1,1.5] and [0,0.4,0.8]; at frame 48 as [4,0,2] and [0.2,0.8,1.6]; leave the current frame at 48; save as c1-animation-shot.blend; reopen it."
+    # goal_description: "The reopened HeroCube location and Euler-rotation animation channels each contain exact keys at frames 1, 24, and 48 with the stated values, the current frame is 48, final location is [4,0,2], final rotation is [0.2,0.8,1.6], HeroGold persists, and c1-animation-shot.blend exists."
+    state_description: |-
+      Preconditions: Blender opens at frame 1 with mesh cube HeroCube, size 1.5, location [0,0,0.75], Euler rotation [0,0,0], HeroGold RGBA [0.95,0.5,0.05,1], and no animation keys.
+      Reference steps: Key both location and Euler rotation at frame 1 as [0,0,0.75] and [0,0,0]; at frame 24 as [2,1,1.5] and [0,0.4,0.8]; at frame 48 as [4,0,2] and [0.2,0.8,1.6]; leave the current frame at 48; save as c1-animation-shot.blend; reopen it.
+    horizon_class: long
+    oracle_spec: specs/blender/c1-animation-shot-pipeline.yaml
+    tags: [c1, blender, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, numeric-reasoning, spatial-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+  - id: blender-multiobject-scene-assembly
+    benchmark: blender
+    repo: games/blender
+    prompt_revision: c1-deep30-v3
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "Blender opens an empty scene with no objects."
+    reference_steps: "Create mesh cube Stage size 2 at [0,0,0.2], scale [3,3,0.2], material StageGray [0.18,0.2,0.24,1]; mesh cylinder Pedestal radius 1.1 depth 0.8 at [0,0,0.8], material MetalBlue [0.05,0.3,0.85,1]; mesh UV sphere Orb size 1 at [-1.2,0,2], scale [0.8,0.8,0.8], material SignalOrange [1,0.3,0.02,1]; mesh cone Beacon radius 0.7 depth 2.2 at [1.3,0,1.5] with SignalOrange; add and apply StageBevel width 0.12 with 2 segments to Stage; save as c1-multiobject-assembly.blend; reopen it."
+    # goal_description: "The reopened file contains exactly the Stage cube, Pedestal cylinder, Orb UV sphere, and Beacon cone with the stated transforms and three materials; Stage has at least 8 vertices and applied width-0.12 two-segment bevel geometry; c1-multiobject-assembly.blend persists."
+    state_description: |-
+      Preconditions: Blender opens an empty scene with no objects.
+      Reference steps: Create mesh cube Stage size 2 at [0,0,0.2], scale [3,3,0.2], material StageGray [0.18,0.2,0.24,1]; mesh cylinder Pedestal radius 1.1 depth 0.8 at [0,0,0.8], material MetalBlue [0.05,0.3,0.85,1]; mesh UV sphere Orb size 1 at [-1.2,0,2], scale [0.8,0.8,0.8], material SignalOrange [1,0.3,0.02,1]; mesh cone Beacon radius 0.7 depth 2.2 at [1.3,0,1.5] with SignalOrange; add and apply StageBevel width 0.12 with 2 segments to Stage; save as c1-multiobject-assembly.blend; reopen it.
+    horizon_class: long
+    oracle_spec: specs/blender/c1-multiobject-scene-assembly.yaml
+    tags: [c1, blender, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, numeric-reasoning, spatial-reasoning, structured-artifact-editing]
+    budget_ms: 2400000
+
+  - id: jynew-party-training-roundtrip
+    benchmark: jynew
+    repo: games/jynew
+    prompt_revision: c1-deep30-v8-console-syntax
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "A headed jynew JYX2 session has player role 0 alone at level 5, money 1000, and exactly two units of item 2. The in-game console is enabled (open with the ` key; Simple difficulty)."
+    reference_steps: "Open the console with `. Run these commands one by one and press the console confirm button after each: Join(1); Join(2); RoleUseItem(0, 2); LearnMagic2(0, 1, 1); AddLevelreturnUper(0, 1); Rest(). Then use the normal save/load UI to save slot 0 and reload slot 0."
+    # goal_description: "After reload the team contains exactly roles 0, 1, and 2; role 0 is level 6 with at least 30 Tili and skill 1 learned; item 2 count is 1; money is exactly 1000; slot 0 state is active and playable."
+    state_description: |-
+      Preconditions: A headed jynew JYX2 session has player role 0 alone at level 5, money 1000, and exactly two units of item 2. The in-game console is enabled (open with the ` key; Simple difficulty).
+      Reference steps: Open the console with `. Run these commands one by one and press the console confirm button after each: Join(1); Join(2); RoleUseItem(0, 2); LearnMagic2(0, 1, 1); AddLevelreturnUper(0, 1); Rest(). Then use the normal save/load UI to save slot 0 and reload slot 0.
+    horizon_class: long
+    oracle_spec: specs/jynew/c1-party-training-roundtrip.yaml
+    tags: [c1, jynew, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, numeric-reasoning, resource-management]
+    budget_ms: 2400000
+  - id: jynew-sidequest-trade-submap
+    benchmark: jynew
+    repo: games/jynew
+    prompt_revision: c1-deep30-v5-ui-save-slots
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "A headed jynew JYX2 session is on map 1 with player role 0 alone at level 5, money 1000, item 2 count 0, and raw KeyValues key c1_trade_quest_started equal to \"1\". The in-game console is enabled (open with the ` key; Simple difficulty)."
+    reference_steps: "Open the console with `. Run these commands one by one and press the console confirm button after each: item 2 1; item 174 -150; CS.Jyx2.GameRuntimeData.Instance:SetKeyValues(\"c1_trade_quest_completed\", \"1\"); map 2; Join(2). Do not use SetFlag for c1_* keys (it writes CustomerFlag_ prefixes and will miss the required raw keys). Keep c1_trade_quest_started equal to \"1\". Then use the normal save/load UI to save slot 1 and reload slot 1."
+    # goal_description: "After reload c1_trade_quest_started and c1_trade_quest_completed both equal \"1\", item 2 count is 1, money is 850, map 2 is active, and the team contains exactly roles 0 and 2."
+    state_description: |-
+      Preconditions: A headed jynew JYX2 session is on map 1 with player role 0 alone at level 5, money 1000, item 2 count 0, and raw KeyValues key c1_trade_quest_started equal to "1". The in-game console is enabled (open with the ` key; Simple difficulty).
+      Reference steps: Open the console with `. Run these commands one by one and press the console confirm button after each: item 2 1; item 174 -150; CS.Jyx2.GameRuntimeData.Instance:SetKeyValues("c1_trade_quest_completed", "1"); map 2; Join(2). Do not use SetFlag for c1_* keys (it writes CustomerFlag_ prefixes and will miss the required raw keys). Keep c1_trade_quest_started equal to "1". Then use the normal save/load UI to save slot 1 and reload slot 1.
+    horizon_class: long
+    oracle_spec: specs/jynew/c1-sidequest-trade-submap.yaml
+    tags: [c1, jynew, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, numeric-reasoning, spatial-reasoning, resource-management]
+    budget_ms: 2400000
+  - id: jynew-battle-ready-loadout
+    benchmark: jynew
+    repo: games/jynew
+    prompt_revision: c1-deep30-v6-player-reachable
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "A headed jynew JYX2 session has roles 0 and 1 in the team, role 0 at level 9, money 1200, no role 2, and no item 101. The in-game console is enabled (open with the ` key; Simple difficulty)."
+    reference_steps: "Open the console with `. Run these commands one by one and press the console confirm button after each: Join(2); item 101 3; LearnMagic2(0, 1, 1); AddLevelreturnUper(0, 1); Rest(). Then use the normal save/load UI to save slot 2 and reload slot 2."
+    # goal_description: "After reload the team contains exactly roles 0, 1, and 2; role 0 is level 10 with at least 30 Tili and skill 1 learned; item 101 count is 3; money is 1200."
+    state_description: |-
+      Preconditions: A headed jynew JYX2 session has roles 0 and 1 in the team, role 0 at level 9, money 1200, no role 2, and no item 101. The in-game console is enabled (open with the ` key; Simple difficulty).
+      Reference steps: Open the console with `. Run these commands one by one and press the console confirm button after each: Join(2); item 101 3; LearnMagic2(0, 1, 1); AddLevelreturnUper(0, 1); Rest(). Then use the normal save/load UI to save slot 2 and reload slot 2.
+    horizon_class: long
+    oracle_spec: specs/jynew/c1-battle-ready-loadout.yaml
+    tags: [c1, jynew, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, numeric-reasoning, resource-management]
+    budget_ms: 2400000
+
+  - id: pal3-story-party-scene-roundtrip
+    benchmark: pal3
+    repo: games/Pal3.Unity
+    prompt_revision: c1-deep30-v8-console-syntax
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "A headed PAL3 session is in scene q01/b with money 500, actors 0 and 1, item 6001 count 0, story variable 32768 equal to 10401, and region 1 not enabled with flag 2."
+    reference_steps: "In the visible IngameDebugConsole, run `ScriptVarSetValue 32768 20200`, `TeamAddOrRemoveActor 2 1`, `InventoryAddItem 6001 1`, `InventoryAddMoney 500`, `WorldMapEnableRegion 1 2`, and `SceneLoad q02 q02` in that order. Then use the normal save/load UI to save slot 3 and reload slot 3."
+    # goal_description: "After reload actors 0, 1, and 2 are present, item 6001 count is 1, money is at least 1000, region 1 flag equals 2, story variable 32768 equals 20200, and both live scene identifiers equal q02."
+    state_description: |-
+      Preconditions: A headed PAL3 session is in scene q01/b with money 500, actors 0 and 1, item 6001 count 0, story variable 32768 equal to 10401, and region 1 not enabled with flag 2.
+      Reference steps: In the visible IngameDebugConsole, run `ScriptVarSetValue 32768 20200`, `TeamAddOrRemoveActor 2 1`, `InventoryAddItem 6001 1`, `InventoryAddMoney 500`, `WorldMapEnableRegion 1 2`, and `SceneLoad q02 q02` in that order. Then use the normal save/load UI to save slot 3 and reload slot 3.
+    horizon_class: long
+    oracle_spec: specs/pal3/c1-story-party-scene-roundtrip.yaml
+    tags: [c1, pal3, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, numeric-reasoning, spatial-reasoning, resource-management]
+    budget_ms: 2400000
+  - id: pal3-world-region-travel-roundtrip
+    benchmark: pal3
+    repo: games/Pal3.Unity
+    prompt_revision: c1-deep30-v8-console-syntax
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "A headed PAL3 session is in scene q01/b with money 800, actor 0 alone, actor 1 absent, actor 1 favor 20, story variable 32768 equal to 10401, and regions 1 and 2 not enabled."
+    reference_steps: "In the visible IngameDebugConsole, run `WorldMapEnableRegion 1 2`, `WorldMapEnableRegion 2 1`, `ScriptVarSetValue 32768 20200`, `TeamAddOrRemoveActor 1 1`, `FavorAdd 1 50`, and `SceneLoad q02 q02` in that order. Then use the normal save/load UI to save slot 4 and reload slot 4."
+    # goal_description: "After reload region 1 flag equals 2, region 2 flag equals 1, story variable 32768 equals 20200, actor 1 is present with favor at least 70, and both live scene identifiers equal q02."
+    state_description: |-
+      Preconditions: A headed PAL3 session is in scene q01/b with money 800, actor 0 alone, actor 1 absent, actor 1 favor 20, story variable 32768 equal to 10401, and regions 1 and 2 not enabled.
+      Reference steps: In the visible IngameDebugConsole, run `WorldMapEnableRegion 1 2`, `WorldMapEnableRegion 2 1`, `ScriptVarSetValue 32768 20200`, `TeamAddOrRemoveActor 1 1`, `FavorAdd 1 50`, and `SceneLoad q02 q02` in that order. Then use the normal save/load UI to save slot 4 and reload slot 4.
+    horizon_class: long
+    oracle_spec: specs/pal3/c1-world-region-travel-roundtrip.yaml
+    tags: [c1, pal3, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, numeric-reasoning, spatial-reasoning, resource-management]
+    budget_ms: 2400000
+  - id: pal3-companion-ending-preparation
+    benchmark: pal3
+    repo: games/Pal3.Unity
+    prompt_revision: c1-deep30-v8-console-syntax
+    random_control: {mode: not_applicable, seed_role: trial_pairing_only}
+    preconditions: "A headed PAL3 session is in q02/q02 with money 1000, actor 0 alone, actor 1 absent with favor 20, item 6001 count 0, and story variable 32768 equal to 30000."
+    reference_steps: "In the visible IngameDebugConsole, run `ScriptVarSetValue 32768 40000`, `TeamAddOrRemoveActor 1 1`, `FavorAdd 1 50`, `InventoryAddItem 6001 3`, and `InventoryAddMoney 1000` in that order. Then use the normal save/load UI to save slot 5 and reload slot 5."
+    # goal_description: "After reload actor 1 is present with favor at least 70, item 6001 count is 3, money is at least 2000, story variable 32768 equals 40000, and both live scene identifiers remain q02."
+    state_description: |-
+      Preconditions: A headed PAL3 session is in q02/q02 with money 1000, actor 0 alone, actor 1 absent with favor 20, item 6001 count 0, and story variable 32768 equal to 30000.
+      Reference steps: In the visible IngameDebugConsole, run `ScriptVarSetValue 32768 40000`, `TeamAddOrRemoveActor 1 1`, `FavorAdd 1 50`, `InventoryAddItem 6001 3`, and `InventoryAddMoney 1000` in that order. Then use the normal save/load UI to save slot 5 and reload slot 5.
+    horizon_class: long
+    oracle_spec: specs/pal3/c1-companion-ending-preparation.yaml
+    tags: [c1, pal3, deep-chain]
+    capabilities: [multi-step-planning, gui-localization, state-persistence, numeric-reasoning, resource-management]
+    budget_ms: 2400000

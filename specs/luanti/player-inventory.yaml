@@ -1,0 +1,45 @@
+name: luanti give the player a steel pickaxe
+benchmark: "luanti"
+timeout_ms: 300000
+tags: ["luanti", "player", "inventory"]
+target:
+  kind: synthesized_world
+  player:
+    inventory:
+      - { item: "basenodes:cobble", count: 1 }
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_give_item
+    item: "basetools:pick_steel"
+    count: 1
+assertions:
+  - type: luanti_inventory_contains
+    item: "basetools:pick_steel"
+    count: 1
+  - type: luanti_inventory_contains
+    item: "basenodes:cobble"
+    count: 1
+  - type: no_luanti_mod_errors
+visual_oracle:
+  golden_image: visual/player-inventory.golden.png
+  golden_before: visual/luanti-player-inventory.before.golden.png
+  golden_after: visual/luanti-player-inventory.after.golden.png
+  expected_label: correct
+  description: "The Luanti devtest world is rendered from the player's view with the hotbar showing held items."
+  rubric:
+    must:
+      - "The 3D voxel world is rendered and visible from the player's view."
+      - "The HUD hotbar is visible and shows the expected held cobble item or a visually matching inventory item."
+      - "No crash dialog, error overlay, or fully blank screen is shown."
+    must_not:
+      - "The hotbar is missing or the expected inventory item is replaced by a clearly different item."
+      - "The screen is blank, black, or only shows the main menu."
+      - "An error dialog or exception stack trace is visible."
+    ignore:
+      - "Camera angle, lighting differences, and non-target hotbar slots."
+  capture:
+    stage: post_smoke
+    wait_ms: 800
+    full_page: false

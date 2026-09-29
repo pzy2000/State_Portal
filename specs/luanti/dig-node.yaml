@@ -1,0 +1,65 @@
+name: luanti dig a node back to air
+benchmark: luanti
+timeout_ms: 300000
+tags: ["luanti", "voxel", "dig"]
+target:
+  kind: synthesized_world
+  nodes:
+    - pos: { x: 3, y: 2, z: 3 }
+      node: "basenodes:cobble"
+  validations:
+    - path: "node.3,2,3"
+      expected: "basenodes:cobble"
+checkpoint:
+  allowed_strategies: ["luanti_worldmod_state_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: luanti_dig_node
+    pos: { x: 3, y: 2, z: 3 }
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: luanti_node_is
+        pos: { x: 3, y: 2, z: 3 }
+        expected: "air"
+      - type: no_luanti_mod_errors
+    surfaces:
+      gui:
+        adapter: luanti_live_world_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: luanti_live_world_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/dig-node.golden.png
+    golden_before: visual/luanti-dig-node.before.golden.png
+    golden_after: visual/luanti-dig-node.after.golden.png
+    expected_label: correct
+    description: "A Luanti devtest world is rendered near spawn after the placed cobble block has been dug away; the dug cobble drops as an item and is collected into the player's hotbar/inventory."
+    rubric:
+      must:
+        - "The 3D voxel world is rendered and visible."
+        - "The target cobble block has been removed; the scene should show open space where the original cobble was rather than the intact cobble block."
+        - "No crash dialog, error overlay, or fully blank screen is shown."
+      must_not:
+        - "The original cobble block is still visibly present where the dug node should have been removed."
+        - "The screen is blank, black, or only shows the main menu."
+        - "An error dialog or exception stack trace is visible."
+      ignore:
+        - "Exact camera angle, lighting, or player position differences."
+        - "Whether the dug cobble appears as an in-world drop or in the hotbar/inventory."
+    capture:
+      stage: post_smoke
+      wait_ms: 800
+      full_page: false

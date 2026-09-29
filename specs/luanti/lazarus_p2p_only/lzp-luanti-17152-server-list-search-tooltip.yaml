@@ -1,0 +1,126 @@
+schema_version: 1
+benchmark: luanti
+name: lzp-luanti-17152-server-list-search-tooltip
+target:
+  kind: luanti_lazarus_candidate_session
+  change_number: 17152
+  variants:
+  - fixed
+  - buggy
+  capture_backend: luanti_irrlicht_create_screenshot_v1
+setup:
+  luanti_lazarus_probe:
+    registered_replay:
+      fixture: warptest.c1_lazarus_selection.p2p_only_frames
+      build_packages: []
+      stylesheets: []
+      fixture_notes: After launch opens the online tab and paints the search-filter examples in a dropdown
+        so escaping is visible without hover.
+      capture_kind: luanti_engine
+      engine_before_mode: luanti-local
+      engine_after_mode: luanti-online-tooltip
+      engine_frame_size:
+      - 1280
+      - 720
+      hover_point:
+      - 400
+      - 165
+      variant_state_key: ''
+      fixed_state_value: ''
+      buggy_state_value: ''
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions: []
+    surfaces:
+      gui:
+        adapter: luanti_lazarus_frozen_evidence_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+      state:
+        adapter: luanti_lazarus_frozen_evidence_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+  visual_oracle:
+    golden_image: visual_lzp-luanti-17152-server-list-search-tooltip/before.golden.png
+    description: A Luanti client window shows the engine main menu. The local-game tab is showing. The
+      online tab is not selected.
+    rubric:
+      must:
+      - A Luanti client window shows the engine main menu.
+      - The local-game tab is showing. The online tab is not selected.
+      must_not:
+      - A blank page, an error overlay, or an unrelated application screen is shown.
+      ignore:
+      - Window chrome, font antialiasing, and cursor blink.
+  lazarus:
+    schema_version: 1
+    goal_checks:
+    - id: rendered_goal_frame
+      kind: visual_frame
+      frame: fixed_after
+      expected: The online tab is showing. The search field's tooltip lists the filter examples as complete
+        separate lines.
+    defect_signature:
+    - id: rendered_defect_frame
+      kind: visual_frame
+      frame: buggy_after
+      expected: The online tab is showing. The search field's tooltip is truncated or misparsed, so the
+        filter examples are not drawn as complete separate lines.
+    invariant_checks:
+    - id: shared_start_frame
+      kind: visual_frame
+      frame: before
+      expected: The local-game tab is showing. The online tab is not selected.
+    f2p_absence:
+      reason: 'The defect is the painted tooltip of the server-list search field: unescaped filter examples
+        collide with formspec markup, so the hover text the menu draws is truncated or misparsed. The
+        search still runs, so the shortfall exists only in the painted tip.'
+      audited_paths: []
+    upstream_tests:
+      fail_to_pass: []
+      pass_to_pass:
+      - luanti-pr17152-control-p2p
+      per_trial_p2p:
+      - luanti-pr17152-control-p2p
+    goldens:
+      before: visual_lzp-luanti-17152-server-list-search-tooltip/before.golden.png
+      buggy_before: visual_lzp-luanti-17152-server-list-search-tooltip/buggy.before.golden.png
+      fixed:
+        after: visual_lzp-luanti-17152-server-list-search-tooltip/fixed.after.golden.png
+        after_description: The online tab is showing. The search field's tooltip lists the filter examples
+          as complete separate lines.
+        after_rubric:
+          must:
+          - A Luanti client window shows the engine main menu.
+          - The online tab is showing. The search field's tooltip lists the filter examples as complete
+            separate lines.
+          - 'Judge this frame by the tooltip painted for the server list search field: whether the listed
+            filter examples are drawn as complete lines.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Window chrome, font antialiasing, and cursor blink.
+      buggy:
+        after: visual_lzp-luanti-17152-server-list-search-tooltip/buggy.after.golden.png
+        after_description: The online tab is showing. The search field's tooltip is truncated or misparsed,
+          so the filter examples are not drawn as complete separate lines.
+        after_rubric:
+          must:
+          - A Luanti client window shows the engine main menu.
+          - The online tab is showing. The search field's tooltip is truncated or misparsed, so the filter
+            examples are not drawn as complete separate lines.
+          - 'Judge this frame by the tooltip painted for the server list search field: whether the listed
+            filter examples are drawn as complete lines.'
+          must_not:
+          - A blank page, an error overlay, or an unrelated application screen is shown.
+          ignore:
+          - Window chrome, font antialiasing, and cursor blink.

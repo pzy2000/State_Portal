@@ -1,0 +1,262 @@
+{
+  "authority": "github",
+  "benchmark": "jupyterlab",
+  "comments": [
+    {
+      "author": "krassowski",
+      "body_normalized": "So this looks to be another side-effect of https://github.com/jupyterlab/lumino/pull/662 but in this case it seems to be because `dedentIfNotLaunchingTooltip` returns `true` on Shift + Tab:\n\n![Screenshot from 2024-05-18 19-17-37](https://github.com/jupyterlab/jupyterlab/assets/5832902/bc794b2e-3811-457c-962f-6bb8ac48156b)",
+      "body_raw": "So this looks to be another side-effect of https://github.com/jupyterlab/lumino/pull/662 but in this case it seems to be because `dedentIfNotLaunchingTooltip` returns `true` on Shift + Tab:\r\n\r\n![Screenshot from 2024-05-18 19-17-37](https://github.com/jupyterlab/jupyterlab/assets/5832902/bc794b2e-3811-457c-962f-6bb8ac48156b)\r\n",
+      "body_sha256": "ba82932b75e78e120a349c88702be63dd26fec1c438e3aa73a5cf4219b7deb26",
+      "created_at": "2024-05-18T18:23:23Z",
+      "id": 2118910042,
+      "source": "issue_comment",
+      "updated_at": "2024-05-18T18:51:23Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/issues/16319#issuecomment-2118910042"
+    },
+    {
+      "author": "jupyterlab-probot[bot]",
+      "body_normalized": "Thanks for making a pull request to jupyterlab!\nTo try out this branch on [binder](https://mybinder.org), follow this link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/krassowski/jupyterlab/fix-shift-tab-tooltip?urlpath=lab)",
+      "body_raw": "Thanks for making a pull request to jupyterlab!\nTo try out this branch on [binder](https://mybinder.org), follow this link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/krassowski/jupyterlab/fix-shift-tab-tooltip?urlpath=lab)",
+      "body_sha256": "ef5f78b8a960c0275d85c435f0a0cf86ae3af7a9504ad4fb746a9d08f61c4b7a",
+      "created_at": "2024-05-18T19:21:14Z",
+      "id": 2118982332,
+      "source": "pull_request_comment",
+      "updated_at": "2024-05-18T19:21:14Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/16343#issuecomment-2118982332"
+    },
+    {
+      "author": "krassowski",
+      "body_normalized": "@meeseeksdev please backport to 4.2.x",
+      "body_raw": "@meeseeksdev please backport to 4.2.x",
+      "body_sha256": "255ddeaa1bae649bbdae0d6cc23bb6d722c451151d3db829b35038b9549b3253",
+      "created_at": "2024-05-22T16:56:28Z",
+      "id": 2125310790,
+      "source": "pull_request_comment",
+      "updated_at": "2024-05-22T16:56:28Z",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/16343#issuecomment-2125310790"
+    }
+  ],
+  "fix_commit": "4e0cbc0fd6703aee740ad15f601a78499b6b3a01",
+  "issue": {
+    "author": "krassowski",
+    "body_normalized": "## Description\n\nShift + tab does not open inspector tooltip on 4.2.0\n\nas reported on https://stackoverflow.com/questions/78464382/shift-tab-isnt-showing-docstring-anymore\n\n## Reproduce\n\n1. Type `int`\n2. Press Shift + Tab\n\n\n## Expected behavior\n\n- There is an integration test case for this shortcut\n- The shortcut works\n\n## Context\n\n- Works in 4.1.0\n- Works in 4.2.0b0\n- Does not work in 4.2.0b1 - it could be related to https://github.com/jupyterlab/jupyterlab/pull/16078 or another PR merged in 4.2.0b1 (https://github.com/jupyterlab/jupyterlab/releases/tag/v4.2.0b1)",
+    "body_raw": "## Description\r\n\r\nShift + tab does not open inspector tooltip on 4.2.0\r\n\r\nas reported on https://stackoverflow.com/questions/78464382/shift-tab-isnt-showing-docstring-anymore\r\n\r\n## Reproduce\r\n\r\n1. Type `int`\r\n2. Press Shift + Tab\r\n\r\n\r\n## Expected behavior\r\n\r\n- There is an integration test case for this shortcut\r\n- The shortcut works\r\n\r\n## Context\r\n\r\n- Works in 4.1.0\r\n- Works in 4.2.0b0\r\n- Does not work in 4.2.0b1 - it could be related to https://github.com/jupyterlab/jupyterlab/pull/16078 or another PR merged in 4.2.0b1 (https://github.com/jupyterlab/jupyterlab/releases/tag/v4.2.0b1)",
+    "body_sha256": "ef5e14982c689422cad570d9fcef075bf3af0ccdab93d83a1d0ef199686fa47c",
+    "closed_at": "2024-05-22T16:56:22Z",
+    "created_at": "2024-05-11T15:26:34Z",
+    "merged_at": null,
+    "number": 16319,
+    "state": "closed",
+    "title": "Shift + tab does not open inspector tooltip on 4.2.0",
+    "updated_at": "2025-05-23T00:34:01Z",
+    "url": "https://github.com/jupyterlab/jupyterlab/issues/16319"
+  },
+  "patch_sha256": "48f33d2887b7cf8326fe17b212dbefe355d379eb3d79adf6ab7935d16f9a5753",
+  "pinned_revision": "4a19f8fff4049a9536e21fa2980fe7e5ee592d01",
+  "pull_request": {
+    "author": "krassowski",
+    "body_normalized": "## References\n\nFixes https://github.com/jupyterlab/jupyterlab/issues/16319\n\n## Code changes\n\n- [x] adds an integration test case\n- [x] fixes the issue by not preventing default (i.e. not returning `true`) in the `dedentIfNotLaunchingTooltip` handler\n\n## User-facing changes\n\nShift + Tab works again\n\n## Backwards-incompatible changes\n\nNone",
+    "body_raw": "## References\r\n\r\nFixes https://github.com/jupyterlab/jupyterlab/issues/16319\r\n\r\n## Code changes\r\n\r\n- [x] adds an integration test case\r\n- [x] fixes the issue by not preventing default (i.e. not returning `true`) in the `dedentIfNotLaunchingTooltip` handler\r\n\r\n## User-facing changes\r\n\r\nShift + Tab works again\r\n\r\n## Backwards-incompatible changes\r\n\r\nNone",
+    "body_sha256": "0068709798949191b22dd2a9f51b94ffdc1fe4eabe3c276569bbf62079f941a7",
+    "closed_at": "2024-05-22T16:56:21Z",
+    "created_at": "2024-05-18T19:21:11Z",
+    "merged_at": "2024-05-22T16:56:21Z",
+    "number": 16343,
+    "state": "closed",
+    "title": "Fix `Shift + Tab` contextual help inspector tooltip regression",
+    "updated_at": "2025-05-23T00:34:05Z",
+    "url": "https://github.com/jupyterlab/jupyterlab/pull/16343"
+  },
+  "record_sha256": "ac0e019c1ea31cb5a8ba2b56fa505502427a6456afa1beeb1fee4cf1cae17581",
+  "repository": "jupyterlab/jupyterlab",
+  "retrieved_at": "2026-08-11T13:13:43Z",
+  "reviews": [
+    {
+      "author": "fcollonval",
+      "body_normalized": "Thanks @krassowski",
+      "body_raw": "Thanks @krassowski ",
+      "body_sha256": "b631e0e0a467227247241f15fa207904b4cbde2dbead528fad67f85e9164d72e",
+      "created_at": "2024-05-22T16:42:48Z",
+      "id": 2071809909,
+      "source": "pull_request_review",
+      "state": "APPROVED",
+      "url": "https://github.com/jupyterlab/jupyterlab/pull/16343#pullrequestreview-2071809909"
+    }
+  ],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-jupyterlab-16343-shift-tab-tooltip",
+  "tests": [
+    {
+      "argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "test/jupyterlab/inspector-tooltip.test.ts",
+        "--project=jupyterlab",
+        "--grep",
+        "Should show up on Shift + Tab"
+      ],
+      "command": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "test/jupyterlab/inspector-tooltip.test.ts",
+        "--project=jupyterlab",
+        "--grep",
+        "Should show up on Shift + Tab"
+      ],
+      "cwd": "galata",
+      "frozen_test_sources": [
+        {
+          "destination_path": "galata/test/jupyterlab/inspector-tooltip.test.ts",
+          "sha256": "a5012df4d918ad11af64113e007524b94ef24207478721497f708224af67a7e4",
+          "source_path": "upstream-tests/galata/test/jupyterlab/inspector-tooltip.test.ts"
+        }
+      ],
+      "id": "jupyterlab-16343-shift-tab-tooltip-f2p",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_galata_regression_test",
+      "source_case": "inspector tooltip shows on Shift+Tab",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4e0cbc0fd6703aee740ad15f601a78499b6b3a01/galata/test/jupyterlab/inspector-tooltip.test.ts",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "956b29fd080c4ec5e8920c998d49af5cab701d845f7ad2c220032f3f8bd9eb23",
+      "upstream_runner_version_argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "76120c1f2c4311c2154c22a6b58e00e411e0ebe76afae0daf608d9196c61f114",
+      "upstream_test_files": [
+        {
+          "path": "galata/test/jupyterlab/inspector-tooltip.test.ts",
+          "sha256": "a5012df4d918ad11af64113e007524b94ef24207478721497f708224af67a7e4",
+          "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4e0cbc0fd6703aee740ad15f601a78499b6b3a01/galata/test/jupyterlab/inspector-tooltip.test.ts"
+        }
+      ],
+      "upstream_test_path": "galata/test/jupyterlab/inspector-tooltip.test.ts",
+      "upstream_test_sha256": "a5012df4d918ad11af64113e007524b94ef24207478721497f708224af67a7e4"
+    },
+    {
+      "argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "test/jupyterlab/docmanager.test.ts",
+        "--project=jupyterlab",
+        "--grep",
+        "Should open the document and activate it by default"
+      ],
+      "command": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "test/jupyterlab/docmanager.test.ts",
+        "--project=jupyterlab",
+        "--grep",
+        "Should open the document and activate it by default"
+      ],
+      "cwd": "galata",
+      "frozen_test_sources": [
+        {
+          "destination_path": "galata/test/jupyterlab/docmanager.test.ts",
+          "sha256": "388e0c061fa83d3638b7ceffd199225b61466f10c422d53208b73aad21a0bf1c",
+          "source_path": "upstream-tests/galata/test/jupyterlab/docmanager.test.ts"
+        }
+      ],
+      "id": "jupyterlab-docmanager-activate-construction-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_galata_test_suite",
+      "source_case": "opening a document activates it by default",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/galata/test/jupyterlab/docmanager.test.ts",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "956b29fd080c4ec5e8920c998d49af5cab701d845f7ad2c220032f3f8bd9eb23",
+      "upstream_runner_version_argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "76120c1f2c4311c2154c22a6b58e00e411e0ebe76afae0daf608d9196c61f114",
+      "upstream_test_files": [
+        {
+          "path": "galata/test/jupyterlab/docmanager.test.ts",
+          "sha256": "388e0c061fa83d3638b7ceffd199225b61466f10c422d53208b73aad21a0bf1c",
+          "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/galata/test/jupyterlab/docmanager.test.ts"
+        }
+      ],
+      "upstream_test_path": "galata/test/jupyterlab/docmanager.test.ts",
+      "upstream_test_sha256": "388e0c061fa83d3638b7ceffd199225b61466f10c422d53208b73aad21a0bf1c"
+    },
+    {
+      "argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/path.spec.ts",
+        "-t",
+        "should return the last portion of a path"
+      ],
+      "command": [
+        "/opt/miniconda3/bin/jlpm",
+        "test",
+        "--runTestsByPath",
+        "test/path.spec.ts",
+        "-t",
+        "should return the last portion of a path"
+      ],
+      "cwd": "packages/coreutils",
+      "frozen_test_sources": [
+        {
+          "destination_path": "packages/coreutils/test/path.spec.ts",
+          "sha256": "6faeb6443b54150d600511e7ee1569c337d19f72c9d2d6e1e686fa5e532a6897",
+          "source_path": "upstream-tests/packages/coreutils/test/path.spec.ts"
+        }
+      ],
+      "id": "jupyterlab-coreutils-path-trial-p2p",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_jest_test_suite",
+      "source_case": "PathExt.basename returns the last path portion",
+      "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/coreutils/test/path.spec.ts",
+      "timeout_s": 300,
+      "upstream_runner_executable_sha256": "956b29fd080c4ec5e8920c998d49af5cab701d845f7ad2c220032f3f8bd9eb23",
+      "upstream_runner_version_argv": [
+        "/opt/miniconda3/bin/jlpm",
+        "--version"
+      ],
+      "upstream_runner_version_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "upstream_runner_version_stdout_sha256": "76120c1f2c4311c2154c22a6b58e00e411e0ebe76afae0daf608d9196c61f114",
+      "upstream_test_files": [
+        {
+          "path": "packages/coreutils/test/path.spec.ts",
+          "sha256": "6faeb6443b54150d600511e7ee1569c337d19f72c9d2d6e1e686fa5e532a6897",
+          "source_url": "https://github.com/jupyterlab/jupyterlab/blob/4a19f8fff4049a9536e21fa2980fe7e5ee592d01/packages/coreutils/test/path.spec.ts"
+        }
+      ],
+      "upstream_test_path": "packages/coreutils/test/path.spec.ts",
+      "upstream_test_sha256": "6faeb6443b54150d600511e7ee1569c337d19f72c9d2d6e1e686fa5e532a6897"
+    }
+  ],
+  "touched_files": [
+    "galata/test/jupyterlab/inspector-tooltip.test.ts",
+    "packages/codemirror/src/commands.ts"
+  ],
+  "upstream_commits": [
+    {
+      "author": "krassowski",
+      "authored_at": "2024-05-18T19:18:45Z",
+      "body_normalized": "Add test for inspector tooltip showing up\n\nFix up tests",
+      "body_raw": "Add test for inspector tooltip showing up\n\nFix up tests",
+      "body_sha256": "4797b76a2037e944ca7e2b3cdfbbb353f81385971b9d8866cb9036df1b14f6d8",
+      "sha": "13889fcba5138acf6ea724f2e4dbafa0fa25c671",
+      "url": "https://github.com/jupyterlab/jupyterlab/commit/13889fcba5138acf6ea724f2e4dbafa0fa25c671"
+    },
+    {
+      "author": "krassowski",
+      "authored_at": "2024-05-18T20:52:59Z",
+      "body_normalized": "Short-circuit with `false` rather than `true` so\n\nthat the default is not prevented and tooltip can be shown",
+      "body_raw": "Short-circuit with `false` rather than `true` so\n\nthat the default is not prevented and tooltip can be shown",
+      "body_sha256": "7f5b3d7ba98d5c97d89bcb63c0749a3f779e10a218a1823e373fb41a00d68087",
+      "sha": "7d2c35d48bfca9dc0364549aa5eac1b68e2cf365",
+      "url": "https://github.com/jupyterlab/jupyterlab/commit/7d2c35d48bfca9dc0364549aa5eac1b68e2cf365"
+    }
+  ]
+}

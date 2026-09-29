@@ -1,0 +1,21 @@
+{
+  "actions": 7,
+  "after": "specs/jupyterlab/visual/c1-sales-analysis-pipeline.after.golden.png",
+  "after_dimensions": [
+    1280,
+    800
+  ],
+  "after_sha256": "0334ee598075cc31a2e0c1507b4ff9a6b1195e2036f508201f159b2804f79686",
+  "before": "specs/jupyterlab/visual/c1-sales-analysis-pipeline.before.golden.png",
+  "before_dimensions": [
+    1280,
+    800
+  ],
+  "before_sha256": "1d58df3e1c206ba3906cad323cf35a21ce263e1cd8c8487acab3006a7570eed7",
+  "benchmark": "jupyterlab",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/jupyterlab/c1-sales-analysis-pipeline.yaml",
+  "spec_sha256": "3ee76fe20090cf2bc5124bfcf79ac16148042428b71c68f2f915647d6df5ad17",
+  "task_id": "jupyterlab-sales-analysis-pipeline"
+}

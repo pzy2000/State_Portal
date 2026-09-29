@@ -1,0 +1,45 @@
+name: JupyterLab kernel session smoke checkpoint
+benchmark: JupyterLab
+repo: ../../games/jupyterlab
+tags: [jupyterlab, smoke, session, kernel]
+target:
+  kind: terminal_session
+  path: notebooks/session-smoke.ipynb
+checkpoint:
+  allowed_strategies: [jupyterlab_workspace_api_validate]
+  expected_validity: save-restorable
+actions:
+  - type: jupyterlab_create_notebook
+    path: notebooks/session-smoke.ipynb
+    cells: []
+  - type: jupyterlab_start_session
+    path: notebooks/session-smoke.ipynb
+    kernel: python3
+assertions:
+  - type: jupyterlab_file_exists
+    path: notebooks/session-smoke.ipynb
+  - type: jupyterlab_session_started
+  - type: no_jupyterlab_server_errors
+visual_oracle:
+  golden_image: visual/jupyterlab-session-smoke.after.golden.png
+  golden_before: visual/jupyterlab-session-smoke.before.golden.png
+  golden_after: visual/jupyterlab-session-smoke.after.golden.png
+  expected_label: correct
+  description: "The JupyterLab UI is visible before and after starting a notebook session; the after golden shows session-smoke.ipynb opened in the notebook editor."
+  rubric:
+    must:
+      - "A real JupyterLab UI is visible, including the top menu, left file browser, and central workspace area."
+      - "The after screenshot shows the notebook tab for session-smoke.ipynb."
+      - "The after screenshot shows an empty notebook editor with a code cell area."
+      - "The file browser shows session-smoke.ipynb under the notebooks directory."
+    must_not:
+      - "The page is blank, loading-only, or a browser/server error page."
+      - "The JupyterLab shell is missing or replaced by a crash dialog."
+      - "The after screenshot remains only on the launcher with no session-smoke notebook open."
+    ignore:
+      - "Execution count, kernel status, focus ring, cursor, or selected-file styling differences."
+      - "Small font rendering or antialiasing differences across JupyterLab builds."
+  capture:
+    stage: post_smoke
+    wait_ms: 500
+    full_page: false

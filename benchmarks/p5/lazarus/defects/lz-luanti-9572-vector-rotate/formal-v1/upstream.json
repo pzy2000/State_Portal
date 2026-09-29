@@ -1,0 +1,172 @@
+{
+  "authority": "github",
+  "benchmark": "luanti",
+  "comments": [
+    {
+      "body_normalized": "I feel the cleanest implementation might be to have the player's eyes optionally attached to an object, and thus inherit's that object's 3D rotation.\n\nI propose to extend `player:set_eye_offset()` with an optional third parameter that is a boolean specifying whether the camera should inherit the rotation of its parent attachment. That would make riding in carts, helicopters, hang-gliders, etc. more visually immersive. It would also offload much of the computational work to the client.",
+      "body_raw": "I feel the cleanest implementation might be to have the player's eyes optionally attached to an object, and thus inherit's that object's 3D rotation.\r\n\r\nI propose to extend `player:set_eye_offset()` with an optional third parameter that is a boolean specifying whether the camera should inherit the rotation of its parent attachment. That would make riding in carts, helicopters, hang-gliders, etc. more visually immersive. It would also offload much of the computational work to the client.",
+      "body_sha256": "25947883d252996243eb1b4c12c59234e33f7f0d5adb2b0a73d95cdafe4b5de5",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/9798#issuecomment-623112215"
+    },
+    {
+      "body_normalized": "Rotate the camera by the player model rotation. If that happens automatically I don't see much need for an API. (TL;DR)",
+      "body_raw": "Rotate the camera by the player model rotation. If that happens automatically I don't see much need for an API. (TL;DR)",
+      "body_sha256": "3f209b0ea600fa595dcaca5b2f7a3c8ad23930f25d9522997d66c98e8b6cf663",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/9798#issuecomment-623112990"
+    },
+    {
+      "body_normalized": "I think the idea is that it needs to be optional, because I know paramat strongly opposes forced changes to the orientation of the camera. That was brought up on a couple occasions in discussions about the implementation of minecarts in Minetest Game.",
+      "body_raw": "I think the idea is that it needs to be optional, because I know paramat strongly opposes forced changes to the orientation of the camera. That was brought up on a couple occasions in discussions about the implementation of minecarts in Minetest Game.",
+      "body_sha256": "0db65ab27c4547c572a8504b004450645f7031a330df25c271642539f29f02f0",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/9798#issuecomment-623134104"
+    },
+    {
+      "body_normalized": "I also like the idea of rotating the camera about the player model rotation. Much cleaner as mods won't have to loop through players attached to rotated objects to manually set the camera axis.\n\nI would like to make this a separate function rather than using `player:set_eye_offset()`. From my understanding, if you call that function and another mod has changed the eye offset, then you will need to fetch the current eye offset and feed it back along with your boolean to set the camera rotation. It seems wasteful to need to fetch the two v3f and then feed them back just to set one bool. It clutters code as well.",
+      "body_raw": "I also like the idea of rotating the camera about the player model rotation. Much cleaner as mods won't have to loop through players attached to rotated objects to manually set the camera axis. \r\n\r\nI would like to make this a separate function rather than using `player:set_eye_offset()`. From my understanding, if you call that function and another mod has changed the eye offset, then you will need to fetch the current eye offset and feed it back along with your boolean to set the camera rotation. It seems wasteful to need to fetch the two v3f and then feed them back just to set one bool. It clutters code as well.",
+      "body_sha256": "7544c7114c6ccd4041c5f5a5a48497a84527f6c21fe4e242d8611a813e1b0220",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/9798#issuecomment-623148701"
+    },
+    {
+      "body_normalized": "> have the player's eyes optionally attached to an object, and thus inherit's that object's 3D rotation.\n\nThis is requested in #8552\nAnd yes this should be optional and disabled by default, as requested in #8552 . It is usually preferable to allow the player to freely and independently look around (in 1st and 3rd person views), and all vehicle mods currently have this behaviour.",
+      "body_raw": "> have the player's eyes optionally attached to an object, and thus inherit's that object's 3D rotation.\r\n\r\nThis is requested in #8552 \r\nAnd yes this should be optional and disabled by default, as requested in #8552 . It is usually preferable to allow the player to freely and independently look around (in 1st and 3rd person views), and all vehicle mods currently have this behaviour.",
+      "body_sha256": "6654d2b844be3ee85039a20d070a6765c881b6568e08a6fcc73c1ebef3a9ca89",
+      "kind": "comment",
+      "merged_at": null,
+      "number": null,
+      "state": "",
+      "title": "",
+      "url": "https://github.com/luanti-org/luanti/issues/9798#issuecomment-623727963"
+    }
+  ],
+  "fix_commit": "7148834440d10bc211628aa2652e31166bdd58a0",
+  "issue": {
+    "body_normalized": "Allowing the player camera rotation axis to swivel on a different plane would be beneficial to mods that add vehicles.\n\nRight now the camera is fixed to rotating on the y-axis and that's it. If you are in a helicopter, like a mod recently made on the forums, then as the vehicle rotates around the player, during pitch maneuvers, the view doesn't look nice.\n\nAlso, if the player is in an aircraft and goes inverted then the direction one should move their head becomes confusing.\n\nThe implementation would be similar to `set_eye_offset(first, third)` where the axes for the third and first-person camera view are set at the same time, to be consistent with the mentioned function. I feel setting the first and third-person attributes should be separate calls but that is a separate issue, let's remain consistent.\n\nI feel the actual setting of the camera view may not be hard to implement but things like how the ray is cast to point at blocks may need to be taken care of, and clipping of the camera in nodes in third-person.\n\nMy question is, do you think the problems I mentioned will be problems? What other issues could arise? This would maybe need a network version bump in the engine, not sure though.\n\nI would probably be able to implement this but a key PR for ease of use would be #9572 for working with rotations, and I would like to know what the core devs think and what issues could come up.",
+    "body_raw": "Allowing the player camera rotation axis to swivel on a different plane would be beneficial to mods that add vehicles.\r\n\r\nRight now the camera is fixed to rotating on the y-axis and that's it. If you are in a helicopter, like a mod recently made on the forums, then as the vehicle rotates around the player, during pitch maneuvers, the view doesn't look nice.\r\n\r\nAlso, if the player is in an aircraft and goes inverted then the direction one should move their head becomes confusing.\r\n\r\nThe implementation would be similar to `set_eye_offset(first, third)` where the axes for the third and first-person camera view are set at the same time, to be consistent with the mentioned function. I feel setting the first and third-person attributes should be separate calls but that is a separate issue, let's remain consistent.\r\n\r\nI feel the actual setting of the camera view may not be hard to implement but things like how the ray is cast to point at blocks may need to be taken care of, and clipping of the camera in nodes in third-person.\r\n\r\nMy question is, do you think the problems I mentioned will be problems? What other issues could arise? This would maybe need a network version bump in the engine, not sure though.\r\n\r\nI would probably be able to implement this but a key PR for ease of use would be #9572 for working with rotations, and I would like to know what the core devs think and what issues could come up.",
+    "body_sha256": "a2dea53183c6a8d69dd946b4c7c7890cc90a683613922fd406999e47e99c17db",
+    "kind": "issue",
+    "merged_at": null,
+    "number": 9798,
+    "state": "open",
+    "title": "Allow setting rotation axis of camera/player eyes",
+    "url": "https://github.com/luanti-org/luanti/issues/9798"
+  },
+  "patch_sha256": "c97611c48e3c2deb5ba14d522c89d0e17b9b12ae3217ae7c6348f11da22703a8",
+  "pinned_revision": "c48f698073df253fc6743d16cf056c1489b60dfb",
+  "pull_request": {
+    "body_normalized": "This PR adds three vector functions useful for rotating objects:\n\n* `vector.rotate(v, rot)`: applies the rotation vector rot as returned by object:get_rotation() to v using a rotation matrix\n* `vector.rotate_around_axis(v, axis, angle)`: rotates vector v around vector axis by angle according to the right hand rule.\n* `vector.dir_to_rotation(forward, [up])`: converts a unit vector pointing forward and one that points up to a rotation vector. If `up` is omitted, assumes roll to be zero.\n\nRotating entities by more than just yaw is currently kind of hard to do. This PR aims to make it easier.\n\n\n\n## To do\n\nThis PR is Ready for Review.\n\n## How to test\n\nWrite code using these functions.\nI've also attached a dumbed down version of the airplane mod I wrote these functions for. You can spawn in an airplane with `/spawnentity eg_airplanes:airplane`, right click to enter it, Up and Down to control pitch,  Left and Right to control roll and left and right mouse buttons to control yaw. These are all relative to the airplane.\n[Demo mod](https://github.com/minetest/minetest/files/4732404/eg_airplanes.zip)",
+    "body_raw": "This PR adds three vector functions useful for rotating objects:\r\n\r\n* `vector.rotate(v, rot)`: applies the rotation vector rot as returned by object:get_rotation() to v using a rotation matrix\r\n* `vector.rotate_around_axis(v, axis, angle)`: rotates vector v around vector axis by angle according to the right hand rule.\r\n* `vector.dir_to_rotation(forward, [up])`: converts a unit vector pointing forward and one that points up to a rotation vector. If `up` is omitted, assumes roll to be zero.\r\n\r\nRotating entities by more than just yaw is currently kind of hard to do. This PR aims to make it easier.\r\n\r\n\r\n\r\n## To do\r\n\r\nThis PR is Ready for Review.\r\n\r\n## How to test\r\n\r\nWrite code using these functions. \r\nI've also attached a dumbed down version of the airplane mod I wrote these functions for. You can spawn in an airplane with `/spawnentity eg_airplanes:airplane`, right click to enter it, Up and Down to control pitch,  Left and Right to control roll and left and right mouse buttons to control yaw. These are all relative to the airplane.\r\n[Demo mod](https://github.com/minetest/minetest/files/4732404/eg_airplanes.zip)\r\n\r\n\r\n",
+    "body_sha256": "5c53a7f1cb901352d62cf08a7c34a498e4a68177e94268c75fb8fc1e9e91ac5c",
+    "kind": "pull",
+    "merged_at": "2020-06-09T17:38:40Z",
+    "number": 9572,
+    "state": "closed",
+    "title": "Some vector functions useful for working with rotations",
+    "url": "https://github.com/luanti-org/luanti/pull/9572"
+  },
+  "record_sha256": "76404535fd25066efcbfbabc617a8400f0eedced9cbc6d60072cd449f37c79a3",
+  "repository": "luanti-org/luanti",
+  "retrieved_at": "2026-08-13T08:37:37.484476Z",
+  "reviews": [],
+  "schema": "c1-lazarus-upstream-v1",
+  "schema_version": 1,
+  "task_id": "lz-luanti-9572-vector-rotate",
+  "tests": [
+    {
+      "command": [
+        "busted",
+        "--filter",
+        "vector rotate()",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "ninja",
+        "-C",
+        "private/bounded-builds/luanti/9572/gate8-v1/buggy",
+        "-j1",
+        "minetestserver"
+      ],
+      "id": "vector rotate()",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "vector rotate()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/vector_spec.lua",
+      "upstream_test_path": "builtin/common/tests/vector_spec.lua",
+      "upstream_test_sha256": "1a9934c6e46eba7ab58894285e676e65970b0dab419df3ea05be66cdc50139f0"
+    },
+    {
+      "command": [
+        "busted",
+        "--filter",
+        "vector rotate() rotates",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "ninja",
+        "-C",
+        "private/bounded-builds/luanti/9572/gate8-v1/buggy",
+        "-j1",
+        "minetestserver"
+      ],
+      "id": "vector rotate() rotates",
+      "kind": "fail_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "vector rotate() rotates",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/vector_spec.lua",
+      "upstream_test_path": "builtin/common/tests/vector_spec.lua",
+      "upstream_test_sha256": "1a9934c6e46eba7ab58894285e676e65970b0dab419df3ea05be66cdc50139f0"
+    },
+    {
+      "command": [
+        "busted",
+        "--filter",
+        "vector add()",
+        "builtin/common/tests/vector_spec.lua"
+      ],
+      "cwd": ".",
+      "frozen_attempt_command": [
+        "ninja",
+        "-C",
+        "private/bounded-builds/luanti/9572/gate8-v1/buggy",
+        "-j1",
+        "minetestserver"
+      ],
+      "id": "vector add()",
+      "kind": "pass_to_pass",
+      "origin": "upstream",
+      "provenance": "repository_busted_test_suite",
+      "source_case": "vector add()",
+      "source_url": "https://github.com/luanti-org/luanti/blob/c48f698073df253fc6743d16cf056c1489b60dfb/builtin/common/tests/vector_spec.lua",
+      "upstream_test_path": "builtin/common/tests/vector_spec.lua",
+      "upstream_test_sha256": "1a9934c6e46eba7ab58894285e676e65970b0dab419df3ea05be66cdc50139f0"
+    }
+  ],
+  "touched_files": [
+    "builtin/common/vector.lua",
+    "builtin/common/tests/vector_spec.lua"
+  ],
+  "upstream_commits": []
+}

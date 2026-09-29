@@ -1,0 +1,47 @@
+name: jynew use medicine item restores HP
+benchmark: "jynew"
+tags: ["jynew", "item", "medicine", "hp"]
+target:
+  kind: synthesized_state
+  mod_id: JYX2
+  player_level: 5
+  items:
+    - id: 101
+      count: 3
+  validations:
+    - path: player.Level
+      expected: "5"
+checkpoint:
+  allowed_strategies: ["jynew_utility_save_validate"]
+  expected_validity: "injection-only"
+actions:
+  - type: jynew_use_item
+    item_id: 101
+assertions:
+  - type: jynew_item_count
+    item_id: 101
+    expected: "2"
+    comparator: equals
+  - type: no_jynew_utility_errors
+visual_oracle:
+  golden_image: visual/item-use-medicine.golden.png
+  expected_label: correct
+  scene_key: jynew_default_world
+  description: "After using a medicine item (item 101), the game world is rendered normally. The item count has decreased by one and HP may have been restored."
+  rubric:
+    must:
+      - "The jynew 3D game world is rendered and visible."
+      - "The player character is present in the scene."
+      - "The game is in a normal playable state."
+    must_not:
+      - "The screen is blank or shows an error state."
+      - "A crash dialog is visible."
+      - "The game is in battle mode or an unrelated screen."
+    ignore:
+      - "HP bar exact value (verified by assertions)."
+      - "Item use animation or particle effects."
+      - "Whether a notification popup is shown for HP restore."
+  capture:
+    stage: post_smoke
+    wait_ms: 1000
+    full_page: false

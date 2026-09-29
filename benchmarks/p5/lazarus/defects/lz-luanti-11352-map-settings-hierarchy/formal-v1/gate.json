@@ -1,0 +1,118 @@
+{
+  "benchmark": "luanti",
+  "checks": {
+    "before_equivalent": true,
+    "buggy_after_visual": true,
+    "buggy_before_semantic": true,
+    "buggy_defect_signature": true,
+    "buggy_f2p": false,
+    "buggy_goal_checks": false,
+    "buggy_invariants": true,
+    "buggy_p2p": true,
+    "fixed_after_visual": true,
+    "fixed_before_semantic": true,
+    "fixed_defect_signature": false,
+    "fixed_f2p": true,
+    "fixed_goal_checks": true,
+    "fixed_invariants": true,
+    "fixed_p2p": true,
+    "production_only_inverse": true,
+    "provenance_verified": true,
+    "single_defect_mapping": true
+  },
+  "complete": true,
+  "derived_from_frozen_artifacts": true,
+  "evidence": {
+    "goldens": {
+      "after_differential": {
+        "changed_pixel_ratio": 0.07165653935185186,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 3.7991285686728395
+      },
+      "before_equivalence": {
+        "changed_pixel_ratio": 0.0,
+        "ignored_top_fraction": 0.25,
+        "mean_absolute_difference": 0.0
+      },
+      "before_sha256": "a956a731239a1b98cf6fa4ea2de0946e23fd724260bc0637eb102f7eae8d6d7e",
+      "buggy_after_sha256": "02ff281093374df21cdd100c9df94cd4dcedebc73d251b5870ef931a21f11926",
+      "fixed_after_sha256": "fc3f7a05eae006248d5e38a3a91239fea21f7bb4ed131a319ceb1acabe7e0869",
+      "metadata": "specs/luanti/lazarus/visual_lz-luanti-11352-map-settings-hierarchy/goldens.meta.json",
+      "metadata_sha256": "76693e5f9738c096647421e251c4f9c3137df4a5bd0ba84f8c4fb5a8230327a7"
+    },
+    "probe_verification": null,
+    "provenance_errors": [],
+    "source_artifacts": {
+      "gate10": "admission:gate10_status=passed_hidden_oracle_and_semantic_observations",
+      "gate11": "admission:gate11_status=passed_real_engine_frames",
+      "gate12": "admission:gate12_status=passed_before_equivalence_and_after_2x2",
+      "gate13": "admission:gate13_status=passed_same_lineage_construction",
+      "gate8": "closure:candidate_gate8_11352_native_visual_client_build/luanti/11352/v1",
+      "gate9": "admission:gate9_status=passed_registered_start",
+      "gate_1_7_source": null,
+      "gate_1_7_truth_table": {},
+      "strict_gate_1_7": true
+    },
+    "upstream": [
+      {
+        "command": [
+          "bin/luantiserver",
+          "--run-unittests",
+          "--test-module",
+          "TestMapSettingsManager"
+        ],
+        "cwd": ".",
+        "id": "TestMapSettingsManager",
+        "kind": "fail_to_pass"
+      },
+      {
+        "command": [
+          "bin/luantiserver",
+          "--run-unittests",
+          "--test-module",
+          "TestSettings"
+        ],
+        "cwd": ".",
+        "id": "TestSettings",
+        "kind": "pass_to_pass"
+      }
+    ],
+    "versions": {
+      "changed_files": [
+        "src/httpfetch.cpp",
+        "src/main.cpp",
+        "src/map_settings_manager.cpp",
+        "src/map_settings_manager.h",
+        "src/settings.cpp",
+        "src/settings.h"
+      ],
+      "patch_sha256": "6b7a267db51383703069267a6ad5f3a26b753ac16bfe30ced3b61501b43e4b7c",
+      "patch_source": "materialized_tree_difference",
+      "reverse_apply_reproduces_frozen_buggy_tree": true,
+      "tree_pair": "private/fresh-gate57/luanti/11352/cpp17-v6"
+    }
+  },
+  "f2p_claim": "upstream_fail_to_pass",
+  "f2p_origin": "upstream",
+  "fail_to_pass": [
+    "TestMapSettingsManager"
+  ],
+  "failures": [],
+  "formal_trials_authorized": false,
+  "paid_actions_authorized": false,
+  "pass_to_pass": [
+    "TestSettings"
+  ],
+  "passed": true,
+  "projection": {
+    "admission": "candidate_formal_freeze_admission/luanti/11352/current/v2",
+    "closure_size": 86,
+    "fresh_gate_run": false,
+    "generator": "warptest.c1_lazarus_selection.c1_lazarus_formal_catalog",
+    "selection_mode": "c1_freeze_sprint_v2"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "task_id": "lz-luanti-11352-map-settings-hierarchy",
+  "upstream_f2p": true
+}

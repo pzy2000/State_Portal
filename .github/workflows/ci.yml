@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+
+      # Game repositories are intentionally not initialized here: together they
+      # occupy tens of gigabytes and exhaust the hosted runner before Chromium
+      # can be installed. tests/conftest.py skips tests that require an absent
+      # game checkout; those tests still run in development checkouts that have
+      # the corresponding submodules initialized.
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[test]"
+
+      - name: Install Playwright browsers
+        timeout-minutes: 15
+        run: python -m playwright install --with-deps chromium
+
+      - name: Run tests
+        run: python -m pytest -q
+
+  quickstart:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      # 2048 is the only application the README Quick Start needs.
+      - name: Init 2048 submodule only
+        run: git submodule update --init --depth 1 games/2048
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[test]"
+          python -m playwright install --with-deps chromium
+
+      - name: README sanity check
+        env:
+          WARPTEST_VISUAL_JUDGE_FAKE: correct
+        run: |
+          python -m warptest core-bench --tasks benchmarks/core/public/tasks_quickstart.yaml \
+            --grading explore-execute --agent deterministic --oracle-policy fake-visual | tee core-bench.json
+          python - <<'EOF'
+          import json
+          text = open("core-bench.json", encoding="utf-8").read()
+          summary = json.loads(text[text.index("{"):])["summary"]
+          assert summary["total_tasks"] == 3 and summary["explore_execute_success"] == 3, summary
+          EOF
+
+      - name: README checkpoint restore
+        run: python -m warptest run specs/2048/merge-left.yaml --repo games/2048

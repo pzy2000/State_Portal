@@ -1,0 +1,24 @@
+# SpaceRPG-only subset of tasks_c3.yaml, for one-off fuzz-bench runs scoped
+# to a single benchmark. Kept in sync by hand with tasks_c3.yaml's spacerpg entries.
+tasks:
+- id: spacerpg-playable-flight
+  benchmark: SpaceRPG
+  repo: games/SpaceRPG
+  state_description: Reach a playable Helion Reach flight state where the flight screen is rendered and the ship still accepts throttle input.
+  oracle_spec: specs/spacerpg/playable-flight.yaml
+  tags:
+  - state-loop
+  - spacerpg
+  - flight
+  budget_ms: 180000
+- id: spacerpg-station-save
+  benchmark: SpaceRPG
+  repo: games/SpaceRPG
+  state_description: Reach the docked Helion Prime station screen and save to the auto slot from that station state.
+  oracle_spec: specs/spacerpg/station-save.yaml
+  tags:
+  - state-loop
+  - spacerpg
+  - station
+  - save
+  budget_ms: 180000

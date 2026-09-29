@@ -1,0 +1,107 @@
+name: C1 JupyterLab sales analysis pipeline
+benchmark: jupyterlab
+repo: ../../games/jupyterlab
+timeout_ms: 900000
+tags: [c1, long, jupyterlab, analysis]
+target:
+  kind: notebook
+  path: c1/sales-analysis.ipynb
+  cells:
+    - cell_type: code
+      source: |
+        rows = [
+          ("2026-01-01","East",100),("2026-02-01","East",120),("2026-03-01","East",130),
+          ("2026-01-01","West",80),("2026-02-01","West",100),("2026-03-01","West",120),
+          ("2026-01-01","North",50),("2026-02-01","North",55),("2026-03-01","North",60),
+          ("2026-01-01","South",70),("2026-02-01","South",84),("2026-03-01","South",98)]
+        print("clean_rows=12; date_type=datetime64")
+    - cell_type: code
+      source: |
+        from collections import defaultdict
+        totals = defaultdict(int)
+        for _, region, revenue in rows: totals[region] += revenue
+        growth = {r: round((vals[-1][2]/vals[0][2]-1)*100, 1) for r in totals for vals in [[x for x in rows if x[1] == r]]}
+        print("totals=East:350,North:165,South:252,West:300")
+        print("growth=East:30.0,North:20.0,South:40.0,West:50.0")
+    - cell_type: code
+      source: |
+        from IPython.display import display
+        display({"text/html":"<table><tr><th>Region</th><th>Revenue</th></tr><tr><td>East</td><td>350</td></tr><tr><td>West</td><td>300</td></tr><tr><td>South</td><td>252</td></tr><tr><td>North</td><td>165</td></tr></table>","image/png":"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII="}, raw=True)
+        print("chart=regional-revenue")
+    - cell_type: code
+      source: |
+        from IPython.display import Markdown, display
+        conclusion = "West has the fastest growth; East has the largest total revenue."
+        display(Markdown("## Conclusion\n" + conclusion))
+        print(conclusion)
+checkpoint:
+  allowed_strategies: [jupyterlab_workspace_api_validate]
+  expected_validity: save-restorable
+actions:
+  - {type: jupyterlab_open_file, path: c1/sales-analysis.ipynb}
+  - {type: jupyterlab_run_notebook_cell, path: c1/sales-analysis.ipynb, cell_index: 0}
+  - {type: jupyterlab_run_notebook_cell, path: c1/sales-analysis.ipynb, cell_index: 1}
+  - {type: jupyterlab_run_notebook_cell, path: c1/sales-analysis.ipynb, cell_index: 2}
+  - {type: jupyterlab_run_notebook_cell, path: c1/sales-analysis.ipynb, cell_index: 3}
+  - {type: jupyterlab_edit_text_file, path: c1/sales-conclusion.md, content: "# Sales conclusion\nWest has the fastest growth; East has the largest total revenue.\n"}
+  - {type: jupyterlab_set_workspace_layout, workspace: c1-sales, paths: [c1/sales-analysis.ipynb, c1/sales-conclusion.md]}
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - {type: jupyterlab_notebook_output_contains, path: c1/sales-analysis.ipynb, text: "clean_rows=12"}
+      - {type: jupyterlab_notebook_output_contains, path: c1/sales-analysis.ipynb, text: "totals=East:350,North:165,South:252,West:300"}
+      - {type: jupyterlab_notebook_output_contains, path: c1/sales-analysis.ipynb, text: "growth=East:30.0,North:20.0,South:40.0,West:50.0"}
+      - {type: jupyterlab_notebook_has_mime, path: c1/sales-analysis.ipynb, mime: image/png}
+      - {type: jupyterlab_notebook_all_code_cells_executed, path: c1/sales-analysis.ipynb}
+      - {type: jupyterlab_file_text_equals, path: c1/sales-conclusion.md, content: "# Sales conclusion\nWest has the fastest growth; East has the largest total revenue.\n"}
+      - {type: jupyterlab_notebook_has_no_error_outputs, path: c1/sales-analysis.ipynb}
+      - {type: no_jupyterlab_server_errors}
+    surfaces:
+      gui:
+        adapter: jupyterlab_live_contents_v1
+        start:
+          validate_target: true
+          checks: []
+        goal:
+          use_assertions: true
+          checks: []
+          requirements:
+          -
+            name: transition.changed_from_start
+            probe: jupyter.changed_from_start
+            metric: equals
+            expected: true
+            meaningful_assertions:
+            - jupyterlab_file_text_equals
+            - jupyterlab_notebook_output_contains
+      state:
+        adapter: jupyterlab_live_contents_v1
+        goal:
+          checks: []
+          use_assertions: true
+          requirements:
+          - name: transition.changed_from_start
+            probe: jupyter.changed_from_start
+            metric: equals
+            expected: true
+            meaningful_assertions:
+            - jupyterlab_file_text_equals
+            - jupyterlab_notebook_output_contains
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/c1-sales-analysis-pipeline.after.golden.png
+    golden_before: visual/c1-sales-analysis-pipeline.before.golden.png
+    golden_after: visual/c1-sales-analysis-pipeline.after.golden.png
+    expected_label: correct
+    description: The unexecuted four-cell sales notebook is open in the real JupyterLab shell.
+    after_description: The regional summary table, chart output, and conclusion are visible in the executed notebook.
+    rubric:
+      must: [The JupyterLab shell and sales notebook are visible, The notebook is initially unexecuted]
+      must_not: [A blank page or server error is shown]
+    after_rubric:
+      must: [Regional totals or growth output is visible, A chart output and written conclusion are present]
+      must_not: [A traceback is visible, The notebook remains unexecuted]
+    capture: {stage: post_smoke, wait_ms: 500, full_page: false}

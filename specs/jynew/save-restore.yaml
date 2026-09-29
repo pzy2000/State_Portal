@@ -1,0 +1,108 @@
+name: jynew save and restore consistency
+benchmark: jynew
+tags: ["jynew", "save", "restore", "es3"]
+target:
+  kind: synthesized_state
+  mod_id: JYX2
+  player_level: 5
+  money: 1000
+  team_ids: [0, 1]
+checkpoint:
+  allowed_strategies: ["jynew_utility_save_validate"]
+  expected_validity: "save-restorable"
+actions:
+  - type: jynew_save
+    save_index: 0
+  - type: jynew_load_save
+    save_index: 0
+evaluation:
+  schema_version: 1
+  semantic:
+    assertions:
+      - type: jynew_role_attr
+        role_id: 0
+        attr: Level
+        expected: "5"
+        comparator: equals
+      - type: jynew_money_gte
+        int_value: 1000
+      - type: jynew_team_contains
+        role_id: 1
+      - type: no_jynew_utility_errors
+    surfaces:
+      gui:
+        adapter: jynew_unity_live_v1
+        start:
+          validate_target: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - c1.transition.armed
+          - any_of:
+            - c1.target.player_level
+          - any_of:
+            - c1.target.money
+          - any_of:
+            - c1.target.team.role_0
+          - any_of:
+            - c1.target.team.role_1
+        goal:
+          use_assertions: true
+          checks: []
+          expected_checks:
+          - any_of:
+            - assertion[jynew_role_attr].Level
+            - assertion[jynew_role_attr]
+          - any_of:
+            - assertion[jynew_money_gte]
+          - any_of:
+            - assertion[jynew_team_contains].role_1
+            - assertion[jynew_team_contains]
+          - any_of:
+            - assertion[no_jynew_utility_errors]
+          - any_of:
+            - c1.transition.expectation
+          - any_of:
+            - c1.transition.save
+          - any_of:
+            - c1.transition.load
+          requirements:
+          - name: c1.public_save_load_witness
+            kind: save_then_load
+            slot: 0
+            ordered_events:
+            - save
+            - load
+      state:
+        adapter: jynew_unity_live_v1
+        goal:
+          checks: []
+          use_assertions: true
+        start:
+          checks: []
+          validate_target: true
+  visual_oracle:
+    golden_image: visual/jynew-save-restore.after.golden.png
+    golden_before: visual/jynew-save-restore.before.golden.png
+    golden_after: visual/jynew-save-restore.after.golden.png
+    expected_label: correct
+    scene_key: jynew_default_world
+    description: "A headed jynew play session shows the restored playable world before save/load."
+    after_description: "After saving to slot 0 and loading it again, the same playable world remains rendered with the player and party present."
+    rubric:
+      must:
+        - "The jynew 3D game world is rendered and visible."
+        - "The player character is present in the scene."
+        - "The game appears in a normal playable state post-restore."
+      must_not:
+        - "The screen is blank or shows a loading screen stuck."
+        - "An error dialog or exception is visible."
+        - "The game shows a main menu instead of restored game world."
+      ignore:
+        - "Minor camera angle or position differences."
+        - "Frame-to-frame lighting variations."
+        - "Exact NPC positions which may vary."
+    capture:
+      stage: post_smoke
+      wait_ms: 1000
+      full_page: false

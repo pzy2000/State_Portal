@@ -1,0 +1,90 @@
+name: OpenRA RA Allies Dead End map checkpoint
+benchmark: OpenRA
+repo: ../../games/OpenRA
+tags: ["openra", "ra", "campaign", "allies"]
+target:
+  kind: openra_map
+  mod: ra
+  requires_mod: ra
+  map: allies-03a
+  title: "03a: Dead End"
+  visibility: MissionSelector
+  categories: ["Campaign"]
+  players:
+    - id: Greece
+      playable: true
+      required: true
+      faction: allies
+    - id: USSR
+      bot: campaign
+      faction: soviet
+  actors:
+    - type: e1
+      owner: USSR
+      min_count: 20
+      match_prefix: true
+    - type: e2
+      owner: USSR
+      min_count: 8
+      match_prefix: true
+  objectives:
+    - owner: Greece
+      type: primary
+      id: destroy-bridges
+    - owner: Greece
+      type: primary
+      id: tanya-survive
+    - owner: Greece
+      type: secondary
+      id: free-prisoners
+checkpoint:
+  allowed_strategies: ["openra_utility_map_validate"]
+  expected_validity: replay-reachable
+replay_from_start:
+  actions:
+    - type: openra_launch_map
+      mod: ra
+      map: allies-03a
+actions:
+  - type: openra_validate_map
+    mod: ra
+    map: allies-03a
+assertions:
+  - type: openra_map_loaded
+    mod: ra
+    map: allies-03a
+  - type: openra_player_exists
+    id: Greece
+    playable: true
+    faction: allies
+  - type: openra_actor_count
+    actor: e1
+    owner: USSR
+    min_count: 20
+    match_prefix: true
+  - type: openra_objective_declared
+    owner: Greece
+    objective_type: primary
+    objective: destroy-bridges
+  - type: no_openra_utility_errors
+visual_oracle:
+  golden_image: visual/ra-allies03a-dead-end.golden.png
+  golden_before: visual/ra-allies03a-dead-end.before.golden.png
+  golden_after: visual/ra-allies03a-dead-end.after.golden.png
+  expected_label: correct
+  description: "The OpenRA Red Alert allies-03a Dead End mission has launched into the live in-game RTS world."
+  rubric:
+    must:
+      - "The live OpenRA in-game world is visible after launching ra/allies-03a."
+      - "The screenshot contains rendered terrain plus gameplay UI such as sidebar, minimap, command bar, or selection/status panels."
+      - "The game surface is non-blank and looks like an active RTS scene rather than a static asset file."
+    must_not:
+      - "The screenshot is blank, a crash log, or an unrelated application."
+      - "The screenshot shows only a standalone packaged map image instead of the live OpenRA UI."
+      - "The screenshot is stuck on the main menu, mission browser, or setup dialog."
+    ignore:
+      - "Small camera, animation, cursor, or UI timing differences after the clean map launch."
+  capture:
+    stage: post_smoke
+    wait_ms: 0
+    full_page: false

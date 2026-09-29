@@ -1,0 +1,21 @@
+{
+  "actions": 8,
+  "after": "specs/libreoffice/visual/c1-writer-board-publication.after.golden.png",
+  "after_dimensions": [
+    1440,
+    1000
+  ],
+  "after_sha256": "79cacb5f72f33d99b5a6da97492757f69ddf5b48307910115fc95012a27dcc30",
+  "before": "specs/libreoffice/visual/c1-writer-board-publication.before.golden.png",
+  "before_dimensions": [
+    1440,
+    1000
+  ],
+  "before_sha256": "f842fabe4e8f2a3bf48f2d8ec0a748c60f0942193635eaa4c1b3f264c5d80ce4",
+  "benchmark": "libreoffice",
+  "schema_version": 1,
+  "source": "deterministic_reference_replay",
+  "spec": "specs/libreoffice/c1-writer-board-publication.yaml",
+  "spec_sha256": "8edbd37b86dfc96e45fcf5bca7e177087dc64a0576c4577d4861b04c6c0aa481",
+  "task_id": "libreoffice-writer-board-publication"
+}

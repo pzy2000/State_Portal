@@ -1,0 +1,54 @@
+diff --git a/packages/codemirror/src/editor.ts b/packages/codemirror/src/editor.ts
+index 4b8d578feb2417aa4e306de926fc3548df6221e7..2463383784b412337d7ee1fe32d770c570d62748 100644
+--- a/packages/codemirror/src/editor.ts
++++ b/packages/codemirror/src/editor.ts
+@@ -660,10 +660,21 @@ export class CodeMirrorEditor implements CodeEditor.IEditor {
+   /**
+    * Replaces the current selection with the given text.
+    *
++   * Behaviour for multiple selections is undefined.
++   *
+    * @param text The text to be inserted.
+    */
+   replaceSelection(text: string): void {
+-    this.state.replaceSelection(text);
++    const firstSelection = this.getSelections()[0];
++    this.model.sharedModel.updateSource(
++      this.getOffsetAt(firstSelection.start),
++      this.getOffsetAt(firstSelection.end),
++      text
++    );
++    const newPosition = this.getPositionAt(
++      this.getOffsetAt(firstSelection.start) + text.length
++    );
++    this.setSelection({ start: newPosition, end: newPosition });
+   }
+ 
+   /**
+diff --git a/packages/codemirror/test/editor.spec.ts b/packages/codemirror/test/editor.spec.ts
+index 4d23796d0ed8837677a853036fb403d28e1f7b68..57aaa4e4b1947d7a402767f64a33ce3bb14a8480 100644
+--- a/packages/codemirror/test/editor.spec.ts
++++ b/packages/codemirror/test/editor.spec.ts
+@@ -493,4 +493,22 @@ describe('CodeMirrorEditor', () => {
+       ]);
+     });
+   });
++
++  describe('#replaceSelection()', () => {
++    it('should set text in empty editor', () => {
++      model.sharedModel.setSource('');
++      editor.replaceSelection('text');
++      expect(model.sharedModel.source).toBe('text');
++      expect(editor.getSelection().end.column).toBe(4);
++    });
++
++    it('should replace from start to end of selection', () => {
++      model.sharedModel.setSource('axxc');
++      const start = { line: 0, column: 1 };
++      const end = { line: 0, column: 3 };
++      editor.setSelection({ start, end });
++      editor.replaceSelection('b');
++      expect(model.sharedModel.source).toBe('abc');
++    });
++  });
+ });
