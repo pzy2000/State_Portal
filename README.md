@@ -254,11 +254,14 @@ tests/                unit and integration tests
 ## Citation
 
 ```bibtex
-@misc{anonymous2026stateportal,
-  title  = {StatePortal: Agentic Checkpoint Synthesis for Testing Deep States in Interactive Software},
-  author = {Anonymous},
-  year   = {2026},
-  note   = {Anonymous submission}
+@misc{peng2026stateportal,
+  title         = {{StatePortal}: Agentic Checkpoint Synthesis for Testing Deep States in Interactive Software},
+  author        = {Zhiyuan Peng and Wei Tao and Chenhao Ying and Yuan Luo and Yiwen Guo},
+  year          = {2026},
+  eprint        = {2611.23257},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.SE},
+  url           = {https://arxiv.org/abs/2611.23257}
 }
 ```
 
